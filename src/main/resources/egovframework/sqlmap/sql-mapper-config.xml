@@ -6,7 +6,7 @@
 		<typeAlias alias="UserVO" type="kr.co.codemaker.user.mypage.model.UserVO"/>
     </typeAliases>
     
-    <mappers>
+   <mappers>
     <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
   </mappers>
   

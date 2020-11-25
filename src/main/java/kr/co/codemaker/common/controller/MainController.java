@@ -30,6 +30,7 @@ public class MainController {
 	@RequestMapping(path="/userLogin",method = RequestMethod.GET)
 	public String userLoginView(@RequestParam(required=false) String msg, Model model) {
 //		logger.debug("로그인");
+		logger.debug("로그인진입");
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
 		}
@@ -42,8 +43,9 @@ public class MainController {
 			HttpServletResponse response) throws UnsupportedEncodingException {	
 		logger.debug("받아온 정보 : {}",userVo);
 		
-		UserVO getUserVo = new UserVO();
-//		UserVO getUserVo = mainService.selectUser(userVo.getUser_id());
+//		UserVO getUserVo = new UserVO();
+		UserVO getUserVo = mainService.selectUser(userVo.getUser_id());
+		logger.debug("가져온 유저:{}",getUserVo);
 		Cookie userCookie=null;
 		Cookie remember = null;
 		if(rememberMe == 1) {
