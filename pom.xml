@@ -140,6 +140,15 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.29.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+        
         
         <dependency>
             <groupId>commons-dbcp</groupId>
