@@ -45,7 +45,6 @@ public class NoticeController {
 			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
 			String searchOption, String keyWord, Model model) {
 		
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("page", page);
@@ -54,9 +53,8 @@ public class NoticeController {
 		map.put("keyWord", keyWord);
 		map.put("pages", map.get("pages"));
 		
-		
 		Map<String, Object> map2 = noticeService.selectAllNotice(map);
-		
+		log.debug("탐?3");
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
@@ -86,7 +84,6 @@ public class NoticeController {
 	public String insertNotice(NoticeVO noticeVo) {
 		
 		
-		log.debug("인서트 노티스 포스트 {}", noticeVo);
 		int cnt = noticeService.insertNotice(noticeVo);
 		if(cnt == 1) {
 			return "redirect:/notice/selectAllNotice";
@@ -98,7 +95,6 @@ public class NoticeController {
 	@RequestMapping(path="/updateNotice", method={RequestMethod.GET})
 	public String updateViewNotice(NoticeVO noticeVo, Model model) {
 		
-		log.debug("업뎃 겟");
 		NoticeVO noticeVo2 = noticeService.selectNotice(noticeVo.getNotice_id());
 		
 		model.addAttribute("noticeVo", noticeVo2);
@@ -109,9 +105,7 @@ public class NoticeController {
 	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
 	public String updateNotice(NoticeVO noticeVo) {
 		
-		log.debug("업뎃 포스트 {}", noticeVo);
 		int cnt = noticeService.updateNotice(noticeVo);
-		log.debug("업뎃cnt {}", cnt);
 		
 		if(cnt == 1) {
 			return "redirect:/notice/selectNotice?notice_id="+noticeVo.getNotice_id();

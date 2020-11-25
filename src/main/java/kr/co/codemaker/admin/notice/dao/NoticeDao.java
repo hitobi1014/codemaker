@@ -24,6 +24,7 @@ public class NoticeDao extends EgovAbstractMapper implements NoticeDaoI {
 
 	@Override
 	public List<NoticeVO> selectAllNotice(Map<String, Object> map) {
+		log.debug("탐탐탐?3");
 		return sqlSession.selectList("notice.selectAllNotice", map) ;
 	}
 

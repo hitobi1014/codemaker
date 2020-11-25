@@ -15,11 +15,11 @@
 
 <script>
 $(document).ready(function() {
-       $('.summernote').summernote({
-	        width : 500,
-			height: 300,
-	        lang: "ko-KR"
-       });
+	$('.summernote').summernote({
+		width : 500,
+		height: 300,
+		lang: "ko-KR"
+	});
 })       
 </script>
 

@@ -5,12 +5,14 @@
     <typeAliases>
 		<typeAlias alias="MemberVO" type="kr.co.codemaker.user.mypage.model.MemberVO"/>
 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.admin.notice.model.NoticeVO"/>
+		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.admin.jobinfo.model.JobInfoVO"/>
     </typeAliases>
     
     
     <mappers>
     <mapper resource="egovframework/sqlmap/mappers/member.xml"/>
     <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
+    <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
   </mappers>
   
   

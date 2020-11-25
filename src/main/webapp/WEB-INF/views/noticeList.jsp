@@ -28,7 +28,7 @@ $(document).ready(function(){
 	<form name="form1"  method="post" action="${cp}/notice/selectAllNotice">
         <select name="searchOption">
             <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-            <option value="" <c:out value="${map.searchOption == ''?'selected':''}"/> >전체</option>
+            <option value="0" <c:out value="${map.searchOption == '0'?'selected':''}"/> >전체</option>
             <option value="1" <c:out value="${map.searchOption == '1'?'selected':''}"/> >이벤트</option>
             <option value="2" <c:out value="${map.searchOption == '2'?'selected':''}"/> >자주묻는질문</option>
             <option value="3" <c:out value="${map.searchOption == '3'?'selected':''}"/> >알림</option>

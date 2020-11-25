@@ -37,6 +37,7 @@ public class NoticeService implements NoticeServiceI {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("noticeList", noticeDao.selectAllNotice(map));
+		log.debug("탐탐탐?2");
 		// 15건, 페이지사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
 		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요
 		

@@ -16,31 +16,32 @@
 	  FROM (SELECT *
 			FROM NOTICE
 			WHERE 1=1
-			<include refid="search"></include>) A)
+			<choose>
+		        <when test="searchOption == 0">
+		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+				</when>
+		        <when test="searchOption == 1">
+		        	AND NOTICE_HEAD = 1
+		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+				</when>
+		        <when test="searchOption == 2">
+		        	AND NOTICE_HEAD = 2
+		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+				</when>
+		        <when test="searchOption == 3">
+		        	AND NOTICE_HEAD = 3
+		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+				</when>
+			</choose>
+			) A)
 	 WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 	</select>
 
-<sql id="search">
-	<if test="searchOption != null and searchOption != ''">
-		<choose>
-	        <when test="searchOption == 1">
-	        	AND NOTICE_HEAD = 1
-				AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-				AND	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-			</when>
-	        <when test="searchOption == 2">
-	        	AND NOTICE_HEAD = 2
-				AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-				AND	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-			</when>
-	        <when test="searchOption == 3">
-	        	AND NOTICE_HEAD = 3
-				AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-				AND	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-			</when>
-		</choose>
-	</if>
-</sql>
+
 
 	<select id="selectNotice" parameterType="String" resultType="NoticeVO">
 		select * from notice where notice_id = #{notice_id}
