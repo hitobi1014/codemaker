@@ -16,27 +16,29 @@
 	  FROM (SELECT *
 			FROM NOTICE
 			WHERE 1=1
-			<choose>
-		        <when test="searchOption == 0">
-		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-				</when>
-		        <when test="searchOption == 1">
-		        	AND NOTICE_HEAD = 1
-		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-				</when>
-		        <when test="searchOption == 2">
-		        	AND NOTICE_HEAD = 2
-		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-				</when>
-		        <when test="searchOption == 3">
-		        	AND NOTICE_HEAD = 3
-		        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
-					OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
-				</when>
-			</choose>
+			<if test="keyWord != null and keyWord != ''">
+				<choose>
+			        <when test="searchOption == 0">
+			        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+						OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+					</when>
+			        <when test="searchOption == 1">
+			        	AND NOTICE_HEAD = 1
+			        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+						OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+					</when>
+			        <when test="searchOption == 2">
+			        	AND NOTICE_HEAD = 2
+			        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+						OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+					</when>
+			        <when test="searchOption == 3">
+			        	AND NOTICE_HEAD = 3
+			        	AND	NOTICE_ID LIKE '%' || #{keyWord} || '%'
+						OR	NOTICE_TITLE LIKE '%' || #{keyWord} || '%'
+					</when>
+				</choose>
+			</if>
 			) A)
 	 WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 	</select>
