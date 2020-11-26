@@ -74,5 +74,11 @@
 	<!-- /For Pagination Tag -->
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
+<<<<<<< HEAD
+=======
+    
+    <mvc:resources location="/resources/" mapping="/resource/**"/>
+    
+>>>>>>> 공지사항
     <mvc:annotation-driven/>
 </beans>

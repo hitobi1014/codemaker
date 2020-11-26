@@ -3,11 +3,24 @@
 
 <configuration>
     <typeAliases>
+<<<<<<< HEAD
 		<typeAlias alias="UserVO" type="kr.co.codemaker.user.mypage.model.UserVO"/>
     </typeAliases>
     
    <mappers>
     <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
+=======
+		<typeAlias alias="MemberVO" type="kr.co.codemaker.user.mypage.model.MemberVO"/>
+		<typeAlias alias="NoticeVO" type="kr.co.codemaker.admin.notice.model.NoticeVO"/>
+		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.admin.jobinfo.model.JobInfoVO"/>
+    </typeAliases>
+    
+    
+    <mappers>
+    <mapper resource="egovframework/sqlmap/mappers/member.xml"/>
+    <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
+    <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
+>>>>>>> 공지사항
   </mappers>
   
 </configuration>
