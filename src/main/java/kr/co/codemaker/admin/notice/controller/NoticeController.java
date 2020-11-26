@@ -31,11 +31,12 @@ import kr.co.codemaker.admin.notice.service.NoticeServiceI;
 *
  */
 @Controller
-@RequestMapping(path="/notice")
+@RequestMapping(path="/admin/notice")
 public class NoticeController {
 	
 	
-	private static final Logger log = LoggerFactory.getLogger(NoticeController.class);
+	
+	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	
 	@Resource(name="noticeService")
 	private NoticeServiceI noticeService;
@@ -54,13 +55,13 @@ public class NoticeController {
 		map.put("pages", map.get("pages"));
 		
 		Map<String, Object> map2 = noticeService.selectAllNotice(map);
-		log.debug("탐?3");
+		
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
 		model.addAttribute("pageSize", pageSize);
 		
-		return "noticeList";
+		return "admin/notice/noticeList";
 	}
 	
 	@RequestMapping(path="/selectNotice")
@@ -70,14 +71,14 @@ public class NoticeController {
 		
 		model.addAttribute("noticeVo", noticeVo);
 		
-		return "notice";
+		return "admin/notice/notice";
 	}
 	
 	
 	@RequestMapping(path="/insertNotice", method={RequestMethod.GET})
 	public String insertViewNotice() {
 		
-		return "noticeInsert";
+		return "admin/notice/noticeInsert";
 	}
 	
 	@RequestMapping(path="/insertNotice", method={RequestMethod.POST})
@@ -86,9 +87,9 @@ public class NoticeController {
 		
 		int cnt = noticeService.insertNotice(noticeVo);
 		if(cnt == 1) {
-			return "redirect:/notice/selectAllNotice";
+			return "redirect:admin/notice/selectAllNotice";
 		}else {
-			return "noticeInsert";
+			return "admin/notice/noticeInsert";
 		}
 	}
 	
@@ -99,7 +100,7 @@ public class NoticeController {
 		
 		model.addAttribute("noticeVo", noticeVo2);
 		
-		return "noticeUpdate";
+		return "admin/notice/noticeUpdate";
 	}
 	
 	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
@@ -108,9 +109,9 @@ public class NoticeController {
 		int cnt = noticeService.updateNotice(noticeVo);
 		
 		if(cnt == 1) {
-			return "redirect:/notice/selectNotice?notice_id="+noticeVo.getNotice_id();
+			return "redirect:admin/notice/selectNotice?notice_id="+noticeVo.getNotice_id();
 		}else {
-			return "noticeUpdate";
+			return "admin/notice/noticeUpdate";
 		}
 	}
 	
@@ -119,7 +120,7 @@ public class NoticeController {
 		
 		noticeService.deleteNotice(notice_id);
 		
-		return "redirect:/notice/selectAllNotice";
+		return "redirect:admin/notice/selectAllNotice";
 		
 	}
 }
