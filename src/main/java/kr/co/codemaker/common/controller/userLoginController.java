@@ -4,27 +4,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path="/admin")
+@RequestMapping(path="/user")
 public class userLoginController {
 	
 	@RequestMapping(path="/login")
 	public String userLoginView() {
-		return "admin/login/adminLogin";
+		return "user/login/userLogin";
 	}
 	
 	@RequestMapping(path="/signup")
 	public String userSignupView() {
-		return "admin/signup/signup";
+		return "user/signup/signup";
 	}
 	
 	@RequestMapping(path="/main")
 	public String userMainView() {
-		return "admin/main/adminProfile";
+		return "user/main/main";
 	}
 	
 	@RequestMapping(path="/mainlogin")
 	public String userMainLoginView() {
-		return "admin/main/main_login";
+		return "user/main/main_login";
 	}
 	
 	@RequestMapping(path="/mypage")
