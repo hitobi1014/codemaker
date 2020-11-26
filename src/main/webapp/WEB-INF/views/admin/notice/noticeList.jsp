@@ -18,23 +18,32 @@
 <script>
 $(document).ready(function(){
 	$("#btnWrite").on("click", function(){
-		document.location="${cp}/notice/insertNotice";
+		document.location="${cp}/admin/notice/insertNotice";
+	});
+	
+	$("#searchBtn").on("click", function(){
+		var searchOption = $("select[name='searchOption']").val();
+		if(searchOption == '1'){
+			$("select[name='searchOption']").prop("selected", true);
+		} 
+	
+// 		document.location = "${cp}/admin/notice/selectAllNotice"
 	});
 })
 </script>
 
 </head>
 <body>
-	<form name="form1"  method="post" action="${cp}/notice/selectAllNotice">
+	<form name="form1"  method="post" action="${cp}/admin/notice/selectAllNotice">
         <select name="searchOption">
             <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-            <option value="0" <c:out value="${map.searchOption == '0'?'selected':''}"/> >전체</option>
-            <option value="1" <c:out value="${map.searchOption == '1'?'selected':''}"/> >이벤트</option>
-            <option value="2" <c:out value="${map.searchOption == '2'?'selected':''}"/> >자주묻는질문</option>
-            <option value="3" <c:out value="${map.searchOption == '3'?'selected':''}"/> >알림</option>
+            <option value="0">전체</option>
+            <option value="1">이벤트</option>
+            <option value="2">자주묻는질문</option>
+            <option value="3">알림</option>
         </select>
         <input name="keyWord" value="${map.keyWord}">
-        <input type="submit" value="조회">
+        <input id="searchBtn" type="submit" value="조회">
         <button type="button" id="btnWrite">글쓰기</button>
     </form>
 
@@ -51,8 +60,8 @@ $(document).ready(function(){
 				<c:forEach items="${noticeList}" var="notice">
 					<tr>
 						<td>${notice.notice_id}</td>
-						<td><a href="${cp}/notice/selectNotice?notice_id=${notice.notice_id}">${notice.notice_title}</a></td>
-						<td>${notice.notice_date}</td>
+						<td><a href="${cp}/admin/notice/selectNotice?notice_id=${notice.notice_id}">${notice.notice_title}</a></td>
+						<td><fmt:formatDate value="${notice.notice_date}" pattern="yyyy-MM-dd" /></td>
 						<td>${notice.admin_id }</td>
 					</tr>
 				</c:forEach>
@@ -64,26 +73,26 @@ $(document).ready(function(){
 			<ul class="pagination">
 				<c:choose>
 					<c:when test="${page != 0 && page != 1}">
-						  <li><a href="${pageContext.request.contextPath }/notice/selectAllNotice?page=${1}"><<</a></li>
-						  <li><a href="${pageContext.request.contextPath }/notice/selectAllNotice?page=${page-1}"><</a></li>
+						  <li class="page-item"><a href="${cp}/admin/notice/selectAllNotice?page=${1}"><<</a></li>
+						  <li class="page-item"><a href="${cp}/admin/notice/selectAllNotice?page=${page-1}"><</a></li>
 					</c:when>
 				</c:choose>
 				
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
 						<c:when test="${i == page}">
-							<li class="active"><span>${i}</span></li>
+							<li class="page-item active"><span>${i}</span></li>
 						</c:when>
 						<c:otherwise>
-							<li><a href="${pageContext.request.contextPath }/notice/selectAllNotice?page=${i}">${i}</a></li>
+							<li class="page-item"><a href="${cp}/admin/notice/selectAllNotice?page=${i}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>	
 				</c:forEach>
 				
 				<c:choose>
 					<c:when test="${page != pages}">
-						  <li><a href="${pageContext.request.contextPath }/notice/selectAllNotice?page=${page+1}">></a></li>
-						  <li><a href="${pageContext.request.contextPath }/notice/selectAllNotice?page=${pages}">>></a></li>
+						  <li class="page-item"><a href="${cp}/admin/notice/selectAllNotice?page=${page+1}">></a></li>
+						  <li class="page-item"><a href="${cp}/admin/notice/selectAllNotice?page=${pages}">>></a></li>
 					</c:when>
 				</c:choose> 	
 			</ul>
