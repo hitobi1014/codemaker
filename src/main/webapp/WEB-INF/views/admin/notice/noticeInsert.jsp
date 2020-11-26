@@ -20,12 +20,17 @@ $(document).ready(function() {
 		height: 300,
 		lang: "ko-KR"
 	});
+	
+	$('#fileAddBtn').on('click', function(){
+        $('#fileup').append("&nbsp;&nbsp;<input type='file' name='realfile' multiple='multiple'>")
+    })
+	
 })       
 </script>
 
 </head>
 <body>
-	<form id="insertNotice" class="form-horizontal" method="POST" action="${cp}/notice/insertNotice">
+	<form id="insertNotice" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/admin/notice/insertNotice">
 	
 		<div class="form-group">
 		<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
@@ -51,17 +56,27 @@ $(document).ready(function() {
 				<textarea class="summernote" name="notice_cont"></textarea>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label for="userNm" class="col-sm-2 control-label">첨부파일</label>
+			<button type="button" id="fileAddBtn">파일추가</button>
+			<br>
+			<div class="col-sm-10" id="fileup" class="col-sm-10">
+			</div>
+		</div>
 
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="admin_id" value="park" />
+				<input type="hidden" name="admin_id" value="999" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="notice_id" value="notice77" />
+				<input type="hidden" name="notice_id" value="860" />
 			</div>
 		</div>
+
+		
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
