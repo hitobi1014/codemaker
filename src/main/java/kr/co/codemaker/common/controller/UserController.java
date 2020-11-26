@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.codemaker.common.model.UserVO;
 import kr.co.codemaker.common.service.UserServiceI;
+import kr.co.codemaker.model.UserVO;
 
 @RequestMapping("/join")
 @Controller

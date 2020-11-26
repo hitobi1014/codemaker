@@ -1,7 +1,7 @@
 package kr.co.codemaker.teacher.course.exam.model;
 
 /**
- * 
+ * 시험을 조회하기 위한 VO
 * ExamRequestVO.java
 *
 * @author 김미연

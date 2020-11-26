@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.notice.dao.NoticeDaoI;
-import kr.co.codemaker.admin.notice.model.NoticeVO;
+import kr.co.codemaker.model.NoticeVO;
 
 /**
 * NoticeService.java

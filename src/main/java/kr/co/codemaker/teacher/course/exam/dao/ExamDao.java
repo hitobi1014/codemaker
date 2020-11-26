@@ -9,10 +9,10 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.codemaker.teacher.course.exam.model.AnswersheetVO;
+import kr.co.codemaker.model.AnswersheetVO;
+import kr.co.codemaker.model.ExamVO;
+import kr.co.codemaker.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
-import kr.co.codemaker.teacher.course.exam.model.ExamVO;
-import kr.co.codemaker.teacher.course.exam.model.QuestionVO;
 
 /**
  * 

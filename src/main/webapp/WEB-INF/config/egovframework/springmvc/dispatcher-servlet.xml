@@ -64,6 +64,9 @@
 	    p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
 	<mvc:annotation-driven/>
 	
+	<!-- 파일 업로드 처리를 위한 multipartResolver 설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
 	<mvc:resources mapping="/css/**" location="/css/" />    
 	<mvc:resources mapping="/images/**" location="/images/" />    
 	<mvc:resources mapping="/img/**" location="/img/" />    
