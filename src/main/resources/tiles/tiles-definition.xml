@@ -6,9 +6,19 @@
 	<!-- 1. template 생성 
 		 2. 개별 페이지에 대한 컨텐츠 영역 설정
 		 -->
-	<definition name="basic.layout" template="/WEB-INF/views/layout/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
-		<put-attribute name="left" value="/WEB-INF/views/layout/left.jsp"/>
+
+	<!-- 회원_메인페이지 -->
+	<definition name="main.layout" template="/WEB-INF/views/user/main/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/user/main/layout/main_header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/user/main/layout/main_footer.jsp"/>
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<!-- 회원_마이페이지 -->
+	<definition name="mypage.layout" template="/WEB-INF/views/user/mypage/layout/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/user/mypage/layout/mypage_header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/user/mypage/layout/mypage_footer.jsp"/>
+		<put-attribute name="left" value="/WEB-INF/views/user/mypage/layout/mypage_left.jsp"/>
 		<put-attribute name="content" value=""/>
 	</definition>
 	
@@ -22,11 +32,15 @@
 		tiles.member.regist
 		tiles.member.modify
 		-->
-		
-	<!-- tiles/member/memberListContent -->
-	<!-- 리스트, 상세조회, 등록, 수정 -->
-	<definition name="tiles/*/*" extends="basic.layout">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	
+	<!-- 회원_메인페이지 -->	
+	<definition name="mainT/*/*/*" extends="main.layout">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	
+	<!-- 회원_마이페이지 -->
+	<definition name="mypageT/*/*/*" extends="mypage.layout">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
 	
 </tiles-definitions>

@@ -76,66 +76,69 @@ $(function(){
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
-        <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-				<nav class="navbar navbar-expand navbar-light topbar static-top shadow" style="background:#005F86">
+			<div id="content">
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light topbar static-top shadow"
+					style="background: #005F86">
 					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
 					<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-						<div class="input-group">
-							<a href="${cp}/user/main"><img id="imglogo" src="/images/codemaker_name3.png"></a>
-						</div>
+					<div class="input-group">
+						<a href="${cp}/user/main"><img id="imglogo"
+							src="/images/codemaker_name3.png"></a>
+					</div>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
 
 						<!-- 로그인 -->
-						<li class="nav-item dropdown no-arrow mx-1">
-						<a data-toggle="modal" 
-							class="nav-link dropdown-toggle" href="#myModal" id="login"
-							role="button" aria-haspopup="true" aria-expanded="false">로그인
-						</a>
-						<!-- 로그인 모달창 -->
+						<li class="nav-item dropdown no-arrow mx-1"><a
+							data-toggle="modal" class="nav-link dropdown-toggle"
+							href="#myModal" id="login" role="button" aria-haspopup="true"
+							aria-expanded="false">로그인 </a> <!-- 로그인 모달창 -->
 							<div class="limiter modal fade" id="myModal">
 								<div class="container-login100 modal-dialog">
 									<div class="wrap-login100 p-t-50 p-b-90 modal-content">
-										<div class="modal-header" style="border-bottom:none;">
+										<div class="modal-header" style="border-bottom: none;">
 											<button type="button" class="close" data-dismiss="modal">×</button>
 										</div>
-										<form class="login100-form validate-form flex-sb flex-w modal-body" action="${cp}/main/userLogin" method="post">
+										<form
+											class="login100-form validate-form flex-sb flex-w modal-body"
+											action="${cp}/main/userLogin" method="post">
 											<span class="login100-form-title p-b-51"> 로그인 </span>
 
 											<div class="wrap-input100 validate-input m-b-16"
 												data-validate="Username is required">
-												<input class="input100" type="text"  id="user_id" name="user_id" placeholder="아이디"> 
-												<span class="focus-input100"></span>
+												<input class="input100" type="text" id="user_id"
+													name="user_id" placeholder="아이디"> <span
+													class="focus-input100"></span>
 											</div>
 
-											<div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-												<input class="input100" type="password" name="user_pass" placeholder="비밀번호"> 
-												<span class="focus-input100"></span>
+											<div class="wrap-input100 validate-input m-b-16"
+												data-validate="Password is required">
+												<input class="input100" type="password" name="user_pass"
+													placeholder="비밀번호"> <span class="focus-input100"></span>
 											</div>
 
 											<div class="flex-sb-m w-full p-t-3 p-b-24">
 												<div class="contact100-form-checkbox">
-													<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1"> 
-													<label class="label-checkbox100" for="ckb1"> 아이디 저장</label>
+													<input class="input-checkbox100" id="ckb1" type="checkbox"
+														name="rememberMe" value="1"> <label
+														class="label-checkbox100" for="ckb1"> 아이디 저장</label>
 												</div>
 
 												<div>
-													<a href="#" class="txt1">아이디</a>
-													•
-													<a href="#" class="txt1">비밀번호찾기</a>
+													<a href="#" class="txt1">아이디</a> • <a href="#" class="txt1">비밀번호찾기</a>
 												</div>
 											</div>
 
@@ -146,25 +149,19 @@ $(function(){
 										</form>
 									</div>
 								</div>
-							</div>
-						</li>
+							</div></li>
 
 						<!-- 회원가입 -->
-						<li class="nav-item dropdown no-arrow mx-1">
-						<a
+						<li class="nav-item dropdown no-arrow mx-1"><a
 							class="nav-link dropdown-toggle" href="#" id="signin"
 							role="button" aria-haspopup="true" aria-expanded="false">회원가입
-						</a>
-						</li>
+						</a></li>
 
-						<li class="nav-item dropdown no-arrow mx-1">
-						<a
+						<li class="nav-item dropdown no-arrow mx-1"><a
 							class="nav-link dropdown-toggle" href="#" id="space"
 							role="button" aria-haspopup="true" aria-expanded="false">&emsp;&emsp;&emsp;&emsp;&emsp;
-						</a>
-						</li>
-						<li class="nav-item dropdown no-arrow mx-1">
-						<a
+						</a></li>
+						<li class="nav-item dropdown no-arrow mx-1"><a
 							class="nav-link dropdown-toggle" href="#" id="space"
 							role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</a></li>
@@ -176,12 +173,12 @@ $(function(){
 
 
 					</ul>
-					
+
 
 				</nav>
-				
-				
-				
+
+
+
 
 
 				<!-- End of Topbar -->
@@ -206,13 +203,14 @@ $(function(){
 								<div class="card-body2">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-3">
-											<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-1.svg"> <br>
+											<img class="imgMain"
+												src="/images/user/main/drawkit-grape-pack-illustration-1.svg">
+											<br>
 											<div
 												class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 												개발 커리어를 쌓아보는</div>
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="">전체강의 </a>
-												<br>
+												<a id="at" href="" style="font-size: 1.1em;">전체강의 </a> <br>
 											</div>
 										</div>
 									</div>
@@ -226,13 +224,14 @@ $(function(){
 								<div class="card-body2">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-3">
-											<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-2.svg"> <br>
+											<img class="imgMain"
+												src="/images/user/main/drawkit-grape-pack-illustration-2.svg">
+											<br>
 											<div
 												class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 												코드메이커와 준비하는</div>
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="">코딩테스트</a>
-												<br>
+												<a id="at" href="" style="font-size: 1.1em;">코딩테스트</a> <br>
 											</div>
 										</div>
 									</div>
@@ -246,61 +245,54 @@ $(function(){
 								<div class="card-body2">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-3">
-											<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-6.svg"> <br>
+											<img class="imgMain"
+												src="/images/user/main/drawkit-grape-pack-illustration-6.svg">
+											<br>
 											<div
 												class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 												자유롭게 소통하는</div>
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="">게시판</a>
-												<br>
+												<a id="at" href="" style="font-size: 1.1em;">게시판</a> <br>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Pending Requests Card Example -->
 						<div class="col-xl-3 col-md-6 mb-4">
 							<div class="card shadow h-100 py-2">
 								<div class="card-body2">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-3">
-											<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-18.svg"> <br>
-											<div class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+											<img class="imgMain"
+												src="/images/user/main/drawkit-grape-pack-illustration-18.svg">
+											<br>
+											<div
+												class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 												필요한 정보 쏙쏙!</div>
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="">취업정보</a>
-												<br>
+												<a id="at" href="" style="font-size: 1.1em;">취업정보</a> <br>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					<!-- Content Row -->
+						<!-- Content Row -->
 
+						<!-- /.container-fluid -->
 
-					<!-- /.container-fluid -->
+					</div>
+					<!-- End of Main Content -->
 
 				</div>
-				<!-- End of Main Content -->
+				<!-- End of Content Wrapper -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
+				
+			</div>
+			<!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -330,7 +322,17 @@ $(function(){
     </div>
    </div>
 
-    <!-- Bootstrap core JavaScript-->
+	<!-- Footer -->
+	<footer class="sticky-footer bg-white">
+		<div class="container my-auto">
+			<div class="copyright text-center my-auto">
+				<span>Copyright &copy; Your Website 2020</span>
+			</div>
+		</div>
+	</footer>
+	<!-- End of Footer -->
+
+	<!-- Bootstrap core JavaScript-->
     <script src="/vendor/user/main/jquery/jquery.min.js"></script>
     <script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>
 
