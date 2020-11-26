@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.common.dao.MainDaoI;
-import kr.co.codemaker.user.mypage.model.UserVO;
+import kr.co.codemaker.model.UserVO;
 
 @Service("mainService")
 public class MainService implements MainServiceI {

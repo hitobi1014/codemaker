@@ -13,11 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.teacher.course.curriculum.model.CurriculumVO;
-import kr.co.codemaker.teacher.course.exam.model.AnswersheetVO;
+import kr.co.codemaker.model.AnswersheetVO;
+import kr.co.codemaker.model.CurriculumVO;
+import kr.co.codemaker.model.ExamVO;
+import kr.co.codemaker.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
-import kr.co.codemaker.teacher.course.exam.model.ExamVO;
-import kr.co.codemaker.teacher.course.exam.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.service.ExamServiceI;
 
 /**

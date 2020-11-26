@@ -1,6 +1,6 @@
 package kr.co.codemaker.common.dao;
 
-import kr.co.codemaker.user.mypage.model.UserVO;
+import kr.co.codemaker.model.UserVO;
 
 public interface MainDaoI {
 

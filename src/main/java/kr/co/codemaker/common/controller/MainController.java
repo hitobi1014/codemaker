@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.MainServiceI;
-import kr.co.codemaker.user.mypage.model.UserVO;
+import kr.co.codemaker.model.UserVO;
 
 @Controller
 @RequestMapping(path="/main")

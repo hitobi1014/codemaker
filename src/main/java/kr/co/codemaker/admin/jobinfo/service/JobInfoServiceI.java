@@ -2,7 +2,8 @@ package kr.co.codemaker.admin.jobinfo.service;
 
 import java.util.List;
 
-import kr.co.codemaker.admin.jobinfo.model.JobInfoVO;
+import kr.co.codemaker.model.JobInfoVO;
+
 
 /**
 * JobInfoServiceI.java
