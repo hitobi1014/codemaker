@@ -34,7 +34,7 @@ public class userLoginController {
 	
 	@RequestMapping(path="/mypage")
 	public String userMypageView() {
-		return "user/mypage/mypage";
+		return "mypageT/user/mypage/mypage_content";
 	}
 	
 	@RequestMapping(path="/mypagebck")
