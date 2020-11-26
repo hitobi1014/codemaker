@@ -46,12 +46,10 @@ var createExam = function() {
 	$('#d2').append(str);
 };
 
-
 // 출제한 시험 리스트 조회
 var selectAllExam = function(es, ci, p){
-	
 	$.ajax({
-		url : '/exam/selectAllExam',
+		url : '/exam/selectAllResExam',
 		method : 'get',
 		data : {
 			exam_state : es,
@@ -71,6 +69,32 @@ var selectAllExam = function(es, ci, p){
 
 };
 
+// 시험 삭제시
+var deleteExam = function(){
+	
+};
+
+// 문제 등록시에 다른 커리큘럼 선택시
+var changeCurriculum = function(){
+	$.ajax({
+		url : '/exam/selectAllResExam',
+		method : 'get',
+		data : {
+			exam_state : es,
+			cur_id : ci,
+			page : p
+		},
+		
+		success : function(res){
+			// 자식 요소로 추가
+			$('#examList').html(res.split("fin")[0]); // 출제한 시험 리스트
+			$('.pagination').html(res.split("fin")[1]); // 페이징 처리
+		},
+		error: function(xhr){
+			alert("상태"+xhr.status);
+		}
+	})
+};
 
 
 

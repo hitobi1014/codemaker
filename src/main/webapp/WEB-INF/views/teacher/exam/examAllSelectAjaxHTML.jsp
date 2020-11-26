@@ -8,9 +8,10 @@
 	<tr data-exam_id='${exam.exam_id }'>
 		<!-- 시험 문제를 볼때 -->
 		<td>${status.count }</td>
-		<td>${exam.nm }</td>
-		<td><fmt:formatDate value="${exam.date }" pattern="yyyy-MM-dd" /></td>
-		<td>${exam.state }</td>
+		<td>${exam.exam_nm }</td>
+		<td><fmt:formatDate value="${exam.exam_date }" pattern="yyyy-MM-dd" /></td>
+		<td>${exam.exam_state }</td>
+		<td><input type="checkbox" value='${exam.exam_id }' class='echk'> </td>
 	</tr>
 </c:forEach>
 
