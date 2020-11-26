@@ -49,7 +49,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/user/main/sb-admin-2.min.css" rel="stylesheet">
-
+	<script src="${cp}/js/js.cookie-2.2.1.min.js"></script>
 </head>
 <script>
 $(function(){
@@ -68,7 +68,61 @@ $(function(){
 		$("#msg").after(c);
 	})
 	
+// 	$("#myModal").on('click',function(){
+// // 		$("#user_id").val('');
+// // 		$("#user_pass").val('');
+// 	})
+	
+	$('#myModal').on('hidden.bs.modal', function (e) {
+	    $(this).find('form')[0].reset();
+	});
+	
+	if(Cookies.get("REMEMBERME") == 'Y'){
+        $('input[type=checkbox]').prop('checked', true);
+        $('#user_id').val(Cookies.get("USERID"));
+     }
+     // sign in 버튼이 클릭 되었을 댸 이벤트 핸들러
+     $('button').on('click', function(){
+        putid = $('#user_id').val();
+        if($('input[type=checkbox]').prop('checked') == true){
+           Cookies.set("REMEMBERME",'Y');
+           Cookies.set("USERID", putid);
+        }else{
+           Cookies.remove("REMEMBERME");
+           Cookies.remove("USERID");
+        }
+        //submit
+        $('#loginFrm').submit();
+     })
+	
 })
+
+function getCookieValue(cookieName){
+   result = "";
+   var cookies = document.cookie.split("; ");
+   for(i = 0; i < cookies.length; i++){
+      cookieArr = cookies[i].split("=");
+      if(cookieArr[0] == cookieName){
+          result = cookieArr[1];
+      }
+   }
+   return result;
+}
+
+function setCookie(cookieName, cookieValue, expires){
+//      "USERID=brown; path=/; expires=Wed, 07 Oct 2020 00:38:35 GMT;"
+   var today = new Date();
+   // 현재 날짜에서 미래로 + expires 만큼 한 날짜 구하기
+   today.setDate(today.getDate() + expires);
+   document.cookie = cookieName + "=" + cookieValue + "; path=/; expires=" + today.toGMTString();
+   console.log(document.cookie);
+}
+
+// 해당쿠기의 expires속성을 과거 날짜로 변경
+function deleteCookie(cookieName){
+   setCookie(cookieName, "", -1);
+}
+
 </script>
 <style>
 #imglogo{width: 200px;}
@@ -117,7 +171,7 @@ $(function(){
 										<div class="modal-header" style="border-bottom:none;">
 											<button type="button" class="close" data-dismiss="modal">×</button>
 										</div>
-										<form class="login100-form validate-form flex-sb flex-w modal-body" action="${cp}/main/userLogin" method="post">
+										<form id="loginFrm" class="login100-form validate-form flex-sb flex-w modal-body" action="${cp}/main/userLogin" method="post">
 											<span class="login100-form-title p-b-51"> 로그인 </span>
 
 											<div class="wrap-input100 validate-input m-b-16"
@@ -127,7 +181,7 @@ $(function(){
 											</div>
 
 											<div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-												<input class="input100" type="password" name="user_pass" placeholder="비밀번호"> 
+												<input class="input100" type="password" id="user_pass" name="user_pass" placeholder="비밀번호"> 
 												<span class="focus-input100"></span>
 											</div>
 
