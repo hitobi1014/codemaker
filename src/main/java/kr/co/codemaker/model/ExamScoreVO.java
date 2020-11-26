@@ -17,7 +17,7 @@ public class ExamScoreVO {
 	
 	private String es_id;		// 시험점수 아이디 
 	private String es_fscroe;   // 시험점수 첫 점수
-	private String exam_lscore; // 시험점수 다시풀기 점수(다시 풀때마다 계속 수정됨)
+	private String es_lscore; // 시험점수 다시풀기 점수(다시 풀때마다 계속 수정됨)
 	private String exam_id;     // 시험 아이디
 	private String user_id;     // 회원 아이디
 	
@@ -33,11 +33,11 @@ public class ExamScoreVO {
 	public void setEs_fscroe(String es_fscroe) {
 		this.es_fscroe = es_fscroe;
 	}
-	public String getExam_lscore() {
-		return exam_lscore;
+	public String getEs_lscore() {
+		return es_lscore;
 	}
-	public void setExam_lscore(String exam_lscore) {
-		this.exam_lscore = exam_lscore;
+	public void setEs_lscore(String es_lscore) {
+		this.es_lscore = es_lscore;
 	}
 	public String getExam_id() {
 		return exam_id;
@@ -54,8 +54,8 @@ public class ExamScoreVO {
 	
 	@Override
 	public String toString() {
-		return "ExamScoreVO [es_id=" + es_id + ", es_fscroe=" + es_fscroe + ", exam_lscore=" + exam_lscore
-				+ ", exam_id=" + exam_id + ", user_id=" + user_id + "]";
+		return "ExamScoreVO [es_id=" + es_id + ", es_fscroe=" + es_fscroe + ", es_lscore=" + es_lscore + ", exam_id="
+				+ exam_id + ", user_id=" + user_id + "]";
 	}
 	
 }
