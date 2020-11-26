@@ -33,7 +33,7 @@ public class MainController {
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
 		}
-		return "user/login/userLogin";
+		return "user/main/login";
 	}
 	
 	@RequestMapping(path="/userLogin",method = RequestMethod.POST)
@@ -66,7 +66,7 @@ public class MainController {
 			session.setAttribute("MEMBER_INFO", getUserVo);
 			return "user/main/main_login";
 		}else if(getUserVo != null && !userVo.getUser_pass().equals(getUserVo.getUser_pass())) {
-			String msg = URLEncoder.encode("비밀번호가 다릅니다","UTF-8");
+			String msg = URLEncoder.encode("비밀번호를 확인해주세요","UTF-8");
 			return "redirect:/main/userLogin?msg="+msg;
 		}else {
 			String msg = URLEncoder.encode("존재하는 회원 정보가 없습니다","UTF-8");

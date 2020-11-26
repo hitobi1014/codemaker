@@ -52,77 +52,6 @@
 	<script src="${cp}/js/js.cookie-2.2.1.min.js"></script>
 </head>
 <script>
-$(function(){
-// 	$("input:checkbox[id='remember']").prop('checked',true);
-// 	var remember = ;
-// 	if(${cookie.remember.value}==1){
-// 		$("input:checkbox[id='ckb1']").prop('checked',true);
-// 		$("#user_id").val("${cookie.userid.value}");
-// 	}else{
-// 		$("input:checkbox[id='ckb1']").prop('checked',false);
-// 		$("#user_id").val('');
-// 	}
-	$("#testBtn").on('click',function(){
-		console.log("테스트");
-		var c = "<div id='kkk'>문구테스트</div>";
-		$("#msg").after(c);
-	})
-	
-// 	$("#myModal").on('click',function(){
-// // 		$("#user_id").val('');
-// // 		$("#user_pass").val('');
-// 	})
-	
-	$('#myModal').on('hidden.bs.modal', function (e) {
-	    $(this).find('form')[0].reset();
-	});
-	
-	if(Cookies.get("REMEMBERME") == 'Y'){
-        $('input[type=checkbox]').prop('checked', true);
-        $('#user_id').val(Cookies.get("USERID"));
-     }
-     // sign in 버튼이 클릭 되었을 댸 이벤트 핸들러
-     $('button').on('click', function(){
-        putid = $('#user_id').val();
-        if($('input[type=checkbox]').prop('checked') == true){
-           Cookies.set("REMEMBERME",'Y');
-           Cookies.set("USERID", putid);
-        }else{
-           Cookies.remove("REMEMBERME");
-           Cookies.remove("USERID");
-        }
-        //submit
-        $('#loginFrm').submit();
-     })
-	
-})
-
-function getCookieValue(cookieName){
-   result = "";
-   var cookies = document.cookie.split("; ");
-   for(i = 0; i < cookies.length; i++){
-      cookieArr = cookies[i].split("=");
-      if(cookieArr[0] == cookieName){
-          result = cookieArr[1];
-      }
-   }
-   return result;
-}
-
-function setCookie(cookieName, cookieValue, expires){
-//      "USERID=brown; path=/; expires=Wed, 07 Oct 2020 00:38:35 GMT;"
-   var today = new Date();
-   // 현재 날짜에서 미래로 + expires 만큼 한 날짜 구하기
-   today.setDate(today.getDate() + expires);
-   document.cookie = cookieName + "=" + cookieValue + "; path=/; expires=" + today.toGMTString();
-   console.log(document.cookie);
-}
-
-// 해당쿠기의 expires속성을 과거 날짜로 변경
-function deleteCookie(cookieName){
-   setCookie(cookieName, "", -1);
-}
-
 </script>
 <style>
 #imglogo{width: 200px;}
@@ -201,7 +130,7 @@ function deleteCookie(cookieName){
 											<div class="container-login100-form-btn m-t-17">
 												<button class="login100-form-btn">코딩Go!</button>
 											</div>
-											<c:if test="${param.msg !=null}">${param}</c:if>
+											
 										</form>
 										<button type="button" id="testBtn">테스트버튼</button>
 									</div>
