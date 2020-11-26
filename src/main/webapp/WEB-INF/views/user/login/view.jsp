@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V10</title>
+	<title>회원로그인 페이지</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -44,6 +44,11 @@ $(function(){
 	
 })
 </script>
+<style>
+.txt1:hover{
+	text-decoration: underline;
+}
+</style>
 <body>
 	
 	<div class="limiter">
@@ -70,20 +75,20 @@ $(function(){
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1">
 							<label class="label-checkbox100" for="ckb1">
-								Remember me
+								아이디 저장
 							</label>
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
-								Forgot?
-							</a>
+							<a href="#" class="txt1">아이디</a>
+							•
+							<a href="#" class="txt1">비밀번호찾기</a>
 						</div>
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
 						<button class="login100-form-btn">
-							Login
+							코딩하러갈까?
 						</button>
 					</div>
 
