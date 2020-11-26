@@ -33,7 +33,7 @@ public class MainController {
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
 		}
-		return "user/login/view";
+		return "user/login/userLogin";
 	}
 	
 	@RequestMapping(path="/userLogin",method = RequestMethod.POST)

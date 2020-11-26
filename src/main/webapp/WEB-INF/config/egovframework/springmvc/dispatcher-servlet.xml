@@ -50,7 +50,7 @@
 	<mvc:annotation-driven/>
 	
 	<mvc:resources mapping="/css/**" location="/css/" />    
-	<mvc:resources mapping="/images/**" location="/images/" />    
+	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/img/**" location="/img/" />    
 	<mvc:resources mapping="/js/**" location="/js/" />    
 	<mvc:resources mapping="/scss/**" location="/scss/" />    
@@ -61,7 +61,6 @@
 	<mvc:resources mapping="/docs/**" location="/docs/" />  
 	<mvc:resources mapping="/plugins/**" location="/plugins/" />  
 	<mvc:resources mapping="/dist/**" location="/dist/" />  
-	
 	
     <!-- For Pagination Tag -->
 <!--     <bean id="imageRenderer" class="egovframework.example.cmmn.web.EgovImgPaginationRenderer"/> -->
@@ -76,10 +75,6 @@
 	<!-- /For Pagination Tag -->
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
-
-    
     <mvc:resources location="/resources/" mapping="/resource/**"/>
-    
-
     <mvc:annotation-driven/>
 </beans>

@@ -1,5 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,13 +55,18 @@
 $(function(){
 // 	$("input:checkbox[id='remember']").prop('checked',true);
 // 	var remember = ;
-	if(${cookie.remember.value}==1){
-		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#user_id").val("${cookie.userid.value}");
-	}else{
-		$("input:checkbox[id='ckb1']").prop('checked',false);
-		$("#user_id").val('');
-	}
+// 	if(${cookie.remember.value}==1){
+// 		$("input:checkbox[id='ckb1']").prop('checked',true);
+// 		$("#user_id").val("${cookie.userid.value}");
+// 	}else{
+// 		$("input:checkbox[id='ckb1']").prop('checked',false);
+// 		$("#user_id").val('');
+// 	}
+	$("#testBtn").on('click',function(){
+		console.log("테스트");
+		var c = "<div id='kkk'>문구테스트</div>";
+		$("#msg").after(c);
+	})
 	
 })
 </script>
@@ -70,7 +75,7 @@ $(function(){
 #imgicon{width: 40px; height:40px; }
 .imgMain{width: 250px;height: 300px;}
 #at{color: #2c2e2e;}
-
+#kkk{color:red;}
 </style>
 
 <body id="page-top">
@@ -126,7 +131,7 @@ $(function(){
 												<span class="focus-input100"></span>
 											</div>
 
-											<div class="flex-sb-m w-full p-t-3 p-b-24">
+											<div class="flex-sb-m w-full p-t-3 p-b-24" id="msg">
 												<div class="contact100-form-checkbox">
 													<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1"> 
 													<label class="label-checkbox100" for="ckb1"> 아이디 저장</label>
@@ -142,8 +147,9 @@ $(function(){
 											<div class="container-login100-form-btn m-t-17">
 												<button class="login100-form-btn">코딩Go!</button>
 											</div>
-
+											<c:if test="${param.msg !=null}">${param}</c:if>
 										</form>
+										<button type="button" id="testBtn">테스트버튼</button>
 									</div>
 								</div>
 							</div>
@@ -207,8 +213,7 @@ $(function(){
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-3">
 											<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-1.svg"> <br>
-											<div
-												class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+											<div class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 												개발 커리어를 쌓아보는</div>
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
 												<a id="at" href="">전체강의 </a>
