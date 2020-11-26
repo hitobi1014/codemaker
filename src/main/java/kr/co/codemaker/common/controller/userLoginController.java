@@ -18,8 +18,13 @@ public class userLoginController {
 	}
 	
 	@RequestMapping(path="/main")
-	public String userMainView() {
-		return "user/main/main";
+	public String contentTest() {
+		return "mainT/user/main/main_content";
+	}
+	
+	@RequestMapping(path="/mainbck")
+	public String userMainBckView() {
+		return "user/main/main_bck";
 	}
 	
 	@RequestMapping(path="/mainlogin")
@@ -32,14 +37,14 @@ public class userLoginController {
 		return "user/mypage/mypage";
 	}
 	
+	@RequestMapping(path="/mypagebck")
+	public String userMypageBckView() {
+		return "user/mypage/layout/mypage_bck";
+	}
+	
 	@RequestMapping(path="/mypagetest")
 	public String userMypageNewView() {
 		return "user/mypage/test";
-	}
-	
-	@RequestMapping(path="/button")
-	public String buttonTest() {
-		return "user/mypage/button";
 	}
 
 }
