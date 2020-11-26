@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +14,7 @@
 <div class="container mt-3">
   <h2>Modal Example</h2>
   <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </button>
+  <a data-toggle="modal" href="#myModal">Open Modal</a>
 
   <!-- The Modal -->
   <div class="modal fade" id="myModal">
@@ -28,7 +24,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">Ã—</button>
+          <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
         
         <!-- Modal body -->
