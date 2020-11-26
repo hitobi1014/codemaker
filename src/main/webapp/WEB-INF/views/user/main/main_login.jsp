@@ -49,7 +49,7 @@
 
                 <!-- Topbar -->
 				<nav
-					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
+					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background:#005F86">
 
 					<!-- Sidebar Toggle (Topbar) -->
 					<button id="sidebarToggleTop"
