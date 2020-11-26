@@ -10,6 +10,20 @@ public class UserVO {
 	String user_out;        //회원의 탈퇴여부
 	String user_black;      //회원의 블랙여부
 	
+	public UserVO() {
+	}
+	
+	public UserVO(String user_id, String user_pass, String user_nm, String user_tel, String user_profile,
+			String user_out, String user_black) {
+		super();
+		this.user_id = user_id;
+		this.user_pass = user_pass;
+		this.user_nm = user_nm;
+		this.user_tel = user_tel;
+		this.user_profile = user_profile;
+		this.user_out = user_out;
+		this.user_black = user_black;
+	}
 	
 	public String getUser_id() {
 		return user_id;
