@@ -6,7 +6,7 @@
 		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
 		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
-    </typeAliases>
+    </typeAliases>							
     
    <mappers>
     <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
