@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.jobinfo.dao.JobInfoDaoI;
-import kr.co.codemaker.admin.jobinfo.model.JobInfoVO;
+import kr.co.codemaker.model.JobInfoVO;
 
 /**
 * JobInfoService.java

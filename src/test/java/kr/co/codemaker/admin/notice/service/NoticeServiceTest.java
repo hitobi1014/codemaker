@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import kr.co.codemaker.ModelTestConfig;
-import kr.co.codemaker.admin.notice.model.NoticeVO;
 import kr.co.codemaker.admin.notice.service.NoticeServiceI;
+import kr.co.codemaker.model.NoticeVO;
 
 
 public class NoticeServiceTest extends ModelTestConfig{

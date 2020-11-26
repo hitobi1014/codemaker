@@ -1,6 +1,6 @@
 package kr.co.codemaker.common.service;
 
-import kr.co.codemaker.user.mypage.model.UserVO;
+import kr.co.codemaker.model.UserVO;
 
 public interface MainServiceI {
 

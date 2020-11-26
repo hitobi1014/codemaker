@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.codemaker.model.AnswersheetVO;
+import kr.co.codemaker.model.ExamVO;
+import kr.co.codemaker.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.dao.ExamDaoI;
-import kr.co.codemaker.teacher.course.exam.model.AnswersheetVO;
 import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
-import kr.co.codemaker.teacher.course.exam.model.ExamVO;
-import kr.co.codemaker.teacher.course.exam.model.QuestionVO;
 
 /**
  * 

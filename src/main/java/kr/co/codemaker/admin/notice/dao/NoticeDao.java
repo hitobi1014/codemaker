@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
-import kr.co.codemaker.admin.notice.model.NoticeVO;
+import kr.co.codemaker.model.NoticeVO;
 
 @Repository("noticeDao")
 public class NoticeDao extends EgovAbstractMapper implements NoticeDaoI {

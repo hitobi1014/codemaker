@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import kr.co.codemaker.common.dao.MainDaoI;
 import kr.co.codemaker.main.ModelTestConfig;
-import kr.co.codemaker.user.mypage.model.UserVO;
+import kr.co.codemaker.model.UserVO;
 
 public class MainDaoTest extends ModelTestConfig{
 

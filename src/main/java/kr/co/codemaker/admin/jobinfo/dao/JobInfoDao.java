@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.codemaker.admin.jobinfo.model.JobInfoVO;
+import kr.co.codemaker.model.JobInfoVO;
+
 
 /**
 * JobInfoDao.java
