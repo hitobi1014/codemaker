@@ -3,7 +3,8 @@ package kr.co.codemaker.admin.notice.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.codemaker.admin.notice.model.NoticeVO;
+import kr.co.codemaker.model.NoticeVO;
+
 
 
 /**
