@@ -15,10 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:egovframework/spring/context-common.xml",
-								   "classpath:egovframework/spring/context-datasource.xml",
-								   "classpath:egovframework/spring/context-transaction.xml",
-								   "classpath:kr/co/codemaker/spring/dispatcher-servlet.xml"})
+@ContextConfiguration(locations = {"file:src/main/resources/egovframework/spring/context-common.xml",
+								   "file:src/main/resources/egovframework/spring/context-datasource.xml",
+								   "file:src/main/resources/egovframework/spring/context-transaction.xml",
+								   "file:src/main/webapp/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml",
+								   "file:src/main/resources/egovframework/spring/context-mapper.xml"})
 @WebAppConfiguration	//스프링 컨테이너를 웹기반에서 동작하는 컨테이너로 생성하는 옵션 => @Controller, @RequestMapping을 썻기때문에
 public class WebTestConfig {
 	

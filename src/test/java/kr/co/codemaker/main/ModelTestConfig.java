@@ -7,13 +7,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-//repository + service : root-context.xml
-//sqlSessionTemplate : datasource-context.xml
-//transaction : transaction-context.xml
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:egovframework/spring/context-common.xml",
-								   "classpath:egovframework/spring/context-datasource.xml",
-								   "classpath:egovframework/spring/context-transaction.xml"})
+@ContextConfiguration(locations = {"file:src/main/resources/egovframework/spring/context-common.xml",
+								   "file:src/main/resources/egovframework/spring/context-datasource.xml",
+								   "file:src/main/resources/egovframework/spring/context-transaction.xml",
+									"file:src/main/resources/egovframework/spring/context-mapper.xml"})
 public class ModelTestConfig {
 
 //	@Resource(name="dataSource")

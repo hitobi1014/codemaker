@@ -6,6 +6,7 @@
 	<title>Login V10</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -29,6 +30,20 @@
 	<link rel="stylesheet" type="text/css" href="/css/user/login/main.css">
 <!--===============================================================================================-->
 </head>
+<script>
+$(function(){
+// 	$("input:checkbox[id='remember']").prop('checked',true);
+// 	var remember = ;
+	if(${cookie.remember.value}==1){
+		$("input:checkbox[id='ckb1']").prop('checked',true);
+		$("#user_id").val("${cookie.userid.value}");
+	}else{
+		$("input:checkbox[id='ckb1']").prop('checked',false);
+		$("#user_id").val('');
+	}
+	
+})
+</script>
 <body>
 	
 	<div class="limiter">
@@ -41,19 +56,19 @@
 
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-						<input class="input100" type="text" name="user_id" placeholder="user">
+						<input class="input100" type="text" id="user_id" name="user_id" placeholder="아이디">
 						<span class="focus-input100"></span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="user_pass" placeholder="Password">
+						<input class="input100" type="password" name="user_pass" placeholder="비밀번호">
 						<span class="focus-input100"></span>
 					</div>
 					
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>

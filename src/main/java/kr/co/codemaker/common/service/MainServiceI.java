@@ -11,4 +11,5 @@ public interface MainServiceI {
 	* @return User객체
 	*/
 	UserVO selectUser(String user_id);
+	
 }

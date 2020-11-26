@@ -29,7 +29,6 @@ public class MainController {
 	
 	@RequestMapping(path="/userLogin",method = RequestMethod.GET)
 	public String userLoginView(@RequestParam(required=false) String msg, Model model) {
-//		logger.debug("로그인");
 		logger.debug("로그인진입");
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
@@ -42,8 +41,7 @@ public class MainController {
 			@RequestParam(name="rememberMe", required=false, defaultValue="0") int rememberMe, Model model, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException {	
 		logger.debug("받아온 정보 : {}",userVo);
-		
-//		UserVO getUserVo = new UserVO();
+		logger.debug("리멤버:{}",rememberMe);
 		UserVO getUserVo = mainService.selectUser(userVo.getUser_id());
 		logger.debug("가져온 유저:{}",getUserVo);
 		Cookie userCookie=null;
@@ -51,13 +49,11 @@ public class MainController {
 		if(rememberMe == 1) {
 			userCookie = new Cookie("userid", URLEncoder.encode(userVo.getUser_id(),"UTF-8"));
 			remember = new Cookie("remember", Integer.toString(rememberMe));
-//			logger.debug("쿠키등록");
 			userCookie.setMaxAge(60*60*24*30);
 			remember.setMaxAge(60*60*24*30);
 			response.addCookie(userCookie);
 			response.addCookie(remember);
 		}else {
-//			logger.debug("쿠키삭제");
 			userCookie = new Cookie("userid", null);
 			remember = new Cookie("remember", null);
 			userCookie.setMaxAge(0);
@@ -67,15 +63,12 @@ public class MainController {
 		}
 		
 		if(getUserVo != null && userVo.getUser_pass().equals(getUserVo.getUser_pass())) {
-//			logger.debug("로그인 성공");
 			session.setAttribute("MEMBER_INFO", getUserVo);
 			return "user/main/main_login";
 		}else if(getUserVo != null && !userVo.getUser_pass().equals(getUserVo.getUser_pass())) {
-//			logger.debug("비밀번호 틀렸을때 회원정보 :{}",getUserVo);
 			String msg = URLEncoder.encode("비밀번호가 다릅니다","UTF-8");
 			return "redirect:/main/userLogin?msg="+msg;
 		}else {
-//			logger.debug("존재하지않을때 :{}",getUserVo);
 			String msg = URLEncoder.encode("존재하는 회원 정보가 없습니다","UTF-8");
 			return "redirect:/main/userLogin?msg="+msg;
 		}

@@ -20,8 +20,9 @@ public class MainDao implements MainDaoI {
 	
 	@Override
 	public UserVO selectUser(String user_id) {
-		logger.debug("다오진입");
-		return sqlSession.selectOne("main.selectUser", user_id);
+//		return sqlSession.selectOne("main.selectUser", user_id);
+		return new UserVO("test", "testPass", "테스트계정", "01034020201", null, null, null);
 	}
+
 
 }

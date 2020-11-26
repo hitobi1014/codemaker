@@ -25,5 +25,5 @@ public class MainDaoTest extends ModelTestConfig{
 		/***Then***/
 		assertEquals("brown", userVo.getUser_id());
 	}
-
+	
 }
