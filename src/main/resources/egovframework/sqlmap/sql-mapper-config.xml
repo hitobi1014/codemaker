@@ -3,12 +3,12 @@
 
 <configuration>
     <typeAliases>
-		<typeAlias alias="MemberVO" type="kr.co.codemaker.user.mypage.model.MemberVO"/>
+		<typeAlias alias="UserVO" type="kr.co.codemaker.common.model.UserVO"/>
     </typeAliases>
     
     
     <mappers>
-    <mapper resource="egovframework/sqlmap/mappers/member.xml"/>
+    <mapper resource="egovframework/sqlmap/mappers/user.xml"/>
   </mappers>
   
   

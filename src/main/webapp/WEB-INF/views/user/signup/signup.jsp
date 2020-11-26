@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up Form by Colorlib</title>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
     <!-- Font Icon -->
     <link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
 
@@ -16,10 +17,44 @@
     <link rel="stylesheet" href="/css/user/signup/style.css">
     
     
-    
-</head>
+<script>
+$(document).ready(function(){
+	// picture input의 파일 변경시 이벤트 
+	$("#picture").change(function(){
+	   readURL(this);
+	});
+});
 
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+	  
+		reader.onload = function (e) {
+			$('#pictureViewImg').attr('src', e.target.result);  
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+</script>
+</head>
 <style>
+#phone1 {
+    width: 65px;
+}
+#phone2 {
+    width: 95px;
+    display: inline-block;
+}
+#phone3 {
+    width: 95px;
+    display: inline-block;
+}
+#signimg {
+    display: inline-block;
+    height: 350px;
+    width: 300px;
+}
 
 </style>
 
@@ -35,7 +70,7 @@
                     <div class="signup-form">
                         <h2 class="form-title">CODE MAKER<br>
                         					회원가입</h2>
-                        <form method="POST" class="register-form" id="register-form">
+                        <form method="POST" class="register-form" id="register-form" action="${cp}/join/insertUser" enctype="multipart/form-data">
 		
 							<div class="input-group mb-3">
 								<div class="mailbox-attachments clearfix"
@@ -47,7 +82,7 @@
 									<div class="mailbox-attachment-info">
 										<div class="input-group input-group-sm">
 											<input id="picture" class="form-control" type="file"
-												name="realFile" accept=".gif, .jpg, .png"
+												name="user_profile" accept=".gif, .jpg, .png"
 												style="height: 37px;" />
 										</div>
 									</div>
@@ -58,24 +93,34 @@
 
 							<div class="form-group">
                                 <label for="userid"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="userid" id="userid" placeholder="ID"/>
+                                <input type="email" name="user_id" id="user_id1"  placeholder="ID"/>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                <input type="password" name="user_pass" id="user_pass" placeholder="Password"/>
                             </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                            </div>
-                             <div class="form-group">
+<!--                             <div class="form-group"> -->
+<!--                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label> -->
+<!--                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/> -->
+<!--                             </div> -->
+                             <div class="form-group">  
                               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Name"/>
+                                <input type="text" name="user_nm" id="user_nm" placeholder="Name"/>
                             </div>
                             <div class="form-group">
-                              <label for="tel"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="tel" id="tel" placeholder="Tel"/>
-                            </div>
+                              <label for="tel"></label>
+								<i class="zmdi zmdi-account material-icons-name" id="phoneicon"></i>&nbsp;&nbsp;
+								<select id="phone1" name="user_tel1">
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="019">019</option>
+										<option value="019">016</option>
+										<option value="019">017</option>
+								</select>-
+									<input type="text" name="user_tel2" id="phone2" size="4" placeholder="4자리" maxlength="4">-
+									<input type="text" name="uset_tel3" id="phone3" size="4" placeholder="4자리" maxlength="4">
+								<br>
+							</div>
                             <div class="form-group">
 								<dt>가입하면 <strong>이용 약관</strong> 및 <strong>개인정보</strong> 수집 및 활용에 &nbsp;&nbsp;<strong>동의</strong>하게 됩니다.
 								</dt>
@@ -86,7 +131,7 @@
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="/images/codemaker_logo3.png" alt="sing up image"></figure>
+                        <figure><img id="signimg"src="/images/signmain.PNG" alt="sing up image"></figure>
                     </div>
                 </div>
             </div>
