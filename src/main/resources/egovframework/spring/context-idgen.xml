@@ -9,10 +9,13 @@
 		<property name="table"	   	value="IDS"/>
 		<property name="tableName"	value="SAMPLE"/>
 	</bean>
+
 	<bean name="mixPrefixSample" class="egovframework.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
 		<property name="prefix"   value="SAMPLE-" />
 		<property name="cipers"   value="5" />
 		<property name="fillChar" value="0" />
 	</bean>	
+	
+	
 			
 </beans>
