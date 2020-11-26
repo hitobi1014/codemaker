@@ -12,7 +12,6 @@
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
   <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
-
   <!-- PLUGINS CSS STYLE -->
   <link href="/css/admin/main/daterangepicker.css" rel="stylesheet" />
   <link href="/css/admin/main/flag-icon.min.css" rel="stylesheet"/>
@@ -21,7 +20,6 @@
   <link href="/css/admin/main/nprogress.css" rel="stylesheet" />
   <link href="/css/admin/main/select2.min.css" rel="stylesheet" />
   <link href="/css/admin/main/toastr.min.css" rel="stylesheet" />
-
   <!-- SLEEK CSS -->
   <link id="sleek-css" rel="stylesheet" href="/css/admin/main/sleek.css" />
 
@@ -91,7 +89,7 @@
 
                 
                   <li  class="has-sub active expand" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
+                    <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#dashboard"
                       aria-expanded="false" aria-controls="dashboard">
                       <i class="mdi mdi-view-dashboard-outline"></i>
                       <span class="nav-text">Dashboard</span> <b class="caret"></b>
@@ -103,7 +101,7 @@
                         
                           
                             <li  class="active" >
-                              <a class="sidenav-item-link" href="index.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">Ecommerce</span>
                                 
                               </a>
@@ -115,7 +113,7 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="analytics.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">Analytics</span>
                                 
                                 <span class="badge badge-success">new</span>
@@ -135,7 +133,7 @@
 
                 
                   <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ui-elements"
+                    <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#ui-elements"
                       aria-expanded="false" aria-controls="ui-elements">
                       <i class="mdi mdi-folder-multiple-outline"></i>
                       <span class="nav-text">UI Elements</span> <b class="caret"></b>
@@ -146,7 +144,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#components"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components"
                             aria-expanded="false" aria-controls="components">
                             <span class="nav-text">Components</span> <b class="caret"></b>
                           </a>
@@ -154,83 +152,83 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="alert.html">Alert</a>
+                                <a href="#">Alert</a>
                               </li>
                               
                               <li >
-                                <a href="badge.html">Badge</a>
+                                <a href="#">Badge</a>
                               </li>
                               
                               <li >
-                                <a href="breadcrumb.html">Breadcrumb</a>
+                                <a href="#">Breadcrumb</a>
                               </li>
                               
                               <li >
-                                <a href="button-default.html">Button Default</a>
+                                <a href="#">Button Default</a>
                               </li>
                               
                               <li >
-                                <a href="button-dropdown.html">Button Dropdown</a>
+                                <a href="#">Button Dropdown</a>
                               </li>
                               
                               <li >
-                                <a href="button-group.html">Button Group</a>
+                                <a href="#">Button Group</a>
                               </li>
                               
                               <li >
-                                <a href="button-social.html">Button Social</a>
+                                <a href="#">Button Social</a>
                               </li>
                               
                               <li >
-                                <a href="button-loading.html">Button Loading</a>
+                                <a href="#">Button Loading</a>
                               </li>
                               
                               <li >
-                                <a href="card.html">Card</a>
+                                <a href="#">Card</a>
                               </li>
                               
                               <li >
-                                <a href="carousel.html">Carousel</a>
+                                <a href="#">Carousel</a>
                               </li>
                               
                               <li >
-                                <a href="collapse.html">Collapse</a>
+                                <a href="#">Collapse</a>
                               </li>
                               
                               <li >
-                                <a href="list-group.html">List Group</a>
+                                <a href="#">List Group</a>
                               </li>
                               
                               <li >
-                                <a href="modal.html">Modal</a>
+                                <a href="#">Modal</a>
                               </li>
                               
                               <li >
-                                <a href="pagination.html">Pagination</a>
+                                <a href="#">Pagination</a>
                               </li>
                               
                               <li >
-                                <a href="popover-tooltip.html">Popover & Tooltip</a>
+                                <a href="#">Popover & Tooltip</a>
                               </li>
                               
                               <li >
-                                <a href="progress-bar.html">Progress Bar</a>
+                                <a href="#">Progress Bar</a>
                               </li>
                               
                               <li >
-                                <a href="spinner.html">Spinner</a>
+                                <a href="#">Spinner</a>
                               </li>
                               
                               <li >
-                                <a href="switcher.html">Switcher</a>
+                                <a href="#">Switcher</a>
                               </li>
                               
                               <li >
-                                <a href="table.html">Table</a>
+                                <a href="#">Table</a>
                               </li>
                               
                               <li >
-                                <a href="tab.html">Tab</a>
+                                <a href="#">Tab</a>
                               </li>
                               
                             </div>
@@ -241,7 +239,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#icons"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons"
                             aria-expanded="false" aria-controls="icons">
                             <span class="nav-text">Icons</span> <b class="caret"></b>
                           </a>
@@ -249,11 +247,11 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="material-icon.html">Material Icon</a>
+                                <a href="#">Material Icon</a>
                               </li>
                               
                               <li >
-                                <a href="flag-icon.html">Flag Icon</a>
+                                <a href="#">Flag Icon</a>
                               </li>
                               
                             </div>
@@ -264,7 +262,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#forms"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#forms"
                             aria-expanded="false" aria-controls="forms">
                             <span class="nav-text">Forms</span> <b class="caret"></b>
                           </a>
@@ -272,23 +270,23 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="basic-input.html">Basic Input</a>
+                                <a href="#">Basic Input</a>
                               </li>
                               
                               <li >
-                                <a href="input-group.html">Input Group</a>
+                                <a href="#">Input Group</a>
                               </li>
                               
                               <li >
-                                <a href="checkbox-radio.html">Checkbox & Radio</a>
+                                <a href="#">Checkbox & Radio</a>
                               </li>
                               
                               <li >
-                                <a href="form-validation.html">Form Validation</a>
+                                <a href="#">Form Validation</a>
                               </li>
                               
                               <li >
-                                <a href="form-advance.html">Form Advance</a>
+                                <a href="#">Form Advance</a>
                               </li>
                               
                             </div>
@@ -299,7 +297,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#maps"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#maps"
                             aria-expanded="false" aria-controls="maps">
                             <span class="nav-text">Maps</span> <b class="caret"></b>
                           </a>
@@ -307,11 +305,11 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="google-map.html">Google Map</a>
+                                <a href="#">Google Map</a>
                               </li>
                               
                               <li >
-                                <a href="vector-map.html">Vector Map</a>
+                                <a href="#">Vector Map</a>
                               </li>
                               
                             </div>
@@ -322,7 +320,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#widgets"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#widgets"
                             aria-expanded="false" aria-controls="widgets">
                             <span class="nav-text">Widgets</span> <b class="caret"></b>
                           </a>
@@ -330,11 +328,11 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="general-widget.html">General Widget</a>
+                                <a href="#">General Widget</a>
                               </li>
                               
                               <li >
-                                <a href="chart-widget.html">Chart Widget</a>
+                                <a href="#">Chart Widget</a>
                               </li>
                               
                             </div>
@@ -352,7 +350,7 @@
 
                 
                   <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#charts"
+                    <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#charts"
                       aria-expanded="false" aria-controls="charts">
                       <i class="mdi mdi-chart-pie"></i>
                       <span class="nav-text">통계 관리</span> <b class="caret"></b>
@@ -366,7 +364,7 @@
                             </li>
                           
                             <li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">선생님 조회</span>
                                 
                               </a>
@@ -374,7 +372,7 @@
                           
                         
                             <li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">학생 조회</span>
                                 
                               </a>
@@ -386,7 +384,7 @@
                             </li>
                         	
                         	<li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">강의별 조회</span>
                                 
                               </a>
@@ -394,7 +392,7 @@
                             
                             
                             <li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">선생님별 조회</span>
                                 
                               </a>
@@ -404,7 +402,7 @@
                             
                             
                             <li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">기간별 조회</span>
                                 
                               </a>
@@ -414,7 +412,7 @@
                             
                             
                             <li >
-                              <a class="sidenav-item-link" href="chartjs.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">학생 조회</span>
                                 
                               </a>
@@ -430,7 +428,7 @@
 
                 
                   <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#pages"
+                    <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#pages"
                       aria-expanded="false" aria-controls="pages">
                       <i class="mdi mdi-image-filter-none"></i>
                       <span class="nav-text">Pages</span> <b class="caret"></b>
@@ -442,7 +440,7 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="user-profile.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">User Profile</span>
                                 
                               </a>
@@ -453,7 +451,7 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#authentication"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#authentication"
                             aria-expanded="false" aria-controls="authentication">
                             <span class="nav-text">Authentication</span> <b class="caret"></b>
                           </a>
@@ -461,11 +459,11 @@
                             <div class="sub-menu">
                               
                               <li >
-                                <a href="sign-in.html">Sign In</a>
+                                <a href="#">Sign In</a>
                               </li>
                               
                               <li >
-                                <a href="sign-up.html">Sign Up</a>
+                                <a href="#">Sign Up</a>
                               </li>
                               
                             </div>
@@ -476,19 +474,19 @@
                         
                         
                         <li  class="has-sub" >
-                          <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#others"
+                          <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#others"
                             aria-expanded="false" aria-controls="others">
                             <span class="nav-text">Others</span> <b class="caret"></b>
                           </a>
                           <ul  class="collapse"  id="others">
-                            <div class="sub-menu">
+                            <div class="#">
                               
                               <li >
-                                <a href="invoice.html">invoice</a>
+                                <a href="#">invoice</a>
                               </li>
                               
                               <li >
-                                <a href="error.html">Error</a>
+                                <a href="#">Error</a>
                               </li>
                               
                             </div>
@@ -506,7 +504,7 @@
 
                 
                   <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#documentation"
+                    <a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#documentation"
                       aria-expanded="false" aria-controls="documentation">
                       <i class="mdi mdi-book-open-page-variant"></i>
                       <span class="nav-text">수강 관리</span> <b class="caret"></b>
@@ -518,7 +516,7 @@
                         
                           
                             <li class="section-title">
-                              	수강후기 관리
+                              	수강 관리 조회
                             </li>
                           
                         
@@ -527,8 +525,8 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="introduction.html">
-                                <span class="nav-text">학생 수강후기 조회</span>
+                              <a class="sidenav-item-link" href="#">
+                                <span class="nav-text">수강후기 조회</span>
                                 
                               </a>
                             </li>
@@ -539,7 +537,7 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="setup.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">학생별 조회</span>
                                 
                               </a>
@@ -551,7 +549,7 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="customization.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">선생님별 조회</span>
                                 
                               </a>
@@ -563,7 +561,7 @@
                         
                           
                             <li >
-                              <a class="sidenav-item-link" href="customization.html">
+                              <a class="sidenav-item-link" href="#">
                                 <span class="nav-text">강의별 조회</span>
                                 
                               </a>
@@ -571,12 +569,6 @@
                           
                         
 
-                        
-                        
-                          
-                            
-                          
-                        
 
                         
                       </div>
@@ -590,43 +582,6 @@
                   
                   
                   
-                  <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#documentation"
-                      aria-expanded="false" aria-controls="documentation">
-                      <i class="mdi mdi-account-tie"></i>
-                      <span class="nav-text">기업 관리</span> <b class="caret"></b>
-                    </a>
-                    <ul  class="collapse"  id="documentation"
-                      data-parent="#sidebar-menu">
-                      <div class="sub-menu">
-                        
-                        
-                          
-                            <li class="section-title">
-                              	기업
-                            </li>
-                          
-                        
-
-                        
-                        
-                          
-                            <li >
-                              <a class="sidenav-item-link" href="introduction.html">
-                                <span class="nav-text">정보 조회</span>
-                                
-                              </a>
-                            </li>
-                          
-                          
-                            
-                          
-                        
-
-                        
-                      </div>
-                    </ul>
-                  </li>
                 
 
                 
