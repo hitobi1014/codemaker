@@ -34,7 +34,7 @@ public interface NoticeDaoI {
 	 * @author 박경호
 	 * @return 공지사항의 총 갯수
 	 */
-	public int noticeTotalCnt();
+	public int noticeTotalCnt(Map<String, Object> map);
 	
 	/**
 	 * 하나의 공지사항을 조회하는 메서드

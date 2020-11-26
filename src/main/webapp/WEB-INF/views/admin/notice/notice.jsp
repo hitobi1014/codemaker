@@ -77,8 +77,8 @@ $(document).ready(function(){
 		<div class="form-group">
 			<label for="pass" class="col-sm-2 control-label">작성 날짜</label>
 			<div class="col-sm-10">
-<%-- 				<label class="control-label"><fmt:formatDate value="${noticeVo.notice_date}" pattern="yyyy-MM-dd" /></label> --%>
-				<label class="control-label">${noticeVo.notice_date}</label>
+				<label class="control-label"><fmt:formatDate value="${noticeVo.notice_date}" pattern="yyyy-MM-dd" /></label>
+<%-- 				<label class="control-label">${noticeVo.notice_date}</label> --%>
 			</div>
 		</div>
 

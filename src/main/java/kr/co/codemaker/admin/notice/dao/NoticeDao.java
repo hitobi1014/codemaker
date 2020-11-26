@@ -29,8 +29,8 @@ public class NoticeDao extends EgovAbstractMapper implements NoticeDaoI {
 	}
 
 	@Override
-	public int noticeTotalCnt() {
-		return sqlSession.selectOne("notice.noticeTotalCnt");
+	public int noticeTotalCnt(Map<String, Object> map) {
+		return sqlSession.selectOne("notice.noticeTotalCnt", map);
 	}
 
 	@Override

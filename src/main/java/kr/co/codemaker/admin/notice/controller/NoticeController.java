@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ public class NoticeController {
 	@RequestMapping(path="/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
-			String searchOption, String keyWord, Model model) {
+			String searchOption, String keyWord, Model model, HttpSession session) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -54,7 +55,14 @@ public class NoticeController {
 		map.put("keyWord", keyWord);
 		map.put("pages", map.get("pages"));
 		
+		session.setAttribute("searchOption", searchOption);
+		session.setAttribute("keyWord", keyWord);
+		
+		logger.debug("map {}", map);
+		
 		Map<String, Object> map2 = noticeService.selectAllNotice(map);
+		
+		logger.debug("map2 {}", map2);
 		
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
