@@ -26,5 +26,20 @@ public class userLoginController {
 	public String userMainLoginView() {
 		return "user/main/main_login";
 	}
+	
+	@RequestMapping(path="/mypage")
+	public String userMypageView() {
+		return "user/mypage/mypage";
+	}
+	
+	@RequestMapping(path="/mypagetest")
+	public String userMypageNewView() {
+		return "user/mypage/test";
+	}
+	
+	@RequestMapping(path="/button")
+	public String buttonTest() {
+		return "user/mypage/button";
+	}
 
 }
