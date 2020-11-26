@@ -59,6 +59,8 @@
 	<mvc:resources mapping="/img/**" location="/img/" />    
 	<mvc:resources mapping="/dist/**" location="/dist/" />    
 	<mvc:resources mapping="/docs/**" location="/docs/" />  
+	<mvc:resources mapping="/plugins/**" location="/plugins/" />  
+	<mvc:resources mapping="/dist/**" location="/dist/" />  
 	
 	
     <!-- For Pagination Tag -->

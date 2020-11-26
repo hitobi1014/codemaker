@@ -12,6 +12,9 @@
     <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
     <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
     <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
+    </typeAliases>
+    
+    <mapper resource="egovframework/sqlmap/mappers/user.xml"/>
   </mappers>
   
 </configuration>
