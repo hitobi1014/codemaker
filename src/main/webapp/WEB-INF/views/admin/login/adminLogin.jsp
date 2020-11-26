@@ -61,22 +61,22 @@ $(function(){
 // 	$(this).attr("class", "");
 // });
 
-$(document).ready(function(){
-	$('#btnTM button').on('click', function(){
-		var a = $(this).attr('id');
-		console.log(a);
-		if(a == 't_button'){
-			$(this).attr("style", "background-color: #003B5C;");
-			$('#m_button').attr("style", "background-color:");
-		}else{
-			$(this).attr("style", "background-color: #003B5C;");
-			$('#t_button').attr("style", "background-color:");
-		}		
+// $(document).ready(function(){
+// 	$('#btnTM button').on('click', function(){
+// 		var a = $(this).attr('id');
+// 		console.log(a);
+// 		if(a == 't_button'){
+// 			$(this).attr("style", "background-color: #003B5C;");
+// 			$('#m_button').attr("style", "background-color:");
+// 		}else{
+// 			$(this).attr("style", "background-color: #003B5C;");
+// 			$('#t_button').attr("style", "background-color:");
+// 		}		
 		
 		
-	});
+// 	});
 
-});
+// });
 
 
 // 	var btn = document.getElementsByClassName('btn');
@@ -111,12 +111,8 @@ $(document).ready(function(){
 						Login
 					</span>
 					
-					<div id="btnTM">
-						<button type="button" id="t_button" >교사</button>
-						<button type="button" id="m_button" >관리자</button>
-					</div>
-						
-					<br><br>
+					<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher (1).png" style="height: 120px; width: 120px;">
+					<img id="adminImg" alt="관리자" src="/images/admin/signup/admin (1).png" style="height: 120px; width: 120px;">
 					
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "이메일 형식으로 작성해주세요">
@@ -168,11 +164,7 @@ $(document).ready(function(){
 			<!-- Modal content-->
 			<div class="modal-body">
 				<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
-					<br>
-					<div id="btnTM">
-						<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher (1).png" style="height: 120px; width: 120px;">
-						<img id="adminImg" alt="관리자" src="/images/admin/signup/admin (1).png" style="height: 120px; width: 120px;">
-					</div>
+					<h2 class="w3-center">회원가입</h2>
 					
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-envelope-o"></i></div>
