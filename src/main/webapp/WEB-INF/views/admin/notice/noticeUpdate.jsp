@@ -19,14 +19,24 @@ $(document).ready(function() {
 			height: 300,
 	        lang: "ko-KR"
        });
+       
+       $('#fileAddBtn').on('click', function(){
+	        $('#fileup').append("&nbsp;&nbsp;<input type='file' name='realfile' multiple='multiple'>")
+	    })
+
+    $(".del_file").on("click", function() {
+        a = $(this).val();
+        $('#fileup').append("<input type='hidden' name='del_files' value='"+a+"'>")
+        
+        $(this).parent().remove();
+
+    })
 })       
 </script>
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="frm" class="form-horizontal" 
-	 method="POST" 
-		action="${cp}/notice/updateNotice">
+	<form id="frm" class="form-horizontal" method="POST" action="${cp}/notice/updateNotice" enctype="multipart/form-data">
 		
 		<div class="form-group">
 		<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
@@ -87,30 +97,28 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-<!-- 		<label class="col-sm-2 control-label">첨부파일</label> <br> -->
-<!-- 		<br> -->
-<%-- 		<br> <input type="hidden" name="board_no" value="${bv.board_no}"> --%>
+		<label class="col-sm-2 control-label">첨부파일</label> 
+		<br>
+		<br>
 
-<%-- 		<c:forEach items="${fv}" var="fv"> --%>
-<!-- 			<div class="form-group"> -->
-<%-- 				<div id="${fv.files_no}"> --%>
-<%-- 					&emsp;&emsp;&emsp;&emsp;${fv.real_files_name} --%>
-<!-- 					<button class="del_file" type="button" class="btn btn-default" -->
-<%-- 						value="${fv.files_no}">삭제</button> --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<%-- 		</c:forEach> --%>
+		<c:forEach items="${filesVo}" var="filesVo">
+			<div class="form-group">
+				<div id="${filesVo.files_id}">
+					&emsp;&emsp;&emsp;&emsp;${filesVo.files_nm}
+					<button class="del_file" type="button" class="btn btn-default" value="${filesVo.files_id}">삭제</button>
+				</div>
+			</div>
+		</c:forEach>
 
-<!-- 		<button type="button" id="fileAddBtn">파일추가</button> -->
-<!-- 		<br> -->
-<!-- 		<div class="col-sm-10" id="fileup" class="col-sm-10"></div> -->
-<!-- 		<input id="count" name="count" type="hidden" value="0"> <input -->
-<!-- 			id="del_count" name="del_count" type="hidden" value="0"> <br> -->
-<!-- 		</div> -->
+		<button type="button" id="fileAddBtn">파일추가</button>
+		<br>
+		<div class="col-sm-10" id="fileup" class="col-sm-10">
+		</div>
+		
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">게시글수정</button>
+				<button type="submit" class="btn btn-default">공지사항 수정</button>
 			</div>
 		</div>
 	</form>
