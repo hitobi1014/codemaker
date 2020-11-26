@@ -10,6 +10,7 @@
 	<!-- 회원_메인페이지 -->
 	<definition name="main.layout" template="/WEB-INF/views/user/main/layout/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/user/main/layout/main_header.jsp"/>
+		<put-attribute name="loginHeader" value="/WEB-INF/views/user/main/layout/main_loginHeader.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/user/main/layout/main_footer.jsp"/>
 		<put-attribute name="content" value=""/>
 	</definition>

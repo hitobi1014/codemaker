@@ -98,5 +98,3 @@ $(function(){
 
 </nav>
 <!-- End of header -->
-
-

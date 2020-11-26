@@ -1,26 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script>
-$(function(){
-// 	$("input:checkbox[id='remember']").prop('checked',true);
-// 	var remember = ;
-	if(${cookie.remember.value}==1){
-		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#user_id").val("${cookie.userid.value}");
-	}else{
-		$("input:checkbox[id='ckb1']").prop('checked',false);
-		$("#user_id").val('');
-	}
-	
-})
-</script>
-
 <style>
 #imglogo{width: 200px;}
 #imgicon{width: 40px; height:40px; }
 .imgMain{width: 250px;height: 300px;}
 #at{color: #2c2e2e;}
-
 </style>
 
 <!-- header -->
@@ -37,15 +21,12 @@ $(function(){
 	<div class="input-group">
 		<a href="${cp}/user/main"><img id="imglogo" src="/images/codemaker_name3.png"></a>
 	</div>
-
+	
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
-
 		<!-- 로그인 -->
 		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="" id="login" role="button" aria-haspopup="true" aria-expanded="false">로그인</a> 
-			
-			
+			<a class="nav-link dropdown-toggle" href="${cp}/user/login" id="login" role="button" aria-haspopup="true" aria-expanded="false">로그인</a> 
 		</li>
 
 		<!-- 회원가입 -->
@@ -64,5 +45,3 @@ $(function(){
 
 </nav>
 <!-- End of header -->
-
-

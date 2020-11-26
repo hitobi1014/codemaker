@@ -33,8 +33,6 @@
 </head>
 <script>
 $(function(){
-// 	$("input:checkbox[id='remember']").prop('checked',true);
-// 	var remember = ;
 	if(${cookie.remember.value}==1){
 		$("input:checkbox[id='ckb1']").prop('checked',true);
 		$("#user_id").val("${cookie.userid.value}");
@@ -42,7 +40,6 @@ $(function(){
 		$("input:checkbox[id='ckb1']").prop('checked',false);
 		$("#user_id").val('');
 	}
-	
 })
 </script>
 <style>
@@ -55,7 +52,7 @@ $(function(){
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w" action="${cp}/main/userLogin" method="post">
+				<form class="login100-form validate-form flex-sb flex-w" action="${cp}/user/login" method="post">
 					<span class="login100-form-title p-b-51">
 						Login
 					</span>
