@@ -424,27 +424,19 @@ iframe {
   }
 }
 
-#t_button{
-	width: 192px;
-	height: 40px;
-	background : #005F86;
-	margin-right: 3px;
-	float: left;
-	color: #fff;
-}
-#m_button{
-	width: 192px;
-	height: 40px;
-	background : #005F86;
-	margin-left: 3px;
-	float: left;
-	color: #fff;
-}
 .searchuser{
 	width: 500px;
 	margin-top: 50px;
 	font-weight: 700;
 	text-align: center;
+}
+#teacherImg{
+	margin-left: 15%;
+	margin-bottom: 5%;
+}
+#adminImg{
+	margin-right: 10%;
+	margin-bottom: 5%;
 }
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
