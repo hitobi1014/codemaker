@@ -100,7 +100,6 @@ $(function(){
 								</a>
 								<div class="dropdown-divider">
 							</div>
-<<<<<<< HEAD
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
 								</a>
@@ -118,28 +117,3 @@ $(function(){
 					</ul>
 				</nav>
                 <!-- End of Topbar -->
-
-=======
-
-						</form>
-					</div>
-				</div>
-			</div></li>
-
-		<!-- 회원가입 -->
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="signin" role="button" aria-haspopup="true" aria-expanded="false">회원가입 </a></li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&emsp;&emsp;&emsp;&emsp;&emsp;</a>
-		</li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-		</li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-		</li>
-	</ul>
-
-</nav>
-<!-- End of header -->
->>>>>>> 875041c1c61f9fe9e34e102181a9737aa127715b

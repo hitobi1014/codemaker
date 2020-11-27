@@ -6,6 +6,7 @@
 		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
 		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
+		<typeAlias alias="LessonVO" type="kr.co.codemaker.model.LessonVO"/>
     </typeAliases>							
     
    <mappers>
@@ -13,6 +14,7 @@
     <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
     <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
     <mapper resource="egovframework/sqlmap/mappers/user.xml"/>
+    <mapper resource="egovframework/sqlmap/mappers/lesson.xml"/>
   </mappers>
   
 </configuration>
