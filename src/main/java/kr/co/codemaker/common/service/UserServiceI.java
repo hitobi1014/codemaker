@@ -6,4 +6,6 @@ public interface UserServiceI {
 
 	int insertUser(UserVO userVo);
 
+	int idchk(UserVO userVo);
+
 }
