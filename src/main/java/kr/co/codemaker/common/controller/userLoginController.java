@@ -75,6 +75,18 @@ public class userLoginController {
 		}
 	}
 	
+	@RequestMapping(path="logout")
+	public String userLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/user/main";
+	}
+	
+	@RequestMapping(path="FindId")
+	public String userFindId() {
+		
+		return "";
+	}
+	
 	@RequestMapping(path="/signup")
 	public String userSignupView() {
 		return "user/signup/signup";

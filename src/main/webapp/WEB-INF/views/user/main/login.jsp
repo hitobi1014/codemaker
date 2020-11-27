@@ -46,16 +46,21 @@ $(function(){
 .txt1:hover{
 	text-decoration: underline;
 }
+#di{width: 1920px;margin-left: 520px;margin-top: 100px;}
+#logo{width:200px;height: 70px;}
+.loginapi{margin-top: 5px;}
 </style>
 <body>
 	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100 p-t-50 p-b-90">
+	<div class="limiter" style="background-color:#f4f4f4">
+		<div class="container-login100" >
+		<div id="di">
+			<img id="logo" src="/img/mj/로고 작업.png"/>
+		</div>
+		<div class="row" style="border:1px solid #ededed; padding:20px;background-color:white;">
+			<div class="col-xs-3 wrap-login100 p-t-50 p-b-90" style="margin-right:10px;">
 				<form class="login100-form validate-form flex-sb flex-w" action="${cp}/user/login" method="post">
-					<span class="login100-form-title p-b-51">
-						Login
-					</span>
+					<span class="login100-form-title p-b-51">Login</span>
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
 						<input class="input100" type="text" id="user_id" name="user_id" placeholder="아이디">
 						<span class="focus-input100"></span>
@@ -68,14 +73,10 @@ $(function(){
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1">
-							<label class="label-checkbox100" for="ckb1">
-								아이디 저장
-							</label>
+							<label class="label-checkbox100" for="ckb1">아이디 저장</label>
 						</div>
-
 						<div>
-							<a href="#" class="txt1">아이디</a>
-							•
+							<a href="#" class="txt1">아이디</a>•
 							<a href="#" class="txt1">비밀번호찾기</a>
 						</div>
 					</div>
@@ -85,15 +86,21 @@ $(function(){
 							코딩GO!
 						</button>
 					</div>
-
+					<div style="margin:0 auto;">
+						<a href="#"><img class="loginapi" src="/img/mj/네이버로그인.jpg"></a><br>
+						<a href="#"><img class="loginapi" src="/img/mj/카카오로그인.jpg"></a>
+					</div>
 				</form>
+			</div>
+			
+			<div class="col-xs-3 mb-4 wrap-login100 p-t-50 p-b-90" style="margin-left:5px;">
+				<img src="/img/mj/로그인페이지사진.jpg"/>
+			</div>
 			</div>
 		</div>
 	</div>
-	
 
 	<div id="dropDownSelect1"></div>
-	
 <!--===============================================================================================-->
 	<script src="/vendor/user/login/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -110,6 +117,5 @@ $(function(){
 	<script src="/vendor/user/login/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="/js/user/login/main.js"></script>
-
 </body>
 </html>
