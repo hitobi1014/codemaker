@@ -18,8 +18,6 @@ public class CourseVO {
 	private String cos_id;		// 수강 아이디
 	private String cos_term;	// 수강 기간
 	private int cos_process;	// 수강 진행도
-	private String cur_id;		// 커리큘럼 아이디
-	private String user_id;		// 회원 아이디
 	private String pay_id;		// 결제 아이디
 	
 	public String getCos_id() {
@@ -40,18 +38,6 @@ public class CourseVO {
 	public void setCos_process(int cos_process) {
 		this.cos_process = cos_process;
 	}
-	public String getCur_id() {
-		return cur_id;
-	}
-	public void setCur_id(String cur_id) {
-		this.cur_id = cur_id;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
 	public String getPay_id() {
 		return pay_id;
 	}
@@ -61,8 +47,8 @@ public class CourseVO {
 	
 	@Override
 	public String toString() {
-		return "CourseVO [cos_id=" + cos_id + ", cos_term=" + cos_term + ", cos_process=" + cos_process + ", cur_id="
-				+ cur_id + ", user_id=" + user_id + ", pay_id=" + pay_id + "]";
+		return "CourseVO [cos_id=" + cos_id + ", cos_term=" + cos_term + ", cos_process=" + cos_process + ", pay_id="
+				+ pay_id + "]";
 	}
 	
 }

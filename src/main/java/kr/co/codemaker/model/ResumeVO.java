@@ -25,6 +25,7 @@ public class ResumeVO {
 	private String res_license;     // 자격증
 	private String res_career;      // 경력
 	private String res_state;		// 관리자 승인상태(지원 요청, 확인, 승인여부)
+	private String res_code;		// 관리자 승인코드
 	
 	public String getRes_id() {
 		return res_id;
@@ -86,12 +87,19 @@ public class ResumeVO {
 	public void setRes_state(String res_state) {
 		this.res_state = res_state;
 	}
+	public String getRes_code() {
+		return res_code;
+	}
+	public void setRes_code(String res_code) {
+		this.res_code = res_code;
+	}
 	
 	@Override
 	public String toString() {
 		return "ResumeVO [res_id=" + res_id + ", res_nm=" + res_nm + ", res_tel=" + res_tel + ", res_mail=" + res_mail
 				+ ", res_profile=" + res_profile + ", res_motive=" + res_motive + ", res_edu=" + res_edu
-				+ ", res_license=" + res_license + ", res_career=" + res_career + ", res_state=" + res_state + "]";
+				+ ", res_license=" + res_license + ", res_career=" + res_career + ", res_state=" + res_state
+				+ ", res_code=" + res_code + "]";
 	}
 	
 }

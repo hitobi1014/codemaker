@@ -15,7 +15,7 @@ import java.util.Date;
 * 김미연 최초 생성
 *
  */
-public class TeaherVO {
+public class TeacherVO {
 	
 	private String tch_id;			// 선생님 아이디(이메일)
 	private String tch_pass;		// 선생님 비밀번호
@@ -26,9 +26,7 @@ public class TeaherVO {
 	private Date tch_join;        	// 선생님 입사일
 	private Date tch_retire;      	// 선생님 퇴사일
 	private String tch_intro;       // 선생님 소개말
-	private String tch_contract;    // 선생님 계약서(파일)
 	private String tch_gn;          // 기업 구분자
-	
 	
 	public String getTch_id() {
 		return tch_id;
@@ -84,12 +82,6 @@ public class TeaherVO {
 	public void setTch_intro(String tch_intro) {
 		this.tch_intro = tch_intro;
 	}
-	public String getTch_contract() {
-		return tch_contract;
-	}
-	public void setTch_contract(String tch_contract) {
-		this.tch_contract = tch_contract;
-	}
 	public String getTch_gn() {
 		return tch_gn;
 	}
@@ -99,10 +91,10 @@ public class TeaherVO {
 	
 	@Override
 	public String toString() {
-		return "TeaherVO [tch_id=" + tch_id + ", tch_pass=" + tch_pass + ", tch_nm=" + tch_nm + ", tch_tel=" + tch_tel
+		return "TeacherVO [tch_id=" + tch_id + ", tch_pass=" + tch_pass + ", tch_nm=" + tch_nm + ", tch_tel=" + tch_tel
 				+ ", tch_profile=" + tch_profile + ", tch_code=" + tch_code + ", tch_join=" + tch_join + ", tch_retire="
-				+ tch_retire + ", tch_intro=" + tch_intro + ", tch_contract=" + tch_contract + ", tch_gn=" + tch_gn
-				+ "]";
+				+ tch_retire + ", tch_intro=" + tch_intro + ", tch_gn=" + tch_gn + "]";
 	}
+	
 	
 }

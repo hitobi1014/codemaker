@@ -22,6 +22,7 @@ public class ChatVO {
 	private String chat_cont;   // 채팅 내용
 	private String charroom_id; // 채팅방 아이디
 	private String user_id;     // 회원 아이디
+	private String admin_id;     // 관리자 아이디
 	
 	public String getChat_id() {
 		return chat_id;
@@ -53,11 +54,17 @@ public class ChatVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	public String getAdmin_id() {
+		return admin_id;
+	}
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
 	
 	@Override
 	public String toString() {
 		return "ChatVO [chat_id=" + chat_id + ", chat_time=" + chat_time + ", chat_cont=" + chat_cont + ", charroom_id="
-				+ charroom_id + ", user_id=" + user_id + "]";
+				+ charroom_id + ", user_id=" + user_id + ", admin_id=" + admin_id + "]";
 	}
 	
 }

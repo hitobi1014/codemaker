@@ -18,12 +18,13 @@ import java.util.Date;
 public class ReplyVO {
 	
 	private String reply_id;        // 댓글 아이디
-	private Date reply_cont;      // 댓글 내용
+	private Date reply_cont;      	// 댓글 내용
 	private String reply_date;      // 댓글 작성일
 	private String reply_out;       // 댓글 삭제여부
 	private String reply_gn;        // 댓글 구분코드
 	private String reply_root;      // 댓글 부모코드
 	private String reply_writer;	// 댓글 작성자(회원 아이디 또는 선생님 아이디)
+	private String qna_id;			// Q&A 아이디
 	
 	public String getReply_id() {
 		return reply_id;

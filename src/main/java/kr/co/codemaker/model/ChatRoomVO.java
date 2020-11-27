@@ -15,18 +15,19 @@ package kr.co.codemaker.model;
  */
 public class ChatRoomVO {
 	
-	private String charroom_id;	// 채팅방 아이디
+	private String chatroom_id;	// 채팅방 아이디
 
-	public String getCharroom_id() {
-		return charroom_id;
+	public String getChatroom_id() {
+		return chatroom_id;
 	}
-	public void setCharroom_id(String charroom_id) {
-		this.charroom_id = charroom_id;
+	public void setChatroom_id(String chatroom_id) {
+		this.chatroom_id = chatroom_id;
 	}
 
 	@Override
 	public String toString() {
-		return "ChatRoomVO [charroom_id=" + charroom_id + "]";
+		return "ChatRoomVO [chatroom_id=" + chatroom_id + "]";
 	}
+
 	
 }

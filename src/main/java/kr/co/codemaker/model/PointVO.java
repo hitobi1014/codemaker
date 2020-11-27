@@ -18,10 +18,10 @@ import java.util.Date;
 public class PointVO {
 	
 	private String point_id;		// 포인트 아이디
-	private Date point_date;      // 포인트 사용일
-	private String point_update;	// 포인트 금액 내역
+	private Date point_date;      	// 포인트 사용일
+	private int point_update;		// 포인트 금액 내역
 	private String point_gn;        // 포인트 사용구분(적립, 환불, 사용)
-	private String point_sum;       // 남은 포인트
+	private int point_sum;       	// 남은 포인트
 	private String user_id;		    // 회원 아이디
 	
 	public String getPoint_id() {
@@ -36,10 +36,10 @@ public class PointVO {
 	public void setPoint_date(Date point_date) {
 		this.point_date = point_date;
 	}
-	public String getPoint_update() {
+	public int getPoint_update() {
 		return point_update;
 	}
-	public void setPoint_update(String point_update) {
+	public void setPoint_update(int point_update) {
 		this.point_update = point_update;
 	}
 	public String getPoint_gn() {
@@ -48,10 +48,10 @@ public class PointVO {
 	public void setPoint_gn(String point_gn) {
 		this.point_gn = point_gn;
 	}
-	public String getPoint_sum() {
+	public int getPoint_sum() {
 		return point_sum;
 	}
-	public void setPoint_sum(String point_sum) {
+	public void setPoint_sum(int point_sum) {
 		this.point_sum = point_sum;
 	}
 	public String getUser_id() {

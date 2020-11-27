@@ -23,6 +23,7 @@ public class PayVO {
 	private String pay_sum;     // 결제 금액
 	private Date pay_date;      // 결제일
 	private String user_id;     // 회원 아이디
+	private String les_id;		// 강의 아이디
 	
 	public String getPay_id() {
 		return pay_id;
@@ -60,11 +61,18 @@ public class PayVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+	public String getLes_id() {
+		return les_id;
+	}
+	public void setLes_id(String les_id) {
+		this.les_id = les_id;
+	}
 	
 	@Override
 	public String toString() {
 		return "PayVO [pay_id=" + pay_id + ", pay_refund=" + pay_refund + ", pay_way=" + pay_way + ", pay_sum="
-				+ pay_sum + ", pay_date=" + pay_date + ", user_id=" + user_id + "]";
+				+ pay_sum + ", pay_date=" + pay_date + ", user_id=" + user_id + ", les_id=" + les_id + "]";
 	}
+	
 
 }

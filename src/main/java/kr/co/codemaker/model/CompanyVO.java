@@ -20,7 +20,6 @@ public class CompanyVO {
 	private String com_add;         // 기업 주소
 	private String com_owner;       // 대표자
 	private String com_tel;         // 전화번호
-	private String com_contract;    // 계약서
 	
 	public String getCom_id() {
 		return com_id;
@@ -52,17 +51,11 @@ public class CompanyVO {
 	public void setCom_tel(String com_tel) {
 		this.com_tel = com_tel;
 	}
-	public String getCom_contract() {
-		return com_contract;
-	}
-	public void setCom_contract(String com_contract) {
-		this.com_contract = com_contract;
-	}
 	
 	@Override
 	public String toString() {
 		return "CompanyVO [com_id=" + com_id + ", com_nm=" + com_nm + ", com_add=" + com_add + ", com_owner="
-				+ com_owner + ", com_tel=" + com_tel + ", com_contract=" + com_contract + "]";
+				+ com_owner + ", com_tel=" + com_tel + "]";
 	}
-
+	
 }
