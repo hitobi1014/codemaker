@@ -2,11 +2,11 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-   <typeAliases>
-	<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
-	<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
-	<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
-   </typeAliases>							
+    <typeAliases>
+		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
+		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
+		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
+    </typeAliases>
     
    <mappers>
     <mapper resource="egovframework/sqlmap/mappers/main.xml"/>

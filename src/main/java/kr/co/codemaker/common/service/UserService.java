@@ -17,6 +17,11 @@ public class UserService implements UserServiceI {
 	public int insertUser(UserVO userVo) {
 		return userDao.insertUser(userVo);
 	}
+
+	@Override
+	public int idchk(UserVO userVo) {
+		return userDao.idchk(userVo);
+	}
 	
 	
 }
