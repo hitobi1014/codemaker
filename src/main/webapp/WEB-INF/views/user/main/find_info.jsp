@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>회원로그인 페이지</title>
+	<title>회원정보 찾기</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -32,15 +32,6 @@
 <!--===============================================================================================-->
 </head>
 <script>
-$(function(){
-	if(${cookie.remember.value}==1){
-		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#user_id").val("${cookie.userid.value}");
-	}else{
-		$("input:checkbox[id='ckb1']").prop('checked',false);
-		$("#user_id").val('');
-	}
-})
 </script>
 <style>
 .txt1:hover{
@@ -48,55 +39,48 @@ $(function(){
 }
 #di{width: 1920px; height:70px; margin-left: 520px; padding-top: 85px;}
 #logo{width:200px;height: 70px;}
-.loginapi{margin-top: 5px;}
-.row{width: 837px; height: 600px;margin-bottom: 100px;}
-.cldiv{height: 570px;}
+.row{width: 837px; height: 600px;margin-bottom: 100px; padding-left: 50%;}
+.find{width: 500px;height: 40px;border:1px solid black;}
+.firstCol{width:248px;height:40px; float: left;text-align: center; line-height: 40px;}
+.lastCol{width:248px;height:40px; float: right;text-align: center; line-height: 40px;}
+.div2{margin-left: 150px;}
+.in3{width: 837px;}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.button4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
 </style>
 <body>
 	
 	<div class="limiter" style="background-color:#f4f4f4">
 		<div class="container-login100" >
-			<div id="di">
-				<a class="loginlogo" href="${cp}/user/main"><img id="logo" src="/img/mj/로고 작업.png"/></a>
-			</div>
+		<div id="di">
+			<a href="${cp}/user/main"><img id="logo" src="/img/mj/로고 작업.png"/></a>
+		</div>
 			<div class="row" style="border:1px solid #ededed; padding:20px;background-color:white;">
-				<div class="cldiv col-xs-3 wrap-login100 p-t-50 p-b-90" style="margin-right:10px;">
-					<form class="login100-form validate-form flex-sb flex-w" action="${cp}/user/login" method="post">
-						<span class="login100-form-title p-b-51">Login</span>
-						<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-							<input class="input100" type="text" id="user_id" name="user_id" placeholder="아이디">
-							<span class="focus-input100"></span>
-						</div>
-						<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-							<input class="input100" type="password" name="user_pass" placeholder="비밀번호">
-							<span class="focus-input100"></span>
-						</div>
-						
-						<div class="flex-sb-m w-full p-t-3 p-b-24">
-							<div class="contact100-form-checkbox">
-								<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberMe" value="1">
-								<label class="label-checkbox100" for="ckb1">아이디 저장</label>
-							</div>
-							<div>
-								<a href="${cp}/user/FindId" class="txt1">아이디</a>•
-								<a href="#" class="txt1">비밀번호찾기</a>
-							</div>
-						</div>
-						<span style="color:red;"><c:if test="${param.msg !=null}">${param.msg}</c:if></span>
-						<div class="container-login100-form-btn m-t-17">
-							<button class="login100-form-btn">
-								코딩GO!
-							</button>
-						</div>
-						<div style="margin:0 auto;">
-							<a href="#"><img class="loginapi" src="/img/mj/네이버로그인.jpg"></a><br>
-							<a href="#"><img class="loginapi" src="/img/mj/카카오로그인.jpg"></a>
-						</div>
-					</form>
-				</div>
-				
-				<div class="cldiv col-xs-3 mb-4 wrap-login100 p-t-50 p-b-90" style="margin-left:5px;">
-					<img src="/img/mj/로그인페이지사진.jpg"/>
+				<div class="div2">
+					<div class="find">
+						<ul>
+							<li class="firstCol">아이디 찾기</li>
+							<li class="lastCol">비밀번호 찾기</li>
+						</ul>
+					</div>
+					<div>
+						<button class="button button4">등록된 휴대폰 번호로 찾기</button>
+					</div>
 				</div>
 			</div>
 		</div>

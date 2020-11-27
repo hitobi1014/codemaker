@@ -83,8 +83,7 @@ public class userLoginController {
 	
 	@RequestMapping(path="FindId")
 	public String userFindId() {
-		
-		return "";
+		return "user/main/find_info";
 	}
 	
 	@RequestMapping(path="/signup")
