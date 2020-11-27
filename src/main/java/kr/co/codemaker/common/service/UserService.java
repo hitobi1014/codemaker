@@ -13,6 +13,9 @@ public class UserService implements UserServiceI {
 	@Resource(name="userDao")
 	private UserDaoI userDao;
 	
+	public UserService() {
+	}
+	
 	@Override
 	public int insertUser(UserVO userVo) {
 		return userDao.insertUser(userVo);
