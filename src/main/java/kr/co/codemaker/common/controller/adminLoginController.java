@@ -19,13 +19,12 @@ public class adminLoginController {
 		
 		@RequestMapping(path="/adminMain")
 		public String adminMain() {
-			return "admin/main/adminMain";
+			return "adminPage/admin/main/adminMain";
 		}
 		
 		@RequestMapping(path="/teacherMain")
 		public String teacherMain() {
-			return "teacher/main/teacherMain";
+			return "teacherPage/teacher/main/teacherMain";
 		}
 		
-
 }
