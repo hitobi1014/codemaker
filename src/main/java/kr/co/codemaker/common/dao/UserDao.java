@@ -16,8 +16,12 @@ public class UserDao implements UserDaoI {
 
 	@Override
 	public int insertUser(UserVO userVo) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("user.insertUser", userVo);
+	}
+
+	@Override
+	public int idchk(UserVO userVo) {
+		return sqlSession.selectOne("user.idchk", userVo);
 	}
 	
 	
