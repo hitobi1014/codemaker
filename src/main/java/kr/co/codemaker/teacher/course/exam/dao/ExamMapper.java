@@ -3,10 +3,12 @@ package kr.co.codemaker.teacher.course.exam.dao;
 import java.util.List;
 import java.util.Map;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.model.AnswersheetVO;
 import kr.co.codemaker.model.ExamVO;
 import kr.co.codemaker.model.QuestionVO;
-import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 
 /**
  * 
@@ -21,7 +23,10 @@ import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
 * 김미연 최초 생성
 *
  */
-public interface ExamDaoI {
+@Mapper("examMapper")
+public interface ExamMapper {
+	
+	public List<AdminVO> selectAllAdmin(); 
 
 	/**
 	 * 시험을 등록하는 메서드

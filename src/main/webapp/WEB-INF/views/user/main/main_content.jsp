@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <!-- main(css)-->
-<link href="/vendor/user/main/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+<link href="/vendor/user/main/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 
 <!-- main Custom styles for this template-->
 <link href="/css/user/main/sb-admin-2.min.css" rel="stylesheet">
 
- <!-- main Bootstrap core JavaScript-->
+<!-- main Bootstrap core JavaScript-->
 <script src="/vendor/user/main/jquery/jquery.min.js"></script>
 <script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -42,9 +44,12 @@
 				<div class="card-body2">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-3">
-							<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-1.svg">
+							<img class="imgMain"
+								src="/images/user/main/drawkit-grape-pack-illustration-1.svg">
 							<br>
-							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 개발 커리어를 쌓아보는</div>
+							<div
+								class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+								개발 커리어를 쌓아보는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
 								<a id="at" href="" style="font-size: 1.1em;">전체강의 </a> <br>
 							</div>
@@ -60,9 +65,12 @@
 				<div class="card-body2">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-3">
-							<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-2.svg">
+							<img class="imgMain"
+								src="/images/user/main/drawkit-grape-pack-illustration-2.svg">
 							<br>
-							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 코드메이커와 준비하는</div>
+							<div
+								class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+								코드메이커와 준비하는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
 								<a id="at" href="" style="font-size: 1.1em;">코딩테스트</a> <br>
 							</div>
@@ -78,9 +86,12 @@
 				<div class="card-body2">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-3">
-							<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-6.svg">
+							<img class="imgMain"
+								src="/images/user/main/drawkit-grape-pack-illustration-6.svg">
 							<br>
-							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 자유롭게 소통하는</div>
+							<div
+								class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+								자유롭게 소통하는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
 								<a id="at" href="" style="font-size: 1.1em;">게시판</a> <br>
 							</div>
@@ -96,9 +107,12 @@
 				<div class="card-body2">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-3">
-							<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-18.svg">
+							<img class="imgMain"
+								src="/images/user/main/drawkit-grape-pack-illustration-18.svg">
 							<br>
-							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 필요한 정보 쏙쏙!</div>
+							<div
+								class="text-xm font-weight-bold text-primary text-uppercase mb-1">
+								필요한 정보 쏙쏙!</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
 								<a id="at" href="" style="font-size: 1.1em;">취업정보</a> <br>
 							</div>

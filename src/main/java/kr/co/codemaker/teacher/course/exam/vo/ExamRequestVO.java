@@ -1,4 +1,4 @@
-package kr.co.codemaker.teacher.course.exam.model;
+package kr.co.codemaker.teacher.course.exam.vo;
 
 /**
  * 시험을 조회하기 위한 VO

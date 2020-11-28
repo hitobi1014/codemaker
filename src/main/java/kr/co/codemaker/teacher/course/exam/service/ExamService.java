@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.model.AnswersheetVO;
 import kr.co.codemaker.model.ExamVO;
 import kr.co.codemaker.model.QuestionVO;
-import kr.co.codemaker.teacher.course.exam.dao.ExamDaoI;
-import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
+import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 
 /**
  * 
@@ -28,85 +28,74 @@ import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
 *
  */
 @Service("examService")
-public class ExamService implements ExamServiceI {
+public class ExamService {
 	
-	@Resource(name = "examDao")
-	private ExamDaoI examDao;
+	@Resource(name = "examMapper")
+	private ExamMapper examMapper;
 
-	@Override
 	public String insertExam(ExamVO examVo) {
-		return examDao.insertExam(examVo);
+		return examMapper.insertExam(examVo);
 	}
 	
-	@Override
 	public String insertQuestion(QuestionVO questionVo) {
-		return examDao.insertQuestion(questionVo);
+		return examMapper.insertQuestion(questionVo);
 	}
 
-	@Override
 	public int insertAnswersheet(AnswersheetVO answersheetVo) {
-		return examDao.insertAnswersheet(answersheetVo);
+		return examMapper.insertAnswersheet(answersheetVo);
 	}
 
-	@Override
 	public int updateExam(ExamVO examVo) {
-		return examDao.updateExam(examVo);
+		return examMapper.updateExam(examVo);
 	}
 	
-	@Override
 	public int updateQuestion(QuestionVO questionVo) {
-		return examDao.updateQuestion(questionVo);
+		return examMapper.updateQuestion(questionVo);
 	}
 
-	@Override
 	public int updateAnswersheet(AnswersheetVO answersheetVo) {
-		return examDao.updateAnswersheet(answersheetVo);
+		return examMapper.updateAnswersheet(answersheetVo);
 	}
 
-	@Override
 	public Map<String, Object> selectAllExam(ExamRequestVO examRequestVo) {
 		Map<String, Object> examMap = new HashMap<String, Object>();
 		
-		List<ExamVO> examList = examDao.selectAllExam(examRequestVo);
+		List<ExamVO> examList = examMapper.selectAllExam(examRequestVo);
 		examMap.put("examList", examList);
 		
-		int totalCnt = examDao.selectTotalCntExam(examRequestVo);
+		int totalCnt = examMapper.selectTotalCntExam(examRequestVo);
 		examMap.put("totalCnt", totalCnt);
 		
 		return examMap;
 	}
 	
-	@Override
 	public ExamVO selectExam(ExamVO examVo) {
-		return examDao.selectExam(examVo);
+		return examMapper.selectExam(examVo);
 	}
 	
-	@Override
 	public List<QuestionVO> selectQuestion(ExamVO examVo) {
-		return examDao.selectQuestion(examVo);
+		return examMapper.selectQuestion(examVo);
 	}
 	
-	@Override
 	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVo) {
-		return examDao.selectAnswersheet(questionVo);
+		return examMapper.selectAnswersheet(questionVo);
 	}
 
-	@Override
 	public int deleteExam(ExamVO examVo) {
 		
-		List<QuestionVO> questionList = examDao.selectQuestion(examVo);
+		List<QuestionVO> questionList = examMapper.selectQuestion(examVo);
 		
 		// 시험문제 보기 삭제
 		for(QuestionVO questionVo : questionList) {
 			for(int i = 0; i < 4 ; i++) {
-				examDao.deleteAnswersheet(questionVo);
+				examMapper.deleteAnswersheet(questionVo);
 			}
 		}
 		
 		// 시험 문제 삭제
-		examDao.deleteQuestion(examVo);
+		examMapper.deleteQuestion(examVo);
 		
-		return examDao.deleteExam(examVo); // 시험 삭제
+		return examMapper.deleteExam(examVo); // 시험 삭제
 	}
 
 }
