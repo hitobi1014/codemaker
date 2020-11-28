@@ -18,7 +18,7 @@
 <!-- FAVICON -->
 <link href="/images/favicon.png" rel="shortcut icon" />
 
-<script src="/css/adminMainJs/nprogress.js"></script>
+<script src="/js/teacher/main/nprogress.js"></script>
 
 
 <!-- js -->

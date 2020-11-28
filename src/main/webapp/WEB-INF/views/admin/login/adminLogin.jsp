@@ -160,10 +160,10 @@ $(function(){
 	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
-		
 			<!-- Modal content-->
 			<div class="modal-body">
 				<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+					<br>
 					<h2 class="w3-center">회원가입</h2>
 					
 					<div class="w3-row w3-section">
@@ -173,12 +173,6 @@ $(function(){
 						</div>
 					</div>
 					
-					<div class="w3-row w3-section">
-						<div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
-						<div class="w3-rest">
-							<input class="w3-input w3-border" name="first" type="text" placeholder="성명">
-						</div>
-					</div>
 					
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
@@ -187,12 +181,6 @@ $(function(){
 						</div>
 					</div>
 					
-					<div class="w3-row w3-section">
-						<div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-user"></i></div>
-						<div class="w3-rest">
-							<input class="w3-input w3-border" name="first" type="text" placeholder="비밀번호 확인">
-						</div>
-					</div>
 					
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-phone"></i></div>

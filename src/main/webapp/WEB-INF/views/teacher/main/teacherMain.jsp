@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
+<link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
+<!-- PLUGINS CSS STYLE -->
+<link href="/css/admin/main/daterangepicker.css" rel="stylesheet" />
+<link href="/css/admin/main/flag-icon.min.css" rel="stylesheet"/>
+<link href="/css/admin/main/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+<link href="/css/admin/main/ladda.min.css" rel="stylesheet" />
+<link href="/css/admin/main/nprogress.css" rel="stylesheet" />
+<link href="/css/admin/main/select2.min.css" rel="stylesheet" />
+<link href="/css/admin/main/toastr.min.css" rel="stylesheet" />
+<!-- SLEEK CSS -->
+<link id="sleek-css" rel="stylesheet" href="/css/admin/main/sleek.css" />
 
-<title>Sleek - Admin Dashboard Template</title>
-<%@ include file="/WEB-INF/views/teacher/layout/commonLib.jsp" %>
-</head>
+<!-- FAVICON -->
+<link href="/images/favicon.png" rel="shortcut icon" />
+
+<script src="/js/teacher/main/nprogress.js"></script>
 
 
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
@@ -22,15 +30,7 @@ NProgress.start();
 <div class="mobile-sticky-body-overlay"></div>
 
 	<div class="wrapper">
-	<%@include file="/WEB-INF/views/teacher/layout/nav.jsp" %>
-	
-	
-	
 		<div class="page-wrapper">
-		<!-- Header -->
-		<%@include file="/WEB-INF/views/teacher/layout/header.jsp" %>
-		
-		
 			<div class="content-wrapper">
 				<div class="content">						 
 				<!-- Top Statistics -->
@@ -771,17 +771,31 @@ NProgress.start();
 						</div>
 					</div>
 				</div>
-			
-			
-			
-			
 			</div>
 		
-		<%@include file="/WEB-INF/views/teacher/layout/footer.jsp" %>
 		
 		</div>
 	</div>
-
+<!-- js -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
+<script src="/js/teacher/main/jquery.min.js"></script>
+<script src="/js/teacher/main/bootstrap.bundle.min.js"></script>
+<script src="/js/teacher/main/toastr.min.js"></script>
+<script src="/js/teacher/main/jquery.slimscroll.min.js"></script>
+<script src="/js/teacher/main/Chart.min.js"></script>
+<script src="/js/teacher/main/spin.min.js"></script>
+<script src="/js/teacher/main/ladda.min.js"></script>
+<script src="/js/teacher/main/jquery.mask.min.js"></script>
+<script src="/js/teacher/main/select2.min.js"></script>
+<script src="/js/teacher/main/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="/js/teacher/main/jquery-jvectormap-world-mill.js"></script>
+<script src="/js/teacher/main/moment.min.js"></script>
+<script src="/js/teacher/main/daterangepicker.js"></script>
+<script src="/js/teacher/main/jekyll-search.min.js"></script>
+<script src="/js/teacher/main/sleek.js"></script>
+<script src="/js/teacher/main/chart.js"></script>
+<script src="/js/teacher/main/date-range.js"></script>
+<script src="/js/teacher/main/map.js"></script>
+<script src="/js/teacher/main/custom.js"></script>
 
 </body>
-</html>

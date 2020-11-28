@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <style>
 #imglogo{width: 200px;}
 #imgicon{width: 40px; height:40px; }

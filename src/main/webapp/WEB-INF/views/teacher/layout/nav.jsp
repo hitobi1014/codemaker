@@ -6,7 +6,7 @@
 			<div class="app-brand">
 				<a href="#">
 					<img src="/images/codemaker_name4.png">
-					<span class="brand-name">교사</span>
+					<span class="brand-name">강사</span>
 				</a>
 			</div>
 			<!-- begin sidebar scrollbar -->
