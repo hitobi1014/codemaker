@@ -61,7 +61,7 @@
 							<br>
 							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 자유롭게 소통하는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
-								<a id="at" href="" style="font-size: 1.1em;">게시판</a> <br>
+								<a id="at" href="${cp}/userNotice/selectAllNotice" style="font-size: 1.1em;">게시판</a> <br>
 							</div>
 						</div>
 					</div>

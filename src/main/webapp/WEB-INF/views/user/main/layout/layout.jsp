@@ -16,13 +16,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 </head>
+
+<%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 
 <body id="page-top">
 	<div id="wrapper">
 		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
 				<c:choose>
 					<c:when test="${MEMBER_INFO !=null}">
 						<tiles:insertAttribute name="loginHeader" />
@@ -31,6 +31,7 @@
 						<tiles:insertAttribute name="header" />
 					</c:otherwise>
 				</c:choose>
+			<div id="content">
 				<tiles:insertAttribute name="content"/>
 			</div>
 		</div>

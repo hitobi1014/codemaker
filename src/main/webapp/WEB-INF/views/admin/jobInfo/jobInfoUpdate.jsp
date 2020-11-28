@@ -26,10 +26,8 @@ $(document).ready(function() {
 
     $(".del_file").on("click", function() {
         a = $(this).val();
-        del_count++
         $('#fileup').append("<input type='hidden' name='del_files' value='"+a+"'>")
         
-        $('#del_count').val(del_count)
         $(this).parent().remove();
 
     })
@@ -38,50 +36,40 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="frm" class="form-horizontal" method="POST" action="${cp}/adminNotice/updateNotice" enctype="multipart/form-data">
-		
-		<div class="form-group">
-		<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
-			<div class="col-sm-10">
-				<select id="notice_head" name="notice_head">
-				<c:if test="${noticeVo.notice_head == 1}">
-					<option value="1" selected>이벤트</option>
-					<option value="2">자주묻는질문</option>
-					<option value="3">알림</option>
-				</c:if>
-				<c:if test="${noticeVo.notice_head == 2}">
-					<option value="1">이벤트</option>
-					<option value="2" selected>자주묻는질문</option>
-					<option value="3">알림</option>
-				</c:if>
-				<c:if test="${noticeVo.notice_head == 3}">
-					<option value="1">이벤트</option>
-					<option value="2">자주묻는질문</option>
-					<option value="3" selected>알림</option>
-				</c:if>
-				</select>
-			</div>
-		</div>
-		
+	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/jobInfo/jobInfoNotice" enctype="multipart/form-data">
 		
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
-				<input type=text name="notice_title" style="width: 500px;"
-					value="${noticeVo.notice_title}">
+				<input type=text name="job_title" style="width: 500px;"
+					value="${jobInfoVo.job_title}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="notice_cont">${noticeVo.notice_cont}</textarea>
+				<textarea class="summernote" name="job_cont">${jobInfoVo.job_cont}</textarea>
 			</div>
 		</div>
-		
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="notice_id" value="${noticeVo.notice_id}" />
+				<input type="hidden" name="job_date" value="${jobInfoVo.job_date}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="job_out" value="${jobInfoVo.job_out}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="admin_id" value="${jobInfoVo.admin_id}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="job_id" value="${jobInfoVo.job_id}" />
 			</div>
 		</div>
 
@@ -102,13 +90,11 @@ $(document).ready(function() {
 		<br>
 		<div class="col-sm-10" id="fileup" class="col-sm-10">
 		</div>
-		<input id="del_count" name="del_count" type="hidden" value="0">
-		<br>
 		
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">공지사항 수정</button>
+				<button type="submit" class="btn btn-default">취업공고 수정</button>
 			</div>
 		</div>
 	</form>

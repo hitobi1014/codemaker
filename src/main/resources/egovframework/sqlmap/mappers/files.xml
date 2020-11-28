@@ -12,7 +12,7 @@
   </select>
   
   <select id="selectAllFiles" parameterType="String" resultType="FilesVO">
-  	SELECT * FROM FILES WHERE FILES_GN = #{files_gn}
+  	SELECT * FROM FILES WHERE FILES_GROUP = #{files_gn}
   </select>
 
   <delete id="deleteFiles" parameterType="String">

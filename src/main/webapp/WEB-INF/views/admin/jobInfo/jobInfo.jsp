@@ -18,18 +18,18 @@
 <script>
 $(document).ready(function(){
 	$("#upbutton").on("click", function(){
-		document.location="${cp}/adminNotice/updateNotice?notice_id=${noticeVo.notice_id}";
+		document.location="updateJobInfo?job_id=${jobInfoVo.job_id}";
 	});
 	
 	$("#delbutton").on("click", function(){
 		
-		document.location="${cp}/adminNotice/deleteNotice?notice_id=${noticeVo.notice_id}";
+		document.location="deleteJobInfo?job_id=${jobInfoVo.job_id}";
 	});
 
 
 	$("button[id^=fileDownBtn]").on("click", function(){
 		files_no = $(this).val();
-		document.location="downloadView?board_no=${bv.board_no}&files_no="+files_no;
+		document.location="downloadView?job_id=${jobInfoVo.job_id}&files_no="+files_no;
 	});
 
 	 
@@ -45,10 +45,6 @@ $(document).ready(function(){
 	    }
 
 	});
-	
-	$("#return").on("click", function(){
-		document.location="${cp}/adminNotice/selectAllNotice";
-	})
 
 });
 
@@ -58,37 +54,38 @@ $(document).ready(function(){
 <body>
 	<form class="form-horizontal" enctype="multipart/form-data" >
 		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">공지사항 번호</label>
+			<label for="userNm" class="col-sm-2 control-label">취업공고 번호</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_id}</label>
+				<label class="control-label">${jobInfoVo.job_id}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">게시글 제목</label>
+			<label for="userNm" class="col-sm-2 control-label">취업공고 제목</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_title}</label>
+				<label class="control-label">${jobInfoVo.job_title}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">게시글 내용</label>
+			<label for="userNm" class="col-sm-2 control-label">취업공고 내용</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_cont}</label>
+				<label class="control-label">${jobInfoVo.job_cont}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="pass" class="col-sm-2 control-label">작성 날짜</label>
 			<div class="col-sm-10">
-				<label class="control-label"><fmt:formatDate value="${noticeVo.notice_date}" pattern="yyyy-MM-dd" /></label>
+				<label class="control-label"><fmt:formatDate value="${jobInfoVo.job_date}" pattern="yyyy-MM-dd" /></label>
+<%-- 				<label class="control-label">${noticeVo.notice_date}</label> --%>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="pass" class="col-sm-2 control-label">작성자</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.admin_id}</label>
+				<label class="control-label">${jobInfoVo.admin_id}</label>
 			</div>
 		</div>
 
@@ -104,21 +101,19 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label for="pass" class="col-sm-2 control-label">삭제여부</label>
 				<div class="col-sm-10">
-					<label class="control-label">${noticeVo.notice_out}</label>
+					<label class="control-label">${jobInfoVo.job_out}</label>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="upbutton" class="btn btn-default">공지사항 수정</button>
+					<button type="button" id="upbutton" class="btn btn-default">취업공고 수정</button>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="delbutton" class="btn btn-default">공지사항 삭제</button>
+					<button type="button" id="delbutton" class="btn btn-default">취업공고 삭제</button>
 				</div>
 			</div>
-
-		<input type="button" id="return" value="뒤로가기">
 	</form>
 </body>	
 </html>

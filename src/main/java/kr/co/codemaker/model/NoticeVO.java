@@ -17,62 +17,62 @@ import java.util.Date;
  */
 public class NoticeVO {
 	
-	private String notice_id;		// 공지사항 아이디
-	private String notice_title;    // 공지사항 제목
-	private String notice_cont;     // 공지사항 내용
-	private Date notice_date;       // 공지사항 작성일
-	private String notice_out;      // 공지사항 삭제여부
-	private String notice_head;     // 공지사항 구분자
-	private String admin_id;        // 관리자 아이디
-	
-	public String getNotice_id() {
-		return notice_id;
-	}
-	public void setNotice_id(String notice_id) {
-		this.notice_id = notice_id;
-	}
-	public String getNotice_title() {
-		return notice_title;
-	}
-	public void setNotice_title(String notice_title) {
-		this.notice_title = notice_title;
-	}
-	public String getNotice_cont() {
-		return notice_cont;
-	}
-	public void setNotice_cont(String notice_cont) {
-		this.notice_cont = notice_cont;
-	}
-	public Date getNotice_date() {
-		return notice_date;
-	}
-	public void setNotice_date(Date notice_date) {
-		this.notice_date = notice_date;
-	}
-	public String getNotice_out() {
-		return notice_out;
-	}
-	public void setNotice_out(String notice_out) {
-		this.notice_out = notice_out;
-	}
-	public String getNotice_head() {
-		return notice_head;
-	}
-	public void setNotice_head(String notice_head) {
-		this.notice_head = notice_head;
-	}
-	public String getAdmin_id() {
-		return admin_id;
-	}
-	public void setAdmin_id(String admin_id) {
-		this.admin_id = admin_id;
-	}
-	
+	private String noticeId;		// 공지사항 아이디
+	private String noticeTitle;    // 공지사항 제목
+	private String noticeCont;     // 공지사항 내용
+	private Date noticeDate;       // 공지사항 작성일
+	private String noticeOut;      // 공지사항 삭제여부
+	private String noticeHead;     // 공지사항 구분자
+	private String adminId;        // 관리자 아이디
 	@Override
 	public String toString() {
-		return "NoticeVO [notice_id=" + notice_id + ", notice_title=" + notice_title + ", notice_cont=" + notice_cont
-				+ ", notice_date=" + notice_date + ", notice_out=" + notice_out + ", notice_head=" + notice_head
-				+ ", admin_id=" + admin_id + "]";
+		return "NoticeVO [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeCont=" + noticeCont
+				+ ", noticeDate=" + noticeDate + ", noticeOut=" + noticeOut + ", noticeHead=" + noticeHead
+				+ ", adminId=" + adminId + "]";
 	}
+	public String getNoticeId() {
+		return noticeId;
+	}
+	public void setNoticeId(String noticeId) {
+		this.noticeId = noticeId;
+	}
+	public String getNoticeTitle() {
+		return noticeTitle;
+	}
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
+	}
+	public String getNoticeCont() {
+		return noticeCont;
+	}
+	public void setNoticeCont(String noticeCont) {
+		this.noticeCont = noticeCont;
+	}
+	public Date getNoticeDate() {
+		return noticeDate;
+	}
+	public void setNoticeDate(Date noticeDate) {
+		this.noticeDate = noticeDate;
+	}
+	public String getNoticeOut() {
+		return noticeOut;
+	}
+	public void setNoticeOut(String noticeOut) {
+		this.noticeOut = noticeOut;
+	}
+	public String getNoticeHead() {
+		return noticeHead;
+	}
+	public void setNoticeHead(String noticeHead) {
+		this.noticeHead = noticeHead;
+	}
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+	
+	
 
 }

@@ -23,6 +23,8 @@ public class FilesDao implements FilesDaoI {
 	@Override
 	public int insertFiles(FilesVO filesVo) {
 		logger.debug("다오까지 오냐?");
+		logger.debug("다오 파일 {}",filesVo);
+		
 		return sqlSession.insert("files.insertFiles", filesVo);
 	}
 
