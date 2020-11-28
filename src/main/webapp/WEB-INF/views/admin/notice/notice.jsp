@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 </head>
 <body>
-	<form class="form-horizontal" role="form" enctype="multipart/form-data" >
+	<form class="form-horizontal" enctype="multipart/form-data" >
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 번호</label>
 			<div class="col-sm-10">
@@ -89,13 +89,14 @@ $(document).ready(function(){
 			</div>
 		</div>
 
-<%-- 		<c:forEach items="${fv}" var="fv"> --%>
-<!-- 			<div class="form-group"> -->
-<!-- 				<label for="pass" class="col-sm-2 control-label">첨부파일</label> -->
-<!-- 				<button id="fileDownBtn" type="button" class="btn btn-default" -->
-<%-- 					value="${fv.files_no}">${fv.real_files_name}</button> --%>
-<!-- 			</div> -->
-<%-- 		</c:forEach> --%>
+		<c:forEach items="${filesVo}" var="filesVo">
+			<div class="form-group">
+				<label for="pass" class="col-sm-2 control-label">첨부파일</label>
+				<button id="fileDownBtn" type="button" class="btn btn-default"
+					value="${filesVo.files_id}">${filesVo.files_nm}</button>
+			</div>
+		</c:forEach>
+		
 
 		<c:if test="${S_MEMBER.user_id == notice.admin_id}">
 			<div class="form-group">

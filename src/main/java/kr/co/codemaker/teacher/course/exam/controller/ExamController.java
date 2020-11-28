@@ -48,7 +48,7 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/insertExam" , method = {RequestMethod.GET})
-	public String insertViewExam(String les_id, Model model) {
+	public String insertViewExam(String les_id, String cur_id, Model model) {
 		
 		// 커리큘럼을 조회
 //		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(les_id);
@@ -56,15 +56,16 @@ public class ExamController {
 		
 		List<CurriculumVO> curriculumList = new ArrayList<>();
 		
-		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
+		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
+		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
+		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
 		
 		curriculumList.add(cur1);
 		curriculumList.add(cur2);
 		curriculumList.add(cur3);
 		
 		model.addAttribute("curriculumList", curriculumList);
+		model.addAttribute("cur_id", cur_id);
 
 		return "teacher/exam/examInsert";
 	}
@@ -182,10 +183,10 @@ public class ExamController {
 	 * 등록한 시험문제를 전체 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectAllExam")
+	@RequestMapping(path = "/selectAllResExam")
 	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
-		Map<String, Object> examMap = new HashMap<String, Object>();
+		Map<String, Object> examMap = examService.selectAllExam(examRequestVo);
 		
 		model.addAttribute("examList", (List<ExamVO>)examMap.get("examList"));      
 		
@@ -202,6 +203,16 @@ public class ExamController {
 		session.setAttribute("exam_state", examRequestVo.getExam_state()); // 검색 조건
 		
 		return "teacher/exam/examAllSelectAjaxHTML";
+	}
+	
+	/**
+	 * 등록한 시험문제를 전체 조회하는 메서드
+	 * @return
+	 */
+	@RequestMapping(path = "/selectAllExam")
+	public String selectAllTestExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
+		
+		return "teacher/exam/examAllSelect";
 	}
 	
 	/**

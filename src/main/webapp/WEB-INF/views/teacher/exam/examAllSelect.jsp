@@ -13,12 +13,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
-<script src="/js/exam.js"></script>
+<script src="/js/teacher/exam/exam.js"></script>
 
 <script>
 $(function() {
 	// 시험 등록 상태, 커리큘럼 아이디, 현재 보여주는 페이지 번호 인자로...
-	//selectAllExam(99,${cur_id},1);
+// 	selectAllExam(99,${cur_id},1);
+	selectAllExam(99,'dd',1);
 
 	// 조회 조건에 따라서
 	$('#search').on('change', function(){
@@ -28,17 +29,29 @@ $(function() {
 // 		var ci = ${cur_id};
 
 		// 해당 강의의 검색 조건에 따른 1페이지 가져오기
-		selectAllExam(es, ${cur_id}, 1);
+// 		selectAllExam(es, ${cur_id}, 1);
+		selectAllExam(es, 'dd', 1);
 		
 	});
 
 	// 시험 등록 폼 제공
 	$('#regBtn').on('click', function(){
-		var windowObj = window.open('examInsert.jsp','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+		var windowObj = window.open('/exam/insertExam?cur_id=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
 
-		// 부모 -> 자식창으로 데이터 전달
-		windowObj.document.getElementById("cur_id").value = '${cur_id}';
 	});
+	
+	// 시험 삭제
+	$('#delBtn').on('click', function(){
+		var exam_id = [];
+		
+		$('input:checkbox[class="echk"]:checked').each(function(i){
+			console.log($(this).val());
+
+			exam_id.push($(this).val());
+		});
+
+// 		deleteExam();
+	})
 
 	// 시험 상세페이지
 	$('#examList tr').on('click', function(){
@@ -46,7 +59,7 @@ $(function() {
 
 		console.log(exam_id);
 
-		document.location = "/exam/selectExam?exam_id=" + exam_id;
+		//document.location = "/exam/selectExam?exam_id=" + exam_id;
 		
 	});
 	
@@ -87,6 +100,7 @@ $(function() {
 		<option value="1">등록완료</option>
 	</select>
 	<input type="button" class="btn btn-default" value="시험 등록" id="regBtn">
+	<input type="button" class="btn btn-default" value="시험 삭제" id="delBtn">
 </div>
 <table class="w3-hoverable w3-table w3-striped w3-bordered" id="wul">
     <thead>
@@ -99,11 +113,11 @@ $(function() {
       </tr>
     </thead>
     <tbody id="examList">
-	    <tr>
-	      <td>Jill</td>
-	      <td>Smith</td>
-	      <td>50</td>
-	    </tr>
+<!-- 	    <tr> -->
+<!-- 	      <td>Jill</td> -->
+<!-- 	      <td>Smith</td> -->
+<!-- 	      <td>50</td> -->
+<!-- 	    </tr> -->
     </tbody>
 </table>
 

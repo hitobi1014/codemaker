@@ -84,7 +84,7 @@ public class ExamDao implements ExamDaoI{
 		Date date = new Date();
 		
 		ExamVO ex1 = new ExamVO("exam1","test시험","수정중",date, "cur1", "les1");
-		ExamVO ex2 = new ExamVO("exam1","test시험","수정중",date, "cur1", "les1");
+		ExamVO ex2 = new ExamVO("exam2","test2시험","수정중",date, "cur2", "les1");
 		
 		examList.add(ex1);
 		examList.add(ex2);

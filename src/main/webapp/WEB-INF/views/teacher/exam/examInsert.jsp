@@ -12,10 +12,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
-<script src="/js/exam.js"></script>
+<script src="/js/teacher/exam/exam.js"></script>
 
 <script>
 	$(function() {
+		
+		// 커리큘럼 선택시
+		$('#sel1').on('change', function(){
+			changeCurriculum();
+			
+		});
 
 		// 문제 추가
 		$(document).on('click', '.plusBtn', function() {
@@ -191,14 +197,16 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 등록</h2>
-				<br> <label for="sel1">시험을 등록할 강의를 선택해주세요.</label> <br> 
+				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br> 
 				<select class="form-control" id="sel1" name="cur_id">
-					<%-- 					<c:forEach var="curriculum" items="${curriculumList }"> --%>
-					<%-- 						<option value="${curriculum.cur_id }/${curriculum.cur_cont }">${curriculum.cur_cont }</option> --%>
-					<%-- 					</c:forEach> --%>
-					<option value="adfad">2</option>
-					<option>3</option>
-					<option>4</option>
+					<option value="99">커리큘럼을 선택해주세요.</option>
+					<c:forEach var="curriculum" items="${curriculumList }">
+						<option value="${curriculum.cur_id }/${curriculum.cur_cont }" 
+							<c:if test="${curriculum.cur_id eq cur_id }">
+									selected="selected"
+							</c:if>
+						>${curriculum.cur_cont }</option>
+					</c:forEach>
 				</select>
 			</div>
 			<br>
