@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="insertLesson" parameterType="LessonVO">
-		INSERT INTO LESSON VALUES ('5', #{les_nm}, #{les_cont}, '1', '1', '1')
+		INSERT INTO LESSON VALUES (lesson_seq.nextVal, #{les_nm}, #{les_cont}, '1', '1', '1')
 	</insert>	
 
 
