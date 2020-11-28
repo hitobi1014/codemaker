@@ -3,7 +3,7 @@
 
 <configuration>
     <typeAliases>
-		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
+		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UsersVO"/>
 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
 		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
     </typeAliases>							

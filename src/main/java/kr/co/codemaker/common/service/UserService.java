@@ -19,7 +19,7 @@ public class UserService implements UserServiceI {
 	}
 
 	@Override
-	public int idchk(UserVO userVo) {
+	public int idchk(UsersVO userVo) {
 		return userDao.idchk(userVo);
 	}
 	

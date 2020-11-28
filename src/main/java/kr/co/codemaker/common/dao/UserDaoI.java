@@ -6,6 +6,6 @@ public interface UserDaoI {
 
 	int insertUser(UsersVO userVo);
 
-	int idchk(UserVO userVo);
+	int idchk(UsersVO userVo);
 
 }
