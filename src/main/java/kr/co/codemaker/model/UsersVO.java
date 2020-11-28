@@ -13,7 +13,7 @@ package kr.co.codemaker.model;
 * 김미연 최초 생성
 *
  */
-public class UserVO {
+public class UsersVO {
 
 	String user_id;         //회원의 아이디(이메일)
 	String user_pass;       //회원의 비밀번호
@@ -23,11 +23,11 @@ public class UserVO {
 	String user_out;        //회원의 탈퇴여부
 	String user_black;      //회원의 블랙여부
 	
-	public UserVO() {
+	public UsersVO() {
 		
 	}
 	
-	public UserVO(String user_id, String user_pass, String user_nm, String user_tel, String user_profile,
+	public UsersVO(String user_id, String user_pass, String user_nm, String user_tel, String user_profile,
 			String user_out, String user_black) {
 		
 		this.user_id = user_id;

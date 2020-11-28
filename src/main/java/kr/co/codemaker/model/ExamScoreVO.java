@@ -16,8 +16,8 @@ package kr.co.codemaker.model;
 public class ExamScoreVO {
 	
 	private String es_id;		// 시험점수 아이디 
-	private String es_fscroe;   // 시험점수 첫 점수
-	private String es_lscore; // 시험점수 다시풀기 점수(다시 풀때마다 계속 수정됨)
+	private int es_fscroe;   	// 시험점수 첫 점수
+	private int es_lscore; 		// 시험점수 다시풀기 점수(다시 풀때마다 계속 수정됨)
 	private String exam_id;     // 시험 아이디
 	private String user_id;     // 회원 아이디
 	
@@ -27,16 +27,16 @@ public class ExamScoreVO {
 	public void setEs_id(String es_id) {
 		this.es_id = es_id;
 	}
-	public String getEs_fscroe() {
+	public int getEs_fscroe() {
 		return es_fscroe;
 	}
-	public void setEs_fscroe(String es_fscroe) {
+	public void setEs_fscroe(int es_fscroe) {
 		this.es_fscroe = es_fscroe;
 	}
-	public String getEs_lscore() {
+	public int getEs_lscore() {
 		return es_lscore;
 	}
-	public void setEs_lscore(String es_lscore) {
+	public void setEs_lscore(int es_lscore) {
 		this.es_lscore = es_lscore;
 	}
 	public String getExam_id() {

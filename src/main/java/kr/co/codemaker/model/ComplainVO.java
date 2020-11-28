@@ -22,7 +22,7 @@ public class ComplainVO {
 	private String cp_cont;     // 신고 내용
 	private String cp_errorid;  // 신고된 글 아이디
 	private String cp_state;    // 신고 상태코드(신고요청, 확인중, 신고확인/신고취소)
-	private String cp_count;	// 신고 횟수
+	private int cp_count;		// 신고 횟수
 	
 	public String getCp_id() {
 		return cp_id;
@@ -54,10 +54,10 @@ public class ComplainVO {
 	public void setCp_state(String cp_state) {
 		this.cp_state = cp_state;
 	}
-	public String getCp_count() {
+	public int getCp_count() {
 		return cp_count;
 	}
-	public void setCp_count(String cp_count) {
+	public void setCp_count(int cp_count) {
 		this.cp_count = cp_count;
 	}
 	

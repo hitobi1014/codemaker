@@ -1,6 +1,6 @@
 package kr.co.codemaker.common.service;
 
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 public interface MainServiceI {
 
@@ -10,6 +10,6 @@ public interface MainServiceI {
 	* @param user_id
 	* @return User객체
 	*/
-	UserVO selectUser(String user_id);
+	UsersVO selectUser(String user_id);
 	
 }

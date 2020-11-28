@@ -17,7 +17,7 @@ public class CartVO {
 	
 	private String cart_id;		// 장바구니 아이디
 	private String user_id;     // 회원 아이디
-	private String cur_id;      // 커리큘럼 아이디
+	private String les_id;      // 강의 아이디
 	
 	public String getCart_id() {
 		return cart_id;
@@ -31,16 +31,16 @@ public class CartVO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getCur_id() {
-		return cur_id;
+	public String getLes_id() {
+		return les_id;
 	}
-	public void setCur_id(String cur_id) {
-		this.cur_id = cur_id;
+	public void setLes_id(String les_id) {
+		this.les_id = les_id;
 	}
 	
 	@Override
 	public String toString() {
-		return "CartVO [cart_id=" + cart_id + ", user_id=" + user_id + ", cur_id=" + cur_id + "]";
+		return "CartVO [cart_id=" + cart_id + ", user_id=" + user_id + ", les_id=" + les_id + "]";
 	}
-
+	
 }

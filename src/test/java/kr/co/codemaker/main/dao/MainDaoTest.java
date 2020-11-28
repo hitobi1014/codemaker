@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import kr.co.codemaker.common.dao.MainDaoI;
 import kr.co.codemaker.main.ModelTestConfig;
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 public class MainDaoTest extends ModelTestConfig{
 
@@ -20,7 +20,7 @@ public class MainDaoTest extends ModelTestConfig{
 		/***Given***/
 		String userid = "brown";
 		/***When***/
-		UserVO userVo = mainDao.selectUser(userid);
+		UsersVO userVo = mainDao.selectUser(userid);
 
 		/***Then***/
 		assertEquals("brown", userVo.getUser_id());

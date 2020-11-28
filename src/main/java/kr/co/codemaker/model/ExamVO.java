@@ -22,8 +22,8 @@ public class ExamVO {
 	private String exam_nm;		// 시험명
 	private String exam_state;	// 시험 등록 상태
 	private Date exam_date;		// 시험 작성일
-	private String cur_id;		// 커리큘럼 아이디
 	private String les_id;		// 강의 아이디
+	private String cur_id;		// 커리큘럼 아이디
 	
 	public ExamVO() {
 	}
@@ -34,8 +34,8 @@ public class ExamVO {
 		this.exam_nm = exam_nm;
 		this.exam_state = exam_state;
 		this.exam_date = exam_date;
-		this.cur_id = cur_id;
 		this.les_id = les_id;
+		this.cur_id = cur_id;
 	}
 	
 	

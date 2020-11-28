@@ -19,7 +19,7 @@ public class ReviewVO {
 	
 	private String review_id;   // 후기 아이디 
 	private String review_cont; // 후기 내용
-	private String review_star; // 후기 별점
+	private float review_star; // 후기 별점
 	private Date review_date; 	// 후기 작성일
 	private String user_id;     // 회원 아이디
 	private String cos_id;		// 수강 아이디
@@ -36,10 +36,10 @@ public class ReviewVO {
 	public void setReview_cont(String review_cont) {
 		this.review_cont = review_cont;
 	}
-	public String getReview_star() {
+	public float getReview_star() {
 		return review_star;
 	}
-	public void setReview_star(String review_star) {
+	public void setReview_star(float review_star) {
 		this.review_star = review_star;
 	}
 	public Date getReview_date() {
@@ -67,5 +67,4 @@ public class ReviewVO {
 				+ ", review_date=" + review_date + ", user_id=" + user_id + ", cos_id=" + cos_id + "]";
 	}
 	
-
 }

@@ -19,8 +19,8 @@ public class NoteVO {
 	
 	private String note_id;     // 강의노트 아이디 
 	private String note_title;  // 강의노트 제목
-	private Date note_date;   	// 강의노트 작성일
 	private String note_cont;   // 강의노트 내용
+	private Date note_date;   	// 강의노트 작성일
 	private String user_id;		// 회원 아이디
 	
 	public String getNote_id() {
