@@ -17,37 +17,14 @@
 <title>Insert title here</title>
 <script>
 $(document).ready(function(){
-	$("#upbutton").on("click", function(){
-		document.location="${cp}/adminNotice/updateNotice?notice_id=${noticeVo.notice_id}";
-	});
-	
-	$("#delbutton").on("click", function(){
-		
-		document.location="${cp}/adminNotice/deleteNotice?notice_id=${noticeVo.notice_id}";
-	});
-
 
 	$("button[id^=fileDownBtn]").on("click", function(){
 		files_no = $(this).val();
 		document.location="downloadView?board_no=${bv.board_no}&files_no="+files_no;
 	});
-
-	 
-	$('textarea').keyup(function() {
-
-	    var content = $(this).val();
-	    $('#counter').html("("+content.length+" / 최대 500자)");    //글자수 실시간 카운팅
-
-	    if (content.length > 500){
-	        alert("최대 500자까지 입력 가능합니다.");
-	        $(this).val(content.substring(0, 200));
-	        $('#counter').html("(200 / 최대 500자)");
-	    }
-
-	});
 	
 	$("#return").on("click", function(){
-		document.location="${cp}/adminNotice/selectAllNotice";
+		document.location="${cp}/teacherNotice/selectAllNotice";
 	})
 
 });
@@ -100,25 +77,8 @@ $(document).ready(function(){
 			</div>
 		</c:forEach>
 		
-
-			<div class="form-group">
-				<label for="pass" class="col-sm-2 control-label">삭제여부</label>
-				<div class="col-sm-10">
-					<label class="control-label">${noticeVo.notice_out}</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="upbutton" class="btn btn-default">공지사항 수정</button>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="delbutton" class="btn btn-default">공지사항 삭제</button>
-				</div>
-			</div>
-
 		<input type="button" id="return" value="뒤로가기">
+		
 	</form>
 </body>	
 </html>
