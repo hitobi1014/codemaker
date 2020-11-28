@@ -32,11 +32,22 @@
 <!--===============================================================================================-->
 </head>
 <script>
+$(function(){
+	$("#findPw").hide();
+})
+
+function findIdShow(){
+	$("#findPw").hide();
+	$("#findId").show();
+}
+
+function findPwShow(){
+	$("#findPw").show();
+	$("#findId").hide();
+}
 </script>
 <style>
-.txt1:hover{
-	text-decoration: underline;
-}
+.txt1:hover{text-decoration: underline;}
 #di{width: 1920px; height:70px; margin-left: 520px; padding-top: 85px;}
 #logo{width:200px;height: 70px;}
 .row{width: 837px; height: 600px;margin-bottom: 100px; padding-left: 50%;}
@@ -45,23 +56,17 @@
 .lastCol{width:248px;height:40px; float: right;text-align: center; line-height: 40px;}
 .div2{margin-left: 150px;}
 .in3{width: 837px;}
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-.button4 {
-  background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7;
-}
+.button {background-color: #4CAF50; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block;
+  font-size: 16px; margin: 4px 2px; cursor: pointer; width: 500px;}
+.button4 {background-color: white; color: black;border: 2px solid #e7e7e7;}
+.hpInfo{margin-left: 25px; }
+.infoDiv{border: 1px solid black; padding: 20px 0px; background-color: #f4f4f4; width: 500px;}
+.certifi{width: 458px;}
+#hp{width: 328px;}
+#cerBtn{width: 120px; height: 38px;}
+#test{display: inline;}
+.btn-light{border:1px solid black;	}
+.form-control{display: inline;}
 </style>
 <body>
 	
@@ -74,13 +79,52 @@
 				<div class="div2">
 					<div class="find">
 						<ul>
-							<li class="firstCol">아이디 찾기</li>
-							<li class="lastCol">비밀번호 찾기</li>
+							<li class="firstCol" id="first">
+								<button onclick="findIdShow()">아이디 찾기</button>
+							</li>
+							<li class="lastCol" id="last">
+								<button onclick="findPwShow()">비밀번호 찾기</button>
+							</li>
 						</ul>
 					</div>
-					<div>
-						<button class="button button4">등록된 휴대폰 번호로 찾기</button>
+					
+					<div class="dropdown" id="findId"> <!-- 아이디 찾기 -->
+						<button type="button" class="button button4 hpClick dropdown-toggle" data-toggle="dropdown">등록된 휴대폰 번호로 찾기</button>
+						<form action="" method="post">
+							<div class="infoDiv dropdown-menu">
+								<div class="form-group">
+									<input class="form-control hpInfo certifi" type="text" placeholder="이름"/>
+								</div>
+								<div class="form-group">
+									<input id="hp" class="form-control hpInfo" type="text" placeholder="휴대폰 번호 ('-'없이 입력)" />
+									<button class="btn btn-light">인증번호 요청</button>
+								</div>
+								<div class="form-group">
+									<input class="form-control hpInfo certifi" type="text" placeholder="인증번호 (6자리)"/>
+								</div>
+							</div>
+						</form>
 					</div>
+					
+					<div class="dropdown" id="findPw"> <!-- 비밀번호 찾기 -->
+						<button type="button" class="button button4 hpClick dropdown-toggle" data-toggle="dropdown">등록된 휴대폰 번호로 찾기</button>
+						<form action="" method="post">
+							<div class="infoDiv dropdown-menu">
+								<div class="form-group">
+									<input class="form-control hpInfo certifi" type="text" placeholder="아이디"/>
+								</div>
+								<div class="form-group">
+									<input id="hp" class="form-control hpInfo" type="text" placeholder="휴대폰 번호 ('-'없이 입력)" />
+									<button class="btn btn-light">인증번호 요청</button>
+								</div>
+								<div class="form-group">
+									<input class="form-control hpInfo certifi" type="text" placeholder="인증번호 (6자리)"/>
+								</div>
+							</div>
+						</form>
+					</div>
+					
+					
 				</div>
 			</div>
 		</div>
