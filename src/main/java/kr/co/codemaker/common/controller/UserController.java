@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.codemaker.common.service.UserServiceI;
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 @RequestMapping("/join")
 @Controller
@@ -35,7 +35,7 @@ public class UserController {
 	
 	
 	@RequestMapping("/insertUser")
-	public String insertUser(UserVO userVo, @RequestParam("user_id")String user_id, @RequestParam("user_profile") MultipartFile file) {
+	public String insertUser(UsersVO userVo, @RequestParam("user_id")String user_id, @RequestParam("user_profile") MultipartFile file) {
 		
 		
 		String fileName = UUID.randomUUID().toString();

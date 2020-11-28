@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 
 @Repository("userDao")
@@ -15,8 +15,7 @@ public class UserDao implements UserDaoI {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertUser(UserVO userVo) {
-		// TODO Auto-generated method stub
+	public int insertUser(UsersVO userVo) {
 		return sqlSession.insert("user.insertUser", userVo);
 	}
 	
