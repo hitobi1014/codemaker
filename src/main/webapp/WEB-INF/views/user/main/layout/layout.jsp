@@ -19,7 +19,6 @@
 <%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 </head>
 
-<%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 <body id="page-top">
 	<div id="wrapper">
 		<div id="content-wrapper" class="d-flex flex-column">
