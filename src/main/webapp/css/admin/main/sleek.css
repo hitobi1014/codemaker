@@ -62,7 +62,7 @@ body {
   line-height: 1.5;
   color: #8a909d;
   text-align: left;
-  background-color: #f5f6fa; }
+  background-color: #A2ACAB; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -8516,7 +8516,7 @@ div.copied {
       .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle i {
         font-size: 1.75rem; }
       .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle:after {
-        border: 3px solid #4c84ff;
+        border: 3px solid #005F86;
         content: '';
         margin: 0;
         position: relative;
@@ -8852,7 +8852,7 @@ div.copied {
   top: 0;
   width: .19rem;
   height: 100%;
-  background: #4c84ff;
+  background: #005F86;
   opacity: 0; }
 
 .sidebar .sidebar-inner .section-title {
@@ -8873,7 +8873,7 @@ div.copied {
 .app-brand {
   position: relative;
   display: block;
-  background-color: #4c84ff; }
+  background-color: #005F86; }
   .app-brand a {
     display: flex;
     flex-direction: row;
@@ -8890,7 +8890,7 @@ div.copied {
       .app-brand a {
         overflow: hidden; } }
     .app-brand a img {
-      max-width: 80px;
+      max-width: 130px;
       vertical-align: middle; }
   .app-brand .brand-name {
     color: #ffffff;
@@ -8907,7 +8907,7 @@ div.copied {
   font-size: 1.5rem; }
 
 .sidebar .nav > li.active > a i {
-  color: #4c84ff; }
+  color: #005F86; }
 
 /* Caret styles */
 .sidebar li > a .caret {
@@ -11140,5 +11140,15 @@ tbody tr td:first-child {
 /*===== REBOOT =====*/
 html[dir="rtl"] .sidebar li > a .caret:before {
   content: '\f141'; }
+
+#adminImg{
+	width: 100px;
+	height: 100px;
+}
+
+#loginImg{
+	width: 50px;
+	height: 50px;
+}
 
 /*# sourceMappingURL=sleek.css.map */

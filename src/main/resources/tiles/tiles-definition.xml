@@ -24,18 +24,18 @@
 	</definition>
 	
 	<!-- 관리자_메인페이지 -->
-	<definition name="adminMain.layout" template="/WEB-INF/views/admin/layout/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/admin/layout/header.jsp"/>
-		<put-attribute name="nav" value="/WEB-INF/views/admin/layout/nav.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/admin/layout/footer.jsp"/>
+	<definition name="adminMain.layout" template="/WEB-INF/views/admin/layout/main_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/admin/layout/main_header.jsp"/>
+		<put-attribute name="left" value="/WEB-INF/views/admin/layout/main_left.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/admin/layout/main_footer.jsp"/>
 		<put-attribute name="content" value=""/>
 	</definition>
 	
 	<!-- 교사_메인페이지 -->
-	<definition name="teacherMain.layout" template="/WEB-INF/views/teacher/layout/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/teacher/layout/header.jsp"/>
-		<put-attribute name="nav" value="/WEB-INF/views/teacher/layout/nav.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/teacher/layout/footer.jsp"/>
+	<definition name="teacherMain.layout" template="/WEB-INF/views/teacher/layout/main_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/teacher/layout/main_header.jsp"/>
+		<put-attribute name="nav" value="/WEB-INF/views/teacher/layout/main_nav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/teacher/layout/main_footer.jsp"/>
 		<put-attribute name="content" value=""/>
 	</definition>
 	
