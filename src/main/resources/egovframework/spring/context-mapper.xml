@@ -19,10 +19,5 @@
 	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
 		<property name="basePackage" value="kr.co.codemaker"></property>
 	</bean>
-	
-	
-	
-	
-
 
 </beans>

@@ -202,11 +202,11 @@ body {
 			<div id="d3">
 				<h2>시험 등록</h2>
 				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br>
-				<select class="form-control" id="sel1" name="cur_id">
+				<select class="form-control" id="sel1" name="curId">
 					<option value="99">커리큘럼을 선택해주세요.</option>
 					<c:forEach var="curriculum" items="${curriculumList }">
-						<option value="${curriculum.cur_id }/${curriculum.cur_cont }"
-							<c:if test="${curriculum.cur_id eq cur_id }">
+						<option value="${curriculum.curId }/${curriculum.cur_cont }"
+							<c:if test="${curriculum.curId eq curId }">
 									selected="selected"
 							</c:if>>${curriculum.cur_cont }</option>
 					</c:forEach>

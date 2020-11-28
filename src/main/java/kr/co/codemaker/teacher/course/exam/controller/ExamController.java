@@ -16,7 +16,12 @@ import kr.co.codemaker.model.AnswersheetVO;
 import kr.co.codemaker.model.CurriculumVO;
 import kr.co.codemaker.model.ExamVO;
 import kr.co.codemaker.model.QuestionVO;
+import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
+import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
+import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
+import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
+import kr.co.codemaker.teacher.course.exam.service.QuestionService;
 import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 
 /**
@@ -38,6 +43,12 @@ public class ExamController {
 	@Resource(name = "examService")
 	private ExamService examService;
 	
+	@Resource(name = "questionService")
+	private QuestionService questionService;
+	
+	@Resource(name = "answersheetService")
+	private AnswersheetService answersheetService;
+	
 //	@Resource(name = "curriculumService")
 //	private CurriculumServiceI curriculumService;
 	
@@ -46,7 +57,7 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.GET})
-	public String insertViewExam(String lesId, String cur_id, Model model) {
+	public String insertViewExam(String lesId, String curId, Model model) {
 		
 		// 커리큘럼을 조회
 //		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(les_id);
@@ -63,7 +74,7 @@ public class ExamController {
 		curriculumList.add(cur3);
 		
 		model.addAttribute("curriculumList", curriculumList);
-		model.addAttribute("cur_id", cur_id);
+		model.addAttribute("curId", curId);
 
 		return "teacher/exam/examInsert";
 	}
@@ -88,7 +99,7 @@ public class ExamController {
 			// 시험 아이디를 셋팅
 			questionVo.setExam_id(exam_id);
 			
-			String que_id = examService.insertQuestion(questionVo);
+			String que_id = questionService.insertQuestion(questionVo);
 			
 			for(int i=index; i < index+4 ; i++) { // 보기가 4개씩 존재
 				// 시험 문제 아이디를 셋팅
@@ -131,13 +142,13 @@ public class ExamController {
 			ExamVO ev = examService.selectExam(examVo);
 			model.addAttribute("examVo", ev);
 			
-			questionList = examService.selectQuestion(examVo);
+			questionList = questionService.selectQuestion(examVo);
 			model.addAttribute("questionList", questionList);
 			
 			List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
 			
 			for(QuestionVO questionVo : questionList) {
-				List<AnswersheetVO> answersheetList = examService.selectAnswersheet(questionVo);
+				List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
 				
 				for(AnswersheetVO answersheetVo : answersheetList) {
 					answersheetLists.add(answersheetVo);
@@ -166,11 +177,11 @@ public class ExamController {
 		examService.updateExam(examVo);
 		
 		for(QuestionVO questionVo : questionList) {
-			examService.updateQuestion(questionVo);
+			questionService.updateQuestion(questionVo);
 		}
 		
 		for(AnswersheetVO answersheetVo : answerList) { // 보기가 4개씩 존재
-			examService.updateAnswersheet(answersheetVo);
+			answersheetService.updateAnswersheet(answersheetVo);
 		}
 		
 		// 수정된 시험 화면으로 이동
@@ -198,7 +209,7 @@ public class ExamController {
 		model.addAttribute("endPage", pages);
 		model.addAttribute("page", examRequestVo.getPage());
 		
-		session.setAttribute("exam_state", examRequestVo.getExam_state()); // 검색 조건
+		session.setAttribute("exam_state", examRequestVo.getExamState()); // 검색 조건
 		
 		return "teacher/exam/examAllSelectAjaxHTML";
 	}
@@ -222,13 +233,13 @@ public class ExamController {
 		ExamVO ev = examService.selectExam(examVo);
 		model.addAttribute("examVo", ev);
 		
-		List<QuestionVO> questionList = examService.selectQuestion(examVo);
+		List<QuestionVO> questionList = questionService.selectQuestion(examVo);
 		model.addAttribute("questionList", questionList);
 		
 		List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
 		
 		for(QuestionVO questionVo : questionList) {
-			List<AnswersheetVO> answersheetList = examService.selectAnswersheet(questionVo);
+			List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
 			
 			for(AnswersheetVO answersheetVo : answersheetList) {
 				answersheetLists.add(answersheetVo);
