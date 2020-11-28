@@ -84,6 +84,11 @@ public class userLoginController {
 	public String contentTest() {
 		return "mainT/user/main/main_content";
 	}
+
+	@RequestMapping(path="/maintest")
+	public String maincontentTest() {
+		return "mainT/user/main/main_test";
+	}
 	
 	@RequestMapping(path="/mainbck")
 	public String userMainBckView() {
