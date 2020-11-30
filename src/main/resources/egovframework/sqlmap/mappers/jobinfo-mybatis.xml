@@ -4,7 +4,7 @@
 
 	
 
-<select id="selectJobInfo" resultType="java.util.HashMap">
+<select id="selectJobInfo" resultType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
 SELECT * 
   FROM JOBINFO where JOBINFO_ID = #{jobInfoId}
 </select>
@@ -33,4 +33,8 @@ update jobInfo set
 update jobInfo set
 		jobinfo_out = 'Y' where jobinfo_id = #{jobInfoId}
 </delete>
+<select id="jobInfoTotalCnt" resultType="int">
+select count(*) from
+		jobInfo
+</select>
 </mapper>
