@@ -41,7 +41,7 @@ public class LessonController {
 		
 		model.addAttribute("lessonList", lessonList);
 		
-		return "teacher/lesson/lessonSelectAll";
+		return "mainT/user/lesson/lessonSelectAll";
 	}
 	
 	@RequestMapping(path="/insert",method= {RequestMethod.GET})

@@ -13,6 +13,7 @@ import java.util.Date;
 * 수정자 수정내용
 * ------ ------------------------
 * 김미연 최초 생성
+* 박다미 res_id, com_id 추가
 *
  */
 public class TeaherVO {
@@ -28,6 +29,8 @@ public class TeaherVO {
 	private String tch_intro;       // 선생님 소개말
 	private String tch_contract;    // 선생님 계약서(파일)
 	private String tch_gn;          // 기업 구분자
+	private String res_id;			// 이력서 아이디
+	private String com_id;			// 기업 아이디
 	
 	
 	public String getTch_id() {
@@ -97,12 +100,27 @@ public class TeaherVO {
 		this.tch_gn = tch_gn;
 	}
 	
+	
+	
+	public String getRes_id() {
+		return res_id;
+	}
+	public void setRes_id(String res_id) {
+		this.res_id = res_id;
+	}
+	public String getCom_id() {
+		return com_id;
+	}
+	public void setCom_id(String com_id) {
+		this.com_id = com_id;
+	}
 	@Override
 	public String toString() {
 		return "TeaherVO [tch_id=" + tch_id + ", tch_pass=" + tch_pass + ", tch_nm=" + tch_nm + ", tch_tel=" + tch_tel
 				+ ", tch_profile=" + tch_profile + ", tch_code=" + tch_code + ", tch_join=" + tch_join + ", tch_retire="
 				+ tch_retire + ", tch_intro=" + tch_intro + ", tch_contract=" + tch_contract + ", tch_gn=" + tch_gn
-				+ "]";
+				+ ", res_id=" + res_id + ", com_id=" + com_id + "]";
 	}
+	
 	
 }

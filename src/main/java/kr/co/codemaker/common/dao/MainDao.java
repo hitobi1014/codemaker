@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 
 @Repository("mainDao")
@@ -20,9 +20,9 @@ public class MainDao implements MainDaoI {
 	
 	
 	@Override
-	public UserVO selectUser(String user_id) {
+	public UsersVO selectUser(String user_id) {
 //		return sqlSession.selectOne("main.selectUser", user_id);
-		return new UserVO("test", "testPass", "테스트계정", "01034020201", null, null, null);
+		return new UsersVO("test", "testPass", "테스트계정", "01034020201", null, null, null);
 	}
 
 

@@ -1,11 +1,11 @@
 package kr.co.codemaker.common.dao;
 
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 public interface UserDaoI {
 
-	int insertUser(UserVO userVo);
+	int insertUser(UsersVO userVo);
 
-	int idchk(UserVO userVo);
+	int idchk(UsersVO userVo);
 
 }

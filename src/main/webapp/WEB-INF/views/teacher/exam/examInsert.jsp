@@ -7,9 +7,12 @@
 <meta charset="UTF-8">
 <!-- bootstrap 사용 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -133,7 +136,6 @@ body {
 	border-bottom-right-radius: 8px;
 	height: 520px;
 	text-align: left;
-	
 	margin-top: 10px;
 }
 
@@ -158,35 +160,37 @@ body {
 .anw {
 	margin-top: 10px;
 }
+
 .btnd {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
 }
-.btns{
+
+.btns {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
-	
-    margin-right: 90px;
+	margin-right: 90px;
 }
 
 .comment {
 	resize: none;
 }
-.overlay{
+
+.overlay {
 	z-index: 1;
 	position: absolute;
 	display: none;
-	background-color:rgba(230,244,234,0.5);
+	background-color: rgba(230, 244, 234, 0.5);
 	width: 840px;
 	height: 35px;
-	
 }
-.chk{
+
+.chk {
 	z-index: 2;
-	    margin-left: 4px;
-    margin-top: 10px;
+	margin-left: 4px;
+	margin-top: 10px;
 	position: relative;
 }
 </style>
@@ -197,55 +201,57 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 등록</h2>
-				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br> 
-				<select class="form-control" id="sel1" name="cur_id">
+				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br>
+				<select class="form-control" id="sel1" name="curId">
 					<option value="99">커리큘럼을 선택해주세요.</option>
 					<c:forEach var="curriculum" items="${curriculumList }">
-						<option value="${curriculum.cur_id }/${curriculum.cur_cont }" 
-							<c:if test="${curriculum.cur_id eq cur_id }">
+						<option value="${curriculum.curId }/${curriculum.cur_cont }"
+							<c:if test="${curriculum.curId eq curId }">
 									selected="selected"
-							</c:if>
-						>${curriculum.cur_cont }</option>
+							</c:if>>${curriculum.cur_cont }</option>
 					</c:forEach>
 				</select>
 			</div>
-			<br>
-			<br>
-			<br>
+			<br> <br> <br>
 
 			<div class="d5">
 				<div class="d4"></div>
 				<div class="d6">
-					<label for="sel1"> 문제를 입력해주세요. </label> <br> 
-					<input type="text" name="que_cont" class="form-control que" /> <br>
+					<label for="sel1"> 문제를 입력해주세요. </label> <br> <input
+						type="text" name="que_cont" class="form-control que" /> <br>
 					<label for="sel1"> 보기를 입력해주세요. </label>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi" placeholder="보기1">
-						<input type="checkbox" name="que_answer" value="1" class="chk"/>
+						<input type="text" name="ans_cont" class="form-control radi"
+							placeholder="보기1"> <input type="checkbox"
+							name="que_answer" value="1" class="chk" />
 					</div>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi" placeholder="보기2">
-						<input type="checkbox" name="que_answer" value="2" class="chk" />
+						<input type="text" name="ans_cont" class="form-control radi"
+							placeholder="보기2"> <input type="checkbox"
+							name="que_answer" value="2" class="chk" />
 					</div>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi" placeholder="보기3">
-						<input type="checkbox" name="que_answer" value="3" class="chk"/>
+						<input type="text" name="ans_cont" class="form-control radi"
+							placeholder="보기3"> <input type="checkbox"
+							name="que_answer" value="3" class="chk" />
 					</div>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi" placeholder="보기4">
-						<input type="checkbox" name="que_answer" value="4" class="chk"/>
+						<input type="text" name="ans_cont" class="form-control radi"
+							placeholder="보기4"> <input type="checkbox"
+							name="que_answer" value="4" class="chk" />
 					</div>
-					<br> 
-					<label for="sel1"> 문제 해설을 입력해주세요. </label>
+					<br> <label for="sel1"> 문제 해설을 입력해주세요. </label>
 					<div class="anw">
-						<textarea class="form-control" rows="5" class="comment" name="que_explain"></textarea>
+						<textarea class="form-control" rows="5" class="comment"
+							name="que_explain"></textarea>
 					</div>
 					<div class="btnd">
-						<button type="button" class="btn btn-default plusBtn">문제 추가</button>
+						<button type="button" class="btn btn-default plusBtn">문제
+							추가</button>
 					</div>
 				</div>
 			</div>
