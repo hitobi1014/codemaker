@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.jobinfo.dao.JobInfoMapper;
-import kr.co.codemaker.model.JobInfoVO;
+import kr.co.codemaker.admin.jobinfo.vo.JobInfoVO;
 
 /**
 * JobInfoService.java
@@ -48,8 +48,8 @@ public class JobInfoService{
 		return map2;
 	}
 
-	public JobInfoVO selectJobInfo(String jobInfo_id) {
-		return jobInfoMapper.selectJobInfo(jobInfo_id);
+	public JobInfoVO selectJobInfo(String jobInfoId) {
+		return jobInfoMapper.selectJobInfo(jobInfoId);
 	}
 
 	public int insertJobInfo(JobInfoVO jobInfoVo) {
@@ -60,9 +60,8 @@ public class JobInfoService{
 		return jobInfoMapper.updateJobInfo(jobInfoVo);
 	}
 
-	@Override
-	public int deleteJobInfo(String jobInfo_id) {
-		return jobInfoMapper.deleteJobInfo(jobInfo_id);
+	public int deleteJobInfo(String jobInfoId) {
+		return jobInfoMapper.deleteJobInfo(jobInfoId);
 	}
 
 }

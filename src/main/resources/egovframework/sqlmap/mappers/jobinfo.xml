@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper>
+<mapper namespace="kr.co.codemaker.admin.jobinfo.dao.JobInfoMapper">
 
 	
 
@@ -10,7 +10,23 @@ SELECT *
 </select>
 <insert id="insertJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
 insert into jobInfo
-		values (#{jobInfoId}, #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N', NULL, NULL,
+		values (#{jobInfoId}, #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',
 		#{adminId})
 </insert>
+<select id="selectAllJobInfo" resultType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
+SELECT * FROM
+		(SELECT ROWNUM AS RN,
+		A.*
+		FROM (SELECT *
+		FROM JOBINFO
+		WHERE 1=1
+		AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
+		AND JOB_CONT LIKE '%' || #{keyWord} || '%') A)
+		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+</select>
+<update id="updateJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
+update jobInfo set
+		job_title = #{jobTitle}, job_cont = #{jobCont} where jobInfoId =
+		#{jobInfoId}
+</update>
 </mapper>
