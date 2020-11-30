@@ -1,11 +1,12 @@
-package kr.co.codemaker.common.service;
+package kr.co.codemaker.common.dao;
 
 import java.util.List;
 
-import kr.co.codemaker.model.FilesVO;
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.common.vo.FilesVO;
 
-
-public interface FilesServiceI {
+@Mapper("filesMapper")
+public interface FilesMapper {
 	
 	/**
 	 * 파일을 추가하기 위한 메서드

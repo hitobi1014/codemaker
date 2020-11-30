@@ -72,7 +72,6 @@
 
 </body>
  <%@ include file="/WEB-INF/views/user/mypage/layout/commonLib_2.jsp"%>
-=======
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/user/main/jquery/jquery.min.js"></script>
 <script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -19,17 +19,3 @@
 <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
 
-
-
-<<<<<<< HEAD
-    <!-- Custom styles for this template-->
-    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    
-    
-    
-    
-    
-   
-    
-=======
->>>>>>> VO수정
