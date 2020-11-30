@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.model.JobInfoVO;
-import kr.co.codemaker.model.NoticeVO;
+import kr.co.codemaker.admin.jobinfo.vo.JobInfoVO;
 
 
 /**
@@ -28,7 +27,7 @@ public interface JobInfoMapper {
 	 * @param job_id 취업 공고 아이디
 	 * @return 하나의 취업 공고
 	 */
-	public JobInfoVO selectJobInfo(String job_id);
+	public JobInfoVO selectJobInfo(String jobInfoId);
 	
 	/**
 	 * 모든 취업 공고를 조회하기 위한 메서드
@@ -67,5 +66,5 @@ public interface JobInfoMapper {
 	 * @param job_id 삭제할 취업공고 아이디
 	 * @return 삭제된 취업공고 갯수
 	 */
-	public int deleteJobInfo(String job_id);
+	public int deleteJobInfo(String jobInfoId);
 }
