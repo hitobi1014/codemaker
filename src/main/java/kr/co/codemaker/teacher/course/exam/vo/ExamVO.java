@@ -1,4 +1,4 @@
-package kr.co.codemaker.model;
+package kr.co.codemaker.teacher.course.exam.vo;
 
 import java.util.Date;
 

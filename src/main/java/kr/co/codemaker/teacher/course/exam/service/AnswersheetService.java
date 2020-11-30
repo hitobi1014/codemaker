@@ -1,19 +1,14 @@
 package kr.co.codemaker.teacher.course.exam.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.model.AnswersheetVO;
-import kr.co.codemaker.model.ExamVO;
-import kr.co.codemaker.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
-import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
-import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
+import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 
 /**
  * 

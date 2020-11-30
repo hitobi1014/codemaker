@@ -12,17 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.model.AnswersheetVO;
-import kr.co.codemaker.model.CurriculumVO;
-import kr.co.codemaker.model.ExamVO;
-import kr.co.codemaker.model.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
 import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
 import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
+import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
+import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 
 /**
  * 
@@ -63,18 +62,18 @@ public class ExamController {
 //		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(les_id);
 		
 		
-		List<CurriculumVO> curriculumList = new ArrayList<>();
-		
-		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
-		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
-		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
-		
-		curriculumList.add(cur1);
-		curriculumList.add(cur2);
-		curriculumList.add(cur3);
-		
-		model.addAttribute("curriculumList", curriculumList);
-		model.addAttribute("curId", curId);
+//		List<CurriculumVO> curriculumList = new ArrayList<>();
+//		
+//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
+//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
+//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
+//		
+//		curriculumList.add(cur1);
+//		curriculumList.add(cur2);
+//		curriculumList.add(cur3);
+//		
+//		model.addAttribute("curriculumList", curriculumList);
+//		model.addAttribute("curId", curId);
 
 		return "teacher/exam/examInsert";
 	}
@@ -125,17 +124,17 @@ public class ExamController {
 		
 //		model.addAttribute("curriculumList", curriculumList);
 		
-		List<CurriculumVO> curriculumList = new ArrayList<>();
-		
-		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
-		
-		curriculumList.add(cur1);
-		curriculumList.add(cur2);
-		curriculumList.add(cur3);
-		
-		model.addAttribute("curriculumList", curriculumList);
+//		List<CurriculumVO> curriculumList = new ArrayList<>();
+//		
+//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
+//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
+//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
+//		
+//		curriculumList.add(cur1);
+//		curriculumList.add(cur2);
+//		curriculumList.add(cur3);
+//		
+//		model.addAttribute("curriculumList", curriculumList);
 		
 		if(examVo.getExam_nm() == null || examVo.getExam_nm().equals("")) { // 수정화면에서 요청이 왔을 경우
 			

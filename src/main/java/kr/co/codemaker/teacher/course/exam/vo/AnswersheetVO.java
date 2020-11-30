@@ -1,4 +1,4 @@
-package kr.co.codemaker.model;
+package kr.co.codemaker.teacher.course.exam.vo;
 
 /**
  * 문제 보기VO
