@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
@@ -8,8 +7,6 @@
 				<a href="#">
 					<img src="/images/codemaker_name4.png">
 					<span class="brand-name">강사</span>
-=======
-	pageEncoding="UTF-8"%>
 <aside class="left-sidebar bg-sidebar">
 	<div id="sidebar" class="sidebar sidebar-with-footer">
 		<!-- Aplication Brand -->
@@ -28,7 +25,6 @@
 					aria-expanded="false" aria-controls="ui-elements"> <i
 						class="mdi mdi-book-open-page-variant"></i> <span class="nav-text">수강</span>
 						<b class="caret"></b>
->>>>>>> VO수정
 				</a>
 					<ul class="collapse" id="ui-elements" data-parent="#sidebar-menu">
 						<div class="sub-menu">
