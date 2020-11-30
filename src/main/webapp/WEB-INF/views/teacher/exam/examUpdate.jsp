@@ -25,7 +25,7 @@
 			var v = $(this).val
 			var cur_id = v.split("\"")[0];
 
-			document.location = "/exam/updateExam?les_id=${curriculumList[0].les_id}&cur_id=" + cur_id;
+			document.location = "/exam/updateExam?lesId=${curriculumList[0].lesId}&curId=" + curId;
 			
 		});
 
@@ -192,14 +192,14 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 수정</h2>
-				<br> <label for="sel1">${examVo.exam_nm }</label> <br> <select
+				<br> <label for="sel1">${examVo.examNm }</label> <br> <select
 					class="form-control" id="sel1" name="cur_id">
 					<c:forEach var="curriculum" items="${curriculumList }">
 						<!-- 커리큘럼 내용과 시험명이 같으면 선택 -->
-						<option value="${curriculum.cur_id }/${curriculum.cur_cont }"
-							<c:if test="${curriculum.cur_cont eq examVo.exam_nm }">
+						<option value="${curriculum.curId }/${curriculum.curCont }"
+							<c:if test="${curriculum.curCont eq examVo.examNm }">
 							selected="selected"
-							</c:if>>${curriculum.cur_cont }</option>
+							</c:if>>${curriculum.curCont }</option>
 					</c:forEach>
 
 					<option value="adfad">2</option>
@@ -217,7 +217,7 @@ body {
 					<div class="d6">
 						<label for="sel1">문제를 입력해주세요.</label> <input type="text"
 							name="que_cont" class="form-control que"
-							value="${question.que_cont }" /> <br> <label for="sel1">
+							value="${question.queCont }" /> <br> <label for="sel1">
 							보기를 입력해주세요. </label>
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
 							items="${answersheetLists }" varStatus="vs">
@@ -228,7 +228,7 @@ body {
 								<!-- 보기와 정답이 같다면 체크 -->
 								<input type="checkbox" name="que_answer" value="${vs.count }"
 									class="chk"
-									<c:if test="${vs.count eq question.que_answer }">
+									<c:if test="${vs.count eq question.queAnswer }">
 										checked="checked"								
 									</c:if> />
 							</div>

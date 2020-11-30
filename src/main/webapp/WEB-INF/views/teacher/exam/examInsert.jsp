@@ -61,16 +61,16 @@
 			// examf
 			// 임시저장 버튼일 경우
 			if(bid == 'temps'){
-				str = '<input type="text" name="exam_state" value="0">';
-				str += '<input type="text" name="les_id" value="${curriculumList[0].les_id }">';
+				str = '<input type="text" name="examState" value="0">';
+				str += '<input type="text" name="lesId" value="${curriculumList[0].lesId }">';
 
 				$('#examf').append(str);
 				
 				$('#examf').submit();
 
 			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
-				str = '<input type="text" name="exam_state" value="1">';
-				str += '<input type="text" name="les_id" value="${curriculumList[0].les_id }">';
+				str = '<input type="text" name="examState" value="1">';
+				str += '<input type="text" name="lesId" value="${curriculumList[0].lesId }">';
 
 				$('#examf').append(str);
 
@@ -208,7 +208,7 @@ body {
 						<option value="${curriculum.curId }/${curriculum.cur_cont }"
 							<c:if test="${curriculum.curId eq curId }">
 									selected="selected"
-							</c:if>>${curriculum.cur_cont }</option>
+							</c:if>>${curriculum.curCont }</option>
 					</c:forEach>
 				</select>
 			</div>

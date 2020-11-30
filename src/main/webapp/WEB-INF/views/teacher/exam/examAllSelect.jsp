@@ -39,18 +39,18 @@ $(function() {
 
 	// 시험 등록 폼 제공
 	$('#regBtn').on('click', function(){
-		var windowObj = window.open('/exam/insertExam?cur_id=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+		var windowObj = window.open('/exam/insertExam?curId=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
 
 	});
 	
 	// 시험 삭제
 	$('#delBtn').on('click', function(){
-		var exam_id = [];
+		var examId = [];
 		
 		$('input:checkbox[class="echk"]:checked').each(function(i){
 			console.log($(this).val());
 
-			exam_id.push($(this).val());
+			examId.push($(this).val());
 		});
 
 // 		deleteExam();
@@ -58,11 +58,11 @@ $(function() {
 
 	// 시험 상세페이지
 	$('#examList tr').on('click', function(){
-		var exam_id = $(this).data("exam_id");
+		var examId = $(this).data("examId");
 
-		console.log(exam_id);
+		console.log(examId);
 
-		//document.location = "/exam/selectExam?exam_id=" + exam_id;
+		//document.location = "/exam/selectExam?examId=" + examId;
 		
 	});
 	

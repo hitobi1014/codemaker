@@ -5,14 +5,14 @@
 
 <!-- 시험 문제 리스트 -->
 <c:forEach items="${examList }" var="exam" varStatus="status">
-	<tr data-exam_id='${exam.exam_id }'>
+	<tr data-exam_id='${exam.examId }'>
 		<!-- 시험 문제를 볼때 -->
 		<td>${status.count }</td>
-		<td>${exam.exam_nm }</td>
-		<td><fmt:formatDate value="${exam.exam_date }"
+		<td>${exam.examNm }</td>
+		<td><fmt:formatDate value="${exam.examDate }"
 				pattern="yyyy-MM-dd" /></td>
 		<td>${exam.exam_state }</td>
-		<td><input type="checkbox" value='${exam.exam_id }' class='echk'>
+		<td><input type="checkbox" value='${exam.examId }' class='echk'>
 		</td>
 	</tr>
 </c:forEach>
@@ -22,11 +22,11 @@ fin
 <!-- 첫페이지가 아닐때 -->
 <c:if test="${page ne startpage }">
 	<li><a
-		href="javascript:selectAllExam(${exam_state },${cur_id },${startpage});">
+		href="javascript:selectAllExam(${examState },${curId },${startpage});">
 			<img class="page" alt="" src="${cp }/img/startpage.png">
 	</a></li>
 	<li><a
-		href="javascript:selectAllExam(${exam_state },${cur_id },${page-1});">
+		href="javascript:selectAllExam(${examState },${curId },${page-1});">
 			<img class="pages" alt="" src="${cp }/img/leftpage.png">
 	</a></li>
 </c:if>
@@ -40,7 +40,7 @@ fin
 		</c:when>
 		<c:otherwise>
 			<li><a
-				href="javascript:selectAllExam(${exam_state },${cur_id },${i});">${i}</a>
+				href="javascript:selectAllExam(${examState },${curId },${i});">${i}</a>
 			</li>
 		</c:otherwise>
 	</c:choose>
@@ -49,11 +49,11 @@ fin
 <!-- 마지막페이지가 아닐때 -->
 <c:if test="${page ne endpage }">
 	<li><a
-		href="javascript:selectAllExam(${exam_state },${cur_id },${page+1});">
+		href="javascript:selectAllExam(${examState },${curId },${page+1});">
 			<img class="pages" alt="" src="${cp }/img/rightpage.png">
 	</a></li>
 	<li><a
-		href="javascript:selectAllExam(${exam_state },${cur_id },${endpage});">
+		href="javascript:selectAllExam(${examState },${curId },${endpage});">
 			<img class="page" alt="" src="${cp }/img/endpage.png">
 	</a></li>
 </c:if>

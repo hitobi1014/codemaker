@@ -87,22 +87,22 @@ public class ExamController {
 							List<AnswersheetVO> answerList) {
 		
 		// cur_id 와 exam_nm 분리하여 다시 셋팅
-		String[] examInfo = examVo.getCur_id().trim().split("\"");
-		examVo.setCur_id(examInfo[0]);
-		examVo.setExam_nm(examInfo[1]);
+		String[] examInfo = examVo.getCurId().trim().split("\"");
+		examVo.setCurId(examInfo[0]);
+		examVo.setExamNm(examInfo[1]);
 		
 		String exam_id = examService.insertExam(examVo); // 시험 아이디를 가져온다.
 		
 		int index = 0;
 		for(QuestionVO questionVo : questionList) {
 			// 시험 아이디를 셋팅
-			questionVo.setExam_id(exam_id);
+			questionVo.setExamId(exam_id);
 			
 			String que_id = questionService.insertQuestion(questionVo);
 			
 			for(int i=index; i < index+4 ; i++) { // 보기가 4개씩 존재
 				// 시험 문제 아이디를 셋팅
-				answerList.get(i).setQue_id(que_id);
+				answerList.get(i).setQueId(que_id);
 			}
 			index=+4;
 		}
@@ -136,7 +136,7 @@ public class ExamController {
 //		
 //		model.addAttribute("curriculumList", curriculumList);
 		
-		if(examVo.getExam_nm() == null || examVo.getExam_nm().equals("")) { // 수정화면에서 요청이 왔을 경우
+		if(examVo.getExamNm() == null || examVo.getExamNm().equals("")) { // 수정화면에서 요청이 왔을 경우
 			
 			ExamVO ev = examService.selectExam(examVo);
 			model.addAttribute("examVo", ev);
@@ -184,7 +184,7 @@ public class ExamController {
 		}
 		
 		// 수정된 시험 화면으로 이동
-		return "redirect:/exam/selectExam?exam_id=" + examVo.getExam_id();
+		return "redirect:/exam/selectExam?exam_id=" + examVo.getExamId();
 	}
 	
 	/**
