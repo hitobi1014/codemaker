@@ -1,10 +1,12 @@
 package kr.co.codemaker.common.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Controller
 public class TestController {
 
-	@RequestMapping(path="/user/mainTT")
+	@RequestMapping(path="/user/main")
 	public String userMain() {
 		return "mainT/user/main/main_content";
 	}
