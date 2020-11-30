@@ -5,15 +5,6 @@
 <mapper namespace="kr.co.codemaker.teacher.course.exam.dao.examMapper">
 
 
-<select id="select" parameterType="java.util.HashMap" resultMap="java.util.HashMap">
-SELECT
-    exam_id,
-    exam_nm,
-    exam_state,
-    exam_date,
-    les_id,
-    lidx_id
-FROM
-    exam
-</select>
+
+
 </mapper>

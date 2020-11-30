@@ -2,7 +2,8 @@ package kr.co.codemaker.teacher.course.lesson.dao;
 
 import java.util.List;
 
-import kr.co.codemaker.model.LessonVO;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
+
 
 public interface LessonDaoI {
 	LessonVO selectLesson(String les_id);	// 강의VO 조회
