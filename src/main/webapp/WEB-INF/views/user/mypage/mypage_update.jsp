@@ -6,6 +6,7 @@
 <html>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style2.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
@@ -63,6 +64,7 @@ function readURL(input) {
                 <div class="col-4 text-right">
 <!--                   <a href="#!" class="btn btn-sm btn-primary"> -->
                   <input id="picture" type="file" name="file" value="${userVo.userProfile }" accept=".gif, .jpg, .png" >
+                 <input type="hidden" name="userProfile" value="${userVo.userProfile}"/>
                   <input type="submit"  class="btn btn-sm btn-primary" value="EDIT">
                 </div>
               </div>

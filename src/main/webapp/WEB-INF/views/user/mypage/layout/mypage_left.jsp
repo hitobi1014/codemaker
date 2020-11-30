@@ -38,7 +38,7 @@
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 			data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="buttons.html">◾ 정보조회</a> <a
+				<a class="collapse-item" href="${cp}/mypage/myinfoSelect">◾ 정보조회</a> <a
 					class="collapse-item" href="cards.html">◾ 회원탈퇴</a> <a
 					class="collapse-item" href="cards.html">◾ 포인트</a> <a
 					class="collapse-item" href="cards.html">◾ 쿠폰함</a> <a

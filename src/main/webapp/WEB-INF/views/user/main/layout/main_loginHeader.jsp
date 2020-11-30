@@ -104,7 +104,7 @@
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="#"> <i
 					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 마이페이지
-				</a> <a class="dropdown-item" href="#"> <i
+				</a> <a class="dropdown-item" href="${cp}/mypage/myinfoSelect"> <i
 					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 내강의실
 				</a> <a class="dropdown-item" href="#"> <i
 					class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 장바구니

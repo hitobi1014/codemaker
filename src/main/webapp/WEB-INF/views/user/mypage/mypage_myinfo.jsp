@@ -43,15 +43,15 @@
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                     <div>
-                      <span class="heading">22</span>
+                      <span class="heading">😍</span>
                       <span class="description">Friends</span>
                     </div>
                     <div>
-                      <span class="heading">10</span>
+                      <span class="heading">👩‍🏫</span>
                       <span class="description">Photos</span>
                     </div>
                     <div>
-                      <span class="heading">89</span>
+                      <span class="heading">📋</span>
                       <span class="description">Comments</span>
                     </div>
                   </div>
@@ -59,6 +59,7 @@
               </div>
               <div class="text-center">
                 <h3>
+
                  <i class="ni location_pin mr-2"></i><label class="control-label" >${userVo.userNm }</label><br>
                   <i class="ni location_pin mr-2"></i><label class="control-label" >${userVo.userId }</label><br>
                   <i class="ni education_hat mr-2"></i><label id="userTel" class="control-label" >${userVo.userTel }</label>
@@ -72,7 +73,7 @@
 <!--                   <i class="ni education_hat mr-2"></i>University of Computer Science -->
                 </div>
                 <hr class="my-4">
-                <p>CODEMAKER</p>
+                <h5>CODEMAKER의 다양한 강의를 만나보세요.👨‍💻</h5>
                            <a href="${cp }/mypage/updateUser?userId=${userVo.userId}" class="btn btn-info">Edit profile</a>
                            <a href="${cp }/mypage/deleteUser" class="btn btn-info">회원탈퇴</a>
               </div>
@@ -82,15 +83,15 @@
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="row align-items-center justify-content-xl-between">
-      <div class="col-xl-6 m-auto text-center">
-        <div class="copyright">
-          <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a> by Creative Tim</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+<!--   <footer class="footer"> -->
+<!--     <div class="row align-items-center justify-content-xl-between"> -->
+<!--       <div class="col-xl-6 m-auto text-center"> -->
+<!--         <div class="copyright"> -->
+<!--           <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a> by Creative Tim</p> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </footer> -->
 </body>
 
 

@@ -123,10 +123,18 @@ public class MypageController {
 	public String updateUser(HttpSession session, UserVO userVo, @RequestParam("file")MultipartFile file){
 		
 //		String user_id = session.getAttribute("user_id");
-		logger.debug("업데이트 보내기전 : {}", userVo);
 		
 		//세션에서아이디가져온다.
 		String userId = "mem001@naver.com";
+		
+		int updateCnt=0;
+		try {
+			updateCnt = mypageService.updateUser(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.debug("업데이트 후 : {}",userVo);
+		
 		
 		//파일을 체크하는 방법. 사이즈가 0보다 크다. 새로운파일로 바뀌었다.//기존파일이다? 0임. 안담겨있음. 그래서구분이되기때문에. 0보다크다는것은
 		//파일이 새로 들어왔다!!
@@ -134,7 +142,7 @@ public class MypageController {
 			
 			try {
 				File uploadFile = new File("d:\\upload\\" + file.getOriginalFilename());
-//				String fileName = UUID.randomUUID().toString();
+				String fileName = UUID.randomUUID().toString();
 				file.transferTo(uploadFile);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
@@ -142,6 +150,14 @@ public class MypageController {
 				e.printStackTrace();
 			}
 			userVo.setUserProfile("d:\\upload\\" + file.getOriginalFilename());
+			
+			try {
+				updateCnt = mypageService.updateUser(userVo);
+				logger.debug("파일을 새로 업데이트 했을 경우 : {}",userVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}else {
 			try {
 				userVo =mypageService.myinfoSelect(userId);
@@ -151,45 +167,12 @@ public class MypageController {
 			}
 			userVo.setUserProfile(userVo.getUserProfile());
 		}
-
-		int updateCnt=0;
-		try {
-			updateCnt = mypageService.updateUser(userVo);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.debug("updateCnt!!! : {}",updateCnt);
-		logger.debug("업데이트 후 : {}",userVo);
 		
 		if(updateCnt==1) {
 			return "redirect:/mypage/myinfoSelect?user_id="+userId;
 		}else {
 			return "mypageT/user/mypage/mypage_update";
 		}
-
-		
-//		int updateCnt=0;
-//
-//		try {
-//			updateCnt =  mypageService.updateUser(userVo);
-//
-//			logger.debug("updateCnt!!! : {}",updateCnt);
-//			logger.debug("업데이트 후 : {}",userVo);
-//			// 1건이 입력되었을때 :정상 ->memberList 페이지로 이동
-//			// 1건이 아닐때: 비정상
-//			if (updateCnt == 1) {
-//				// 서버의 상태가 바뀔때는 중복이 되지 않게 redirect요청을 해준다.
-//				// redirect한다는것은 메소드 인자를 웹 브라우저 주소창에 넣으라는 것이기 떄문에 정상동작이 안될수 있으므로 contextpath넣어주기
-//				return "redirect:/mypage/myinfoSelect?user_id="+user_id;
-//			}
-//
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//
-//		
-//		return "mypageT/user/mypage/mypage_update";
 
 	}
 
