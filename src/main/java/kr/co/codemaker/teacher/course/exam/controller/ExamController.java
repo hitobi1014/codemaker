@@ -227,7 +227,7 @@ public class ExamController {
 	 * 등록한 시험문제를 상세 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectExam")
+	@RequestMapping(path = "/exam/selectExam")
 	public String selectExam(ExamVO examVo, Model model) {
 		ExamVO ev = examService.selectExam(examVo);
 		model.addAttribute("examVo", ev);
