@@ -19,6 +19,9 @@ local.properties
 db.properties
 db_dev.properties
 
+#test folder
+*/target/*
+
 #Eclipse Core
 .project
 
