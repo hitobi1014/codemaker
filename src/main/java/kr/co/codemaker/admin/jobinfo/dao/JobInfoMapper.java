@@ -3,6 +3,7 @@ package kr.co.codemaker.admin.jobinfo.dao;
 import java.util.List;
 import java.util.Map;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.model.JobInfoVO;
 import kr.co.codemaker.model.NoticeVO;
 
@@ -19,7 +20,8 @@ import kr.co.codemaker.model.NoticeVO;
 * 박경호 최초 생성
 *
  */
-public interface JobInfoDaoI {
+@Mapper("jobInfoMapper")
+public interface JobInfoMapper {
 	/**
 	 * 하나의 취업공고를 확인하기 위한 메서드
 	 * @author 박경호
