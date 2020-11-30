@@ -4,20 +4,7 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="/css/user/signup/style.css">
-    
-=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -295,42 +282,7 @@ function readURL(input) {
 							<input type="hidden" name="userBlack">
 							
 							<div class="form-group">
-<<<<<<< HEAD
-                                <label for="userid"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="userId" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
-                                <br><span id="regex1" class="check"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label><br>
-                                <input type="password" name="userPass" id="user_pass" placeholder="Password"/>
-                                <br><span id="regex2" class="check"></span>
-                            </div>
-<!--                             <div class="form-group"> -->
-<!--                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label> -->
-<!--                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/> -->
-<!--                             </div> -->
-                             <div class="form-group">  
-                              <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label><br>
-                                <input type="text" name="userNm" id="user_nm" placeholder="Name"/>
-                                <br><span id="regex3" class="check"></span>
-                            </div>
-                            <div class="form-group">
-                              <label for="tel"></label>
-								<i class="zmdi zmdi-account material-icons-name"></i>&nbsp;&nbsp;
-								<select id="phone1" >
-										<option value="010">010</option>
-										<option value="011">011</option>
-										<option value="019">019</option>
-										<option value="019">016</option>
-										<option value="019">017</option>
-								</select>-
-									<input type="text"  id="phone2" size="4" placeholder="4자리" maxlength="4">-
-									<input type="text"  id="phone3" size="4" placeholder="4자리" maxlength="4">
-									<input type ="hidden" name="userTel">
-									<br><span id="regex4"  class="check"></span>
-								<br>
-=======
-								<label for="userid"><i
+								<label for="userid"><i>
 									class="zmdi zmdi-account material-icons-name"></i></label> <input
 									type="email" name="user_id" id="user_id1" placeholder="ID" />
 							</div>
