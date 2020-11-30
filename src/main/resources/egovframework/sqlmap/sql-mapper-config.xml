@@ -2,19 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <typeAliases>
-		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
-		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
-		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
-		<typeAlias alias="LessonVO" type="kr.co.codemaker.model.LessonVO"/>
-    </typeAliases>							
-    
-   <mappers>
-    <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/user.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/lesson.xml"/>
-  </mappers>
-  
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
 </configuration>

@@ -1,7 +1,6 @@
 package kr.co.codemaker.common.dao;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.model.AdminVO;
 
 @Mapper("adminMapper")
 public interface AdminMapper {

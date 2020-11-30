@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.codemaker.common.service.AdminService;
-import kr.co.codemaker.model.AdminVO;
 
 @Controller
 @RequestMapping(path="/admin")

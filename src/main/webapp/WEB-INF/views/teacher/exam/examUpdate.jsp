@@ -7,9 +7,12 @@
 <meta charset="UTF-8">
 <!-- bootstrap 사용 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/exam.js"></script>
@@ -124,7 +127,6 @@ body {
 	border-bottom-right-radius: 8px;
 	height: 520px;
 	text-align: left;
-	
 	margin-top: 10px;
 }
 
@@ -149,35 +151,37 @@ body {
 .anw {
 	margin-top: 10px;
 }
+
 .btnd {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
 }
-.btns{
+
+.btns {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
-	
-    margin-right: 90px;
+	margin-right: 90px;
 }
 
 .comment {
 	resize: none;
 }
-.overlay{
+
+.overlay {
 	z-index: 1;
 	position: absolute;
 	display: none;
-	background-color:rgba(230,244,234,0.5);
+	background-color: rgba(230, 244, 234, 0.5);
 	width: 840px;
 	height: 35px;
-	
 }
-.chk{
+
+.chk {
 	z-index: 2;
-	    margin-left: 4px;
-    margin-top: 10px;
+	margin-left: 4px;
+	margin-top: 10px;
 	position: relative;
 }
 </style>
@@ -188,41 +192,45 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 수정</h2>
-				<br> <label for="sel1">${examVo.exam_nm }</label> <br>
-				<select class="form-control" id="sel1" name="cur_id">
+				<br> <label for="sel1">${examVo.exam_nm }</label> <br> <select
+					class="form-control" id="sel1" name="cur_id">
 					<c:forEach var="curriculum" items="${curriculumList }">
 						<!-- 커리큘럼 내용과 시험명이 같으면 선택 -->
-						<option value="${curriculum.cur_id }/${curriculum.cur_cont }" 
+						<option value="${curriculum.cur_id }/${curriculum.cur_cont }"
 							<c:if test="${curriculum.cur_cont eq examVo.exam_nm }">
 							selected="selected"
-							</c:if>
-						>${curriculum.cur_cont }</option>
+							</c:if>>${curriculum.cur_cont }</option>
 					</c:forEach>
-					
+
 					<option value="adfad">2</option>
 					<option>3</option>
 					<option>4</option>
 				</select>
 			</div>
-			<br><br><br>
+			<br>
+			<br>
+			<br>
 
 			<c:forEach items="${questionList }" var="question" varStatus="status">
 				<div class="d5">
 					<div class="d4"></div>
 					<div class="d6">
-						<label for="sel1">문제를 입력해주세요.</label>
-						<input type="text" name="que_cont" class="form-control que" value="${question.que_cont }" /> <br>
-						<label for="sel1"> 보기를 입력해주세요. </label>
-						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs">
+						<label for="sel1">문제를 입력해주세요.</label> <input type="text"
+							name="que_cont" class="form-control que"
+							value="${question.que_cont }" /> <br> <label for="sel1">
+							보기를 입력해주세요. </label>
+						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
+							items="${answersheetLists }" varStatus="vs">
 							<div class="anw">
 								<div class="overlay"></div>
-								<input type="text" name="ans_cont" class="form-control radi" value="${answersheetLists[${status.index*4+vs.index }] }">
+								<input type="text" name="ans_cont" class="form-control radi"
+									value="${answersheetLists[${status.index*4+vs.index }] }">
 								<!-- 보기와 정답이 같다면 체크 -->
-								<input type="checkbox" name="que_answer" value="${vs.count }" class="chk"
+								<input type="checkbox" name="que_answer" value="${vs.count }"
+									class="chk"
 									<c:if test="${vs.count eq question.que_answer }">
 										checked="checked"								
-									</c:if>
-								/>
+									</c:if> />
 							</div>
 						</c:forEach>
 					</div>

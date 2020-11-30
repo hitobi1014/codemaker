@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.common.dao.AdminMapper;
-import kr.co.codemaker.model.AdminVO;
 
 @Service("adminService")
 public class AdminService {
