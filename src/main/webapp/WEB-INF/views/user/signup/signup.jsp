@@ -32,7 +32,7 @@ $(document).ready(function(){
 		phone4+= $("#phone2").val();
 		phone4+= $("#phone3").val();
 		
-		$("input[name='user_tel']").val(phone4);
+		$("input[name='userTel']").val(phone4);
 
 // 		$("#register-form").submit();
 		
@@ -186,21 +186,22 @@ $(document).ready(function(){
 	
 	//id중복체크
 	$('#idchk').on("click",function(){
-	
-		user_id = $("#user_id").val();
+		
+		userId = $("#user_id").val();
 		
 		$.ajax({
 			url : "${cp}/join/idchk",
 			type : "post",
 			dataType : "json",
-			data : {"user_id" : user_id},
+			data : {"userId" : userId},
 			success : function(data) {
+				console.log('ddd');
 				if (data == 1) {
 					$("#regex1").html("중복된 아이디 입니다.");
 				} else if (data == 0) {
 					alert("사용가능한 아이디입니다.");
 				}
-				}
+			}
 		}) // idchk
 	})
 
@@ -268,17 +269,17 @@ function readURL(input) {
 								<br/>
 							</div>
 
-							<input type="hidden" name="user_out">
-							<input type="hidden" name="user_black">
+							<input type="hidden" name="userOut">
+							<input type="hidden" name="userBlack">
 							
 							<div class="form-group">
                                 <label for="userid"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="user_id" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
+                                <input type="text" name="userId" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
                                 <br><span id="regex1" class="check"></span>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label><br>
-                                <input type="password" name="user_pass" id="user_pass" placeholder="Password"/>
+                                <input type="password" name="userPass" id="user_pass" placeholder="Password"/>
                                 <br><span id="regex2" class="check"></span>
                             </div>
 <!--                             <div class="form-group"> -->
@@ -287,7 +288,7 @@ function readURL(input) {
 <!--                             </div> -->
                              <div class="form-group">  
                               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label><br>
-                                <input type="text" name="user_nm" id="user_nm" placeholder="Name"/>
+                                <input type="text" name="userNm" id="user_nm" placeholder="Name"/>
                                 <br><span id="regex3" class="check"></span>
                             </div>
                             <div class="form-group">
@@ -302,7 +303,7 @@ function readURL(input) {
 								</select>-
 									<input type="text"  id="phone2" size="4" placeholder="4자리" maxlength="4">-
 									<input type="text"  id="phone3" size="4" placeholder="4자리" maxlength="4">
-									<input type ="hidden" name="user_tel">
+									<input type ="hidden" name="userTel">
 									<br><span id="regex4"  class="check"></span>
 								<br>
 							</div>

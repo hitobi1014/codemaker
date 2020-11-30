@@ -2,17 +2,27 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <typeAliases>
-		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/>
-		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
-		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
-    </typeAliases>
-    
-   <mappers>
-    <mapper resource="egovframework/sqlmap/mappers/main.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/notice.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/>
-    <mapper resource="egovframework/sqlmap/mappers/user.xml"/>
-  </mappers>
+
+	<!-- camel을 snake로 변경해주는 것 -->
+  	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
   
+<!--     <typeAliases> -->
+<!-- 		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/> -->
+<!-- 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/> -->
+<!-- 		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/> -->
+<!--     </typeAliases>							 -->
+    
+<!--    <mappers> -->
+<!--     <mapper resource="egovframework/sqlmap/mappers/main.xml"/> -->
+<!--     <mapper resource="egovframework/sqlmap/mappers/notice.xml"/> -->
+<!--     <mapper resource="egovframework/sqlmap/mappers/jobinfo.xml"/> -->
+<!--     <mapper resource="egovframework/sqlmap/mappers/user.xml"/> -->
+<!--     <mapper resource="egovframework/sqlmap/mappers/mypage.xml"/> -->
+<!--   </mappers> -->
+  
+
+<typeAliases></typeAliases>
 </configuration>

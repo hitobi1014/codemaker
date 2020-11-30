@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.user.mypage.dao.MyPageMapper">
+
+  <select id="myinfoSelect" parameterType="java.lang.String" resultType="kr.co.codemaker.common.model.UserVO">
+  	SELECT * FROM users where user_id = #{userId}
+  </select>
+  
+  <update id="deleteUser" parameterType="java.lang.String">
+  	UPDATE users SET user_out = 'Y' WHERE user_id = #{userId}
+  </update>
+  
+  <update id="updateUser" parameterType="kr.co.codemaker.common.model.UserVO">
+  	UPDATE users SET user_pass = #{userPass},
+  						 user_nm = #{userNm},
+  						 user_tel = #{userTel},
+  						 user_profile= #{userProfile}
+  					WHERE user_id=#{userId}
+  </update>
+  
+
+</mapper>

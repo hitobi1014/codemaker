@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(function(){
+// $(function(){
 // 	$("input:checkbox[id='remember']").prop('checked',true);
-// 	var remember = ;
-	if(${cookie.remember.value}==1){
-		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#user_id").val("${cookie.userid.value}");
-	}else{
-		$("input:checkbox[id='ckb1']").prop('checked',false);
-		$("#user_id").val('');
-	}
+// 	var remember = "";
+// 	if(${cookie.remember.value}==1){
+// 		$("input:checkbox[id='ckb1']").prop('checked',true);
+// 		$("#user_id").val("${cookie.userid.value}");
+// 	}else{
+// 		$("input:checkbox[id='ckb1']").prop('checked',false);
+// 		$("#user_id").val('');
+// 	}
 	
-})
+// })
 </script>
 
 
@@ -100,7 +101,6 @@ $(function(){
 								</a>
 								<div class="dropdown-divider">
 							</div>
-<<<<<<< HEAD
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
 								</a>
@@ -119,27 +119,3 @@ $(function(){
 				</nav>
                 <!-- End of Topbar -->
 
-=======
-
-						</form>
-					</div>
-				</div>
-			</div></li>
-
-		<!-- 회원가입 -->
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="signin" role="button" aria-haspopup="true" aria-expanded="false">회원가입 </a></li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&emsp;&emsp;&emsp;&emsp;&emsp;</a>
-		</li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-		</li>
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-		</li>
-	</ul>
-
-</nav>
-<!-- End of header -->
->>>>>>> 875041c1c61f9fe9e34e102181a9737aa127715b

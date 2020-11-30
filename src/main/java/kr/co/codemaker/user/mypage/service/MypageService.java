@@ -4,18 +4,28 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.user.mypage.dao.MypageDaoI;
+import kr.co.codemaker.common.model.UserVO;
+import kr.co.codemaker.user.mypage.dao.MyPageMapper;
 
 
 @Service("mypageService")
-public class MypageService implements MypageServiceI {
+public class MypageService{
 
-	@Resource(name="mypageDao")
-	private MypageDaoI mypageDao;
+	@Resource(name="myPageMapper")
+	private MyPageMapper myPageMapper;
 	
-	public MypageService() {
-		
+	public UserVO myinfoSelect(String userId) throws Exception {
+		return myPageMapper.myinfoSelect(userId);
 	}
+
+	public int deleteUser(String userId) throws Exception {
+		return myPageMapper.deleteUser(userId);
+	}
+
+	public int updateUser(UserVO userVo) throws Exception {
+		return myPageMapper.updateUser(userVo); 
+	}
+
 	
 	
 }
