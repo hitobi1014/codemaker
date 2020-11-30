@@ -7,9 +7,12 @@
 <meta charset="UTF-8">
 <!-- bootstrap 사용 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -93,7 +96,6 @@ body {
 	width: 900px;
 	border-bottom-right-radius: 8px;
 	text-align: left;
-	
 	margin-top: 10px;
 }
 
@@ -118,35 +120,37 @@ body {
 .anw {
 	margin-top: 10px;
 }
+
 .btnd {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
 }
-.btns{
+
+.btns {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
-	
-    margin-right: 90px;
+	margin-right: 90px;
 }
 
 .comment {
 	resize: none;
 }
-.overlay{
+
+.overlay {
 	z-index: 1;
 	position: absolute;
 	display: none;
-	background-color:rgba(230,244,234,0.5);
+	background-color: rgba(230, 244, 234, 0.5);
 	width: 840px;
 	height: 35px;
-	
 }
-.chk{
+
+.chk {
 	z-index: 2;
-	    margin-left: 4px;
-    margin-top: 10px;
+	margin-left: 4px;
+	margin-top: 10px;
 	position: relative;
 }
 </style>
@@ -158,9 +162,11 @@ body {
 			<br>
 			<div id="d3">
 				<h2>시험</h2>
-				<br> <label for="sel1">${examVo.exam_nm }</label> <br> 
+				<br> <label for="sel1">${examVo.exam_nm }</label> <br>
 			</div>
-			<br><br><br>
+			<br>
+			<br>
+			<br>
 
 			<c:forEach items="${questionList }" var="question" varStatus="status">
 				<br>
@@ -168,24 +174,27 @@ body {
 				<br>
 				<div class="d5">
 					<div class="d6">
-						<label for="sel1">${status.count }.${question.que_cont }</label> 
-						<br><br>
-						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
+						<label for="sel1">${status.count }.${question.que_cont }</label> <br>
+						<br>
+						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
+							items="${answersheetLists }" varStatus="vs" var="answersheet">
 							<div class="anw">
-								<div class="overlay" 
+								<div class="overlay"
 									<c:if test="${vs.count eq question.que_answer }">
 										style="display:block"
 									</c:if>></div>
-								<input type="text" name="ans_cont" class="form-control radi" value="${answersheet.ans_cont}" readonly="readonly">
-								<input type="checkbox" name="que_answer" value="${vs.count }" class="chk" readonly="readonly" disabled="disabled"
+								<input type="text" name="ans_cont" class="form-control radi"
+									value="${answersheet.ans_cont}" readonly="readonly"> <input
+									type="checkbox" name="que_answer" value="${vs.count }"
+									class="chk" readonly="readonly" disabled="disabled"
 									<c:if test="${vs.count eq question.que_answer }">
 										checked="checked"								
-									</c:if>
-								/>
+									</c:if> />
 							</div>
 						</c:forEach>
 						<div class="anw">
-							<textarea class="form-control" rows="5" class="comment" name="que_explain" readonly="readonly">
+							<textarea class="form-control" rows="5" class="comment"
+								name="que_explain" readonly="readonly">
 								 ${question.que_explain}
 							</textarea>
 							<br>
@@ -195,9 +204,10 @@ body {
 			</c:forEach>
 		</div>
 		<div class="btns">
-			<input type="button" class="btn btn-default" id="updateBtn" value="수정하기">
-			<input type="button" class="btn btn-default" id="regBtn" value="등록하기">
-			<input type="button" class="btn btn-default" id="cancle" value="나가기">
+			<input type="button" class="btn btn-default" id="updateBtn"
+				value="수정하기"> <input type="button" class="btn btn-default"
+				id="regBtn" value="등록하기"> <input type="button"
+				class="btn btn-default" id="cancle" value="나가기">
 		</div>
 	</form>
 </body>

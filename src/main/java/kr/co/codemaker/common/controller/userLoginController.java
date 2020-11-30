@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.MainServiceI;
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 @Controller
 @RequestMapping(path="/user")
@@ -37,10 +37,10 @@ public class userLoginController {
 	}
 	
 	@RequestMapping(path="/login", method = RequestMethod.POST)
-	public String userLogin(UserVO userVo,
+	public String userLogin(UsersVO userVo,
 			@RequestParam(name="rememberMe", required=false, defaultValue="0") int rememberMe, Model model, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException{
-		UserVO getUserVo = mainService.selectUser(userVo.getUser_id());
+		UsersVO getUserVo = mainService.selectUser(userVo.getUser_id());
 		Cookie userCookie=null;
 		Cookie remember = null;
 		//아이디 저장 버튼 클릭시 쿠키에 아이디 정보 저장

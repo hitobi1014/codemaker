@@ -2,10 +2,15 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<<<<<<< HEAD
+=======
+	
+>>>>>>> VO수정
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 
+<<<<<<< HEAD
 <!--     <typeAliases> -->
 <!-- 		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UserVO"/> -->
 <!-- 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/> -->
@@ -21,4 +26,13 @@
 <!--     <mapper resource="egovframework/sqlmap/mappers/lesson.xml"/> -->
 <!--   </mappers> -->
   
+=======
+	<mappers>
+<!-- 		<mapper resource="egovframework/sqlmap/mappers/main.xml" /> -->
+<!-- 		<mapper resource="egovframework/sqlmap/mappers/notice.xml" /> -->
+<!-- 		<mapper resource="egovframework/sqlmap/mappers/jobinfo.xml" /> -->
+<!-- 		<mapper resource="egovframework/sqlmap/mappers/examMapper-mybatis.xml" /> -->
+	</mappers>
+
+>>>>>>> VO수정
 </configuration>
