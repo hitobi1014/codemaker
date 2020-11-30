@@ -26,46 +26,46 @@
 						<div class="sub-menu">
 						  
 						  
-						<li  class="has-sub" >
-							<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
-								<span class="nav-text">학생 관리</span> <b class="caret"></b>
-							</a>
-							<ul  class="collapse"  id="components">
-								<div class="sub-menu">
-								      
-									<li >
-										<a href="#">정보조회</a>
-									</li>
+							<li  class="has-sub" >
+								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
+									<span class="nav-text">학생 관리</span> <b class="caret"></b>
+								</a>
+								<ul  class="collapse"  id="components">
+									<div class="sub-menu">
+									      
+										<li >
+											<a href="#">정보조회</a>
+										</li>
+										
+										<li >
+											<a href="#">블랙리스트 관리</a>
+										</li>
+										
+										<li >
+											<a href="#">장학제도</a>
+										</li>
 									
-									<li >
-										<a href="#">블랙리스트 관리</a>
-									</li>
+									</div>
+								</ul>
+							</li>
+							
+							
+							
+							
+							<li  class="has-sub" >
+								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons" aria-expanded="false" aria-controls="icons">
+									<span class="nav-text">직원 관리</span> <b class="caret"></b>
+								</a>
+								<ul  class="collapse"  id="icons">
+									<div class="sub-menu">
 									
-									<li >
-										<a href="#">장학제도</a>
-									</li>
-								
-								</div>
-							</ul>
-						</li>
-						
-						
-						
-						
-						<li  class="has-sub" >
-							<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons" aria-expanded="false" aria-controls="icons">
-								<span class="nav-text">직원 관리</span> <b class="caret"></b>
-							</a>
-							<ul  class="collapse"  id="icons">
-								<div class="sub-menu">
-								
-									<li >
-										<a href="#">이력서 조회</a>
-									</li>
-								    
-								</div>
-							</ul>
-						</li>
+										<li >
+											<a href="#">이력서 조회</a>
+										</li>
+									    
+									</div>
+								</ul>
+							</li>
 						
 						
 						
