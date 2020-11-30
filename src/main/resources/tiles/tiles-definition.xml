@@ -28,7 +28,6 @@
 			value="/WEB-INF/views/user/mypage/layout/mypage_left.jsp" />
 		<put-attribute name="content" value="" />
 	</definition>
-<<<<<<< HEAD
 	
 	<!-- 관리자_메인페이지 -->
 	<definition name="adminMain.layout" template="/WEB-INF/views/admin/layout/main_layout.jsp">
@@ -60,7 +59,6 @@
 
 	
 	<!-- 회원_메인페이지 -->	
-=======
 
 	<!-- 상속을 통해 basic.layout에 설정된 header, left의 기본값을 사용하게 되며 만약 변경을 원하면 해당 속성을 
 		다른 값으로 설정하면 된다. 스프링 컨트롤러에서 리턴하는 viewName에 해당하는 tiles definition 이름이 있는지 찾아 
@@ -68,7 +66,6 @@
 		tiles.member.regist tiles.member.modify -->
 
 	<!-- 회원_메인페이지 -->
->>>>>>> VO수정
 	<definition name="mainT/*/*/*" extends="main.layout">
 		<put-attribute name="content"
 			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
@@ -79,7 +76,6 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
-<<<<<<< HEAD
 	
 	<!-- 관리자_마이페이지 -->
 	<definition name="adminPage/*/*/*" extends="adminMain.layout">
@@ -91,8 +87,5 @@
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
 	
-=======
-
->>>>>>> VO수정
 </tiles-definitions>
 
