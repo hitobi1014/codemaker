@@ -24,7 +24,7 @@ public class memberDaoTest extends ModelTestConfig{
 	public void test() throws Exception {
 		List<MemberVO> memberVo = memberMapper.selectMember();
 		logger.debug("가져온VO {}",memberVo);
-		assertEquals(6, memberVo.size());
+		assertEquals(27, memberVo.size());
 	}
 
 }
