@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
     pageEncoding="UTF-8"%>
-=======
-	pageEncoding="UTF-8"%>
->>>>>>> VO수정
 <header class="main-header " id="header">
 	<nav class="navbar navbar-static-top navbar-expand-lg">
 		<!-- Sidebar toggle button -->
@@ -35,7 +31,6 @@
 					</button>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li class="dropdown-header">You have 5 notifications</li>
-<<<<<<< HEAD
 						<li>
 							<a href="#"> <i class="mdi mdi-account-plus"></i> New user registered 
 								<span class=" font-size-12 d-inline-block float-right">
@@ -74,7 +69,6 @@
 						<li class="dropdown-footer">
 							<a class="text-center" href="#">View All </a>
 						</li>
-=======
 						<li><a href="#"> <i class="mdi mdi-account-plus"></i> New
 								user registered <span
 								class=" font-size-12 d-inline-block float-right"> <i
@@ -105,12 +99,10 @@
 						</a></li>
 						<li class="dropdown-footer"><a class="text-center" href="#">View
 								All </a></li>
->>>>>>> VO수정
 					</ul>
 				</li>
 				<!-- User Account -->
 				<li class="dropdown user-menu">
-<<<<<<< HEAD
 					<button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 						<img id="loginImg" src="/images/codemaker_logo3.png"> 
 						<span class="d-none d-lg-inline-block">Profile</span>
@@ -139,7 +131,6 @@
 								<i class="mdi mdi-logout"></i> 로그아웃
 							</a>
 						</li>
-=======
 					<button href="#" class="dropdown-toggle nav-link"
 						data-toggle="dropdown">
 						<img id="loginImg" src="/images/codemaker_logo3.png"> <span
@@ -166,7 +157,6 @@
 						<li class="dropdown-footer"><a href="signin.html"> <i
 								class="mdi mdi-logout"></i> 로그아웃
 						</a></li>
->>>>>>> VO수정
 					</ul>
 				</li>
 			</ul>

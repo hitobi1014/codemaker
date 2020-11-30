@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-=======
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -16,8 +14,6 @@
 <%@ include file="/WEB-INF/views/teacher/layout/commonLib.jsp"%>
 </head>
 
->>>>>>> VO수정
-
 <body class="sidebar-fixed sidebar-dark header-light header-fixed"
 	id="body">
 	<script>
@@ -28,9 +24,7 @@ NProgress.start();
 	<div class="mobile-sticky-body-overlay"></div>
 
 	<div class="wrapper">
-<<<<<<< HEAD
 		<div class="page-wrapper">
-=======
 		<%@include file="/WEB-INF/views/teacher/layout/nav.jsp"%>
 
 
@@ -40,7 +34,6 @@ NProgress.start();
 			<%@include file="/WEB-INF/views/teacher/layout/header.jsp"%>
 
 
->>>>>>> VO수정
 			<div class="content-wrapper">
 				<div class="content">
 					<!-- Top Statistics -->
