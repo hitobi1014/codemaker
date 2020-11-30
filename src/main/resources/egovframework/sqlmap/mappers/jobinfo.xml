@@ -4,4 +4,13 @@
 
 	
 
+<select id="selectJobInfo" resultType="java.util.HashMap">
+SELECT * 
+  FROM JOBINFO where JOBINFO_ID = #{jobInfoId}
+</select>
+<insert id="insertJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
+insert into jobInfo
+		values (#{jobInfoId}, #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N', NULL, NULL,
+		#{adminId})
+</insert>
 </mapper>
