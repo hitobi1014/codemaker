@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.common.notice.dao.NoticeDaoI;
-import kr.co.codemaker.model.NoticeVO;
+import kr.co.codemaker.common.notice.dao.NoticeMapper;
+import kr.co.codemaker.common.vo.NoticeVO;
+
 
 /**
 * NoticeService.java
@@ -25,23 +26,23 @@ import kr.co.codemaker.model.NoticeVO;
 *
  */
 @Service("noticeService")
-public class NoticeService implements NoticeServiceI {
+public class NoticeService {
 	
 	private static final Logger log = LoggerFactory.getLogger(NoticeService.class);
 	
-	@Resource(name="noticeDao")
-	private NoticeDaoI noticeDao;
+	@Resource(name="noticeMapper")
+	private NoticeMapper noticeMapper;
 
-	@Override
-	public Map<String, Object> selectAllNotice(Map<String, Object> map) {
+	
+	public Map<String, Object> selectAllNotice(Map<String, Object> map) throws Exception {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("noticeList", noticeDao.selectAllNotice(map));
+		map2.put("noticeList", noticeMapper.selectAllNotice(map));
 		log.debug("탐탐탐?2");
 		// 15건, 페이지사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
 		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요
 		
-		int cnt = noticeDao.noticeTotalCnt(map);
+		int cnt = noticeMapper.noticeTotalCnt(map);
 		
 		
 		int pages =(int) Math.ceil((double)cnt/(int) map.get("pageSize"));
@@ -49,24 +50,24 @@ public class NoticeService implements NoticeServiceI {
 		return map2;
 	}
 
-	@Override
-	public NoticeVO selectNotice(String noticeId) {
-		return noticeDao.selectNotice(noticeId);
+	
+	public NoticeVO selectNotice(String noticeId) throws Exception {
+		return noticeMapper.selectNotice(noticeId);
 	}
 
-	@Override
-	public int insertNotice(NoticeVO noticeVo) {
-		return noticeDao.insertNotice(noticeVo);
+	
+	public int insertNotice(NoticeVO noticeVo) throws Exception {
+		return noticeMapper.insertNotice(noticeVo);
 	}
 
-	@Override
-	public int updateNotice(NoticeVO noticeVo) {
-		return noticeDao.updateNotice(noticeVo);
+	
+	public int updateNotice(NoticeVO noticeVo) throws Exception {
+		return noticeMapper.updateNotice(noticeVo);
 	}
 
-	@Override
-	public int deleteNotice(String noticeId) {
-		return noticeDao.deleteNotice(noticeId);
+	
+	public int deleteNotice(String noticeId) throws Exception {
+		return noticeMapper.deleteNotice(noticeId);
 	}
 
 }
