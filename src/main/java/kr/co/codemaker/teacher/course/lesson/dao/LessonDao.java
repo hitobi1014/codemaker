@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.codemaker.teacher.course.lesson.controller.LessonController;
 
-@Repository("lessonDao")
+//@Repository("lessonDao")
 //public class LessonDao implements LessonDaoI{
 //	private static final Logger logger = LoggerFactory.getLogger(LessonDao.class);
 //
@@ -36,6 +36,6 @@ import kr.co.codemaker.teacher.course.lesson.controller.LessonController;
 //		return sqlSession.insert("lesson.insertLesson",lessonVO);
 //	}
 
+ 
 
-
-}
+//}

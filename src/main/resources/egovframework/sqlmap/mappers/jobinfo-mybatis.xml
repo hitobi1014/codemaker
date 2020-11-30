@@ -10,10 +10,10 @@ SELECT *
 </select>
 <insert id="insertJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
 insert into jobInfo
-		values (#{jobInfoId}, #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',
+		values (#{jobInfoId}, #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',null,null
 		#{adminId})
 </insert>
-<select id="selectAllJobInfo" resultType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
+<select id="selectAllJobInfo" resultType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO" parameterType="java.util.HashMap">
 SELECT * FROM
 		(SELECT ROWNUM AS RN,
 		A.*
@@ -26,7 +26,11 @@ SELECT * FROM
 </select>
 <update id="updateJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
 update jobInfo set
-		job_title = #{jobTitle}, job_cont = #{jobCont} where jobInfoId =
-		#{jobInfoId}
+		jobinfo_title = #{jobInfoTitle}, jobinfo_cont = #{jobInfoCont}, jobinfo_udate = #{jobInfoUdate}, jobinfo_uwriter = #{jobInfoUwriter} where jobInfoId =
+#{jobInfoId}
 </update>
+<delete id="deleteJobInfo" parameterType="kr.co.codemaker.admin.jobinfo.vo.JobInfoVO">
+update jobInfo set
+		jobinfo_out = 'Y' where jobinfo_id = #{jobInfoId}
+</delete>
 </mapper>
