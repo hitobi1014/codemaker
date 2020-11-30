@@ -37,10 +37,8 @@
 
 <head>
 
-<<<<<<< HEAD
 
 <%@ include file="/WEB-INF/views/user/mypage/layout/commonLib.jsp"%>
-=======
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -57,7 +55,6 @@
 
 <!-- Custom styles for this template-->
 <link href="/css/sb-admin-2.min.css" rel="stylesheet">
->>>>>>> VO수정
 
 </head>
 
@@ -74,9 +71,7 @@
 	<tiles:insertAttribute name="footer" />
 
 </body>
-<<<<<<< HEAD
  <%@ include file="/WEB-INF/views/user/mypage/layout/commonLib_2.jsp"%>
-=======
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/user/main/jquery/jquery.min.js"></script>
 <script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -93,5 +88,4 @@
 <!-- Page level custom scripts -->
 <script src="/js/user/main/demo/chart-area-demo.js"></script>
 <script src="/js/user/main/demo/chart-pie-demo.js"></script>
->>>>>>> VO수정
 </html>

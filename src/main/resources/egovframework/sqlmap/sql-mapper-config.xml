@@ -6,6 +6,7 @@
 		<typeAlias alias="UserVO" type="kr.co.codemaker.model.UsersVO"/>
 		<typeAlias alias="NoticeVO" type="kr.co.codemaker.model.NoticeVO"/>
 		<typeAlias alias="JobInfoVO" type="kr.co.codemaker.model.JobInfoVO"/>
+		<typeAlias alias="LessonVO" type="kr.co.codemaker.teacher.course.lesson.vo.LessonVO"/>
     </typeAliases>							
     
    <mappers>

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 	
 <%@ include file="/WEB-INF/views/user/main/layout/contentLib.jsp"%>
-=======
 
 <!-- main(css)-->
 <link href="/vendor/user/main/fontawesome-free/css/all.min.css"
@@ -11,11 +9,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
->>>>>>> VO수정
 
 
-<<<<<<< HEAD
-=======
 <!-- main Bootstrap core JavaScript-->
 <script src="/vendor/user/main/jquery/jquery.min.js"></script>
 <script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -32,7 +27,6 @@
 <!-- main Page level custom scripts -->
 <script src="/js/user/main/demo/chart-area-demo.js"></script>
 <script src="/js/user/main/demo/chart-pie-demo.js"></script>
->>>>>>> VO수정
 
 <!-- Illustrations -->
 <div class="text-center">

@@ -137,6 +137,7 @@ $(document).ready(function(){
 					<c:when test="${page != 0 && page != 1}">
 						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
 						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i class="fas fa-double-left"></i></a></li>
+					</c:when>
 					<c:when test="${i == page}">
 						<li class="page-item active"><a class="page-link"
 							href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>

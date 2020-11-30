@@ -30,11 +30,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD =======
->>>>>>> VO수정
 <%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 
 <body id="page-top">
@@ -48,16 +43,11 @@
 						<tiles:insertAttribute name="header" />
 					</c:otherwise>
 				</c:choose>
-<<<<<<< HEAD
 			<div id="content">
 				<tiles:insertAttribute name="content"/>
-=======
-				<tiles:insertAttribute name="content" />
->>>>>>> VO수정
 			</div>
 		</div>
 	</div>
 	<tiles:insertAttribute name="footer" />
-
 </body>
 </html>
