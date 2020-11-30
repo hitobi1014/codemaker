@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.codemaker.teacher.course.lesson.controller.LessonController;
 
-@Repository("lessonDao")
 //public class LessonDao implements LessonDaoI{
 //	private static final Logger logger = LoggerFactory.getLogger(LessonDao.class);
 //
