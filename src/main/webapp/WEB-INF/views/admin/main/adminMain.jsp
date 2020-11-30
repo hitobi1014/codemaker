@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Sleek - Admin Dashboard Template</title>
+<title>adminMain</title>
 
 </head>
 
@@ -906,14 +906,7 @@ NProgress.start();
 						</div>
 					</div>
 				</div>
-
-
-
 			</div>
-
 		</div>
 	</div>
-
-
 </body>
-</html>

@@ -19,28 +19,23 @@
 
 <!-- js -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
-<script src="/js/admin/main/jquery.min.js"></script>
 <script src="/js/admin/main/bootstrap.bundle.min.js"></script>
-<script src="/js/admin/main/toastr.min.js"></script>
-<script src="/js/admin/main/jquery.slimscroll.min.js"></script>
+<script src="/js/admin/main/chart.js"></script>
 <script src="/js/admin/main/Chart.min.js"></script>
-<script src="/js/admin/main/spin.min.js"></script>
-<script src="/js/admin/main/ladda.min.js"></script>
-<script src="/js/admin/main/jquery.mask.min.js"></script>
-<script src="/js/admin/main/select2.min.js"></script>
-<script src="/js/admin/main/jquery-jvectormap-2.0.3.min.js"></script>
-<script src="/js/admin/main/jquery-jvectormap-world-mill.js"></script>
-<script src="/js/admin/main/moment.min.js"></script>
+<script src="/js/admin/main/custom.js"></script>
+<script src="/js/admin/main/date-range.js"></script>
 <script src="/js/admin/main/daterangepicker.js"></script>
 <script src="/js/admin/main/jekyll-search.min.js"></script>
-<script src="/js/admin/main/sleek.js"></script>
-<script src="/js/admin/main/chart.js"></script>
-<script src="/js/admin/main/date-range.js"></script>
+<script src="/js/admin/main/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="/js/admin/main/jquery-jvectormap-world-mill.js"></script>
+<script src="/js/admin/main/jquery.mask.min.js"></script>
+<script src="/js/admin/main/jquery.min.js"></script>
+<script src="/js/admin/main/jquery.slimscroll.min.js"></script>
+<script src="/js/admin/main/ladda.min.js"></script>
 <script src="/js/admin/main/map.js"></script>
-<script src="/js/admin/main/custom.js"></script>
+<script src="/js/admin/main/moment.min.js"></script>
 <script src="/js/admin/main/nprogress.js"></script>
-
-
-
-
-
+<script src="/js/admin/main/select2.min.js"></script>
+<script src="/js/admin/main/sleek.js"></script>
+<script src="/js/admin/main/spin.min.js"></script>
+<script src="/js/admin/main/toastr.min.js"></script>
