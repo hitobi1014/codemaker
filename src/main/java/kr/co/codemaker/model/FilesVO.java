@@ -18,7 +18,7 @@ public class FilesVO {
 	private String files_id;    // 첨부파일 아이디
 	private String files_nm;    // 첨부파일명
 	private String files_path;  // 첨부파일 경로
-	private String files_gn;	// 첨부파일 구분(첨부파일을 올린 곳의 아이디)
+	private String files_group;	// 첨부파일 구분(첨부파일을 올린 곳의 아이디)
 	
 	public String getFiles_id() {
 		return files_id;
@@ -39,16 +39,16 @@ public class FilesVO {
 		this.files_path = files_path;
 	}
 	public String getFiles_gn() {
-		return files_gn;
+		return files_group;
 	}
-	public void setFiles_gn(String files_gn) {
-		this.files_gn = files_gn;
+	public void setFiles_gn(String files_group) {
+		this.files_group = files_group;
 	}
 	
 	@Override
 	public String toString() {
-		return "FilesVO [files_id=" + files_id + ", files_nm=" + files_nm + ", files_path=" + files_path + ", files_gn="
-				+ files_gn + "]";
+		return "FilesVO [files_id=" + files_id + ", files_nm=" + files_nm + ", files_path=" + files_path + ", files_group="
+				+ files_group + "]";
 	}
 	
 }

@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jobInfo">
-	
+
 	<select id="jobInfoTotalCnt" resultType="int">
-		select count(*) from jobInfo
-	</select>
-	
-
-	<select id="selectAlljobInfo" parameterType="java.util.Map" resultType="JobInfoVO">
-			
-	SELECT * FROM 
-	(SELECT ROWNUM AS RN,
-	       A.*
-	  FROM (SELECT *
-			FROM JOBINFO
-			WHERE 1=1
-			AND	JOB_TITLE LIKE '%' || #{keyWord} || '%'
-			AND	JOB_CONT LIKE '%' || #{keyWord} || '%') A)
-	 WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+		select count(*) from
+		jobInfo
 	</select>
 
 
+	<select id="selectAlljobInfo" parameterType="java.util.Map"
+		resultType="JobInfoVO">
 
-	<select id="selectjobInfo" parameterType="String" resultType="JobInfoVO">
+		SELECT * FROM
+		(SELECT ROWNUM AS RN,
+		A.*
+		FROM (SELECT *
+		FROM JOBINFO
+		WHERE 1=1
+		AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
+		AND JOB_CONT LIKE '%' || #{keyWord} || '%') A)
+		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+
+
+
+	<select id="selectjobInfo" parameterType="String"
+		resultType="JobInfoVO">
 		select * from jobInfo where job_id = #{job_id}
 	</select>
-	
+
 	<insert id="insertjobInfo" parameterType="JobInfoVO">
-		insert into jobInfo values (#{job_id}, #{job_title}, #{job_cont}, sysdate, 'N', #{admin_id})
+		insert into jobInfo
+		values (#{job_id}, #{job_title}, #{job_cont}, sysdate, 'N',
+		#{admin_id})
 	</insert>
-	
+
 	<update id="updatejobInfo" parameterType="JobInfoVO">
-		update jobInfo set job_title = #{job_title}, job_cont = #{job_cont} where job_id = #{job_id}
+		update jobInfo set
+		job_title = #{job_title}, job_cont = #{job_cont} where job_id =
+		#{job_id}
 	</update>
-	
+
 	<delete id="deletejobInfo" parameterType="String">
-		update jobInfo set job_out = 'Y' where job_id = #{job_id}
+		update jobInfo set
+		job_out = 'Y' where job_id = #{job_id}
 	</delete>
 
 </mapper>

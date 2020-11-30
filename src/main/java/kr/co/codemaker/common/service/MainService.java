@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.common.dao.MainDaoI;
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 @Service("mainService")
 public class MainService implements MainServiceI {
@@ -14,7 +14,7 @@ public class MainService implements MainServiceI {
 	private MainDaoI mainDao;
 	
 	@Override
-	public UserVO selectUser(String user_id) {
+	public UsersVO selectUser(String user_id) {
 		return mainDao.selectUser(user_id);
 	}
 

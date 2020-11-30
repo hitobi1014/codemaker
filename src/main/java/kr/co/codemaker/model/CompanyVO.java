@@ -11,7 +11,7 @@ package kr.co.codemaker.model;
 * 수정자 수정내용
 * ------ ------------------------
 * 김미연 최초 생성
-*
+* 박다미 com_contract 빼고, com_code 추가
  */
 public class CompanyVO {
 	
@@ -20,7 +20,7 @@ public class CompanyVO {
 	private String com_add;         // 기업 주소
 	private String com_owner;       // 대표자
 	private String com_tel;         // 전화번호
-	private String com_contract;    // 계약서
+	private String com_code;		 // 기업 코드
 	
 	public String getCom_id() {
 		return com_id;
@@ -52,17 +52,17 @@ public class CompanyVO {
 	public void setCom_tel(String com_tel) {
 		this.com_tel = com_tel;
 	}
-	public String getCom_contract() {
-		return com_contract;
+	public String getCom_code() {
+		return com_code;
 	}
-	public void setCom_contract(String com_contract) {
-		this.com_contract = com_contract;
+	public void setCom_code(String com_code) {
+		this.com_code = com_code;
 	}
-	
 	@Override
 	public String toString() {
 		return "CompanyVO [com_id=" + com_id + ", com_nm=" + com_nm + ", com_add=" + com_add + ", com_owner="
-				+ com_owner + ", com_tel=" + com_tel + ", com_contract=" + com_contract + "]";
+				+ com_owner + ", com_tel=" + com_tel + ", com_code=" + com_code + "]";
 	}
-
+	
+	
 }

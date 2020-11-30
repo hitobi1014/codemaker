@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
-<link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500"
+	rel="stylesheet" />
+<link
+	href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css"
+	rel="stylesheet" />
 <!-- PLUGINS CSS STYLE -->
 <link href="/css/admin/main/daterangepicker.css" rel="stylesheet" />
-<link href="/css/admin/main/flag-icon.min.css" rel="stylesheet"/>
-<link href="/css/admin/main/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+<link href="/css/admin/main/flag-icon.min.css" rel="stylesheet" />
+<link href="/css/admin/main/jquery-jvectormap-2.0.3.css"
+	rel="stylesheet" />
 <link href="/css/admin/main/ladda.min.css" rel="stylesheet" />
 <link href="/css/admin/main/nprogress.css" rel="stylesheet" />
 <link href="/css/admin/main/select2.min.css" rel="stylesheet" />
@@ -18,11 +23,13 @@
 <!-- FAVICON -->
 <link href="/images/favicon.png" rel="shortcut icon" />
 
-<script src="/css/adminMainJs/nprogress.js"></script>
+<script src="/js/teacher/main/nprogress.js"></script>
 
 
 <!-- js -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM"
+	defer></script>
 <script src="/js/teacher/main/jquery.min.js"></script>
 <script src="/js/teacher/main/bootstrap.bundle.min.js"></script>
 <script src="/js/teacher/main/toastr.min.js"></script>

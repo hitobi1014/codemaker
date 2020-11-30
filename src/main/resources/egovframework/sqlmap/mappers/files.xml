@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="files">
+<<<<<<< HEAD
   <insert id="insertFiles" parameterType="FilesVO">
     INSERT INTO FILES VALUES (#{files_id}, #{files_nm}, #{files_path}, #{files_gn})
   </insert>
@@ -12,11 +13,27 @@
   </select>
   
   <select id="selectAllFiles" parameterType="String" resultType="FilesVO">
-  	SELECT * FROM FILES WHERE FILES_GN = #{files_gn}
+  	SELECT * FROM FILES WHERE FILES_GROUP = #{files_gn}
   </select>
+=======
+	<insert id="insertFiles" parameterType="FilesVO">
+		INSERT INTO FILES VALUES (#{files_id}, #{files_nm}, #{files_path},
+		#{files_gn})
+	</insert>
+>>>>>>> VO수정
 
-  <delete id="deleteFiles" parameterType="String">
-  	DELETE FROM FILES WHERE FILES_NO = #{files_no}
-  </delete>
+	<select id="selectFiles" parameterType="String"
+		resultType="FilesVO">
+		SELECT * FROM FILES WHERE FILES_ID = #{files_id}
+	</select>
+
+	<select id="selectAllFiles" parameterType="String"
+		resultType="FilesVO">
+		SELECT * FROM FILES WHERE FILES_GN = #{files_gn}
+	</select>
+
+	<delete id="deleteFiles" parameterType="String">
+		DELETE FROM FILES WHERE FILES_NO = #{files_no}
+	</delete>
 
 </mapper>

@@ -1,6 +1,6 @@
 package kr.co.codemaker.common.dao;
 
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.model.UsersVO;
 
 public interface MainDaoI {
 
@@ -10,6 +10,6 @@ public interface MainDaoI {
 	* @param user_id
 	* @return User객체
 	*/
-	UserVO selectUser(String user_id);
+	UsersVO selectUser(String user_id);
 	
 }
