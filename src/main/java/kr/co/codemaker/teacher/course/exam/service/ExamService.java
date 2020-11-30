@@ -1,5 +1,6 @@
 package kr.co.codemaker.teacher.course.exam.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +9,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.model.AnswersheetVO;
-import kr.co.codemaker.model.ExamVO;
-import kr.co.codemaker.model.QuestionVO;
-import kr.co.codemaker.teacher.course.exam.dao.ExamDaoI;
-import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
+import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
+import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
+import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
+import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 
 /**
  * 
@@ -28,85 +30,100 @@ import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
 *
  */
 @Service("examService")
-public class ExamService implements ExamServiceI {
+public class ExamService {
 	
-	@Resource(name = "examDao")
-	private ExamDaoI examDao;
+	@Resource(name = "examMapper")
+	private ExamMapper examMapper;
+	
+	@Resource(name = "questionMapper")
+	private QuestionMapper questionMapper;
+	
+	@Resource(name = "answersheetMapper")
+	private AnswersheetMapper answersheetMapper;
 
-	@Override
 	public String insertExam(ExamVO examVo) {
-		return examDao.insertExam(examVo);
+		try {
+			return examMapper.insertExam(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	@Override
-	public String insertQuestion(QuestionVO questionVo) {
-		return examDao.insertQuestion(questionVo);
-	}
-
-	@Override
-	public int insertAnswersheet(AnswersheetVO answersheetVo) {
-		return examDao.insertAnswersheet(answersheetVo);
-	}
-
-	@Override
 	public int updateExam(ExamVO examVo) {
-		return examDao.updateExam(examVo);
+		try {
+			return examMapper.updateExam(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
-	@Override
-	public int updateQuestion(QuestionVO questionVo) {
-		return examDao.updateQuestion(questionVo);
-	}
-
-	@Override
-	public int updateAnswersheet(AnswersheetVO answersheetVo) {
-		return examDao.updateAnswersheet(answersheetVo);
-	}
-
-	@Override
 	public Map<String, Object> selectAllExam(ExamRequestVO examRequestVo) {
 		Map<String, Object> examMap = new HashMap<String, Object>();
 		
-		List<ExamVO> examList = examDao.selectAllExam(examRequestVo);
+		List<ExamVO> examList = new ArrayList<ExamVO>();
+		try {
+			examList = examMapper.selectAllExam(examRequestVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		examMap.put("examList", examList);
 		
-		int totalCnt = examDao.selectTotalCntExam(examRequestVo);
+		int totalCnt = 0;
+		try {
+			totalCnt = examMapper.selectTotalCntExam(examRequestVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		examMap.put("totalCnt", totalCnt);
 		
 		return examMap;
 	}
 	
-	@Override
 	public ExamVO selectExam(ExamVO examVo) {
-		return examDao.selectExam(examVo);
+		try {
+			return examMapper.selectExam(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	@Override
-	public List<QuestionVO> selectQuestion(ExamVO examVo) {
-		return examDao.selectQuestion(examVo);
-	}
-	
-	@Override
-	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVo) {
-		return examDao.selectAnswersheet(questionVo);
-	}
-
-	@Override
 	public int deleteExam(ExamVO examVo) {
 		
-		List<QuestionVO> questionList = examDao.selectQuestion(examVo);
+		List<QuestionVO> questionList = new ArrayList<>();
+		try {
+			questionList = questionMapper.selectQuestion(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		// 시험문제 보기 삭제
 		for(QuestionVO questionVo : questionList) {
 			for(int i = 0; i < 4 ; i++) {
-				examDao.deleteAnswersheet(questionVo);
+				try {
+					answersheetMapper.deleteAnswersheet(questionVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
 		// 시험 문제 삭제
-		examDao.deleteQuestion(examVo);
+		try {
+			questionMapper.deleteQuestion(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return examDao.deleteExam(examVo); // 시험 삭제
+		try {
+			// 시험 삭제
+			return examMapper.deleteExam(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return 0;
 	}
 
 }

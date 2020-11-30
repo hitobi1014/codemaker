@@ -9,9 +9,11 @@
 		<!-- 시험 문제를 볼때 -->
 		<td>${status.count }</td>
 		<td>${exam.exam_nm }</td>
-		<td><fmt:formatDate value="${exam.exam_date }" pattern="yyyy-MM-dd" /></td>
+		<td><fmt:formatDate value="${exam.exam_date }"
+				pattern="yyyy-MM-dd" /></td>
 		<td>${exam.exam_state }</td>
-		<td><input type="checkbox" value='${exam.exam_id }' class='echk'> </td>
+		<td><input type="checkbox" value='${exam.exam_id }' class='echk'>
+		</td>
 	</tr>
 </c:forEach>
 
@@ -19,16 +21,14 @@ fin
 <!-- 페이징 처리 -->
 <!-- 첫페이지가 아닐때 -->
 <c:if test="${page ne startpage }">
-	<li>
-		<a href="javascript:selectAllExam(${exam_state },${cur_id },${startpage});">
+	<li><a
+		href="javascript:selectAllExam(${exam_state },${cur_id },${startpage});">
 			<img class="page" alt="" src="${cp }/img/startpage.png">
-		</a>
-	</li>
-	<li>
-		<a href="javascript:selectAllExam(${exam_state },${cur_id },${page-1});">
+	</a></li>
+	<li><a
+		href="javascript:selectAllExam(${exam_state },${cur_id },${page-1});">
 			<img class="pages" alt="" src="${cp }/img/leftpage.png">
-		</a>
-	</li>
+	</a></li>
 </c:if>
 
 <c:forEach begin="1" end="${pages }" var="i">
@@ -39,8 +39,8 @@ fin
 			<li class="active"><span>${i }</span></li>
 		</c:when>
 		<c:otherwise>
-			<li>
-				<a href="javascript:selectAllExam(${exam_state },${cur_id },${i});">${i}</a>
+			<li><a
+				href="javascript:selectAllExam(${exam_state },${cur_id },${i});">${i}</a>
 			</li>
 		</c:otherwise>
 	</c:choose>
@@ -48,14 +48,12 @@ fin
 
 <!-- 마지막페이지가 아닐때 -->
 <c:if test="${page ne endpage }">
-	<li>
-		<a href="javascript:selectAllExam(${exam_state },${cur_id },${page+1});">
+	<li><a
+		href="javascript:selectAllExam(${exam_state },${cur_id },${page+1});">
 			<img class="pages" alt="" src="${cp }/img/rightpage.png">
-		</a>
-	</li>
-	<li>
-		<a href="javascript:selectAllExam(${exam_state },${cur_id },${endpage});">
+	</a></li>
+	<li><a
+		href="javascript:selectAllExam(${exam_state },${cur_id },${endpage});">
 			<img class="page" alt="" src="${cp }/img/endpage.png">
-		</a>
-	</li>
+	</a></li>
 </c:if>
