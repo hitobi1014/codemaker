@@ -49,39 +49,7 @@ $(document).ready(function(){
 
 </head>
 <body>
-<<<<<<< HEAD
-	<form name="form1"  method="post">
-        <select name="searchOption">
-            <c:if test="${searchOption == '0' || searchOption == '' || searchOption == null}">
-	            <option value="0" selected="true">전체</option>
-	            <option value="1">이벤트</option>
-	            <option value="2">자주묻는질문</option>
-	            <option value="3">알림</option>
-            </c:if>
-            <c:if test="${searchOption == '1'}">
-	            <option value="0">전체</option>
-	            <option value="1" selected="true">이벤트</option>
-	            <option value="2">자주묻는질문</option>
-	            <option value="3">알림</option>
-            </c:if>
-            <c:if test="${searchOption == '2'}">
-	            <option value="0">전체</option>
-	            <option value="1">이벤트</option>
-	            <option value="2" selected="true">자주묻는질문</option>
-	            <option value="3">알림</option>
-            </c:if>
-            <c:if test="${searchOption == '3'}">
-	            <option value="0">전체</option>
-	            <option value="1">이벤트</option>
-	            <option value="2">자주묻는질문</option>
-	            <option value="3" selected="true">알림</option>
-            </c:if>
-        </select>
-        <input id="keywords" type="text" name="keyWord" value="${keyWord}">
-        <input id="searchBtn" type="button" value="조회">
-        <button type="button" id="btnWrite">글쓰기</button>
-    </form>
-=======
+
 	<form name="form1" method="post">
 		<select name="searchOption">
 			<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
@@ -89,11 +57,11 @@ $(document).ready(function(){
 			<option value="1">이벤트</option>
 			<option value="2">자주묻는질문</option>
 			<option value="3">알림</option>
-		</select> <input type="text" name="keyWord"> <input id="searchBtn"
-			type="button" value="조회">
+		</select> 
+		<input type="text" name="keyWord"> <input id="searchBtn"type="button" value="조회">
 		<button type="button" id="btnWrite">글쓰기</button>
 	</form>
->>>>>>> VO수정
+
 
 
 	<div class="table-responsive">
@@ -108,17 +76,9 @@ $(document).ready(function(){
 				<c:forEach items="${noticeList}" var="notice">
 					<tr>
 						<td>${notice.notice_id}</td>
-<<<<<<< HEAD
 						<td><a href="${cp}/adminNotice/selectNotice?notice_id=${notice.notice_id}">${notice.notice_title}</a></td>
 						<td><fmt:formatDate value="${notice.notice_date}" pattern="yyyy-MM-dd" /></td>
 						<td>${notice.admin_id}</td>
-=======
-						<td><a
-							href="${cp}/admin/notice/selectNotice?notice_id=${notice.notice_id}">${notice.notice_title}</a></td>
-						<td><fmt:formatDate value="${notice.notice_date}"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${notice.admin_id }</td>
->>>>>>> VO수정
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -130,68 +90,33 @@ $(document).ready(function(){
 			<c:choose>
 				<c:when test="${page != 0 && page != 1}">
 					<li class="page-item"><a class="page-link"
-						href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i
+						href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i
 							class="fas fa-angle-double-left"></i></a></li>
 					<li class="page-item"><a class="page-link"
-						href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i
+						href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i
 							class="fas fa-double-left"></i></a></li>
 				</c:when>
 			</c:choose>
-
-			<c:forEach var="i" begin="1" end="${pages}">
-				<c:choose>
-<<<<<<< HEAD
-					<c:when test="${page != 0 && page != 1}">
-						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i class="fas fa-double-left"></i></a></li>
-=======
-					<c:when test="${i == page}">
-						<li class="page-item active"><a class="page-link"
-							href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
->>>>>>> VO수정
-					</c:when>
-					<c:otherwise>
-						<li class="page-item"><a class="page-link"
-							href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
-					</c:otherwise>
-				</c:choose>
-<<<<<<< HEAD
-				
+		
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
 						<c:when test="${i == page}">
-							<li class="page-item active"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item active"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>	
 				</c:forEach>
 				
 				<c:choose>
 					<c:when test="${page != pages}">
-						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-double-right"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/adminNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-right"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-double-right"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-right"></i></a></li>
 					</c:when>
 				</c:choose> 	
 			</ul>
 		</div>		
-=======
-			</c:forEach>
-
-			<c:choose>
-				<c:when test="${page != pages}">
-					<li class="page-item"><a class="page-link"
-						href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i
-							class="fas fa-angle-double-right"></i></a></li>
-					<li class="page-item"><a class="page-link"
-						href="${cp}/admin/notice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i
-							class="fas fa-angle-right"></i></a></li>
-				</c:when>
-			</c:choose>
-		</ul>
-	</div>
->>>>>>> VO수정
 </body>
 </html>
 
