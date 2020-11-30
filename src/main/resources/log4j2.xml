@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-<<<<<<< HEAD
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %5p [%c] %m%n" />
@@ -29,7 +28,6 @@
         </logger>
         
     </Loggers>
-=======
 	<Appenders>
 		<Console name="console" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d %5p [%c] %m%n" />
@@ -59,5 +57,4 @@
 		</logger>
 
 	</Loggers>
->>>>>>> VO수정
 </Configuration>
