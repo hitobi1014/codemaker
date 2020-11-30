@@ -3,8 +3,8 @@ package kr.co.codemaker.user.classroom.exam.dao;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
-import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
+import kr.co.codemaker.user.classroom.exam.vo.AnswersheetVO;
+import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 /**
  * 

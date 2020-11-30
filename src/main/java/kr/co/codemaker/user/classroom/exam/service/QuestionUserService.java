@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
-import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
+import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 /**
  * 
