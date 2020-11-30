@@ -20,7 +20,7 @@ db.properties
 db_dev.properties
 
 #test folder
-/target/
+/src/test/
 
 #Eclipse Core
 .project
