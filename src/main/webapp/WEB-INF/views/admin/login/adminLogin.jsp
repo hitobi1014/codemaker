@@ -174,18 +174,11 @@ $(function(){
 	<!-- Modal -->
 	<div id="myModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
-<<<<<<< HEAD
-			<!-- Modal content-->
-			<div class="modal-body">
-				<form action="/action_page.php" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
-					<br>
-=======
 
 			<!-- Modal content-->
 			<div class="modal-body">
 				<form action="/action_page.php"
 					class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
->>>>>>> VO수정
 					<h2 class="w3-center">회원가입</h2>
 
 					<div class="w3-row w3-section">
@@ -197,10 +190,8 @@ $(function(){
 								placeholder="이메일형식 ID">
 						</div>
 					</div>
-<<<<<<< HEAD
 					
 					
-=======
 
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width: 50px">
@@ -212,7 +203,6 @@ $(function(){
 						</div>
 					</div>
 
->>>>>>> VO수정
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width: 50px">
 							<i class="w3-xxlarge fa fa-user"></i>
@@ -222,10 +212,6 @@ $(function(){
 								placeholder="비밀번호">
 						</div>
 					</div>
-<<<<<<< HEAD
-					
-					
-=======
 
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width: 50px">
@@ -237,7 +223,6 @@ $(function(){
 						</div>
 					</div>
 
->>>>>>> VO수정
 					<div class="w3-row w3-section">
 						<div class="w3-col" style="width: 50px">
 							<i class="w3-xxlarge fa fa-phone"></i>
