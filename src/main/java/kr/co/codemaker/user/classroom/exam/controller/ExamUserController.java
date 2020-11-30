@@ -10,24 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
-import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
-import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
-import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
-import kr.co.codemaker.teacher.course.exam.service.ExamService;
-import kr.co.codemaker.teacher.course.exam.service.QuestionService;
-import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
-import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
-import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
-import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
-import kr.co.codemaker.user.classroom.exam.dao.AnswersheetUserMapper;
-import kr.co.codemaker.user.classroom.exam.dao.ExamUserMapper;
-import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
 import kr.co.codemaker.user.classroom.exam.service.QuestionUserService;
+import kr.co.codemaker.user.classroom.exam.vo.AnswersheetVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
+import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 /**
  * 
