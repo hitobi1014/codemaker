@@ -63,7 +63,7 @@ public class userLoginController {
 		// 로그인 성공시 메인홈페이지로 이동
 		if(getUserVo != null && userVo.getUser_pass().equals(getUserVo.getUser_pass())) {
 			session.setAttribute("MEMBER_INFO", getUserVo);
-			return "mainT/user/main/mainP/main_content";
+			return "mainT/user/main/main_content";
 		// 비밀번호 틀렸을때 문구출력
 		}else if(getUserVo != null && !userVo.getUser_pass().equals(getUserVo.getUser_pass())) {
 			String msg = URLEncoder.encode("비밀번호를 확인해주세요","UTF-8");
@@ -82,12 +82,12 @@ public class userLoginController {
 	
 	@RequestMapping(path="/main")
 	public String contentTest() {
-		return "mainT/user/main/mainP/main_content";
+		return "mainT/user/main/main_content";
 	}
 
 	@RequestMapping(path="/maintest")
 	public String maincontentTest() {
-		return "mainT/user/main/mainP/main_test";
+		return "mainT/user/main/main_test";
 	}
 	
 	@RequestMapping(path="/mainbck")
