@@ -46,20 +46,20 @@ $(document).ready(function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/userNotice/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
 		
 	});
 	
 	$("#notice1").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/userNotice/selectAllNotice?searchOption=1&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord;
 	});
 	
 	$("#notice2").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/userNotice/selectAllNotice?searchOption=2&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord;
 	});
 	
 })
@@ -68,8 +68,8 @@ $(document).ready(function(){
 	<div class="wrapper" style="width:200px;">
 		<div class="list-group list-group-flush">
 	        <a href="${cp}/user/main" class="list-group-item list-group-item-action bg-light">Main</a>
-	        <a href="${cp}/userNotice/selectAllNotice?searchOption=1&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">공지사항</a>
-	        <a href="${cp}/userNotice/selectAllNotice?searchOption=2&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">자주묻는질문</a>
+	        <a href="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">공지사항</a>
+	        <a href="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">자주묻는질문</a>
 	        <a href="#" class="list-group-item list-group-item-action bg-light">QnA</a>
 	        <a href="#" class="list-group-item list-group-item-action bg-light">마이페이지</a>
 	        <a href="#" class="list-group-item list-group-item-action bg-light">장바구니</a>
@@ -113,8 +113,8 @@ $(document).ready(function(){
 					<c:forEach items="${noticeList}" var="notice">
 						<tr>
 							<td>${notice.noticeId}</td>
-							<td><a href="${cp}/userNotice/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-							<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
+							<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
+							<td>${notice.noticeDate}"</td>
 							<td>${notice.adminId}</td>
 						</tr>
 					</c:forEach>
@@ -126,26 +126,26 @@ $(document).ready(function(){
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
 					<c:when test="${param.page != 0 && param.page != 1 && param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i class="fas fa-angle-left"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i class="fas fa-angle-left"></i></a></li>
 					</c:when>
 				</c:choose>
 				
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
 						<c:when test="${i == param.page || param.page == null}">
-							<li class="page-item active"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item active"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="page-item"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>	
 				</c:forEach>
 				
 				<c:choose>
 					<c:when test="${param.page != pages && param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-right"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/userNotice/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-double-right"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-right"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-double-right"></i></a></li>
 					</c:when>
 				</c:choose> 	
 			</ul>
