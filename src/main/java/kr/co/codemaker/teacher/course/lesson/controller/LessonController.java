@@ -12,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.model.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 
 @Controller
 @RequestMapping(path="/teacherL")

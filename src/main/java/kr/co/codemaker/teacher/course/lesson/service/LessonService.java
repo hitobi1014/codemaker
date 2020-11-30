@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.model.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 
 @Service("lessonService")
 public class LessonService{
