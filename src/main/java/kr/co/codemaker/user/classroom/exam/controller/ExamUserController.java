@@ -51,7 +51,7 @@ public class ExamUserController {
 	 * 시험문제를 전체 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/exam/selectAllResExam")
+	@RequestMapping(path = "/examUser/selectAllResExam")
 	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
 		Map<String, Object> examMap = examUserService.selectAllExam(examRequestVo);
@@ -77,7 +77,7 @@ public class ExamUserController {
 	 * 등록한 시험문제를 전체 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/exam/selectAllExam")
+	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllTestExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
 		return "teacher/exam/examAllSelect";
@@ -87,7 +87,7 @@ public class ExamUserController {
 	 * 시험문제를 상세 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectExam")
+	@RequestMapping(path = "/examUser/selectExam")
 	public String selectExam(ExamVO examVo, Model model) {
 		ExamVO ev = examUserService.selectExam(examVo);
 		model.addAttribute("examVo", ev);

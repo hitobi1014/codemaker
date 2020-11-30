@@ -15,7 +15,7 @@ import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.AdminService;
 
 @Controller
-@RequestMapping(path="/admin")
+@RequestMapping()
 public class AdminController { 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
