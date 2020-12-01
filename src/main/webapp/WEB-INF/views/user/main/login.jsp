@@ -37,16 +37,16 @@
 <script>
 $(function(){
 	if(${cookie.remember.value}==1){
-// 		var uri_encode = URLDecoder.decode(userid,"UTF-8");
-		console.log(uri_encode);
+		var userid = $("#user").data("userid");
 		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#userId").val("${cookie.userid.value}");
+		$("#userId").val(userid);
 	}else{
 		$("input:checkbox[id='ckb1']").prop('checked',false);
 		$("#userId").val('');
 	}
-	var test = $("#user").attr(data-userid);
-	console.log(test);
+// 	var test = $("#user").data("userid");
+// 	console.log(test);
+	
 })
 </script>
 
@@ -70,7 +70,7 @@ $(function(){
 // 			String cName = c.getName();
 			String cValue = URLDecoder.decode(c.getValue(),"UTF-8");
 			if(c.getName().equals("userid")){
-				out.print("<input id='user' data-userid='"+c.getName()+"' type='hidden'/>");
+				out.print("<input id='user' data-userid='"+cValue+"' type='hidden'/>");
 			}
 		}
 	}
