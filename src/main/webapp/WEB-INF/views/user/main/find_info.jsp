@@ -30,44 +30,87 @@
 	<link rel="stylesheet" type="text/css" href="/css/user/login/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/user/login/main.css">
 <!--===============================================================================================-->
+<!-- 유저 정보 찾기 css -->
+	<link rel="stylesheet" type="text/css" href="/css/userFindInfo.css">
 </head>
 <script>
 $(function(){
-	$("#findPw").hide();
+// 	$("#findPw").hide();
+	if(${param.info}==1){
+		findIdShow();
+	}else{
+		findPwShow();
+	}
+	
+	$("#findIdBtn").on('click',function(){
+		$.ajax({
+			type : 'post',
+			url : '/user/findId',
+			data : $("#findIdFrm").serialize(),
+			dataType : 'html',
+			error:function(xhr){
+				alert(xhr);
+			},
+			success : function(res){
+				$("#cng").html(res);
+			}
+		})
+	})
+	
+	$("#findPwBtn").on('click',function(){
+		$.ajax({
+			type : 'post',
+			url : '/user/findPw',
+			data : $("#findPwFrm").serialize(),
+			dataType : 'html',
+			error:function(xhr){
+				alert(xhr);
+			},
+			success : function(res){
+				$("#cng").html(res);
+			}
+		})
+	})
+	
+	$("#fPBtn").on('click',function(){
+		$("#findIdFrm")[0].reset();
+	})
+	
+	$("#fIBtn").on('click',function(){
+		$("#findPwFrm")[0].reset();
+	})
 })
 
 function findIdShow(){
+	$("#last").attr('class','findLi lastCol addLine-b');
+	$("#first").attr('class','findLi firstCol addLine');
+	$("#fCId").css({
+		color : "#007fb2",
+		"font-weight" : "bold"
+	})
+	$("#fCPw").css({
+		color : "black",
+		"font-weight": "normal"
+	})
 	$("#findPw").hide();
 	$("#findId").show();
 }
 
 function findPwShow(){
+	$("#first").attr('class','findLi firstCol addLine-b');
+	$("#last").attr('class','findLi lastCol addLine');
+	$("#fCPw").css({
+		color : "#007fb2",
+		"font-weight" : "bold"
+	})
+	$("#fCId").css({
+		color : "black",
+		"font-weight": "normal"
+	})
 	$("#findPw").show();
 	$("#findId").hide();
 }
 </script>
-<style>
-.txt1:hover{text-decoration: underline;}
-#di{width: 1920px; height:70px; margin-left: 520px; padding-top: 85px;}
-#logo{width:200px;height: 70px;}
-.row{width: 837px; height: 600px;margin-bottom: 100px; padding-left: 50%;}
-.find{width: 500px;height: 40px;border:1px solid black;}
-.firstCol{width:248px;height:40px; float: left;text-align: center; line-height: 40px;}
-.lastCol{width:248px;height:40px; float: right;text-align: center; line-height: 40px;}
-.div2{margin-left: 150px;}
-.in3{width: 837px;}
-.button {background-color: #4CAF50; /* Green */ border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block;
-  font-size: 16px; margin: 4px 2px; cursor: pointer; width: 500px;}
-.button4 {background-color: white; color: black;border: 2px solid #e7e7e7;}
-.hpInfo{margin-left: 25px; }
-.infoDiv{border: 1px solid black; padding: 20px 0px; background-color: #f4f4f4; width: 500px;}
-.certifi{width: 458px;}
-#hp{width: 328px;}
-#cerBtn{width: 120px; height: 38px;}
-#test{display: inline;}
-.btn-light{border:1px solid black;	}
-.form-control{display: inline;}
-</style>
 <body>
 	
 	<div class="limiter" style="background-color:#f4f4f4">
@@ -76,49 +119,61 @@ function findPwShow(){
 			<a href="${cp}/user/main"><img id="logo" src="/img/mj/로고 작업.png"/></a>
 		</div>
 			<div class="row" style="border:1px solid #ededed; padding:20px;background-color:white;">
-				<div class="div2">
+				<div id="cng" class="div2">
 					<div class="find">
 						<ul>
-							<li class="firstCol" id="first">
-								<button onclick="findIdShow()">아이디 찾기</button>
+							<li class="findLi firstCol" id="first">
+								<button id="fIBtn" class="findAtag" type="button" onclick="findIdShow()">
+									<span id="fCId">아이디 찾기</span>
+								</button>
 							</li>
-							<li class="lastCol" id="last">
-								<button onclick="findPwShow()">비밀번호 찾기</button>
+							<li class="findLi lastCol" id="last">
+								<button id="fPBtn" class="findAtag" type="button" onclick="findPwShow()">
+									<span id="fCPw">비밀번호 찾기</span>
+								</button>
 							</li>
 						</ul>
 					</div>
 					
-					<div class="dropdown" id="findId"> <!-- 아이디 찾기 -->
+					<div class="dropdown dropFind" id="findId"> <!-- 아이디 찾기 -->
+						<span style="font-size:0.8em;">아이디 찾기 방법을 선택해주세요</span><br>
 						<button type="button" class="button button4 hpClick dropdown-toggle" data-toggle="dropdown">등록된 휴대폰 번호로 찾기</button>
-						<form action="" method="post">
+						<form action="" method="post" id="findIdFrm" >
 							<div class="infoDiv dropdown-menu">
 								<div class="form-group">
-									<input class="form-control hpInfo certifi" type="text" placeholder="이름"/>
+									<input class="form-control hpInfo certifi" name="userNm" type="text" placeholder="이름"/>
+								</div>
+								<div class="form-group tableFix">
+									<input id="hp" class="form-control hpInfo" type="text" name="userTel" placeholder="휴대폰 번호 ('-'없이 입력)" />
+									<button id="certiBtn" class="btn btn-light">인증번호 요청</button>
 								</div>
 								<div class="form-group">
-									<input id="hp" class="form-control hpInfo" type="text" placeholder="휴대폰 번호 ('-'없이 입력)" />
-									<button class="btn btn-light">인증번호 요청</button>
+									<input class="form-control hpInfo certifi" type="text" name="certi" placeholder="인증번호 (6자리)"/>
 								</div>
 								<div class="form-group">
-									<input class="form-control hpInfo certifi" type="text" placeholder="인증번호 (6자리)"/>
+									<input class="btn hpInfo certifi subBtn" id="findIdBtn" type="button" value="확인">
 								</div>
 							</div>
 						</form>
 					</div>
 					
-					<div class="dropdown" id="findPw"> <!-- 비밀번호 찾기 -->
+					<div class="dropdown dropFind" id="findPw"> <!-- 비밀번호 찾기 -->
+						<span style="font-size:0.8em;">비밀번호 찾기 방법을 선택해주세요</span><br>
 						<button type="button" class="button button4 hpClick dropdown-toggle" data-toggle="dropdown">등록된 휴대폰 번호로 찾기</button>
-						<form action="" method="post">
+						<form action="" method="post" id="findPwFrm">
 							<div class="infoDiv dropdown-menu">
 								<div class="form-group">
-									<input class="form-control hpInfo certifi" type="text" placeholder="아이디"/>
+									<input class="form-control hpInfo certifi" type="text" name="userId" placeholder="아이디" />
 								</div>
 								<div class="form-group">
-									<input id="hp" class="form-control hpInfo" type="text" placeholder="휴대폰 번호 ('-'없이 입력)" />
+									<input id="hp" class="form-control hpInfo" type="text" name="userTel" placeholder="휴대폰 번호 ('-'없이 입력)"/>
 									<button class="btn btn-light">인증번호 요청</button>
 								</div>
 								<div class="form-group">
-									<input class="form-control hpInfo certifi" type="text" placeholder="인증번호 (6자리)"/>
+									<input class="form-control hpInfo certifi" type="text" name="certi" placeholder="인증번호 (6자리)"/>
+								</div>
+								<div class="form-group">
+									<input class="btn hpInfo certifi subBtn" id="findPwBtn" type="button" value="확인">
 								</div>
 							</div>
 						</form>

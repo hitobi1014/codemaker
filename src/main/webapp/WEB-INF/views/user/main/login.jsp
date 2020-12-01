@@ -99,8 +99,8 @@ $(function(){
 								<label class="label-checkbox100" for="ckb1">아이디 저장</label>
 							</div>
 							<div>
-								<a href="${cp}/user/FindId" class="txt1">아이디</a>•
-								<a href="#" class="txt1">비밀번호찾기</a>
+								<a href="${cp}/user/findInfo?info=1" class="txt1">아이디</a>•
+								<a href="${cp}/user/findInfo?info=2" class="txt1">비밀번호찾기</a>
 							</div>
 						</div>
 						<span style="color:red;"><c:if test="${param.msg !=null}">${param.msg}</c:if></span>
