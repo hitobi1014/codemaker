@@ -22,11 +22,11 @@ fin
 <!-- 첫페이지가 아닐때 -->
 <c:if test="${page ne startpage }">
 	<li><a
-		href="javascript:selectAllExam(${examState },${curId },${startpage});">
+		href="javascript:selectAllExam(${examState },${lidxId },${startpage});">
 			<img class="page" alt="" src="${cp }/img/startpage.png">
 	</a></li>
 	<li><a
-		href="javascript:selectAllExam(${examState },${curId },${page-1});">
+		href="javascript:selectAllExam(${examState },${lidxId },${page-1});">
 			<img class="pages" alt="" src="${cp }/img/leftpage.png">
 	</a></li>
 </c:if>
@@ -40,7 +40,7 @@ fin
 		</c:when>
 		<c:otherwise>
 			<li><a
-				href="javascript:selectAllExam(${examState },${curId },${i});">${i}</a>
+				href="javascript:selectAllExam(${examState },${lidxId },${i});">${i}</a>
 			</li>
 		</c:otherwise>
 	</c:choose>
@@ -49,11 +49,11 @@ fin
 <!-- 마지막페이지가 아닐때 -->
 <c:if test="${page ne endpage }">
 	<li><a
-		href="javascript:selectAllExam(${examState },${curId },${page+1});">
+		href="javascript:selectAllExam(${examState },${lidxId },${page+1});">
 			<img class="pages" alt="" src="${cp }/img/rightpage.png">
 	</a></li>
 	<li><a
-		href="javascript:selectAllExam(${examState },${curId },${endpage});">
+		href="javascript:selectAllExam(${examState },${lidxId },${endpage});">
 			<img class="page" alt="" src="${cp }/img/endpage.png">
 	</a></li>
 </c:if>

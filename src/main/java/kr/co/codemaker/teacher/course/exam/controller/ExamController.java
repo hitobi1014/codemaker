@@ -12,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
-import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
-import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
@@ -22,6 +19,8 @@ import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
 import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
+import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 
 /**
  * 
@@ -48,33 +47,24 @@ public class ExamController {
 	@Resource(name = "answersheetService")
 	private AnswersheetService answersheetService;
 	
-//	@Resource(name = "curriculumService")
-//	private CurriculumServiceI curriculumService;
+	@Resource(name = "lessonIndexService")
+	private LessonIndexService lessonIndexService;
 	
 	/**
 	 * 시험 등록화면을 요청하는 메서드
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.GET})
-	public String insertViewExam(String lesId, String curId, Model model) {
+	public String insertViewExam(String lesId, String lidxId, Model model) {
 		
-		// 커리큘럼을 조회
-//		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(les_id);
+		// 강의목차를 조회
+		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(lesId);
 		
-		
-//		List<CurriculumVO> curriculumList = new ArrayList<>();
-//		
-//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
-//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
-//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
-//		
-//		curriculumList.add(cur1);
-//		curriculumList.add(cur2);
-//		curriculumList.add(cur3);
-//		
-//		model.addAttribute("curriculumList", curriculumList);
-//		model.addAttribute("curId", curId);
+		model.addAttribute("lessonIndexList", lessonIndexList);
+		model.addAttribute("lidxId", lidxId);
+//		model.addAttribute("lidxId", "LIDX0002");
 
+//		return "";
 		return "teacher/exam/examInsert";
 	}
 	
@@ -87,8 +77,8 @@ public class ExamController {
 							List<AnswersheetVO> answerList) {
 		
 		// cur_id 와 exam_nm 분리하여 다시 셋팅
-		String[] examInfo = examVo.getCurId().trim().split("\"");
-		examVo.setCurId(examInfo[0]);
+		String[] examInfo = examVo.getLidxId().trim().split("\"");
+		examVo.setLidxId(examInfo[0]);
 		examVo.setExamNm(examInfo[1]);
 		
 		String exam_id = examService.insertExam(examVo); // 시험 아이디를 가져온다.
@@ -116,25 +106,15 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.GET})
-	public String updateViewExam(ExamVO examVo, List<QuestionVO> questionList, 
+	public String updateViewExam(String lesId, ExamVO examVo, List<QuestionVO> questionList, 
 							List<AnswersheetVO> answerList, Model model) {
 		
-		// 커리큘럼을 조회
-//		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(examVo.getLes_id());
+		// 강의목차를 조회
+		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(lesId);
 		
-//		model.addAttribute("curriculumList", curriculumList);
-		
-//		List<CurriculumVO> curriculumList = new ArrayList<>();
-//		
-//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
-//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
-//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
-//		
-//		curriculumList.add(cur1);
-//		curriculumList.add(cur2);
-//		curriculumList.add(cur3);
-//		
-//		model.addAttribute("curriculumList", curriculumList);
+		model.addAttribute("lessonIndexList", lessonIndexList);
+		model.addAttribute("lidxId", examVo.getLidxId());
+//		model.addAttribute("lidxId", "LIDX0002");
 		
 		if(examVo.getExamNm() == null || examVo.getExamNm().equals("")) { // 수정화면에서 요청이 왔을 경우
 			
@@ -192,9 +172,12 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/selectAllResExam")
-	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
+	public String selectAllResExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
-		Map<String, Object> examMap = examService.selectAllExam(examRequestVo);
+//		Map<String, Object> examMap = examService.selectAllExam(examRequestVo);
+		
+		ExamRequestVO erv = new ExamRequestVO("Y", "LESSON0001", 1);
+		Map<String, Object> examMap = examService.selectAllExam(erv);
 		
 		model.addAttribute("examList", (List<ExamVO>)examMap.get("examList"));      
 		
@@ -208,7 +191,7 @@ public class ExamController {
 		model.addAttribute("endPage", pages);
 		model.addAttribute("page", examRequestVo.getPage());
 		
-		session.setAttribute("exam_state", examRequestVo.getExamState()); // 검색 조건
+		session.setAttribute("examState", examRequestVo.getExamState()); // 검색 조건
 		
 		return "teacher/exam/examAllSelectAjaxHTML";
 	}
@@ -218,7 +201,7 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/selectAllExam")
-	public String selectAllTestExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
+	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
 		return "teacher/exam/examAllSelect";
 	}

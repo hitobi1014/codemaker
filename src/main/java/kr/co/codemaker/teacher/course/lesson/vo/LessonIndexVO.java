@@ -4,10 +4,10 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class LessonIndexVO extends BaseVO{
 
+	private String lidxId;
+	private String lidxNum;
 	private String lidxCont;
 	private String lesId;
-	private String lidxNum;
-	private String lidxId;
 	public void setLidxCont(String lidxCont) {
 		this.lidxCont = lidxCont; 
 	}

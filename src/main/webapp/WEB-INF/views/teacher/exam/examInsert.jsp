@@ -62,7 +62,7 @@
 			// 임시저장 버튼일 경우
 			if(bid == 'temps'){
 				str = '<input type="text" name="examState" value="0">';
-				str += '<input type="text" name="lesId" value="${curriculumList[0].lesId }">';
+				str += '<input type="text" name="lesId" value="${lessonIndexList[0].lesId }">';
 
 				$('#examf').append(str);
 				
@@ -70,7 +70,7 @@
 
 			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
 				str = '<input type="text" name="examState" value="1">';
-				str += '<input type="text" name="lesId" value="${curriculumList[0].lesId }">';
+				str += '<input type="text" name="lesId" value="${lessonIndexList[0].lesId }">';
 
 				$('#examf').append(str);
 
@@ -204,11 +204,11 @@ body {
 				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br>
 				<select class="form-control" id="sel1" name="curId">
 					<option value="99">커리큘럼을 선택해주세요.</option>
-					<c:forEach var="curriculum" items="${curriculumList }">
-						<option value="${curriculum.curId }/${curriculum.cur_cont }"
-							<c:if test="${curriculum.curId eq curId }">
+					<c:forEach var="lessonIndex" items="${lessonIndexList }">
+						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }"
+							<c:if test="${lessonIndex.lidxId eq lidxId }">
 									selected="selected"
-							</c:if>>${curriculum.curCont }</option>
+							</c:if>>${lessonIndex.lidxCont }</option>
 					</c:forEach>
 				</select>
 			</div>

@@ -23,9 +23,9 @@
 		// 해당 강의 선택시 해당 문제로 변경
 		$('#sel1').on('change', function(){
 			var v = $(this).val
-			var cur_id = v.split("\"")[0];
+			var lidxId = v.split("\"")[0];
 
-			document.location = "/exam/updateExam?lesId=${curriculumList[0].lesId}&curId=" + curId;
+			document.location = "/exam/updateExam?lesId=${lessonIndexList[0].lesId}&lidxId=" + lidxId;
 			
 		});
 
@@ -64,7 +64,7 @@
 				$('#examf').submit();
 				
 			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
-				str = '<input type="text" name="exam_state" value="1">';
+				str = '<input type="text" name="examState" value="1">';
 
 				$('#examf').append(str);
 
@@ -194,12 +194,12 @@ body {
 				<h2>시험 수정</h2>
 				<br> <label for="sel1">${examVo.examNm }</label> <br> <select
 					class="form-control" id="sel1" name="cur_id">
-					<c:forEach var="curriculum" items="${curriculumList }">
+					<c:forEach var="lessonIndex" items="${lessonIndexList }">
 						<!-- 커리큘럼 내용과 시험명이 같으면 선택 -->
-						<option value="${curriculum.curId }/${curriculum.curCont }"
-							<c:if test="${curriculum.curCont eq examVo.examNm }">
+						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }"
+							<c:if test="${lessonIndex.lidxId eq lidxId }">
 							selected="selected"
-							</c:if>>${curriculum.curCont }</option>
+							</c:if>>${lessonIndex.lidxId }</option>
 					</c:forEach>
 
 					<option value="adfad">2</option>

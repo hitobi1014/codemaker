@@ -23,7 +23,9 @@ public class ExamVO extends BaseVO {
 	private String examNm;		// 시험명
 	private String examState;	// 시험 등록 상태
 	private Date examDate;		// 시험 작성일
-	private String curId;		// 커리큘럼 아이디
+	private String lidxId;		// 강의목차 아이디
+	
+//	private String lesId;		// 강의 아이디
 	
 	public ExamVO() {
 		
@@ -33,13 +35,13 @@ public class ExamVO extends BaseVO {
 		this.examId = examId;
 	}
 	
-	public ExamVO(String examId, String examNm, String examState, Date examDate, String curId) {
+	public ExamVO(String examId, String examNm, String examState, Date examDate, String lidxId) {
 		
 		this.examId = examId;
 		this.examNm = examNm;
 		this.examState = examState;
 		this.examDate = examDate;
-		this.curId = curId;
+		this.lidxId = lidxId;
 	}
 
 	public String getExamId() {
@@ -66,11 +68,11 @@ public class ExamVO extends BaseVO {
 	public void setExamDate(Date examDate) {
 		this.examDate = examDate;
 	}
-	public String getCurId() {
-		return curId;
+	public String getLidxId() {
+		return lidxId;
 	}
-	public void setCurId(String curId) {
-		this.curId = curId;
+	public void setLidxId(String lidxId) {
+		this.lidxId = lidxId;
 	}
 	
 }
