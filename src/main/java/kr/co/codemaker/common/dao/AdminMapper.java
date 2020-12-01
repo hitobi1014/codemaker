@@ -1,5 +1,6 @@
 package kr.co.codemaker.common.dao;
 
+
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.admin.vo.AdminVO;
 
@@ -13,6 +14,6 @@ public interface AdminMapper {
 	 * @since 2020. 11. 30
 	 * @return
 	 */
-	public AdminVO getAdmin(AdminVO adminVo) throws Exception;
+	public AdminVO getAdmin(String adminId);
 	
 }
