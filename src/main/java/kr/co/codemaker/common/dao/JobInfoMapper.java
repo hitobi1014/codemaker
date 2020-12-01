@@ -1,10 +1,10 @@
-package kr.co.codemaker.admin.jobinfo.dao;
+package kr.co.codemaker.common.dao;
 
 import java.util.List;
 import java.util.Map;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.admin.jobinfo.vo.JobInfoVO;
+import kr.co.codemaker.common.vo.JobInfoVO;
 
 
 /**

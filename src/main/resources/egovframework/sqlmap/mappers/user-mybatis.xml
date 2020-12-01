@@ -5,7 +5,7 @@
 <mapper namespace="user">
 
 
-  <insert id="insertUser" parameterType="UserVO">
+  <insert id="insertUser" parameterType="kr.co.codemaker.common.vo.UserVO">
     INSERT INTO userstest VALUES(#{user_id}, #{user_pass}, #{user_nm}, #{user_tel}, #{user_profile}, 'N', 'N')
   </insert>
   

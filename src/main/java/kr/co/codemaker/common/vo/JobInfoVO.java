@@ -1,16 +1,42 @@
-package kr.co.codemaker.admin.jobinfo.vo;
+package kr.co.codemaker.common.vo;
 
-import kr.co.codemaker.common.vo.BaseVO;
+import java.util.Date;
 
+/**
+* JobInfoVO.java
+*
+* @author 박경호
+* @version 1.0
+* @since 2020. 12. 1.
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박경호 최초 생성
+*
+ */
 public class JobInfoVO extends BaseVO{
 
 	private String jobinfoTitle;
 	private String jobinfoOut;
 	private String jobinfoId;
 	private String adminId;
-	private String jobinfoDate;
+	private Date jobinfoDate;
 	private String jobinfoCont;
+	private String jobinfoUdate;
+	private String jobinfoUwriter;
 	
+	public String getJobinfoUdate() {
+		return jobinfoUdate;
+	}
+	public void setJobinfoUdate(String jobinfoUdate) {
+		this.jobinfoUdate = jobinfoUdate;
+	}
+	public String getJobinfoUwriter() {
+		return jobinfoUwriter;
+	}
+	public void setJobinfoUwriter(String jobinfoUwriter) {
+		this.jobinfoUwriter = jobinfoUwriter;
+	}
 	public void setJobinfoTitle(String jobinfoTitle) {
 		this.jobinfoTitle = jobinfoTitle; 
 	}
@@ -35,10 +61,10 @@ public class JobInfoVO extends BaseVO{
 	public String getAdminId() {
 		return adminId; 
 	}
-	public void setJobinfoDate(String jobinfoDate) {
+	public void setJobinfoDate(Date jobinfoDate) {
 		this.jobinfoDate = jobinfoDate; 
 	}
-	public String getJobinfoDate() {
+	public Date getJobinfoDate() {
 		return jobinfoDate; 
 	}
 	public void setJobinfoCont(String jobinfoCont) {
