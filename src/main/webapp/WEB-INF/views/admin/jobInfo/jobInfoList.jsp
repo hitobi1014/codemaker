@@ -15,17 +15,17 @@ $(document).ready(function(){
 		
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/admin/selectAllJobInfo?&keyWord="+keyWord;
+		document.location="${cp}/admin/selectAllJobInfo?keyWord="+keyWord;
 		
 	});
 })
 </script>
-<div>
+<div style="color:black">
 	<form name="form1"  method="post">
       
         검색<input type="text" name="keyWord" value="${keyWord}">
-        <input id="searchBtn" type="button" value="조회">
-        <button type="button" id="btnWrite">글쓰기</button>
+        <input id="searchBtn" type="button" class="btn btn-warning btn-sm" value="조회">
+        <button type="button" id="btnWrite" class="btn btn-info btn-sm">글쓰기</button>
     </form>
 
 
@@ -40,10 +40,10 @@ $(document).ready(function(){
 			<tbody id="jobInfoList">
 				<c:forEach items="${jobInfoList}" var="jobInfo">
 					<tr>
-						<td>${jobInfo.job_id}</td>
-						<td><a href="${cp}/admin/selectJobInfo?job_id=${jobInfo.job_id}">${jobInfo.job_title}</a></td>
-						<td><fmt:formatDate value="${jobInfo.job_date}" pattern="yyyy-MM-dd" /></td>
-						<td>${jobInfo.admin_id}</td>
+						<td>${jobInfo.jobinfoId}</td>
+						<td><a href="${cp}/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
+						<td><fmt:formatDate value="${jobInfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
+						<td>${jobInfo.adminId}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -20,8 +20,14 @@ SELECT * FROM
 		FROM (SELECT *
 		FROM JOBINFO
 		WHERE 1=1
-		AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
-		AND JOB_CONT LIKE '%' || #{keyWord} || '%') A)
+		<if test="keyWord != '' and keyWord != null">
+			AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
+			AND JOB_CONT LIKE '%' || #{keyWord} || '%')A)
+		</if>
+		<if test="keyWord == '' or keyWord == null">
+			)A)
+		</if>
+		
 		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
 <update id="updateJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">

@@ -55,6 +55,7 @@ public class AdminJobInfoController {
 			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("page", page);
@@ -73,7 +74,7 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		logger.debug("map2 {}", map2);
+		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
 		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
@@ -95,10 +96,13 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		List<FilesVO> filesList = filesService.selectAllFiles(jobInfoId);	
-		
 		model.addAttribute("jobInfoVo", jobInfoVo);
-		model.addAttribute("filesList", filesList);
+		logger.debug("jobInfoVo : {}", jobInfoVo);
+		
+		if(filesService.selectAllFiles(jobInfoId) != null) {
+			List<FilesVO> filesList = filesService.selectAllFiles(jobInfoId);	
+			model.addAttribute("filesList", filesList);
+		}
 		
 		return "adminPage/admin/jobInfo/jobInfo";
 	}

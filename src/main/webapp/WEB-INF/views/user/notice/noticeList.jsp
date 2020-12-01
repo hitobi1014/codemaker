@@ -114,7 +114,7 @@ $(document).ready(function(){
 						<tr>
 							<td>${notice.noticeId}</td>
 							<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-							<td>${notice.noticeDate}"</td>
+							<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${notice.adminId}</td>
 						</tr>
 					</c:forEach>
