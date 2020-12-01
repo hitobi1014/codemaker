@@ -3,10 +3,7 @@
 <mapper namespace="lesson">
 	
 	<select id="selectLesson" parameterType="String" resultType="LessonVO">
-		SELECT * FROM lesson 
-			<where>
-			 and les_id = #{les_id}
-			</where>
+		SELECT * FROM lesson where les_id = #{les_id}
 	</select>
 	
 	<select id="selectAllLesson" resultType="LessonVO">
