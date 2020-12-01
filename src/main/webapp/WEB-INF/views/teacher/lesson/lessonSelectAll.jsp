@@ -5,15 +5,15 @@
 
 	<div class="container">
 		<h2>강의 리스트</h2>
-		<c:forEach items="${lessonList}" var="lessonList">
+		<c:forEach items="${lessonList}" var="lesList">
 			<div class="mb-3">
-				<label>강의 이름 : </label> <label>${lessonList.les_nm}</label>
+				<label>강의 이름 : </label> <label>${lesList.lesNm}</label>
 			</div>
 			<div class="mb-3">
-				<label>강의 내용 : </label> <label>${lessonList.les_cont}</label>
+				<label>강의 내용 : </label> <label>${lesList.lesCont}</label>
 			</div>
 			<div class="mb-3">
-				<label>담당 쌤 : </label> <label>${lessonList.tch_id}</label>
+				<label>담당 쌤 : </label> <label>${lesList.tchId}</label>
 			</div>
 			<br>
 		</c:forEach>

@@ -21,13 +21,13 @@
 	<div class="container" role="main">
 		<h2>강의 상세내용</h2>
 		<div class="mb-3">
-			<label>강의 이름 : </label> <label>${lessonVO.les_nm}</label>
+			<label>강의 이름 : </label> <label>${lessonVO.lesNm}</label>
 		</div>
 		<div class="mb-3">
-			<label>강의 내용 : </label> <label>${lessonVO.les_cont}</label>
+			<label>강의 내용 : </label> <label>${lessonVO.lesCont}</label>
 		</div>
 		<div class="mb-3">
-			<label>담당 쌤 : </label> <label>${lessonVO.tch_id}</label>
+			<label>담당 쌤 : </label> <label>${lessonVO.tchId}</label>
 		</div>
 	</div>
 
