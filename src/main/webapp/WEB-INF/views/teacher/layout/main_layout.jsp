@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ include file="/WEB-INF/views/teacher/layout/commonLib.jsp" %>
+<%@ include file="/WEB-INF/views/teacher/layout/main_commonLib.jsp" %>
 
 </head>
 
@@ -14,7 +14,7 @@
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
 						<tiles:insertAttribute name="header"/>
-						<tiles:insertAttribute name="nav"/>
+						<tiles:insertAttribute name="left"/>
 				<tiles:insertAttribute name="content"/>
 			</div>
 		</div>

@@ -1,37 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Sleek - Admin Dashboard Template</title>
-<%@ include file="/WEB-INF/views/teacher/layout/commonLib.jsp"%>
+<title>teacherMain</title>
+
 </head>
+
 
 <body class="sidebar-fixed sidebar-dark header-light header-fixed"
 	id="body">
-	<script>
-NProgress.configure({ showSpinner: false });
-NProgress.start();
+<script>
 </script>
 
 	<div class="mobile-sticky-body-overlay"></div>
 
 	<div class="wrapper">
+
+
+
+
+
 		<div class="page-wrapper">
-		<%@include file="/WEB-INF/views/teacher/layout/nav.jsp"%>
-
-
-
-		<div class="page-wrapper">
-			<!-- Header -->
-			<%@include file="/WEB-INF/views/teacher/layout/header.jsp"%>
 
 
 			<div class="content-wrapper">
@@ -120,8 +109,9 @@ NProgress.start();
 								<div class="card-body">
 									<canvas id="doChart"></canvas>
 								</div>
-								<a href="#" class="pb-5 d-block text-center text-muted"><i
-									class="mdi mdi-download mr-2"></i> Download overall report</a>
+								<a href="#" class="pb-5 d-block text-center text-muted"> <i
+									class="mdi mdi-download mr-2"></i> Download overall report
+								</a>
 								<div class="card-footer d-flex flex-wrap bg-white p-0">
 									<div class="col-6">
 										<div class="py-4 px-4">
@@ -167,12 +157,12 @@ NProgress.start();
 										<li class="nav-item"><a class="nav-link active"
 											id="pills-home-tab" data-toggle="pill" href="#pills-home"
 											role="tab" aria-controls="pills-home" aria-selected="true">Sales
-												Status</a></li>
+												Status </a></li>
 										<li class="nav-item"><a class="nav-link"
 											id="pills-profile-tab" data-toggle="pill"
 											href="#pills-profile" role="tab"
 											aria-controls="pills-profile" aria-selected="false">Monthly
-												Sales</a></li>
+												Sales </a></li>
 									</ul>
 									<div class="tab-content" id="pills-tabContent">
 										<div class="tab-pane fade show active" id="pills-home"
@@ -201,7 +191,7 @@ NProgress.start();
 											<a class="dropdown-toggle icon-burger-mini" href="#"
 												role="button" id="dropdown-units" data-toggle="dropdown"
 												aria-haspopup="true" aria-expanded="false"
-												data-display="static"></a>
+												data-display="static"> </a>
 											<ul class="dropdown-menu dropdown-menu-right"
 												aria-labelledby="dropdown-units">
 												<li class="dropdown-item"><a href="#">Action</a></li>
@@ -220,50 +210,43 @@ NProgress.start();
 												<td class="text-dark">Backpack</td>
 												<td class="text-center">9</td>
 												<td class="text-right">33% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">T-Shirt</td>
 												<td class="text-center">6</td>
 												<td class="text-right">150% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">Coat</td>
 												<td class="text-center">3</td>
 												<td class="text-right">50% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">Necklace</td>
 												<td class="text-center">7</td>
 												<td class="text-right">150% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">Jeans Pant</td>
 												<td class="text-center">10</td>
 												<td class="text-right">300% <i
-													class="mdi mdi-arrow-down-bold text-danger pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-down-bold text-danger pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">Shoes</td>
 												<td class="text-center">5</td>
 												<td class="text-right">100% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 											<tr>
 												<td class="text-dark">T-Shirt</td>
 												<td class="text-center">6</td>
 												<td class="text-right">150% <i
-													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i>
-												</td>
+													class="mdi mdi-arrow-up-bold text-success pl-1 font-size-12"></i></td>
 											</tr>
 										</tbody>
 									</table>
@@ -328,8 +311,9 @@ NProgress.start();
 												Enquiry</a>
 											<p>Phileine has placed an new order</p>
 										</div>
-										<span class=" font-size-12 d-inline-block"><i
-											class="mdi mdi-clock-outline"></i> 9 AM</span>
+										<span class=" font-size-12 d-inline-block"> <i
+											class="mdi mdi-clock-outline"></i> 9 AM
+										</span>
 									</div>
 
 
@@ -344,8 +328,9 @@ NProgress.start();
 												Ticket</a>
 											<p>Emma has placed an new order</p>
 										</div>
-										<span class=" font-size-12 d-inline-block"><i
-											class="mdi mdi-clock-outline"></i> 10 AM</span>
+										<span class=" font-size-12 d-inline-block"> <i
+											class="mdi mdi-clock-outline"></i> 10 AM
+										</span>
 									</div>
 
 									<div
@@ -359,8 +344,9 @@ NProgress.start();
 												order</a>
 											<p>Ryan has placed an new order</p>
 										</div>
-										<span class=" font-size-12 d-inline-block"><i
-											class="mdi mdi-clock-outline"></i> 10 AM</span>
+										<span class=" font-size-12 d-inline-block"> <i
+											class="mdi mdi-clock-outline"></i> 10 AM
+										</span>
 									</div>
 
 									<div
@@ -374,8 +360,9 @@ NProgress.start();
 												Meetup</a>
 											<p>Phileine has placed an new order</p>
 										</div>
-										<span class=" font-size-12 d-inline-block"><i
-											class="mdi mdi-clock-outline"></i> 10 AM</span>
+										<span class=" font-size-12 d-inline-block"> <i
+											class="mdi mdi-clock-outline"></i> 10 AM
+										</span>
 									</div>
 
 									<div
@@ -404,8 +391,9 @@ NProgress.start();
 												Enquiry</a>
 											<p>Phileine has placed an new order</p>
 										</div>
-										<span class=" font-size-12 d-inline-block"><i
-											class="mdi mdi-clock-outline"></i> 9 AM</span>
+										<span class=" font-size-12 d-inline-block"> <i
+											class="mdi mdi-clock-outline"></i> 9 AM
+										</span>
 									</div>
 
 								</div>
@@ -464,8 +452,8 @@ NProgress.start();
 											</tr>
 											<tr>
 												<td>24541</td>
-												<td><a class="text-dark" href=""> Toddler Shoes,
-														Gucci Watch</a></td>
+												<td><a class="text-dark" href=""> Toddler
+														Shoes,Gucci Watch</a></td>
 												<td class="d-none d-md-table-cell">2 Units</td>
 												<td class="d-none d-md-table-cell">Nov 15, 2018</td>
 												<td class="d-none d-md-table-cell">$550</td>
@@ -475,7 +463,7 @@ NProgress.start();
 														<a class="dropdown-toggle icon-burger-mini" href="#"
 															role="button" id="dropdown-recent-order2"
 															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false" data-display="static"></a>
+															aria-expanded="false" data-display="static"> </a>
 														<ul class="dropdown-menu dropdown-menu-right"
 															aria-labelledby="dropdown-recent-order2">
 															<li class="dropdown-item"><a href="#">View</a></li>
@@ -486,8 +474,7 @@ NProgress.start();
 											</tr>
 											<tr>
 												<td>24541</td>
-												<td><a class="text-dark" href=""> Hat Black Suits</a>
-												</td>
+												<td><a class="text-dark" href=""> Hat Black Suits</a></td>
 												<td class="d-none d-md-table-cell">1 Unit</td>
 												<td class="d-none d-md-table-cell">Nov 18, 2018</td>
 												<td class="d-none d-md-table-cell">$325</td>
@@ -497,7 +484,7 @@ NProgress.start();
 														<a class="dropdown-toggle icon-burger-mini" href="#"
 															role="button" id="dropdown-recent-order3"
 															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false" data-display="static"></a>
+															aria-expanded="false" data-display="static"> </a>
 														<ul class="dropdown-menu dropdown-menu-right"
 															aria-labelledby="dropdown-recent-order3">
 															<li class="dropdown-item"><a href="#">View</a></li>
@@ -520,7 +507,7 @@ NProgress.start();
 														<a class="dropdown-toggle icon-burger-mini" href="#"
 															role="button" id="dropdown-recent-order4"
 															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false" data-display="static"></a>
+															aria-expanded="false" data-display="static"> </a>
 														<ul class="dropdown-menu dropdown-menu-right"
 															aria-labelledby="dropdown-recent-order4">
 															<li class="dropdown-item"><a href="#">View</a></li>
@@ -536,14 +523,13 @@ NProgress.start();
 												<td class="d-none d-md-table-cell">1 Unit</td>
 												<td class="d-none d-md-table-cell">Dec 23, 2018</td>
 												<td class="d-none d-md-table-cell">$150</td>
-												<td><span class="badge badge-danger">Cancelled</span>
-												</td>
+												<td><span class="badge badge-danger">Cancelled</span></td>
 												<td class="text-right">
 													<div class="dropdown show d-inline-block widget-dropdown">
 														<a class="dropdown-toggle icon-burger-mini" href="#"
 															role="button" id="dropdown-recent-order5"
 															data-toggle="dropdown" aria-haspopup="true"
-															aria-expanded="false" data-display="static"></a>
+															aria-expanded="false" data-display="static"> </a>
 														<ul class="dropdown-menu dropdown-menu-right"
 															aria-labelledby="dropdown-recent-order5">
 															<li class="dropdown-item"><a href="#">View</a></li>
@@ -586,8 +572,8 @@ NProgress.start();
 										</div>
 										<div
 											class="todo-single-item d-flex flex-row justify-content-between current">
-											<i class="mdi"></i> <span>Create new prototype for
-												the landing page</span> <span class="badge badge-primary">Today</span>
+											<i class="mdi"></i> <span>Create new prototype for the
+												landing page</span> <span class="badge badge-primary">Today</span>
 										</div>
 										<div
 											class="todo-single-item d-flex flex-row justify-content-between ">
@@ -674,10 +660,12 @@ NProgress.start();
 											<ul class="d-flex flex-column justify-content-between">
 												<li class="mb-2"><i
 													class="mdi mdi-checkbox-blank-circle-outline mr-2"
-													style="color: #ffa128"></i>Europe <span class="float-right">4k</span></li>
+													style="color: #ffa128"></i>Europe <span class="float-right">4k</span>
+												</li>
 												<li><i
 													class="mdi mdi-checkbox-blank-circle-outline mr-2"
-													style="color: #fe5461"></i>Africa <span class="float-right">2k</span></li>
+													style="color: #fe5461"></i>Africa <span class="float-right">2k</span>
+												</li>
 											</ul>
 										</div>
 									</div>
@@ -700,7 +688,7 @@ NProgress.start();
 											<a class="dropdown-toggle icon-burger-mini" href="#"
 												role="button" id="dropdown-customar" data-toggle="dropdown"
 												aria-haspopup="true" aria-expanded="false"
-												data-display="static"></a>
+												data-display="static"> </a>
 											<ul class="dropdown-menu dropdown-menu-right"
 												aria-labelledby="dropdown-customar">
 												<li class="dropdown-item"><a href="#">Action</a></li>
@@ -719,14 +707,16 @@ NProgress.start();
 												<td>
 													<div class="media">
 														<div class="media-image mr-3 rounded-circle">
-															<a href="profile.html"><img
+															<a href="profile.html"> <img
 																class="rounded-circle w-45" src="assets/img/user/u1.jpg"
-																alt="customer image"></a>
+																alt="customer image">
+															</a>
 														</div>
 														<div class="media-body align-self-center">
-															<a href="profile.html"><h6
-																	class="mt-0 text-dark font-weight-medium">Selena
-																	Wagner</h6></a> <small>@selena.oi</small>
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">Selena
+																	Wagner</h6>
+															</a> <small>@selena.oi</small>
 														</div>
 													</div>
 												</td>
@@ -737,14 +727,16 @@ NProgress.start();
 												<td>
 													<div class="media">
 														<div class="media-image mr-3 rounded-circle">
-															<a href="profile.html"><img
+															<a href="profile.html"> <img
 																class="rounded-circle w-45" src="assets/img/user/u2.jpg"
-																alt="customer image"></a>
+																alt="customer image">
+															</a>
 														</div>
 														<div class="media-body align-self-center">
-															<a href="profile.html"><h6
-																	class="mt-0 text-dark font-weight-medium">Walter
-																	Reuter</h6></a> <small>@walter.me</small>
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">Walter
+																	Reuter</h6>
+															</a> <small>@walter.me</small>
 														</div>
 													</div>
 												</td>
@@ -755,14 +747,16 @@ NProgress.start();
 												<td>
 													<div class="media">
 														<div class="media-image mr-3 rounded-circle">
-															<a href="profile.html"><img
+															<a href="profile.html"> <img
 																class="rounded-circle w-45" src="assets/img/user/u3.jpg"
-																alt="customer image"></a>
+																alt="customer image">
+															</a>
 														</div>
 														<div class="media-body align-self-center">
-															<a href="profile.html"><h6
-																	class="mt-0 text-dark font-weight-medium">Larissa
-																	Gebhardt</h6></a> <small>@larissa.gb</small>
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">Larissa
+																	Gebhardt</h6>
+															</a> <small>@larissa.gb</small>
 														</div>
 													</div>
 												</td>
@@ -773,14 +767,16 @@ NProgress.start();
 												<td>
 													<div class="media">
 														<div class="media-image mr-3 rounded-circle">
-															<a href="profile.html"><img
+															<a href="profile.html"> <img
 																class="rounded-circle w-45" src="assets/img/user/u4.jpg"
-																alt="customer image"></a>
+																alt="customer image">
+															</a>
 														</div>
 														<div class="media-body align-self-center">
-															<a href="profile.html"><h6
-																	class="mt-0 text-dark font-weight-medium">Albrecht
-																	Straub</h6></a> <small>@albrech.as</small>
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">Albrecht
+																	Straub</h6>
+															</a> <small>@albrech.as</small>
 														</div>
 													</div>
 												</td>
@@ -791,14 +787,16 @@ NProgress.start();
 												<td>
 													<div class="media">
 														<div class="media-image mr-3 rounded-circle">
-															<a href="profile.html"><img
+															<a href="profile.html"> <img
 																class="rounded-circle w-45" src="assets/img/user/u5.jpg"
-																alt="customer image"></a>
+																alt="customer image">
+															</a>
 														</div>
 														<div class="media-body align-self-center">
-															<a href="profile.html"><h6
-																	class="mt-0 text-dark font-weight-medium">Leopold
-																	Ebert</h6></a> <small>@leopold.et</small>
+															<a href="profile.html">
+																<h6 class="mt-0 text-dark font-weight-medium">Leopold
+																	Ebert</h6>
+															</a> <small>@leopold.et</small>
 														</div>
 													</div>
 												</td>
@@ -823,7 +821,7 @@ NProgress.start();
 											<a class="dropdown-toggle icon-burger-mini" href="#"
 												role="button" id="dropdown-product" data-toggle="dropdown"
 												aria-haspopup="true" aria-expanded="false"
-												data-display="static"></a>
+												data-display="static"> </a>
 											<ul class="dropdown-menu dropdown-menu-right"
 												aria-labelledby="dropdown-product">
 												<li class="dropdown-item"><a href="#">Update Data</a></li>
@@ -842,8 +840,8 @@ NProgress.start();
 												alt="customer image"></a>
 										</div>
 										<div class="media-body align-self-center">
-											<a href="#"><h6 class="mb-3 text-dark font-weight-medium">
-													Coach Swagger</h6></a>
+											<a href="#"><h6 class="mb-3 text-dark font-weight-medium">Coach
+													Swagger</h6></a>
 											<p class="float-md-right">
 												<span class="text-dark mr-2">20</span>Sales
 											</p>
@@ -882,8 +880,8 @@ NProgress.start();
 												alt="customer image"></a>
 										</div>
 										<div class="media-body align-self-center">
-											<a href="#"><h6 class="mb-3 text-dark font-weight-medium">
-													Gucci Watch</h6></a>
+											<a href="#"><h6 class="mb-3 text-dark font-weight-medium">Gucci
+													Watch</h6></a>
 											<p class="float-md-right">
 												<span class="text-dark mr-2">10</span>Sales
 											</p>
@@ -900,21 +898,11 @@ NProgress.start();
 						</div>
 					</div>
 				</div>
-<<<<<<< HEAD
-			</div>
-		
-		
-=======
-
 
 
 
 			</div>
 
-			<%@include file="/WEB-INF/views/teacher/layout/footer.jsp"%>
-
->>>>>>> VO수정
 		</div>
 	</div>
-
 </body>
