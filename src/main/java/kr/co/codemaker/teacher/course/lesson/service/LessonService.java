@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
+import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
 @Service("lessonService")
 public class LessonService{
@@ -17,9 +19,10 @@ public class LessonService{
 	private LessonMapper lessonMapper;
 	
 	
-	public LessonVO selectLesson() {
+	
+	public List<LessonVO> selectLesson(String subId) {
 		try {
-			return lessonMapper.selectLesson();
+			return lessonMapper.selectLesson(subId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
 <mapper namespace="kr.co.codemaker.common.dao.UserMapper">
 
   <insert id="insertUser" parameterType="kr.co.codemaker.common.vo.UserVO">
@@ -13,4 +14,19 @@
   </select>
   
 
+=======
+<mapper namespace="user">
+
+
+  <insert id="insertUser" parameterType="kr.co.codemaker.common.vo.UserVO">
+    INSERT INTO userstest VALUES(#{user_id}, #{user_pass}, #{user_nm}, #{user_tel}, #{user_profile}, 'N', 'N')
+  </insert>
+  
+  <select id="idchk" resultType="int">
+  	SELECT count(*) FROM userstest where user_id = #{user_id}
+  </select>
+  
+
+
+>>>>>>> 715ca20b8b2487c0d187e129dbb2714d30e14fb2
 </mapper>

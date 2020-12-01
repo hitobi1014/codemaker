@@ -6,16 +6,19 @@
 <head>
 	<%@ include file="/WEB-INF/views/admin/layout/main_commonLib.jsp" %>
 </head>
-<body id="page-header">
-	<div id="wrapper">
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<tiles:insertAttribute name="header"/>
-				<tiles:insertAttribute name="left"/>
-				<tiles:insertAttribute name="content"/>
-			</div>
-		</div>
-	</div>
-	<tiles:insertAttribute name="footer"/>
+<body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
+	<div class="mobile-sticky-body-overlay"></div>
+	<div class="wrapper">
+		<tiles:insertAttribute name="left"/>
+		<div class="page-wrapper">
+			<tiles:insertAttribute name="header"/>
+			<div class="content-wrapper">
+				<div class="content">
+					<tiles:insertAttribute name="content"/>
+				</div> <!-- content -->
+			</div> <!-- content-wrapper -->
+			<tiles:insertAttribute name="footer"/>
+		</div> <!-- page-wrapper -->
+	</div> <!-- wrapper -->
 </body>
 </html>

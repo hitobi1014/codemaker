@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.co.codemaker.common.notice.service.NoticeService;
 import kr.co.codemaker.common.service.FilesService;
+import kr.co.codemaker.common.service.NoticeService;
 import kr.co.codemaker.common.vo.FilesVO;
 import kr.co.codemaker.common.vo.NoticeVO;
 import kr.co.codemaker.fileUpload.FileUploadUtil;
@@ -56,7 +56,7 @@ public class AdminNoticeController {
 			String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+	
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		map.put("searchOption", searchOption);
@@ -82,7 +82,7 @@ public class AdminNoticeController {
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
  		
-		return "admin/notice/noticeList";
+		return "adminPage/admin/notice/noticeList";
 	}
 	
 	@RequestMapping(path="/admin/selectNotice")
@@ -100,14 +100,14 @@ public class AdminNoticeController {
 		model.addAttribute("noticeVo", noticeVo);
 		model.addAttribute("filesList", filesList);
 		
-		return "admin/notice/notice";
+		return "adminPage/admin/notice/notice";
 	}
 	
 	
 	@RequestMapping(path="/admin/insertNotice", method={RequestMethod.GET})
 	public String insertViewNotice() {
 		
-		return "admin/notice/noticeInsert";
+		return "adminPage/admin/notice/noticeInsert";
 	}
 	
 	@RequestMapping(path="/insertNotice", method={RequestMethod.POST})
@@ -166,7 +166,7 @@ public class AdminNoticeController {
 		if(cnt == 1) {
 			return "redirect:selectAllNotice";
 		}else {
-			return "admin/notice/noticeInsert";
+			return "adminPage/admin/notice/noticeInsert";
 		}
 	}
 	
@@ -182,7 +182,7 @@ public class AdminNoticeController {
 		
 		model.addAttribute("noticeVo", noticeVo2);
 		
-		return "admin/notice/noticeUpdate";
+		return "adminPage/admin/notice/noticeUpdate";
 	}
 	
 	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
@@ -240,7 +240,7 @@ public class AdminNoticeController {
 		if(cnt == 1) {
 			return "redirect:selectNotice?notice_id="+noticeVo.getNoticeId();
 		}else {
-			return "admin/notice/noticeUpdate";
+			return "adminPage/admin/notice/noticeUpdate";
 		}
 	}
 	

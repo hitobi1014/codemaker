@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <header class="main-header " id="header">
 	<nav class="navbar navbar-static-top navbar-expand-lg">
 		<!-- Sidebar toggle button -->
@@ -106,6 +107,5 @@
 			</ul>
 		</div>
 	</nav>
-
-
 </header>
+

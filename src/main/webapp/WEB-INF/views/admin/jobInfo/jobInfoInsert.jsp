@@ -30,20 +30,20 @@ $(document).ready(function() {
 
 </head>
 <body>
-	<form id="insertJobInfo" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/admin/jobInfo/insertJobInfo">
+	<form id="insertJobInfo" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/admin/insertJobInfo">
 	
 	
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">취업공고 제목</label>
 			<div class="col-sm-10">
-				<input type="text" name="jobInfo_title" style="width: 500px;">
+				<input type="text" name="jobinfoTitle" style="width: 500px;">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">취업공고 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="jobInfo_cont"></textarea>
+				<textarea class="summernote" name="jobinfoCont"></textarea>
 			</div>
 		</div>
 		
@@ -57,12 +57,12 @@ $(document).ready(function() {
 
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="admin_id" value="999" />
+				<input type="hidden" name="adminId" value="S_MEMBER" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="job_id" value="1452" />
+				<input type="hidden" name="jobinfoId" value="" />
 			</div>
 		</div>
 
