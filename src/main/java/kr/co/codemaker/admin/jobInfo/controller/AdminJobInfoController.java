@@ -82,7 +82,7 @@ public class AdminJobInfoController {
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
  		
-		return "admin/jobInfo/jobInfoList";
+		return "adminPage/admin/jobInfo/jobInfoList";
 	}
 	
 	@RequestMapping(path="/admin/selectJobInfo")
@@ -100,17 +100,17 @@ public class AdminJobInfoController {
 		model.addAttribute("jobInfoVo", jobInfoVo);
 		model.addAttribute("filesList", filesList);
 		
-		return "admin/jobInfo/jobInfo";
+		return "adminPage/admin/jobInfo/jobInfo";
 	}
 	
 	
 	@RequestMapping(path="/admin/insertJobInfo", method={RequestMethod.GET})
 	public String insertViewJobInfo() {
 		
-		return "admin/jobInfo/jobInfoInsert";
+		return "adminPage/admin/jobInfo/jobInfoInsert";
 	}
 	
-	@RequestMapping(path="/insertJobInfo", method={RequestMethod.POST})
+	@RequestMapping(path="/admin/insertJobInfo", method={RequestMethod.POST})
 	public String insertJobInfo(JobInfoVO jobInfoVo, MultipartHttpServletRequest files) {
 	 	
 		List<MultipartFile> filesList = files.getFiles("realfile");
@@ -163,7 +163,7 @@ public class AdminJobInfoController {
 		if(cnt == 1) {
 			return "redirect:selectAllJobInfo";
 		}else {
-			return "admin/jobInfo/jobInfoInsert";
+			return "adminPage/admin/jobInfo/jobInfoInsert";
 		}
 	}
 	
@@ -179,10 +179,10 @@ public class AdminJobInfoController {
 		
 		model.addAttribute("jobinfoVo", jobinfoVo2);
 		
-		return "admin/jobinfo/jobInfoUpdate";
+		return "adminPage/admin/jobinfo/jobInfoUpdate";
 	}
 	
-	@RequestMapping(path="/updateJobInfo", method= {RequestMethod.POST})
+	@RequestMapping(path="/admin/updateJobInfo", method= {RequestMethod.POST})
 	public String updateNotice(JobInfoVO jobinfoVo, MultipartHttpServletRequest files, HttpServletRequest request) {
 		
 		String[] arr = request.getParameterValues("del_files");
@@ -238,11 +238,11 @@ public class AdminJobInfoController {
 		if(cnt == 1) {
 			return "redirect:selectJobInfo?jobInfoId="+jobinfoVo.getJobinfoId();
 		}else {
-			return "admin/jobInfo/jobInfoUpdate";
+			return "adminPage/admin/jobInfo/jobInfoUpdate";
 		}
 	}
 	
-	@RequestMapping(path="/deleteJobInfo")
+	@RequestMapping(path="/admin/deleteJobInfo")
 	public String deleteNotice(String jobInfoId) {
 		
 		try {
