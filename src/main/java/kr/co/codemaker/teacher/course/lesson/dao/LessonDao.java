@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import kr.co.codemaker.teacher.course.lesson.controller.LessonController;
+import kr.co.codemaker.teacher.course.lesson.controller.TeacherLessonController;
 
 //public class LessonDao implements LessonDaoI{
 //	private static final Logger logger = LoggerFactory.getLogger(LessonDao.class);

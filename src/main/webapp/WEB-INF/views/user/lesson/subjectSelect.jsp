@@ -24,7 +24,7 @@
 									<c:choose>
 										<c:when test="${subList.subId == lesList.subId}">
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="${cp}/teacherL/selectLessonPage?lesId=${lesList.lesId}" style="font-size: 0.7em;">${lesList.lesNm}
+												<a id="at" href="${cp}/user/selectLessonPage?lesId=${lesList.lesId}" style="font-size: 0.7em;">${lesList.lesNm}
 												</a> <br>
 											</div>
 										</c:when>

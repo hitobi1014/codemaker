@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
@@ -20,9 +22,9 @@ import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
 @Controller
-public class LessonController {
+public class TeacherLessonController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LessonController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TeacherLessonController.class);
 
 	@Resource(name="lessonService")
 	private LessonService lessonService;
@@ -33,19 +35,26 @@ public class LessonController {
 	@Resource(name="lessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
+	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.GET)
+	public String selecSubject(Model model) {
+		
+		return"/teacher/lesson/lessonAllSelect";
+	}
 	
-	@RequestMapping(path="/teacherL/selectSubject")
-	public String selectLesson(Model model) {
-		List<SubjectVO> subjectList = subjectService.selectSubject();
-		List<LessonVO> lessonList= lessonService.selectLesson();
-		model.addAttribute("subjectList", subjectList);
+	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.POST)
+	@ResponseBody
+	public List<LessonVO> selectLesson(Model model,String subId) {
+		logger.debug("과제아디!!:{}",subId);
+		
+		List<LessonVO> lessonList= lessonService.selectLesson(subId);
 		model.addAttribute("lessonList", lessonList);
 		
-		return "mainT/teacher/lesson/subjectSelect";
+//		return "";
+		return lessonList;
 	}
 	
 	
-	@RequestMapping(path="/teacherL/selectLessonPage")
+	@RequestMapping(path="/teacherL/selectAllLesson")
 	public String selectLessonPage(Model model,String lesId) {
 		
 		List<LessonIndexVO> lesIdxList = lessonIndexService.selectLessonIndex(lesId);
@@ -55,8 +64,19 @@ public class LessonController {
 		model.addAttribute("lesIdxList", lesIdxList);
 		
 		
-		return "mainT/teacher/lesson/lessonSelectPage";
+		return "mainT/teacher/lesson/lessonAllSelect";
 	}
+	
+//	@RequestMapping(path="/teacherL/test")
+//	public String testLesson(Model model) {
+//		List<SubjectVO> subjectList = subjectService.selectSubject();
+//		List<LessonVO> lessonList= lessonService.selectLesson();
+//		model.addAttribute("subjectList", subjectList);
+//		model.addAttribute("lessonList", lessonList);
+//		
+//		return "teacherPage/teacher/lesson/test";
+//	}
+
 //	
 //	@RequestMapping(path="selectAll")
 //	public String selectAllLesson(Model model) {
