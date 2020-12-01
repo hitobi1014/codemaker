@@ -1,6 +1,8 @@
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,17 +33,23 @@
 	<link rel="stylesheet" type="text/css" href="/css/user/login/main.css">
 <!--===============================================================================================-->
 </head>
+
 <script>
 $(function(){
 	if(${cookie.remember.value}==1){
+		var userid = $("#user").data("userid");
 		$("input:checkbox[id='ckb1']").prop('checked',true);
-		$("#user_id").val("${cookie.userid.value}");
+		$("#userId").val(userid);
 	}else{
 		$("input:checkbox[id='ckb1']").prop('checked',false);
-		$("#user_id").val('');
+		$("#userId").val('');
 	}
+// 	var test = $("#user").data("userid");
+// 	console.log(test);
+	
 })
 </script>
+
 <style>
 .txt1:hover{
 	text-decoration: underline;
@@ -53,7 +61,20 @@ $(function(){
 .cldiv{height: 570px;}
 </style>
 <body>
-	
+<%
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+		for(int i=0; i<cookies.length; i++){
+			Cookie c = cookies[i];
+			URLDecoder.decode(c.getValue(),"UTF-8");
+// 			String cName = c.getName();
+			String cValue = URLDecoder.decode(c.getValue(),"UTF-8");
+			if(c.getName().equals("userid")){
+				out.print("<input id='user' data-userid='"+cValue+"' type='hidden'/>");
+			}
+		}
+	}
+%> 
 	<div class="limiter" style="background-color:#f4f4f4">
 		<div class="container-login100" >
 			<div id="di">
@@ -64,11 +85,11 @@ $(function(){
 					<form class="login100-form validate-form flex-sb flex-w" action="${cp}/user/login" method="post">
 						<span class="login100-form-title p-b-51">Login</span>
 						<div class="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-							<input class="input100" type="text" id="user_id" name="user_id" placeholder="아이디">
+							<input class="input100" type="text" id="userId" name="userId" placeholder="아이디">
 							<span class="focus-input100"></span>
 						</div>
 						<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-							<input class="input100" type="password" name="user_pass" placeholder="비밀번호">
+							<input class="input100" type="password" name="userPass" placeholder="비밀번호">
 							<span class="focus-input100"></span>
 						</div>
 						

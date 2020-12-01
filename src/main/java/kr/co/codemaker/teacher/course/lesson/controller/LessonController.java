@@ -12,11 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
+import kr.co.codemaker.teacher.course.lesson.service.SubjectService;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
+import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
 @Controller
-@RequestMapping(path="/teacherL")
 public class LessonController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LessonController.class);
@@ -24,23 +27,36 @@ public class LessonController {
 	@Resource(name="lessonService")
 	private LessonService lessonService;
 	
+	@Resource(name="subjectService")
+	private SubjectService subjectService;
 	
-	@RequestMapping(path="select")
+	@Resource(name="lessonIndexService")
+	private LessonIndexService lessonIndexService;
+	
+	
+	@RequestMapping(path="/teacherL/selectSubject")
 	public String selectLesson(Model model) {
-		LessonVO lessonVO= lessonService.selectLesson();
-		model.addAttribute("lessonVO", lessonVO);
+		List<SubjectVO> subjectList = subjectService.selectSubject();
+		List<LessonVO> lessonList= lessonService.selectLesson();
+		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("lessonList", lessonList);
 		
-		return "teacher/lesson/lessonSelect";
+		return "mainT/teacher/lesson/subjectSelect";
 	}
 	
-//	@RequestMapping(path="select")
-//	public String selectLesson(Model model) {
-//		String les_id = "1";
-//		LessonVO lessonVO= lessonService.selectLesson(les_id);
-//		model.addAttribute("lessonVO", lessonVO);
-//		
-//		return "teacher/lesson/lessonSelect";
-//	}
+	
+	@RequestMapping(path="/teacherL/selectLessonPage")
+	public String selectLessonPage(Model model,String lesId) {
+		
+		List<LessonIndexVO> lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+		logger.debug("강의번호:{}",lesId);
+		logger.debug("강의목차:{}",lesIdxList);
+		
+		model.addAttribute("lesIdxList", lesIdxList);
+		
+		
+		return "mainT/teacher/lesson/lessonSelectPage";
+	}
 //	
 //	@RequestMapping(path="selectAll")
 //	public String selectAllLesson(Model model) {
