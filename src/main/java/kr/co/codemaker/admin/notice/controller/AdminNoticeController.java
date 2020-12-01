@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.co.codemaker.common.notice.service.NoticeServiceI;
-import kr.co.codemaker.common.service.FilesServiceI;
+import kr.co.codemaker.common.service.FilesService;
+import kr.co.codemaker.common.service.NoticeService;
+import kr.co.codemaker.common.vo.FilesVO;
+import kr.co.codemaker.common.vo.NoticeVO;
 import kr.co.codemaker.fileUpload.FileUploadUtil;
-import kr.co.codemaker.model.FilesVO;
-import kr.co.codemaker.model.NoticeVO;
 
 
 /**
@@ -40,24 +40,23 @@ import kr.co.codemaker.model.NoticeVO;
 *
  */
 @Controller
-@RequestMapping(path="/adminNotice")
 public class AdminNoticeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminNoticeController.class);
 	
 	@Resource(name="noticeService")
-	private NoticeServiceI noticeService;
+	private NoticeService noticeService;
 	
 	@Resource(name="filesService")
-	private FilesServiceI filesService;
+	private FilesService filesService;
 	
-	@RequestMapping(path="/selectAllNotice")
+	@RequestMapping(path="/admin/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+	
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		map.put("searchOption", searchOption);
@@ -67,7 +66,12 @@ public class AdminNoticeController {
 		
 		logger.debug("map {}", map);
 		
-		Map<String, Object> map2 = noticeService.selectAllNotice(map);
+		Map<String, Object> map2 = new HashMap<>();
+		try {
+			map2 = noticeService.selectAllNotice(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		logger.debug("map2 {}", map2);
 		
@@ -78,27 +82,32 @@ public class AdminNoticeController {
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
  		
-		return "admin/notice/noticeList";
+		return "adminPage/admin/notice/noticeList";
 	}
 	
-	@RequestMapping(path="/selectNotice")
-	public String selectNotice(String notice_id, Model model) {
+	@RequestMapping(path="/admin/selectNotice")
+	public String selectNotice(String noticeId, Model model) {
 		
-		NoticeVO noticeVo = noticeService.selectNotice(notice_id);
+		NoticeVO noticeVo = new NoticeVO();
+		try {
+			noticeVo = noticeService.selectNotice(noticeId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		List<FilesVO> filesList = filesService.selectAllFiles(notice_id);	
+		List<FilesVO> filesList = filesService.selectAllFiles(noticeId);	
 		
 		model.addAttribute("noticeVo", noticeVo);
 		model.addAttribute("filesList", filesList);
 		
-		return "admin/notice/notice";
+		return "adminPage/admin/notice/notice";
 	}
 	
 	
-	@RequestMapping(path="/insertNotice", method={RequestMethod.GET})
+	@RequestMapping(path="/admin/insertNotice", method={RequestMethod.GET})
 	public String insertViewNotice() {
 		
-		return "admin/notice/noticeInsert";
+		return "adminPage/admin/notice/noticeInsert";
 	}
 	
 	@RequestMapping(path="/insertNotice", method={RequestMethod.POST})
@@ -106,7 +115,13 @@ public class AdminNoticeController {
 	 	
 		List<MultipartFile> filesList = files.getFiles("realfile");
 		
-		int cnt = noticeService.insertNotice(noticeVo);
+		int cnt = 0;
+		try {
+			cnt = noticeService.insertNotice(noticeVo);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		logger.debug("파일 전 cnt {}", cnt);
 		
@@ -133,10 +148,10 @@ public class AdminNoticeController {
 					
 					String files_id = "1426";
 					
-					filesVo.setFiles_gn(noticeVo.getNoticeId());
-					filesVo.setFiles_nm(files_nm);
-					filesVo.setFiles_path(files_path);
-					filesVo.setFiles_id(files_id);
+					filesVo.setFilesGroup(noticeVo.getNoticeId());
+					filesVo.setFilesNm(files_nm);
+					filesVo.setFilesPath(files_path);
+					filesVo.setFilesId(files_id);
 					
 					logger.debug("filesVo {}", filesVo);
 					
@@ -151,18 +166,23 @@ public class AdminNoticeController {
 		if(cnt == 1) {
 			return "redirect:selectAllNotice";
 		}else {
-			return "admin/notice/noticeInsert";
+			return "adminPage/admin/notice/noticeInsert";
 		}
 	}
 	
-	@RequestMapping(path="/updateNotice", method={RequestMethod.GET})
+	@RequestMapping(path="/admin/updateNotice", method={RequestMethod.GET})
 	public String updateViewNotice(NoticeVO noticeVo, Model model) {
 		
-		NoticeVO noticeVo2 = noticeService.selectNotice(noticeVo.getNoticeId());
+		NoticeVO noticeVo2 = new NoticeVO();
+		try {
+			noticeVo2 = noticeService.selectNotice(noticeVo.getNoticeId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("noticeVo", noticeVo2);
 		
-		return "admin/notice/noticeUpdate";
+		return "adminPage/admin/notice/noticeUpdate";
 	}
 	
 	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
@@ -179,7 +199,12 @@ public class AdminNoticeController {
 			}
 		}
 		
-		int cnt = noticeService.updateNotice(noticeVo);
+		int cnt = 0;
+		try {
+			cnt = noticeService.updateNotice(noticeVo);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		for(int i = 0; i < fileslist.size(); i++) {
 			
@@ -203,10 +228,10 @@ public class AdminNoticeController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					filesVo.setFiles_gn(noticeVo.getNoticeId());
-					filesVo.setFiles_nm(files_nm);
-					filesVo.setFiles_path(files_path);
-					filesVo.setFiles_id(filesVo.getFiles_id());
+					filesVo.setFilesGroup(noticeVo.getNoticeId());
+					filesVo.setFilesNm(files_nm);
+					filesVo.setFilesPath(files_path);
+					filesVo.setFilesId(filesVo.getFilesId());
 					filesService.insertFiles(filesVo);
 				}
 			}
@@ -215,14 +240,18 @@ public class AdminNoticeController {
 		if(cnt == 1) {
 			return "redirect:selectNotice?notice_id="+noticeVo.getNoticeId();
 		}else {
-			return "admin/notice/noticeUpdate";
+			return "adminPage/admin/notice/noticeUpdate";
 		}
 	}
 	
 	@RequestMapping(path="/deleteNotice")
 	public String deleteNotice(String notice_id) {
 		
-		noticeService.deleteNotice(notice_id);
+		try {
+			noticeService.deleteNotice(notice_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:selectAllNotice";
 		

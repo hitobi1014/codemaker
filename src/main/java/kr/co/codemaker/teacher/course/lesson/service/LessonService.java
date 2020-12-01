@@ -6,29 +6,45 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.model.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
+import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
+import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
 @Service("lessonService")
-public class LessonService implements LessonServiceI{
+public class LessonService{
 	
-	@Resource(name="lessonDao")
-	private LessonDaoI lessonDao;
-
-	@Override
-	public LessonVO selectLesson(String les_id) {
-		return lessonDao.selectLesson(les_id);
+	@Resource(name="lessonMapper")
+	private LessonMapper lessonMapper;
+	
+	
+	
+	public List<LessonVO> selectLesson(String subId) {
+		try {
+			return lessonMapper.selectLesson(subId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	@Override
-	public List<LessonVO> selectAllLesson() {
-		return lessonDao.selectAllLesson();
-	}
 
-	@Override
-	public int insertLesson(LessonVO lessonVO) {
-		return lessonDao.insertLesson(lessonVO);
-	}
+//	@Override
+//	public LessonVO selectLesson(String les_id) {
+//		return lessonDao.selectLesson(les_id);
+//	}
+//	
+//	@Override
+//	public List<LessonVO> selectAllLesson() {
+//		return lessonDao.selectAllLesson();
+//	}
+//
+//	@Override
+//	public int insertLesson(LessonVO lessonVO) {
+//		return lessonDao.insertLesson(lessonVO);
+//	}
 
 
 

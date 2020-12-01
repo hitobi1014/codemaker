@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.common.dao.JobInfoMapper">
+
+	
+
+<select id="selectJobInfo" resultType="kr.co.codemaker.common.vo.JobInfoVO" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
+SELECT * 
+  FROM JOBINFO where JOBINFO_ID = #{jobInfoId}
+</select>
+<insert id="insertJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
+insert into jobInfo
+		values ('JOBINFO'||LPAD(JOBINFO_SEQ.NEXTVAL,4,'0'), #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',null,null
+		#{adminId})
+</insert>
+<select id="selectAllJobInfo" resultType="kr.co.codemaker.common.vo.JobInfoVO" parameterType="java.util.HashMap">
+SELECT * FROM
+		(SELECT ROWNUM AS RN,
+		A.*
+		FROM (SELECT *
+		FROM JOBINFO
+		WHERE 1=1
+		<if test="keyWord != '' and keyWord != null">
+			AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
+			AND JOB_CONT LIKE '%' || #{keyWord} || '%')A)
+		</if>
+		<if test="keyWord == '' or keyWord == null">
+			)A)
+		</if>
+		
+		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+</select>
+<update id="updateJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
+update jobInfo set
+		jobinfo_title = #{jobInfoTitle}, jobinfo_cont = #{jobInfoCont}, jobinfo_udate = #{jobInfoUdate}, jobinfo_uwriter = #{jobInfoUwriter} where jobInfoId =
+#{jobInfoId}
+</update>
+<delete id="deleteJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
+update jobInfo set
+		jobinfo_out = 'Y' where jobinfo_id = #{jobInfoId}
+</delete>
+<select id="jobInfoTotalCnt" resultType="int">
+select count(*) from
+		jobInfo
+</select>
+</mapper>

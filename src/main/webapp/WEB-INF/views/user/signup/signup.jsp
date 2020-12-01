@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="/css/user/signup/style.css">
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Sign Up Form by Colorlib</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Font Icon -->
+<link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="/css/user/signup/style.css">
+
 <script>
 
 var result = ""; 
@@ -32,7 +33,7 @@ $(document).ready(function(){
 		phone4+= $("#phone2").val();
 		phone4+= $("#phone3").val();
 		
-		$("input[name='user_tel']").val(phone4);
+		$("input[name='userTel']").val(phone4);
 
 // 		$("#register-form").submit();
 		
@@ -186,21 +187,22 @@ $(document).ready(function(){
 	
 	//id중복체크
 	$('#idchk').on("click",function(){
-	
-		user_id = $("#user_id").val();
+		
+		userId = $("#user_id").val();
 		
 		$.ajax({
 			url : "${cp}/join/idchk",
 			type : "post",
 			dataType : "json",
-			data : {"user_id" : user_id},
+			data : {"userId" : userId},
 			success : function(data) {
+				console.log('ddd');
 				if (data == 1) {
 					$("#regex1").html("중복된 아이디 입니다.");
 				} else if (data == 0) {
 					alert("사용가능한 아이디입니다.");
 				}
-				}
+			}
 		}) // idchk
 	})
 
@@ -222,38 +224,42 @@ function readURL(input) {
 </head>
 <style>
 #phone1 {
-    width: 65px;
-}
-#phone2 {
-    width: 95px;
-    display: inline-block;
-}
-#phone3 {
-    width: 95px;
-    display: inline-block;
-}
-#signimg {
-    display: inline-block;
-    height: 350px;
-    width: 300px;
+	width: 65px;
 }
 
+#phone2 {
+	width: 95px;
+	display: inline-block;
+}
+
+#phone3 {
+	width: 95px;
+	display: inline-block;
+}
+
+#signimg {
+	display: inline-block;
+	height: 350px;
+	width: 300px;
+}
 </style>
 
 
 <body>
 
-    <div class="main">
+	<div class="main">
 
-        <!-- Sign up form -->
-        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-form">
-                        <h2 class="form-title">CODE MAKER<br>
-                        					회원가입</h2>
-                        <form method="POST" class="register-form" id="register-form" action="${cp}/join/insertUser" enctype="multipart/form-data">
-		
+		<!-- Sign up form -->
+		<section class="signup">
+			<div class="container">
+				<div class="signup-content">
+					<div class="signup-form">
+						<h2 class="form-title">
+							CODE MAKER<br> 회원가입
+						</h2>
+						<form method="POST" class="register-form" id="register-form"
+							action="${cp}/join/insertUser" enctype="multipart/form-data">
+
 							<div class="input-group mb-3">
 								<div class="mailbox-attachments clearfix" style="text-align: center; width: 100%;">
 									<div class="mailbox-attachment-icon has-img" id="pictureView" style="border: 1px solid green; height: 100px; width: 100px; margin: 0 auto;">
@@ -268,26 +274,23 @@ function readURL(input) {
 								<br/>
 							</div>
 
-							<input type="hidden" name="user_out">
-							<input type="hidden" name="user_black">
+							<input type="hidden" name="userOut">
+							<input type="hidden" name="userBlack">
 							
 							<div class="form-group">
                                 <label for="userid"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="user_id" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
+                                <input type="text" name="userId" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
                                 <br><span id="regex1" class="check"></span>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label><br>
-                                <input type="password" name="user_pass" id="user_pass" placeholder="Password"/>
+                                <input type="password" name="userPass" id="user_pass" placeholder="Password"/>
                                 <br><span id="regex2" class="check"></span>
                             </div>
-<!--                             <div class="form-group"> -->
-<!--                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label> -->
-<!--                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/> -->
-<!--                             </div> -->
+
                              <div class="form-group">  
                               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label><br>
-                                <input type="text" name="user_nm" id="user_nm" placeholder="Name"/>
+                                <input type="text" name="userNm" id="user_nm" placeholder="Name"/>
                                 <br><span id="regex3" class="check"></span>
                             </div>
                             <div class="form-group">
@@ -302,31 +305,38 @@ function readURL(input) {
 								</select>-
 									<input type="text"  id="phone2" size="4" placeholder="4자리" maxlength="4">-
 									<input type="text"  id="phone3" size="4" placeholder="4자리" maxlength="4">
-									<input type ="hidden" name="user_tel">
+									<input type ="hidden" name="userTel">
 									<br><span id="regex4"  class="check"></span>
 								<br>
 							</div>
-                            <div class="form-group">
-								<dt>가입하면 <strong>이용 약관</strong> 및 <strong>개인정보</strong> 수집 및 활용에 &nbsp;&nbsp;<strong>동의</strong>하게 됩니다.
+							
+							<div class="form-group">
+								<dt>
+									가입하면 <strong>이용 약관</strong> 및 <strong>개인정보</strong> 수집 및 활용에
+									&nbsp;&nbsp;<strong>동의</strong>하게 됩니다.
 								</dt>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="signup-image">
-                        <figure><img id="signimg"src="/images/signmain.PNG" alt="sing up image"></figure>
-                    </div>
-                </div>
-            </div>
-        </section>
+							</div>
+							<div class="form-group form-button">
+								<input type="submit" name="signup" id="signup"
+									class="form-submit" value="Register" />
+							</div>
+						</form>
+					</div>
+					<div class="signup-image">
+						<figure>
+							<img id="signimg" src="/images/signmain.PNG" alt="sing up image">
+						</figure>
+					</div>
+				</div>
+			</div>
+		</section>
 
 
-    </div>
+	</div>
 
-    <!-- JS -->
-    <script src="/vendor/user/signup/jquery/jquery.min.js"></script>
-    <script src="/js/user/signup/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+	<!-- JS -->
+	<script src="/vendor/user/signup/jquery/jquery.min.js"></script>
+	<script src="/js/user/signup/main.js"></script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

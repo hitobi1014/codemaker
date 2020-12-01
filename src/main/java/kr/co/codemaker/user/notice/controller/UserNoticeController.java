@@ -1,30 +1,22 @@
 package kr.co.codemaker.user.notice.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.co.codemaker.common.notice.service.NoticeServiceI;
-import kr.co.codemaker.common.service.FilesServiceI;
-import kr.co.codemaker.fileUpload.FileUploadUtil;
-import kr.co.codemaker.model.FilesVO;
-import kr.co.codemaker.model.NoticeVO;
+import kr.co.codemaker.common.service.FilesService;
+import kr.co.codemaker.common.service.NoticeService;
+import kr.co.codemaker.common.vo.FilesVO;
+import kr.co.codemaker.common.vo.NoticeVO;
 
 
 /**
@@ -40,18 +32,17 @@ import kr.co.codemaker.model.NoticeVO;
 *
  */
 @Controller
-@RequestMapping(path="/userNotice")
 public class UserNoticeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserNoticeController.class);
 	
 	@Resource(name="noticeService")
-	private NoticeServiceI noticeService;
+	private NoticeService noticeService;
 	
 	@Resource(name="filesService")
-	private FilesServiceI filesService;
+	private FilesService filesService;
 	
-	@RequestMapping(path="/selectAllNotice")
+	@RequestMapping(path="/user/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
@@ -67,7 +58,12 @@ public class UserNoticeController {
 		
 		logger.debug("map {}", map);
 		
-		Map<String, Object> map2 = noticeService.selectAllNotice(map);
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		try {
+			map2 = noticeService.selectAllNotice(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		logger.debug("map2 {}", map2);
 		
@@ -81,10 +77,16 @@ public class UserNoticeController {
 		return "mainT/user/notice/noticeList";
 	}
 	
-	@RequestMapping(path="/selectNotice")
+	@RequestMapping(path="/user/selectNotice")
 	public String selectNotice(String noticeId, Model model) {
 		
-		NoticeVO noticeVo = noticeService.selectNotice(noticeId);
+		NoticeVO noticeVo = new NoticeVO();
+		
+		try {
+			noticeVo = noticeService.selectNotice(noticeId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		List<FilesVO> filesList = filesService.selectAllFiles(noticeId);	
 		

@@ -1,7 +1,6 @@
 package kr.co.codemaker.teacher.course.exam.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,12 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.codemaker.model.AnswersheetVO;
-import kr.co.codemaker.model.CurriculumVO;
-import kr.co.codemaker.model.ExamVO;
-import kr.co.codemaker.model.QuestionVO;
-import kr.co.codemaker.teacher.course.exam.model.ExamRequestVO;
-import kr.co.codemaker.teacher.course.exam.service.ExamServiceI;
+import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
+import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
+import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
+import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
+import kr.co.codemaker.teacher.course.exam.service.ExamService;
+import kr.co.codemaker.teacher.course.exam.service.QuestionService;
+import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
+import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 
 /**
  * 
@@ -34,11 +37,16 @@ import kr.co.codemaker.teacher.course.exam.service.ExamServiceI;
 *
  */
 @Controller
-@RequestMapping(path = "/exam")
 public class ExamController {
 	
 	@Resource(name = "examService")
-	private ExamServiceI examService;
+	private ExamService examService;
+	
+	@Resource(name = "questionService")
+	private QuestionService questionService;
+	
+	@Resource(name = "answersheetService")
+	private AnswersheetService answersheetService;
 	
 //	@Resource(name = "curriculumService")
 //	private CurriculumServiceI curriculumService;
@@ -47,25 +55,25 @@ public class ExamController {
 	 * 시험 등록화면을 요청하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/insertExam" , method = {RequestMethod.GET})
-	public String insertViewExam(String les_id, String cur_id, Model model) {
+	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.GET})
+	public String insertViewExam(String lesId, String curId, Model model) {
 		
 		// 커리큘럼을 조회
 //		List<CurriculumVO> curriculumList = curriculumService.selectAllCurriculum(les_id);
 		
 		
-		List<CurriculumVO> curriculumList = new ArrayList<>();
-		
-		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
-		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
-		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
-		
-		curriculumList.add(cur1);
-		curriculumList.add(cur2);
-		curriculumList.add(cur3);
-		
-		model.addAttribute("curriculumList", curriculumList);
-		model.addAttribute("cur_id", cur_id);
+//		List<CurriculumVO> curriculumList = new ArrayList<>();
+//		
+//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest1", "1", "0", "les1");
+//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest2", "1", "0", "les1");
+//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest3", "1", "0", "les1");
+//		
+//		curriculumList.add(cur1);
+//		curriculumList.add(cur2);
+//		curriculumList.add(cur3);
+//		
+//		model.addAttribute("curriculumList", curriculumList);
+//		model.addAttribute("curId", curId);
 
 		return "teacher/exam/examInsert";
 	}
@@ -74,7 +82,7 @@ public class ExamController {
 	 * 시험을 등록하는 메서드 
 	 * @return
 	 */
-	@RequestMapping(path = "/insertExam" , method = {RequestMethod.POST})
+	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.POST})
 	public String insertExam(ExamVO examVo, List<QuestionVO> questionList, 
 							List<AnswersheetVO> answerList) {
 		
@@ -90,7 +98,7 @@ public class ExamController {
 			// 시험 아이디를 셋팅
 			questionVo.setExam_id(exam_id);
 			
-			String que_id = examService.insertQuestion(questionVo);
+			String que_id = questionService.insertQuestion(questionVo);
 			
 			for(int i=index; i < index+4 ; i++) { // 보기가 4개씩 존재
 				// 시험 문제 아이디를 셋팅
@@ -107,7 +115,7 @@ public class ExamController {
 	 * 시험 수정화면을 요청하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/updateExam" , method = {RequestMethod.GET})
+	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.GET})
 	public String updateViewExam(ExamVO examVo, List<QuestionVO> questionList, 
 							List<AnswersheetVO> answerList, Model model) {
 		
@@ -116,30 +124,30 @@ public class ExamController {
 		
 //		model.addAttribute("curriculumList", curriculumList);
 		
-		List<CurriculumVO> curriculumList = new ArrayList<>();
-		
-		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
-		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
-		
-		curriculumList.add(cur1);
-		curriculumList.add(cur2);
-		curriculumList.add(cur3);
-		
-		model.addAttribute("curriculumList", curriculumList);
+//		List<CurriculumVO> curriculumList = new ArrayList<>();
+//		
+//		CurriculumVO cur1 = new CurriculumVO("cur1", 1, "cutest", "1", "0", "les1");
+//		CurriculumVO cur2 = new CurriculumVO("cur2", 1, "cutest", "1", "0", "les1");
+//		CurriculumVO cur3 = new CurriculumVO("cur3", 1, "cutest", "1", "0", "les1");
+//		
+//		curriculumList.add(cur1);
+//		curriculumList.add(cur2);
+//		curriculumList.add(cur3);
+//		
+//		model.addAttribute("curriculumList", curriculumList);
 		
 		if(examVo.getExam_nm() == null || examVo.getExam_nm().equals("")) { // 수정화면에서 요청이 왔을 경우
 			
 			ExamVO ev = examService.selectExam(examVo);
 			model.addAttribute("examVo", ev);
 			
-			questionList = examService.selectQuestion(examVo);
+			questionList = questionService.selectQuestion(examVo);
 			model.addAttribute("questionList", questionList);
 			
 			List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
 			
 			for(QuestionVO questionVo : questionList) {
-				List<AnswersheetVO> answersheetList = examService.selectAnswersheet(questionVo);
+				List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
 				
 				for(AnswersheetVO answersheetVo : answersheetList) {
 					answersheetLists.add(answersheetVo);
@@ -161,18 +169,18 @@ public class ExamController {
 	 * 시험을 수정하는 메서드 
 	 * @return
 	 */
-	@RequestMapping(path = "/updateExam" , method = {RequestMethod.POST})
+	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.POST})
 	public String updateExam(ExamVO examVo, List<QuestionVO> questionList, 
 						List<AnswersheetVO> answerList) {
 		
 		examService.updateExam(examVo);
 		
 		for(QuestionVO questionVo : questionList) {
-			examService.updateQuestion(questionVo);
+			questionService.updateQuestion(questionVo);
 		}
 		
 		for(AnswersheetVO answersheetVo : answerList) { // 보기가 4개씩 존재
-			examService.updateAnswersheet(answersheetVo);
+			answersheetService.updateAnswersheet(answersheetVo);
 		}
 		
 		// 수정된 시험 화면으로 이동
@@ -183,7 +191,7 @@ public class ExamController {
 	 * 등록한 시험문제를 전체 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectAllResExam")
+	@RequestMapping(path = "/exam/selectAllResExam")
 	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
 		Map<String, Object> examMap = examService.selectAllExam(examRequestVo);
@@ -200,7 +208,7 @@ public class ExamController {
 		model.addAttribute("endPage", pages);
 		model.addAttribute("page", examRequestVo.getPage());
 		
-		session.setAttribute("exam_state", examRequestVo.getExam_state()); // 검색 조건
+		session.setAttribute("exam_state", examRequestVo.getExamState()); // 검색 조건
 		
 		return "teacher/exam/examAllSelectAjaxHTML";
 	}
@@ -209,7 +217,7 @@ public class ExamController {
 	 * 등록한 시험문제를 전체 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectAllExam")
+	@RequestMapping(path = "/exam/selectAllExam")
 	public String selectAllTestExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
 		
 		return "teacher/exam/examAllSelect";
@@ -219,18 +227,18 @@ public class ExamController {
 	 * 등록한 시험문제를 상세 조회하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/selectExam")
+	@RequestMapping(path = "/exam/selectExam")
 	public String selectExam(ExamVO examVo, Model model) {
 		ExamVO ev = examService.selectExam(examVo);
 		model.addAttribute("examVo", ev);
 		
-		List<QuestionVO> questionList = examService.selectQuestion(examVo);
+		List<QuestionVO> questionList = questionService.selectQuestion(examVo);
 		model.addAttribute("questionList", questionList);
 		
 		List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
 		
 		for(QuestionVO questionVo : questionList) {
-			List<AnswersheetVO> answersheetList = examService.selectAnswersheet(questionVo);
+			List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
 			
 			for(AnswersheetVO answersheetVo : answersheetList) {
 				answersheetLists.add(answersheetVo);
@@ -245,7 +253,7 @@ public class ExamController {
 	 * 등록한 시험문제를 삭제하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/deleteExam")
+	@RequestMapping(path = "/exam/deleteExam")
 	public String deleteExam(ExamVO examVo) {
 		
 		examService.deleteExam(examVo);

@@ -15,6 +15,12 @@ local.properties
 .loadpath
 .recommenders
 
+# ignore properties file
+db.properties
+db_dev.properties
+
+#test folder
+src/test/
 
 #Eclipse Core
 .project

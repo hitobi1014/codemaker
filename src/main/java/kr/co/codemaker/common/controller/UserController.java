@@ -11,35 +11,35 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.codemaker.common.service.UserServiceI;
-import kr.co.codemaker.model.UserVO;
+import kr.co.codemaker.common.service.UserService;
+import kr.co.codemaker.common.vo.UserVO;
 
-@RequestMapping("/join")
 @Controller
 public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Resource(name="userService")
-	private UserServiceI userService;
+	private UserService userService;
 	
 	
-	@RequestMapping("/insertUserView")
+	@RequestMapping("/join/insertUserView")
 	public String insertUserView() {
 		
 		return "user/signup/signup";
 	}
 	
 	
-	@RequestMapping("/insertUser")
-	public String insertUser(UserVO userVo, @RequestParam("user_id")String user_id, @RequestParam("user_profile") MultipartFile file) {
+	@RequestMapping("/join/insertUser")
+	public String insertUser(UserVO userVo, MultipartFile file) {
 		
+		logger.debug("로거로거로거");
 		
 		String fileName = UUID.randomUUID().toString();
 
-		logger.debug("로거로거로거");
 		File uploadFile = new File("d:\\upload\\" + file.getOriginalFilename());
 		if (file.getSize() > 0) {
 			try {
@@ -54,7 +54,7 @@ public class UserController {
 		// 사용자정보등록
 //		userVo.setRealFilename(file.getOriginalFilename());
 //		userVo.setFilename("d:\\upload\\" + file.getOriginalFilename());
-		userVo.setUser_profile("d:\\upload\\" + file.getOriginalFilename());
+		userVo.setUserProfile("d:\\upload\\" + file.getOriginalFilename());
 		
 		
 		int insertCnt = 0;
@@ -81,4 +81,17 @@ public class UserController {
 		
 		return "signup/signup";
 	}
+	
+    @ResponseBody
+    @RequestMapping("/join/idchk")
+    public String idchk(UserVO userVo) {
+        logger.debug("타긴타는곤가?");
+        int result = userService.idchk(userVo);
+        logger.debug("result:{}",result);
+        if(result ==1) {//결과 값이 있으면 아이디 존재    
+            return "1";
+        } else {        //없으면 아이디 존재 X
+            return "0";
+        }
+    }
 }
