@@ -26,7 +26,7 @@
 								class="text-xm font-weight-bold text-primary text-uppercase mb-1">
 								개발 커리어를 쌓아보는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
-								<a id="at" href="" style="font-size: 1.1em;">전체강의 </a> <br>
+								<a id="at" href="${cp}/user/selectSubject" style="font-size: 1.1em;">전체강의 </a> <br>
 							</div>
 						</div>
 					</div>

@@ -1,4 +1,4 @@
-package kr.co.codemaker.teacher.course.lesson.service;
+package kr.co.codemaker.user.lessoninfo.service;
 
 import java.util.List;
 
@@ -6,23 +6,21 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
-import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
-import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
-import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
-import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
+import kr.co.codemaker.user.lessoninfo.dao.LessonMapper;
+import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 
-@Service("lessonService")
+
+@Service("userLessonService")
 public class LessonService{
 	
-	@Resource(name="lessonMapper")
+	@Resource(name="userLessonMapper")
 	private LessonMapper lessonMapper;
 	
 	
 	
-	public List<LessonVO> selectLesson(String subId) {
+	public List<LessonVO> selectLesson() {
 		try {
-			return lessonMapper.selectLesson(subId);
+			return lessonMapper.selectLesson();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

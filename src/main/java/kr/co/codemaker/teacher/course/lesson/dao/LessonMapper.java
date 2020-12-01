@@ -7,6 +7,6 @@ import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 
 @Mapper("lessonMapper")
 public interface LessonMapper {
-	List<LessonVO> selectLesson() throws Exception;
+	List<LessonVO> selectLesson(String subId) throws Exception;
 
 }
