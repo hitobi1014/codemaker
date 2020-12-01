@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.codemaker.common.notice.dao.NoticeMapper">
-	
+<mapper namespace="kr.co.codemaker.common.dao.NoticeMapper">
 
 	<select id="selectNotice" resultType="kr.co.codemaker.common.vo.NoticeVO" parameterType="kr.co.codemaker.common.vo.NoticeVO">
 	SELECT * 
@@ -35,7 +34,7 @@
 					FROM NOTICE
 					<where>
 						<choose>
-							<when test="searchOption == 1 or searchOption == 2 or searchOption == 3">
+							<when test="searchOption == 1 or searchOption == 2">
 								AND NOTICE_HEAD LIKE '%' || #{searchOption} || '%'
 							</when>
 						</choose>
@@ -51,12 +50,12 @@
 	</select>
 	
 	<insert id="insertNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
-		insert into notice values (#{noticeId}, #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, #{adminId})
-	</insert>
+insert into notice values ('NOTICE'||LPAD(NOTICE_SEQ.NEXTVAL,4,'0'), #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, NULL, NULL,#{adminId})
+</insert>
 
 	<update id="updateNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
-		update notice set notice_title = #{noticeTitle}, notice_cont = #{noticeCont}, notice_head = #{noticeHead} where notice_id = #{noticeId}
-	</update>
+update notice set notice_title = #{noticeTitle}, notice_cont = #{noticeCont}, notice_head = #{noticeHead}, notice_udate = sysdate, notice_uwriter = #{adminId} where notice_id = #{noticeId}
+</update>
 	
 	<delete id="deleteNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
 		update notice set

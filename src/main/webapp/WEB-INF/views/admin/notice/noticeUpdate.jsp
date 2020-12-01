@@ -44,29 +44,23 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
-	<form id="frm" class="form-horizontal" method="POST" action="${cp}/adminNotice/updateNotice" enctype="multipart/form-data">
+	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/updateNotice" enctype="multipart/form-data">
 		
-=======
-	<form id="frm" class="form-horizontal" method="POST"
-		action="${cp}/notice/updateNotice" enctype="multipart/form-data">
-
->>>>>>> VO수정
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
 			<div class="col-sm-10">
-				<select id="notice_head" name="notice_head">
-					<c:if test="${noticeVo.notice_head == 1}">
+				<select id="notice_head" name="noticeHead">
+					<c:if test="${noticeVo.noticeHead == 1}">
 						<option value="1" selected>이벤트</option>
 						<option value="2">자주묻는질문</option>
 						<option value="3">알림</option>
 					</c:if>
-					<c:if test="${noticeVo.notice_head == 2}">
+					<c:if test="${noticeVo.noticeHead == 2}">
 						<option value="1">이벤트</option>
 						<option value="2" selected>자주묻는질문</option>
 						<option value="3">알림</option>
 					</c:if>
-					<c:if test="${noticeVo.notice_head == 3}">
+					<c:if test="${noticeVo.noticeHead == 3}">
 						<option value="1">이벤트</option>
 						<option value="2">자주묻는질문</option>
 						<option value="3" selected>알림</option>
@@ -79,41 +73,37 @@ $(document).ready(function() {
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
-				<input type=text name="notice_title" style="width: 500px;"
-					value="${noticeVo.notice_title}">
+				<input type=text name="noticeTitle" style="width: 500px;"
+					value="${noticeVo.noticeTitle}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="notice_cont">${noticeVo.notice_cont}</textarea>
-			</div>
-		</div>
-<<<<<<< HEAD
-		
-=======
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="notice_date"
-					value="${noticeVo.notice_date}" />
+				<textarea class="summernote" name="noticeCont">${noticeVo.noticeCont}</textarea>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="notice_out"
-					value="${noticeVo.notice_out}" />
+				<input type="hidden" name="noticeDate"
+					value="${noticeVo.noticeDate}" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="admin_id" value="${noticeVo.admin_id}" />
+				<input type="hidden" name="noticeOut"
+					value="${noticeVo.noticeOut}" />
 			</div>
 		</div>
->>>>>>> VO수정
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="notice_id" value="${noticeVo.notice_id}" />
+				<input type="hidden" name="adminId" value="${noticeVo.adminId}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="noticeId" value="${noticeVo.noticeId}" />
 			</div>
 		</div>
 
@@ -121,26 +111,23 @@ $(document).ready(function() {
 
 		<c:forEach items="${filesVo}" var="filesVo">
 			<div class="form-group">
-				<div id="${filesVo.files_id}">
-					&emsp;&emsp;&emsp;&emsp;${filesVo.files_nm}
+				<div id="${filesVo.filesId}">
+					&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
 					<button class="del_file" type="button" class="btn btn-default"
-						value="${filesVo.files_id}">삭제</button>
+						value="${filesVo.filesId}">삭제</button>
 				</div>
 			</div>
 		</c:forEach>
 
 		<button type="button" id="fileAddBtn">파일추가</button>
 		<br>
-<<<<<<< HEAD
 		<div class="col-sm-10" id="fileup" class="col-sm-10">
 		</div>
 		<input id="del_count" name="del_count" type="hidden" value="0">
 		<br>
 		
-=======
 		<div class="col-sm-10" id="fileup" class="col-sm-10"></div>
 
->>>>>>> VO수정
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">

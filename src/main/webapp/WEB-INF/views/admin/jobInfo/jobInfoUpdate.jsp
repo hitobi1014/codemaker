@@ -36,40 +36,40 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/jobInfo/jobInfoNotice" enctype="multipart/form-data">
+	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/jobInfoNotice" enctype="multipart/form-data">
 		
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
-				<input type=text name="job_title" style="width: 500px;"
-					value="${jobInfoVo.job_title}">
+				<input type=text name="jobinfoTitle" style="width: 500px;"
+					value="${jobInfoVo.jobinfoTitle}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="job_cont">${jobInfoVo.job_cont}</textarea>
+				<textarea class="summernote" name="jobinfoCont">${jobInfoVo.jobinfoCont}</textarea>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="job_date" value="${jobInfoVo.job_date}" />
+				<input type="hidden" name="jobinfoDate" value="${jobInfoVo.jobinfoDate}" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="job_out" value="${jobInfoVo.job_out}" />
+				<input type="hidden" name="jobinfoOut" value="${jobInfoVo.jobinfoOut}" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="admin_id" value="${jobInfoVo.admin_id}" />
+				<input type="hidden" name="adminId" value="${jobInfoVo.adminId}" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="job_id" value="${jobInfoVo.job_id}" />
+				<input type="hidden" name="jobinfoId" value="${jobInfoVo.jobinfoId}" />
 			</div>
 		</div>
 
@@ -79,9 +79,9 @@ $(document).ready(function() {
 
 		<c:forEach items="${filesVo}" var="filesVo">
 			<div class="form-group">
-				<div id="${filesVo.files_id}">
-					&emsp;&emsp;&emsp;&emsp;${filesVo.files_nm}
-					<button class="del_file" type="button" class="btn btn-default" value="${filesVo.files_id}">삭제</button>
+				<div id="${filesVo.filesId}">
+					&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
+					<button class="del_file" type="button" class="btn btn-default" value="${filesVo.filesId}">삭제</button>
 				</div>
 			</div>
 		</c:forEach>
