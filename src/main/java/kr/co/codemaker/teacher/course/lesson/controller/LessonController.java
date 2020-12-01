@@ -36,10 +36,10 @@ public class LessonController {
 	
 	@RequestMapping(path="selectAll")
 	public String selectAllLesson(Model model) {
-		List<LessonVO> lessonList = lessonService.selectAllLesson();
-		logger.debug("강의 리스트:{}",lessonList);
-		
-		model.addAttribute("lessonList", lessonList);
+//		List<LessonVO> lessonList = lessonService.selectAllLesson();
+//		logger.debug("강의 리스트:{}",lessonList);
+//		
+//		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/lesson/lessonSelectAll";
 	}
