@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.user.mypage.dao.MyPageMapper">
 
-  <select id="myinfoSelect" parameterType="java.lang.String" resultType="kr.co.codemaker.common.model.UserVO">
+  <select id="myinfoSelect" parameterType="java.lang.String" resultType="kr.co.codemaker.common.vo.UserVO">
   	SELECT * FROM users where user_id = #{userId}
   </select>
   
@@ -12,7 +12,7 @@
   	UPDATE users SET user_out = 'Y' WHERE user_id = #{userId}
   </update>
   
-  <update id="updateUser" parameterType="kr.co.codemaker.common.model.UserVO">
+  <update id="updateUser" parameterType="kr.co.codemaker.common.vo.UserVO">
   	UPDATE users SET user_pass = #{userPass},
   						 user_nm = #{userNm},
   						 user_tel = #{userTel},
@@ -20,5 +20,41 @@
   					WHERE user_id=#{userId}
   </update>
   
+  <select id="selectPoint" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.user.mypage.vo.PointVO">
+<!-- 	SELECT * FROM point WHERE user_id=#{userId} ORDER BY point_date DESC -->
+		SELECT *
+		FROM
+		(SELECT ROWNUM AS rn, a.*
+		FROM(
+		    SELECT * 
+		    FROM point
+		    WHERE user_id=#{userId}
+		    ORDER BY point_date DESC)a)
+	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	
+  </select>
+  
+  <select id="selectTotalCnt" resultType="Integer" parameterType="kr.co.codemaker.common.vo.PageVo">
+	SELECT COUNT(*)
+	FROM point
+	WHERE user_id=#{userId}
+</select>
+  
+<insert id="insertPoint" parameterType="kr.co.codemaker.user.mypage.vo.PointVO">
+	INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
+	VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '1', 
+							(SELECT MAX(point_sum) FROM point WHERE user_id=#{userId}) + #{pointSum}, 
+							#{userId})
+</insert>
+
+<insert id="deletePoint" parameterType="kr.co.codemaker.user.mypage.vo.PointVO">
+	INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
+	VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 
+							(SELECT MAX(point_sum) KEEP (DENSE_RANK LAST ORDER BY point_sum)
+							 FROM point WHERE user_id=#{userId} and point_gn='2') - #{pointSum}, 
+							#{userId})
+</insert>
+
+
 
 </mapper>

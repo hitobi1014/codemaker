@@ -3,6 +3,8 @@ package kr.co.codemaker.user.mypage.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -14,13 +16,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.codemaker.common.model.UserVO;
+import kr.co.codemaker.common.vo.PageVo;
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
+import kr.co.codemaker.user.mypage.vo.PointVO;
 
 @Controller
 public class MypageController {
@@ -176,4 +181,97 @@ public class MypageController {
 
 	}
 
+//------------------------------------------POINT CONTROLLER----------------------------------------------------
+	
+	
+	
+	@RequestMapping(path="/mypage/selectPoint")
+	public String selectPoint(HttpSession session, PointVO pointVo, Model model,
+								@RequestParam(name="page",required = false, defaultValue = "1")int page,
+								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
+		
+		logger.debug("시작입니다!!!!!!!: {}");
+		String userId= "mem001@naver.com";
+		
+		logger.debug("브이오 !!!!!!: {}" ,pointVo);
+		model.addAttribute("page",page);
+		model.addAttribute("pageSize", pageSize);
+	
+		PageVo pageVo = new PageVo();
+		pageVo.setUserId(userId);
+		pageVo.setPage(page);
+		pageVo.setPageSize(pageSize);
+		
+		model.addAttribute("pageVo", pageVo);
+		
+		Map<String, Object> map = mypageService.selectPoint(pageVo);
+		
+		model.addAttribute("pointList", map.get("pointList"));
+		model.addAttribute("pages", map.get("pages"));
+		
+		
+		return "mypageT/user/mypage/mypage_selectPoint";
+	}
+	
+
+	@RequestMapping(path="/mypage/insertPoint" ,method=RequestMethod.POST)
+	public String insertPoint(PointVO pointVo) {
+		
+		logger.debug("충전 인서트~!!!!!!");
+		logger.debug("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ : {}", pointVo.getPointUpdate());
+		
+		String userId= "mem001@naver.com";
+		String pointSum=pointVo.getPointUpdate();
+		
+		pointVo.setUserId(userId);
+		pointVo.setPointSum(pointSum);
+		
+		int insertCnt=0;
+		
+		logger.debug("pointVo:{}",pointVo);
+		
+		
+		try {
+			insertCnt=mypageService.insertPoint(pointVo);
+			logger.debug("pointVo:{}",pointVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/mypage/selectPoint";
+	}
+	
+	
+	@RequestMapping(path="/mypage/deletePoint" ,method=RequestMethod.POST)
+	public String deletePoint(PointVO pointVo) {
+		
+		logger.debug("환불 인서트~!!!!!!");
+		logger.debug("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ : {}", pointVo.getPointUpdate());
+		
+		String userId= "mem001@naver.com";
+		String pointSum=pointVo.getPointUpdate();
+		
+		pointVo.setUserId(userId);
+		pointVo.setPointSum(pointSum);
+		
+		int deleteCnt=0;
+		
+		logger.debug("pointVo:{}",pointVo);
+		
+		
+		try {
+			deleteCnt=mypageService.deletePoint(pointVo);
+			logger.debug("pointVo:{}",pointVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/mypage/selectPoint";
+	}
+	
+	
+
+	
 }

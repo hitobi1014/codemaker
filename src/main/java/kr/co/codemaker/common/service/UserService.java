@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.common.dao.UserMapper;
-import kr.co.codemaker.common.model.UserVO;
+import kr.co.codemaker.common.vo.UserVO;
 
 @Service("userService")
 public class UserService {

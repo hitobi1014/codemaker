@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.codemaker.common.model.UserVO;
 import kr.co.codemaker.common.service.UserService;
+import kr.co.codemaker.common.vo.UserVO;
 
 @Controller
 public class UserController {
