@@ -8,6 +8,14 @@ public class UserVO extends BaseVO{
 	private String userId;
 	private String userOut;
 	private String userBlack;
+	private String userProfile;
+	
+	public String getUserProfile() {
+		return userProfile;
+	}
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
 	public void setUserPass(String userPass) {
 		this.userPass = userPass; 
 	}
