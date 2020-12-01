@@ -13,10 +13,15 @@ public class AdminService {
 	@Resource(name="adminMapper")
 	private AdminMapper adminMapper;
 
-	
-	public AdminVO getAdmin(AdminVO adminVo) throws Exception {
-		
-		return adminMapper.getAdmin(adminVo);
+	/**
+	 * 관리자 Login
+	 * @param admin_id
+	 * @author 이은지
+	 * @since 2020. 11. 30
+	 * @return
+	 */
+	public AdminVO getAdmin(String AdminId){
+		return adminMapper.getAdmin(AdminId);
 	}
-
+	
 }
