@@ -12,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.service.LoginService;
 import kr.co.codemaker.common.vo.UserVO;
@@ -87,9 +89,51 @@ public class userLoginController {
 		return "redirect:/user/main";
 	}
 	
-	@RequestMapping(path="user/FindId")
-	public String userFindId() {
-		return "user/main/find_id";
+	@RequestMapping(path="user/findInfo")
+	public String userFindInfo(String info,Model model) {
+		model.addAttribute("info", info);
+		return "user/main/find_info";	
+	}
+	
+	@RequestMapping(path="user/findId")
+	public String userFindId(UserVO userVo, String certi, Model model) {
+		UserVO getUserVo = null;
+		try {
+			getUserVo = loginService.findUserInfo(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("UserVO", getUserVo);
+		return "user/main/ajax/find_id";
+	}
+	
+	@RequestMapping(path="user/findPw")
+	public String userFindPw(UserVO userVo, String certi,Model model) {
+		UserVO getUserVo = null;
+		try {
+			getUserVo = loginService.findUserInfo(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("UserVO", getUserVo);
+		return "user/main/ajax/find_pw";
+	}
+	
+	@RequestMapping(path="user/changePw")
+	public String userChangePw(UserVO userVo,String userId) {
+		logger.debug("가져온값 : {}",userVo);
+		int updateCnt=0;
+		try {
+			updateCnt = loginService.updateUserPass(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(updateCnt > 0) {
+			logger.debug("수정 성공");
+		}else {
+			logger.debug("수정 실패");
+		}
+		return "redirect:/user/login";
 	}
 	
 	@RequestMapping(path="/signup")
