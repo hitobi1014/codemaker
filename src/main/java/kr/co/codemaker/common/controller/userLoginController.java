@@ -89,7 +89,7 @@ public class userLoginController {
 	
 	@RequestMapping(path="user/FindId")
 	public String userFindId() {
-		return "user/main/find_info";
+		return "user/main/find_id";
 	}
 	
 	@RequestMapping(path="/signup")
