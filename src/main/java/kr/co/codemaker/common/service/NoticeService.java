@@ -1,4 +1,4 @@
-package kr.co.codemaker.common.notice.service;
+package kr.co.codemaker.common.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.common.notice.dao.NoticeMapper;
+import kr.co.codemaker.common.dao.NoticeMapper;
 import kr.co.codemaker.common.vo.NoticeVO;
 
 

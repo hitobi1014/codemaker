@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.notice.controller;
+package kr.co.codemaker.admin.jobInfo.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.codemaker.common.service.FilesService;
-import kr.co.codemaker.common.service.NoticeService;
+import kr.co.codemaker.common.service.JobInfoService;
 import kr.co.codemaker.common.vo.FilesVO;
-import kr.co.codemaker.common.vo.NoticeVO;
+import kr.co.codemaker.common.vo.JobInfoVO;
 import kr.co.codemaker.fileUpload.FileUploadUtil;
 
 
@@ -40,23 +40,24 @@ import kr.co.codemaker.fileUpload.FileUploadUtil;
 *
  */
 @Controller
-public class AdminNoticeController {
+public class AdminJobInfoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AdminNoticeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminJobInfoController.class);
 	
-	@Resource(name="noticeService")
-	private NoticeService noticeService;
+	@Resource(name="jobInfoService")
+	private JobInfoService jobInfoService;
 	
 	@Resource(name="filesService")
 	private FilesService filesService;
 	
-	@RequestMapping(path="/admin/selectAllNotice")
-	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
+	@RequestMapping(path="/admin/selectAllJobInfo")
+	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-	
+		
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		map.put("searchOption", searchOption);
@@ -68,58 +69,60 @@ public class AdminNoticeController {
 		
 		Map<String, Object> map2 = new HashMap<>();
 		try {
-			map2 = noticeService.selectAllNotice(map);
+			map2 = jobInfoService.selectAllJobInfo(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		logger.debug("map2 {}", map2);
+		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
-		model.addAttribute("noticeList", map2.get("noticeList"));
+		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
  		
-		return "adminPage/admin/notice/noticeList";
+		return "adminPage/admin/jobInfo/jobInfoList";
 	}
 	
-	@RequestMapping(path="/admin/selectNotice")
-	public String selectNotice(String noticeId, Model model) {
+	@RequestMapping(path="/admin/selectJobInfo")
+	public String selectJobInfo(String jobInfoId, Model model) {
 		
-		NoticeVO noticeVo = new NoticeVO();
+		JobInfoVO jobInfoVo = new JobInfoVO();
 		try {
-			noticeVo = noticeService.selectNotice(noticeId);
+			jobInfoVo = jobInfoService.selectJobInfo(jobInfoId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		List<FilesVO> filesList = filesService.selectAllFiles(noticeId);	
+		model.addAttribute("jobInfoVo", jobInfoVo);
+		logger.debug("jobInfoVo : {}", jobInfoVo);
 		
-		model.addAttribute("noticeVo", noticeVo);
-		model.addAttribute("filesList", filesList);
+		if(filesService.selectAllFiles(jobInfoId) != null) {
+			List<FilesVO> filesList = filesService.selectAllFiles(jobInfoId);	
+			model.addAttribute("filesList", filesList);
+		}
 		
-		return "adminPage/admin/notice/notice";
+		return "adminPage/admin/jobInfo/jobInfo";
 	}
 	
 	
-	@RequestMapping(path="/admin/insertNotice", method={RequestMethod.GET})
-	public String insertViewNotice() {
+	@RequestMapping(path="/admin/insertJobInfo", method={RequestMethod.GET})
+	public String insertViewJobInfo() {
 		
-		return "adminPage/admin/notice/noticeInsert";
+		return "adminPage/admin/jobInfo/jobInfoInsert";
 	}
 	
-	@RequestMapping(path="/insertNotice", method={RequestMethod.POST})
-	public String insertNotice(NoticeVO noticeVo, MultipartHttpServletRequest files) {
+	@RequestMapping(path="/admin/insertJobInfo", method={RequestMethod.POST})
+	public String insertJobInfo(JobInfoVO jobInfoVo, MultipartHttpServletRequest files) {
 	 	
 		List<MultipartFile> filesList = files.getFiles("realfile");
 		
 		int cnt = 0;
 		try {
-			cnt = noticeService.insertNotice(noticeVo);
+			cnt = jobInfoService.insertJobInfo(jobInfoVo);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -128,16 +131,16 @@ public class AdminNoticeController {
 		for(int i = 0; i < filesList.size(); i++) {
 			MultipartFile profile = filesList.get(i);
 			
-			String files_nm = profile.getOriginalFilename();
+			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(files_nm);
+				String ext = FileUploadUtil.getExtenstion(filesNm);
 				String fileName = UUID.randomUUID().toString();
-				String files_path = "";
+				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					files_path = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + files_nm);
+					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -146,12 +149,10 @@ public class AdminNoticeController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					String files_id = "1426";
 					
-					filesVo.setFilesGroup(noticeVo.getNoticeId());
-					filesVo.setFilesNm(files_nm);
-					filesVo.setFilesPath(files_path);
-					filesVo.setFilesId(files_id);
+					filesVo.setFilesGroup("1");
+					filesVo.setFilesNm(filesNm);
+					filesVo.setFilesPath(filesPath);
 					
 					logger.debug("filesVo {}", filesVo);
 					
@@ -164,29 +165,29 @@ public class AdminNoticeController {
 		logger.debug("파일 후 cnt {}", cnt);
 		
 		if(cnt == 1) {
-			return "redirect:selectAllNotice";
+			return "redirect:selectAllJobInfo";
 		}else {
-			return "adminPage/admin/notice/noticeInsert";
+			return "adminPage/admin/jobInfo/jobInfoInsert";
 		}
 	}
 	
-	@RequestMapping(path="/admin/updateNotice", method={RequestMethod.GET})
-	public String updateViewNotice(NoticeVO noticeVo, Model model) {
+	@RequestMapping(path="/admin/updateJobInfo", method={RequestMethod.GET})
+	public String updateViewJobInfo(JobInfoVO jobinfoVo, Model model) {
 		
-		NoticeVO noticeVo2 = new NoticeVO();
+		JobInfoVO jobinfoVo2 = new JobInfoVO();
 		try {
-			noticeVo2 = noticeService.selectNotice(noticeVo.getNoticeId());
+			jobinfoVo2 = jobInfoService.selectJobInfo(jobinfoVo.getJobinfoId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("noticeVo", noticeVo2);
+		model.addAttribute("jobinfoVo", jobinfoVo2);
 		
-		return "adminPage/admin/notice/noticeUpdate";
+		return "adminPage/admin/jobinfo/jobInfoUpdate";
 	}
 	
-	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
-	public String updateNotice(NoticeVO noticeVo, MultipartHttpServletRequest files, HttpServletRequest request) {
+	@RequestMapping(path="/admin/updateJobInfo", method= {RequestMethod.POST})
+	public String updateNotice(JobInfoVO jobinfoVo, MultipartHttpServletRequest files, HttpServletRequest request) {
 		
 		String[] arr = request.getParameterValues("del_files");
 		
@@ -194,14 +195,14 @@ public class AdminNoticeController {
 		
 		if(arr != null) {
 			for (int i = 0; i < arr.length; i++) {
-				String files_id = arr[i];
-				filesService.deleteFiles(files_id);
+				String filesId = arr[i];
+				filesService.deleteFiles(filesId);
 			}
 		}
 		
 		int cnt = 0;
 		try {
-			cnt = noticeService.updateNotice(noticeVo);
+			cnt = jobInfoService.updateJobInfo(jobinfoVo);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -228,32 +229,33 @@ public class AdminNoticeController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					filesVo.setFilesGroup(noticeVo.getNoticeId());
+					filesVo.setFilesGroup(filesVo.getFilesGroup());
 					filesVo.setFilesNm(files_nm);
 					filesVo.setFilesPath(files_path);
 					filesVo.setFilesId(filesVo.getFilesId());
+					
 					filesService.insertFiles(filesVo);
 				}
 			}
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectNotice?notice_id="+noticeVo.getNoticeId();
+			return "redirect:selectJobInfo?jobInfoId="+jobinfoVo.getJobinfoId();
 		}else {
-			return "adminPage/admin/notice/noticeUpdate";
+			return "adminPage/admin/jobInfo/jobInfoUpdate";
 		}
 	}
 	
-	@RequestMapping(path="/deleteNotice")
-	public String deleteNotice(String notice_id) {
+	@RequestMapping(path="/admin/deleteJobInfo")
+	public String deleteNotice(String jobInfoId) {
 		
 		try {
-			noticeService.deleteNotice(notice_id);
+			jobInfoService.deleteJobInfo(jobInfoId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:selectAllNotice";
+		return "redirect:selectAllJobInfo";
 		
 	}
 }

@@ -36,19 +36,12 @@ $(document).ready(function() {
 
 </head>
 <body>
-<<<<<<< HEAD
-	<form id="insertNotice" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/adminNotice/insertNotice">
+	<form id="insertNotice" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/admin/insertNotice">
 	
-=======
-	<form id="insertNotice" enctype="multipart/form-data"
-		class="form-horizontal" method="POST"
-		action="${cp}/admin/notice/insertNotice">
-
->>>>>>> VO수정
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
 			<div class="col-sm-10">
-				<select id="notice_head" name="notice_head">
+				<select id="notice_head" name="noticeHead">
 					<option value="1">이벤트</option>
 					<option value="2">자주묻는질문</option>
 					<option value="3">알림</option>
@@ -59,14 +52,14 @@ $(document).ready(function() {
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
-				<input type="text" name="notice_title" style="width: 500px;">
+				<input type="text" name="noticeTitle" style="width: 500px;">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="notice_cont"></textarea>
+				<textarea class="summernote" name="noticeCont"></textarea>
 			</div>
 		</div>
 
@@ -79,20 +72,15 @@ $(document).ready(function() {
 
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="admin_id" value="999" />
+				<input type="hidden" name="adminId" value="999" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="notice_id" value="1332" />
+				<input type="hidden" name="noticeId" value="" />
 			</div>
 		</div>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> VO수정
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="submit" id="insertbutton" class="btn btn-default">게시글등록</button>

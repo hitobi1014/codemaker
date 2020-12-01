@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.jobinfo.service;
+package kr.co.codemaker.common.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.admin.jobinfo.dao.JobInfoMapper;
-import kr.co.codemaker.admin.jobinfo.vo.JobInfoVO;
+import kr.co.codemaker.common.dao.JobInfoMapper;
+import kr.co.codemaker.common.vo.JobInfoVO;
 
 /**
 * JobInfoService.java
@@ -35,7 +35,7 @@ public class JobInfoService{
 	public Map<String, Object> selectAllJobInfo(Map<String, Object> map) {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("noticeList", jobInfoMapper.selectAllJobInfo(map));
+		map2.put("jobInfoList", jobInfoMapper.selectAllJobInfo(map));
 		log.debug("탐탐탐?2");
 		// 15건, 페이지사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
 		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요

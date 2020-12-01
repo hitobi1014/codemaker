@@ -1,4 +1,4 @@
-package kr.co.codemaker.common.notice.dao;
+package kr.co.codemaker.common.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import kr.co.codemaker.common.vo.NoticeVO;
 
 
 /**
-* NoticeDaoI.java
+* NoticeMapper.java
 *
 * @author 박경호
 * @version 1.0
@@ -18,6 +18,7 @@ import kr.co.codemaker.common.vo.NoticeVO;
 * 수정자 수정내용
 * ------ ------------------------
 * 박경호 최초 생성
+* 박경호 NoticeDaoI => NoticeMapper 수정 2020. 12. 01
 *
  */
 @Mapper("noticeMapper")
@@ -69,5 +70,5 @@ public interface NoticeMapper {
 	 * @param noticeVo 삭제하려는 공지사항 객체
 	 * @return 삭제된 공지사항 갯수
 	 */
-	public int deleteNotice(String notice_id) throws Exception;
+	public int deleteNotice(String noticeId) throws Exception;
 }

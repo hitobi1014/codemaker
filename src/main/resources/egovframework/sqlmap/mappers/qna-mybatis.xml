@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.codemaker.common.dao.QnaMapper"><select id="selectQna" resultType="kr.co.codemaker.common.vo.QnaVO" parameterType="kr.co.codemaker.common.vo.QnaVO">
+SELECT * 
+  FROM qna where qna_id = #{qnaId}
+	
+</select>
+<select id="selectAllQna" resultType="kr.co.codemaker.common.vo.QnaVO" parameterType="java.util.HashMap">
+SELECT * 
+  FROM
+  (SELECT ROWNUM AS RN,
+			       A.*
+	FROM (SELECT *
+				FROM QNA) A)
+<where>
+	AND RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+</where>
+</select>
+<select id="qnaTotalCnt" resultType="int" parameterType="java.lang.String">
+SELECT count(*) 
+  FROM QNA
+</select>
+<insert id="insertQna" parameterType="kr.co.codemaker.common.vo.QnaVO">
+INSERT INTO QNA VALUES ('QNA'||LPAD(QNA_SEQ.NEXTVAL,4,'0'), #{qnaTitle}, #{qnaCont}, sysdate, 'N', #{userId}, #{lesId})
+</insert>
+
+<delete id="deleteQna" parameterType="kr.co.codemaker.common.vo.QnaVO">
+Update QNA set qna_out = 'Y' where qna_id = #{qnaId}
+</delete>
+</mapper>
