@@ -194,7 +194,6 @@ public class MypageController {
 
 //----------------POINT CONTROLLER-----------------
 	
-	
 	@RequestMapping(path="/mypage/selectPoint")
 	public String selectPoint(HttpSession session, PointVO pointVo, Model model,
 								@RequestParam(name="page",required = false, defaultValue = "1")int page,
@@ -282,7 +281,7 @@ public class MypageController {
 		logger.debug("point!!!!!!!!!!! : {} " , point);
 		
 		if(point < Integer.parseInt(pointUpdate)){
-			return "";
+			return "mypageT/user/mypage/mypage_myinfo";
 		}else {
 			int deleteCnt=0;
 			try {
