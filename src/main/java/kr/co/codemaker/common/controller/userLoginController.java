@@ -160,5 +160,10 @@ public class userLoginController {
 	public String userMypageNewView() {
 		return "user/mypage/test";
 	}
+	
+	@RequestMapping(path="/test")
+	public String testView() {
+		return "mainT/user/lesson/home";
+	}
 
 }
