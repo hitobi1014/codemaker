@@ -1,14 +1,18 @@
 package kr.co.codemaker.admin.jobinfo.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,11 +91,11 @@ public class AdminJobInfoController {
 	}
 	
 	@RequestMapping(path="/admin/selectJobInfo")
-	public String selectJobInfo(String jobInfoId, Model model) {
+	public String selectJobInfo(String jobinfoId, Model model) {
 		
 		JobInfoVO jobInfoVo = new JobInfoVO();
 		try {
-			jobInfoVo = jobInfoService.selectJobInfo(jobInfoId);
+			jobInfoVo = jobInfoService.selectJobInfo(jobinfoId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,10 +103,10 @@ public class AdminJobInfoController {
 		model.addAttribute("jobInfoVo", jobInfoVo);
 		logger.debug("jobInfoVo : {}", jobInfoVo);
 		
-		if(filesService.selectAllFiles(jobInfoId) != null) {
-			List<FilesVO> filesList = filesService.selectAllFiles(jobInfoId);	
-			model.addAttribute("filesList", filesList);
-		}
+		List<FilesVO> filesList = filesService.selectAllFiles(jobinfoId);	
+		logger.debug("filesList {}", filesList);
+	
+		model.addAttribute("filesList", filesList);
 		
 		return "adminPage/admin/jobInfo/jobInfo";
 	}
@@ -150,7 +154,7 @@ public class AdminJobInfoController {
 					FilesVO filesVo = new FilesVO();
 					
 					
-					filesVo.setFilesGroup("1");
+					filesVo.setFilesGroup(jobInfoVo.getJobinfoId());
 					filesVo.setFilesNm(filesNm);
 					filesVo.setFilesPath(filesPath);
 					
@@ -175,20 +179,27 @@ public class AdminJobInfoController {
 	public String updateViewJobInfo(JobInfoVO jobinfoVo, Model model) {
 		
 		JobInfoVO jobinfoVo2 = new JobInfoVO();
+		List<FilesVO> filesList = new ArrayList<FilesVO>();
 		try {
 			jobinfoVo2 = jobInfoService.selectJobInfo(jobinfoVo.getJobinfoId());
+			filesList = filesService.selectAllFiles(jobinfoVo.getJobinfoId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		logger.debug("여기 납납난ㅂㄴ바{}",jobinfoVo2);
+		logger.debug("파일리스트 : {}",filesList);
+		
+		model.addAttribute("filesList", filesList);
 		model.addAttribute("jobinfoVo", jobinfoVo2);
 		
-		return "adminPage/admin/jobinfo/jobInfoUpdate";
+		return "adminPage/admin/jobInfo/jobInfoUpdate";
 	}
 	
 	@RequestMapping(path="/admin/updateJobInfo", method= {RequestMethod.POST})
-	public String updateNotice(JobInfoVO jobinfoVo, MultipartHttpServletRequest files, HttpServletRequest request) {
+	public String updateJobInfo(JobInfoVO jobinfoVo, MultipartHttpServletRequest files, HttpServletRequest request) {
 		
+		logger.debug("업데이트 서브밋  : {}", jobinfoVo);
 		String[] arr = request.getParameterValues("del_files");
 		
 		List<MultipartFile> fileslist = files.getFiles("realfile");
@@ -211,16 +222,16 @@ public class AdminJobInfoController {
 			
 			MultipartFile profile = fileslist.get(i);
 			
-			String files_nm = profile.getOriginalFilename();
+			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 			
-			String ext = FileUploadUtil.getExtenstion(files_nm);
+			String ext = FileUploadUtil.getExtenstion(filesNm);
 			String fileName = UUID.randomUUID().toString();
-			String files_path = "";
+			String filesPath = "";
 			
 				if (profile.getSize() > 0) {
-					files_path = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + files_nm);
+					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -229,10 +240,9 @@ public class AdminJobInfoController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					filesVo.setFilesGroup(filesVo.getFilesGroup());
-					filesVo.setFilesNm(files_nm);
-					filesVo.setFilesPath(files_path);
-					filesVo.setFilesId(filesVo.getFilesId());
+					filesVo.setFilesGroup(jobinfoVo.getJobinfoId());
+					filesVo.setFilesNm(filesNm);
+					filesVo.setFilesPath(filesPath);
 					
 					filesService.insertFiles(filesVo);
 				}
@@ -240,22 +250,45 @@ public class AdminJobInfoController {
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectJobInfo?jobInfoId="+jobinfoVo.getJobinfoId();
+			return "redirect:selectJobInfo?jobinfoId="+jobinfoVo.getJobinfoId();
 		}else {
-			return "adminPage/admin/jobInfo/jobInfoUpdate";
+			return "adminPage/admin/jobInfo/jobInfoUpdate?jobinfoId="+jobinfoVo.getJobinfoId();
 		}
 	}
 	
 	@RequestMapping(path="/admin/deleteJobInfo")
-	public String deleteNotice(String jobInfoId) {
+	public String deleteJobInfo(String jobinfoId) {
 		
 		try {
-			jobInfoService.deleteJobInfo(jobInfoId);
+			jobInfoService.deleteJobInfo(jobinfoId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return "redirect:selectAllJobInfo";
 		
+	}
+	
+	@RequestMapping(path="admin/downloadJobInfo")
+	public void downloadJobInfo(String filesId, HttpServletResponse response) throws Exception {
+		
+		FilesVO filesVo = filesService.selectFiles(filesId);
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		response.setContentType("application/octet-stream");
+		
+		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		
+		ServletOutputStream sos = response.getOutputStream();
+		
+		byte[] buffer = new byte[512];
+		
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		
+		fis.close();
+		sos.flush();
+		sos.close();
 	}
 }

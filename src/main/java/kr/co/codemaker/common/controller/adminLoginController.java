@@ -17,8 +17,8 @@ import kr.co.codemaker.common.service.LoginService;
 
 @Controller
 public class adminLoginController { 
-//	private static final Logger logger = LoggerFactory.getLogger(adminLoginController.class);
-//	
+	private static final Logger logger = LoggerFactory.getLogger(adminLoginController.class);
+	
 //	@Resource(name="loginService")
 //	private LoginService loginService;
 //	
@@ -38,7 +38,7 @@ public class adminLoginController {
 //		
 //		logger.debug("body : {}", body);
 //		
-////		AdminVO adminVO = loginService.getAdmin(adminId);
+//		AdminVO adminVO = loginService.getAdmin(adminId);
 //		
 //		logger.debug("dbAdmin : {}", adminVO);
 //		logger.debug("adminVO : {}", adminVO);
@@ -67,6 +67,6 @@ public class adminLoginController {
 //		
 //		return "adminPage/admin/main/test";
 //	}
-	
+//	
 }
 

@@ -78,9 +78,17 @@
 										<div class="sub-menu">
 										
 											<li >
-											  <a href="#">기업 정보 조회</a>
+											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
 											</li>
 										
+										</div>
+									</ul>
+								</li>
+								
+								<li  class="has-sub" >
+									<ul  class="collapse" id="forms">
+										<div class="sub-menu">
+											  <a href="${cp}/admin/selectAllNotice">공지 사항 조회</a>
 										</div>
 									</ul>
 								</li>
@@ -203,21 +211,6 @@
 				
 				</ul>
 			
-			</div>
-		
-			<hr class="separator" />
-		
-			<div class="sidebar-footer">
-				<div class="sidebar-footer-content">
-					<h6 class="text-uppercase">Cpu Uses <span class="float-right">40%</span></h6>
-					<div class="progress progress-xs">
-						<div class="progress-bar active" style="width: 40%;" role="progressbar"></div>
-					</div>
-					<h6 class="text-uppercase"> Memory Uses <span class="float-right">65%</span></h6>
-					<div class="progress progress-xs">
-						<div class="progress-bar progress-bar-warning" style="width: 65%;" role="progressbar"></div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</aside>

@@ -71,7 +71,7 @@ $(document).ready(function(){
 	        <a href="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">공지사항</a>
 	        <a href="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">자주묻는질문</a>
 	        <a href="#" class="list-group-item list-group-item-action bg-light">QnA</a>
-	        <a href="#" class="list-group-item list-group-item-action bg-light">마이페이지</a>
+	        <a href="${cp}/mypage/myinfoSelect" class="list-group-item list-group-item-action bg-light">마이페이지</a>
 	        <a href="#" class="list-group-item list-group-item-action bg-light">장바구니</a>
      	</div>
 	</div>
@@ -127,7 +127,7 @@ $(document).ready(function(){
 				<c:choose>
 					<c:when test="${param.page != 0 && param.page != 1 && param.page != null}">
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page-1}"><i class="fas fa-angle-left"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page-1}"><i class="fas fa-angle-left"></i></a></li>
 					</c:when>
 				</c:choose>
 				
@@ -144,7 +144,7 @@ $(document).ready(function(){
 				
 				<c:choose>
 					<c:when test="${param.page != pages && param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-right"></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page+1}"><i class="fas fa-angle-right"></i></a></li>
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-double-right"></i></a></li>
 					</c:when>
 				</c:choose> 	

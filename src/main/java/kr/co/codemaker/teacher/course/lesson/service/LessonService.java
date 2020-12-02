@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
 import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
@@ -30,22 +31,25 @@ public class LessonService{
 		return null;
 	}
 	
+	public List<LessonVO> selectNoLesson(){
+		try {
+			return lessonMapper.selectNoLesson();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-//	@Override
-//	public LessonVO selectLesson(String les_id) {
-//		return lessonDao.selectLesson(les_id);
-//	}
-//	
-//	@Override
-//	public List<LessonVO> selectAllLesson() {
-//		return lessonDao.selectAllLesson();
-//	}
-//
-//	@Override
-//	public int insertLesson(LessonVO lessonVO) {
-//		return lessonDao.insertLesson(lessonVO);
-//	}
-
-
-
+	public int deleteLesson(String lesId){
+		
+		try {
+			return lessonMapper.deleteLesson(lesId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 }

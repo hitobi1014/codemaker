@@ -78,16 +78,16 @@ public class TeacherNoticeController {
 	}
 	
 	@RequestMapping(path="/teacher/selectNotice")
-	public String selectNotice(String notice_id, Model model) {
+	public String selectNotice(String noticeId, Model model) {
 		
 		NoticeVO noticeVo = new NoticeVO();
 		try {
-			noticeVo = noticeService.selectNotice(notice_id);
+			noticeVo = noticeService.selectNotice(noticeId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		List<FilesVO> filesList = filesService.selectAllFiles(notice_id);	
+		List<FilesVO> filesList = filesService.selectAllFiles(noticeId);	
 		
 		model.addAttribute("noticeVo", noticeVo);
 		model.addAttribute("filesList", filesList);

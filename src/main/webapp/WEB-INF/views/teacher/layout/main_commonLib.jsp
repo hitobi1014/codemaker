@@ -13,11 +13,9 @@
 <link href="/css/admin/main/select2.min.css" rel="stylesheet" />
 <link href="/css/admin/main/toastr.min.css" rel="stylesheet" />
 <!-- SLEEK CSS -->
-<link id="sleek-css" rel="stylesheet" href="/css/admin/main/sleek.css" />
+<link id="sleek-css" rel="stylesheet" href="/css/teacher/main/sleek.css" />
 
 <!-- FAVICON -->
-<link href="/images/favicon.png" rel="shortcut icon" />
-
 <script src="/js/teacher/main/nprogress.js"></script>
 
 
@@ -36,9 +34,8 @@
 <script src="/js/teacher/main/jquery-jvectormap-world-mill.js"></script>
 <script src="/js/teacher/main/moment.min.js"></script>
 <script src="/js/teacher/main/daterangepicker.js"></script>
-<script src="/js/teacher/main/jekyll-search.min.js"></script>
+<!-- <script src="/js/teacher/main/jekyll-search.min.js"></script> -->
 <script src="/js/teacher/main/sleek.js"></script>
 <script src="/js/teacher/main/chart.js"></script>
 <script src="/js/teacher/main/date-range.js"></script>
-<script src="/js/teacher/main/map.js"></script>
 <script src="/js/teacher/main/custom.js"></script>

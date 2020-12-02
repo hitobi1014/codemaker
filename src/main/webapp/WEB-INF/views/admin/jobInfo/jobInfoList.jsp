@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<title>관리자 취업공고</title>
 <script>
 $(document).ready(function(){
 		
@@ -23,9 +23,9 @@ $(document).ready(function(){
 <div style="color:black">
 	<form name="form1"  method="post">
       
-        검색<input type="text" name="keyWord" value="${keyWord}">
+        <p>검색</p><input type="text" name="keyWord" value="${keyWord}">
         <input id="searchBtn" type="button" class="btn btn-warning btn-sm" value="조회">
-        <button type="button" id="btnWrite" class="btn btn-info btn-sm">글쓰기</button>
+        <button type="button" id="btnWrite" class="btn btn-info btn-sm">공고등록</button>
     </form>
 
 
@@ -36,6 +36,7 @@ $(document).ready(function(){
 				<th>취업공고 제목</th>
 				<th>취업공고 작성일</th>
 				<th>작성자아이디</th>
+				<th>삭제여부</th>
 			</tr>
 			<tbody id="jobInfoList">
 				<c:forEach items="${jobInfoList}" var="jobInfo">
@@ -44,6 +45,7 @@ $(document).ready(function(){
 						<td><a href="${cp}/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
 						<td><fmt:formatDate value="${jobInfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
 						<td>${jobInfo.adminId}</td>
+						<td>${jobInfo.jobinfoOut}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

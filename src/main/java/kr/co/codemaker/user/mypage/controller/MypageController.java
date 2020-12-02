@@ -196,12 +196,16 @@ public class MypageController {
 //----------------POINT CONTROLLER-----------------
 	
 	@RequestMapping(path="/mypage/selectPoint")
-	public String selectPoint(HttpSession session, PointVO pointVo, Model model,
-								@RequestParam(name="page",required = false, defaultValue = "1")int page,
+	public String selectPoint(HttpSession session, HttpServletRequest request, PointVO pointVo, Model model,
+								@RequestParam(name="page", required = false, defaultValue = "1")int page,
 								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
+
+		session = request.getSession();
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		
-		logger.debug("시작입니다!!!!!!!: {}");
-		String userId= "mem001@naver.com";
+		String userVoid= userVo.getUserId();
+		String userId= userVoid;
+		
 		
 		logger.debug("브이오 !!!!!!: {}" ,pointVo);
 		model.addAttribute("page",page);
@@ -225,9 +229,14 @@ public class MypageController {
 	
 
 	@RequestMapping(path="/mypage/insertPoint" ,method=RequestMethod.POST)
-	public String insertPoint(PointVO pointVo) {
+	public String insertPoint(PointVO pointVo,HttpSession session, HttpServletRequest request) {
 		
-		String userId= "mem001@naver.com";
+		session = request.getSession();
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		
+		String userVoid= userVo.getUserId();
+		String userId= userVoid;
+		
 		String pointSum=pointVo.getPointUpdate();
 		
 		pointVo.setUserId(userId);
@@ -247,12 +256,18 @@ public class MypageController {
 	
 	
 	@RequestMapping(path="/mypage/deletePoint" ,method=RequestMethod.POST)
-	public String deletePoint(PointVO pointVo) {
+	public String deletePoint(PointVO pointVo,HttpSession session, HttpServletRequest request) {
 		
 		logger.debug("환불 인서트~!!!!!!");
 		logger.debug("환불 되기 전  : {}", pointVo.getPointUpdate());
 		
-		String userId= "mem001@naver.com";
+		session = request.getSession();
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		
+		String userVoid= userVo.getUserId();
+		String userId= userVoid;
+		
+		
 		String pointSum=pointVo.getPointUpdate();
 		String pointUpdate=pointVo.getPointUpdate();
 				
