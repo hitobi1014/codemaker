@@ -35,8 +35,8 @@ $(document).ready(function(){
 
 
 	$("button[id^=fileDownBtn]").on("click", function(){
-		files_no = $(this).val();
-		document.location="downloadView?board_no=${bv.board_no}&files_no="+files_no;
+		filesId = $(this).val();
+		document.location="${cp}/admin/downloadNotice?noticeId=${noticeVo.noticeId}&filesId="+filesId;
 	});
 
 	 
@@ -98,14 +98,16 @@ $(document).ready(function(){
 				<label class="control-label">${noticeVo.adminId}</label>
 			</div>
 		</div>
-
-		<c:forEach items="${filesList}" var="filesVo">
-			<div class="form-group">
-				<label for="pass" class="col-sm-2 control-label">첨부파일</label>
-				<button id="fileDownBtn" type="button" class="btn btn-default"
-					value="${filesVo.filesId}">${filesVo.filesNm}</button>
-			</div>
-		</c:forEach>
+	
+		<c:if test="${filesList != null}">
+			<c:forEach items="${filesList}" var="filesVo">
+				<div class="form-group">
+					<label for="pass" class="col-sm-2 control-label">첨부파일</label>
+					<button id="fileDownBtn" type="button" class="btn btn-default"
+						value="${filesVo.filesId}">${filesVo.filesNm}</button>
+				</div>
+			</c:forEach>
+		</c:if>
 
 
 			<div class="form-group">

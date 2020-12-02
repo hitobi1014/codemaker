@@ -9,7 +9,7 @@
 $(document).ready(function(){
 		
 	$("#btnWrite").on("click", function(){
-		document.location="${cp}/adminNotice/insertNotice";
+		document.location="${cp}/admin/insertNotice";
 	});
 	
 	document.addEventListener('keydown', function(event) {
@@ -32,17 +32,15 @@ $(document).ready(function(){
 
 </head>
 <body>
-
+<div style="color:black">
 	<form name="form1" method="post">
 		<select name="searchOption">
 			<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-			<option value="0">전체</option>
-			<option value="1">이벤트</option>
+			<option value="1">공지사항</option>
 			<option value="2">자주묻는질문</option>
-			<option value="3">알림</option>
 		</select> 
-		<input type="text" name="keyWord"> <input id="searchBtn"type="button" value="조회">
-		<button type="button" id="btnWrite">글쓰기</button>
+		<input type="text" name="keyWord"><input id="searchBtn"type="button" class="btn btn-warning btn-sm" value="조회">
+		<button type="button" id="btnWrite" class="btn btn-info btn-sm">공지 작성</button>
 	</form>
 
 
@@ -100,6 +98,4 @@ $(document).ready(function(){
 				</c:choose> 	
 			</ul>
 		</div>		
-</body>
-</html>
-
+</div>
