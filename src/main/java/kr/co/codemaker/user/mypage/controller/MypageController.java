@@ -43,7 +43,6 @@ public class MypageController {
 		try {
 			userVo = mypageService.myinfoSelect(userId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

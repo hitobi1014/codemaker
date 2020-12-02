@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-	
-	
-	
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #005F86">
 
 	<br>
@@ -29,24 +26,33 @@
 
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
-		data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-		aria-controls="collapseTwo"> <i class="fas fa-fw fa-folder"></i> <span>마이페이지</span>
-	</a>
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> 
+			<i class="fas fa-fw fa-folder"></i> <span>마이페이지</span>
+		</a>
+		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="${cp}/mypage/myinfoSelect">◾ 내정보조회</a> 
+				<a class="collapse-item" href="">◾ 회원탈퇴</a> 
+				<a class="collapse-item" href="${cp}/mypage/selectPoint">◾ 포인트</a> 
+				<a class="collapse-item" href="cards.html">◾ 알림</a>
+			</div>
+		</div>
+	</li>
+
+	<!-- Nav Item - Tables -->
+	<li class="nav-item">
+		<a class="nav-link" href="tables.html"> 
+			<i class="fas fa-fw fa-folder"></i><span>내 강의실</span>
+		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 			data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="${cp}/mypage/myinfoSelect">◾ 내정보조회</a> <a
-					class="collapse-item" href="">◾ 회원탈퇴</a> <a
-					class="collapse-item" href="${cp}/mypage/selectPoint">◾ 포인트</a> <a
-					class="collapse-item" href="cards.html">◾ 알림</a>
+				<a class="collapse-item" href="#">◾ 수강 목록</a> 
+				<a class="collapse-item" href="${cp}/note/selectPageNote">◾ 필기 노트</a> 
 			</div>
-		</div></li>
-
-	<!-- Nav Item - Tables -->
-	<li class="nav-item"><a class="nav-link" href="tables.html"> <i
-			class="fas fa-fw fa-folder"></i><span>내 강의실</span>
-	</a></li>
+		</div>
+	</li>
 
 	<!-- Nav Item - Tables -->
 	<li class="nav-item"><a class="nav-link" href="tables.html"> <i
