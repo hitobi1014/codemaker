@@ -18,7 +18,6 @@
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
 
-</script>
 <title>examAllSelect</title>
 
 <style>

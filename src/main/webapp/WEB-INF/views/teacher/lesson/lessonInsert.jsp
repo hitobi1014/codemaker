@@ -31,7 +31,7 @@ $(function(){
 <body>
 
 	<div class="container" role="main">
-		<h2>강의추가</h2>
+		<h2>강의 추가</h2>
 		<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/teacherL/insert">
 			<div class="mb-3">
 				<label for="title">강의 이름</label>

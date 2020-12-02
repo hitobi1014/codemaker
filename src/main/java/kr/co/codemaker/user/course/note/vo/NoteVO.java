@@ -1,5 +1,7 @@
 package kr.co.codemaker.user.course.note.vo;
 
+import java.util.Date;
+
 import kr.co.codemaker.common.vo.BaseVO;
 
 public class NoteVO extends BaseVO {
@@ -7,14 +9,14 @@ public class NoteVO extends BaseVO {
 	private String noteId;		// 노트 아이디
 	private String noteTitle;	// 노트 제목
 	private String noteCont;	// 노트 내용
-	private String noteDate;	// 노트 작성일
+	private Date noteDate;	// 노트 작성일
 	private String userId;		// 회원아이디
 	
-	public void setNoteDate(String noteDate) {
-		this.noteDate = noteDate; 
+	public Date getNoteDate() {
+		return noteDate;
 	}
-	public String getNoteDate() {
-		return noteDate; 
+	public void setNoteDate(Date noteDate) {
+		this.noteDate = noteDate;
 	}
 	public void setNoteCont(String noteCont) {
 		this.noteCont = noteCont; 

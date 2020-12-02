@@ -54,14 +54,15 @@ public class ExamController {
 	 * 시험 등록화면을 요청하는 메서드
 	 * @return
 	 */
-	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.GET})
-	public String insertViewExam(String lesId, String lidxId, Model model) {
+	@RequestMapping(path = "/exam/insertExamView")
+	public String insertViewExam(ExamVO examVO, Model model) {
 		
 		// 강의목차를 조회
-		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(lesId);
+//		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
+		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex("LIDX0002");
 		
 		model.addAttribute("lessonIndexList", lessonIndexList);
-		model.addAttribute("lidxId", lidxId);
+//		model.addAttribute("lidxId", lidxId);
 //		model.addAttribute("lidxId", "LIDX0002");
 
 //		return "";
@@ -72,16 +73,16 @@ public class ExamController {
 	 * 시험을 등록하는 메서드 
 	 * @return
 	 */
-	@RequestMapping(path = "/exam/insertExam" , method = {RequestMethod.POST})
-	public String insertExam(ExamVO examVo, List<QuestionVO> questionList, 
+	@RequestMapping(path = "/exam/insertExam")
+	public String insertExam(ExamVO examVO, List<QuestionVO> questionList, 
 							List<AnswersheetVO> answerList) {
 		
 		// cur_id 와 exam_nm 분리하여 다시 셋팅
-		String[] examInfo = examVo.getLidxId().trim().split("\"");
-		examVo.setLidxId(examInfo[0]);
-		examVo.setExamNm(examInfo[1]);
+		String[] examInfo = examVO.getLidxId().trim().split("\"");
+		examVO.setLidxId(examInfo[0]);
+		examVO.setExamNm(examInfo[1]);
 		
-		String exam_id = examService.insertExam(examVo); // 시험 아이디를 가져온다.
+		String exam_id = examService.insertExam(examVO); // 시험 아이디를 가져온다.
 		
 		int index = 0;
 		for(QuestionVO questionVo : questionList) {
@@ -106,22 +107,23 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.GET})
-	public String updateViewExam(String lesId, ExamVO examVo, List<QuestionVO> questionList, 
+	public String updateViewExam(ExamVO examVO, List<QuestionVO> questionList, 
 							List<AnswersheetVO> answerList, Model model) {
 		
 		// 강의목차를 조회
-		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(lesId);
+//		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
+		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex("");
 		
 		model.addAttribute("lessonIndexList", lessonIndexList);
-		model.addAttribute("lidxId", examVo.getLidxId());
+		model.addAttribute("lidxId", examVO.getLidxId());
 //		model.addAttribute("lidxId", "LIDX0002");
 		
-		if(examVo.getExamNm() == null || examVo.getExamNm().equals("")) { // 수정화면에서 요청이 왔을 경우
+		if(examVO.getExamNm() == null || examVO.getExamNm().equals("")) { // 수정화면에서 요청이 왔을 경우
 			
-			ExamVO ev = examService.selectExam(examVo);
+			ExamVO ev = examService.selectExam(examVO);
 			model.addAttribute("examVo", ev);
 			
-			questionList = questionService.selectQuestion(examVo);
+			questionList = questionService.selectQuestion(examVO);
 			model.addAttribute("questionList", questionList);
 			
 			List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
@@ -136,7 +138,7 @@ public class ExamController {
 			model.addAttribute("answersheetLists", answersheetLists);
 			
 		}else { // 시험 상세보기에서 요청이 왔을 경우
-			model.addAttribute("examVo", examVo);
+			model.addAttribute("examVo", examVO);
 			model.addAttribute("questionList", questionList);
 			model.addAttribute("answersheetLists", answerList);
 		}

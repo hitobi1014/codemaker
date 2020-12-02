@@ -14,7 +14,7 @@ SELECT
 FROM
     note
 WHERE
-	user_id = #{noteId}
+	user_id = #{userId}
 </select>
 <select id="selectPageNote" resultType="kr.co.codemaker.user.course.note.vo.NoteVO" parameterType="kr.co.codemaker.user.course.note.vo.NoteRequestVO">
 SELECT *
@@ -23,13 +23,14 @@ SELECT *
   	   FROM
           (SELECT *
              FROM note
-            WHERE user_id = #{noteId}
+            WHERE user_id = #{userId}
             ORDER BY note_date DESC) a)
  WHERE rn BETWEEN 5 * (#{page} - 1) + 1 AND #{page} * 5
 </select>
 <select id="selecTotalCntNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteRequestVO" resultType="java.lang.Integer">
 SELECT COUNT(*)
- WHERE user_id = #{noteId}
+  FROM note
+ WHERE user_id = #{userId}
 </select>
 
 <select id="selectNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteVO" resultType="kr.co.codemaker.user.course.note.vo.NoteVO">

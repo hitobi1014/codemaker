@@ -19,9 +19,8 @@ public class LessonIndexService {
 	public List<LessonIndexVO> selectLessonIndex(String lesId) {
 		
 		try {
-			return lessonIndexMapper.selectLessonIndex(lesId);
+//			return lessonIndexMapper.selectLessonIndex(lesId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

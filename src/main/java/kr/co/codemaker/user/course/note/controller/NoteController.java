@@ -80,6 +80,9 @@ public class NoteController {
 	public String selectAllNote(HttpSession session) {
 
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		
+		String userId = "a001@naver.com";
+		userVo.setUserId(userId);
 
 		noteService.selectAllNote(userVo);
 
@@ -96,15 +99,22 @@ public class NoteController {
 	 */
 	@RequestMapping(path = "/note/selectPageNote")
 	public String selectPageNote(NoteRequestVO noteRequestVo, HttpSession session, Model model) {
+		
+		logger.debug("dddd");
 
-		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+//		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		
+		String userId = "a001@naver.com";
+//		userVo.setUserId(userId);
 
-		noteRequestVo.setUserId(userVo.getUserId());
+//		noteRequestVo.setUserId(userVo.getUserId());
+		noteRequestVo.setUserId(userId);
 		if (noteRequestVo.getPage() == 0) {
 			noteRequestVo.setPage(1);
 		}
 
 		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVo);
+		logger.debug("note : {}" , noteList.size());
 		int totalCnt = noteService.selecTotalCntNote(noteRequestVo);
 
 		int pages = (int) Math.ceil((double) totalCnt / 5);
@@ -116,7 +126,7 @@ public class NoteController {
 		model.addAttribute("pages", pages);
 		model.addAttribute("noteRequestVo", noteRequestVo);
 
-		return "";
+		return "mypageT/user/note/noteAllSelect";
 	}
 
 	/**
@@ -133,7 +143,7 @@ public class NoteController {
 
 		model.addAttribute("noteVo", nv);
 
-		return "";
+		return "mypageT/user/note/noteSelect";
 	}
 
 	/**

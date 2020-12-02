@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form"      uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring"    uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,21 +198,25 @@ body {
 </style>
 </head>
 <body>
-	<form action="/exam/insertExam" id="examf" method="post">
+	<form:form name="examVO" commandName="examVO" id="examf" action="/exam/insertExam">
 		<div id="d2">
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 등록</h2>
 				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br>
-				<select class="form-control" id="sel1" name="curId">
-					<option value="99">커리큘럼을 선택해주세요.</option>
-					<c:forEach var="lessonIndex" items="${lessonIndexList }">
-						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }"
-							<c:if test="${lessonIndex.lidxId eq lidxId }">
-									selected="selected"
-							</c:if>>${lessonIndex.lidxCont }</option>
-					</c:forEach>
-				</select>
+				<form:select path="lidxId" cssClass="form-control" id="sel1">
+					<form:option value="99">커리큘럼을 선택해주세요.</form:option>
+					<form:options items="${lessonIndexList}" itemLabel="lidxCont" itemValue="lidxId"/>
+				</form:select>
+<!-- 				<select class="form-control" id="sel1" name="curId"> -->
+<!-- 					<option value="99">커리큘럼을 선택해주세요.</option> -->
+<%-- 					<c:forEach var="lessonIndex" items="${lessonIndexList }"> --%>
+<%-- 						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }" --%>
+<%-- 							<c:if test="${lessonIndex.lidxId eq lidxId }"> --%>
+<!-- 									selected="selected" -->
+<%-- 							</c:if>>${lessonIndex.lidxCont }</option> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
 			</div>
 			<br> <br> <br>
 
@@ -262,6 +268,6 @@ body {
 			<input type="button" class="btn btn-default" id="regBtn" value="등록하기">
 			<input type="button" class="btn btn-default" id="cancle" value="취소">
 		</div>
-	</form>
+	</form:form>
 </body>
 </html>

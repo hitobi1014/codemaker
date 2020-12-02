@@ -1,6 +1,7 @@
 package kr.co.codemaker.teacher.course.exam.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import kr.co.codemaker.common.vo.BaseVO;
 
@@ -25,7 +26,7 @@ public class ExamVO extends BaseVO {
 	private Date examDate;		// 시험 작성일
 	private String lidxId;		// 강의목차 아이디
 	
-//	private String lesId;		// 강의 아이디
+	private String lesId;		// 강의 아이디
 	
 	public ExamVO() {
 		
@@ -74,5 +75,14 @@ public class ExamVO extends BaseVO {
 	public void setLidxId(String lidxId) {
 		this.lidxId = lidxId;
 	}
+	public String getLesId() {
+		return lesId;
+	}
+	public void setLesId(String lesId) {
+		this.lesId = lesId;
+	}
+
+	
+	
 	
 }

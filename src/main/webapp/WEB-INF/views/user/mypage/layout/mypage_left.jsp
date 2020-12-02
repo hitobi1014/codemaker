@@ -2,28 +2,22 @@
 	pageEncoding="UTF-8"%>
 	
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #005F86">
-
-	<br>
-	<br>
-	<br>
+	<br><br><br>
+	
 	<!-- Sidebar - Brand -->
-	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 		<div class="sidebar-brand-icon">
 			<img id="usericon" src="/images/user/icons/user.png"> <br>
 			<br>${MEMBER_INFO.userNm}님 <br>
 		</div>
 	</a>
 
-	<br>
-	<br>
-	<br>
+	<br><br><br>
 	<!-- Divider -->
 	<hr class="sidebar-divider my-0">
 
-
 	<!-- Divider -->
 	<hr class="sidebar-divider">
-
 
 	<!-- Nav Item - Pages Collapse Menu -->
 	<li class="nav-item">
@@ -42,11 +36,10 @@
 
 	<!-- Nav Item - Tables -->
 	<li class="nav-item">
-		<a class="nav-link" href="tables.html"> 
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
 			<i class="fas fa-fw fa-folder"></i><span>내 강의실</span>
 		</a>
-		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-			data-parent="#accordionSidebar">
+		<div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="#">◾ 수강 목록</a> 
 				<a class="collapse-item" href="${cp}/note/selectPageNote">◾ 필기 노트</a> 
@@ -55,8 +48,15 @@
 	</li>
 
 	<!-- Nav Item - Tables -->
-	<li class="nav-item"><a class="nav-link" href="tables.html"> <i
-			class="fas fa-fw fa-folder"></i> <span>장바구니</span>
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
+			<i class="fas fa-fw fa-folder"></i><span>장바구니</span>
+		</a>
+		<div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="#">◾ 장바구니 내역</a> 
+			</div>
+		</div>
 	</a></li>
 
 
