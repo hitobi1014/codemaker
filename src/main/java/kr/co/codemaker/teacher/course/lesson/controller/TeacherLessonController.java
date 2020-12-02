@@ -55,12 +55,41 @@ public class TeacherLessonController {
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.GET)
 	public String selecSubject(Model model) {
 		
-		List<LessonVO> noLessonList = lessonService.selectNoLesson();
-		model.addAttribute("noLessonList",noLessonList);
-		
-		logger.debug("개설안된강의!!:{}",noLessonList);
-		return"teacherPage/teacher/lesson/lessonAllSelect";
+		List<LessonVO> noLessonList;
+		try {
+			noLessonList = lessonService.selectNoLesson();
+			model.addAttribute("noLessonList",noLessonList);
+			
+			logger.debug("개설안된강의!!:{}",noLessonList);
+			return"teacherPage/teacher/lesson/lessonAllSelect";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
+	
+	/**
+	 * 선생님 - 임시저장된 강의 불러오는 메서드(삭제했을때 다시불러오기용)
+	 * @return
+	 */
+	@RequestMapping(path="/teacherL/selectloadSubject",method= RequestMethod.GET)
+	public String selecLoadSubject(Model model) {
+		
+		List<LessonVO> noLessonList;
+		try {
+			noLessonList = lessonService.selectNoLesson();
+			model.addAttribute("noLessonList",noLessonList);
+			
+			logger.debug("개설안된강의!!:{}",noLessonList);
+			return"teacher/lesson/deleteLessonHTML";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * 선생님 - 강의조회 및 개설 페이지에서 과목명에 따른 강의명 select box에 조회해주는 메서드
@@ -71,10 +100,16 @@ public class TeacherLessonController {
 	public List<LessonVO> selectLesson(Model model,String subId) {
 		logger.debug("과제아디!!:{}",subId);
 		
-		List<LessonVO> lessonList= lessonService.selectLesson(subId);
-		model.addAttribute("lessonList", lessonList);
-		
-		return lessonList;
+		List<LessonVO> lessonList;
+		try {
+			lessonList = lessonService.selectLesson(subId);
+			model.addAttribute("lessonList", lessonList);
+			return lessonList;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -95,23 +130,32 @@ public class TeacherLessonController {
 		return lesIdxList;
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(path="/teacherL/deleteLesson",method=RequestMethod.GET)
-//	public int deleteLesson(Model model,String lesId) throws Exception {
-//		
-//		logger.debug("lesId값!!!:{}",lesId);
-//		
-//		int lesIdxList = lessonService.deleteLesson(lesId);
-//		
-//		if(lesIdxList ==1) {
-//			model.addAttribute("lesIdxList", lesIdxList);
-//			return 
-//		}
-//		else {
-//			return lesIdxList;
-//		}
-//		
-//		
-//	}
+	/**
+	 * 선생님 - 강의 삭제하는 메서드
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path="/teacherL/deleteLesson",method=RequestMethod.GET)
+	public String deleteLesson(Model model,String lesId) throws Exception {
+		
+		logger.debug("lesId값!!!:{}",lesId);
+		
+		int lesIdxList = lessonService.deleteLesson(lesId);
+		
+		if(lesIdxList ==1) {
+			List<LessonVO> noLessonList = lessonService.selectNoLesson();
+			model.addAttribute("noLessonList",noLessonList);
+			return "/teacher/lesson/deleteLessonHTML";
+		}
+		else {
+			return "redirect;/teacherL/selectSubject";
+		}
+	}
+	
+	
+	@RequestMapping(path="/teacherL/insertLesson")
+	public String insertLesson() {
+		return "teacherPage/teacher/lesson/lessonInsert";
+	}
 	
 }
