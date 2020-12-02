@@ -24,4 +24,6 @@ public interface MyPageMapper{
 
 	int deletePoint(PointVO pointVo)throws Exception;
 
+	int deletePointCompare(String userId)throws Exception;
+
 }

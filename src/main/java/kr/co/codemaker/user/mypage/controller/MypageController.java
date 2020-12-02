@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -36,21 +37,23 @@ public class MypageController {
 	
 
 	@RequestMapping("/mypage/myinfoSelect")
-	public String myinfoSelect(Model model,HttpSession session) {
-		String userId = "mem001@naver.com";
+	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
 		UserVO userVo = new UserVO();
+		session = request.getSession();
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+        
+        String userId = userVo.getUserId();
+        
+		userVo.setUserId(userId);
+		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		logger.debug("유저 {}",userVo);
-		
 		String userTel = userVo.getUserTel().substring(0, 3)+" - "+userVo.getUserTel().substring(3, 7)+" - "+userVo.getUserTel().substring(7, 11);
-		
 		userVo.setUserTel(userTel);
 		
 		model.addAttribute("userVo", userVo);
@@ -59,15 +62,16 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/mypage/profileImg")
-	public void profileImg(Model model, HttpServletResponse response) throws Exception {
+	public void profileImg(Model model, HttpServletResponse response,HttpSession session,HttpServletRequest request) throws Exception {
+
+		UserVO userVo = new UserVO();
+		session = request.getSession();
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+        
+        String userId = userVo.getUserId();
+		userVo.setUserId(userId);
 		
-		
-		String userId = "mem001@naver.com";
-		
-//		model.addAttribute("user_profile", userVo.getUser_profile());
-		
-		UserVO userVo = mypageService.myinfoSelect(userId);
-//		logger.debug("userVo:{}",userVo);
+		userVo = mypageService.myinfoSelect(userId);
 		
 		//경로확인 후 파일 입출력을 통해 응답생성
 		//파일을 읽고 응답생성
@@ -88,34 +92,43 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/mypage/deleteUser")
-	public String deleteUser(HttpSession session) {
+	public String deleteUser(UserVO userVo,HttpSession session,HttpServletRequest request) {
+		logger.debug("삭제 타니???????????????");
+
+		session = request.getSession();
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+        
+        String userId = userVo.getUserId();
+		userVo.setUserId(userId);
 		
-		String userId = "mem001@naver.com";
-//		String user_id = session.getAttribute("user_id");
-		
+		logger.debug("세션아~!!!!!!!:{}" , userId);
+		int deleteCnt=0;
 		try {
-			int deleteCnt = mypageService.deleteUser(userId);
+			deleteCnt = mypageService.deleteUser(userId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "redirect:/user/login";
+		if(deleteCnt ==1) {
+			return "redirect:/user/login";
+		}else {
+			return "mypageT/user/mypage/mypage_myinfo";
+		}
 	}
 	
 	@RequestMapping(path="/mypage/updateUser", method=RequestMethod.GET)
-	public String updateUser(Model model,UserVO userVo) {
-//		String user_id = session.getAttribute("user_id");
+	public String updateUser(Model model,UserVO userVo,HttpSession session,HttpServletRequest request) {
 		
 		//세션에서아이디가져온다.
-		String userId = "mem001@naver.com";
-		
+		session = request.getSession();
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+        
+        String userId = userVo.getUserId();
 		userVo.setUserId(userId);
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		model.addAttribute("userVo", userVo);
@@ -127,10 +140,8 @@ public class MypageController {
 	@RequestMapping(path="/mypage/updateUser", method=RequestMethod.POST)
 	public String updateUser(HttpSession session, UserVO userVo, @RequestParam("file")MultipartFile file){
 		
-//		String user_id = session.getAttribute("user_id");
 		
-		//세션에서아이디가져온다.
-		String userId = "mem001@naver.com";
+		String userId = userVo.getUserId();
 		
 		int updateCnt=0;
 		try {
@@ -167,7 +178,6 @@ public class MypageController {
 			try {
 				userVo =mypageService.myinfoSelect(userId);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			userVo.setUserProfile(userVo.getUserProfile());
@@ -180,10 +190,9 @@ public class MypageController {
 		}
 
 	}
+	
 
-//------------------------------------------POINT CONTROLLER----------------------------------------------------
-	
-	
+//----------------POINT CONTROLLER-----------------
 	
 	@RequestMapping(path="/mypage/selectPoint")
 	public String selectPoint(HttpSession session, PointVO pointVo, Model model,
@@ -217,9 +226,6 @@ public class MypageController {
 	@RequestMapping(path="/mypage/insertPoint" ,method=RequestMethod.POST)
 	public String insertPoint(PointVO pointVo) {
 		
-		logger.debug("충전 인서트~!!!!!!");
-		logger.debug("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ : {}", pointVo.getPointUpdate());
-		
 		String userId= "mem001@naver.com";
 		String pointSum=pointVo.getPointUpdate();
 		
@@ -228,16 +234,12 @@ public class MypageController {
 		
 		int insertCnt=0;
 		
-		logger.debug("pointVo:{}",pointVo);
-		
-		
 		try {
 			insertCnt=mypageService.insertPoint(pointVo);
 			logger.debug("pointVo:{}",pointVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		return "redirect:/mypage/selectPoint";
 	}
@@ -247,31 +249,50 @@ public class MypageController {
 	public String deletePoint(PointVO pointVo) {
 		
 		logger.debug("환불 인서트~!!!!!!");
-		logger.debug("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ : {}", pointVo.getPointUpdate());
+		logger.debug("환불 되기 전  : {}", pointVo.getPointUpdate());
 		
 		String userId= "mem001@naver.com";
 		String pointSum=pointVo.getPointUpdate();
+		String pointUpdate=pointVo.getPointUpdate();
+				
 		
 		pointVo.setUserId(userId);
 		pointVo.setPointSum(pointSum);
 		
-		int deleteCnt=0;
 		
 		logger.debug("pointVo:{}",pointVo);
 		
 		
+		//생각을 해보자
+		//만약. 한 회원의 환불총합계(pointSum)보다 환불하려는 금액(pointUpdate)이 더 큰 경우
+		//환불할 수 없다.
+		//DB에서 환불총합계(pointSum)최근 데이터 중 하나만 불러오기 
+		//회원이 입력한 환불하려는 금액(pointUpdate)이 쿼리에서 불러온 최근데이터 합계(point)보다 작으면
+		//환불 실행 => redirect
+		//회원이 입력한 환불하려는 금액(pointUpdate)이 쿼리에서 불러온 최근데이터 합계(point)보다 크면
+		//포인트 환불 노노!!! 환불 실패시 => 어디로 리턴할 것인가? 이제 생각해보자.. 
+		
+		int point = 0;
 		try {
-			deleteCnt=mypageService.deletePoint(pointVo);
-			logger.debug("pointVo:{}",pointVo);
-		} catch (Exception e) {
-			e.printStackTrace();
+			point = mypageService.deletePointCompare(userId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
+		logger.debug("point!!!!!!!!!!! : {} " , point);
 		
-		
+		if(point < Integer.parseInt(pointUpdate)){
+			return "mypageT/user/mypage/mypage_myinfo";
+		}else {
+			int deleteCnt=0;
+			try {
+				deleteCnt=mypageService.deletePoint(pointVo);
+				logger.debug("pointVo:{}",pointVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			logger.debug("환불 후 pointVo:{}",pointVo);
+		}
 		return "redirect:/mypage/selectPoint";
 	}
-	
-	
-
 	
 }

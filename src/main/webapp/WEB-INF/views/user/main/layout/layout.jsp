@@ -27,10 +27,12 @@
 
 
 <head>
+<%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+
 </head>
-<%@ include file="/WEB-INF/views/user/main/layout/commonLib.jsp"%>
 
 <body id="page-top">
 	<div id="wrapper">
@@ -50,4 +52,10 @@
 	</div>
 	<tiles:insertAttribute name="footer" />
 </body>
+
+
 </html>
+
+
+
+	

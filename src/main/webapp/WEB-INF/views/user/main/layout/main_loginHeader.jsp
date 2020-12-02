@@ -20,7 +20,9 @@
 
 	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group">
-			<img id="imglogo" src="/images/codemaker_name3.png">
+			<a href="${cp}/user/main">
+				<img id="imglogo" src="/images/codemaker_name3.png">
+			</a>
 		</div>
 	</form>
 
@@ -78,7 +80,7 @@
 				<img id="navicon" class="img-profile rounded-circle" src="/images/user/main/mypage_icon.png">
 			</a>
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="#"> 
+				<a class="dropdown-item" href="${cp}/mypage/myinfoSelect"> 
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 마이페이지
 				</a> 
 				<a class="dropdown-item" href="#"> 

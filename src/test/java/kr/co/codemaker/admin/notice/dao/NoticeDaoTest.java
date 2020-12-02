@@ -1,6 +1,6 @@
 package kr.co.codemaker.admin.notice.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import kr.co.codemaker.ModelTestConfig;
-import kr.co.codemaker.admin.notice.service.NoticeServiceTest;
 import kr.co.codemaker.common.dao.NoticeMapper;
 import kr.co.codemaker.common.vo.NoticeVO;
 
