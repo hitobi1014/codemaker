@@ -48,7 +48,7 @@
 
 		<!-- 회원가입 -->
 		<li class="nav-item dropdown no-arrow mx-1"><a
-			class="nav-link dropdown-toggle" href="#" id="signin" role="button"
+			class="nav-link dropdown-toggle" href="${cp }/join/insertUserView" id="signin" role="button"
 			aria-haspopup="true" aria-expanded="false">회원가입 </a></li>
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="space" role="button"
