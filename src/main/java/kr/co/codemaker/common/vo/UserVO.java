@@ -52,5 +52,12 @@ public class UserVO extends BaseVO{
 	public String getUserBlack() {
 		return userBlack; 
 	}
+	@Override
+	public String toString() {
+		return "UserVO [userPass=" + userPass + ", userTel=" + userTel + ", userNm=" + userNm + ", userId=" + userId
+				+ ", userOut=" + userOut + ", userBlack=" + userBlack + ", userProfile=" + userProfile + "]";
+	}
+	
+	
 
 }
