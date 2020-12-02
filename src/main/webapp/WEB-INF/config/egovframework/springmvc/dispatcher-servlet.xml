@@ -70,11 +70,15 @@
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
 	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    	<property name="order" value="1" />
+	</bean>
 
 
 	<bean
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-		p:order="1"
+		p:order="2"
 		p:viewClass="org.springframework.web.servlet.view.JstlView"
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
 	<mvc:annotation-driven />
