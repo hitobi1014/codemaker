@@ -49,7 +49,7 @@ public class TeacherLessonController {
 	private LessonIndexService lessonIndexService;
 	
 	/**
-	 * 선생님 - 강의조회 및 개설 페이지 불러오는 메서드
+	 * 선생님 - 강의조회
 	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.GET)
@@ -70,7 +70,7 @@ public class TeacherLessonController {
 	}
 	
 	/**
-	 * 선생님 - 임시저장된 강의 불러오는 메서드(삭제했을때 다시불러오기용)
+	 * 선생님 - 임시저장된 강의 조회(삭제했을때 다시불러오기용)
 	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectloadSubject",method= RequestMethod.GET)
@@ -92,7 +92,7 @@ public class TeacherLessonController {
 	
 	
 	/**
-	 * 선생님 - 강의조회 및 개설 페이지에서 과목명에 따른 강의명 select box에 조회해주는 메서드
+	 * 선생님 - 과목명에 따른 강의명 select box에 조회
 	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.POST)
@@ -113,7 +113,7 @@ public class TeacherLessonController {
 	}
 	
 	/**
-	 * 선생님 - 강의아이디에 따라 강의목차 조회해주는 메서드 
+	 * 선생님 - 강의아이디에 따라 강의목차 조회
 	 * @return
 	 */
 	@ResponseBody
@@ -131,7 +131,7 @@ public class TeacherLessonController {
 	}
 	
 	/**
-	 * 선생님 - 강의 삭제하는 메서드
+	 * 선생님 - 강의 삭제
 	 * @return
 	 */
 	@ResponseBody

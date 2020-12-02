@@ -71,7 +71,10 @@
 	width: 50px;
 	height: 50px;
 }
-
+#addId{
+	width: 50px;
+	height: 50px;
+}
 </style>
 </head>
 <script>
@@ -103,33 +106,6 @@ $(function(){
 		})
 	})
 	
-// 	$('.delClass').on('click',function(){
-// 		var str="";
-// 		var tdArr = new Array();
-// 		var checkBtn = $(this);
-		
-// 		var tr = checkBtn.parent().parent().parent().parent();
-// 		var td = tr.children();
-// // 		console.log(td.text());
-// 		var lesid=td.eq(1).text();
-// 		console.log(lesid);
-		
-// 		$.ajax({
-// 			type:'method',
-// 			url:'/teacherL/deleteLesson',
-// 			data:{'lesid':lesid},
-// 			dataType:'json',
-// 			success:function(data){
-				
-// 			},
-// 			error:function(data){}
-// 				alert('안됨');
-// 		})
-		
-		
-// 	})
-
-// 	deleteLessonHTML();
 })	
 	
 var selLesIdx = function(){
@@ -186,9 +162,11 @@ var delLes = function(){
 				alert('안됨');
 			}
 		})
-	
 }
 
+var addLes = function(){
+	document.location="/teacherL/insertLesson";
+}
 
 
 </script>
@@ -203,7 +181,7 @@ var delLes = function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
 				<div id="addLesId">
-					<button id="addLesBtn" style="float: right;"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
+					<button id="addLesBtn" style="float: right;" onclick="addLes()"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
 				</div>
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
