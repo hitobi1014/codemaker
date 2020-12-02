@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.dao.LoginMapper;
 import kr.co.codemaker.common.vo.UserVO;
 
@@ -16,8 +17,25 @@ public class LoginService {
 	@Resource(name="loginMapper")
 	private LoginMapper loginMapper;
 	
+	/**
+	 * 회원 Login
+	 * @param userId
+	 * @author 최민준
+	 * @return
+	 */
 	public UserVO selectUser(String userId) throws Exception {
 		logger.debug("로그인 서비스");
 		return loginMapper.selectUser(userId);
+	}
+	
+	/**
+	 * 관리자 Login
+	 * @param adminId
+	 * @author 이은지
+	 * @return
+	 */
+	public AdminVO getAdmin(String AdminId) throws Exception{
+		logger.debug("관리자 로그인");
+		return loginMapper.getAdmin(AdminId);
 	}
 }

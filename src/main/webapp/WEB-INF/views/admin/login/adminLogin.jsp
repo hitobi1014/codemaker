@@ -52,6 +52,49 @@ $(function(){
 		$(this).attr("src", "/images/admin/signup/admin (2).png");
 	})
 })
+
+
+$(function(){
+	if(Cookies.get("REMEMBERME") == "Y"){
+		$("input[type=checkbox]").prop("checked", true);
+		$("#inputEmail").val(Cookies.get("ADMINID"));
+	}
+	
+	$("#Login").on("click", function(){
+		console.log("button_click");
+		
+		if($("input[type=checkbox]").prop("checked") == true){
+			Cookies.set("REMEMBERME", "Y");
+			Cookies.set("ADMINID", $("#inputEmail").val());
+		}
+		else{
+			Cookies.remove("REMEMBERME");
+			Cookies.remove("ADMINID");
+		}
+		$("#loginForm").submit();
+	});
+	
+// 	if(rememberme == "Y"){
+// 		$('#ckb1').prop('checked', true);
+		
+// 		var adminid = Cookies.get('ADMINID');
+// 		$('#inputEmail').val(adminid);
+// 	}
+// 	$('#Login').on('click', function() {
+// 		if($('#ckb1').prop('checked')){
+// 			Cookies.set('REMEMBERME', 'Y');
+			
+// 			Cookies.set('ADMINID', $('#inputEmail').val());
+// 		}else{
+// 			Cookies.remove('REMEMBERME');
+// 			Cookies.remove('ADMINID');
+// 		}
+		
+// 		$('#loginForm').submit();
+		
+// 	})
+})
+
 	
 // $('#t_button').toggle(function() {
 // 	$(this).attr("class", "active");
@@ -104,7 +147,7 @@ $(function(){
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w">
+				<form class="login100-form validate-form flex-sb flex-w" id="loginForm">
 					<span class="login100-form-title p-b-51"> Login </span> 
 					<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher (1).png" style="height: 120px; width: 120px;">
 					<img id="adminImg" alt="관리자" src="/images/admin/signup/admin (3).png" style="height: 120px; width: 120px;">
@@ -112,27 +155,27 @@ $(function(){
 
 					<div class="wrap-input100 validate-input m-b-16"
 						data-validate="이메일 형식으로 작성해주세요">
-						<input class="input100" type="text" name="username" placeholder="Username">
+						<input class="input100" type="text" id="inputEmail" name="adminId" placeholder="Username">
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="wrap-input100 validate-input m-b-16"
 						data-validate="형식에 맞지 않습니다">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="adminPass" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberme">
 							<label class="label-checkbox100" for="ckb1"> Remember me </label>
 						</div>
 
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn">Login</button>
+						<button id="Login" class="login100-form-btn">Login</button>
 					</div>
 
 					<div class="searchuser">

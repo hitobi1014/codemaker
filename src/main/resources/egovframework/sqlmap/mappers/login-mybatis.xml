@@ -4,4 +4,10 @@
 	<select id="selectUser" resultType="kr.co.codemaker.common.vo.UserVO" parameterType="kr.co.codemaker.common.vo.UserVO">
 		select * from users where user_id =#{userId}
 	</select>
+	
+	<select id="getAdmin" resultType="kr.co.codemaker.admin.vo.AdminVO" parameterType="kr.co.codemaker.admin.vo.AdminVO">
+		SELECT *
+		FROM admin
+		WHERE admin_id = #{adminId}
+	</select>
 </mapper>
