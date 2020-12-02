@@ -36,10 +36,16 @@ $(document).ready(function(){
 	<form name="form1" method="post">
 		<select name="searchOption">
 			<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-			<option value="1">공지사항</option>
-			<option value="2">자주묻는질문</option>
+			<c:if test="${param.searchOption == 1}">
+				<option value="1" selected>공지사항</option>
+				<option value="2">자주묻는질문</option>
+			</c:if>
+			<c:if test="${param.searchOption == 2}">
+				<option value="1">공지사항</option>
+				<option value="2" selected>자주묻는질문</option>
+			</c:if>
 		</select> 
-		<input type="text" name="keyWord"><input id="searchBtn"type="button" class="btn btn-warning btn-sm" value="조회">
+		<input type="text" name="keyWord" value="${param.keyWord}"><input id="searchBtn"type="button" class="btn btn-warning btn-sm" value="조회">
 		<button type="button" id="btnWrite" class="btn btn-info btn-sm">공지 작성</button>
 	</form>
 
@@ -69,7 +75,7 @@ $(document).ready(function(){
 	<div class="text-center">
 		<ul class="pagination justify-content-center m-0">
 			<c:choose>
-				<c:when test="${page != 0 && page != 1}">
+				<c:when test="${param.page != 0 && param.page != 1}">
 					<li class="page-item"><a class="page-link"
 						href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i
 							class="fas fa-angle-double-left"></i></a></li>
@@ -81,7 +87,7 @@ $(document).ready(function(){
 		
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
-						<c:when test="${i == page}">
+						<c:when test="${i == param.page || param.page == null || param.page == ''}">
 							<li class="page-item active"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
@@ -91,7 +97,7 @@ $(document).ready(function(){
 				</c:forEach>
 				
 				<c:choose>
-					<c:when test="${page != pages}">
+					<c:when test="${param.page != pages && param.page != null}">
 						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${page+1}"><i class="fas fa-angle-double-right"></i></a></li>
 						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-right"></i></a></li>
 					</c:when>
