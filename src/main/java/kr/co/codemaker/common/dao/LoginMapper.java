@@ -1,9 +1,9 @@
 package kr.co.codemaker.common.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.admin.vo.AdminVO;
+import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.common.vo.UserVO;
 
 /**
@@ -38,6 +38,20 @@ public interface LoginMapper {
 	* @param 회원아이디, 변경할 비밀번호
 	*/
 	public int updateUserPass(UserVO userVo) throws Exception;
+
+	/**
+	 * 관리자 로그인
+	 * @param adminId
+	 * @return
+	 */
+	public AdminVO getAdmin(String adminId) throws Exception;
 	
+	/**
+	 * 강사 로그인
+	 * @param teacherId
+	 * @return
+	 * @throws Exception
+	 */
+	public TeacherVO getTeacher(String tchId) throws Exception;
 }
 

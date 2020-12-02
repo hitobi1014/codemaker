@@ -70,7 +70,7 @@ body {
 	line-height: 1.5;
 	color: #8a909d;
 	text-align: left;
-	background-color: #A2ACAB;
+	background-color: #e8eaec;
 }
 
 [tabindex="-1"]:focus {
@@ -8786,6 +8786,7 @@ p {
 	margin-bottom: 0;
 	font-size: 0.98rem;
 	line-height: 1.2;
+	text-align: center;
 }
 
 ::selection {
@@ -11659,7 +11660,7 @@ div.copied {
 .app-brand {
 	position: relative;
 	display: block;
-	background-color: #005F86;
+	background-color: #212a39;
 }
 
 .app-brand a {
@@ -15250,4 +15251,3 @@ html[dir="rtl"] .sidebar li>a .caret:before {
 	height: 50px;
 }
 
-/*# sourceMappingURL=sleek.css.map */

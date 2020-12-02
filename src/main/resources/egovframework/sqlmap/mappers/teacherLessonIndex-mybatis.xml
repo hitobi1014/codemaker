@@ -3,13 +3,10 @@
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonIndexMapper">
 
 	<select id="selectLessonIndex" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">
-		SELECT lidxCont 
-		  FROM LESSON_INDEX a, (SELECT * 
-	                     	      FROM lesson
-	                      	      WHERE tchId='200ser@maker.com') b
-	    <where>
-		 AND b.lesId = a.lesId 
-	     AND b.lesId = #{lesId};
-	   </where>
+		SELECT *
+ 		 FROM lesson_index
+ 		 <where>
+	 		AND les_id=#{les_id}
+ 		 </where>
 	</select>
 </mapper>

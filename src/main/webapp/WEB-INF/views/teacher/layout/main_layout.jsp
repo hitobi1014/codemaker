@@ -12,13 +12,13 @@
 		<tiles:insertAttribute name="left"/>
 		<div class="page-wrapper">
 			<tiles:insertAttribute name="header"/>
-			<div class="content-wrapper">
+			<div class="content-wrapper" style="background-color: #f7f4ef;">
 				<div class="content">
 					<tiles:insertAttribute name="content"/>
 				</div> <!-- content -->
 			</div> <!-- content-wrapper -->
-			<tiles:insertAttribute name="footer"/>
 		</div> <!-- page-wrapper -->
 	</div> <!-- wrapper -->
+	<tiles:insertAttribute name="footer"/>
 </body>
 </html>

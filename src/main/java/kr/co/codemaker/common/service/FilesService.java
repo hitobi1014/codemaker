@@ -21,18 +21,18 @@ public class FilesService  {
 	}
 
 	
-	public List<FilesVO> selectAllFiles(String files_gn) {
-		return filesMapper.selectAllFiles(files_gn);
+	public List<FilesVO> selectAllFiles(String filesGroup) {
+		return filesMapper.selectAllFiles(filesGroup);
 	}
 
 	
-	public int deleteFiles(String files_id) {
-		return filesMapper.deleteFiles(files_id);
+	public int deleteFiles(String filesId) {
+		return filesMapper.deleteFiles(filesId);
 	}
 
 	
-	public FilesVO selectFiles(String files_id) {
-		return filesMapper.selectFiles(files_id);
+	public FilesVO selectFiles(String filesId) {
+		return filesMapper.selectFiles(filesId);
 	}
 	
 	
