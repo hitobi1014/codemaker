@@ -86,19 +86,7 @@ $(document).ready(function() {
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="noticeDate"
-					value="${noticeVo.noticeDate}" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="noticeOut"
-					value="${noticeVo.noticeOut}" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="adminId" value="${noticeVo.adminId}" />
+				<input type="hidden" name="noticeUwriter" value="${noticeVo.adminId}" />
 			</div>
 		</div>
 		<div class="form-group">
@@ -107,9 +95,9 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-		<label class="col-sm-2 control-label">첨부파일</label> <br> <br>
+		<label class="col-sm-2 control-label">첨부파일</label> 
 
-		<c:forEach items="${filesVo}" var="filesVo">
+		<c:forEach items="${filesList}" var="filesVo">
 			<div class="form-group">
 				<div id="${filesVo.filesId}">
 					&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}

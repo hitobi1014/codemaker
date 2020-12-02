@@ -33,13 +33,13 @@
 $(document).ready(function(){
 	
 	$("#return").on("click", function(){
-		document.location="${cp}/userNotice/selectAllNotice";
+		document.location="${cp}/user/selectAllNotice";
 	})
 	
 	
 	$("button[id^=fileDownBtn]").on("click", function(){
-		files_no = $(this).val();
-		document.location="downloadView?board_no=${bv.board_no}&files_no="+files_no;
+		filesId = $(this).val();
+		document.location="downloadNotice?noticeId=${noticeVo.noticeId}&filesId="+filesId;
 	});
 });
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							첨부파일
 							<button id="fileDownBtn" type="button" class="btn btn-info"
-								value="${filesVo.files_id}">${filesVo.files_nm}</button>
+								value="${filesVo.filesId}">${filesVo.filesNm}</button>
 						</div>
 					</c:forEach>
 				</div>

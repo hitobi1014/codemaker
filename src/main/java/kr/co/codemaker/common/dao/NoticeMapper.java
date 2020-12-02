@@ -43,7 +43,7 @@ public interface NoticeMapper {
 	/**
 	 * 하나의 공지사항을 조회하는 메서드
 	 * @author 박경호
-	 * @param notice_id 공지사항 아이디
+	 * @param noticeId 공지사항 아이디
 	 * @return 선택한 공지사항
 	 */
 	public NoticeVO selectNotice(String noticeId) throws Exception;

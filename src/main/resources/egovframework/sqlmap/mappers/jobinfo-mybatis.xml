@@ -12,6 +12,9 @@ SELECT *
 insert into jobInfo
 		values ('JOBINFO'||LPAD(JOBINFO_SEQ.NEXTVAL,4,'0'), #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',null,null
 		#{adminId})
+		<selectKey keyProperty="jobinfoId" resultType="String">
+				SELECT 'JOBINFO'||LPAD(JOBINFO_SEQ.CURRVAL,4,'0') FROM DUAL
+			</selectKey>
 </insert>
 <select id="selectAllJobInfo" resultType="kr.co.codemaker.common.vo.JobInfoVO" parameterType="java.util.HashMap">
 SELECT * FROM
@@ -21,8 +24,8 @@ SELECT * FROM
 		FROM JOBINFO
 		WHERE 1=1
 		<if test="keyWord != '' and keyWord != null">
-			AND JOB_TITLE LIKE '%' || #{keyWord} || '%'
-			AND JOB_CONT LIKE '%' || #{keyWord} || '%')A)
+			AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
+			AND JOBINFO_CONT LIKE '%' || #{keyWord} || '%')A)
 		</if>
 		<if test="keyWord == '' or keyWord == null">
 			)A)
@@ -32,12 +35,12 @@ SELECT * FROM
 </select>
 <update id="updateJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
 update jobInfo set
-		jobinfo_title = #{jobInfoTitle}, jobinfo_cont = #{jobInfoCont}, jobinfo_udate = #{jobInfoUdate}, jobinfo_uwriter = #{jobInfoUwriter} where jobInfoId =
-#{jobInfoId}
+		jobinfo_title = #{jobinfoTitle}, jobinfo_cont = #{jobinfoCont}, jobinfo_udate = sysdate, jobinfo_uwriter = #{jobinfoUwriter} where jobInfo_Id =
+#{jobinfoId}
 </update>
 <delete id="deleteJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
 update jobInfo set
-		jobinfo_out = 'Y' where jobinfo_id = #{jobInfoId}
+		jobinfo_out = 'Y' where jobinfo_id = #{jobinfoId}
 </delete>
 <select id="jobInfoTotalCnt" resultType="int">
 select count(*) from
