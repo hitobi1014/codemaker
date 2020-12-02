@@ -33,7 +33,7 @@
 										<div class="sub-menu">
 										
 											<li >
-												<a href="#">강의 개설 및 수정</a>
+												<a href="${cp}/teacherL/selectSubject">강의 개설 및 수정</a>
 											</li>
 											
 											<li >

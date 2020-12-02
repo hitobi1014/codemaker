@@ -20,9 +20,9 @@ public class LessonService{
 	
 	
 	
-	public List<LessonVO> selectLesson() {
+	public List<LessonVO> selectLesson(String subId) {
 		try {
-			return lessonMapper.selectLesson();
+			return lessonMapper.selectLesson(subId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

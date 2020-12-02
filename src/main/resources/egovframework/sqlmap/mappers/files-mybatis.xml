@@ -12,4 +12,14 @@ SELECT *
 	
 	
 	
+<insert id="insertFiles" parameterType="kr.co.codemaker.common.vo.FilesVO">
+INSERT INTO FILES VALUES (#{filesId}, #{filesGroup},#{filesNm}, #{filesPath})
+</insert>
+
+<select id="selectAllFiles" parameterType="kr.co.codemaker.common.vo.FilesVO" resultType="kr.co.codemaker.common.vo.FilesVO">
+SELECT * FROM FILES WHERE FILES_GROUP = #{filesGroup}
+</select>
+<delete id="deleteFiles" parameterType="kr.co.codemaker.common.vo.FilesVO">
+DELETE FROM FILES WHERE FILES_ID = #{filesId}
+</delete>
 </mapper>

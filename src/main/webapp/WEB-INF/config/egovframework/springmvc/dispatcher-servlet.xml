@@ -8,16 +8,18 @@
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
-	<context:component-scan
-		base-package="kr.co.codemaker">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Service" />
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Repository" />
+	<context:component-scan base-package="kr.co.codemaker">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
-
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1"></property>
+	</bean>
+	<!-- Ajax json 처리를 위한 빈 -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> -->
 	<!-- <property name="webBindingInitializer"> -->
 	<!-- <bean class="egovframework.example.cmmn.web.EgovBindingInitializer"/> -->
@@ -30,33 +32,26 @@
 	<!-- </list> -->
 	<!-- </property> -->
 	<!-- </bean> -->
-
-	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 	<!-- 쿠키를 이용한 Locale 이용시 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->
-	<bean id="localeChangeInterceptor"
-		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="language" />
 	</bean>
 
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="defaultErrorView" value="cmmn/egovError" />
 		<property name="exceptionMappings">
 			<props>
 				<prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop>
-				<prop
-					key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
-				<prop
-					key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
+				<prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop>
+				<prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop>
 				<prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop>
 			</props>
 		</property>
 	</bean>
 
-
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
 				<value>classpath:tiles/tiles-definition.xml</value>
@@ -64,28 +59,17 @@
 		</property>
 	</bean>
 
-	<bean
-		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="order" value="0"></property>
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
-	</bean>
-	
-	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-    	<property name="order" value="1" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
 	</bean>
 
-
-	<bean
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-		p:order="2"
-		p:viewClass="org.springframework.web.servlet.view.JstlView"
-		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" 
+		p:order="2" p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
 	<mvc:annotation-driven />
 
 	<!-- 파일 업로드 처리를 위한 multipartResolver 설정 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/images/**" location="/images/" />
@@ -112,9 +96,7 @@
 	<!-- </bean> -->
 	<!-- /For Pagination Tag -->
 
-	<mvc:view-controller path="/cmmn/validator.do"
-		view-name="cmmn/validator" />
-	<mvc:resources location="/resources/"
-		mapping="/resource/**" />
+	<mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator" />
+	<mvc:resources location="/resources/" mapping="/resource/**" />
 	<mvc:annotation-driven />
 </beans>

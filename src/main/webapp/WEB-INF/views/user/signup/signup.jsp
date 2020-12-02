@@ -4,36 +4,19 @@
 <html lang="en">
 
 <head>
-<<<<<<< HEAD
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="/css/user/signup/style.css">
-    
-=======
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Sign Up Form by Colorlib</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Font Icon -->
-<link rel="stylesheet"
-	href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="/fonts/user/signup/material-icon/css/material-design-iconic-font.min.css">
 
 <!-- Main css -->
 <link rel="stylesheet" href="/css/user/signup/style.css">
 
-
->>>>>>> VO수정
 <script>
 
 var result = ""; 
@@ -50,7 +33,7 @@ $(document).ready(function(){
 		phone4+= $("#phone2").val();
 		phone4+= $("#phone3").val();
 		
-		$("input[name='user_tel']").val(phone4);
+		$("input[name='userTel']").val(phone4);
 
 // 		$("#register-form").submit();
 		
@@ -204,21 +187,22 @@ $(document).ready(function(){
 	
 	//id중복체크
 	$('#idchk').on("click",function(){
-	
-		user_id = $("#user_id").val();
+		
+		userId = $("#user_id").val();
 		
 		$.ajax({
 			url : "${cp}/join/idchk",
 			type : "post",
 			dataType : "json",
-			data : {"user_id" : user_id},
+			data : {"userId" : userId},
 			success : function(data) {
+				console.log('ddd');
 				if (data == 1) {
 					$("#regex1").html("중복된 아이디 입니다.");
 				} else if (data == 0) {
 					alert("사용가능한 아이디입니다.");
 				}
-				}
+			}
 		}) // idchk
 	})
 
@@ -290,27 +274,23 @@ function readURL(input) {
 								<br/>
 							</div>
 
-							<input type="hidden" name="user_out">
-							<input type="hidden" name="user_black">
+							<input type="hidden" name="userOut">
+							<input type="hidden" name="userBlack">
 							
 							<div class="form-group">
-<<<<<<< HEAD
                                 <label for="userid"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="user_id" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
+                                <input type="text" name="userId" id="user_id"  placeholder="ID"/><button id="idchk" type="button">중복체크</button>
                                 <br><span id="regex1" class="check"></span>
                             </div>
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label><br>
-                                <input type="password" name="user_pass" id="user_pass" placeholder="Password"/>
+                                <input type="password" name="userPass" id="user_pass" placeholder="Password"/>
                                 <br><span id="regex2" class="check"></span>
                             </div>
-<!--                             <div class="form-group"> -->
-<!--                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label> -->
-<!--                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/> -->
-<!--                             </div> -->
+
                              <div class="form-group">  
                               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label><br>
-                                <input type="text" name="user_nm" id="user_nm" placeholder="Name"/>
+                                <input type="text" name="userNm" id="user_nm" placeholder="Name"/>
                                 <br><span id="regex3" class="check"></span>
                             </div>
                             <div class="form-group">
@@ -325,43 +305,11 @@ function readURL(input) {
 								</select>-
 									<input type="text"  id="phone2" size="4" placeholder="4자리" maxlength="4">-
 									<input type="text"  id="phone3" size="4" placeholder="4자리" maxlength="4">
-									<input type ="hidden" name="user_tel">
+									<input type ="hidden" name="userTel">
 									<br><span id="regex4"  class="check"></span>
 								<br>
-=======
-								<label for="userid"><i
-									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="email" name="user_id" id="user_id1" placeholder="ID" />
 							</div>
-							<div class="form-group">
-								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="user_pass" id="user_pass"
-									placeholder="Password" />
-							</div>
-							<!--                             <div class="form-group"> -->
-							<!--                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label> -->
-							<!--                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/> -->
-							<!--                             </div> -->
-							<div class="form-group">
-								<label for="name"><i
-									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="user_nm" id="user_nm" placeholder="Name" />
-							</div>
-							<div class="form-group">
-								<label for="tel"></label> <i
-									class="zmdi zmdi-account material-icons-name" id="phoneicon"></i>&nbsp;&nbsp;
-								<select id="phone1" name="user_tel1">
-									<option value="010">010</option>
-									<option value="011">011</option>
-									<option value="019">019</option>
-									<option value="019">016</option>
-									<option value="019">017</option>
-								</select>- <input type="text" name="user_tel2" id="phone2" size="4"
-									placeholder="4자리" maxlength="4">- <input type="text"
-									name="uset_tel3" id="phone3" size="4" placeholder="4자리"
-									maxlength="4"> <br>
->>>>>>> VO수정
-							</div>
+							
 							<div class="form-group">
 								<dt>
 									가입하면 <strong>이용 약관</strong> 및 <strong>개인정보</strong> 수집 및 활용에

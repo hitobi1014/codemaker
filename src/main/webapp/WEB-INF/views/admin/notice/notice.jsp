@@ -25,12 +25,12 @@
 <script>
 $(document).ready(function(){
 	$("#upbutton").on("click", function(){
-		document.location="${cp}/adminNotice/updateNotice?notice_id=${noticeVo.notice_id}";
+		document.location="${cp}/admin/updateNotice?noticeId=${noticeVo.noticeId}";
 	});
 	
 	$("#delbutton").on("click", function(){
 		
-		document.location="${cp}/adminNotice/deleteNotice?notice_id=${noticeVo.notice_id}";
+		document.location="${cp}/admin/deleteNotice?noticeId=${noticeVo.noticeId}";
 	});
 
 
@@ -54,7 +54,7 @@ $(document).ready(function(){
 	});
 	
 	$("#return").on("click", function(){
-		document.location="${cp}/adminNotice/selectAllNotice";
+		document.location="${cp}/admin/selectAllNotice";
 	})
 
 });
@@ -67,41 +67,35 @@ $(document).ready(function(){
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 번호</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_id}</label>
+				<label class="control-label">${noticeVo.noticeId}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">게시글 제목</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_title}</label>
+				<label class="control-label">${noticeVo.noticeTitle}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">게시글 내용</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.notice_cont}</label>
+				<label class="control-label">${noticeVo.noticeCont}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="pass" class="col-sm-2 control-label">작성 날짜</label>
 			<div class="col-sm-10">
-<<<<<<< HEAD
-				<label class="control-label"><fmt:formatDate value="${noticeVo.notice_date}" pattern="yyyy-MM-dd" /></label>
-=======
-				<label class="control-label"><fmt:formatDate
-						value="${noticeVo.notice_date}" pattern="yyyy-MM-dd" /></label>
-				<%-- 				<label class="control-label">${noticeVo.notice_date}</label> --%>
->>>>>>> VO수정
+				<label class="control-label"><fmt:formatDate value="${noticeVo.noticeDate}" pattern="yyyy-MM-dd" /></label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="pass" class="col-sm-2 control-label">작성자</label>
 			<div class="col-sm-10">
-				<label class="control-label">${noticeVo.admin_id}</label>
+				<label class="control-label">${noticeVo.adminId}</label>
 			</div>
 		</div>
 
@@ -109,7 +103,7 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label for="pass" class="col-sm-2 control-label">첨부파일</label>
 				<button id="fileDownBtn" type="button" class="btn btn-default"
-					value="${filesVo.files_id}">${filesVo.files_nm}</button>
+					value="${filesVo.filesId}">${filesVo.filesNm}</button>
 			</div>
 		</c:forEach>
 
@@ -117,7 +111,7 @@ $(document).ready(function(){
 			<div class="form-group">
 				<label for="pass" class="col-sm-2 control-label">삭제여부</label>
 				<div class="col-sm-10">
-					<label class="control-label">${noticeVo.notice_out}</label>
+					<label class="control-label">${noticeVo.noticeOut}</label>
 				</div>
 			</div>
 			<div class="form-group">

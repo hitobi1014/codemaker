@@ -39,6 +39,6 @@ public class TestController {
 	
 	@RequestMapping(path="/userT/mypagetest")
 	public String userMypageNewView() {
-		return "user/mypage/test";
+		return "mainT/user/mypage/test";
 	}
 }
