@@ -81,7 +81,6 @@
 					<ul class="dropdown-menu dropdown-menu-right">
 						<!-- User image -->
 						<li class="dropdown-header">
-							<img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
 							<div class="d-inline-block">Abdus Salam 
 								<small class="pt-1">abdus@gmail.com</small>
 							</div>
@@ -98,7 +97,7 @@
 						</li>
 
 						<li class="dropdown-footer">
-							<a href="signin.html"> 
+							<a href="${cp}/logout"> 
 								<i class="mdi mdi-logout"></i> 로그아웃
 							</a>
 						</li>

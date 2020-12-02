@@ -17,8 +17,8 @@
 					<tiles:insertAttribute name="content"/>
 				</div> <!-- content -->
 			</div> <!-- content-wrapper -->
-			<tiles:insertAttribute name="footer"/>
 		</div> <!-- page-wrapper -->
 	</div> <!-- wrapper -->
+	<tiles:insertAttribute name="footer"/>
 </body>
 </html>
