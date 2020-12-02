@@ -63,6 +63,10 @@ public class MypageService{
 		return myPageMapper.deletePoint(pointVo);
 	}
 
+	public int deletePointCompare(String userId)throws Exception {
+		return myPageMapper.deletePointCompare(userId);
+	}
+
 
 	
 	

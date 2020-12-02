@@ -50,15 +50,18 @@
 	</select>
 	
 	<insert id="insertNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
-insert into notice values ('NOTICE'||LPAD(NOTICE_SEQ.NEXTVAL,4,'0'), #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, NULL, NULL,#{adminId})
-</insert>
+		insert into notice values ('NOTICE'||LPAD(NOTICE_SEQ.NEXTVAL,4,'0'), #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, NULL, NULL,#{adminId})
+			<selectKey keyProperty="noticeId" resultType="String">
+				SELECT 'NOTICE'||LPAD(NOTICE_SEQ.CURRVAL,4,'0') FROM DUAL
+			</selectKey>
+		</insert>
 
 	<update id="updateNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
-update notice set notice_title = #{noticeTitle}, notice_cont = #{noticeCont}, notice_head = #{noticeHead}, notice_udate = sysdate, notice_uwriter = #{adminId} where notice_id = #{noticeId}
+update notice set notice_title = #{noticeTitle}, notice_cont = #{noticeCont}, notice_udate = sysdate, notice_uwriter = #{noticeUwriter} where notice_id = #{noticeId}
 </update>
 	
 	<delete id="deleteNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
-		update notice set
-				notice_out = 'Y' where notice_id = #{notice_id}
-	</delete>
+update notice set
+				notice_out = 'Y' where notice_id = #{noticeId}
+</delete>
 </mapper>

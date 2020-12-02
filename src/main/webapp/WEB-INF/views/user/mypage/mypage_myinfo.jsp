@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-    <!-- Main css -->
+<html>
+    
+<!-- Main css -->
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 
-<html>
-
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	
+$("#userout").on( "click", function() {
+	alert("✔CODEMAKER 탈퇴를 진행하시겠습니까?");
+})
+
+})
 
 
 </script>
@@ -75,7 +82,7 @@
                 <hr class="my-4">
                 <h5>CODEMAKER의 다양한 강의를 만나보세요.👨‍💻</h5>
                            <a href="${cp }/mypage/updateUser?userId=${userVo.userId}" class="btn btn-info">Edit profile</a>
-                           <a href="${cp }/mypage/deleteUser" class="btn btn-info">회원탈퇴</a>
+                           <a href="${cp }/mypage/deleteUser" id="userout" class="btn btn-info" >회원탈퇴</a>
               </div>
             </div>
           </div>
@@ -83,16 +90,8 @@
       </div>
     </div>
   </div>
-<!--   <footer class="footer"> -->
-<!--     <div class="row align-items-center justify-content-xl-between"> -->
-<!--       <div class="col-xl-6 m-auto text-center"> -->
-<!--         <div class="copyright"> -->
-<!--           <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a> by Creative Tim</p> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </footer> -->
-</body>
 
+
+</body>
 
 </html>

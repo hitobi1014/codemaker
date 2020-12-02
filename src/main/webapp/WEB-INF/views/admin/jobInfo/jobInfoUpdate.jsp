@@ -3,9 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -33,59 +30,46 @@ $(document).ready(function() {
     })
 })       
 </script>
-<title>Insert title here</title>
-</head>
-<body>
-	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/jobInfoNotice" enctype="multipart/form-data">
+	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/updateJobInfo" enctype="multipart/form-data">
 		
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
 				<input type=text name="jobinfoTitle" style="width: 500px;"
-					value="${jobInfoVo.jobinfoTitle}">
+					value="${jobinfoVo.jobinfoTitle}">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
-				<textarea class="summernote" name="jobinfoCont">${jobInfoVo.jobinfoCont}</textarea>
+				<textarea class="summernote" name="jobinfoCont">${jobinfoVo.jobinfoCont}</textarea>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="jobinfoDate" value="${jobInfoVo.jobinfoDate}" />
+				<input type="hidden" name="jobinfoId" value="${jobinfoVo.jobinfoId}" />
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-10">
-				<input type="hidden" name="jobinfoOut" value="${jobInfoVo.jobinfoOut}" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="adminId" value="${jobInfoVo.adminId}" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="jobinfoId" value="${jobInfoVo.jobinfoId}" />
+				<input type="hidden" name="jobinfoUwriter" value="${jobinfoVo.adminId}" />
 			</div>
 		</div>
 
 		<label class="col-sm-2 control-label">첨부파일</label> 
-		<br>
-		<br>
-
-		<c:forEach items="${filesVo}" var="filesVo">
-			<div class="form-group">
-				<div id="${filesVo.filesId}">
-					&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
-					<button class="del_file" type="button" class="btn btn-default" value="${filesVo.filesId}">삭제</button>
+		
+		<c:if test="${filesList != null}">
+			<c:forEach items="${filesList}" var="filesVo">
+				<div class="form-group">
+					<div id="${filesVo.filesId}">
+						&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
+						<button class="del_file" type="button" class="btn btn-default" value="${filesVo.filesId}">삭제</button>
+					</div>
 				</div>
-			</div>
-		</c:forEach>
-
+			</c:forEach>
+		</c:if>
+		
 		<button type="button" id="fileAddBtn">파일추가</button>
 		<br>
 		<div class="col-sm-10" id="fileup" class="col-sm-10">
@@ -98,5 +82,3 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</form>
-</body>
-</html>

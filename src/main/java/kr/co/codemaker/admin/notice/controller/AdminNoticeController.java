@@ -1,14 +1,19 @@
 package kr.co.codemaker.admin.notice.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,17 +68,12 @@ public class AdminNoticeController {
 		map.put("keyWord", keyWord);
 		map.put("pages", map.get("pages"));
 		
-		
-		logger.debug("map {}", map);
-		
 		Map<String, Object> map2 = new HashMap<>();
 		try {
 			map2 = noticeService.selectAllNotice(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		logger.debug("map2 {}", map2);
 		
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
@@ -110,7 +110,7 @@ public class AdminNoticeController {
 		return "adminPage/admin/notice/noticeInsert";
 	}
 	
-	@RequestMapping(path="/insertNotice", method={RequestMethod.POST})
+	@RequestMapping(path="/admin/insertNotice", method={RequestMethod.POST})
 	public String insertNotice(NoticeVO noticeVo, MultipartHttpServletRequest files) {
 	 	
 		List<MultipartFile> filesList = files.getFiles("realfile");
@@ -118,26 +118,24 @@ public class AdminNoticeController {
 		int cnt = 0;
 		try {
 			cnt = noticeService.insertNotice(noticeVo);
+			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		logger.debug("파일 전 cnt {}", cnt);
 		
 		for(int i = 0; i < filesList.size(); i++) {
 			MultipartFile profile = filesList.get(i);
 			
-			String files_nm = profile.getOriginalFilename();
+			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(files_nm);
+				String ext = FileUploadUtil.getExtenstion(filesNm);
 				String fileName = UUID.randomUUID().toString();
-				String files_path = "";
+				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					files_path = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + files_nm);
+					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -146,18 +144,15 @@ public class AdminNoticeController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					String files_id = "1426";
 					
 					filesVo.setFilesGroup(noticeVo.getNoticeId());
-					filesVo.setFilesNm(files_nm);
-					filesVo.setFilesPath(files_path);
-					filesVo.setFilesId(files_id);
+					filesVo.setFilesNm(filesNm);
+					filesVo.setFilesPath(filesPath);
 					
-					logger.debug("filesVo {}", filesVo);
+					logger.debug("파일에서의 filesGroup : {}", noticeVo.getNoticeId());
 					
 					filesService.insertFiles(filesVo);
 					
-					logger.debug("파일 후 cnt {}", cnt);
 				}
 			}
 		}
@@ -174,19 +169,24 @@ public class AdminNoticeController {
 	public String updateViewNotice(NoticeVO noticeVo, Model model) {
 		
 		NoticeVO noticeVo2 = new NoticeVO();
+		List<FilesVO> filesList = new ArrayList<FilesVO>();
 		try {
 			noticeVo2 = noticeService.selectNotice(noticeVo.getNoticeId());
+			filesList = filesService.selectAllFiles(noticeVo.getNoticeId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		model.addAttribute("noticeVo", noticeVo2);
+		model.addAttribute("filesList", filesList);
 		
 		return "adminPage/admin/notice/noticeUpdate";
 	}
 	
-	@RequestMapping(path="/updateNotice", method= {RequestMethod.POST})
+	@RequestMapping(path="/admin/updateNotice", method= {RequestMethod.POST})
 	public String updateNotice(NoticeVO noticeVo, MultipartHttpServletRequest files, HttpServletRequest request) {
+		
+		logger.debug("notice update : {}", noticeVo);
 		
 		String[] arr = request.getParameterValues("del_files");
 		
@@ -194,8 +194,8 @@ public class AdminNoticeController {
 		
 		if(arr != null) {
 			for (int i = 0; i < arr.length; i++) {
-				String files_id = arr[i];
-				filesService.deleteFiles(files_id);
+				String filesId = arr[i];
+				filesService.deleteFiles(filesId);
 			}
 		}
 		
@@ -210,16 +210,16 @@ public class AdminNoticeController {
 			
 			MultipartFile profile = fileslist.get(i);
 			
-			String files_nm = profile.getOriginalFilename();
+			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 			
-			String ext = FileUploadUtil.getExtenstion(files_nm);
+			String ext = FileUploadUtil.getExtenstion(filesNm);
 			String fileName = UUID.randomUUID().toString();
-			String files_path = "";
+			String filesPath = "";
 			
 				if (profile.getSize() > 0) {
-					files_path = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + files_nm);
+					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -229,31 +229,53 @@ public class AdminNoticeController {
 					FilesVO filesVo = new FilesVO();
 					
 					filesVo.setFilesGroup(noticeVo.getNoticeId());
-					filesVo.setFilesNm(files_nm);
-					filesVo.setFilesPath(files_path);
-					filesVo.setFilesId(filesVo.getFilesId());
+					filesVo.setFilesNm(filesNm);
+					filesVo.setFilesPath(filesPath);
 					filesService.insertFiles(filesVo);
 				}
 			}
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectNotice?notice_id="+noticeVo.getNoticeId();
+			return "redirect:selectNotice?noticeId="+noticeVo.getNoticeId();
 		}else {
-			return "adminPage/admin/notice/noticeUpdate";
+			return "adminPage/admin/notice/noticeUpdate?noticeId="+noticeVo.getNoticeId();
 		}
 	}
 	
-	@RequestMapping(path="/deleteNotice")
-	public String deleteNotice(String notice_id) {
+	@RequestMapping(path="/admin/deleteNotice")
+	public String deleteNotice(String noticeId) {
 		
 		try {
-			noticeService.deleteNotice(notice_id);
+			noticeService.deleteNotice(noticeId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return "redirect:selectAllNotice";
-		
 	}
+	
+	@RequestMapping(path="/admin/downloadNotice")
+	public void downloadNotice(String filesId, HttpServletResponse response) throws Exception {
+		
+		FilesVO filesVo = filesService.selectFiles(filesId);
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		response.setContentType("application/octet-stream");
+		
+		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		
+		ServletOutputStream sos = response.getOutputStream();
+		
+		byte[] buffer = new byte[512];
+		
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		
+		fis.close();
+		sos.flush();
+		sos.close();
+	}
+
 }
