@@ -10,7 +10,7 @@
 	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
 		<div class="sidebar-brand-icon">
 			<img id="usericon" src="/images/user/icons/user.png"> <br>
-			<br> OO님 <br>
+			<br>${MEMBER_INFO.userNm}님 <br>
 		</div>
 	</a>
 

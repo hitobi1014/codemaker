@@ -47,13 +47,26 @@
 							#{userId})
 </insert>
 
+<select id="deletePointCompare" parameterType="java.lang.String" resultType="int" >
+SELECT point_sum
+FROM(
+    SELECT point_sum FROM POINT
+    WHERE user_id=#{userId}
+    order by point_date desc) a
+WHERE ROWNUM=1
+</select>
+
+
 <insert id="deletePoint" parameterType="kr.co.codemaker.user.mypage.vo.PointVO">
-	INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
-	VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 
-							(SELECT MAX(point_sum) KEEP (DENSE_RANK LAST ORDER BY point_sum)
-							 FROM point WHERE user_id=#{userId} and point_gn='2') - #{pointSum}, 
-							#{userId})
+		INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
+		VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 
+							(SELECT point_sum FROM(
+                                SELECT point_sum FROM POINT
+                                WHERE user_id=#{userId}
+                                order by point_date desc) a
+                                WHERE ROWNUM=1) -#{pointSum}, #{userId})
 </insert>
+
 
 
 
