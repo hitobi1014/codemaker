@@ -1,19 +1,26 @@
 package kr.co.codemaker.teacher.signup.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.codemaker.teacher.signup.service.TeacherSignUpService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
 public class TeacherSignUpController {
@@ -28,9 +35,37 @@ public class TeacherSignUpController {
 	}
 	
 	@RequestMapping(path="teacher/signup", method=RequestMethod.POST)
-	public String teacherSignUp() {
+	public String teacherSignUp(TeacherVO tVo, ResumeVO rVo, MultipartFile picture) {
+		ResumeVO getInfo = null;
+		try {
+			getInfo = tService.selectResume(rVo);
+		} catch (Exception e) {e.printStackTrace();}
 		
-		return "";
+		String filename = UUID.randomUUID().toString();
+		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
+		String filepath = "d:\\upload\\"+filename+"."+extension;
+		File uploadFile = new File(filepath);
+		if(picture.getSize() > 0) {
+			try {
+				picture.transferTo(uploadFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		tVo.setTchNm(getInfo.getResNm());
+		tVo.setTchTel(getInfo.getResTel());
+		tVo.setTchCode(getInfo.getResCode());
+		tVo.setTchGn("N");
+		tVo.setResId(getInfo.getResId());
+		tVo.setTchProfile(filepath);
+		
+		try {
+			tService.insertTeacher(tVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/admin/login";
 	}
 	
 	@RequestMapping(path="teacher/chkResCode", method=RequestMethod.GET)
@@ -44,7 +79,6 @@ public class TeacherSignUpController {
 		}
 		if(getResumeVo.getResCode().equals(chkResCode)) {
 			model.addAttribute("chkMsg", "success");
-			logger.debug("성공");
 			return "jsonView";
 		}else {
 			model.addAttribute("chkMsg", "fail");
