@@ -24,4 +24,25 @@
 		SET user_pass=#{userPass} 
 		WHERE user_id = #{userId}
 	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getAdmin" parameterType="kr.co.codemaker.admin.vo.AdminVO" resultType="kr.co.codemaker.admin.vo.AdminVO">
+		SELECT *
+		FROM admin
+		WHERE admin_id = #{adminId}
+	</select>
+	
+	<select id="getTeacher" parameterType="kr.co.codemaker.common.vo.TeacherVO" resultType="kr.co.codemaker.common.vo.TeacherVO">
+		SELECT *
+		FROM teacher
+		WHERE tch_id = #{teacherId}
+	</select>
 </mapper>
