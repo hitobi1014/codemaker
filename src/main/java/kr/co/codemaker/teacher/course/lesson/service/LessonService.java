@@ -21,35 +21,19 @@ public class LessonService{
 	
 	
 	
-	public List<LessonVO> selectLesson(String subId) {
-		try {
-			return lessonMapper.selectLesson(subId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public List<LessonVO> selectLesson(String subId) throws Exception{
+		return lessonMapper.selectLesson(subId);
 	}
 	
-	public List<LessonVO> selectNoLesson(){
-		try {
-			return lessonMapper.selectNoLesson();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public List<LessonVO> selectNoLesson() throws Exception{
+		return lessonMapper.selectNoLesson();
 	}
 
-	public int deleteLesson(String lesId){
-		
-		try {
-			return lessonMapper.deleteLesson(lesId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+	public int deleteLesson(String lesId) throws Exception{
+		return lessonMapper.deleteLesson(lesId);
 	}
 	
+	public int insertLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.insertLesson(lessonVO);
+	}
 }
