@@ -12,6 +12,9 @@ SELECT *
 insert into jobInfo
 		values ('JOBINFO'||LPAD(JOBINFO_SEQ.NEXTVAL,4,'0'), #{jobInfoTitle}, #{jobInfoCont}, sysdate, 'N',null,null
 		#{adminId})
+		<selectKey keyProperty="jobinfoId" resultType="String">
+				SELECT 'JOBINFO'||LPAD(JOBINFO_SEQ.CURRVAL,4,'0') FROM DUAL
+			</selectKey>
 </insert>
 <select id="selectAllJobInfo" resultType="kr.co.codemaker.common.vo.JobInfoVO" parameterType="java.util.HashMap">
 SELECT * FROM

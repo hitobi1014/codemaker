@@ -3,25 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javaScript"
-	src="<c:url value='/resource/js/bootstrap.js'/>"></script>
-<!-- Custom styles for this template -->
 
-<link type="text/css"
-	href="<c:url value='/resource/css/bootstrap.css'/>" rel="stylesheet">
-<!-- Bootstrap core CSS -->
-<link type="text/css"
-	href="<c:url value='/resource/css/dashboard.css'/>" rel="stylesheet">
-<link type="text/css" href="<c:url value='/resource/css/blog.css?v=2'/>"
-	rel="stylesheet">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 <script>
 $(document).ready(function(){
 	$("#upbutton").on("click", function(){

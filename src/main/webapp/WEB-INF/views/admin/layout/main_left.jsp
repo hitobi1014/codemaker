@@ -85,6 +85,14 @@
 									</ul>
 								</li>
 								
+								<li  class="has-sub" >
+									<ul  class="collapse" id="forms">
+										<div class="sub-menu">
+											  <a href="${cp}/admin/selectAllNotice">공지 사항 조회</a>
+										</div>
+									</ul>
+								</li>
+								
 							</div>
 						</ul>
 					</li>
