@@ -11,11 +11,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/teacher/lesson/button.css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -63,14 +62,21 @@
     width: 1300px;
     margin:60px;
 }
-#addLesId{
-	margin-right: 50px;
-    margin-bottom: 20px;
+
+
+#delBtn{
+     width: 60px;
+    height: 40px;
+    font-size: 1.0em;
 }
-#addLesBtn{
-	width: 50px;
-	height: 50px;
+
+#upBtn{
+     width: 60px;
+    height: 40px;
+    font-size: 1.0em;
 }
+
+
 
 </style>
 </head>
@@ -203,7 +209,7 @@ var delLes = function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
 				<div id="addLesId">
-					<button id="addLesBtn" style="float: right;"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
+					<button class="button button-inline button-small button-success" id="addLesBtn" style="float: right;">강의 등록</button>
 				</div>
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
@@ -263,7 +269,7 @@ var delLes = function(){
 											<td>
 												<div>
 													<div style="float: left; width:70%;">강의개설요청</div>
-													 <div style="float: left;width:30%;"><input class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input type="button" value="수정" id="upBtn"></div>   
+													 <div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="upClass button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>   
 												</div>
 											</td>
 										</c:when>
@@ -271,7 +277,7 @@ var delLes = function(){
 											<td>
 												<div>
 													<div style="float: left;width:70%;">승인요청중</div>
-													<div style="float: left;width:30%;"><input  class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"><input type="button" value="수정" id="upBtn"></div> 
+													<div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"><input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div> 
 												</div>
 											</td>
 										</c:when>
@@ -279,7 +285,7 @@ var delLes = function(){
 											<td>
 												<div>
 													<div style="float: left;width:70%;">승인반환 </div>
-													<div style="float: left;width:30%;"><input  class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input type="button" value="수정" id="upBtn"></div>
+													<div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>
 												</div>
 											</td>
 										</c:when>
