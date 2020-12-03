@@ -14,7 +14,8 @@ import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 * 수정자 수정내용
 * ------ ------------------------
 * 최민준  선생님 회원가입 최초작성
-*
+*		  이력서 정보 조회
+*  		  아이디 중복체크
  */
 @Mapper("teacherSignUpMapper")
 public interface TeacherSignUpMapper {
@@ -30,4 +31,10 @@ public interface TeacherSignUpMapper {
 	* @param 이력서 승인코드를 가지고 조회 
 	*/
 	public ResumeVO selectResume(ResumeVO resumeVo) throws Exception; 
+	
+	
+	/**
+	* @param 아이디 중복체크를 위한 아이디 정보
+	*/
+	public TeacherVO tchIdChk(TeacherVO teacherVo) throws Exception;
 }
