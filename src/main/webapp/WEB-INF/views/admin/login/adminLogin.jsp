@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,6 +179,8 @@ $('#Login').click(function() {
 						<span class="hiddenDiv">|</span>
 						<!-- Trigger the modal with a button -->
 						<a href="#myModal" data-toggle="modal" id="findID" class="hiddenDiv" data-tiara-action-name="회원가입_링크">회원가입</a>
+						<c:url value="teacher/signupView" var="tSignup"/>
+						<a href="${tSignup}" id="findID" >회원가입</a>
 					</div>
 				</form>
 			</div>
