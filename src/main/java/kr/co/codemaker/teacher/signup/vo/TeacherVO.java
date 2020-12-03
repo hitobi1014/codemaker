@@ -18,6 +18,11 @@ public class TeacherVO extends BaseVO{
 	public TeacherVO() {
 	}
 	
+	public TeacherVO(String tchId) {
+		super();
+		this.tchId = tchId;
+	}
+
 	public TeacherVO(String tchId, String tchPass, String tchNm, String tchTel, String tchProfile, String tchIntro,
 			String tchCode, String tchGn, String resId, String comId) {
 		super();
