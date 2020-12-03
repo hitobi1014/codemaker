@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
@@ -50,7 +51,6 @@ public class TeacherLessonController {
 	
 	/**
 	 * 선생님 - 강의조회
-	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.GET)
 	public String selecSubject(Model model) {
@@ -63,7 +63,6 @@ public class TeacherLessonController {
 			logger.debug("개설안된강의!!:{}",noLessonList);
 			return"teacherPage/teacher/lesson/lessonAllSelect";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -71,7 +70,6 @@ public class TeacherLessonController {
 	
 	/**
 	 * 선생님 - 임시저장된 강의 조회(삭제했을때 다시불러오기용)
-	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectloadSubject",method= RequestMethod.GET)
 	public String selecLoadSubject(Model model) {
@@ -84,7 +82,6 @@ public class TeacherLessonController {
 			logger.debug("개설안된강의!!:{}",noLessonList);
 			return"teacher/lesson/deleteLessonHTML";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -93,7 +90,6 @@ public class TeacherLessonController {
 	
 	/**
 	 * 선생님 - 과목명에 따른 강의명 select box에 조회
-	 * @return
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.POST)
 	@ResponseBody
@@ -106,7 +102,6 @@ public class TeacherLessonController {
 			model.addAttribute("lessonList", lessonList);
 			return lessonList;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -114,25 +109,26 @@ public class TeacherLessonController {
 	
 	/**
 	 * 선생님 - 강의아이디에 따라 강의목차 조회
-	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(path="/teacherL/selectAllLessonIndex", method=RequestMethod.GET)
 	public List<LessonIndexVO> selectLessonPage(Model model,String lesId) {
 		
 		logger.debug("강의번호:{}",lesId);
-		List<LessonIndexVO> lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-		logger.debug("강의목차:{}",lesIdxList);
-		
-		model.addAttribute("lesIdxList", lesIdxList);
-		
-		
-		return lesIdxList;
+		List<LessonIndexVO> lesIdxList;
+		try {
+			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+			logger.debug("강의목차:{}",lesIdxList);
+			model.addAttribute("lesIdxList", lesIdxList);
+			return lesIdxList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
 	 * 선생님 - 강의 삭제
-	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(path="/teacherL/deleteLesson",method=RequestMethod.GET)
@@ -140,22 +136,77 @@ public class TeacherLessonController {
 		
 		logger.debug("lesId값!!!:{}",lesId);
 		
-		int lesIdxList = lessonService.deleteLesson(lesId);
+		int lesIdxCnt = lessonService.deleteLesson(lesId);
 		
-		if(lesIdxList ==1) {
+		if(lesIdxCnt ==1) {
+			// 1일때 정상 => 강의가 삭제되면서 강의목차 부분만 내용이 바뀜
 			List<LessonVO> noLessonList = lessonService.selectNoLesson();
 			model.addAttribute("noLessonList",noLessonList);
 			return "/teacher/lesson/deleteLessonHTML";
 		}
 		else {
+			// 1이 아닐때 비정상 => 조회페이지 redirect
 			return "redirect;/teacherL/selectSubject";
 		}
 	}
 	
 	
-	@RequestMapping(path="/teacherL/insertLesson")
-	public String insertLesson() {
+	/**
+	 * 선생님 - 강의 등록(페이지만 띄우기)
+	 */
+	@RequestMapping(path="/teacherL/insertViewLesson")
+	public String insertViewLesson() {
 		return "teacherPage/teacher/lesson/lessonInsert";
 	}
+	
+	/**
+	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
+	 */
+	@RequestMapping(path="/teacherL/insertLesson")
+	public String insertLesson(LessonVO lessonVO, LessonIndexVO lesIdxVO,String tchId, String subId) {
+		
+		lessonVO.setTchId("200ser");
+		lessonVO.setSubId("SUB0003");
+		
+		int lesCnt = 0;
+		int lesIdxCnt=0;
+		
+		try {
+			lesCnt = lessonService.insertLesson(lessonVO);
+			logger.debug("강의 추가됐니?:{}",lessonVO);
+//			logger.debug("강의목차는?:{}", lesIdxVO);
+			
+			String lesId = lessonVO.getLesId();
+//			lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+//			logger.debug("리스트 사이즈!!:{}",lesIdxVO.getLesIdxLsit().size());
+//			int[] results = new int[lesIdxVO.getLesIdxLsit().size()];
+			
+			
+			for(int i=0; i<lesIdxVO.getLesIdxList().size(); i++) {
+				lesIdxVO.setLidxNum(lesIdxVO.getLesIdxList().get(i).getLidxNum());
+				lesIdxVO.setLidxCont(lesIdxVO.getLesIdxList().get(i).getLidxCont());
+				lesIdxVO.setLesId(lesId);
+				
+				logger.debug("강의목차 아이디들어갔니????:{}", lesIdxVO);
+				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+//				lesIdxCnt +=results[i];
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		if(lesCnt ==1 && lesIdxCnt == 1) {
+			return "redirect:/teacherL/selectSubject";
+		}
+		else {
+			return "teacherPage/teacher/lesson/lessonInsert";
+		}
+		
+		
+		
+		
+	}
+	
 	
 }

@@ -16,17 +16,15 @@ public class LessonIndexService {
 	@Resource(name="lessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
-	public List<LessonIndexVO> selectLessonIndex(String lesId) {
+	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
 		
-		try {
-			return lessonIndexMapper.selectLessonIndex(lesId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return lessonIndexMapper.selectLessonIndex(lesId);
 	}
 	
+	
+	public int insertLessonIndex(LessonIndexVO lesIdxVO) throws Exception{
+		return lessonIndexMapper.insertLessonIndex(lesIdxVO);
+	}
 	
 
 }

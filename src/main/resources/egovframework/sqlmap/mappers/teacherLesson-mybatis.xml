@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonMapper">
 	<select id="selectLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		SELECT les_nm , les_id
+SELECT les_nm , les_id
  		  FROM lesson
  		  <where>
 		    AND sub_id=#{subId}
-		    AND tch_id='200ser@maker.com'
+		    AND tch_id='200ser'
 		    AND les_state='3'
  		  </where>
  		   ORDER BY les_id ASC
-	</select>
+</select>
 	
 	<select id="selectNoLesson" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-	 	SELECT les_cont,les_id,les_state
+SELECT les_cont,les_id,les_state
  		 FROM lesson
  		 <where>
-			  AND tch_id='200ser@maker.com'
+			  AND tch_id='200ser'
   			  AND les_state NOT IN('3','5')
  		 </where>
  		 ORDER BY les_id ASC
-	</select>
+</select>
 	
 	<update id="deleteLesson" parameterType="String" >
 		UPDATE lesson 
@@ -31,7 +31,10 @@
 	</update>
 	
 	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		INSERT INTO lesson
-		     VALUES(#{lesson_seq.nextVal()}, #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, '200ser@maker.com', #{subId})
-	</insert>
+INSERT INTO lesson
+     VALUES('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId})
+     <selectKey keyProperty="lesId" resultType="String">
+		SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
+	</selectKey>
+</insert>
 </mapper>
