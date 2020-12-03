@@ -8,7 +8,7 @@
     display: table;
     width: 100%;
     box-sizing: border-box;
-    padding-left: 35%;
+    padding-left: 30%;
 }
 #pictureView{
 	height: 200px; 
@@ -45,6 +45,7 @@
     margin-right: 0px;
     display: table;
     width: 100%;
+    padding-left: 15%;
 }
 .certiBox{
 	width: 100%;
@@ -76,6 +77,9 @@
     height: 100%;
     display: inline-grid;
 }
+.picbox{
+	padding-left: 10%;
+}
 .picbox label{
     display: inline-block;
     padding: .2em .75em;
@@ -104,5 +108,14 @@
 .headmsg > h1{
 	text-align: center;
 	color:#e9ecef;
-	
+}
+#chkToggle{
+	width: 50px;
+	height: 50px; 
+	background-color: white;
+	padding: 10px;
+}
+#imgEye{
+	width: 30px;
+    height: 30px;
 }

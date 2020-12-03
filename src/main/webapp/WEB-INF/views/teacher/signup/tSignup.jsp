@@ -73,6 +73,9 @@
 										</div>
 										<form:password path="tchPass" id="tchPass" placeholder="비밀번호(영문자 8~20자리)" cssClass="form-control"/>
 										<input type="hidden" id="passHidden" />
+										<span id="chkToggle" value="비밀번호 확인" data-flag="1">
+											<img id="imgEye" src="/img/icon/closeEye.png" >
+										</span>
 									</div>
 								</div>
 								<div class="text-muted font-italic"><small id="tchPassMsg"></small></div>
@@ -88,7 +91,7 @@
 										<input type="hidden" id="chkPassHidden" />
 									</div>
 								</div>
-								<div class="text-muted font-italic"><small id="chkPassMsg">chkPassMsg</small></div>
+								<div class="text-muted font-italic"><small id="chkPassMsg"></small></div>
 							</div>
 							
 							<div class="form-group crtDiv">
@@ -196,6 +199,20 @@ function readURL(input) {
 }
 
 $(function(){
+	//눈 이미지 눌렀을때 비밀번호 보이게/안보이게 설정 , 기본값은 1-안보이게 2-보이게
+	$("#chkToggle").on('click',function(){
+		var flag = $(this).data("flag");
+		if(flag==1){
+			$("#tchPass").attr('type','text');
+			$(this).data("flag","2");
+			$("#imgEye").attr('src','/img/icon/openEye.png')
+		}else{
+			$("#tchPass").attr('type','password');
+			$(this).data("flag","1");
+			$("#imgEye").attr('src','/img/icon/closeEye.png')
+		}
+	})	
+	
 	// picture input의 파일 변경시 이벤트 
 	$("#picture").change(function() {
 		readURL(this);
