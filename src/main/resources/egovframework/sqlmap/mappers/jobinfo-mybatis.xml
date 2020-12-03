@@ -22,11 +22,12 @@ SELECT * FROM
 		A.*
 		FROM (SELECT *
 		FROM JOBINFO
-		WHERE 1=1
-		<if test="keyWord != '' and keyWord != null">
-			AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
-			AND JOBINFO_CONT LIKE '%' || #{keyWord} || '%')A)
-		</if>
+		<where>
+			<if test="keyWord != '' and keyWord != null">
+				AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
+				OR JOBINFO_CONT LIKE '%' || #{keyWord} || '%')A)
+			</if>
+		</where>
 		<if test="keyWord == '' or keyWord == null">
 			)A)
 		</if>

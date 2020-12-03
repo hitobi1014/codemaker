@@ -64,43 +64,27 @@ $(document).ready(function(){
 	
 })
 </script>
+<style>
+	.table-responsive {
+		margin-left:10%; 
+		margin-right:10%; 
+		height:800px; 
+		text-align:center;
+	}
+</style>
 <div class="d-flex">
-	<div class="wrapper" style="width:200px;">
-		<div class="list-group list-group-flush">
-	        <a href="${cp}/user/main" class="list-group-item list-group-item-action bg-light">Main</a>
-	        <a href="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">공지사항</a>
-	        <a href="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord class="list-group-item list-group-item-action bg-light">자주묻는질문</a>
-	        <a href="#" class="list-group-item list-group-item-action bg-light">QnA</a>
-	        <a href="${cp}/mypage/myinfoSelect" class="list-group-item list-group-item-action bg-light">마이페이지</a>
-	        <a href="#" class="list-group-item list-group-item-action bg-light">장바구니</a>
-     	</div>
-	</div>
-		<div class="table-responsive" style="width:800px; height:800px; margin-left:19%; text-align:center; ">
+		<div class="table-responsive" style="margin-left:10%; margin-right:10%; height:800px; text-align:center;">
 			<br>
-			<c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
+			<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
 				<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
 				<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
 			</c:if>
-			<c:if test="${searchOption == '2'}">
+			<c:if test="${param.searchOption == '2'}">
 				<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
 				<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
 			</c:if>
 			<hr>
-			<form name="form1"  method="post">
 			
-		        <select name="searchOption">
-		            <c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
-			            <option value="1" selected="true">공지사항</option>
-			            <option value="2">자주묻는질문</option>
-		            </c:if>
-		            <c:if test="${searchOption == '2'}">
-			            <option value="1">공지사항</option>
-			            <option value="2" selected="true">자주묻는질문</option>
-		            </c:if>
-		        </select>
-		        <input id="keywords" type="text" name="keyWord" value="${keyWord}">
-		        <button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
-		    </form>
 		    <hr>
 			<table class="table table-striped">
 				<tr>
@@ -149,6 +133,23 @@ $(document).ready(function(){
 					</c:when>
 				</c:choose> 	
 			</ul>
+			<hr>
+			<div>
+				<form name="form1"  method="post">
+			        <select name="searchOption">
+			            <c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
+				            <option value="1" selected>공지사항</option>
+				            <option value="2">자주묻는질문</option>
+			            </c:if>
+			            <c:if test="${searchOption == '2'}">
+				            <option value="1">공지사항</option>
+				            <option value="2" selected>자주묻는질문</option>
+			            </c:if>
+			        </select>
+			        <input id="keywords" type="text" name="keyWord" value="${param.keyWord}">
+			        <button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
+			    </form>
+			</div>
 		</div>
-	</div>				
+	</div>			
 </div>
