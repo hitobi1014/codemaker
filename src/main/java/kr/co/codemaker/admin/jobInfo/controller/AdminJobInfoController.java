@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.jobInfo.controller;
+package kr.co.codemaker.admin.jobinfo.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -130,11 +130,13 @@ public class AdminJobInfoController {
 			e1.printStackTrace();
 		}
 		
-		logger.debug("파일 전 cnt {}", cnt);
+		logger.debug("filesList.size {}", filesList.size());
 		
+		int filecnt = 0;
 		for(int i = 0; i < filesList.size(); i++) {
 			MultipartFile profile = filesList.get(i);
 			
+			logger.debug("파일 업로드 filecnt : {}", filecnt);
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
@@ -153,20 +155,17 @@ public class AdminJobInfoController {
 					
 					FilesVO filesVo = new FilesVO();
 					
-					
 					filesVo.setFilesGroup(jobInfoVo.getJobinfoId());
 					filesVo.setFilesNm(filesNm);
 					filesVo.setFilesPath(filesPath);
 					
-					logger.debug("filesVo {}", filesVo);
-					
 					filesService.insertFiles(filesVo);
+					filecnt++;
 					
-					logger.debug("파일 후 cnt {}", cnt);
+					logger.debug("파일 후 filecnt {}", filecnt);
 				}
 			}
 		}
-		logger.debug("파일 후 cnt {}", cnt);
 		
 		if(cnt == 1) {
 			return "redirect:selectAllJobInfo";
@@ -187,8 +186,6 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		logger.debug("여기 납납난ㅂㄴ바{}",jobinfoVo2);
-		logger.debug("파일리스트 : {}",filesList);
 		
 		model.addAttribute("filesList", filesList);
 		model.addAttribute("jobinfoVo", jobinfoVo2);
@@ -199,7 +196,6 @@ public class AdminJobInfoController {
 	@RequestMapping(path="/admin/updateJobInfo", method= {RequestMethod.POST})
 	public String updateJobInfo(JobInfoVO jobinfoVo, MultipartHttpServletRequest files, HttpServletRequest request) {
 		
-		logger.debug("업데이트 서브밋  : {}", jobinfoVo);
 		String[] arr = request.getParameterValues("del_files");
 		
 		List<MultipartFile> fileslist = files.getFiles("realfile");
