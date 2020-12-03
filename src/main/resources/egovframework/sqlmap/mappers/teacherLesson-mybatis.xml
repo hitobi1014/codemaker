@@ -9,6 +9,7 @@
 		    AND tch_id='200ser@maker.com'
 		    AND les_state='3'
  		  </where>
+ 		   ORDER BY les_id ASC
 	</select>
 	
 	<select id="selectNoLesson" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
@@ -16,8 +17,9 @@
  		 FROM lesson
  		 <where>
 			  AND tch_id='200ser@maker.com'
-  			  AND  NOT(les_state='3')
+  			  AND les_state NOT IN('3','5')
  		 </where>
+ 		 ORDER BY les_id ASC
 	</select>
 	
 	<update id="deleteLesson" parameterType="String" >
@@ -27,4 +29,9 @@
  			AND les_id=#{les_id}
    		 </where>  
 	</update>
+	
+	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		INSERT INTO lesson
+		     VALUES(#{lesson_seq.nextVal()}, #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, '200ser@maker.com', #{subId})
+	</insert>
 </mapper>

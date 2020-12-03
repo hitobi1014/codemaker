@@ -62,6 +62,14 @@
     width: 1300px;
     margin:60px;
 }
+#addLesId{
+	margin-right: 50px;
+    margin-bottom: 20px;
+}
+#addLesBtn{
+	width: 50px;
+	height: 50px;
+}
 
 </style>
 </head>
@@ -164,14 +172,13 @@ var delLes = function(){
 // 		console.log(td.text());
 	var lesid=td.eq(1).text();
 	console.log(lesid);
-	
 	$.ajax({
 			method:'get',
 			url:'/teacherL/deleteLesson',
 			data:{'lesId':lesid},
-			dataType:'json',
+			dataType:'html',
 			success:function(data){
-				$('#lesTbody').append(data);
+				$('#lesTbody').load('/teacherL/selectloadSubject');
 			
 			},
 			error:function(data){
@@ -194,6 +201,9 @@ var delLes = function(){
 			<div class="card" style="width:1200px;">
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
+				<div id="addLesId">
+					<button id="addLesBtn" style="float: right;"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
+				</div>
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
 						<option value="0">과목</option>
