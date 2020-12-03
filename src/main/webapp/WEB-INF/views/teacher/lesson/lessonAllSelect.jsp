@@ -60,20 +60,28 @@
 }
 #containerId{
     width: 1300px;
-    margin:60px;
+   	margin-left: 140px;
 }
 
 
 #delBtn{
-     width: 60px;
-    height: 40px;
-    font-size: 1.0em;
+    width: 40px;
+    height: 35px;
+    font-size: 11px;
+    float: left;
+    margin-left: 85px;
+    padding: 0px 0px 0px 0px
 }
 
 #upBtn{
-     width: 60px;
-    height: 40px;
-    font-size: 1.0em;
+    width: 40px;
+    height: 35px;
+    font-size: 11px;
+    float:right;
+      padding: 0px 0px 0px 0px
+}
+#addBtn{
+	   margin-bottom: 20px;
 }
 
 
@@ -108,34 +116,6 @@ $(function(){
 			}
 		})
 	})
-	
-// 	$('.delClass').on('click',function(){
-// 		var str="";
-// 		var tdArr = new Array();
-// 		var checkBtn = $(this);
-		
-// 		var tr = checkBtn.parent().parent().parent().parent();
-// 		var td = tr.children();
-// // 		console.log(td.text());
-// 		var lesid=td.eq(1).text();
-// 		console.log(lesid);
-		
-// 		$.ajax({
-// 			type:'method',
-// 			url:'/teacherL/deleteLesson',
-// 			data:{'lesid':lesid},
-// 			dataType:'json',
-// 			success:function(data){
-				
-// 			},
-// 			error:function(data){}
-// 				alert('안됨');
-// 		})
-		
-		
-// 	})
-
-// 	deleteLessonHTML();
 })	
 	
 var selLesIdx = function(){
@@ -158,7 +138,6 @@ var selLesIdx = function(){
 				html += "<td>" + lesIdxList.lidxNum + "</td>";
 				html += "</tr>";
 			}
-			
 			$('.lesIdxTbody').html(html);
 		},
 		error:function(data){
@@ -195,6 +174,9 @@ var delLes = function(){
 	
 }
 
+var addLes = function(){
+	document.location="/teacherL/insertLesson";
+}
 
 
 </script>
@@ -209,7 +191,7 @@ var delLes = function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
 				<div id="addLesId">
-					<button class="button button-inline button-small button-success" id="addLesBtn" style="float: right;">강의 등록</button>
+					<button class="button button-inline button-small button-success" id="addBtn" style="float: right;" onclick="addLes()">강의 등록</button>
 				</div>
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
@@ -268,24 +250,24 @@ var delLes = function(){
 										<c:when test="${no.lesState=='1' }">
 											<td>
 												<div>
-													<div style="float: left; width:70%;">강의개설요청</div>
-													 <div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="upClass button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>   
+													<div style="float: left; width:50%;">강의개설요청</div>
+													 <div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="upClass button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>   
 												</div>
 											</td>
 										</c:when>
 										<c:when test="${no.lesState=='2' }">
 											<td>
 												<div>
-													<div style="float: left;width:70%;">승인요청중</div>
-													<div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"><input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div> 
+													<div style="float: left;width:50%;">승인요청중</div>
+													<div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"><input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div> 
 												</div>
 											</td>
 										</c:when>
 										<c:when test="${no.lesState=='4' }">
 											<td>
 												<div>
-													<div style="float: left;width:70%;">승인반환 </div>
-													<div style="float: left;width:30%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>
+													<div style="float: left;width:50%;">승인반환 </div>
+													<div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="button button-inline button-small button-primary" type="button" value="수정" id="upBtn"></div>
 												</div>
 											</td>
 										</c:when>

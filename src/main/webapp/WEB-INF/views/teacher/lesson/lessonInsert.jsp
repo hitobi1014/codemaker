@@ -102,12 +102,13 @@
 </body>
 </html>
 
+
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin:50px;">
 			<div class="card" style="width:1200px;">
 				<div class="card-body text-center"></div>
-				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
+				<h2 class="card-title m-b-0">▪ 강의 추가</h2>
 				<div id="addLesId">
 					<button id="addLesBtn" style="float: right;"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
 				</div>
