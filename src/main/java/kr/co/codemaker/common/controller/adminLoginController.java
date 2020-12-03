@@ -1,6 +1,9 @@
 package kr.co.codemaker.common.controller;
 
 
+
+import java.net.URLEncoder;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +50,12 @@ public class adminLoginController {
 			session.setAttribute("S_ADMIN", adminVO);
 			
 			return "adminPage/admin/main/adminMain";
+		}
+		else if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
+			String erorr = URLEncoder.encode("비밀번호가 틀렸습니다.", "UTF-8");
+		}
+		else {
+			String erorr = URLEncoder.encode("일치하는 회원이 존재하지 않습니다.", "UTF-8")
 		}
 		return "redirect:/login?=";
 	}

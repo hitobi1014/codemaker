@@ -165,7 +165,8 @@ iframe {
 }
 
 .wrap-login100 {
-	width: 390px;
+	width: 450px;
+	height: 750px;
 	background: #D9D9D6;
 	border-radius: 10px;
 	position: relative;
@@ -191,11 +192,12 @@ iframe {
 /*------------------------------------------------------------------
 [ Input ]*/
 .wrap-input100 {
-	width: 100%;
+	width: 420px;
 	position: relative;
 	background-color: white;
 	border: 1px solid transparent;
 	border-radius: 3px;
+	margin-left: 15px;
 }
 
 /*---------------------------------------------*/
@@ -330,7 +332,8 @@ iframe {
 	justify-content: center;
 	align-items: center;
 	padding: 0 20px;
-	width: 100%;
+	width: 420px;
+	margin-left: 15px;
 	height: 62px;
 	background-color: #005F86;
 	border-radius: 1px;
@@ -420,7 +423,7 @@ iframe {
 }
 
 #adminImg {
-	margin-right: 10%;
+	margin-right: 14%;
 	margin-bottom: 5%;
 }
 /*//////////////////////////////////////////////////////////////////
