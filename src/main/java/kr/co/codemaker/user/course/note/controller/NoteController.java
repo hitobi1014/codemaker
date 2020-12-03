@@ -2,17 +2,14 @@ package kr.co.codemaker.user.course.note.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -27,6 +24,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
@@ -73,18 +72,17 @@ public class NoteController {
 	 * 회원의 노트 목록 전체를 가져오는 메서드
 	 * 
 	 * @author 김미연
-	 * @param userVo
 	 * @return
 	 */
 	@RequestMapping(path = "/note/selectAllNote")
 	public String selectAllNote(HttpSession session) {
 
-		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String userId = "a001@naver.com";
-		userVo.setUserId(userId);
+		userVO.setUserId(userId);
 
-		noteService.selectAllNote(userVo);
+		noteService.selectAllNote(userVO);
 
 		return "";
 
@@ -94,37 +92,37 @@ public class NoteController {
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
 	 * 
 	 * @author 김미연
-	 * @param noteRequestVo
+	 * @param noteRequestVO
 	 * @return
 	 */
 	@RequestMapping(path = "/note/selectPageNote")
-	public String selectPageNote(NoteRequestVO noteRequestVo, HttpSession session, Model model) {
+	public String selectPageNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
 		
 		logger.debug("dddd");
 
-//		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String userId = "a001@naver.com";
-//		userVo.setUserId(userId);
+//		userVO.setUserId(userId);
 
-//		noteRequestVo.setUserId(userVo.getUserId());
-		noteRequestVo.setUserId(userId);
-		if (noteRequestVo.getPage() == 0) {
-			noteRequestVo.setPage(1);
+//		noteRequestVo.setUserId(userVO.getUserId());
+		noteRequestVO.setUserId(userId);
+		if (noteRequestVO.getPage() == 0) {
+			noteRequestVO.setPage(1);
 		}
 
-		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVo);
+		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVO);
 		logger.debug("note : {}" , noteList.size());
-		int totalCnt = noteService.selecTotalCntNote(noteRequestVo);
+		int totalCnt = noteService.selecTotalCntNote(noteRequestVO);
 
 		int pages = (int) Math.ceil((double) totalCnt / 5);
 
-		noteRequestVo.setEndPage(pages);
-		noteRequestVo.setStartPage(1);
+		noteRequestVO.setEndPage(pages);
+		noteRequestVO.setStartPage(1);
 
 		model.addAttribute("noteList", noteList);
 		model.addAttribute("pages", pages);
-		model.addAttribute("noteRequestVo", noteRequestVo);
+		model.addAttribute("noteRequestVO", noteRequestVO);
 
 		return "mypageT/user/note/noteAllSelect";
 	}
@@ -133,17 +131,18 @@ public class NoteController {
 	 * 회원 노트 1개의 정보를 가져오는 메소드
 	 * 
 	 * @author 김미연
-	 * @param noteVo
+	 * @param noteId
 	 * @return
 	 */
 	@RequestMapping(path = "/note/selectNote")
-	public String selectNote(NoteVO noteVo, Model model) {
+	public String selectNote(String noteId, Model model) {
 
-		NoteVO nv = noteService.selectNote(noteVo);
+		NoteVO noteVO = noteService.selectNote(noteId);
 
-		model.addAttribute("noteVo", nv);
+		model.addAttribute("noteVO", noteVO);
 
-		return "mypageT/user/note/noteSelect";
+//		return "mypageT/user/note/noteSelect";
+		return "user/note/noteSelect";
 	}
 
 	/**
@@ -152,7 +151,7 @@ public class NoteController {
 	 * @author 김미연
 	 * @return
 	 */
-	@RequestMapping(path = "/note/insertNote", method = { RequestMethod.GET })
+	@RequestMapping(path = "/note/insertViewNote")
 	public String insertViewNote() {
 
 		return "user/note/noteInsert";
@@ -165,15 +164,14 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
-	@RequestMapping(path = "/note/insertNote", method = { RequestMethod.POST })
-	public String insertNote(NoteVO noteVo, HttpSession session) {
-		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
-		// noteVo.setUserId(userVo.getUserId());
-		noteVo.setUserId("a001@naver.com");
+	@ResponseBody
+	@RequestMapping(path = "/note/insertNote")
+	public void insertNote(NoteVO noteVO, HttpSession session) {
+//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		// noteVO.setUserId(userVo.getUserId());
+		noteVO.setUserId("a001@naver.com");
 
-		noteService.insertNote(noteVo);
-
-		return "";
+		noteService.insertNote(noteVO);
 	}
 
 	/**
@@ -182,10 +180,12 @@ public class NoteController {
 	 * @author 김미연
 	 * @return
 	 */
-	@RequestMapping(path = "/note/updateNote", method = { RequestMethod.GET })
-	public String updateViewNote() {
-
-		return "";
+	@RequestMapping(path = "/note/updateViewNote")
+	public String updateViewNote(String noteId, Model model) {
+		NoteVO noteVO = noteService.selectNote(noteId);
+		model.addAttribute("noteVO", noteVO);
+		
+		return "user/note/noteUpdate";
 	}
 
 	/**
@@ -195,12 +195,11 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
-	@RequestMapping(path = "/note/updateNote", method = { RequestMethod.POST })
-	public String updateNote(NoteVO noteVo) {
-
-		noteService.updateNote(noteVo);
-
-		return "";
+	@ResponseBody
+	@RequestMapping(path = "/note/updateNote")
+	public void updateNote(NoteVO noteVO) {
+		logger.debug("dddd");
+		noteService.updateNote(noteVO);
 	}
 
 	/**
@@ -210,12 +209,10 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(path = "/note/deleteNote")
-	public String deleteNote(NoteVO noteVo) {
-
-		noteService.deleteNote(noteVo);
-
-		return "";
+	public void deleteNote(NoteVO noteVO) {
+		noteService.deleteNote(noteVO);
 	}
 
 	/**
@@ -223,44 +220,32 @@ public class NoteController {
 	 * 
 	 * @author 김미연
 	 * @param noteList
-	 * @param session
 	 * @param response
 	 */
 	@RequestMapping(value = "/note/noteDownload")
-	public void downloadPdf(ArrayList<NoteVO> noteList, HttpSession session, HttpServletResponse response) {
-		String result = ""; // 초기값이 null이 들어가면 오류가 발생될수 있기 때문에 공백을 지정
-
+	public void downloadPdf(@RequestParam(value="noteIds")List<String> noteIds, HttpServletResponse response) {
 		List<NoteVO> noteLists = new ArrayList<NoteVO>();
 
-		NoteVO n = new NoteVO();
-		n.setNoteId("NOTE0010");
-
-		NoteVO n2 = new NoteVO();
-		n2.setNoteId("NOTE0009");
-
-		noteList.add(n);
-		noteList.add(n2);
-
 		// DB에서 정보 가져오기
-		for (NoteVO noteVo : noteList) {
-			NoteVO nv = noteService.selectNote(noteVo);
-			noteLists.add(nv);
+		for (String noteId : noteIds) {
+			NoteVO noteVO = noteService.selectNote(noteId);
+			noteLists.add(noteVO);
 		}
 
 		// ------------------------------ pdf 파일 생성
 		List<File> files = new ArrayList<>();
-		for (NoteVO noteVo : noteLists) {
+		for (NoteVO noteVO : noteLists) {
 			// PDF를 작성하는 html
-			String html2 = noteVo.getNoteCont().replaceAll("<br>", "<br/>");
+			String html2 = noteVO.getNoteCont().replaceAll("<br>", "<br/>");
 			String html = "<html><head></head><body>"+ html2 +"</body></html>";
 			
 //			logger.debug("html : {} ", html);
 
-			File downloadFile = new File(noteVo.getNoteTitle() + ".pdf");
+			File downloadFile = new File(noteVO.getNoteTitle() + ".pdf");
 			files.add(downloadFile);
 			
 			// 파일 IO 스트림을 취득한다.
-			try (FileOutputStream os = new FileOutputStream(noteVo.getNoteTitle() + ".pdf")) {
+			try (FileOutputStream os = new FileOutputStream(noteVO.getNoteTitle() + ".pdf")) {
 				// Pdf형식의 document를 생성한다.
 				Document document = new Document(PageSize.A4, 10, 10, 10, 10);
 				// PdfWriter를 취득한다.
@@ -270,7 +255,10 @@ public class NoteController {
 				
 				// css를 설정할 resolver 인스턴스 생성
 				StyleAttrCSSResolver cssResolver = new StyleAttrCSSResolver();
-
+				// Css 파일 설정 (css1.css 파일 설정)
+				try (FileInputStream cssStream = new FileInputStream("d:\\testFile\\css1.css")) {
+					cssResolver.addCss(XMLWorkerHelper.getCSS(cssStream));
+				}
 				// 폰트 설정
 				XMLWorkerFontProvider font = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
 				// window 폰트 설정
@@ -370,7 +358,7 @@ public class NoteController {
 				e.printStackTrace();
 			}
 		}
-
+		
 	}
 
 }

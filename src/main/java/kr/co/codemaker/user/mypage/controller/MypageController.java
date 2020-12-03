@@ -41,12 +41,12 @@ public class MypageController {
 		
 		UserVO userVo = new UserVO();
 		//session = request.getSession();
-        //userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
         
         userId = "a001@naver.com";
 		userVo.setUserId(userId);
+		userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);

@@ -50,10 +50,10 @@ public interface NoteMapper {
 	/**
 	 * 회원 노트 1개의 정보를 가져오는 메소드
 	 * @author 김미연
-	 * @param noteVo
+	 * @param noteId
 	 * @return
 	 */
-	public NoteVO selectNote(NoteVO noteVo) throws Exception;
+	public NoteVO selectNote(String noteId) throws Exception;
 	
 	/**
 	 * 노트를 등록하는 메소드

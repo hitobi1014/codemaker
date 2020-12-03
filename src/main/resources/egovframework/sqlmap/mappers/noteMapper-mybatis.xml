@@ -33,7 +33,7 @@ SELECT COUNT(*)
  WHERE user_id = #{userId}
 </select>
 
-<select id="selectNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteVO" resultType="kr.co.codemaker.user.course.note.vo.NoteVO">
+<select id="selectNote" parameterType="String" resultType="kr.co.codemaker.user.course.note.vo.NoteVO">
 SELECT
     note_id,
     note_title,

@@ -1,65 +1,99 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<!-- include libraries(jQuery, bootstrap) --> 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js--> 
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet"> 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	
+<style>
+#pt{
+	font-size: 25px;
+}
+.nfn{
+	color: #32325d;
+}
+#noteTitle{
+	width: 820px;
+}
+#nt{
+	font-size: 18px;
+}
+#d1{
+	text-align: right;
+	width: 820px;
+}
+</style>
 <script>
-	$(function() {
-		$('#noteList tr').on('click', function() {
-			// data-userid : data("속성명")
-			console.log('add');
-			var noteId = $(this).data("noteid");
-			console.log("noteId : " + noteId);
-
-			// 클릭시 상세페이지로 이동
-			document.location = "/note/selectNote?noteId=" + noteId;
-		});
-		
+	$(document).ready(function() {
 		// 써머노트 사용
 		$('#summernote').summernote({
-			placeholder: 'Hello stand alone ui',
 	        tabsize: 2,
-	        height: 120,
-	        width: 700,
+	        height: 600,
+	        width: 820,
+	        airmode : true,
+	        disableResizeEditor: true, // 사이즈 조절 불가
 			toolbar: [
-	          ['font', ['bold', 'underline', 'clear']],
-	          ['color', ['color']],
-	          ['para', ['ul', 'ol', 'paragraph']],
-	          ['view', ['fullscreen', 'codeview', 'help']]
 			]
 		});
-		
+		// 읽기만 가능
+		$('#summernote').summernote('disable');
 		// 필기내용 넣어주기
-		$('#summernote').summernote('code', '${noteVo.noteCont}');
-	})
+		$('#summernote').summernote('code', '${noteVO.noteCont}');
+		
+		// 수정
+		$('#updateBtn').on('click', function(){
+			$.ajax({
+				url : '/note/updateViewNote',
+				method : 'post',
+				data : {
+					noteId : '${noteVO.noteId }'
+				},
+				success : function(res) {
+					$('#parent').html(res);
+				},
+				error : function(xhr) {
+					alert("상태" + xhr.status);
+				}
+			});
+		});
+		
+		// 삭제
+		$('#delBtn').on('click', function(){
+			$.ajax({
+				url : '/note/deleteNote',
+				method : 'post',
+				data : {
+					noteId : '${noteVO.noteId }'
+				},
+				success : function(res) {
+					alert("해당 노트가 삭제되었습니다.");
+					document.location = "/note/selectPageNote";
+				},
+				error : function(xhr) {
+					alert("상태" + xhr.status);
+				}
+			});
+		});
+		
+		// 목록
+		$('#btnList').on('click', function(){
+			document.location = "/note/selectPageNote";
+		});
+	});
+	
 	
 </script>
-<body>
-	<div class="container" role="main">
-		<h4>필기 노트</h4>
-		<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/teacherL/insert">
-			<label for="title">필기 제목</label>
-			<div class="mb-3">
-				<input type="text" class="form-control" name="les_nm" value="${noteVo.noteTitle }" readonly="readonly">
-			</div>
-			<label for="reg_id">필기 내용</label>
-			<div class="mb-3">
-				<textarea class="form-control" id="summernote" name="noteCont"></textarea>
-			</div>
-		</form>
-		<div>
-			<button type="button" class="btn btn-sm btn-primary" id="updateBtn">수정</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
+<div class="container" role="main" id="parent">
+	<p class="mb-0 nfn" id="pt"><strong>필기 노트</strong></p>
+	<br>
+	<form name="form" id="form" role="form">
+		<label for="title" class="nfn" id="nt"><strong>필기 제목</strong></label>
+		<div class="mb-3">
+			<input type="text" id="noteTitle" class="form-control" name="noteTitle" value="${noteVO.noteTitle }" readonly="readonly">
 		</div>
+		<div class="mb-3">
+			<textarea class="form-control" id="summernote" name="noteCont" readonly="readonly"></textarea>
+		</div>
+	</form>
+	<div id="d1">
+		<button type="button" class="btn btn-sm btn-primary" id="updateBtn">수정</button>
+		<button type="button" class="btn btn-sm btn-primary" id="delBtn">삭제</button>
+		<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 	</div>
-</body>
-</html>
+</div>
+

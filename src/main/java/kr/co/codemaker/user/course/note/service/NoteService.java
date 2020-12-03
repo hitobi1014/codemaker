@@ -99,13 +99,13 @@ public class NoteService {
 	 * 회원 노트 1개의 정보를 가져오는 메소드
 	 * 
 	 * @author 김미연
-	 * @param noteVo
+	 * @param noteId
 	 * @return
 	 */
-	public NoteVO selectNote(NoteVO noteVo) {
+	public NoteVO selectNote(String noteId) {
 
 		try {
-			return noteMapper.selectNote(noteVo);
+			return noteMapper.selectNote(noteId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

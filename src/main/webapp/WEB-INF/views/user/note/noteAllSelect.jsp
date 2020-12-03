@@ -3,28 +3,91 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- 썸머노트 설정 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+
+<!-- js 추가 -->
+<script src="/js/user/note/note.js"></script>
 <script>
-$(function(){
-	$('#noteList tr').on('click', function() {
-		// data-userid : data("속성명")
-		console.log('add');
-		var noteId = $(this).data("noteid");
-		console.log("noteId : " + noteId);
+	$(function() {
+		// 상세페이지 이동
+		$('#noteList tr td').on('click', function() {
+			if ($(this).attr('class') == 'm') {
+				// data-userid : data("속성명")
+				var noteId = $(this).parent('tr').data("noteid");
+				selectNote(noteId);
+			}
+		});
 
-		// 클릭시 상세페이지로 이동
-		document.location = "/note/selectNote?noteId=" + noteId;
-	});
-})
+		// pdf 파일 다운로드
+		$('#downBtn').on('click', function() {
+			var noteIds = [];
+
+			$('input:checkbox[name=chk]').each(function() {
+				if ($(this).is(':checked')) {
+					var noteId = $(this).val();
+					// 	         	console.log(noteId);
+					noteIds.push(noteId);
+				}
+			});
+// 			console.log(noteIds.length);
+			
+			// ajax에서 배열로 보내면 url이 이상해진다...[] 붙어서 넘어감.
+			// ajax 파일 물어보기
+			if(noteIds.length > 0){
+// 				var param = "";
+// 				$.each(noteIds, function(idx){
+// 					if(idx < noteIds.length-1){
+// 						param += 'noteIds=' + noteIds[idx] + '&';
+// 					}else{
+// 						param += 'noteIds=' + noteIds[idx];
+// 					}
+// 					console.log(param);
+// 				});
+				
+				document.location = "/note/noteDownload?noteIds=" + noteIds;
+// 				$.ajax({
+// 					url : '/note/noteDownload',
+// 					method : 'get',
+// 					data : param,
+// 					success : function(res) {
+// 						alert("파일이 다운로드되었습니다.");
+// 					},
+// 					error : function(xhr) {
+// 						alert("상태" + xhr.status);
+// 					}
+// 				})
+			}else{
+				alert("다운받을 파일을 선택해주세요.");
+			}
+		});
+		
+		// 노트 등록 화면 요청
+		$('#regBtn').on('click', function(){
+			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
+		});
+
+	})
 </script>
+<style>
+#pt {
+	font-size: 25px;
+}
 
-<body>
+#pdfd {
+	text-align: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+</style>
+<div id="alld">
 	<div class="main-content">
 		<div class="container mt-7">
 			<!-- Table -->
@@ -33,9 +96,14 @@ $(function(){
 					<div class="card shadow">
 
 						<div class="card-header border-0">
-							<h3 class="mb-0">필기 노트 내역</h3>
+							<p class="mb-0" id="pt">
+								<strong>필기 노트 내역</strong>
+							</p>
 						</div>
-
+						<div id="pdfd">
+							<button type="button" class="btn btn-sm btn-primary" id="regBtn">노트 작성하기</button>
+							<button type="button" class="btn btn-sm btn-primary" id="downBtn">pdf 다운로드</button>
+						</div>
 						<div class="table-responsive">
 							<table class="table align-items-center table-flush">
 								<thead class="thead-light">
@@ -50,11 +118,13 @@ $(function(){
 								<tbody id="noteList">
 									<c:forEach items="${noteList }" var="note" varStatus="status">
 										<tr data-noteid="${note.noteId}">
-											<td>${status.count}</td>
-											<td><span class="badge badge-dot mr-4">
+											<td class="m">${status.count}</td>
+											<td class="m"><span class="badge badge-dot mr-4">
 													${note.noteTitle } </span></td>
-											<td><fmt:formatDate value="${note.noteDate}"
+											<td class="m"><fmt:formatDate value="${note.noteDate}"
 													pattern="yyyy-MM-dd" /></td>
+											<td><input type="checkbox" class="chb" name="chk"
+												value="${note.noteId}"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -65,54 +135,47 @@ $(function(){
 							<c:if test="${postList.size() ne 0 }">
 								<ul class="pagination justify-content-end mb-0">
 									<!-- 첫페이지가 아닐때 -->
-									<c:if test="${noteRequestVo.page ne noteRequestVo.startPage }">
-										<li class="page-item active">
-											<a  class="page-link" href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVo.startPage}">
-											</a>
-										</li>
-										<li class="page-item active">
-											<a class="page-link" href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVo.page-1}">
-											</a>
-										</li>
+									<c:if test="${noteRequestVO.page ne noteRequestVO.startPage }">
+										<li class="page-item active"><a class="page-link"
+											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.startPage}">
+										</a></li>
+										<li class="page-item active"><a class="page-link"
+											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.page-1}">
+										</a></li>
 									</c:if>
-									
+
 									<c:forEach begin="1" end="${pages }" var="i">
 										<!-- 현재 있는 페이지와 구분 -->
 										<c:choose>
-											<c:when test="${i == noteRequestVo.page }">
+											<c:when test="${i == noteRequestVO.page }">
 												<!-- 보고 있는 페이지와 현재 선택된 페이지가 같을 때 -->
-												<li class="page-item active">
-													<span>${i }</span>
-												</li>
+												<li class="page-item active"><span>${i }</span></li>
 											</c:when>
 											<c:otherwise>
-												<li class="page-item active">
-													<a class="page-link" href="${cp }/post/selectAllPost?boardid=${boardid}&page=${i}">${i}</a>
+												<li class="page-item active"><a class="page-link"
+													href="${cp }/post/selectAllPost?boardid=${boardid}&page=${i}">${i}</a>
 												</li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-									
+
 									<!-- 마지막페이지가 아닐때 -->
-									<c:if test="${noteRequestVo.page ne noteRequestVo.endPage }">
-										<li class="page-item active">
-											<a class="page-link" href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVo.page+1}">
-											</a>
-										</li>
-										<li class="page-item active">
-											<a class="page-link" href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVo.endPage}">
-											</a>
-										</li>
+									<c:if test="${noteRequestVO.page ne noteRequestVO.endPage }">
+										<li class="page-item active"><a class="page-link"
+											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.page+1}">
+										</a></li>
+										<li class="page-item active"><a class="page-link"
+											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.endPage}">
+										</a></li>
 									</c:if>
-									
+
 								</ul>
 							</c:if>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+</div>

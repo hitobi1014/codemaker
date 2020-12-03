@@ -26,8 +26,8 @@ public class Test {
 	public static void main(String[] args) {
 		// PDF를 작성하는 html
 		String html2 = "<pre>ㅁㅇㄻㅇㄹㅁㅇㄻ</pre><h1>ㅁㅇㄻㅇㄴㄹ</h1><blockquote><p>ㅁㅇㄻㅇㄴㄹ</p></blockquote><p><b>ㅁㅇㄻㅇ<u>ㅁㅇㄻㅇㄴㄹㄴㅁㅁㅇㄻ</u></b></p><p><b><u>ㅁㅇㄻㅇㄴㄻㅇ</u></b></p><p><font color=\"#000000\"><span style=\"background-color: rgb(255, 255, 0);\">ㅁㅇㄴㄻㄴㅇㄻㅇㄴ</span></font></p><ol><li><font color=\"#000000\"><span style=\"background-color: rgb(255, 255, 0);\">test</span></font></li><li style=\"text-align: center;\"><font color=\"#000000\"><span style=\"background-color: rgb(255, 255, 0);\">ㅁㅇㄻㅇㄴㄹ</span></font></li><li style=\"text-align: justify;\"><font color=\"#000000\"><span style=\"background-color: rgb(255, 255, 0);\"><br></span></font></li></ol><table class=\"table table-bordered\"><tbody><tr><td>ㅁㅇㄻㅇ</td><td>ㅁㅇㄴㄻ</td></tr><tr><td>ㅁㅇㄴㄹ</td><td>ㅁㅇㄴㄹ</td></tr></tbody></table>".replaceAll("<br>", "<br/>");
-		String html = "<html><head></head><body>테스트adfa1231</body></html>";
-//		String html = "<html><head></head><body>"+ html2 +"</body></html>";
+//		String html = "<html><head></head><body>테스트adfa1231</body></html>";
+		String html = "<html><head></head><body>"+ html2 +"</body></html>";
 		
 		// 파일 IO 스트림을 취득한다.
 		try (FileOutputStream os = new FileOutputStream("d:\\test.pdf")) {
@@ -40,7 +40,10 @@ public class Test {
 			
 //			// css를 설정할 resolver 인스턴스 생성
 			StyleAttrCSSResolver cssResolver = new StyleAttrCSSResolver();
-			
+			// Css 파일 설정 (css1.css 파일 설정)
+			try (FileInputStream cssStream = new FileInputStream("d:\\testFile\\css1.css")) {
+				cssResolver.addCss(XMLWorkerHelper.getCSS(cssStream));
+			}
 			// 폰트 설정
 			XMLWorkerFontProvider font = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
 			// window 폰트 설정
