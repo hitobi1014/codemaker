@@ -1,8 +1,10 @@
 package kr.co.codemaker.teacher.course.lesson.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -163,13 +165,14 @@ public class TeacherLessonController {
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
 	@RequestMapping(path="/teacherL/insertLesson")
-	public String insertLesson(LessonVO lessonVO, LessonIndexVO lesIdxVO,String tchId, String subId) {
+	public String insertLesson(LessonVO lessonVO, LessonIndexVO lesIdxVO,String tchId, String subId,HttpServletRequest request) {
 		
 		lessonVO.setTchId("200ser");
 		lessonVO.setSubId("SUB0003");
 		
 		int lesCnt = 0;
 		int lesIdxCnt=0;
+		int no=0;
 		
 		try {
 			lesCnt = lessonService.insertLesson(lessonVO);
@@ -182,15 +185,30 @@ public class TeacherLessonController {
 //			int[] results = new int[lesIdxVO.getLesIdxLsit().size()];
 			
 			
-			for(int i=0; i<lesIdxVO.getLesIdxList().size(); i++) {
-				lesIdxVO.setLidxNum(lesIdxVO.getLesIdxList().get(i).getLidxNum());
-				lesIdxVO.setLidxCont(lesIdxVO.getLesIdxList().get(i).getLidxCont());
-				lesIdxVO.setLesId(lesId);
-				
-				logger.debug("강의목차 아이디들어갔니????:{}", lesIdxVO);
-				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+//			for(int i=0; i<lesIdxVO.getLesIdxList().size(); i++) {
+//				lesIdxVO.setLidxNum(lesIdxVO.getLesIdxList().get(i).getLidxNum());
+//				lesIdxVO.setLidxCont(lesIdxVO.getLesIdxList().get(i).getLidxCont());
+//				lesIdxVO.setLesId(lesId);
+//				
+//				logger.debug("강의목차 아이디들어갔니????:{}", lesIdxVO);
+//				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
 //				lesIdxCnt +=results[i];
+//			}
+			String[] lidxNum = request.getParameterValues("lidxNum");
+			int[] lidxNumArray = new int[lidxNum.length];
+			for(int i=0; i<lidxNum.length; i++) {
+				lidxNumArray[i] = Integer.parseInt(lidxNum[i]);
 			}
+			
+			String[] lidxContArray = request.getParameterValues("lidxCont");
+			logger.debug("숫자!!:{}", lidxNumArray);
+			
+			logger.debug("내용!?:{}", lidxContArray);
+			
+			lesIdxVO.setLesId(lesId);
+			lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
