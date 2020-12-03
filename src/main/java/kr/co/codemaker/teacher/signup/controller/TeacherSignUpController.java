@@ -29,18 +29,19 @@ public class TeacherSignUpController {
 	@Resource(name="teacherSignUpService")
 	private TeacherSignUpService tService;
 	
-	@RequestMapping(path="teacher/signup", method=RequestMethod.GET)
-	public String teacherSignUpView() {
+	@RequestMapping(path="teacher/signupView")
+	public String teacherSignUpView(TeacherVO teacherVO) {
 		return "teacher/signup/tSignup";
 	}
 	
-	@RequestMapping(path="teacher/signup", method=RequestMethod.POST)
-	public String teacherSignUp(TeacherVO tVo, ResumeVO rVo, MultipartFile picture) {
+	@RequestMapping(path="teacher/signup")
+	public String teacherSignUp(TeacherVO teacherVO, MultipartFile picture) {
 		ResumeVO getInfo = null;
+		ResumeVO rVo = new ResumeVO(teacherVO.getTchCode());
 		try {
 			getInfo = tService.selectResume(rVo);
 		} catch (Exception e) {e.printStackTrace();}
-		
+		logger.debug("가져온 이력서 정보 :{}",getInfo);
 		String filename = UUID.randomUUID().toString();
 		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
 		String filepath = "d:\\upload\\"+filename+"."+extension;
@@ -53,19 +54,18 @@ public class TeacherSignUpController {
 			}
 		}
 		
-		tVo.setTchNm(getInfo.getResNm());
-		tVo.setTchTel(getInfo.getResTel());
-		tVo.setTchCode(getInfo.getResCode());
-		tVo.setTchGn("N");
-		tVo.setResId(getInfo.getResId());
-		tVo.setTchProfile(filepath);
-		
+		teacherVO.setTchNm(getInfo.getResNm());
+		teacherVO.setTchTel(getInfo.getResTel());
+		teacherVO.setTchCode(getInfo.getResCode());
+		teacherVO.setTchGn("N");
+		teacherVO.setResId(getInfo.getResId());
+		teacherVO.setTchProfile(filepath);
 		try {
-			tService.insertTeacher(tVo);
+			tService.insertTeacher(teacherVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/login";
+		return "redirect:/login";
 	}
 	
 	@RequestMapping(path="teacher/chkResCode", method=RequestMethod.GET)
@@ -86,4 +86,30 @@ public class TeacherSignUpController {
 		}
 	}
 	
+	@RequestMapping(path="/teacher/chkId")
+	public String chkId(@RequestParam(name="tchId") String tchId, Model model) {
+		TeacherVO teacherVo = new TeacherVO(tchId);
+		TeacherVO getTVo = null;
+		try {
+			getTVo = tService.tchIdChk(teacherVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String msg="";
+		String color="";
+		String pass="";
+		if(getTVo == null) {
+			msg="사용가능한 아이디 입니다";	// 아이디가 중복이 아니면 ok
+			color="blue";
+			pass="ok";
+		}else {
+			msg="이미 사용중인 아이디 입니다";	// 아이디가 중복되면 no
+			color="red";
+			pass="no";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("color", color);
+		model.addAttribute("pass", pass);
+		return "jsonView";
+	}
 }
