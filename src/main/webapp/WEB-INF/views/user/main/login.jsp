@@ -31,12 +31,27 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/css/user/login/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/user/login/main.css">
+	<link rel="stylesheet" type="text/css" href="/css/user/login/userLogin.css">
 <!--===============================================================================================-->
 </head>
 
 <script>
 $(function(){
-	if(${cookie.remember.value}==1){
+	//눈 이미지 눌렀을때 비밀번호 보이게/안보이게 설정 , 기본값은 1-안보이게 2-보이게
+	$("#chkToggle").on('click',function(){
+		var flag = $(this).data("flag");
+		if(flag==1){
+			$("#userPass").attr('type','text');
+			$(this).data("flag","2");
+			$("#imgEye").attr('src','/img/icon/openEye.png')
+		}else{
+			$("#userPass").attr('type','password');
+			$(this).data("flag","1");
+			$("#imgEye").attr('src','/img/icon/closeEye.png')
+		}
+	})	
+	var remem = $("#rememCookie").val();
+	if(remem==1){
 		var userid = $("#user").data("userid");
 		$("input:checkbox[id='ckb1']").prop('checked',true);
 		$("#userId").val(userid);
@@ -44,22 +59,8 @@ $(function(){
 		$("input:checkbox[id='ckb1']").prop('checked',false);
 		$("#userId").val('');
 	}
-// 	var test = $("#user").data("userid");
-// 	console.log(test);
-	
 })
 </script>
-
-<style>
-.txt1:hover{
-	text-decoration: underline;
-}
-#di{width: 1920px; height:70px; margin-left: 520px; padding-top: 85px;}
-#logo{width:200px;height: 70px;}
-.loginapi{margin-top: 5px;}
-.row{width: 837px; height: 600px;margin-bottom: 100px;}
-.cldiv{height: 570px;}
-</style>
 <body>
 <%
 	Cookie[] cookies = request.getCookies();
@@ -71,6 +72,9 @@ $(function(){
 			String cValue = URLDecoder.decode(c.getValue(),"UTF-8");
 			if(c.getName().equals("userid")){
 				out.print("<input id='user' data-userid='"+cValue+"' type='hidden'/>");
+			}
+			if(c.getName().equals("remember")){
+				out.print("<input type='hidden' id='rememCookie' value='"+cValue+"'");
 			}
 		}
 	}
@@ -88,9 +92,14 @@ $(function(){
 							<input class="input100" type="text" id="userId" name="userId" placeholder="아이디">
 							<span class="focus-input100"></span>
 						</div>
-						<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-							<input class="input100" type="password" name="userPass" placeholder="비밀번호">
-							<span class="focus-input100"></span>
+						<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required" style="height: 64px;">
+							<div class="passBox">
+								<input class="input100" type="password" name="userPass" id="userPass" placeholder="비밀번호">
+								<span id="chkToggle" value="비밀번호 확인" data-flag="1">
+									<img id="imgEye" src="/img/icon/closeEye.png" >
+								</span>
+<!-- 								<span class="focus-input100"></span> -->
+							</div>
 						</div>
 						
 						<div class="flex-sb-m w-full p-t-3 p-b-24">

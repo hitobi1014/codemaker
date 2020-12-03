@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,8 +40,8 @@
 <!-- Main css -->
 <link rel="stylesheet" href="/css/admin/signup/style.css">
 <!--===============================================================================================-->
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/admin/login/js.cookie-2.2.1.min.js"></script>
 <script>
 $(function(){
 	$("#teacherImg").click(function(){
@@ -56,10 +57,70 @@ $(function(){
 		$("#loginForm").attr("action", "${cp}/admin/main");
 		$("#inputEmail").attr("name", "adminId");
 		$("#inputPass").attr("name", "adminPass");
+		
 	})
 })
 
-
+// 쿠키 조회 메소드
+	function getCookieValue(cookieName){
+		var cookies = document.cookie.split("; ") // 쿠키를 나누고
+		
+		for(i=0; i<cookies.length; i++) {
+			var cookie = cookies[i].split("="); // 쿠키 하나를 쪼개고
+			if(cookie[0] == cookieName) {
+				var cookieValue = cookie[1];
+				//console.log(cookieValue);
+				return cookieValue;
+			}
+		}
+		return "";
+	}
+	// 쿠키 생성 메소드(쿠키이름, 쿠키값, 유효기간)
+	function setCookie(cookieName, cookieValue, expires){
+		var today = new Date();
+		// 현재 날짜에서 미래로 + expires 만큼 한 날짜 구하기
+		today.setDate(today.getDate() + expires);
+		
+		document.cookie = cookieName + "=" + cookieValue + "; path=/; expires=" + today.toGMTString();
+		console.log(document.cookie);
+	}
+	// 해당 쿠키의 expires속성을 과거 날짜로 변경
+	function deleteCookie(cookieName){
+		setCookie(cookieName, "", -1);
+	}
+	$(function() { 
+		// 1. REMEMBERME의 쿠키값을 가져와서 Y인지 체크
+		var rememberme = Cookies.get('REMEMBERME');
+		console.log(rememberme);
+		// 2. Y로 설정이 되어 있다면 체크박스를 체크 상태로 변경
+		if(rememberme == "Y"){
+			$('#ckb1').prop('checked', true);
+			
+			// 3. USERID의 쿠키값을 email에 뿌리기
+			var userid = Cookies.get('USERID');
+			$('#inputEmail').val(userid);
+		}
+		// sign in 버튼이 클릭 되었을 때
+		$('#Login').on('click', function(){
+			// 1. Remember me 체키박스가 체크 되어 있으면
+			if($('#ckb1').prop('checked')){
+				// 2. REMEMBERME 쿠키를 Y로 설정
+				Cookies.set('REMEMBERME', 'Y');
+				
+				// 3. USERID 쿠키를 input태그에 입력된 값으로 설정
+				Cookies.set('USERID', $('#inputEmail').val());
+				
+				// 4. form 태그에 대한 submit 처리
+			}else{ // 4. Remember me 체크 박스가 체크 안되어 있으면
+				// 5. REMEMBERME, USERID 쿠키를 삭제
+				Cookies.remove('REMEMBERME');
+				Cookies.remove('USERID');
+			}
+			
+			$('#loginForm').submit();
+		})
+		
+	})
 
 </script>
 </head>
@@ -102,7 +163,8 @@ $(function(){
 						<a href="" id="findIdPass" class="" data-tiara-action-name="아이디/비밀번호찾기_링크">ID/비밀번호 찾기</a>
 						<span class="txt_bar">|</span>
 						<!-- Trigger the modal with a button -->
-						<a href="#myModal" data-toggle="modal" id="findID" class="" data-tiara-action-name="회원가입_링크">회원가입</a>
+						<c:url value="teacher/signupView" var="tSignup"/>
+						<a href="${tSignup}" id="findID" >회원가입</a>
 					</div>
 				</form>
 			</div>

@@ -6,6 +6,8 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>취업공고</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <script>
 $(document).ready(function(){
 	$("#upbutton").on("click", function(){
@@ -13,8 +15,12 @@ $(document).ready(function(){
 	});
 	
 	$("#delbutton").on("click", function(){
-		
+		alert("게시글을 삭제처리 하였습니다.")
 		document.location="${cp}/admin/deleteJobInfo?jobinfoId=${jobInfoVo.jobinfoId}";
+	});
+	
+	$("#listbutton").on("click", function(){
+		document.location="${cp}/admin/selectAllJobInfo";
 	});
 
 
@@ -40,68 +46,68 @@ $(document).ready(function(){
 });
 
 </script>
-
+<style>
+	.filesButton{
+		background-color : #D4D4D4;
+		color : black;
+	}
+	.card{
+		width:1000px;
+		margin:auto;
+		background-color : #F8FFFF;
+	}
+	h2{
+		color : #1d25af;
+	}
+	.row{
+		margin: 50px 130px 0;
+		background-color: white;
+	}
+	#delbutton, #upbutton{
+		float:right;
+	}
+</style>
 </head>
 <body>
-	<form class="form-horizontal" enctype="multipart/form-data" >
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 아이디</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.jobinfoId}</label>
+<div class="row shadow" >
+	<div class="col-12" style="margin:50px;">
+		<div class="card">
+			<div style="text-align:center;">
+				<h2>${jobInfoVo.jobinfoTitle}</h2>
+				<hr>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 제목</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.jobinfoTitle}</label>
+			
+			<div>
+				<label class="control-label">&nbsp;&nbsp;&nbsp;${jobInfoVo.jobinfoId}</label>
+				<label style="float:right;" class="control-label">작성자 : ${jobInfoVo.adminId}</label>
+				<br>
+				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${jobInfoVo.jobinfoDate}" pattern="yyyy-MM-dd" /></label>
+				<hr>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 내용</label>
-			<div class="col-sm-10">
+			
+			<div>	
+				<c:if test="${filesList.size() != 0}">
+					<span style="margin-left:30px;">첨부파일 :</span> 
+				</c:if>
+				<c:forEach items="${filesList}" var="filesVo">
+					<button id="fileDownBtn" type="button" class="btn filesButton"
+						value="${filesVo.filesId}">${filesVo.filesNm}</button>
+				</c:forEach>
+			</div>
+			<br>
+			<div style="margin-left:30px;">
 				<label class="control-label">${jobInfoVo.jobinfoCont}</label>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="pass" class="col-sm-2 control-label">작성 날짜</label>
-			<div class="col-sm-10">
-				<label class="control-label"><fmt:formatDate value="${jobInfoVo.jobinfoDate}" pattern="yyyy-MM-dd" /></label>
+			<div>
+				<label style="float:right;"class="control-label">삭제여부 : ${jobInfoVo.jobinfoOut}</label>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="pass" class="col-sm-2 control-label">작성자</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.adminId}</label>
+			<hr>
+			<div>
+				<button type="button" id="listbutton" class="btn btn-primary">목록</button>
+				<button type="button" id="upbutton" class="btn btn-success">수정</button>
+				<button type="button" id="delbutton" class="btn btn-warning">삭제</button>
 			</div>
 		</div>
-
-		<c:forEach items="${filesList}" var="filesVo">
-			<div class="form-group">
-				<label for="pass" class="col-sm-2 control-label">첨부파일</label>
-				<button id="fileDownBtn" type="button" class="btn btn-default"
-					value="${filesVo.filesId}">${filesVo.filesNm}</button>
-			</div>
-		</c:forEach>
-		
-
-			<div class="form-group">
-				<label for="pass" class="col-sm-2 control-label">삭제여부</label>
-				<div class="col-sm-10">
-					<label class="control-label">${jobInfoVo.jobinfoOut}</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="upbutton" class="btn btn-default">취업공고 수정</button>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="delbutton" class="btn btn-default">취업공고 삭제</button>
-				</div>
-			</div>
-	</form>
+	</div>
+</div>
