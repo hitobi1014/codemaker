@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="/images/icons/favicon.ico" />
+<!-- <link rel="icon" type="image/png" href="/images/icons/favicon.ico" /> -->
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/css/admin/login/animate.css">
 <!--===============================================================================================-->
@@ -46,99 +46,20 @@ $(function(){
 	$("#teacherImg").click(function(){
 		$(this).attr("src", "/images/admin/signup/teacher.png");
 		$("#adminImg").attr("src", "/images/admin/signup/admin (3).png");
+		$("#loginForm").attr("action", "${cp}/teacher/main");
+		$("#inputEmail").attr("name", "tchId");
+		$("#inputPass").attr("name", "tchPass");
 	})
 	$("#adminImg").click(function(){
 		$("#teacherImg").attr("src", "/images/admin/signup/teacher (1).png");
 		$(this).attr("src", "/images/admin/signup/admin (2).png");
+		$("#loginForm").attr("action", "${cp}/admin/main");
+		$("#inputEmail").attr("name", "adminId");
+		$("#inputPass").attr("name", "adminPass");
 	})
 })
 
 
-$(function(){
-	if(Cookies.get("REMEMBERME") == "Y"){
-		$("input[type=checkbox]").prop("checked", true);
-		$("#inputEmail").val(Cookies.get("ADMINID"));
-	}
-	
-	$("#Login").on("click", function(){
-		console.log("button_click");
-		
-		if($("input[type=checkbox]").prop("checked") == true){
-			Cookies.set("REMEMBERME", "Y");
-			Cookies.set("ADMINID", $("#inputEmail").val());
-		}
-		else{
-			Cookies.remove("REMEMBERME");
-			Cookies.remove("ADMINID");
-		}
-		$("#loginForm").submit();
-	});
-	
-// 	if(rememberme == "Y"){
-// 		$('#ckb1').prop('checked', true);
-		
-// 		var adminid = Cookies.get('ADMINID');
-// 		$('#inputEmail').val(adminid);
-// 	}
-// 	$('#Login').on('click', function() {
-// 		if($('#ckb1').prop('checked')){
-// 			Cookies.set('REMEMBERME', 'Y');
-			
-// 			Cookies.set('ADMINID', $('#inputEmail').val());
-// 		}else{
-// 			Cookies.remove('REMEMBERME');
-// 			Cookies.remove('ADMINID');
-// 		}
-		
-// 		$('#loginForm').submit();
-		
-// 	})
-})
-
-	
-// $('#t_button').toggle(function() {
-// 	$(this).attr("class", "active");
-// }, function() {
-// 	$(this).attr("class", "");
-// });
-
-// $(document).ready(function(){
-// 	$('#btnTM button').on('click', function(){
-// 		var a = $(this).attr('id');
-// 		console.log(a);
-// 		if(a == 't_button'){
-// 			$(this).attr("style", "background-color: #003B5C;");
-// 			$('#m_button').attr("style", "background-color:");
-// 		}else{
-// 			$(this).attr("style", "background-color: #003B5C;");
-// 			$('#t_button').attr("style", "background-color:");
-// 		}		
-		
-		
-// 	});
-
-// });
-
-
-// 	var btn = document.getElementsByClassName('btn');
-	
-// 	function handleClick(event){
-// 		if(event.target.classList[1] === "clicked"){
-// 			event.target.classList.remove("clicked");
-// 		}
-// 		else{
-// 			for(var i=0; i<btn.length; i++){
-// 				btn[i].classList.remove("clicked");
-// 			}
-// 		}
-		
-// 		function init(){
-// 			for(var i=0; i<btn.length; i++){
-// 				btn[i].addEventListener("click", handleClick);
-// 			}
-// 		}
-// 		init();
-// 	}
 
 </script>
 </head>
@@ -147,22 +68,21 @@ $(function(){
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w" id="loginForm">
+				<form class="login100-form validate-form flex-sb flex-w" id="loginForm" method="post">
 					<span class="login100-form-title p-b-51"> Login </span> 
 					<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher (1).png" style="height: 120px; width: 120px;">
 					<img id="adminImg" alt="관리자" src="/images/admin/signup/admin (3).png" style="height: 120px; width: 120px;">
 
-
 					<div class="wrap-input100 validate-input m-b-16"
 						data-validate="이메일 형식으로 작성해주세요">
-						<input class="input100" type="text" id="inputEmail" name="adminId" placeholder="Username">
+						<input class="input100" type="text" id="inputEmail" placeholder="Username">
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="wrap-input100 validate-input m-b-16"
 						data-validate="형식에 맞지 않습니다">
-						<input class="input100" type="password" name="adminPass" placeholder="Password">
+						<input class="input100" type="password" id="inputPass" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
 

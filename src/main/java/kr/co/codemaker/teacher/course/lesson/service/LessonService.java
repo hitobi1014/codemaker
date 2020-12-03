@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
 import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
@@ -20,32 +21,19 @@ public class LessonService{
 	
 	
 	
-	public List<LessonVO> selectLesson(String subId) {
-		try {
-			return lessonMapper.selectLesson(subId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public List<LessonVO> selectLesson(String subId) throws Exception{
+		return lessonMapper.selectLesson(subId);
 	}
 	
+	public List<LessonVO> selectNoLesson() throws Exception{
+		return lessonMapper.selectNoLesson();
+	}
 
-//	@Override
-//	public LessonVO selectLesson(String les_id) {
-//		return lessonDao.selectLesson(les_id);
-//	}
-//	
-//	@Override
-//	public List<LessonVO> selectAllLesson() {
-//		return lessonDao.selectAllLesson();
-//	}
-//
-//	@Override
-//	public int insertLesson(LessonVO lessonVO) {
-//		return lessonDao.insertLesson(lessonVO);
-//	}
-
-
-
+	public int deleteLesson(String lesId) throws Exception{
+		return lessonMapper.deleteLesson(lesId);
+	}
+	
+	public int insertLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.insertLesson(lessonVO);
+	}
 }

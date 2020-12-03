@@ -13,22 +13,21 @@
 <link href="/css/admin/main/toastr.min.css" rel="stylesheet" />
 <!-- SLEEK CSS -->
 <link id="sleek-css" rel="stylesheet" href="/css/admin/main/sleek.css" />
-<link href="/images/favicon.png" rel="shortcut icon" />
 
 
 
 <!-- js -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
-<script src="/js/admin/main/bootstrap.bundle.min.js"></script>
-<script src="/js/admin/main/chart.js"></script>
-<script src="/js/admin/main/Chart.min.js"></script>
-<script src="/js/admin/main/custom.js"></script>
-<script src="/js/admin/main/date-range.js"></script>
-<script src="/js/admin/main/daterangepicker.js"></script>
+<!-- <script src="/js/admin/main/bootstrap.bundle.min.js"></script> -->
+<!-- <script src="/js/admin/main/chart.js"></script> -->
+<!-- <script src="/js/admin/main/Chart.min.js"></script> -->
+<!-- <script src="/js/admin/main/custom.js"></script> -->
+<!-- <script src="/js/admin/main/date-range.js"></script> -->
+<!-- <script src="/js/admin/main/daterangepicker.js"></script> -->
 <script src="/js/admin/main/jekyll-search.min.js"></script>
-<script src="/js/admin/main/jquery-jvectormap-2.0.3.min.js"></script>
-<script src="/js/admin/main/jquery-jvectormap-world-mill.js"></script>
-<script src="/js/admin/main/jquery.mask.min.js"></script>
+<!-- <script src="/js/admin/main/jquery-jvectormap-2.0.3.min.js"></script> -->
+<!-- <script src="/js/admin/main/jquery-jvectormap-world-mill.js"></script> -->
+<!-- <script src="/js/admin/main/jquery.mask.min.js"></script> -->
 <script src="/js/admin/main/jquery.min.js"></script>
 <script src="/js/admin/main/jquery.slimscroll.min.js"></script>
 <script src="/js/admin/main/ladda.min.js"></script>
