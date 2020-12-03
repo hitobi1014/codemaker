@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.codemaker.user.cart.dao.UserPayMapper">
+	<insert id="insertPay" parameterType="kr.co.codemaker.user.cart.vo.PayVO">
+		INSERT INTO pay
+		VALUES('PAY'||LPAD(PAY_SEQ.nextVal,4,'0'),#{payGroup,jdbcType=NUMERIC},'N',#{payWay}
+				,#{paySum},SYSDATE,SYSDATE+90,0,#{userId},#{lesId})
+	</insert>
+</mapper>
