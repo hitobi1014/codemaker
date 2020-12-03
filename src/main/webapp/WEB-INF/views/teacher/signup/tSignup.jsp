@@ -12,7 +12,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/css/teacher/signup/tSignup.css">
 <link rel="stylesheet" type="text/css" href="/css/teacher/signup/tSignupForm.css">
-<body class="bg-default">
+<body class="bg-default" style="background-color:#212a39 !important;">
 <div class="main-content">
 	<!-- Header -->
 	<div class="header bg-primary py-7 py-lg-8">

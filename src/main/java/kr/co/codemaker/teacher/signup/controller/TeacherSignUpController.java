@@ -29,12 +29,12 @@ public class TeacherSignUpController {
 	@Resource(name="teacherSignUpService")
 	private TeacherSignUpService tService;
 	
-	@RequestMapping(path="teacher/signup", method=RequestMethod.GET)
+	@RequestMapping(path="teacher/signupView")
 	public String teacherSignUpView(TeacherVO teacherVO) {
 		return "teacher/signup/tSignup";
 	}
 	
-	@RequestMapping(path="teacher/signup", method=RequestMethod.POST)
+	@RequestMapping(path="teacher/signup")
 	public String teacherSignUp(TeacherVO teacherVO, MultipartFile picture) {
 		ResumeVO getInfo = null;
 		ResumeVO rVo = new ResumeVO(teacherVO.getTchCode());
@@ -65,7 +65,7 @@ public class TeacherSignUpController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/login";
+		return "redirect:/login";
 	}
 	
 	@RequestMapping(path="teacher/chkResCode", method=RequestMethod.GET)
