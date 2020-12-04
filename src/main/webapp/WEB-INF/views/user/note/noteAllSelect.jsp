@@ -175,7 +175,6 @@
 										<!-- 마지막 페이지로 이동 -->
 										<li class="page-item active">
 											<input type="button" class="page-link pageMove" value=">>" data-page="${noteRequestVO.endPage }">
-										</a>
 										</li>
 									</c:if>
 

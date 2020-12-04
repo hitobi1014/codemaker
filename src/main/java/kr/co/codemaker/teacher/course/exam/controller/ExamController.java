@@ -59,7 +59,12 @@ public class ExamController {
 		
 		// 강의목차를 조회
 //		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
-		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex("LIDX0002");
+		List<LessonIndexVO> lessonIndexList = null;
+		try {
+			lessonIndexList = lessonIndexService.selectLessonIndex("LIDX0002");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("lessonIndexList", lessonIndexList);
 //		model.addAttribute("lidxId", lidxId);
@@ -112,7 +117,12 @@ public class ExamController {
 		
 		// 강의목차를 조회
 //		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
-		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex("");
+		List<LessonIndexVO> lessonIndexList = null;
+		try {
+			lessonIndexList = lessonIndexService.selectLessonIndex("");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("lessonIndexList", lessonIndexList);
 		model.addAttribute("lidxId", examVO.getLidxId());

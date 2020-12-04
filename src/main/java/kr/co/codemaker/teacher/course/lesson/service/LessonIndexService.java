@@ -18,16 +18,12 @@ public class LessonIndexService {
 	
 	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
 		
-<<<<<<< HEAD
 		try {
 //			return lessonIndexMapper.selectLessonIndex(lesId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
-=======
-		return lessonIndexMapper.selectLessonIndex(lesId);
->>>>>>> 선생님_강의
 	}
 	
 	
