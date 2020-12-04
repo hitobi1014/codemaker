@@ -12,7 +12,7 @@ $(function(){
 		$("#user_id").val('');
 	}
 	
-})
+});
 </script>
 
 

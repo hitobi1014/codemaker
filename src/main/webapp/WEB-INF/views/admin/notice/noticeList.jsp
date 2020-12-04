@@ -36,7 +36,7 @@ $(document).ready(function(){
 	<form name="form1" method="post">
 		<select name="searchOption">
 			<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-			<c:if test="${param.searchOption == 1}">
+			<c:if test="${param.searchOption == 1 || param.searchOption == null}">
 				<option value="1" selected>공지사항</option>
 				<option value="2">자주묻는질문</option>
 			</c:if>
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 
 
-	<div class="table-responsive">
+	<div class="table-responsive" style="background-color:white">
 		<table class="table table-striped">
 			<tr>
 				<th>공지사항 아이디</th>

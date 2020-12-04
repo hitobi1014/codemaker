@@ -162,7 +162,7 @@ body {
 			<br>
 			<div id="d3">
 				<h2>시험</h2>
-				<br> <label for="sel1">${examVo.exam_nm }</label> <br>
+				<br> <label for="sel1">${examVo.examNm }</label> <br>
 			</div>
 			<br>
 			<br>
@@ -174,20 +174,20 @@ body {
 				<br>
 				<div class="d5">
 					<div class="d6">
-						<label for="sel1">${status.count }.${question.que_cont }</label> <br>
+						<label for="sel1">${status.count }.${question.queCont }</label> <br>
 						<br>
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
 							items="${answersheetLists }" varStatus="vs" var="answersheet">
 							<div class="anw">
 								<div class="overlay"
-									<c:if test="${vs.count eq question.que_answer }">
+									<c:if test="${vs.count eq question.queAnswer }">
 										style="display:block"
 									</c:if>></div>
 								<input type="text" name="ans_cont" class="form-control radi"
-									value="${answersheet.ans_cont}" readonly="readonly"> <input
+									value="${answersheet.ansCont}" readonly="readonly"> <input
 									type="checkbox" name="que_answer" value="${vs.count }"
 									class="chk" readonly="readonly" disabled="disabled"
-									<c:if test="${vs.count eq question.que_answer }">
+									<c:if test="${vs.count eq question.queAnswer }">
 										checked="checked"								
 									</c:if> />
 							</div>
@@ -195,7 +195,7 @@ body {
 						<div class="anw">
 							<textarea class="form-control" rows="5" class="comment"
 								name="que_explain" readonly="readonly">
-								 ${question.que_explain}
+								 ${question.queExplain}
 							</textarea>
 							<br>
 						</div>

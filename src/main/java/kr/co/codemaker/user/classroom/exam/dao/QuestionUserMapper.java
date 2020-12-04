@@ -32,15 +32,5 @@ public interface QuestionUserMapper {
 	 */
 	public List<QuestionVO> selectQuestion(ExamVO examVo) throws Exception;
 	
-	/**
-	 * 시험 결과를 조회하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param questionVO
-	 * @return
-	 * @throws Exception
-	 */
-	public ExamResultVO selectExamResult(QuestionVO questionVO) throws Exception;
-	
 	
 }

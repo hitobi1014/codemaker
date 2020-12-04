@@ -1,10 +1,13 @@
 package kr.co.codemaker.user.notice.controller;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,6 +97,28 @@ public class UserNoticeController {
 		model.addAttribute("filesList", filesList);
 		
 		return "mainT/user/notice/notice";
+	}
+	@RequestMapping(path="/user/downloadNotice")
+	public void downloadJobInfo(String filesId, HttpServletResponse response) throws Exception {
+		
+		FilesVO filesVo = filesService.selectFiles(filesId);
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		response.setContentType("application/octet-stream");
+		
+		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		
+		ServletOutputStream sos = response.getOutputStream();
+		
+		byte[] buffer = new byte[512];
+		
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		
+		fis.close();
+		sos.flush();
+		sos.close();
 	}
 	
 }

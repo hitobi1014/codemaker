@@ -37,4 +37,7 @@ public class TeacherSignUpService {
 		return teacherMapper.selectResume(resumeVo);
 	}
 	
+	public TeacherVO tchIdChk(TeacherVO teacherVo) throws Exception {
+		return teacherMapper.tchIdChk(teacherVo);
+	}
 }

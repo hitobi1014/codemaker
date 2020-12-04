@@ -34,15 +34,15 @@
 	
 	
 	
-	<select id="getAdmin" parameterType="kr.co.codemaker.admin.vo.AdminVO" resultType="kr.co.codemaker.admin.vo.AdminVO">
+	<select id="getAdmin" parameterType="java.lang.String" resultType="kr.co.codemaker.admin.vo.AdminVO">
 		SELECT *
 		FROM admin
 		WHERE admin_id = #{adminId}
 	</select>
 	
-	<select id="getTeacher" parameterType="kr.co.codemaker.common.vo.TeacherVO" resultType="kr.co.codemaker.common.vo.TeacherVO">
+	<select id="getTeacher" parameterType="java.lang.String" resultType="kr.co.codemaker.common.vo.TeacherVO">
 		SELECT *
 		FROM teacher
-		WHERE tch_id = #{teacherId}
+		WHERE tch_id = #{tchId}
 	</select>
 </mapper>

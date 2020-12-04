@@ -61,26 +61,18 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-			id="accordionSidebar" style="background: #005F86">
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #005F86">
 
 			<!-- Sidebar - Brand -->
-			<br>
-			<br>
-			<br>
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
+			<br><br><br>
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
 				<div class="sidebar-brand-icon">
 					<img id="usericon" src="/images/user/icons/user.png"> <br>
 					<br> OO님
 				</div>
 			</a>
 
-			<br>
-			<br>
-			<br>
+			<br><br><br>
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
@@ -493,10 +485,8 @@
 	</footer>
 	<!-- End of Footer -->
 
-	</div>
 	<!-- End of Content Wrapper -->
 
-	</div>
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->

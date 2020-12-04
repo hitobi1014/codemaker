@@ -10,10 +10,8 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -39,18 +37,18 @@ $(function() {
 
 	// 시험 등록 폼 제공
 	$('#regBtn').on('click', function(){
-		var windowObj = window.open('/exam/insertExam?cur_id=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+		var windowObj = window.open('/exam/insertExam?curId=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
 
 	});
 	
 	// 시험 삭제
 	$('#delBtn').on('click', function(){
-		var exam_id = [];
+		var examId = [];
 		
 		$('input:checkbox[class="echk"]:checked').each(function(i){
 			console.log($(this).val());
 
-			exam_id.push($(this).val());
+			examId.push($(this).val());
 		});
 
 // 		deleteExam();
@@ -58,11 +56,11 @@ $(function() {
 
 	// 시험 상세페이지
 	$('#examList tr').on('click', function(){
-		var exam_id = $(this).data("exam_id");
+		var examId = $(this).data("examId");
 
-		console.log(exam_id);
+		console.log(examId);
 
-		//document.location = "/exam/selectExam?exam_id=" + exam_id;
+		//document.location = "/exam/selectExam?examId=" + examId;
 		
 	});
 	

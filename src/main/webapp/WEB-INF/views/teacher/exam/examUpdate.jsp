@@ -23,9 +23,9 @@
 		// 해당 강의 선택시 해당 문제로 변경
 		$('#sel1').on('change', function(){
 			var v = $(this).val
-			var cur_id = v.split("\"")[0];
+			var lidxId = v.split("\"")[0];
 
-			document.location = "/exam/updateExam?les_id=${curriculumList[0].les_id}&cur_id=" + cur_id;
+			document.location = "/exam/updateExam?lesId=${lessonIndexList[0].lesId}&lidxId=" + lidxId;
 			
 		});
 
@@ -64,7 +64,7 @@
 				$('#examf').submit();
 				
 			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
-				str = '<input type="text" name="exam_state" value="1">';
+				str = '<input type="text" name="examState" value="1">';
 
 				$('#examf').append(str);
 
@@ -192,14 +192,14 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 수정</h2>
-				<br> <label for="sel1">${examVo.exam_nm }</label> <br> <select
+				<br> <label for="sel1">${examVo.examNm }</label> <br> <select
 					class="form-control" id="sel1" name="cur_id">
-					<c:forEach var="curriculum" items="${curriculumList }">
+					<c:forEach var="lessonIndex" items="${lessonIndexList }">
 						<!-- 커리큘럼 내용과 시험명이 같으면 선택 -->
-						<option value="${curriculum.cur_id }/${curriculum.cur_cont }"
-							<c:if test="${curriculum.cur_cont eq examVo.exam_nm }">
+						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }"
+							<c:if test="${lessonIndex.lidxId eq lidxId }">
 							selected="selected"
-							</c:if>>${curriculum.cur_cont }</option>
+							</c:if>>${lessonIndex.lidxId }</option>
 					</c:forEach>
 
 					<option value="adfad">2</option>
@@ -217,7 +217,7 @@ body {
 					<div class="d6">
 						<label for="sel1">문제를 입력해주세요.</label> <input type="text"
 							name="que_cont" class="form-control que"
-							value="${question.que_cont }" /> <br> <label for="sel1">
+							value="${question.queCont }" /> <br> <label for="sel1">
 							보기를 입력해주세요. </label>
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
 							items="${answersheetLists }" varStatus="vs">
@@ -228,7 +228,7 @@ body {
 								<!-- 보기와 정답이 같다면 체크 -->
 								<input type="checkbox" name="que_answer" value="${vs.count }"
 									class="chk"
-									<c:if test="${vs.count eq question.que_answer }">
+									<c:if test="${vs.count eq question.queAnswer }">
 										checked="checked"								
 									</c:if> />
 							</div>

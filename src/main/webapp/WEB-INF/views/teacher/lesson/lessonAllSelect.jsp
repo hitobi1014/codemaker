@@ -11,16 +11,14 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/teacher/lesson/button.css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
 
-</script>
 <title>examAllSelect</title>
 
 <style>
@@ -61,16 +59,36 @@
 }
 #containerId{
     width: 1300px;
-    margin:60px;
+   	margin-left: 140px;
 }
-#addLesId{
-	margin-right: 50px;
-    margin-bottom: 20px;
+
+
+#delBtn{
+    width: 40px;
+    height: 35px;
+    font-size: 11px;
+    float: left;
+    margin-left: 85px;
+    padding: 0px 0px 0px 0px
 }
-#addLesBtn{
-	width: 50px;
-	height: 50px;
+
+#upBtn{
+    width: 40px;
+    height: 35px;
+    font-size: 11px;
+    float:right;
+      padding: 0px 0px 0px 0px
 }
+#addBtn{
+	   margin-bottom: 20px;
+}
+.form-control-label {
+  font-size: .875rem;
+  font-weight: 600;
+  color: #525f7f;
+}
+
+
 
 </style>
 </head>
@@ -102,34 +120,6 @@ $(function(){
 			}
 		})
 	})
-	
-// 	$('.delClass').on('click',function(){
-// 		var str="";
-// 		var tdArr = new Array();
-// 		var checkBtn = $(this);
-		
-// 		var tr = checkBtn.parent().parent().parent().parent();
-// 		var td = tr.children();
-// // 		console.log(td.text());
-// 		var lesid=td.eq(1).text();
-// 		console.log(lesid);
-		
-// 		$.ajax({
-// 			type:'method',
-// 			url:'/teacherL/deleteLesson',
-// 			data:{'lesid':lesid},
-// 			dataType:'json',
-// 			success:function(data){
-				
-// 			},
-// 			error:function(data){}
-// 				alert('안됨');
-// 		})
-		
-		
-// 	})
-
-// 	deleteLessonHTML();
 })	
 	
 var selLesIdx = function(){
@@ -152,7 +142,6 @@ var selLesIdx = function(){
 				html += "<td>" + lesIdxList.lidxNum + "</td>";
 				html += "</tr>";
 			}
-			
 			$('.lesIdxTbody').html(html);
 		},
 		error:function(data){
@@ -189,6 +178,9 @@ var delLes = function(){
 	
 }
 
+var addLes = function(){
+	document.location="/teacherL/insertViewLesson";
+}
 
 
 </script>
@@ -203,7 +195,7 @@ var delLes = function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
 				<div id="addLesId">
-					<button id="addLesBtn" style="float: right;"><img id="addId" src="/images/teacher/lesson/plus.png"></button>
+					<button class="button button-inline button-small button-success form-control-label" id="addBtn" style="float: right;" onclick="addLes()">강의 등록</button>
 				</div>
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
@@ -248,63 +240,58 @@ var delLes = function(){
 									<th style="width:170px;"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span>
 									</label></th>
 									<th scope="col" style="width: 290px;">강의No.</th>
-									<th scope="col" style="width: 389px;">강의목록명</th>
+									<th scope="col" style="width: 389px;">강의명</th>
 									<th scope="col">강의승인상태</th>
 								</tr>
 							</thead>
 							<tbody id="lesTbody">
-							<c:forEach items="${noLessonList}" var="no">
-								<tr data-lesId="${no.lesId}">
-									<td ></td>
-									<td class="ls">${no.lesId}</td>
-									<td>${no.lesCont}</td>
-									<c:choose>
-										<c:when test="${no.lesState=='1' }">
-											<td>
-												<div>
-													<div style="float: left; width:70%;">강의개설요청</div>
-													 <div style="float: left;width:30%;"><input class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input type="button" value="수정" id="upBtn"></div>   
-												</div>
-											</td>
-										</c:when>
-										<c:when test="${no.lesState=='2' }">
-											<td>
-												<div>
-													<div style="float: left;width:70%;">승인요청중</div>
-													<div style="float: left;width:30%;"><input  class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"><input type="button" value="수정" id="upBtn"></div> 
-												</div>
-											</td>
-										</c:when>
-										<c:when test="${no.lesState=='4' }">
-											<td>
-												<div>
-													<div style="float: left;width:70%;">승인반환 </div>
-													<div style="float: left;width:30%;"><input  class="delClass" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input type="button" value="수정" id="upBtn"></div>
-												</div>
-											</td>
-										</c:when>
-									</c:choose>
-								</tr>
-		</c:forEach>
-
-
+								<c:forEach items="${noLessonList}" var="no">
+									<tr data-lesId="${no.lesId}">
+										<td ></td>
+										<td class="ls">${no.lesId}</td>
+										<td>${no.lesNm}</td>
+										<c:choose>
+											<c:when test="${no.lesState=='1' }">
+												<td>
+													<div>
+														<div style="float: left; width:50%;">강의개설요청</div>
+														 <div style="float: left;width:50%;">
+															 <input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()"> 
+															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
+<!-- 															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="승인요청" > -->
+														 </div>   
+													</div>
+												</td>
+											</c:when>
+											<c:when test="${no.lesState=='2' }">
+												<td>
+													<div>
+														<div style="float: left;width:50%;">승인요청중</div>
+														<div style="float: left;width:50%;">
+															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
+															<input id="upBtn" class="button button-inline button-small button-primary form-control-label" type="button" value="수정">
+														</div> 
+													</div>
+												</td>
+											</c:when>
+											<c:when test="${no.lesState=='4' }">
+												<td>
+													<div>
+														<div style="float: left;width:50%;">승인반환 </div>
+														<div style="float: left;width:50%;">
+															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
+															<input id="upBtn" class="button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
+														</div>
+													</div>
+												</td>
+											</c:when>
+										</c:choose>
+									</tr>
+								</c:forEach>
 							</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-
-
-		<c:if test="${examList.size() ne 0 }">
-			<%-- pages : ${pages} --%>
-			<!-- 현재 있는 페이지 번호 출력 -->
-			<%-- page : ${page} --%>
-			<div class="text-center">
-				<ul class="pagination">
-
-				</ul>
-			</div>
-		</c:if>
-
 	</div>
 </div>
