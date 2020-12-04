@@ -17,6 +17,13 @@
 <script src="/js/user/note/note.js"></script>
 <script>
 	$(function() {
+		// 페이지 이동
+		$('.pageMove').on('click', function(){
+			var page = $(this).data("page");
+			console.log(page);
+			selectPageNote(page);
+		});
+		
 		// 상세페이지 이동
 		$('#noteList tr td').on('click', function() {
 			if ($(this).attr('class') == 'm') {
@@ -121,10 +128,8 @@
 											<td class="m">${status.count}</td>
 											<td class="m"><span class="badge badge-dot mr-4">
 													${note.noteTitle } </span></td>
-											<td class="m"><fmt:formatDate value="${note.noteDate}"
-													pattern="yyyy-MM-dd" /></td>
-											<td><input type="checkbox" class="chb" name="chk"
-												value="${note.noteId}"></td>
+											<td class="m"><fmt:formatDate value="${note.noteDate}" pattern="yyyy-MM-dd" /></td>
+											<td><input type="checkbox" class="chb" name="chk" value="${note.noteId}"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -132,16 +137,18 @@
 						</div>
 
 						<div class="card-footer py-4">
-							<c:if test="${postList.size() ne 0 }">
+							<c:if test="${noteList.size() ne 0 }">
 								<ul class="pagination justify-content-end mb-0">
 									<!-- 첫페이지가 아닐때 -->
 									<c:if test="${noteRequestVO.page ne noteRequestVO.startPage }">
-										<li class="page-item active"><a class="page-link"
-											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.startPage}">
-										</a></li>
-										<li class="page-item active"><a class="page-link"
-											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.page-1}">
-										</a></li>
+										<!-- 첫페이지로 가기 -->
+										<li class="page-item active">
+											<input type="button" class="page-link pageMove" value="<<" data-page="${noteRequestVO.startPage}">
+										</li>
+										<!-- 이전 페이지로 가기 -->
+										<li class="page-item active">
+											<input type="button" class="page-link pageMove" value="<" data-page="${noteRequestVO.page-1 }">
+										</li>
 									</c:if>
 
 									<c:forEach begin="1" end="${pages }" var="i">
@@ -149,11 +156,11 @@
 										<c:choose>
 											<c:when test="${i == noteRequestVO.page }">
 												<!-- 보고 있는 페이지와 현재 선택된 페이지가 같을 때 -->
-												<li class="page-item active"><span>${i }</span></li>
+												<li class="page-item active"><span class="page-link"><strong>${i }</strong></span></li>
 											</c:when>
 											<c:otherwise>
-												<li class="page-item active"><a class="page-link"
-													href="${cp }/post/selectAllPost?boardid=${boardid}&page=${i}">${i}</a>
+												<li class="page-item active">
+													<input type="button" class="page-link pageMove" value="${i}" data-page="${i}">
 												</li>
 											</c:otherwise>
 										</c:choose>
@@ -161,12 +168,15 @@
 
 									<!-- 마지막페이지가 아닐때 -->
 									<c:if test="${noteRequestVO.page ne noteRequestVO.endPage }">
-										<li class="page-item active"><a class="page-link"
-											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.page+1}">
-										</a></li>
-										<li class="page-item active"><a class="page-link"
-											href="${cp }/post/selectAllPost?boardid=${boardid}&page=${noteRequestVO.endPage}">
-										</a></li>
+										<!-- 다음 페이지로 이동 -->
+										<li class="page-item active">
+											<input type="button" class="page-link pageMove" value=">" data-page="${noteRequestVO.page+1 }">
+										</li>
+										<!-- 마지막 페이지로 이동 -->
+										<li class="page-item active">
+											<input type="button" class="page-link pageMove" value=">>" data-page="${noteRequestVO.endPage }">
+										</a>
+										</li>
 									</c:if>
 
 								</ul>

@@ -1,5 +1,5 @@
 package kr.co.codemaker.admin.course.subject.controller;
 
-public class FF {
+public class SubjectController {
 
 }

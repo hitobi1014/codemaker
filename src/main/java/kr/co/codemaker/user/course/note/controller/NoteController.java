@@ -95,11 +95,8 @@ public class NoteController {
 	 * @param noteRequestVO
 	 * @return
 	 */
-	@RequestMapping(path = "/note/selectPageNote")
-	public String selectPageNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
-		
-		logger.debug("dddd");
-
+	@RequestMapping(path = "/note/selectPageTNote")
+	public String selectPageFNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
 //		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String userId = "a001@naver.com";
@@ -115,7 +112,7 @@ public class NoteController {
 		logger.debug("note : {}" , noteList.size());
 		int totalCnt = noteService.selecTotalCntNote(noteRequestVO);
 
-		int pages = (int) Math.ceil((double) totalCnt / 5);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 
 		noteRequestVO.setEndPage(pages);
 		noteRequestVO.setStartPage(1);
@@ -125,6 +122,42 @@ public class NoteController {
 		model.addAttribute("noteRequestVO", noteRequestVO);
 
 		return "mypageT/user/note/noteAllSelect";
+	}
+	
+	/**
+	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
+	 * 
+	 * @author 김미연
+	 * @param noteRequestVO
+	 * @return
+	 */
+	@RequestMapping(path = "/note/selectPageNote")
+	public String selectPageNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
+//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		
+		String userId = "a001@naver.com";
+//		userVO.setUserId(userId);
+		
+//		noteRequestVo.setUserId(userVO.getUserId());
+		noteRequestVO.setUserId(userId);
+		if (noteRequestVO.getPage() == 0) {
+			noteRequestVO.setPage(1);
+		}
+		
+		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVO);
+		logger.debug("note : {}" , noteList.size());
+		int totalCnt = noteService.selecTotalCntNote(noteRequestVO);
+		
+		int pages = (int) Math.ceil((double) totalCnt / 10);
+		
+		noteRequestVO.setEndPage(pages);
+		noteRequestVO.setStartPage(1);
+		
+		model.addAttribute("noteList", noteList);
+		model.addAttribute("pages", pages);
+		model.addAttribute("noteRequestVO", noteRequestVO);
+		
+		return "user/note/noteAllSelect";
 	}
 
 	/**
@@ -141,7 +174,6 @@ public class NoteController {
 
 		model.addAttribute("noteVO", noteVO);
 
-//		return "mypageT/user/note/noteSelect";
 		return "user/note/noteSelect";
 	}
 
@@ -153,7 +185,6 @@ public class NoteController {
 	 */
 	@RequestMapping(path = "/note/insertViewNote")
 	public String insertViewNote() {
-
 		return "user/note/noteInsert";
 	}
 

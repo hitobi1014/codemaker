@@ -97,8 +97,8 @@ body{
 			<textarea id="noteCont" name="noteCont"></textarea>
 		</div>
 		<div class="mb-3" id="d2">
-			<input type="button" value="저장하기" id="regBtn">
-			<input type="button" value="작성취소" id="cancle">
+			<input type="button" class="btn btn-sm btn-primary" value="저장하기" id="regBtn">
+			<input type="button" class="btn btn-sm btn-primary" value="작성취소" id="cancle">
 		</div>
 	</form>
 </div>

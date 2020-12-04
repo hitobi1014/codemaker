@@ -62,7 +62,7 @@
 				},
 				success : function(res) {
 					alert("해당 노트가 삭제되었습니다.");
-					document.location = "/note/selectPageNote";
+					selectPageNote();
 				},
 				error : function(xhr) {
 					alert("상태" + xhr.status);
@@ -72,7 +72,7 @@
 		
 		// 목록
 		$('#btnList').on('click', function(){
-			document.location = "/note/selectPageNote";
+			selectPageNote();
 		});
 	});
 	

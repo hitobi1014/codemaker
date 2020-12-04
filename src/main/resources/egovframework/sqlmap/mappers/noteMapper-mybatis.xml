@@ -25,7 +25,7 @@ SELECT *
              FROM note
             WHERE user_id = #{userId}
             ORDER BY note_date DESC) a)
- WHERE rn BETWEEN 5 * (#{page} - 1) + 1 AND #{page} * 5
+ WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
 <select id="selecTotalCntNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteRequestVO" resultType="java.lang.Integer">
 SELECT COUNT(*)
