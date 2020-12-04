@@ -1,9 +1,5 @@
 package kr.co.codemaker.common.controller;
 
-
-
-import java.net.URLEncoder;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.LoginService;
@@ -22,57 +17,51 @@ import kr.co.codemaker.common.vo.TeacherVO;
 @Controller
 public class adminLoginController { 
 	private static final Logger logger = LoggerFactory.getLogger(adminLoginController.class);
-	
+
 	@Resource(name="loginService")
 	private LoginService loginService;
-	
+
 	//로그인 화면
-	@RequestMapping(path="/login", method = RequestMethod.GET)
+	@RequestMapping(path="/loginView")
 	public String getView() {
 		logger.debug("adminLoginController.getView()");
 		return "admin/login/adminLogin";
 	}
-	
+
 	// 관리자 로그인
-	@RequestMapping(path="/admin/main", method=RequestMethod.POST)
+	@RequestMapping(path="/admin/login")
+	
 	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request,
-								HttpSession session) throws Exception{
-		AdminVO adminVO = null;
+						HttpSession session) throws Exception{
+		AdminVO adminVO = new AdminVO();
 		try {
+			
 			adminVO = loginService.getAdmin(dbAdminVO.getAdminId());
+
 			logger.debug("관리자 아이디=========== : {}", dbAdminVO.getAdminId());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		String result = null;
 		if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
 			session.setAttribute("S_ADMIN", adminVO);
-			
-			return "adminPage/admin/main/adminMain";
-		}
-		else if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
-			String erorr = URLEncoder.encode("비밀번호가 틀렸습니다.", "UTF-8");
-		}
+			result = "adminPage/admin/main/adminMain";
+		} 
 		else {
-			String erorr = URLEncoder.encode("일치하는 회원이 존재하지 않습니다.", "UTF-8")
+			return "fail";
 		}
-		return "redirect:/login?=";
+		return result;
+//		"redirect:/loginView";
 	}
-	
-	// 로그아웃
-	@RequestMapping(path="/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		logger.debug("로그아웃했땅!!!!!!!!!!======", session);
-		return "redirect:/login";
-	}
-	
-	
-	@RequestMapping(path="/teacher/main", method=RequestMethod.POST)
+
+
+	@RequestMapping(path="/teacher/login")
 	public String getTeacher(TeacherVO dbTeacherVO, HttpServletResponse response,
-								HttpSession session) throws Exception{
-		TeacherVO teacherVO = null;
+					HttpSession session) throws Exception{
+		TeacherVO teacherVO = new TeacherVO();
+		
 		try {
 			teacherVO = loginService.getTeacher(dbTeacherVO.getTchId());
 			logger.debug("선생님 아이디=============== : {}", dbTeacherVO.getTchId());
@@ -81,33 +70,34 @@ public class adminLoginController {
 			e.printStackTrace();
 		}
 		
+		String result = null;
 		if(teacherVO != null && dbTeacherVO.getTchPass().equals(teacherVO.getTchPass())) {
 			session.setAttribute("S_TEACHER", teacherVO);
-			
-			return "teacherPage/teacher/main/teacherMain";
+			result = "teacherPage/teacher/main/teacherMain";
 		}
-		return "redirect:/login?=";
+		else {
+			return "fail";
+		}
+		return result;
 	}
 	
+	// 로그아웃
+		@RequestMapping(path="/logout")
+		public String logout(HttpSession session) {
+			session.invalidate();
+			logger.debug("로그아웃했땅!!!!!!!!!!======", session);
+			return "redirect:/loginView";
+		}
+   
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
 		return "adminPage/admin/main/adminMain";
 	}
+	
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {
-		
+
 		return "teacherPage/teacher/main/teacherMain";
 	}
-	
-	@RequestMapping(path="/admin/test")
-	public String test() {
-		
-		return "adminPage/admin/main/test";
-	}
-	@RequestMapping(path="/teacher/test")
-	public String test2() {
-		
-		return "teacherPage/teacher/main/test";
-	}
+   
 }
-
