@@ -1,10 +1,10 @@
 package kr.co.codemaker.common.dao;
 
-
-import egovframework.rte.psl.dataaccess.mapper.Mapper;
-
-@Mapper("adminMapper")
-public interface AdminMapper {
-	
-	
-}
+//
+//IMPORT EGOVFRAMEWORK.RTE.PSL.DATAACCESS.MAPPER.MAPPER;
+//
+//@MAPPER("ADMINMAPPER")
+//PUBLIC INTERFACE ADMINMAPPER {
+//	
+//	
+//}

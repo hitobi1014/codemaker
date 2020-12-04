@@ -1,5 +1,7 @@
 package kr.co.codemaker.teacher.course.lesson.vo;
 
+import java.util.List;
+
 import kr.co.codemaker.common.vo.BaseVO;
 
 public class LessonIndexVO extends BaseVO{
@@ -8,29 +10,65 @@ public class LessonIndexVO extends BaseVO{
 	private String lidxNum;
 	private String lidxCont;
 	private String lesId;
-	public void setLidxCont(String lidxCont) {
-		this.lidxCont = lidxCont; 
-	}
+<<<<<<< HEAD
+=======
+	private int lidxNum;
+	private String lidxId;
+	
+								
+	private List<LessonIndexVO> lesIdxList;
+
+
 	public String getLidxCont() {
-		return lidxCont; 
+		return lidxCont;
 	}
-	public void setLesId(String lesId) {
-		this.lesId = lesId; 
+
+
+>>>>>>> 선생님_강의
+	public void setLidxCont(String lidxCont) {
+		this.lidxCont = lidxCont;
 	}
+
+
 	public String getLesId() {
-		return lesId; 
+		return lesId;
 	}
-	public void setLidxNum(String lidxNum) {
-		this.lidxNum = lidxNum; 
+
+
+	public void setLesId(String lesId) {
+		this.lesId = lesId;
 	}
-	public String getLidxNum() {
-		return lidxNum; 
+
+
+	public int getLidxNum() {
+		return lidxNum;
 	}
-	public void setLidxId(String lidxId) {
-		this.lidxId = lidxId; 
+
+
+	public void setLidxNum(int lidxNum) {
+		this.lidxNum = lidxNum;
 	}
+
+
 	public String getLidxId() {
-		return lidxId; 
+		return lidxId;
 	}
+
+
+	public void setLidxId(String lidxId) {
+		this.lidxId = lidxId;
+	}
+
+
+	public List<LessonIndexVO> getLesIdxList() {
+		return lesIdxList;
+	}
+
+
+	public void setLesIdxList(List<LessonIndexVO> lesIdxList) {
+		this.lesIdxList = lesIdxList;
+	}
+	
+	
 
 }

@@ -11,5 +11,7 @@ public interface LessonIndexMapper {
 	
 	List<LessonIndexVO> selectLessonIndex(ExamVO examVO) throws Exception;
 	
+	int insertLessonIndex(LessonIndexVO lesIdxVO) throws Exception;
+	
 
 }
