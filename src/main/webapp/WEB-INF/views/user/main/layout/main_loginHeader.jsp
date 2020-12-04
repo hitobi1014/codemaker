@@ -85,12 +85,14 @@
 				</a> 
 				<a class="dropdown-item" href="#"> 
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 내강의실
-				</a> 
-				<a class="dropdown-item" href="#"> 
+				</a>
+				<c:url value="/user/cartView" var="cartView"/>
+				<a class="dropdown-item" href="${cartView}"> 
 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 장바구니
 				</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="${cp}/user/logout"> 
+				<c:url value="/user/logout" var="logOut"/>
+				<a class="dropdown-item" href="${logOut}"> 
 					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>로그아웃
 				</a>
 			</div>

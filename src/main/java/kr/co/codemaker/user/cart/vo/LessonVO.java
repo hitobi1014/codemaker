@@ -18,6 +18,10 @@ public class LessonVO extends BaseVO{
 	
 	private List<LessonVO> lessonList;
 	
+	public LessonVO(String lesId) {
+		this.lesId = lesId;
+	}
+	
 	public List<LessonVO> getLessonList() {
 		return lessonList;
 	}

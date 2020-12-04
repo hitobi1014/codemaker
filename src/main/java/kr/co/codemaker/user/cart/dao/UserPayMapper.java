@@ -1,6 +1,9 @@
 package kr.co.codemaker.user.cart.dao;
 
+import java.util.List;
+
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
 
@@ -32,4 +35,22 @@ public interface UserPayMapper {
 	 * @param 결제페이지로 넘어갈때 가져가는 강의아이디
 	 */
 	public LessonVO selectLessonInfo(LessonVO lessonVo) throws Exception;
+	
+	/**
+	 * 강의페이지에서 강의담기 클릭했을때 실행
+	 * @param 강의아이디와 회원아이디
+	 */
+	public int insertCart(CartVO cartVo) throws Exception;
+	
+	/**
+	 * 강의를 담기전에 담겨있는지 확인
+	 * @param 강의아이디와 회원아이디
+	 */
+	public CartVO selectCart(CartVO cartVo) throws Exception;
+	
+	/**
+	 * 장바구니에 담긴 강의리스트 조회
+	 * @param 회원아이디
+	 */
+	public List<CartVO> selectCartList(CartVO cartVo) throws Exception;
 }

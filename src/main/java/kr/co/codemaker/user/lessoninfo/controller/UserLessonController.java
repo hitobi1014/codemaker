@@ -54,6 +54,7 @@ public class UserLessonController {
 		logger.debug("강의목차:{}",lesIdxList);
 		
 		model.addAttribute("lesIdxList", lesIdxList);
+		model.addAttribute("lesId", lesId);
 		
 		
 		return "mainT/user/lesson/lessonSelect";
