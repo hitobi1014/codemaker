@@ -3,7 +3,25 @@
 <mapper namespace="kr.co.codemaker.user.cart.dao.UserPayMapper">
 	<insert id="insertPay" parameterType="kr.co.codemaker.user.cart.vo.PayVO">
 		INSERT INTO pay
-		VALUES('PAY'||LPAD(PAY_SEQ.nextVal,4,'0'),#{payGroup,jdbcType=NUMERIC},'N',#{payWay}
-				,#{paySum},SYSDATE,SYSDATE+90,0,#{userId},#{lesId})
+		VALUES(	'PAY'||LPAD(PAY_SEQ.nextVal,4,'0'),
+				#{payGroup},
+				'N',
+				#{payWay},
+				#{paySum},
+				SYSDATE,
+				SYSDATE+#{cosTerm},
+				0,
+				#{userId},
+				#{lesId})
 	</insert>
+	
+	<select id="selectLessonInfo" resultType="kr.co.codemaker.user.cart.vo.LessonVO" parameterType="kr.co.codemaker.user.cart.vo.LessonVO">
+		SELECT  a.tch_id, a.tch_nm,
+		        b.les_id, b.les_nm, 
+		        b.les_cash,b.LES_TERM
+		FROM teacher a, (SELECT * 
+		                 FROM lesson
+		                WHERE les_id=#{lesId}) b
+		WHERE a.tch_id = b.tch_id
+	</select>
 </mapper>

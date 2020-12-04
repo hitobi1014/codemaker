@@ -1,6 +1,10 @@
 package kr.co.codemaker.user.cart.vo;
 
-public class LessonVO {
+import java.util.List;
+
+import kr.co.codemaker.common.vo.BaseVO;
+
+public class LessonVO extends BaseVO{
 
 	private String lesId;      //강의아이디
 	private String lesNm;      //강의명
@@ -10,7 +14,32 @@ public class LessonVO {
 	private int lesTerm;    //강의기간
 	private String tchId;      //선생님아이디
 	private String subId;		//과목아이디
+	private String tchNm;	//선생님 이름
 	
+	private List<LessonVO> lessonList;
+	
+	public List<LessonVO> getLessonList() {
+		return lessonList;
+	}
+	public void setLessonList(List<LessonVO> lessonList) {
+		this.lessonList = lessonList;
+	}
+	
+	public LessonVO() {
+	}
+	public LessonVO(String lesId, int lesCash, int lesTerm) {
+		super();
+		this.lesId = lesId;
+		this.lesCash = lesCash;
+		this.lesTerm = lesTerm;
+	}
+	
+	public String getTchNm() {
+		return tchNm;
+	}
+	public void setTchNm(String tchNm) {
+		this.tchNm = tchNm;
+	}
 	public String getLesId() {
 		return lesId;
 	}

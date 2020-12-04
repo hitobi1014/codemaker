@@ -1,23 +1,30 @@
 package kr.co.codemaker.user.cart.vo;
 
 import java.util.Date;
+import java.util.List;
 
-import kr.co.codemaker.common.vo.BaseVO;
-
-public class PayVO extends BaseVO{
-	private String payId;			//결제아이디
-	private int payGroup;   	//결제그룹
+public class PayVO {
+private String payId;			//결제아이디
+	private String payGroup;   	//결제그룹
 	private String payRefund;  	//결제환불여부
 	private String payWay;     	//결제수단
 	private int paySum;     	//결제금액
 	private Date payDate;    	//결제일
-	private Date cosTerm;    	//수강기간
+	private int cosTerm;    	//수강기간
 	private int cosProcess; 	//수강진행도
 	private String userId;     	//회원아이디
 	private String lesId;      	//강의아이디
+	private List<PayVO> payList;	// 여러건 결제시
+	
+	public List<PayVO> getPayList() {
+		return payList;
+	}
+	public void setPayList(List<PayVO> payList) {
+		this.payList = payList;
+	}
 	
 	public PayVO() {}
-	public PayVO(String payId, int payGroup, String payRefund, String payWay, int paySum, Date payDate, Date cosTerm,
+	public PayVO(String payId, String payGroup, String payRefund, String payWay, int paySum, Date payDate, int cosTerm,
 			int cosProcess, String userId, String lesId) {
 		super();
 		this.payId = payId;
@@ -38,10 +45,10 @@ public class PayVO extends BaseVO{
 	public void setPayId(String payId) {
 		this.payId = payId;
 	}
-	public int getPayGroup() {
+	public String getPayGroup() {
 		return payGroup;
 	}
-	public void setPayGroup(int payGroup) {
+	public void setPayGroup(String payGroup) {
 		this.payGroup = payGroup;
 	}
 	public String getPayRefund() {
@@ -68,10 +75,10 @@ public class PayVO extends BaseVO{
 	public void setPayDate(Date payDate) {
 		this.payDate = payDate;
 	}
-	public Date getCosTerm() {
+	public int getCosTerm() {
 		return cosTerm;
 	}
-	public void setCosTerm(Date cosTerm) {
+	public void setCosTerm(int cosTerm) {
 		this.cosTerm = cosTerm;
 	}
 	public int getCosProcess() {
@@ -91,5 +98,12 @@ public class PayVO extends BaseVO{
 	}
 	public void setLesId(String lesId) {
 		this.lesId = lesId;
+	}
+	
+	@Override
+	public String toString() {
+		return "PayVO [payId=" + payId + ", payGroup=" + payGroup + ", payRefund=" + payRefund + ", payWay=" + payWay
+				+ ", paySum=" + paySum + ", payDate=" + payDate + ", cosTerm=" + cosTerm + ", cosProcess=" + cosProcess
+				+ ", userId=" + userId + ", lesId=" + lesId + "]";
 	}
 }
