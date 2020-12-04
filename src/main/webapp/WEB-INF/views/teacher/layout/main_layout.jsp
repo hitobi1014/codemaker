@@ -12,7 +12,7 @@
 		<tiles:insertAttribute name="left"/>
 		<div class="page-wrapper">
 			<tiles:insertAttribute name="header"/>
-			<div class="content-wrapper" style="background-color: #f7f4ef;">
+			<div class="content-wrapper" style="background-color: #e8eaec;">
 				<div class="content">
 					<tiles:insertAttribute name="content"/>
 				</div> <!-- content -->

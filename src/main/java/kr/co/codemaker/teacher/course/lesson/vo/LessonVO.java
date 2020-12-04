@@ -10,8 +10,9 @@ public class LessonVO extends BaseVO{
 	private String subId;
 	private String lesNm;
 	private String tchId;
-	private String lesTerm;
-	private String lesCash;
+	private int lesTerm;
+	private int lesCash;
+	
 	public void setLesState(String lesState) {
 		this.lesState = lesState; 
 	}
@@ -48,16 +49,16 @@ public class LessonVO extends BaseVO{
 	public String getTchId() {
 		return tchId; 
 	}
-	public void setLesTerm(String lesTerm) {
+	public void setLesTerm(int lesTerm) {
 		this.lesTerm = lesTerm; 
 	}
-	public String getLesTerm() {
+	public int getLesTerm() {
 		return lesTerm; 
 	}
-	public void setLesCash(String lesCash) {
+	public void setLesCash(int lesCash) {
 		this.lesCash = lesCash; 
 	}
-	public String getLesCash() {
+	public int getLesCash() {
 		return lesCash; 
 	}
 

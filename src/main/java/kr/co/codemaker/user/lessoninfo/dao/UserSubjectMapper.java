@@ -6,7 +6,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 
 @Mapper("userSubjectMapper")
-public interface SubjectMapper {
+public interface UserSubjectMapper {
 	
 	List<SubjectVO> selectSubject() throws Exception;
 
