@@ -70,28 +70,10 @@ public class TeacherLessonController {
 		return null;
 	}
 	
-	/**
-	 * 선생님 - 임시저장된 강의 조회(삭제했을때 다시불러오기용)
-	 */
-	@RequestMapping(path="/teacherL/selectloadSubject",method= RequestMethod.GET)
-	public String selecLoadSubject(Model model) {
-		
-		List<LessonVO> noLessonList;
-		try {
-			noLessonList = lessonService.selectNoLesson();
-			model.addAttribute("noLessonList",noLessonList);
-			
-			logger.debug("개설안된강의!!:{}",noLessonList);
-			return"teacher/lesson/deleteLessonHTML";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	
 	/**
-	 * 선생님 - 과목명에 따른 강의명 select box에 조회
+	 * 선생님 - 과목명-> 강의 조회(select box)
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.POST)
 	@ResponseBody
@@ -110,11 +92,13 @@ public class TeacherLessonController {
 	}
 	
 	/**
-	 * 선생님 - 강의아이디에 따라 강의목차 조회
+	 * 선생님 - 강의선택 -> 강의목차조회
 	 */
 	@ResponseBody
 	@RequestMapping(path="/teacherL/selectAllLessonIndex", method=RequestMethod.GET)
 	public List<LessonIndexVO> selectLessonPage(Model model,String lesId) {
+		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		lesIdxVO.setLesId(lesId);
 		
 		logger.debug("강의번호:{}",lesId);
 		List<LessonIndexVO> lesIdxList;
@@ -132,7 +116,6 @@ public class TeacherLessonController {
 	/**
 	 * 선생님 - 강의 삭제
 	 */
-	@ResponseBody
 	@RequestMapping(path="/teacherL/deleteLesson",method=RequestMethod.GET)
 	public String deleteLesson(Model model,String lesId) {
 		
@@ -145,19 +128,35 @@ public class TeacherLessonController {
 				// 1일때 정상 => 강의가 삭제되면서 강의목차 부분만 내용이 바뀜
 				List<LessonVO> noLessonList = lessonService.selectNoLesson();
 				model.addAttribute("noLessonList",noLessonList);
-				return "/teacher/lesson/deleteLessonHTML";
+				return "teacher/lesson/lessonDeleteHTML";
 			}
 			else {
 				// 1이 아닐때 비정상 => 조회페이지 redirect
 				return "redirect;/teacherL/selectSubject";
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	/**
+	 * 선생님 - 임시저장된 강의 조회(삭제했을때 다시불러오기용)
+	 */
+	@RequestMapping(path="/teacherL/selectloadSubject",method= RequestMethod.GET)
+	public String selecLoadSubject(Model model) {
+		List<LessonVO> noLessonList;
+		try {
+			noLessonList = lessonService.selectNoLesson();
+			model.addAttribute("noLessonList",noLessonList);
+			
+			logger.debug("개설안된강의!!:{}",noLessonList);
+			return"teacher/lesson/lessonDeleteHTML";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	/**
 	 * 선생님 - 강의 등록(페이지만 띄우기)
@@ -228,18 +227,74 @@ public class TeacherLessonController {
 			e.printStackTrace();
 		}
 		
-		
 		if(lesCnt ==1 && lesIdxCnt == 1) {
 			return "redirect:/teacherL/selectSubject";
 		}
 		else {
 			return "teacherPage/teacher/lesson/lessonInsert";
 		}
+	}
+	
+	/**
+	 * 선생님 - 강의수정 
+	 */
+	@RequestMapping(path="/teacherL/updateLesson")
+	public String updateViewLesson(LessonVO lessonVO, Model model,String lesId,String subId) {
+		//1. 강의, 강의목차 조회하기
+		//2. 강의목차 옆에 삭제버튼달기 - 삭제시 화면이 load되어야함
+		//3. 강의목차 추가하기 버튼달기
+		//4. 등록버튼
 		
+		logger.debug("강의아디랑 과목아디!!!:{},{}", lesId,subId);
+		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		List<LessonIndexVO> lesIdxList = null;
 		
+		lessonVO.setLesId(lesId);
+//		lesIdxVO.setLesId(lesId);
 		
-		
+		try {
+			lessonVO= lessonService.selectDetailLesson(lessonVO);
+			lesIdxList=lessonIndexService.selectLessonIndex(lesId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.debug("강의객체!!:{}", lessonVO);
+		logger.debug("강의목차는???:{C}",lesIdxList);
+		model.addAttribute("lessonVO",lessonVO);
+		model.addAttribute("lesIdxList", lesIdxList);
+		return "teacherPage/teacher/lesson/lessonUpdate";
+	}
+	
+	/**
+	 * 선생님 - 강의목차 수정(삭제&추가)
+	 */
+	@RequestMapping(path="/teacherL/updateLessonIndex")
+	public String updateViewLessonIndex(String lidxId, Model model) {
+		//1. 강의목차 삭제
+		//2. 강의목차 추가
+		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		List<LessonIndexVO> lesIdxList;
+		lesIdxVO.setLidxId(lidxId);
+		String lesId = lesIdxVO.getLesId();
+		int cnt = 0;
+		try {
+			cnt = lessonIndexService.deleteLessonIndex(lesIdxVO);
+			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+			if(cnt == 1) {
+				model.addAttribute("lesIdxList",lesIdxList);
+				return "teacher/lesson/lessonIndexDeleteHTML";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	
+//	@RequestMapping(path="/teacherL/deleteLoadLesIdx")
+//	public String deleteLessonIndex() {
+//		
+//	}
+//	
 }

@@ -28,6 +28,10 @@ public class LessonService{
 	public List<LessonVO> selectNoLesson() throws Exception{
 		return lessonMapper.selectNoLesson();
 	}
+	
+	public LessonVO selectDetailLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.selectDetailLesson(lessonVO);
+	}
 
 	public int deleteLesson(String lesId) throws Exception{
 		return lessonMapper.deleteLesson(lesId);
@@ -35,5 +39,9 @@ public class LessonService{
 	
 	public int insertLesson(LessonVO lessonVO) throws Exception{
 		return lessonMapper.insertLesson(lessonVO);
+	}
+	
+	public int updateLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.updateLesson(lessonVO);
 	}
 }

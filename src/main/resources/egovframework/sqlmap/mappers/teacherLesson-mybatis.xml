@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonMapper">
+
 	<select id="selectLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT les_nm , les_id
 		  FROM lesson
  		  <where>
-			    AND sub_id=#{subId}
-			    AND tch_id='200ser'
-			    AND les_state='3'
+			  AND sub_id=#{subId}
+			  AND tch_id='200ser'
+			  AND les_state='3'
  		  </where>
  		   ORDER BY les_id ASC
 	</select>
 	
 	<select id="selectNoLesson" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		SELECT les_cont,les_id,les_state, les_nm
+		SELECT *
  		  FROM lesson
  		 <where>
-			   AND tch_id='200ser'
-			   AND les_state NOT IN('3','5')
+			 AND tch_id='200ser'
+			 AND les_state NOT IN('3','5')
  		 </where>
  		 ORDER BY les_id ASC
+	</select>
+	
+	<select id="selectDetailLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		SELECT  a.*, b.sub_nm 
+		  FROM lesson a,(select sub_nm from subject WHERE sub_id = #{subId}) b 
+		  <where>
+		  	AND a.les_id=#{lesId}
+		  </where>
 	</select>
 	
 	<update id="deleteLesson" parameterType="String" >
 		UPDATE lesson 
    		   SET les_state='5' 
    		 <where>
- 				AND les_id=#{les_id}
+ 			AND les_id=#{les_id}
    		 </where>  
 	</update>
 	
@@ -37,4 +46,13 @@
 			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
 		</selectKey>
 	</insert>
+	
+	<update id="updateLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		UPDATE lesson
+   		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}
+   		   <where>
+		      AND les_id=#{lesId}
+   		   </where>
+	</update>
+	
 </mapper>

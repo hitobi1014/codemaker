@@ -16,8 +16,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- js 추가 -->
-<script src="/js/teacher/exam/exam.js"></script>
 
 <title>examAllSelect</title>
 
@@ -63,29 +61,43 @@
 }
 
 
-#delBtn{
+.delClass{
     width: 40px;
-    height: 35px;
-    font-size: 11px;
+    height: 27px;
+    font-size: 12px;
     float: left;
-    margin-left: 85px;
-    padding: 0px 0px 0px 0px
+    margin-left: 30px;
+    padding: 0px 0px 0px 0px;
 }
-
-#upBtn{
-    width: 40px;
-    height: 35px;
-    font-size: 11px;
-    float:right;
-      padding: 0px 0px 0px 0px
+.upClass{
+	width: 40px;
+    height: 27px;
+    font-size: 12px;
+    float: left;
+    padding: 0px 0px 0px 0px;
+}
+.reqClass{
+	width: 40px;
+    height: 27px;
+    font-size: 12px;
+    float: left;
+    padding: 0px 0px 0px 0px;
 }
 #addBtn{
 	   margin-bottom: 20px;
 }
 .form-control-label {
   font-size: .875rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #525f7f;
+}
+
+
+#test{border: 3px solid #1447b9;
+    background: #f5f5f5;
+    font-weight: 500;
+    border-radius: 5px;
+    color: #1447b9;
 }
 
 
@@ -120,6 +132,34 @@ $(function(){
 			}
 		})
 	})
+	
+	
+	$('#lesTbody').on('click', '.delClass', function(){
+		var lesid = $(this).data("lesid");
+		console.log(lesid);
+		$.ajax({
+				method:'get',
+				url:'/teacherL/deleteLesson',
+				data:{'lesId':lesid},
+				dataType:'html',
+				success:function(data){
+					console.log(data);
+					$('#lesTbody').load('/teacherL/selectloadSubject');
+// 					$('#lesTbody').html(data);
+				},
+				error:function(data){
+					alert('안됨');
+				}
+			})
+	})
+	
+	$('#lesTbody').on('click','.upClass',function(){
+		var lesId=$(this).data("lesid");
+		var subId=$(this).data("subid");
+		document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
+	})
+	
+	
 })	
 	
 var selLesIdx = function(){
@@ -151,32 +191,6 @@ var selLesIdx = function(){
 	})
 }
 
-
-var delLes = function(){
-	var str="";
-	var tdArr = new Array();
-	var checkBtn = $('.delClass');
-
-	var tr = checkBtn.parent().parent().parent().parent();
-	var td = tr.children();
-// 		console.log(td.text());
-	var lesid=td.eq(1).text();
-	console.log(lesid);
-	$.ajax({
-			method:'get',
-			url:'/teacherL/deleteLesson',
-			data:{'lesId':lesid},
-			dataType:'html',
-			success:function(data){
-				$('#lesTbody').load('/teacherL/selectloadSubject');
-			
-			},
-			error:function(data){
-				alert('안됨');
-			}
-		})
-	
-}
 
 var addLes = function(){
 	document.location="/teacherL/insertViewLesson";
@@ -246,7 +260,7 @@ var addLes = function(){
 							</thead>
 							<tbody id="lesTbody">
 								<c:forEach items="${noLessonList}" var="no">
-									<tr data-lesId="${no.lesId}">
+									<tr>
 										<td ></td>
 										<td class="ls">${no.lesId}</td>
 										<td>${no.lesNm}</td>
@@ -256,9 +270,9 @@ var addLes = function(){
 													<div>
 														<div style="float: left; width:50%;">강의개설요청</div>
 														 <div style="float: left;width:50%;">
-															 <input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()"> 
-															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
-<!-- 															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="승인요청" > -->
+															 <input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}"> 
+															 <input id="upBtn" class="upClass"  type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}" >
+															 <input id="reqBtn" class="reqClass"  type="button" value="요청" >
 														 </div>   
 													</div>
 												</td>
@@ -268,8 +282,9 @@ var addLes = function(){
 													<div>
 														<div style="float: left;width:50%;">승인요청중</div>
 														<div style="float: left;width:50%;">
-															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
-															<input id="upBtn" class="button button-inline button-small button-primary form-control-label" type="button" value="수정">
+															<input id="delBtn2" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" >
+															<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
+															<input id="reqBtn" class="reqClass"  type="button" value="요청" >
 														</div> 
 													</div>
 												</td>
@@ -279,8 +294,9 @@ var addLes = function(){
 													<div>
 														<div style="float: left;width:50%;">승인반환 </div>
 														<div style="float: left;width:50%;">
-															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
-															<input id="upBtn" class="button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
+															<input id="delBtn3" class="delClass" type="button" value="삭제" data-lesid="${no.lesId}" >
+															<input id="upBtn" class="upClass"  type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
+															<input id="reqBtn" class="reqClass"  type="button" value="요청" >
 														</div>
 													</div>
 												</td>
