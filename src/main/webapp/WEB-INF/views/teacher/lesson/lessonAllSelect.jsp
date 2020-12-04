@@ -19,7 +19,6 @@
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
 
-</script>
 <title>examAllSelect</title>
 
 <style>
@@ -241,7 +240,7 @@ var addLes = function(){
 									<th style="width:170px;"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span>
 									</label></th>
 									<th scope="col" style="width: 290px;">강의No.</th>
-									<th scope="col" style="width: 389px;">강의목록명</th>
+									<th scope="col" style="width: 389px;">강의명</th>
 									<th scope="col">강의승인상태</th>
 								</tr>
 							</thead>
@@ -250,13 +249,17 @@ var addLes = function(){
 									<tr data-lesId="${no.lesId}">
 										<td ></td>
 										<td class="ls">${no.lesId}</td>
-										<td>${no.lesCont}</td>
+										<td>${no.lesNm}</td>
 										<c:choose>
 											<c:when test="${no.lesState=='1' }">
 												<td>
 													<div>
 														<div style="float: left; width:50%;">강의개설요청</div>
-														 <div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="수정" id="upBtn"></div>   
+														 <div style="float: left;width:50%;">
+															 <input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()"> 
+															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
+<!-- 															 <input id="upBtn" class="upClass button button-inline button-small button-primary form-control-label"  type="button" value="승인요청" > -->
+														 </div>   
 													</div>
 												</td>
 											</c:when>
@@ -264,7 +267,10 @@ var addLes = function(){
 												<td>
 													<div>
 														<div style="float: left;width:50%;">승인요청중</div>
-														<div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" id="delBtn" onclick="delLes()"><input id="upBtn" class="button button-inline button-small button-primary form-control-label" type="button" value="수정" id="upBtn"></div> 
+														<div style="float: left;width:50%;">
+															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
+															<input id="upBtn" class="button button-inline button-small button-primary form-control-label" type="button" value="수정">
+														</div> 
 													</div>
 												</td>
 											</c:when>
@@ -272,7 +278,10 @@ var addLes = function(){
 												<td>
 													<div>
 														<div style="float: left;width:50%;">승인반환 </div>
-														<div style="float: left;width:50%;"><input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" id="delBtn" onclick="delLes()"> <input id="upBtn" class="button button-inline button-small button-primary form-control-label"  type="button" value="수정" id="upBtn"></div>
+														<div style="float: left;width:50%;">
+															<input id="delBtn" class="delClass button button-inline button-small button-danger form-control-label" type="button" value="삭제" data-lesId="${no.lesId}" onclick="delLes()">
+															<input id="upBtn" class="button button-inline button-small button-primary form-control-label"  type="button" value="수정" >
+														</div>
 													</div>
 												</td>
 											</c:when>

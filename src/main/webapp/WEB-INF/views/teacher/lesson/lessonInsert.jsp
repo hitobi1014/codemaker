@@ -100,10 +100,12 @@
 
 <script>
 $(function(){
+		var index = 1;
 	
 	// 강의목록 추가
 	$('#addLesBtn').on('click', function() {
 		console.log('눌림');
+		
 		
 		str="";
 		str +='<div class="pl-lg-4" id="pl-lg-4-id">';
@@ -111,17 +113,19 @@ $(function(){
         str +='  <div class="col-lg-2">';
         str +='    <div class="form-group">';
         str +='      <label class="form-control-label" for="input-email">강의 차수</label>';
-        str +='       <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="lessonnumber" name="userNm" value="${userVo.userNm }">';
+        str +='        <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
         str +='    </div>';
         str +='  </div>';
         str +='  <div class="col-lg-7">';
         str +='    <div class="form-group">';
         str +='      <label class="form-control-label" for="input-email">강의 내용</label>';
-        str +='       <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="lessoncontent" name="userNm" value="${userVo.userNm }">';
+        str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
         str +='    </div>';
         str +='  </div>';
         str +='</div>';
       	str +='</div>';
+      	
+      	index++;
       	
       	$('#idxAdd').append(str);
 		
@@ -222,13 +226,13 @@ function initData(){
 	                    <div class="col-lg-2">
 	                      <div class="form-group">
 	                        <label class="form-control-label" for="input-email">강의 차수</label>
-	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lidxNum" id="lidxNum">
+	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList[0].lidxNum" id="lidxNum">
 	                      </div>
 	                    </div>
 	                    <div class="col-lg-7">
 	                      <div class="form-group">
 	                        <label class="form-control-label" for="input-email">강의 내용</label>
-	                         <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lidxCont" id="lidxCont" >
+	                         <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList[0].lidxCont" id="lidxCont" >
 	                      </div>
 	                    </div>
 	                  </div>

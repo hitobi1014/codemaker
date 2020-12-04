@@ -6,14 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.TeacherSubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
-@Service("subjectService")
-public class SubjectService {
+@Service("TeacherSubjectService")
+public class TeacherSubjectService {
 	
-	@Resource(name="subjectMapper")
-	private SubjectMapper subjectMapper;
+	@Resource(name="TeacherSubjectMapper")
+	private TeacherSubjectMapper subjectMapper;
 	
 	
 	public List<SubjectVO> selectSubject(){

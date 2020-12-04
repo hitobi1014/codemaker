@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.teacher.course.lesson.dao.LessonIndexMapper;
-import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.TeacherSubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 
 @Service("lessonIndexService")

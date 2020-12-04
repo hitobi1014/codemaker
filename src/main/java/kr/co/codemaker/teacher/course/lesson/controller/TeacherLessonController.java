@@ -19,7 +19,7 @@ import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
-import kr.co.codemaker.teacher.course.lesson.service.SubjectService;
+import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
@@ -45,8 +45,8 @@ public class TeacherLessonController {
 	@Resource(name="lessonService")
 	private LessonService lessonService;
 	
-	@Resource(name="subjectService")
-	private SubjectService subjectService;
+	@Resource(name="TeacherSubjectService")
+	private TeacherSubjectService subjectService;
 	
 	@Resource(name="lessonIndexService")
 	private LessonIndexService lessonIndexService;
@@ -134,22 +134,28 @@ public class TeacherLessonController {
 	 */
 	@ResponseBody
 	@RequestMapping(path="/teacherL/deleteLesson",method=RequestMethod.GET)
-	public String deleteLesson(Model model,String lesId) throws Exception {
+	public String deleteLesson(Model model,String lesId) {
 		
 		logger.debug("lesId값!!!:{}",lesId);
 		
-		int lesIdxCnt = lessonService.deleteLesson(lesId);
-		
-		if(lesIdxCnt ==1) {
-			// 1일때 정상 => 강의가 삭제되면서 강의목차 부분만 내용이 바뀜
-			List<LessonVO> noLessonList = lessonService.selectNoLesson();
-			model.addAttribute("noLessonList",noLessonList);
-			return "/teacher/lesson/deleteLessonHTML";
+		int lesIdxCnt;
+		try {
+			lesIdxCnt = lessonService.deleteLesson(lesId);
+			if(lesIdxCnt ==1) {
+				// 1일때 정상 => 강의가 삭제되면서 강의목차 부분만 내용이 바뀜
+				List<LessonVO> noLessonList = lessonService.selectNoLesson();
+				model.addAttribute("noLessonList",noLessonList);
+				return "/teacher/lesson/deleteLessonHTML";
+			}
+			else {
+				// 1이 아닐때 비정상 => 조회페이지 redirect
+				return "redirect;/teacherL/selectSubject";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			// 1이 아닐때 비정상 => 조회페이지 redirect
-			return "redirect;/teacherL/selectSubject";
-		}
+		return null;
 	}
 	
 	
@@ -164,15 +170,14 @@ public class TeacherLessonController {
 	/**
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
-	@RequestMapping(path="/teacherL/insertLesson")
-	public String insertLesson(LessonVO lessonVO, LessonIndexVO lesIdxVO,String tchId, String subId,HttpServletRequest request) {
+	@RequestMapping(path="/teacherL/insertLesson" ,method = {RequestMethod.POST})
+	public String insertLesson(LessonIndexVO lessonIndexVO,LessonVO lessonVO	,String tchId, String subId,HttpServletRequest request) {
 		
 		lessonVO.setTchId("200ser");
 		lessonVO.setSubId("SUB0003");
 		
 		int lesCnt = 0;
 		int lesIdxCnt=0;
-		int no=0;
 		
 		try {
 			lesCnt = lessonService.insertLesson(lessonVO);
@@ -180,6 +185,14 @@ public class TeacherLessonController {
 //			logger.debug("강의목차는?:{}", lesIdxVO);
 			
 			String lesId = lessonVO.getLesId();
+			List<LessonIndexVO> lesIdxList = lessonIndexVO.getLesIdxList();
+			for(LessonIndexVO lesIdxVO : lesIdxList) {
+				lesIdxVO.setLesId(lesId);
+				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+				logger.debug("강의목차!!!!:{}",lesIdxVO);
+				
+			}
+			
 //			lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
 //			logger.debug("리스트 사이즈!!:{}",lesIdxVO.getLesIdxLsit().size());
 //			int[] results = new int[lesIdxVO.getLesIdxLsit().size()];
@@ -194,19 +207,21 @@ public class TeacherLessonController {
 //				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
 //				lesIdxCnt +=results[i];
 //			}
-			String[] lidxNum = request.getParameterValues("lidxNum");
-			int[] lidxNumArray = new int[lidxNum.length];
-			for(int i=0; i<lidxNum.length; i++) {
-				lidxNumArray[i] = Integer.parseInt(lidxNum[i]);
-			}
+//			String[] lidxNum = request.getParameterValues("lidxNum");
+//			int[] lidxNumArray = new int[lidxNum.length];
+//			for(int i=0; i<lidxNum.length; i++) {
+//				lidxNumArray[i] = Integer.parseInt(lidxNum[i]);
+//			}
 			
-			String[] lidxContArray = request.getParameterValues("lidxCont");
-			logger.debug("숫자!!:{}", lidxNumArray);
+//			String[] lidxContArray = request.getParameterValues("lidxCont");
 			
-			logger.debug("내용!?:{}", lidxContArray);
 			
-			lesIdxVO.setLesId(lesId);
-			lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+//			logger.debug("숫자!!:{}", lidxNum);
+//			
+//			logger.debug("내용!?:{}", lidxContArray);
+//			
+//			lesIdxVO.setLesId(lesId);
+//			lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
 			
 			
 		} catch (Exception e) {
