@@ -167,6 +167,9 @@ button {
 	<div class="btn" style="border: 1px solid black;">
 		<a>담기</a>
 	</div>
+	<div class="btn" style="border: 1px solid black;">
+		<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
+	</div>
 </div>
 
 <div class="container">

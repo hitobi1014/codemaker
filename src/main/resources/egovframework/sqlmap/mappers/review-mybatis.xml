@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.user.lessoninfo.dao.ReviewMapper">
+
+<select id="selectReview" parameterType="java.lang.String" resultType="kr.co.codemaker.user.lessoninfo.vo.ReviewVO">
+	SELECT A.REVIEW_CONT, A.REVIEW_DATE, A.REVIEW_STAR, 
+	        B.USER_ID, B.LES_ID
+	FROM REVIEW A, PAY B
+	WHERE a.pay_id=b.pay_id and b.lES_ID=#{lesId}
+</select>
+
+<insert id="insert" parameterType="kr.co.codemaker.user.lessoninfo.vo.ReviewVO">
+INSERT INTO review 
+VALUES('REVIEW'||LPAD(REVIEW_SEQ.nextval,4,'0'), #{reviewCont}, '2', SYSDATE,
+(SELECT PAY_ID FROM pay WHERE user_id=#{userId} and les_id=#{lesId} ));
+</insert>
+</mapper>
