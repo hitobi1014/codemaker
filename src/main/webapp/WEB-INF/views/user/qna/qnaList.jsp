@@ -9,35 +9,11 @@
 <title>Insert title here</title>
 <script>
 $(document).ready(function(){
-		
 	
-	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode === 13) {
-		    event.preventDefault();
-		  };
-	}, true);
-	
-	
-	$("#searchBtn").on("click", function(){
-		
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-	
-		document.location="${cp}/teacher/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
-		
+	$("#insertqna").on("click", function(){
+		document.location="${cp}/user/insertQna?lesId=${param.lesId}";
 	});
 	
-	$("#notice1").on("click", function(){
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/teacher/selectAllNotice?searchOption=1&keyWord="+keyWord;
-	});
-	
-	$("#notice2").on("click", function(){
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/teacher/selectAllNotice?searchOption=2&keyWord="+keyWord;
-	});
 })
 </script>
 
@@ -75,7 +51,7 @@ $(document).ready(function(){
 						<c:if test="${qna.qnaOut == 'N'}">
 							<tr>
 								<td>${qna.qnaId}</td>
-								<td><a href="${cp}/teacher/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
+								<td><a href="${cp}/user/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
 								<td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" /></td>
 								<td>${qna.userId}</td>
 							</tr>
@@ -84,33 +60,36 @@ $(document).ready(function(){
 				</tbody>
 			</table>
 		</div>
+		<div>
+			<button style="float:right" type="button" id="insertqna" class="btn btn-primary">QNA작성</button>
+		</div>
 	
 		<div class="text-center">
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
 					<c:when test="${param.page != null and param.page != 1 and param.page != ''}">
 						<li class="page-item"><a class="page-link"
-							href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><<</a></li>
+							href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${1}"><<</a></li>
 						<li class="page-item"><a class="page-link"
-							href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page-1}"><</a></li>
+							href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${param.page-1}"><</a></li>
 					</c:when>
 				</c:choose>
 		
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
 						<c:when test="${i == param.page}">
-							<li class="page-item active"><a class="page-link" href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item active"><a class="page-link" href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="page-item"><a class="page-link" href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+							<li class="page-item"><a class="page-link" href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${i}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>	
 				</c:forEach>
 				
 				<c:choose>
 					<c:when test="${param.page != pages and param.page != 1 and param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page+1}">></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/teacher/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}">>></i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${param.page+1}">></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${pages}">>></i></a></li>
 					</c:when>
 				</c:choose> 	
 			</ul>

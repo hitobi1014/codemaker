@@ -15,7 +15,12 @@ $(document).ready(function(){
 	});
 	
 	$("#insertbutton").on("click", function(){
-		$('#inre').submit();
+		if($("textarea[name='replyCont']").val() == null || $("textarea[name='replyCont']").val() == ''){
+			alert("내용을 입력해주세요");
+			return;
+		}else{
+			$('#inre').submit();
+		}
 	})
 	
 	$("button[id^=rreply]").on('click', function(){
@@ -23,25 +28,26 @@ $(document).ready(function(){
 		count++
 		if(count < 2){
 			$('#treply').append("<input type='text' style='border:1px black solid; resize:none; width:400px; margin-left:500px;' name='rreplyCont'>");
-			$('#treply').append("<button type='submit' id='rreplybutton'>댓글작성</button>");
+			$('#treply').append("<button type='button' id='rreplybutton' onclick='rreinsert()'>댓글작성</button>");
 			$('#treply').append("<input type='hidden' name='root' value='"+ root +"'>");
-			$('#treply').append("<input type='hidden' name='rreplyWriter' value='${USERID}'>");
+			$('#treply').append("<input type='hidden' name='qnaId' value='${qnaVo.qnaId}'>");
+			$('#treply').append("<input type='hidden' name='replyWriter' value='${USERID}'>");
 		}
 	});
 	
 	$("button[id^=delbutton]").on('click', function(){
-		var	reply = $(this).val();
+		var but = $(this).val();
 		if(confirm("삭제하시겠습니까?")){
-			document.location="${cp}/teacher/deleteReply?replyId="+reply;
+			$('#delre').append("<input type='hidden' name='replyId' value='"+but+"'>")
+			$('#delre').submit();
 		}else{
 			return;
 		}
 	})
 	
-	$("button[id^=rreplybutton]").on('click', function(){
-		var	reply = $(this).val();
-		document.location="${cp}/teacher/deleteReply?replyId="+reply;
-	})
+	rreinsert = function(){
+		$('#rrein').submit();
+	}
 	
 });
 
@@ -104,22 +110,33 @@ $(document).ready(function(){
 								<td>${reply.replyCont}</td>
 								<td><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd"/></td>
 								<td>${reply.replyWriter}</td>
-								<c:if test="${reply.replyWriter != USERID }">
-									<td><button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button></td>
-								</c:if>
-								<c:if test="${reply.replyWriter == USERID}">
-									<td><button type="button" id="delbutton" value="${reply.replyId}">삭제</button></td>
+								<c:if test="${reply.replyOut != 'Y'}">
+									<c:choose>
+										<c:when test="${reply.replyWriter != USERID}">
+											<td><button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button></td>
+										</c:when>
+										<c:otherwise>
+										<td>
+											<form id="delre" action="${cp}/teacher/deleteReply">
+												<input type="hidden" value="${qnaVo.qnaId}" name="qnaId">
+												<button type="button" id="delbutton" value="${reply.replyId}">삭제</button>
+											</form>
+										</td>
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 							</tr>
 						</c:forEach>
-<!-- 						<div id="treply"> -->
-<%-- 							<form action="${cp}/teacher/insertrReply" method="post"> --%>
-								
-<!-- 							</form> -->
-<!-- 						</div> -->
 					</tbody>
 				</table>	
 			</div>
+			
+			<form id="rrein" action="${cp}/teacher/insertrReply" method="post">
+				<div id="treply">
+					
+				</div>
+			</form>
+			
 			<br>
 			<form id="inre" action="${cp}/teacher/insertReply" method="POST">	
 				<input type="hidden" name="replyWriter" value="${USERID}">

@@ -11,10 +11,10 @@ select QNA_ID,
     	     REPLY_WRITER,
       		 REPLY_OUT,
      		 REPLY_DATE
-	FROM(select * from REPLY where QNA_ID = #{qnaId})
+	FROM(select * from REPLY where QNA_ID = #{qnaId} ORDER BY REPLY_DATE)
 	START WITH  REPLY_ROOT is null
 	CONNECT BY PRIOR REPLY_ID = REPLY_ROOT 
-	ORDER SIBLINGS BY REPLY_ID DESC
+	ORDER SIBLINGS BY REPLY_DATE
 </select>
 <insert id="insertReply" parameterType="kr.co.codemaker.common.vo.ReplyVO">
 INSERT INTO reply values ('REPLY'||LPAD(REPLY_SEQ.NEXTVAL,4,'0'), sysdate, #{replyCont}, #{replyWriter}, 'N', #{replyRoot}, #{qnaId})
