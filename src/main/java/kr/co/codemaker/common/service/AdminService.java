@@ -1,5 +1,5 @@
-package kr.co.codemaker.common.service;
-
+//package kr.co.codemaker.common.service;
+//
 //import javax.annotation.Resource;
 //
 //import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ package kr.co.codemaker.common.service;
 //
 //import kr.co.codemaker.common.dao.AdminMapper;
 //
-//@Transactional
+////@Transactional
 //@Service("adminService")
 //public class AdminService {
 //	

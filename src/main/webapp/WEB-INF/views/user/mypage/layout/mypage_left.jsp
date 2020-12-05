@@ -42,7 +42,7 @@
 		<div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="#">◾ 수강 목록</a> 
-				<a class="collapse-item" href="${cp}/note/selectPageTNote">◾ 필기 노트</a> 
+				<a class="collapse-item" href="/note/selectPageNote">◾ 필기 노트</a> 
 			</div>
 		</div>
 	</li>

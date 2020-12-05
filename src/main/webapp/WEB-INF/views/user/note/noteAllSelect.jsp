@@ -13,15 +13,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
 
-<!-- js 추가 -->
-<script src="/js/user/note/note.js"></script>
 <script>
 	$(function() {
 		// 페이지 이동
 		$('.pageMove').on('click', function(){
 			var page = $(this).data("page");
-			console.log(page);
-			selectPageNote(page);
+// 			console.log(page);
+			document.location = "/note/selectPageNote?page=" + page;
 		});
 		
 		// 상세페이지 이동
@@ -29,7 +27,7 @@
 			if ($(this).attr('class') == 'm') {
 				// data-userid : data("속성명")
 				var noteId = $(this).parent('tr').data("noteid");
-				selectNote(noteId);
+				document.location = "/note/selectNote?noteId=" + noteId;
 			}
 		});
 
@@ -40,37 +38,13 @@
 			$('input:checkbox[name=chk]').each(function() {
 				if ($(this).is(':checked')) {
 					var noteId = $(this).val();
-					// 	         	console.log(noteId);
 					noteIds.push(noteId);
 				}
 			});
-// 			console.log(noteIds.length);
 			
 			// ajax에서 배열로 보내면 url이 이상해진다...[] 붙어서 넘어감.
-			// ajax 파일 물어보기
 			if(noteIds.length > 0){
-// 				var param = "";
-// 				$.each(noteIds, function(idx){
-// 					if(idx < noteIds.length-1){
-// 						param += 'noteIds=' + noteIds[idx] + '&';
-// 					}else{
-// 						param += 'noteIds=' + noteIds[idx];
-// 					}
-// 					console.log(param);
-// 				});
-				
 				document.location = "/note/noteDownload?noteIds=" + noteIds;
-// 				$.ajax({
-// 					url : '/note/noteDownload',
-// 					method : 'get',
-// 					data : param,
-// 					success : function(res) {
-// 						alert("파일이 다운로드되었습니다.");
-// 					},
-// 					error : function(xhr) {
-// 						alert("상태" + xhr.status);
-// 					}
-// 				})
 			}else{
 				alert("다운받을 파일을 선택해주세요.");
 			}
@@ -143,11 +117,11 @@
 									<c:if test="${noteRequestVO.page ne noteRequestVO.startPage }">
 										<!-- 첫페이지로 가기 -->
 										<li class="page-item active">
-											<input type="button" class="page-link pageMove" value="<<" data-page="${noteRequestVO.startPage}">
+											<input type="button" class="page-link pageMove" value="&laquo;" data-page="${noteRequestVO.startPage}">
 										</li>
 										<!-- 이전 페이지로 가기 -->
 										<li class="page-item active">
-											<input type="button" class="page-link pageMove" value="<" data-page="${noteRequestVO.page-1 }">
+											<input type="button" class="page-link pageMove" value="&lt;" data-page="${noteRequestVO.page-1 }">
 										</li>
 									</c:if>
 
@@ -170,11 +144,11 @@
 									<c:if test="${noteRequestVO.page ne noteRequestVO.endPage }">
 										<!-- 다음 페이지로 이동 -->
 										<li class="page-item active">
-											<input type="button" class="page-link pageMove" value=">" data-page="${noteRequestVO.page+1 }">
+											<input type="button" class="page-link pageMove" value="&gt;" data-page="${noteRequestVO.page+1 }">
 										</li>
 										<!-- 마지막 페이지로 이동 -->
 										<li class="page-item active">
-											<input type="button" class="page-link pageMove" value=">>" data-page="${noteRequestVO.endPage }">
+											<input type="button" class="page-link pageMove" value="&raquo;" data-page="${noteRequestVO.endPage }">
 										</li>
 									</c:if>
 
