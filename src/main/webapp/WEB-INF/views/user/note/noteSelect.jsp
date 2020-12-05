@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	
+
+<!-- 썸머노트 설정 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+
+
 <style>
 #pt{
 	font-size: 25px;
@@ -37,48 +44,23 @@
 		
 		// 수정
 		$('#updateBtn').on('click', function(){
-			$.ajax({
-				url : '/note/updateViewNote',
-				method : 'post',
-				data : {
-					noteId : '${noteVO.noteId }'
-				},
-				success : function(res) {
-					$('#parent').html(res);
-				},
-				error : function(xhr) {
-					alert("상태" + xhr.status);
-				}
-			});
+			document.location = "/note/updateViewNote?noteId=${noteVO.noteId }";
 		});
 		
 		// 삭제
 		$('#delBtn').on('click', function(){
-			$.ajax({
-				url : '/note/deleteNote',
-				method : 'post',
-				data : {
-					noteId : '${noteVO.noteId }'
-				},
-				success : function(res) {
-					alert("해당 노트가 삭제되었습니다.");
-					selectPageNote();
-				},
-				error : function(xhr) {
-					alert("상태" + xhr.status);
-				}
-			});
+			document.location = "/note/deleteNote?noteId=${noteVO.noteId }";
 		});
 		
 		// 목록
 		$('#btnList').on('click', function(){
-			selectPageNote();
+			document.location = "/note/selectPageNote";
 		});
 	});
 	
 	
 </script>
-<div class="container" role="main" id="parent">
+<div class="container" role="main">
 	<p class="mb-0 nfn" id="pt"><strong>필기 노트</strong></p>
 	<br>
 	<form name="form" id="form" role="form">

@@ -3,8 +3,6 @@ package kr.co.codemaker.user.course.note.dao;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.common.vo.UserVO;
-import kr.co.codemaker.user.course.note.vo.NoteRequestVO;
 import kr.co.codemaker.user.course.note.vo.NoteVO;
 
 /**
@@ -24,28 +22,20 @@ import kr.co.codemaker.user.course.note.vo.NoteVO;
 public interface NoteMapper {
 	
 	/**
-	 * 회원의 노트 목록 전체를 가져오는 메소드
-	 * @author 김미연
-	 * @param userVo
-	 * @return
-	 */
-	public List<NoteVO> selectAllNote(UserVO userVo) throws Exception;
-	
-	/**
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메소드
 	 * @author 김미연
-	 * @param noteRequestVo
+	 * @param noteVO
 	 * @return
 	 */
-	public List<NoteVO> selectPageNote(NoteRequestVO noteRequestVo) throws Exception;
+	public List<NoteVO> selectPageNote(NoteVO noteVO) throws Exception;
 	
 	/**
 	 * 회원의 노트 목록의 총 개수를 가져오는 메소드
 	 * @author 김미연
-	 * @param noteRequestVo
+	 * @param noteVO
 	 * @return
 	 */
-	public int selecTotalCntNote(NoteRequestVO noteRequestVo) throws Exception;
+	public int selecTotalCntNote(NoteVO noteVO) throws Exception;
 	
 	/**
 	 * 회원 노트 1개의 정보를 가져오는 메소드

@@ -7,9 +7,9 @@ import kr.co.codemaker.common.vo.BaseVO;
 public class LessonIndexVO extends BaseVO{
 
 	private String lidxId;
-	private int lidxNum;
 	private String lidxCont;
 	private String lesId;
+	private int lidxNum;
 	
 								
 	private List<LessonIndexVO> lesIdxList;

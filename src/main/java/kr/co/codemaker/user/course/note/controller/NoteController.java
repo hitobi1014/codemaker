@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,97 +68,46 @@ public class NoteController {
 	private static final Logger logger = LoggerFactory.getLogger(NoteController.class);
 
 	/**
-	 * 회원의 노트 목록 전체를 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @return
-	 */
-	@RequestMapping(path = "/note/selectAllNote")
-	public String selectAllNote(HttpSession session) {
-
-		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
-		
-		String userId = "a001@naver.com";
-		userVO.setUserId(userId);
-
-		noteService.selectAllNote(userVO);
-
-		return "";
-
-	}
-
-	/**
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
 	 * 
 	 * @author 김미연
-	 * @param noteRequestVO
+	 * @param noteVO
 	 * @return
 	 */
-	@RequestMapping(path = "/note/selectPageTNote")
-	public String selectPageFNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
+	@RequestMapping(path = "/note/selectPageNote")
+	public String selectPageFNote(NoteVO noteVO, HttpSession session, Model model) {
 //		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String userId = "a001@naver.com";
 //		userVO.setUserId(userId);
 
 //		noteRequestVo.setUserId(userVO.getUserId());
-		noteRequestVO.setUserId(userId);
-		if (noteRequestVO.getPage() == 0) {
-			noteRequestVO.setPage(1);
+		noteVO.setUserId(userId);
+		if (noteVO.getPage() == 0) {
+			noteVO.setPage(1);
 		}
 
-		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVO);
-		logger.debug("note : {}" , noteList.size());
-		int totalCnt = noteService.selecTotalCntNote(noteRequestVO);
-
+		List<NoteVO> noteList = new ArrayList<>();
+		int totalCnt = 0;
+		try {
+			noteList = noteService.selectPageNote(noteVO);
+			totalCnt = noteService.selecTotalCntNote(noteVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		int pages = (int) Math.ceil((double) totalCnt / 10);
 
-		noteRequestVO.setEndPage(pages);
-		noteRequestVO.setStartPage(1);
+		noteVO.setEndPage(pages);
+		noteVO.setStartPage(1);
 
 		model.addAttribute("noteList", noteList);
 		model.addAttribute("pages", pages);
-		model.addAttribute("noteRequestVO", noteRequestVO);
+		model.addAttribute("noteRequestVO", noteVO);
 
 		return "mypageT/user/note/noteAllSelect";
 	}
 	
-	/**
-	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param noteRequestVO
-	 * @return
-	 */
-	@RequestMapping(path = "/note/selectPageNote")
-	public String selectPageNote(NoteRequestVO noteRequestVO, HttpSession session, Model model) {
-//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
-		
-		String userId = "a001@naver.com";
-//		userVO.setUserId(userId);
-		
-//		noteRequestVo.setUserId(userVO.getUserId());
-		noteRequestVO.setUserId(userId);
-		if (noteRequestVO.getPage() == 0) {
-			noteRequestVO.setPage(1);
-		}
-		
-		List<NoteVO> noteList = noteService.selectPageNote(noteRequestVO);
-		logger.debug("note : {}" , noteList.size());
-		int totalCnt = noteService.selecTotalCntNote(noteRequestVO);
-		
-		int pages = (int) Math.ceil((double) totalCnt / 10);
-		
-		noteRequestVO.setEndPage(pages);
-		noteRequestVO.setStartPage(1);
-		
-		model.addAttribute("noteList", noteList);
-		model.addAttribute("pages", pages);
-		model.addAttribute("noteRequestVO", noteRequestVO);
-		
-		return "user/note/noteAllSelect";
-	}
-
 	/**
 	 * 회원 노트 1개의 정보를 가져오는 메소드
 	 * 
@@ -170,11 +118,16 @@ public class NoteController {
 	@RequestMapping(path = "/note/selectNote")
 	public String selectNote(String noteId, Model model) {
 
-		NoteVO noteVO = noteService.selectNote(noteId);
+		NoteVO noteVO = null;
+		try {
+			noteVO = noteService.selectNote(noteId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		model.addAttribute("noteVO", noteVO);
 
-		return "user/note/noteSelect";
+		return "mypageT/user/note/noteSelect";
 	}
 
 	/**
@@ -195,14 +148,18 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(path = "/note/insertNote")
+	@ResponseBody
 	public void insertNote(NoteVO noteVO, HttpSession session) {
 //		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		// noteVO.setUserId(userVo.getUserId());
 		noteVO.setUserId("a001@naver.com");
 
-		noteService.insertNote(noteVO);
+		try {
+			noteService.insertNote(noteVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -213,10 +170,15 @@ public class NoteController {
 	 */
 	@RequestMapping(path = "/note/updateViewNote")
 	public String updateViewNote(String noteId, Model model) {
-		NoteVO noteVO = noteService.selectNote(noteId);
+		NoteVO noteVO = null;
+		try {
+			noteVO = noteService.selectNote(noteId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("noteVO", noteVO);
 		
-		return "user/note/noteUpdate";
+		return "mypageT/user/note/noteUpdate";
 	}
 
 	/**
@@ -226,11 +188,15 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(path = "/note/updateNote")
-	public void updateNote(NoteVO noteVO) {
-		logger.debug("dddd");
-		noteService.updateNote(noteVO);
+	public String updateNote(NoteVO noteVO) {
+		try {
+			noteService.updateNote(noteVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/note/selectNote?noteId=" + noteVO.getNoteId();
 	}
 
 	/**
@@ -240,10 +206,14 @@ public class NoteController {
 	 * @param noteVo
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(path = "/note/deleteNote")
-	public void deleteNote(NoteVO noteVO) {
-		noteService.deleteNote(noteVO);
+	public String deleteNote(NoteVO noteVO) {
+		try {
+			noteService.deleteNote(noteVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/note/selectPageNote";
 	}
 
 	/**
@@ -259,8 +229,13 @@ public class NoteController {
 
 		// DB에서 정보 가져오기
 		for (String noteId : noteIds) {
-			NoteVO noteVO = noteService.selectNote(noteId);
-			noteLists.add(noteVO);
+			NoteVO noteVO = null;
+			try {
+				noteVO = noteService.selectNote(noteId);
+				noteLists.add(noteVO);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		// ------------------------------ pdf 파일 생성
