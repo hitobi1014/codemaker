@@ -23,7 +23,65 @@
 <script src="/js/admin/lesson/lesson.js"></script>
 <title>lessonAllList</title>
 
+<script>
+$(function(){
+	// 강의 상세조회 페이지로
+	$('#lesidx tr td').on('click', function(){
+		if($(this).attr('class') != 'chb'){
+			var lesId = $(this).parent('tr').data('lesid');
+	// 		console.log(lesId);
+			var windowObj = window.open('/admin/lessonSelect?lesId='+lesId,'lessonSelect', 'width=800,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
+		}
+	});
+	
+	// 강의 승인 상태 변경
+	$('#regBtn').on('click', function() {
+		var lesIds = [];
+
+		$('input:checkbox[name=chk]').each(function() {
+			if ($(this).is(':checked')) {
+				var lesId = $(this).val();
+				console.log(lesId);
+				lesIds.push(lesId);
+			}
+		});
+		
+		if(lesIds.length > 0){
+			document.location = "/admin/updateLesson?lesState=3&lesIds=" + lesIds;
+		}else{
+			alert("승인할 강의를 선택해주세요.");
+		}
+	});
+	
+	// 반려
+	$('#cancle').on('click', function() {
+		var lesIds = [];
+
+		$('input:checkbox[name=chk]').each(function() {
+			if ($(this).is(':checked')) {
+				var lesId = $(this).val();
+				lesIds.push(lesId);
+			}
+		});
+		
+		if(lesIds.length > 0){
+			document.location = "/admin/updateLesson?lesState=4&lesIds=" + lesIds;
+		}else{
+			alert("반려할 강의를 선택해주세요.");
+		}
+	});
+	
+	
+});
+
+</script>
 <style>
+.a2{
+	color: red;
+}
+.a4{
+	color: blue;
+}
 table{
 	table-layout: fixed;
 }
@@ -31,11 +89,9 @@ table{
 	width: 1100px;
 	margin-left: 200px;
 }
-
 #hd {
 	margin-left: 15px;
 }
-
 #subject {
 	width: 100px;
 	display: inline-block;
@@ -49,27 +105,22 @@ table{
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
-
 .right {
 	float: right;
 	text-align: right;
 }
-
 #regBtn {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	margin-top: 8px;
 }
-
 #selectTab {
 	padding-left: 30px;
 }
-
 #containerId {
 	width: 1300px;
 	margin-left: 140px;
 }
-
 #delBtn {
 	width: 40px;
 	height: 35px;
@@ -78,7 +129,6 @@ table{
 	margin-left: 85px;
 	padding: 0px 0px 0px 0px
 }
-
 #upBtn {
 	width: 40px;
 	height: 35px;
@@ -86,17 +136,14 @@ table{
 	float: right;
 	padding: 0px 0px 0px 0px
 }
-
 #addBtn {
 	margin-bottom: 20px;
 }
-
 .form-control-label {
 	font-size: .875rem;
 	font-weight: 600;
 	color: #525f7f;
 }
-
 #less {
 	display: inline-block;
 }
@@ -104,147 +151,46 @@ table{
 #sub {
 	display: inline-block;
 }
-
 #d2 {
 	text-align: right;
 }
-#paging{
-	text-align: right;
-}
-#lesState{
-	width: 130px;
-	margin-left: 1070px;
-}
 </style>
+
+
+
+
 </head>
-<script>
-	$(function() {
-		
-		// 페이지 이동 - 강의 목차
-		$(document).on('click', '.pageMove',function(){
-			var page = $(this).data("page");
-			var lesId = $('#lesson option:selected').val();
-			console.log(page);
-			selectPage(page, lesId);
-		});
-		
-		// 페이지 이동 - 승인 내역
-		$('.pagelMove').on('click', function(){
-			var page = $(this).data("page");
 
-			console.log(page);
-			selectPageLesson(page);
-		});
-
-		// 과목을 선택할 시 해당 강의목록 조회
-		$('#subject').on('change', function() {
-			// 과목 아이디
-			var subId = $(this).val();
-			// 		console.log(subId);
-
-			$.ajax({
-				url : '/admin/selectLesson',
-				method : 'post',
-				data : {
-					subId : subId
-				},
-				success : function(res) {
-					$('#less').html(res);
-				},
-				error : function(xhr) {
-					alert("상태" + xhr.status);
-				}
-			});
-
-		});
-
-		// 강의를 선택할 시 해당 강의목차 조회
-		$(document).on('change', '#lesson', function() {
-			// 강의 아이디
-			var lesId = $(this).val();
-			// 		console.log(lesId);
-
-			$.ajax({
-				url : '/admin/selectLessonIndex',
-				method : 'post',
-				data : {
-					lesId : lesId
-				},
-				success : function(res) {
-					$('#lesidx').html(res.split('fin')[0]);
-					$('#d2').html(res.split('fin')[1]);
-					$('#paging').html(res.split('fin')[2]);
-					
-				},
-				error : function(xhr) {
-					alert("상태" + xhr.status);
-				}
-			});
-
-		});
-
-		// 강의 승인 또는 반려 regBtn , cancle
-		$(document).on('click', '#regBtn', function() {
-
-			// 강의 아이디
-			var lesId = $(this).data('lesid');
-			// 		console.log(lesId);
-			var lesState = '3';
-
-			agree(lesId, lesState);
-		});
-
-		$(document).on('click', '#cancle', function() {
-			// 강의 아이디
-			var lesId = $(this).data('lesid');
-			// 		console.log(lesId);
-			var lesState = '4';
-
-			agree(lesId, lesState);
-		});
-
-	});
-
-	var agree = function(lesId, lesState) {
-		$.ajax({
-			url : '/admin/updateLesson',
-			method : 'post',
-			data : {
-				lesId : lesId,
-				lesState : lesState
-			},
-			success : function(res) {
-				if (res == '3') {
-					alert("해당 강의가 승인되었습니다.");
-				} else {
-					alert("해당 강의가 반려되었습니다.");
-				}
-				document.location = "/admin/selectAllSubject";
-			},
-			error : function(xhr) {
-				alert("상태" + xhr.status);
-			}
-		});
-	}
-</script>
-
+<body>
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin: 50px;">
-
+		
 			<div class="card" style="width: 1200px;">
 				<div class="card-body text-center"></div>
-				<h2 class="card-title m-b-0">📢강의 개설 요청 목록</h2>
-
-				<div class="right">
-					<form:form name="subjectVO" commandName="subjectVO" id="sub">
-						<form:select path="subId" cssClass="form-control" id="subject">
-							<form:option value="99">과목</form:option>
-							<form:options items="${subjectList}" itemLabel="subNm" itemValue="subId" />
-						</form:select>
-					</form:form>
-					<div id="less"></div>
-				</div>
+				<h2 class="card-title m-b-0">📢강의 개설 요청</h2>
+				
+				<br>
+				<table>
+					<thead>
+						<tr>
+							<td>과목명</td>
+							<td>승인요청</td>
+							<td>승인완료</td>
+							<td>반려</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${lessonList}" var="lesson">
+							<tr>
+								<td>${lesson.subNm }</td>
+								<td><a class="a2" href="/admin/selectAllLesson?subId=${lesson.subId }&lesState=2">${lesson.agreeCnt }건</a></td>
+								<td><a class="a3" href="/admin/selectAllLesson?subId=${lesson.subId }&lesState=3">${lesson.sagreeCnt }건</a></td>
+								<td><a class="a4" href="/admin/selectAllLesson?subId=${lesson.subId }&lesState=4">${lesson.dagreeCnt }건</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 
 				<br>
 				<div class="table-responsive">
@@ -252,127 +198,51 @@ table{
 						<thead class="thead-light">
 							<tr>
 								<th scope="col">강의No.</th>
-								<th scope="col">강의 목차</th>
-								<th scope="col">동영상</th>
-							</tr>
-						</thead>
-						<tbody id="lesidx"></tbody>
-					</table>
-				</div>
-
-				<br>
-				<div class="card-footer py-4" id="paging"></div>
-				<div class="mb-3" id="d2"></div>
-
-				<h2 class="card-title m-b-0">📢강의 승인 목록</h2>
-				
-				<div class="right">
-					<select class="form-control" id="lesState">
-						<option value="99">승인 상태</option>
-						<option value="2">승인 요청</option>
-						<option value="3">승인</option>
-						<option value="3">반려</option>
-					</select>
-				</div>
-				
-				<br>
-				<div class="table-responsive">
-					<table class="table">
-						<thead class="thead-light">
-							<tr>
-								<th scope="col" style="width: 290px;">강의No.</th>
-								<th scope="col" style="width: 389px;">강의명</th>
+								<th scope="col">강의명</th>
+								<th scope="col">담당선생님</th>
 								<th scope="col">강의승인상태</th>
+								<th scope="col">-</th>
 							</tr>
 						</thead>
-						<tbody id="lesTbody">
-							<c:forEach items="${lessonList }" var="lesson" varStatus="status">
-								<tr>
-									<td>${status.count }</td>
-									<td>${lesson.lesNm}</td>
+						<tbody id="lesidx">
+							<c:if test="${lessonLists.size() ne 0}">
+							<c:forEach items="${lessonLists}" var="lesson" varStatus="status">
+							<tr data-lesid='${lesson.lesId }'>
+								<td>${status.count }</td>
+								<td>${lesson.lesNm }</td>
+								<td>${lesson.tchNm }</td>
+								<td>
 									<c:choose>
-										<c:when test="${lesson.lesState == '1' }">
-											<td>
-												<div>
-													<div style="float: left; width:50%;">강의개설요청</div>
-												</div>
-											</td>
+										<c:when test="${lesson.lesState == 2 }">
+											승인요청
 										</c:when>
-										<c:when test="${lesson.lesState == '2' }">
-											<td>
-												<div>
-													<div style="float: left;width:50%;">승인요청중</div>
-												</div>
-											</td>
+										<c:when test="${lesson.lesState == 3 }">
+											승인완료
 										</c:when>
-										<c:when test="${lesson.lesState=='3' }">
-											<td>
-												<div>
-													<div style="float: left;width:50%;">승인완료 </div>
-												</div>
-											</td>
-										</c:when>
-										<c:when test="${lesson.lesState=='4' }">
-											<td>
-												<div>
-													<div style="float: left;width:50%;">승인반려 </div>
-												</div>
-											</td>
+										<c:when test="${lesson.lesState == 4 }">
+											반려
 										</c:when>
 									</c:choose>
-								</tr>
-							</c:forEach>
+								</td>
+								<td class="chb">
+									<input type="checkbox" value="${lesson.lesId }" class="chb" name="chk">
+								</td>
+							</tr>
+						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>
-				<div class="card-footer py-4" id="pagingl">
-					<c:if test="${lessonList.size() ne 0 }">
-						<ul class="pagination justify-content-end mb-0">
-							<!-- 첫페이지가 아닐때 -->
-							<c:if test="${lessonVO.page ne lessonVO.startPage }">
-								<!-- 첫페이지로 가기 -->
-								<li class="page-item active">
-									<input type="button" class="page-link pagelMove" value="<<" data-page="${lessonVO.startPage}">
-								</li>
-								<!-- 이전 페이지로 가기 -->
-								<li class="page-item active">
-									<input type="button" class="page-link pagelMove" value="<" data-page="${lessonVO.page-1 }">
-								</li>
-							</c:if>
-						
-							<c:forEach begin="1" end="${pages }" var="i">
-								<!-- 현재 있는 페이지와 구분 -->
-								<c:choose>
-									<c:when test="${i == lessonVO.page }">
-										<!-- 보고 있는 페이지와 현재 선택된 페이지가 같을 때 -->
-										<li class="page-item active"><span class="page-link" style="float:none;"><strong>${i }</strong></span></li>
-									</c:when>
-									<c:otherwise>
-										<li class="page-item active">
-											<input type="button" class="page-link pagelMove" value="${i}" data-page="${i}">
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						
-							<!-- 마지막페이지가 아닐때 -->
-							<c:if test="${lessonVO.page ne lessonVO.endPage }">
-								<!-- 다음 페이지로 이동 -->
-								<li class="page-item active">
-									<input type="button" class="page-link pagelMove" value=">" data-page="${lessonVO.page+1 }">
-								</li>
-								<!-- 마지막 페이지로 이동 -->
-								<li class="page-item active">
-									<input type="button" class="page-link pagelMove" value=">>" data-page="${lessonVO.endPage }">
-								</li>
-							</c:if>
-							
-						</ul>
-					</c:if>
-				</div>
 
+				<br>
+				<div class="mb-3" id="d2">
+					<input type="button" class="btn btn-sm btn-primary" value="승인" id="regBtn" data-lesid="${lesson.lesId }">
+					<input type="button" class="btn btn-sm btn-primary" value="반려" id="cancle" data-lesid="${lesson.lesId }">
+				</div>
+				
 			</div>
 
 		</div>
 	</div>
 </div>
+</body>

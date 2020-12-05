@@ -4,19 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.user.course.note.dao.NoteMapper">
 
-<select id="selectAllNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteVO" resultType="kr.co.codemaker.user.course.note.vo.NoteVO">
-SELECT
-    note_id,
-    note_title,
-    note_cont,
-    note_date,
-    user_id
-FROM
-    note
-WHERE
-	user_id = #{userId}
-</select>
-<select id="selectPageNote" resultType="kr.co.codemaker.user.course.note.vo.NoteVO" parameterType="kr.co.codemaker.user.course.note.vo.NoteRequestVO">
+<select id="selectPageNote" resultType="kr.co.codemaker.user.course.note.vo.NoteVO" parameterType="kr.co.codemaker.user.course.note.vo.NoteVO">
 SELECT *
   FROM
     (SELECT a.*, ROWNUM AS rn
@@ -27,7 +15,8 @@ SELECT *
             ORDER BY note_date DESC) a)
  WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
-<select id="selecTotalCntNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteRequestVO" resultType="java.lang.Integer">
+
+<select id="selecTotalCntNote" parameterType="kr.co.codemaker.user.course.note.vo.NoteVO" resultType="java.lang.Integer">
 SELECT COUNT(*)
   FROM note
  WHERE user_id = #{userId}
