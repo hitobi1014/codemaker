@@ -17,7 +17,7 @@ import java.util.Date;
 public class ReplyVO {
 
 	private String qnaId;
-	private String replyGn;
+	private String replyRoot;
 	private String replyId;
 	private Date replyDate;
 	private String replyWriter;
@@ -30,11 +30,11 @@ public class ReplyVO {
 	public String getQnaId() {
 		return qnaId; 
 	}
-	public void setReplyGn(String replyGn) {
-		this.replyGn = replyGn; 
+	public void setReplyRoot(String replyRoot) {
+		this.replyRoot = replyRoot; 
 	}
-	public String getReplyGn() {
-		return replyGn; 
+	public String getReplyRoot() {
+		return replyRoot; 
 	}
 	public void setReplyId(String replyId) {
 		this.replyId = replyId; 
@@ -51,6 +51,7 @@ public class ReplyVO {
 	public void setReplyWriter(String replyWriter) {
 		this.replyWriter = replyWriter; 
 	}
+	
 	public String getReplyWriter() {
 		return replyWriter; 
 	}
@@ -67,4 +68,10 @@ public class ReplyVO {
 		return replyCont; 
 	}
 
+	@Override
+	public String toString() {
+		return "ReplyVO [qnaId=" + qnaId + ", replyRoot=" + replyRoot + ", replyId=" + replyId + ", replyDate="
+				+ replyDate + ", replyWriter=" + replyWriter + ", replyOut=" + replyOut + ", replyCont=" + replyCont
+				+ "]";
+	}
 }

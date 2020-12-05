@@ -1,0 +1,138 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<title>공지사항</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<script>
+$(document).ready(function(){
+	var count = 0;
+	$("#listbutton").on("click", function(){
+		document.location="${cp}/teacher/selectAllQna?lesId=${qnaVo.lesId}";
+	});
+	
+	$("#insertbutton").on("click", function(){
+		$('#inre').submit();
+	})
+	
+	$("button[id^=rreply]").on('click', function(){
+		var root = $(this).val();
+		count++
+		if(count < 2){
+			$('#treply').append("<input type='text' style='border:1px black solid; resize:none; width:400px; margin-left:500px;' name='rreplyCont'>");
+			$('#treply').append("<button type='submit' id='rreplybutton'>댓글작성</button>");
+			$('#treply').append("<input type='hidden' name='root' value='"+ root +"'>");
+			$('#treply').append("<input type='hidden' name='rreplyWriter' value='${USERID}'>");
+		}
+	});
+	
+	$("button[id^=delbutton]").on('click', function(){
+		var	reply = $(this).val();
+		if(confirm("삭제하시겠습니까?")){
+			document.location="${cp}/teacher/deleteReply?replyId="+reply;
+		}else{
+			return;
+		}
+	})
+	
+	$("button[id^=rreplybutton]").on('click', function(){
+		var	reply = $(this).val();
+		document.location="${cp}/teacher/deleteReply?replyId="+reply;
+	})
+	
+});
+
+</script>
+<style>
+	textarea{
+		padding-left : 100px;
+	}
+	.card{
+		width:1000px;
+		margin:auto;
+		background-color : #F8FFFF;
+	}
+	h2{
+		color : #1d25af;
+	}
+	.row{
+		margin: 50px 130px 0;
+		background-color: white;
+	}
+	#delbutton, #insertbutton{
+		float:right;
+	}
+</style>
+<div class="row shadow" >
+	<div class="col-12" style="margin:50px;">
+		<div class="card">
+			<div style="text-align:center;">
+				<h2>${qnaVo.qnaTitle}</h2>
+				<hr>
+			</div>
+			
+			<div>
+				<label class="control-label">&nbsp;&nbsp;&nbsp;${qnaVo.qnaId}</label>
+				<label style="float:right;" class="control-label">작성자 : ${qnaVo.userId}</label>
+				<br>
+				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${qnaVo.qnaDate}" pattern="yyyy-MM-dd" /></label>
+				<hr>
+			</div>
+
+			<br>
+			<div style="margin:30px;">
+				<label class="control-label">${qnaVo.qnaCont}</label>
+			</div>
+			<hr>
+			<div>
+			<h3 style="color:red">Reply</h3>
+			<br>
+				<table style="text-align:left; width:1000px;">
+					<tr style="padding-left:50px;">
+						<th style="padding-left:50px;">댓글 번호</th>
+						<th>내용</th>
+						<th>작성 날짜</th>
+						<th>작성자</th>
+					</tr>
+					<tbody>
+						<c:forEach var="reply" items="${replyList}">
+							<tr style="padding-left:50px;">	
+								<td style="padding-left:50px;">${reply.replyId}</td> 
+								<td>${reply.replyCont}</td>
+								<td><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${reply.replyWriter}</td>
+								<c:if test="${reply.replyWriter != USERID }">
+									<td><button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button></td>
+								</c:if>
+								<c:if test="${reply.replyWriter == USERID}">
+									<td><button type="button" id="delbutton" value="${reply.replyId}">삭제</button></td>
+								</c:if>
+							</tr>
+						</c:forEach>
+<!-- 						<div id="treply"> -->
+<%-- 							<form action="${cp}/teacher/insertrReply" method="post"> --%>
+								
+<!-- 							</form> -->
+<!-- 						</div> -->
+					</tbody>
+				</table>	
+			</div>
+			<br>
+			<form id="inre" action="${cp}/teacher/insertReply" method="POST">	
+				<input type="hidden" name="replyWriter" value="${USERID}">
+				<input type="hidden" name="qnaId" value="${qnaVo.qnaId}">
+				<input type="hidden" name="replyRoot" value="">
+				<div>
+					<textarea style="border:1px black solid; resize:none; width:400px; margin-left:500px;" name="replyCont"></textarea>
+				</div>
+			</form>
+			<div>
+				<button type="button" id="listbutton" class="btn btn-primary">목록</button>
+				<button type="button" id="insertbutton" class="btn btn-success">댓글작성</button>
+			</div>
+		</div>
+	</div>
+</div>

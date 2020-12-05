@@ -17,7 +17,11 @@ select QNA_ID,
 	ORDER SIBLINGS BY REPLY_ID DESC
 </select>
 <insert id="insertReply" parameterType="kr.co.codemaker.common.vo.ReplyVO">
-INSERT INTO reply values ('REPLY'||LPAD(REPLY_SEQ.NEXTVAL,4,'0'), sysdate, #{replyCont}, #{replyWriter}, #{replyOut}, #{replyRoot}, #{qnaId})
+INSERT INTO reply values ('REPLY'||LPAD(REPLY_SEQ.NEXTVAL,4,'0'), sysdate, #{replyCont}, #{replyWriter}, 'N', #{replyRoot}, #{qnaId})
+
+	<selectKey keyProperty="replyId" resultType="String">
+		SELECT 'REPLY'||LPAD(REPLY_SEQ.NEXTVAL,4,'0') FROM DUAL
+	</selectKey>
 </insert>
 <update id="updateReply" parameterType="kr.co.codemaker.common.vo.ReplyVO">
 UPDATE reply set reply_cont = #{replyCont} where reply_id = #{replyId}
@@ -25,5 +29,8 @@ UPDATE reply set reply_cont = #{replyCont} where reply_id = #{replyId}
 <delete id="deleteReply" parameterType="kr.co.codemaker.common.vo.ReplyVO">
 UPDATE reply set reply_out = 'Y' where reply_id = #{replyId}
 </delete>
+
+
+
 
 </mapper>

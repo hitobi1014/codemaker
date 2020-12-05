@@ -58,36 +58,26 @@ $(document).ready(function(){
 	<div style="margin:50px;">
 		<div class="card">
 			<div>
-				<h2>CodeMaker 공지 사항</h2>
-			</div>
-			<div style="text-align:center;">
-				<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
-					<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
-					<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
-				</c:if>
-				<c:if test="${param.searchOption == '2'}">
-					<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
-					<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
-				</c:if>
+				<h2>CodeMaker QNA</h2>
 			</div>
 			<hr>
 		
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
-					<th>공지사항 아이디</th>
-					<th>공지사항 제목</th>
-					<th>공지사항 작성일</th>
+					<th>QNA 아이디</th>
+					<th>QNA 제목</th>
+					<th>QNA 작성일</th>
 					<th>작성자아이디</th>
 				</tr>
 				<tbody id="noticeList">
-					<c:forEach items="${noticeList}" var="notice">
-						<c:if test="${notice.noticeOut == 'N'}">
+					<c:forEach items="${qnaList}" var="qna">
+						<c:if test="${qna.qnaOut == 'N'}">
 							<tr>
-								<td>${notice.noticeId}</td>
-								<td><a href="${cp}/teacher/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-								<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
-								<td>${notice.adminId}</td>
+								<td>${qna.qnaId}</td>
+								<td><a href="${cp}/teacher/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
+								<td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" /></td>
+								<td>${qna.userId}</td>
 							</tr>
 						</c:if>
 					</c:forEach>
@@ -124,26 +114,7 @@ $(document).ready(function(){
 					</c:when>
 				</c:choose> 	
 			</ul>
-			
-			<hr>
-			<div>
-				<form name="form1" method="post">
-					<select name="searchOption">
-						<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
-						<c:if test="${param.searchOption == 1 || param.searchOption == null || param.searchOption == ''}">
-							<option value="1" selected>공지사항</option>
-							<option value="2">자주묻는질문</option>
-						</c:if>
-						<c:if test="${param.searchOption == 2}">
-							<option value="1">공지사항</option>
-							<option value="2" selected>자주묻는질문</option>
-						</c:if>
-					</select> 
-					<input type="text" name="keyWord" value="${param.keyWord}"><input id="searchBtn"type="button" class="btn btn-warning btn-sm" value="조회">
-					
-				</form>
 			</div>
-		</div>
 		</div>		
 	</div>
 </div>

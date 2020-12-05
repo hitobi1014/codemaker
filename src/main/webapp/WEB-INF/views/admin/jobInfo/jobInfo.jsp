@@ -67,8 +67,6 @@ $(document).ready(function(){
 		float:right;
 	}
 </style>
-</head>
-<body>
 <div class="row shadow" >
 	<div class="col-12" style="margin:50px;">
 		<div class="card">

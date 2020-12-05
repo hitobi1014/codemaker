@@ -1,8 +1,5 @@
 package kr.co.codemaker.teacher.replyController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -22,33 +19,33 @@ public class TeacherReplyController {
 	@Resource(name="replyService")
 	private ReplyService replyService;
 	
-	@RequestMapping(path="/teacher/selectAllReply")
-	public String selectAllReply(String qnaId, Model model) {
-		
-		List<ReplyVO> replyList = new ArrayList<ReplyVO>();
-		try {
-			replyList = replyService.selectAllReply(qnaId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("replyList", replyList);
- 		
-		return "mainT/teacher/reply/replyList";
-	}
-	
 	@RequestMapping(path="/teacher/insertReply")
-	public String insertReply(ReplyVO replyVo, String tchId, Model model) {
-		return "";
+	public String insertReply(ReplyVO replyVo, String qnaId, Model model) {
+		
+		logger.debug("선생님 replyVo {} ", replyVo);
+		
+		replyService.insertReply(replyVo);
+		
+		model.addAttribute("replyVo", replyVo);
+		
+		return "redirect:/teacher/selectQna?qnaId="+qnaId;
 	}
 	
-	@RequestMapping(path="/teacher/updateReply")
-	public String updateReply(ReplyVO replyVo, Model model) {
-		return "";
+	@RequestMapping(path="/teacher/insertrReply")
+	public String insertrReply(ReplyVO replyVo, String qnaId, Model model) {
+		
+		replyService.insertReply(replyVo);
+		
+		model.addAttribute("replyVo", replyVo);
+		
+		return "redirect:/teacher/selectQna?qnaId="+qnaId;
 	}
 	
 	@RequestMapping(path="/teacher/deleteReply")
-	public String deleteReply(ReplyVO replyVo) {
-		return "";
+	public String deleteReply(ReplyVO replyVo, String qnaId) {
+		
+		replyService.deleteReply(replyVo.getReplyId());
+		
+		return "redirect:/teacher/selectQna?qnaId="+qnaId;
 	}
 }
