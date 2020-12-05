@@ -101,7 +101,7 @@ public class UserPayController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.debug("카트 리스트 확인:{}",cartList);
+//		logger.debug("카트 리스트 확인:{}",cartList);
 		
 		List<LessonVO> lessonList = new ArrayList<>();
 		for(int i=0; i<cartList.size(); i++) {
@@ -111,7 +111,9 @@ public class UserPayController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			lessonList.add(lesson);
 		}
+		logger.debug("추가된 강의 정보 :{}",lessonList);
 		
 		return "mainT/user/payment/cart";
 	}
