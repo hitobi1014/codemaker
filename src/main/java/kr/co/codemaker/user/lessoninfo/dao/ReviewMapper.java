@@ -11,4 +11,6 @@ public interface ReviewMapper {
 	List<ReviewVO> selectReview(String lesId)throws Exception;
 
 	int insertReview(ReviewVO reviewVo)throws Exception;
+
+	int deleteReview(String reviewId)throws Exception;
 }

@@ -6,45 +6,41 @@
 
 <html>
 <!-- Main css -->
-<link rel="stylesheet" href="/css/user/lesson/review-style.css">
+<link rel="stylesheet" href="/css/user/review/review-style.css">
+<link rel="stylesheet" href="/css/user/review/review-style2.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
+var startCount = 0;
+	$(function() {
 
-$(document).on('click','.star',function(){
-	var cl = $(this).attr('class');
-// 	console.log(cl);
-	if(cl == 'star btn btn-default btn-grey btn-xs'){
-		$(this).attr('class','star btn btn-warning btn-sm');
-	}
-	else{
-		$(this).attr('class','star btn btn-default btn-grey btn-xs');
-	}
-});
+		$(document).on('click', '.star', function() {
+			var cl = $(this).attr('class');
+			// 	console.log(cl);
+			if (cl == 'star btn btn-default btn-grey btn-xs') {
+				startCount++;
+				console.log(startCount);
+				$(this).attr('class', 'star btn btn-warning btn-sm');
+			} else {
+				startCount--;
+				console.log(startCount);
+				$(this).attr('class', 'star btn btn-default btn-grey btn-xs');
+			}
+		});
 
-$('open-review-box').on("click", function(){
-	console.log("yes");
-	
-	$.ajax({
-		uri : '${cp}/user/insertReview',
-		data : $('#reviewform').serialize(),
-		dataType : 'json',
-		type : 'post',
-		success : function(data){
-			alert("수강후기가 등록되었습니다.");
-		},
-		error : function(xhr){
-			alert("상태"+xhr.status);
-		}
-		
+		$("#reviewbox").on('click', function() {
+			
+			$('input[name=reviewStar]').attr('value',startCount).val();
+			$("textarea[name=reviewCont]").val();
+			
+// 			console.log(reviewCont);
+			
+			$("#reviewform").submit();
+		})
 	})
-})
-
-
-
 </script>
 
 <style>
@@ -65,6 +61,11 @@ $('open-review-box').on("click", function(){
     height: 24px;
     width: 26px;
 }
+.review-block {
+    background: white;
+}
+
+
 </style>
 
 <body>
@@ -162,17 +163,17 @@ $('open-review-box').on("click", function(){
 		</div>			
 		
 		
-		<form id="reviewform" >
+		<form id="reviewform" action="${cp}/user/insertReview?lesId=${lesId}" method="POST">
 		<div class="row" style="margin-top:40px;">
 		<div class="col-md-6">
     	<div class="well well-sm">
             <div class="text-right">
-              <a class="btn btn-success btn-green" id="open-review-box">후기 작성</a>
+              <a class="btn btn-success btn-green" id="reviewbox">후기 작성</a>
           
           <div class="review-block-rate"><br>
-          
+          <input type="hidden" name="reviewStar" value="">
           <c:forEach var="i" begin="1" end="5">
-			<button type="button" class="star btn btn-default btn-grey btn-xs" aria-label="Left Align">
+			<button type="button" class="star btn btn-default btn-grey btn-xs" id="reviewStar" aria-label="Left Align">
 			  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 			</button>
 			</c:forEach>
@@ -215,10 +216,15 @@ $('open-review-box').on("click", function(){
 						<div class="col-sm-9">
 							<div class="review-block-rate">
 								<c:forEach var="i" begin="1" end="${reviewList.reviewStar}">
+				
 								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
 								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 								</button>
 								</c:forEach>
+<!-- 								<input type="button" class="" value="삭제"> -->
+								
+								<a href="${cp}/user/deleteReview?lesId=${lesId}&reviewId=${reviewList.reviewId}" class="button button-inline button-small button-primary"><span>삭제</span></a>
+							<input type="hidden" value="${reviewList.reviewId}">
 							
 <!-- 								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align"> -->
 <!-- 								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
@@ -230,7 +236,7 @@ $('open-review-box').on("click", function(){
 						</c:forEach>
 					</div>
 				<hr/>
-					
+		  			
 		
 
     </div> <!-- /container -->

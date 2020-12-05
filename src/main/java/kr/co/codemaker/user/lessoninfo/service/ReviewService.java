@@ -23,4 +23,8 @@ public class ReviewService {
 		return reviewMapper.insertReview(reviewVo);
 	}
 
+	public int deleteReview(String reviewId) throws Exception {
+		return reviewMapper.deleteReview(reviewId);
+	}
+
 }

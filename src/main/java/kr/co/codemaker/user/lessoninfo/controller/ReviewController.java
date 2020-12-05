@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.lessoninfo.service.ReviewService;
@@ -37,34 +38,53 @@ public class ReviewController {
 		logger.debug("reviewList");
 		
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("lesId",lesId);
 		
 		return "mainT/user/lesson/selectReview";
 	}
 	
+
 	@RequestMapping("/user/insertReview")
-	public String insertReview(ReviewVO reviewVo, HttpSession session, HttpServletRequest request) {
+	public String insertReview(Model model , ReviewVO reviewVo, String lesId, HttpSession session, HttpServletRequest request) {
 		
-		logger.debug("insert 컨트롤러 시작");
-		logger.debug("reviewVo : {} ", reviewVo);
-	
+		
 		session = request.getSession();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String reviewUser = userVo.getUserId();
 		String userId = reviewUser;
-		String payId = "PAY0010";
-		
+		 
 		reviewVo.setUserId(reviewUser);
-		reviewVo.setPayId(payId);
+		logger.debug("reviewVo!! : {} ", reviewVo);
 		
 		int insertCnt=0;
-		
+
 		try {
 			insertCnt = reviewService.insertReview(reviewVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/user/selectReview";
+		model.addAttribute("reviewVo", reviewVo);
+		
+		return "redirect:/user/selectReview?lesId="+lesId;
+		
+	}
+	
+	@RequestMapping("/user/deleteReview")
+	public String deleteReview(ReviewVO reviewVo, String lesId) {
+
+	
+		String reviewId =reviewVo.getReviewId();
+
+		int deleteCnt = 0;
+		
+		try {
+			deleteCnt = reviewService.deleteReview(reviewId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/user/selectReview?lesId="+lesId;
 	}
 }
