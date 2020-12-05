@@ -40,12 +40,13 @@ public class MypageController {
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
 		UserVO userVo = new UserVO();
-		session = request.getSession();
-        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+		//session = request.getSession();
         
         String userId = userVo.getUserId();
         
+        userId = "a001@naver.com";
 		userVo.setUserId(userId);
+		userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);

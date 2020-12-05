@@ -3,21 +3,21 @@
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonMapper">
 	<select id="selectLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT les_nm , les_id
- 		  FROM lesson
+		  FROM lesson
  		  <where>
-		    AND sub_id=#{subId}
-		    AND tch_id='200ser@maker.com'
-		    AND les_state='3'
+			    AND sub_id=#{subId}
+			    AND tch_id='200ser'
+			    AND les_state='3'
  		  </where>
  		   ORDER BY les_id ASC
 	</select>
 	
 	<select id="selectNoLesson" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-	 	SELECT les_cont,les_id,les_state
- 		 FROM lesson
+		SELECT les_cont,les_id,les_state, les_nm
+ 		  FROM lesson
  		 <where>
-			  AND tch_id='200ser@maker.com'
-  			  AND les_state NOT IN('3','5')
+			   AND tch_id='200ser'
+			   AND les_state NOT IN('3','5')
  		 </where>
  		 ORDER BY les_id ASC
 	</select>
@@ -26,12 +26,15 @@
 		UPDATE lesson 
    		   SET les_state='5' 
    		 <where>
- 			AND les_id=#{les_id}
+ 				AND les_id=#{les_id}
    		 </where>  
 	</update>
 	
 	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		INSERT INTO lesson
-		     VALUES(#{lesson_seq.nextVal()}, #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, '200ser@maker.com', #{subId})
+     	VALUES('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId})
+	     <selectKey keyProperty="lesId" resultType="String">
+			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
+		</selectKey>
 	</insert>
 </mapper>

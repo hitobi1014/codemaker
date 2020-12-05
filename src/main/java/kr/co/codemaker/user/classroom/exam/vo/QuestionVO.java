@@ -1,5 +1,7 @@
 package kr.co.codemaker.user.classroom.exam.vo;
 
+import kr.co.codemaker.common.vo.BaseVO;
+
 /**
  * 문제 VO
 * QuestionVO.java
@@ -13,60 +15,63 @@ package kr.co.codemaker.user.classroom.exam.vo;
 * 김미연 최초 생성
 *
  */
-public class QuestionVO {
+public class QuestionVO extends BaseVO {
 	
-	private String que_id;		// 시험 문제 아이디
-	private String que_cont;	// 시험 문제
-	private String que_answer;	// 시험 정답
-	private String que_explain;	// 문제 해설
-	private String exam_id;		// 시험 아이디
+	private String queId;		// 시험 문제 아이디
+	private String queCont;		// 시험 문제
+	private String queAnswer;	// 시험 정답
+	private String queExplain;	// 문제 해설
+	private int queScore;		// 문제 배점
+	private String examId;		// 시험 아이디
 	
 	public QuestionVO() {
 	}
 	
-	public QuestionVO(String que_id, String que_cont, String que_answer, String que_explain, String exam_id) {
-		this.que_id = que_id;
-		this.que_cont = que_cont;
-		this.que_answer = que_answer;
-		this.que_explain = que_explain;
-		this.exam_id = exam_id;
-	}
-	
-	public String getQue_id() {
-		return que_id;
-	}
-	public void setQue_id(String que_id) {
-		this.que_id = que_id;
-	}
-	public String getQue_cont() {
-		return que_cont;
-	}
-	public void setQue_cont(String que_cont) {
-		this.que_cont = que_cont;
-	}
-	public String getQue_answer() {
-		return que_answer;
-	}
-	public void setQue_answer(String que_answer) {
-		this.que_answer = que_answer;
-	}
-	public String getQue_explain() {
-		return que_explain;
-	}
-	public void setQue_explain(String que_explain) {
-		this.que_explain = que_explain;
-	}
-	public String getExam_id() {
-		return exam_id;
-	}
-	public void setExam_id(String exam_id) {
-		this.exam_id = exam_id;
-	}
-	
-	@Override
-	public String toString() {
-		return "QuestionVO [que_id=" + que_id + ", que_cont=" + que_cont + ", que_answer=" + que_answer
-				+ ", que_explain=" + que_explain + ", exam_id=" + exam_id + "]";
+	public QuestionVO(String queId, String queCont, String queAnswer, String queExplain, int queScore, String examId) {
+		this.queId = queId;
+		this.queCont = queCont;
+		this.queAnswer = queAnswer;
+		this.queExplain = queExplain;
+		this.queScore = queScore;
+		this.examId = examId;
 	}
 
+	public String getQueId() {
+		return queId;
+	}
+	public void setQueId(String queId) {
+		this.queId = queId;
+	}
+	public String getQueCont() {
+		return queCont;
+	}
+	public void setQueCont(String queCont) {
+		this.queCont = queCont;
+	}
+	public String getQueAnswer() {
+		return queAnswer;
+	}
+	public void setQueAnswer(String queAnswer) {
+		this.queAnswer = queAnswer;
+	}
+	public String getQueExplain() {
+		return queExplain;
+	}
+	public void setQueExplain(String queExplain) {
+		this.queExplain = queExplain;
+	}
+	public int getQueScore() {
+		return queScore;
+	}
+	public void setQueScore(int queScore) {
+		this.queScore = queScore;
+	}
+	public String getExamId() {
+		return examId;
+	}
+	public void setExamId(String examId) {
+		this.examId = examId;
+	}
+
+	
 }

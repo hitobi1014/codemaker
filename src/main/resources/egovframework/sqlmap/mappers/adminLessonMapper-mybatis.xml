@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.admin.course.lesson.dao.AdminLessonMapper">
+
+<select id="selectAllSubject" parameterType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO" resultType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
+SELECT
+    sub_id,
+    sub_nm,
+    sub_out
+FROM
+    subject
+</select>
+<select id="selectLesson" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.admin.course.lesson.vo.LessonVO">
+SELECT
+    les_id,
+    les_nm,
+    les_cont,
+    les_state,
+    les_cash,
+    les_term,
+    tch_id,
+    sub_id
+FROM
+    lesson
+WHERE
+	sub_id = #{subId}
+  AND
+  	les_state = '2'
+</select>
+<select id="selectLessonIndex" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO" resultType="kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO">
+SELECT *
+  FROM
+    (SELECT a.*, ROWNUM AS rn
+  	   FROM
+          (SELECT *
+             FROM  lesson_index
+            WHERE les_id = #{lesId}
+            ORDER BY lidx_num) a)
+ WHERE rn BETWEEN 1 * (#{page} - 1) + 1 AND #{page} * 1
+</select>
+<update id="updateLesson" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonVO">
+UPDATE lesson
+    SET
+       les_state = #{lesState}
+WHERE
+       les_id = #{lesId}
+</update>
+<select id="selectAllLesson" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.admin.course.lesson.vo.LessonVO">
+SELECT
+    les_id,
+    les_nm,
+    les_cont,
+    les_state,
+    les_cash,
+    les_term,
+    tch_id,
+    sub_id
+FROM
+    lesson
+
+</select>
+
+<select id="selectTotalCntLesIdx" resultType="java.lang.Integer" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO">
+SELECT COUNT(*)
+  FROM lesson_index
+ WHERE les_id = #{lesId}
+</select>
+<select id="selectTotalCntLesson" resultType="java.lang.Integer" parameterType="kr.co.codemaker.admin.course.lesson.vo.LessonVO">
+SELECT COUNT(*)
+  FROM lesson
+
+</select>
+</mapper>

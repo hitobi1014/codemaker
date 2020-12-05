@@ -13,8 +13,10 @@ import kr.co.codemaker.user.classroom.exam.dao.AnswersheetUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.ExamUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
+import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 
 /**
@@ -75,7 +77,6 @@ public class ExamUserService {
 	}
 	
 	public ExamScoreVO selectExamScore(ExamScoreVO examScoreVo) {
-		
 		try {
 			return examUserMapper.selectExamScore(examScoreVo);
 		} catch (Exception e) {
@@ -83,5 +84,32 @@ public class ExamUserService {
 		}
 		return null;
 	}
-
+	
+	public List<ExamResultVO> selectExamResult(ExamVO examVo) {
+		try {
+			return examUserMapper.selectExamResult(examVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String insertExamScore(ExamScoreVO examScoreVo) {
+		try {
+//			return examUserMapper.insertExamScore(examScoreVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return examScoreVo.getExamId();
+	}
+	
+	public String updateExamScore(ExamScoreVO examScoreVo) {
+		try {
+//			return examUserMapper.insertExamScore(examScoreVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return examScoreVo.getExamId();
+	}
+	
 }

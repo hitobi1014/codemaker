@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.teacher.course.lesson.dao.LessonDaoI;
 import kr.co.codemaker.teacher.course.lesson.dao.LessonMapper;
-import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.TeacherSubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;

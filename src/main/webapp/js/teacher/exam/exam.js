@@ -47,13 +47,13 @@ var createExam = function() {
 };
 
 // 출제한 시험 리스트 조회
-var selectAllExam = function(es, ci, p){
+var selectAllExam = function(es, li, p){
 	$.ajax({
 		url : '/exam/selectAllResExam',
 		method : 'get',
 		data : {
-			exam_state : es,
-			cur_id : ci,
+			examState : es,
+			lidxId : li,
 			page : p
 		},
 		
@@ -80,8 +80,8 @@ var changeCurriculum = function(){
 		url : '/exam/selectAllResExam',
 		method : 'get',
 		data : {
-			exam_state : es,
-			cur_id : ci,
+			examState : es,
+			lidxId : li,
 			page : p
 		},
 		

@@ -4,8 +4,10 @@ import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
+import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 /**
  * 
@@ -46,6 +48,16 @@ public interface ExamUserMapper {
 	 * @return 
 	 */
 	public ExamVO selectExam(ExamVO examVo) throws Exception;
+	
+	/**
+	 * 시험 결과를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ExamResultVO> selectExamResult(ExamVO examVo) throws Exception;
 	
 	/**
 	 * 해당 시험 점수를 조회하는 메서드

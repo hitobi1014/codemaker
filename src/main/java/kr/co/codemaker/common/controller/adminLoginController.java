@@ -31,7 +31,7 @@ public class adminLoginController {
 	}
 	
 	// 관리자 로그인
-	@RequestMapping(path="/admin/main", method=RequestMethod.POST)
+	@RequestMapping(path="/admin/login", method=RequestMethod.POST)
 	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request,
 								HttpSession session) throws Exception{
 		AdminVO adminVO = null;
@@ -60,7 +60,7 @@ public class adminLoginController {
 	}
 	
 	
-	@RequestMapping(path="/teacher/main", method=RequestMethod.POST)
+	@RequestMapping(path="/teacher/login", method=RequestMethod.POST)
 	public String getTeacher(TeacherVO dbTeacherVO, HttpServletResponse response,
 								HttpSession session) throws Exception{
 		TeacherVO teacherVO = null;

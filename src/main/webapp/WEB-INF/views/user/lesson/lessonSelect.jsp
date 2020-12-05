@@ -162,10 +162,16 @@ button {
 	<div class="card shadow lessonHeader" id="lessonInt"
 		style="height: 220px;">강의소개</div>
 	<div class="btn" style="border: 1px solid #69666d; margin-top: 50px;">
-		<a>장바구니</a><br>
+		<a onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
 	</div>
 	<div class="btn" style="border: 1px solid black;">
 		<a>담기</a>
+	</div>
+	<div id="payBtn" class="btn" style="border: 1px solid black;">
+		<c:url value="/user/payView" var="pay">
+			<c:param name="lesId" value="${lesId}"/>
+		</c:url>
+		<a href="${pay}">결제하기</a>
 	</div>
 </div>
 
@@ -202,7 +208,25 @@ button {
 	시험
 	</div>
 </div>
-
-
-
+<script>
+function addCart(lesId,userId){
+	console.log(lesId,userId);
+	$.ajax({
+		method : "post",
+		url : "/user/cart",
+		data : {lesId:lesId,userId:userId},
+		dataType : "json",
+		success : function(res){
+			if(res.code==0){
+				alert(res.msg);
+			}else{
+				var check = confirm("장바구니에 강의를 담았습니다\n장바구니로 이동하시겠습니까?");
+				if(check){
+					location.href="${pageContext.request.contextPath}/user/cartView";
+				}
+			}
+		}
+	})
+}
+</script>
 

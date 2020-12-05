@@ -16,6 +16,8 @@ import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
 import kr.co.codemaker.user.classroom.exam.service.QuestionUserService;
 import kr.co.codemaker.user.classroom.exam.vo.AnswersheetVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
@@ -109,5 +111,83 @@ public class ExamUserController {
 		return "teacher/exam/examSelect";
 	}
 	
+	/**
+	 * 시험점수를 가져오는 메서드
+	 * @return
+	 */
+	@RequestMapping(path = "/examUser/selectExamScore")
+	public String selectExamScore(ExamScoreVO examScoreVo, Model model) {
+		ExamScoreVO esv = examUserService.selectExamScore(examScoreVo);
+		
+		model.addAttribute("examScoreVo", esv);
+		
+		return "user/exam/examScroeSelect";
+		
+	}
+	
+	/**
+	 * 시험결과를 가져오는 메서드
+	 * @return
+	 */
+	@RequestMapping(path = "/examUser/selectExamResult")
+	public String selectExamResult(ExamVO examVo, Model model) {
+		
+		List<ExamResultVO> examResultList = examUserService.selectExamResult(examVo); 
+		
+		model.addAttribute("examResultList", examResultList);
+		
+		return "";
+		
+	}
+	
+	/**
+	 * 시험점수와 시험결과를 등록하는 메서드
+	 * @return
+	 */
+	@RequestMapping(path = "/examUser/insertExamResult")
+	public String insertExamResult(ExamScoreVO examScoreVo, List<ExamResultVO> examResultList, HttpSession session) {
+		
+//		String userId = (String)session.getAttribute("");
+		String userId = "";
+		
+		ExamVO examVo = new ExamVO(examScoreVo.getExamId());
+		examScoreVo.setUserId(userId);
+		
+		List<QuestionVO> questionList = questionUserService.selectQuestion(examVo);
+		
+		ExamScoreVO esv = examUserService.selectExamScore(examScoreVo);
+		
+		int score = 0;
+		
+		for(int i=0; i < questionList.size(); i++) {
+			// 정답일 경우
+			if(questionList.get(i).getQueAnswer().equals(examResultList.get(i).getErAnswer())) {
+				examResultList.get(i).setErCheck("Y");
+				score += questionList.get(i).getQueScore();
+			}else {	// 오답일 경우
+				examResultList.get(i).setErCheck("N");
+			}
+			examResultList.get(i).setUserId(userId);
+			examResultList.get(i).setExamId(examScoreVo.getExamId());
+		}
+		
+		// 문제 수 만큼 등록
+		for(ExamResultVO examResultVo : examResultList) {
+			questionUserService.intsertExamResult(examResultVo);
+		}
+		
+		// 처음 풀 경우
+		if(esv.getEsFscore() == 0) {
+			examScoreVo.setEsFscore(score);
+			examUserService.insertExamScore(examScoreVo);
+			
+		}else { // 다시 풀 경우
+			examScoreVo.setEsLscore(score);
+			examUserService.updateExamScore(examScoreVo);
+		}
+		
+		return "";
+		
+	}
 
 }

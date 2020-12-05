@@ -39,14 +39,13 @@ public class QuestionUserService {
 		return null;
 	}
 	
-	public ExamResultVO selectExamResult(QuestionVO questionVO) {
-		
+	public int intsertExamResult(ExamResultVO examResultVo) {
 		try {
-			return questionUserMapper.selectExamResult(questionVO);
+//			return questionUserMapper.intsertExamResult(examResultVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return 0;
 	}
 
 }

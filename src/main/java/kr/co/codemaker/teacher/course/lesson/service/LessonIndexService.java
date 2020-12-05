@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.teacher.course.lesson.dao.LessonIndexMapper;
-import kr.co.codemaker.teacher.course.lesson.dao.SubjectMapper;
+import kr.co.codemaker.teacher.course.lesson.dao.TeacherSubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 
 @Service("lessonIndexService")
@@ -16,17 +16,20 @@ public class LessonIndexService {
 	@Resource(name="lessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
-	public List<LessonIndexVO> selectLessonIndex(String lesId) {
+	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
 		
 		try {
-			return lessonIndexMapper.selectLessonIndex(lesId);
+//			return lessonIndexMapper.selectLessonIndex(lesId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	
+	public int insertLessonIndex(LessonIndexVO lesIdxVO) throws Exception{
+		return lessonIndexMapper.insertLessonIndex(lesIdxVO);
+	}
 	
 
 }

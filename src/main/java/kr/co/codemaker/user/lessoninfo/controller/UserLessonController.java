@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
-import kr.co.codemaker.user.lessoninfo.service.SubjectService;
+import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
 import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
@@ -29,7 +29,7 @@ public class UserLessonController {
 	private LessonService lessonService;
 	
 	@Resource(name="userSubjectService")
-	private SubjectService subjectService;
+	private UesrSubjectService subjectService;
 	
 	@Resource(name="userLessonIndexService")
 	private LessonIndexService lessonIndexService;
@@ -54,6 +54,7 @@ public class UserLessonController {
 		logger.debug("강의목차:{}",lesIdxList);
 		
 		model.addAttribute("lesIdxList", lesIdxList);
+		model.addAttribute("lesId", lesId);
 		
 		
 		return "mainT/user/lesson/lessonSelect";

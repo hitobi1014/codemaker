@@ -26,6 +26,16 @@ public class ExamRequestVO {
 	private int startPage; 		// 시작 페이지
 	private int endPage; 		// 마지막 페이지
 	
+	public ExamRequestVO() {
+	}
+	
+	public ExamRequestVO(String examState, String lesId, int page) {
+		this.examState = examState;
+		this.lesId = lesId;
+		this.page = page;
+	}
+	
+	
 	public String getExamState() {
 		return examState;
 	}

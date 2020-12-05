@@ -4,7 +4,49 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.teacher.course.exam.dao.ExamMapper">
 
+<select id="selectExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+SELECT
+    exam_id,
+    exam_nm,
+    exam_state,
+    exam_date,
+    lidx_id
+FROM
+    exam
+WHERE
+	exam_id = #{examId}
+</select>
 
+<insert id="insertExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+INSERT INTO exam (
+    exam_id,
+    exam_nm,
+    exam_state,
+    exam_date,
+    lidx_id
+) VALUES (
+	'EXAM'||LPAD(EXAM_SEQ.NEXTVAL,4,'0'),
+	#{examNm},
+	#{examState},
+	SYSDATE,
+	#{lidxId}
+)
+</insert>
 
+<delete id="deleteExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+DELETE FROM exam
+WHERE exam_id =#{examId}
+  AND exam_state =#{examState}
+</delete>
+
+<update id="updateExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+UPDATE exam
+   SET
+   exam_nm = #{examNm},
+   exam_state = #{examState},
+   exam_date = SYSDATE
+WHERE
+   exam_id =#{examId}
+</update>
 
 </mapper>

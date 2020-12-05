@@ -1,5 +1,7 @@
 package kr.co.codemaker.teacher.course.exam.vo;
 
+import kr.co.codemaker.common.vo.BaseVO;
+
 /**
  * 문제 보기VO
 * AnswersheetVO.java
@@ -13,44 +15,39 @@ package kr.co.codemaker.teacher.course.exam.vo;
 * 김미연 최초 생성
 *
  */
-public class AnswersheetVO {
+public class AnswersheetVO extends BaseVO {
 	
-	private String ans_id;		// 보기 아이디
-	private String ans_cont;	// 보기 내용
-	private String que_id;		// 시험문제 아이디
+	private String ansId;		// 보기 아이디
+	private String ansCont;		// 보기 내용
+	private String queId;		// 시험문제 아이디
 	
 	public AnswersheetVO() {
 	}
 	
-	public AnswersheetVO(String ans_id, String ans_cont, String que_id) {
+	public AnswersheetVO(String ansId, String ansCont, String queId) {
 		
-		this.ans_id = ans_id;
-		this.ans_cont = ans_cont;
-		this.que_id = que_id;
-	}
-	
-	public String getAns_id() {
-		return ans_id;
-	}
-	public void setAns_id(String ans_id) {
-		this.ans_id = ans_id;
-	}
-	public String getAns_cont() {
-		return ans_cont;
-	}
-	public void setAns_cont(String ans_cont) {
-		this.ans_cont = ans_cont;
-	}
-	public String getQue_id() {
-		return que_id;
-	}
-	public void setQue_id(String que_id) {
-		this.que_id = que_id;
-	}
-	
-	@Override
-	public String toString() {
-		return "AnswersheetVO [ans_id=" + ans_id + ", ans_cont=" + ans_cont + ", que_id=" + que_id + "]";
+		this.ansId = ansId;
+		this.ansCont = ansCont;
+		this.queId = queId;
 	}
 
+	public String getAnsId() {
+		return ansId;
+	}
+	public void setAnsId(String ansId) {
+		this.ansId = ansId;
+	}
+	public String getAnsCont() {
+		return ansCont;
+	}
+	public void setAnsCont(String ansCont) {
+		this.ansCont = ansCont;
+	}
+	public String getQueId() {
+		return queId;
+	}
+	public void setQueId(String queId) {
+		this.queId = queId;
+	}
+	
 }
