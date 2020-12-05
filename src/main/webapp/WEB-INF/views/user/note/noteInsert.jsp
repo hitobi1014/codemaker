@@ -9,7 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script> 
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+
 <script>
 $(function(){
 	$('#noteCont').summernote({
@@ -87,7 +88,7 @@ body{
 <div id="d1">
 	<p class="mb-0 nfn" id="pt"><strong>필기 노트</strong></p>
 	<br>
-	<form id="notef">
+	<form id="notef" action="/note/insertNote" method="post">
 		<label for="title" class="nfn" id="nt"><strong>필기 제목</strong></label>
 		<div class="mb-3">
 			<input type="text" id="noteTitle" class="form-control" name="noteTitle">

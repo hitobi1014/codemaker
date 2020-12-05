@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
+<!-- 썸머노트 설정 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+
+
 <script>
 $(function(){
 	var noteId = '${noteVO.noteId}';
@@ -29,25 +36,14 @@ $(function(){
 // 			Console.log('aa');
 			alert('내용을 입력해주세요.');
 		}else{
-			$.ajax({
-				url : '/note/updateNote',
-				method : 'post',
-				data : $('#notef').serialize(),
-				success : function(res) {
-					alert("노트가 수정되었습니다.");
-					selectNote(noteId);
-				},
-				error : function(xhr) {
-					alert("상태" + xhr.status);
-				}
-			});
+			$('#notef').submit();
 		}
 		
 	});
 	
 	// 수정 취소
 	$('#cancle').on('click', function(){
-		selectNote(noteId);
+		document.location = "/note/selectNote?noteId=${noteVO.noteId }";
 	});
 })
 </script>
@@ -69,9 +65,10 @@ $(function(){
 	width: 820px;
 }
 </style>
+<div class="container" role="main">
 <p class="mb-0 nfn" id="pt"><strong>필기 수정</strong></p>
 <br>
-<form id="notef">
+<form id="notef" action="/note/updateNote" method="post">
 	<input type="hidden" id="noteId" class="form-control" name="noteId" value="${noteVO.noteId }">
 	<label for="title" class="nfn" id="nt"><strong>필기 제목</strong></label>
 	<div class="mb-3">
@@ -85,3 +82,4 @@ $(function(){
 		<input type="button" class="btn btn-sm btn-primary" value="수정취소" id="cancle">
 	</div>
 </form>
+</div>

@@ -25,7 +25,8 @@ var selectPageLesson = function(page) {
 		},
 		success : function(res) {
 			// 자식 요소로 추가
-			$('#alld').html(res);
+			$('#lesTbody').html(res.split('fin')[0]);
+			$('#pagingl').html(res.split('fin')[1]);
 		},
 		error : function(xhr) {
 			alert("상태" + xhr.status);

@@ -2,6 +2,8 @@ package kr.co.codemaker.admin.course.lesson.vo;
 
 import java.util.List;
 
+import kr.co.codemaker.common.vo.BaseVO;
+
 /**
  * 
 * LessonVO.java
@@ -15,7 +17,7 @@ import java.util.List;
 * 김미연 최초 생성
 *
  */
-public class LessonVO {
+public class LessonVO extends BaseVO {
 
 	private String lesState;	// 강의 상태
 	private String lesId;		// 강의 아이디
@@ -26,6 +28,53 @@ public class LessonVO {
 	private int lesTerm;		// 강의기간
 	private int lesCash;		// 강의비용
 	
+	// ----------------------------------------------------------
+	private String subNm;		// 과목명
+	private int agreeCnt;		// 승인요청 건수
+	private int sagreeCnt;		// 승인완료요청 건수
+	private int dagreeCnt;		// 반려 건수
+	private String tchNm;		// 담당선생님
+	
+	private List<LessonIndexVO> lessonIndexList;	// 강의 목차
+	
+	
+	public List<LessonIndexVO> getLessonIndexList() {
+		return lessonIndexList;
+	}
+	public void setLessonIndexList(List<LessonIndexVO> lessonIndexList) {
+		this.lessonIndexList = lessonIndexList;
+	}
+	public String getTchNm() {
+		return tchNm;
+	}
+	public void setTchNm(String tchNm) {
+		this.tchNm = tchNm;
+	}
+	public int getSagreeCnt() {
+		return sagreeCnt;
+	}
+	public void setSagreeCnt(int sagreeCnt) {
+		this.sagreeCnt = sagreeCnt;
+	}
+	public int getDagreeCnt() {
+		return dagreeCnt;
+	}
+	public void setDagreeCnt(int dagreeCnt) {
+		this.dagreeCnt = dagreeCnt;
+	}
+	public String getSubNm() {
+		return subNm;
+	}
+	public void setSubNm(String subNm) {
+		this.subNm = subNm;
+	}
+	public int getAgreeCnt() {
+		return agreeCnt;
+	}
+	public void setAgreeCnt(int agreeCnt) {
+		this.agreeCnt = agreeCnt;
+	}
+
 	// 페이징 작업 추가
 	private int page; 		// 현재 보여주는 페이지 번호
 	private int startPage; 	// 시작 페이지
