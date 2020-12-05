@@ -7,13 +7,9 @@ import kr.co.codemaker.common.vo.BaseVO;
 public class LessonIndexVO extends BaseVO{
 
 	private String lidxId;
-	private String lidxNum;
+	private int lidxNum;
 	private String lidxCont;
 	private String lesId;
-<<<<<<< HEAD
-=======
-	private int lidxNum;
-	private String lidxId;
 	
 								
 	private List<LessonIndexVO> lesIdxList;
@@ -24,7 +20,6 @@ public class LessonIndexVO extends BaseVO{
 	}
 
 
->>>>>>> 선생님_강의
 	public void setLidxCont(String lidxCont) {
 		this.lidxCont = lidxCont;
 	}

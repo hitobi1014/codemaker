@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.codemaker.teacher.resume.dao.ResumeMapper">
+	<insert id="insertResume" parameterType="java.util.HashMap">
+INSERT INTO resume (
+	    res_id, res_code, res_nm, res_tel, 
+	    res_mail, res_profile, res_motive,
+	    res_edu, res_license, res_career, res_state
+	) VALUES (
+	    #{res_id}, 'T'||LPAD(res_SEQ.NEXTVAL,4,'0'), #{res_nm}, #{res_tel},
+	    #{res_mail}, #{res_profile}, #{res_motive},
+	    #{res_edu}, #{res_license}, #{res_career}, #{res_state}
+	)
+</insert>
+</mapper>
