@@ -19,16 +19,15 @@
 		UPDATE lesson_index
   		   SET lidx_num=#{lidxNum} ,lidx_cont=#{lidxCont}
   		   <where>
-	  	 	 AND lidx_id=#{lidxId};
+	  	 	 AND lidx_id=#{lidxId}
   		   </where>
 	</update>
 	
-	<delete id="deleteLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">
-	 	DELETE lesson_index
+	<delete id="deleteLessonIndex" parameterType="java.lang.String">
+	 	DELETE FROM lesson_index 
 	 	<where>
-	 		AND lidx_num=#{lidx_num}
+	 		AND lidx_id=#{lidxId}
 	 	</where>
-	
 	</delete>
 	
 </mapper>

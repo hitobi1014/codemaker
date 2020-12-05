@@ -100,6 +100,13 @@
 .idxDelBtn{
 	margin: 35px 0px 0 20px;
 }
+.idxUpBtn{
+	margin: 35px 0px 0 0px;
+}
+.newIdxDelBtn{
+	margin: 35px 0px 0 20px;
+}
+
 .IdxContDiv{
 	width: 800px;
 	float: left;
@@ -108,15 +115,67 @@
 
 <script>
 $(function(){
+	
+	var index = 1;
+	// 강의목록 추가
+	$('#addLesBtn').on('click', function() {
+		console.log('눌림');
+		
+			str ='<div id="pl-lg-4-id_['+index+']">';
+			str +=' <div class="pl-lg-4" >';
+	        str +='  <div class="row">';	
+	        str +='    <div class="col-lg-2">';
+	        str +='      <div class="form-group">';
+	        str +='        <label class="form-control-label" for="input-email">강의 차수</label>';
+	        str +='         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
+	        str +='      </div>';
+	        str +='    </div>';
+			str +=' 	<div class="IdxContDiv">';
+			str +=' 		<div class="col-lg-7">';
+			str +=' 			<div class="form-group">';
+			str +=' 				<label class="form-control-label" for="input-email">강의 내용</label>'; 
+			str +=' 				<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList['+index+'].lidxCont" id="lidxCont">';
+			str +=' 			</div>';
+			str +=' 		</div>';
+			str +=' 	 	<div>';
+			str +=' 			<input type="button" class="newIdxDelBtn" id="IdxDelBtn" value="삭제" data-del="pl-lg-4-id_['+index+']" >';
+			str +=' 		</div>';
+			str +=' 	</div>';
+			str +='   </div>';
+	        str +=' </div>';
+	        str +='</div>';
+	        
+		index++;
+			
+      	
+      	$('#idxAdd').append(str);
+		
+	})
+	
+	// 새로 생성된 강의목차 삭제
+	$('#idxAdd').on('click','.newIdxDelBtn',function(){
+		console.log('삭제버튼!!');
+		var del=$(this).data("del");
+		console.log(del);
+		$("div[id='"+del+"']").remove();
+// 		$('#'+del).remove();
+		console.log(del);
+	})
+	    
+	
+	// 원래있던 강의목차 삭제
 	$('#idxAdd').on('click','.idxDelBtn',function(){
-		var lidxid = $(this).data("lidxid");
-		console.log(lidxid);
+		var lidxId = $(this).data("lidxid");
+		var lesId = $(this).data("lesid");
+		console.log(lidxId);
+		console.log(lesId);
 		$.ajax({
 				method:'get',
-				url:'/teacherL/updateLessonIndex?lidxId='+lidxid,
+				url:'/teacherLIdx/deletesLessonIndex?lidxId='+lidxId+'&lesId='+lesId,
 				dataType:'html',
 				success:function(data){
-					$('#idxAdd').load('/teacherL/deleteLoadLesIdx');
+					console.log(lesId);
+					$('#idxAdd').load('/teacherLIdx/deleteLoadLesIdx?lesId='+lesId);
 				},
 				error:function(data){
 					alert('안됨');
@@ -124,8 +183,17 @@ $(function(){
 		})
 	})
 	
+	// 원래있던 강의목차 수정
+	$('#idxAdd').on('click', '.idxUpBtn', function(){
+		$(this).attr('#id')
+		alert(lidxId);
+		
+// 		$('#lesIdxForm').submit();
+	})
+	
 	
 })
+
 
 // function initData(){
 // 	$('#lesNm').val('갑자기만드는 JAVA');
@@ -133,7 +201,7 @@ $(function(){
 // 	$('#lesCash').val('80000');
 // 	$('#lesTerm').val('90');
 // 	$('#lidxNum').val(1);
-// 	$('#lidxCont').val('갑자기만드네');
+// 	$('#lidxCont').val('갑자기만드네');	
 // }
 
 </script>
@@ -148,13 +216,13 @@ $(function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">▪ 강의 수정</h2>
 				<br>
-				<form id="lesForm" action="" method="POST" >
-				<input type="hidden" name="tchId">
-				<input type="hidden" name="subId">
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
                 <div class="pl-lg-4">
+				<form id="lesForm" action="${cp}/teacherL/updateLessonIndex" method="POST" >
+				<input type="hidden" name="tchId">
+				<input type="hidden" name="subId">
                   <div class="row">
                    <div class="col-lg-7">
                       <div class="form-group focused">
@@ -189,43 +257,50 @@ $(function(){
                       </div>
                     </div>
                   </div>
+                  </form>
                 </div>
                </div> 
                <!-- 강의목차 추가 -->
                <div class="lesDiv2">
             	<br>
             	<br>
+            	<div>
+                 	<button type="button" class="button button-inline button-small button-success form-group label"  id="addLesBtn">강의추가</button>
+                 </div>
                  <br>
                  <br>
                 <div id="idxAdd">
-	              <c:forEach items="${lesIdxList}" var="lesIdxList">
-	                <div class="pl-lg-4" id="pl-lg-4-id">
-	                  <div class="row">	
-	                    <div class="col-lg-2">
-	                      <div class="form-group">
-	                        <label class="form-control-label" for="input-email">강의 차수</label>
-	                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList[0].lidxNum" id="lidxNum" value="${lesIdxList.lidxNum}">
-	                      </div>
-	                    </div>
-						<div class="IdxContDiv">
-							<div class="col-lg-7">
-								<div class="form-group">
-									<label class="form-control-label" for="input-email">강의 내용</label> 
-									<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList[0].lidxCont" id="lidxCont" value="${lesIdxList.lidxCont}">
+		          <c:forEach items="${lesIdxList}" var="lesIdxList" >
+	               <form id="lesIdxForm" action="${cp}/teacherL/updateLessonIndex?lidxId=${lesIdxList.lidxId}&lesId=${lesIdxList.lesId}" method="POST" >
+	               	<input type="hidden" value="lidxId">
+		                <div class="pl-lg-4" id="pl-lg-4-id_[0]">
+		                  <div class="row">	
+		                    <div class="col-lg-2">
+		                      <div class="form-group">
+		                        <label class="form-control-label" for="input-email">강의 차수</label>
+		                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList[0].lidxNum" id="lidxNum" value="${lesIdxList.lidxNum}">
+		                      </div>
+		                    </div>
+							<div class="IdxContDiv">
+								<div class="col-lg-7">
+									<div class="form-group">
+										<label class="form-control-label" for="input-email">강의 내용</label> 
+										<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList[0].lidxCont" id="lidxCont" value="${lesIdxList.lidxCont}">
+									</div>
+								</div>
+							 	<div>
+									<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
+									<input type="button" id="${lesIdxList.lidxId}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
 								</div>
 							</div>
-						 	<div>
-								<input type="button" class="idxDelBtn" value="삭제" data-lidxid=${lesIdxList.lidxId}>
-							</div>
 						</div>
-					</div>
-	               </div>
-	              </c:forEach>
+		               </div>
+		               </form>
+		             </c:forEach>
                 </div>
                 <br>
                 <br>
                </div> 
-        	</form>
 			</div>
 			<br>
 			<br>
@@ -233,7 +308,6 @@ $(function(){
 				<button class="button button-inline button-small button-primary form-group label" id="push" >등록</button>
 				<button type="reset" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
 			</div>
-			
 		</div>
 	</div>
 </div>

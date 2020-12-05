@@ -29,7 +29,7 @@ public class LessonIndexService {
 		return lessonIndexMapper.updateLessonIndex(lesIdxVO);
 	}
 	
-	public int deleteLessonIndex(LessonIndexVO lesIdxVO) throws Exception{
-		return lessonIndexMapper.deleteLessonIndex(lesIdxVO);
+	public int deleteLessonIndex(String lidxId) throws Exception{
+		return lessonIndexMapper.deleteLessonIndex(lidxId);
 	}
 }

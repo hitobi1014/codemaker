@@ -1,5 +1,6 @@
 package kr.co.codemaker.teacher.course.lesson.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -242,12 +243,13 @@ public class TeacherLessonController {
 	public String updateViewLesson(LessonVO lessonVO, Model model,String lesId,String subId) {
 		//1. 강의, 강의목차 조회하기
 		//2. 강의목차 옆에 삭제버튼달기 - 삭제시 화면이 load되어야함
+		//3. 강의목차 옆에 수정버튼 달기
 		//3. 강의목차 추가하기 버튼달기
 		//4. 등록버튼
 		
 		logger.debug("강의아디랑 과목아디!!!:{},{}", lesId,subId);
-		LessonIndexVO lesIdxVO = new LessonIndexVO();
-		List<LessonIndexVO> lesIdxList = null;
+//		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		List<LessonIndexVO> lesIdxList = new ArrayList<>();
 		
 		lessonVO.setLesId(lesId);
 //		lesIdxVO.setLesId(lesId);
@@ -266,35 +268,61 @@ public class TeacherLessonController {
 		return "teacherPage/teacher/lesson/lessonUpdate";
 	}
 	
-	/**
-	 * 선생님 - 강의목차 수정(삭제&추가)
-	 */
-	@RequestMapping(path="/teacherL/updateLessonIndex")
-	public String updateViewLessonIndex(String lidxId, Model model) {
-		//1. 강의목차 삭제
-		//2. 강의목차 추가
-		LessonIndexVO lesIdxVO = new LessonIndexVO();
-		List<LessonIndexVO> lesIdxList;
-		lesIdxVO.setLidxId(lidxId);
-		String lesId = lesIdxVO.getLesId();
-		int cnt = 0;
-		try {
-			cnt = lessonIndexService.deleteLessonIndex(lesIdxVO);
-			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-			if(cnt == 1) {
-				model.addAttribute("lesIdxList",lesIdxList);
-				return "teacher/lesson/lessonIndexDeleteHTML";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	
-//	@RequestMapping(path="/teacherL/deleteLoadLesIdx")
-//	public String deleteLessonIndex() {
+//	/**
+//	 * 선생님 - 강의목차 수정(삭제&수정)
+//	 */
+//	@RequestMapping(path="/teacherL/updateLessonIndex")
+//	public String updateViewLessonIndex(String lidxId, Model model,String lesId,LessonIndexVO lesIdxVO) {
+//		//1. 강의목차 삭제
+//		//2. 강의목차 추가
+//		//3. 강의목차 수정
+//		List<LessonIndexVO> lesIdxList = new ArrayList<>();
+//		int delCnt = 0;
+//		int upCnt = 0;
 //		
+//		logger.debug("넘어온 값:{},{}", lidxId, lesId);
+//		logger.debug("lesIdxVO!!!:{}",lesIdxVO);
+//		
+//		try {
+//			// 강의목차 삭제
+//			delCnt = lessonIndexService.deleteLessonIndex(lidxId);
+//			// 강의목차 수정
+//			upCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
+//			// 삭제한거 제외한 강의목차 조회
+//			logger.debug("delCnt값,delCnt값:{},{}",delCnt,upCnt);
+//			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+//			if(delCnt == 1 || upCnt ==1) {
+//				model.addAttribute("lesIdxList",lesIdxList);
+//				return "teacher/lesson/lessonIndexDeleteHTML";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
 //	}
 //	
+//	/**
+//	 * 선생님 - 강의목차 삭제하고 난뒤 load
+//	 * @param lesId 강의아이디
+//	 * @param model 강의목차 리스트
+//	 * @return
+//	 */
+//	@RequestMapping(path="/teacherL/deleteLoadLesIdx")
+//	public String deleteLessonIndex(String lesId, Model model) {
+//		List<LessonIndexVO> lesIdxList = new ArrayList<>();
+//		
+//		try {
+//			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+//			
+//			logger.debug("두번째 컨트롤러어어어:{}",lesIdxList);
+//			
+//			model.addAttribute("lesIdxList",lesIdxList);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "teacher/lesson/lessonIndexDeleteHTML";
+//	}
+	
+	
 }

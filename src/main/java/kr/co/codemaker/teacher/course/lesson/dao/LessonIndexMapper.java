@@ -14,7 +14,7 @@ public interface LessonIndexMapper {
 	
 	int updateLessonIndex(LessonIndexVO lesIdxVO) throws Exception;		// 강의목차 수정
 	
-	int deleteLessonIndex(LessonIndexVO lesIdxVO) throws Exception;		// 강의목차 삭제
+	int deleteLessonIndex(String lidxId) throws Exception;		// 강의목차 삭제
 	
 
 }

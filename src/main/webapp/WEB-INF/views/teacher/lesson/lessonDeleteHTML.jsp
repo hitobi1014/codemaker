@@ -13,7 +13,7 @@
 					<div>
 						<div style="float: left; width:50%;">강의개설요청</div>
 						 <div style="float: left;width:50%;">
-							 <input id="delBtn" class="delClass  type="button" value="삭제" data-lesid="${no.lesId}"> 
+							 <input id="delBtn" class="delClass"  type="button" value="삭제" data-lesid="${no.lesId}"> 
 							 <input id="upBtn" class="upClass"  type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
 							 <input id="reqBtn" class="reqClass"  type="button" value="요청" >
 						 </div>   
