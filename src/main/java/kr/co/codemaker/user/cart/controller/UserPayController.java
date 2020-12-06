@@ -1,12 +1,11 @@
 package kr.co.codemaker.user.cart.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,12 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.cart.service.UserPayService;
@@ -39,18 +40,22 @@ public class UserPayController {
 	@Resource(name="userPayService")
 	private UserPayService userPayService;
 	
-	@RequestMapping(path="user/payView")
-	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo, @RequestParam(name="lessonVo[]")List<LessonVO> lessonVoList) {
+	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")
+	public String payView(HttpSession session, Model model, PayVO payVo, @RequestBody String jsonData) throws JsonParseException, JsonMappingException, IOException {
 //		ObjectMapper jsonMapper = new ObjectMapper();
 //		LessonVO lvo =new LessonVO();
 //		try {
 //			lvo = jsonMapper.readValue(jsonData, LessonVO.class);
 //		} catch (IOException e) {
 //			e.printStackTrace();
-//		}
-		logger.debug("데이터 : {}", lessonVoList.get(0).getLesNm());
+		logger.debug("데이터 : {}", jsonData);
+		Type collectionType = new TypeToken<List<LessonVO>>() {}.getType();
 		
-//		logger.debug("강의 정보 :{}",lessonVo);
+		Gson gson = new Gson();
+		gson.fromJson(jsonData, collectionType);
+		logger.debug("gson : {}",gson);
+//		JsonObject json = new JsonParser().parse(jsonData).getAsJsonObject();
+//		JsonArray jarr = json.getAsJsonObject().getAsJsonArray("");
 		return "";
 		// 회원아이디, 강의 아이디 필요함
 //		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인한 회원아이디 세션에서 가져오기

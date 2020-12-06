@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/json/jquery.serialize-object.js"></script>
 <style>
 tr, td{
 border:1px solid black;
@@ -18,6 +20,7 @@ border:1px solid black;
 		<th>금액</th>
 	</tr>
 <%-- 	<c:url value="/user/payView" var="payView"/> --%>
+		<form id="frm" method="post">
 		<c:forEach items="${lessonList}" var="lesson">
 			<tr>
 				<td><input type="checkbox" class="lesChk"/></td>
@@ -28,24 +31,29 @@ border:1px solid black;
 				<td><input type="text" value="${lesson.lesCash}" name="lesCash" readonly="readonly"/></td>
 			</tr>
 		</c:forEach>
+		</form>
 	<button id="sub">결제하기</button>
 </table>
 <script>
 $(function(){
 	$("#sub").on('click',function(){
-		var lessonVo = [];
+		var lessonArr = new Array();
 		$(".lesChk:checked").each(function(){
 			var td = $(this).parent().parent().children();
-			var lvo = td.children().serialize();
-			lessonVo.push(lvo);
+// 			var lvo = td.children().serialize();
+			var lvo = td.children().serializeObject();
+// 			console.log("lvo 값 : "+lvo);
+// 			lessonArr.push(jsonData);
+			lessonArr.push(lvo);
 		})
-// 		console.log(lessonVo);
-// 		var jsonData = JSON.stringify(lessonVo);
-// 		console.log(jsonData);
+		console.log("lessonArr 값"+JSON.stringify(lessonArr));
+		var jsonData = JSON.stringify(lessonArr);
 		$.ajax({
 			url : '<c:url value="/user/payView"/>',
 			method : 'post',
-			data : {lessonVo : lessonVo},
+			traditional : true,
+			contentType : 'application/json; charset=utf-8',
+			data : jsonData,
 			success : function(res){
 				alert("성공");
 			},
