@@ -83,6 +83,7 @@
 	<mvc:resources mapping="/docs/**" location="/docs/" />
 	<mvc:resources mapping="/plugins/**" location="/plugins/" />
 	<mvc:resources mapping="/dist/**" location="/dist/" />
+	<mvc:resources mapping="/fullcalendar/**" location="/fullcalendar/" />
 
 	<!-- For Pagination Tag -->
 	<!-- <bean id="imageRenderer" class="egovframework.example.cmmn.web.EgovImgPaginationRenderer"/> -->

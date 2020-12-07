@@ -13,8 +13,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
 
+
 <script>
 	$(function() {
+		
 		// 페이지 이동
 		$('.pageMove').on('click', function(){
 			var page = $(this).data("page");
@@ -54,7 +56,7 @@
 		$('#regBtn').on('click', function(){
 			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
 		});
-
+		
 	})
 </script>
 <style>
@@ -67,6 +69,7 @@
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
+
 </style>
 <div id="alld">
 	<div class="main-content">
@@ -154,6 +157,16 @@
 
 								</ul>
 							</c:if>
+						</div>
+						
+						<!-- 챗봇 -->
+						<div id="chat">
+							<script SameSite="None; Secure" src="https://static.landbot.io/landbot-3/landbot-3.0.0.js"></script>
+							<script>
+							  var myLandbot = new Landbot.Popup({
+							    configUrl: 'https://chats.landbot.io/v3/H-772484-EVE7FNBZUTY4MMT9/index.json',
+							  });
+							</script>	
 						</div>
 
 					</div>
