@@ -32,4 +32,5 @@ public class LessonIndexService {
 	public int deleteLessonIndex(String lidxId) throws Exception{
 		return lessonIndexMapper.deleteLessonIndex(lidxId);
 	}
+	
 }

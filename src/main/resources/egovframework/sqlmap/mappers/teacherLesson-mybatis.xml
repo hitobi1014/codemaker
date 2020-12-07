@@ -2,22 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonMapper">
 
-	<select id="selectLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		SELECT les_nm , les_id
+	<select id="selectLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		SELECT *
 		  FROM lesson
  		  <where>
 			  AND sub_id=#{subId}
-			  AND tch_id='200ser'
+			  AND tch_id=#{tchId}
 			  AND les_state='3'
  		  </where>
  		   ORDER BY les_id ASC
 	</select>
 	
-	<select id="selectNoLesson" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+	<select id="selectNoLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT *
  		  FROM lesson
  		 <where>
-			 AND tch_id='200ser'
+			 AND tch_id=#{tchId}
 			 AND les_state NOT IN('3','5')
  		 </where>
  		 ORDER BY les_id ASC
@@ -55,4 +55,11 @@
    		   </where>
 	</update>
 	
+	<update id="updateTempoLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		UPDATE lesson
+   		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}, les_state='1'
+   		   <where>
+		      AND les_id=#{lesId}
+   		   </where>
+	</update>
 </mapper>

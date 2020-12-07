@@ -116,7 +116,7 @@
 <script>
 $(function(){
 	
-	var index = 1;
+	var index = 0;
 	// 강의목록 추가
 	$('#addLesBtn').on('click', function() {
 		console.log('눌림');
@@ -165,17 +165,18 @@ $(function(){
 	
 	// 원래있던 강의목차 삭제
 	$('#idxAdd').on('click','.idxDelBtn',function(){
+		alert("삭제됩니다!")
 		var lidxId = $(this).data("lidxid");
 		var lesId = $(this).data("lesid");
 		console.log(lidxId);
 		console.log(lesId);
 		$.ajax({
 				method:'get',
-				url:'/teacherLIdx/deletesLessonIndex?lidxId='+lidxId+'&lesId='+lesId,
+				url:'/teacherL/deleteLessonIndex?lidxId='+lidxId+'&lesId='+lesId,
 				dataType:'html',
 				success:function(data){
 					console.log(lesId);
-					$('#idxAdd').load('/teacherLIdx/deleteLoadLesIdx?lesId='+lesId);
+					$('#idxAdd').load('/teacherL/updateLoadLesIdx?lesId='+lesId);
 				},
 				error:function(data){
 					alert('안됨');
@@ -183,13 +184,48 @@ $(function(){
 		})
 	})
 	
+	
 	// 원래있던 강의목차 수정
 	$('#idxAdd').on('click', '.idxUpBtn', function(){
-		$(this).attr('#id')
-		alert(lidxId);
 		
-// 		$('#lesIdxForm').submit();
+		var lidxId = $(this).data("lidxid");
+		var lesId = $(this).data("lesid");
+		var id = $(this).attr('id');
+		var lidxNum =$('input[id=lidxNum'+id+']').val();
+		var lidxCont =$('input[id=lidxCont'+id+']').val();
+		console.log(lidxId);
+		console.log(lesId);
+		console.log(id);
+		console.log(lidxNum);
+		console.log(lidxCont);
+		
+		alert('수정되었습니다!');
+		
+		$.ajax({
+				method:'get',
+				url:'/teacherL/updateLessonIndex?lidxId='+lidxId+'&lesId='+lesId,
+			    data:{'lidxCont': lidxCont
+			    	  ,'lidxNum': lidxNum
+			    	  },
+				dataType:'html',
+				success:function(data){
+					console.log(lesId);
+					$('#idxAdd').load('/teacherL/updateLoadLesIdx?lesId='+lesId);
+				},
+				error:function(data){
+					alert('안됨');
+				}
+			})
+		})
+		
+	$('#push').on('click',function(){
+		$('#lesForm').submit();
 	})
+	
+	$('#tempoPush').on('click',function(){
+		$('#lesForm').submit();
+	})
+	
 	
 	
 })
@@ -208,7 +244,7 @@ $(function(){
 
 </head>
 
-<!-- 강의 추가 -->
+<!-- 강의 수정 -->
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin: 50px;">
@@ -216,12 +252,13 @@ $(function(){
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">▪ 강의 수정</h2>
 				<br>
+				<form id="lesForm" action="${cp}/teacherL/updateLesson?lesId=${lessonVO.lesId}" method="POST" >
+<%-- 				<input type="hidden" name="tchId" value="${lessonVO.tchId}"> --%>
+<%-- 				<input type="hidden" name="subId" value="${lessonVO.subId}"> --%>
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
                 <div class="pl-lg-4">
-				<form id="lesForm" action="${cp}/teacherL/updateLessonIndex" method="POST" >
-				<input type="hidden" name="tchId">
 				<input type="hidden" name="subId">
                   <div class="row">
                    <div class="col-lg-7">
@@ -257,10 +294,9 @@ $(function(){
                       </div>
                     </div>
                   </div>
-                  </form>
                 </div>
                </div> 
-               <!-- 강의목차 추가 -->
+               <!-- 강의목차 수정 -->
                <div class="lesDiv2">
             	<br>
             	<br>
@@ -270,43 +306,43 @@ $(function(){
                  <br>
                  <br>
                 <div id="idxAdd">
-		          <c:forEach items="${lesIdxList}" var="lesIdxList" >
-	               <form id="lesIdxForm" action="${cp}/teacherL/updateLessonIndex?lidxId=${lesIdxList.lidxId}&lesId=${lesIdxList.lesId}" method="POST" >
 	               	<input type="hidden" value="lidxId">
 		                <div class="pl-lg-4" id="pl-lg-4-id_[0]">
-		                  <div class="row">	
-		                    <div class="col-lg-2">
-		                      <div class="form-group">
-		                        <label class="form-control-label" for="input-email">강의 차수</label>
-		                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList[0].lidxNum" id="lidxNum" value="${lesIdxList.lidxNum}">
-		                      </div>
-		                    </div>
-							<div class="IdxContDiv">
-								<div class="col-lg-7">
-									<div class="form-group">
-										<label class="form-control-label" for="input-email">강의 내용</label> 
-										<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList[0].lidxCont" id="lidxCont" value="${lesIdxList.lidxCont}">
+		          			<c:forEach items="${lesIdxList}" var="lesIdxList"  varStatus="status">
+			                  <div class="row">	
+			                    <div class="col-lg-2">
+			                      <div class="form-group">
+			                        <label class="form-control-label" for="input-email">강의 차수</label>
+			                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList.lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
+			                      </div>
+			                    </div>
+								<div class="IdxContDiv">
+									<div class="col-lg-7">
+										<div class="form-group">
+											<label class="form-control-label" for="input-email">강의 내용</label> 
+											<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList.lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
+										</div>
+									</div>
+								 	<div>
+										<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
+<%-- 										<input type="button" id="${status.index}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}"> --%>
 									</div>
 								</div>
-							 	<div>
-									<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
-									<input type="button" id="${lesIdxList.lidxId}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
-								</div>
 							</div>
-						</div>
-		               </div>
-		               </form>
-		             </c:forEach>
+		             	</c:forEach>
+		              </div>
                 </div>
                 <br>
                 <br>
                </div> 
+              </form>
 			</div>
 			<br>
 			<br>
 			<div class="buttonDiv">
 				<button class="button button-inline button-small button-primary form-group label" id="push" >등록</button>
 				<button type="reset" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
+				<button class="button button-inline button-small button-danger form-group label" id="tempoPush" >임시저장</button>
 			</div>
 		</div>
 	</div>

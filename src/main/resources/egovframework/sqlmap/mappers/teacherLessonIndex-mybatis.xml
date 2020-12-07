@@ -6,8 +6,9 @@
 		SELECT *
  		 FROM lesson_index
  		 <where>
-	 		AND les_id=#{les_id}
+	 		AND les_id=#{lesId}
  		 </where>
+ 		     ORDER BY lidx_num ASC
 	</select>
 	
 	<insert id="insertLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">

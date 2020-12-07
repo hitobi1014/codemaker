@@ -29,7 +29,7 @@ public class TeacherLessonIndexController {
 	private LessonIndexService lessonIndexService;
 	
 	/**
-	 * 선생님 - 강의목차 수정(삭제&수정)
+	 * 선생님 - 강의목차 삭제
 	 */
 	@RequestMapping(path="/teacherLIdx/deleteLessonIndex")
 	public String deleteViewLessonIndex(String lidxId, Model model,String lesId) {
@@ -86,7 +86,7 @@ public class TeacherLessonIndexController {
 	
 	
 	/**
-	 * 선생님 - 강의목차 수정(삭제&수정)
+	 * 선생님 - 강의목차 수정
 	 */
 	@RequestMapping(path="/teacherLIdx/updateLessonIndex")
 	public String updateViewLessonIndex(String lidxId, Model model,String lesId,LessonIndexVO lesIdxVO) {
