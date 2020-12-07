@@ -32,7 +32,7 @@
 <script>
 $(document).ready(function(){
 	
-	$("#return").on("click", function(){
+	$("#listbutton").on("click", function(){
 		document.location="${cp}/user/selectAllNotice";
 	})
 	
@@ -44,49 +44,57 @@ $(document).ready(function(){
 });
 
 </script>
+<style>
+	.filesButton{
+		background-color : #D4D4D4;
+		color : black;
+	}
+	.card{
+		width:1000px;
+		margin:auto;
+		background-color : #F8FFFF;
+	}
+	h2{
+		color : #1d25af;
+	}
+	.row{
+		margin: 50px 130px 0;
+		background-color: white;
+		margin-bottom:30px;
+	}
+</style>
+<div class="row shadow" >
+	<div class="col-12" style="margin:50px;">
+		<div class="card" style=" height:500px;">
+			<div style="text-align:center;">
+			<div>
+				<button type="button" id="listbutton" class="btn btn-primary" style="float:left;">목록</button>			
+			</div>
+				<h2>${noticeVo.noticeTitle}</h2>
+				<hr>
+			</div>
+			
+			<div>
+				<label class="control-label">&nbsp;&nbsp;&nbsp;${noticeVo.noticeId}</label>
+				<label style="float:right;" class="control-label">작성자 : ${noticeVo.adminId}</label>
+				<br>
+				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${noticeVo.noticeDate}" pattern="yyyy-MM-dd" /></label>
+				<hr>
+			</div>
 
-<div  style="width:800px; height:750px; margin:auto; text-align:center;">
-	<form class="form-horizontal" enctype="multipart/form-data" >
-		<div class="ArticleContentBox">
-			<div class="article_header">
-				<div class="ArticleTitle">
-					<span>공지사항 [${noticeVo.noticeId}]</span>
-					<div class="title_area">
-						<h3 class="title_text">${noticeVo.noticeTitle}</h3>
-					</div>
-				</div>
-				<div class="WriterInfo">
-					<div class="profile_area">
-						<div class="profile_info">
-							<div class="nick_box">${noticeVo.adminId}</div>
-						</div>
-						<div class="article_info">
-							<span class="date"><fmt:formatDate value="${noticeVo.noticeDate}" pattern="yyyy-MM-dd" /></span>
-						</div>
-					</div>
-				</div>
+			<div>	
+				<c:if test="${filesList.size() != 0}">
+					<span style="margin-left:30px;">첨부파일 :</span> 
+				</c:if>
+				<c:forEach items="${filesList}" var="filesVo">
+					<button id="fileDownBtn" type="button" class="btn filesButton"
+						value="${filesVo.filesId}">${filesVo.filesNm}</button>
+				</c:forEach>
 			</div>
-		<div class="article_container">
-			<div class="AttachFileList">
-				<div class="attach_file">
-					<c:forEach items="${filesList}" var="filesVo">
-						<div class="form-group">
-							첨부파일
-							<button id="fileDownBtn" type="button" class="btn btn-info"
-								value="${filesVo.filesId}">${filesVo.filesNm}</button>
-						</div>
-					</c:forEach>
-				</div>
+			<br>
+			<div style="margin:30px;">
+				<label class="control-label">${noticeVo.noticeCont}</label>
 			</div>
-			<div class="article_viewer">
-				<div class="ContentRenderer">
-					<div>
-						${noticeVo.noticeCont}
-					</div>
-				</div>
-			</div>		
 		</div>
 	</div>
-		<input type="button" id="return" value="뒤로가기">
-	</form>
 </div>

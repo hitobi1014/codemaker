@@ -26,35 +26,33 @@ public class UserReplyController {
 	@Resource(name="replyService")
 	private ReplyService replyService;
 	
-	@RequestMapping(path="/user/selectAllReply")
-	public String selectAllReply(String qnaId, Model model) {
-		
-		List<ReplyVO> replyList = new ArrayList<ReplyVO>();
-		
-		try {
-			replyList = replyService.selectAllReply(qnaId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("replyList", replyList);
- 		
-		return "mainT/user/reply/replyList";
-	}
-	
 	@RequestMapping(path="/user/insertReply")
 	public String insertReply(ReplyVO replyVo, String userId, Model model) {
-		return "";
+replyService.insertReply(replyVo);
+		
+		model.addAttribute("replyVo", replyVo);
+		
+		return "redirect:/user/selectQna?qnaId="+replyVo.getQnaId();
 	}
 	
-	@RequestMapping(path="/user/updateReply")
-	public String updateReply(ReplyVO replyVo, Model model) {
-		return "";
+	@RequestMapping(path="/user/insertrReply")
+	public String updateReply(ReplyVO replyVo, @RequestParam("rreplyCont") String replyCont, @RequestParam("root") String replyRoot, Model model) {
+		
+		replyVo.setReplyCont(replyCont);
+		replyVo.setReplyRoot(replyRoot);
+		
+		replyService.insertReply(replyVo);
+		
+		model.addAttribute("replyVo", replyVo);
+		
+		return "redirect:/user/selectQna?qnaId="+replyVo.getQnaId();
 	}
 	
 	@RequestMapping(path="/user/deleteReply")
-	public String deleteReply(ReplyVO replyVo) {
-		return "";
+	public String deleteReply(ReplyVO replyVo, String qnaId) {
+replyService.deleteReply(replyVo.getReplyId());
+		
+		return "redirect:/user/selectQna?qnaId="+replyVo.getQnaId();
 	}
 	
 	
