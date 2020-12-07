@@ -3,125 +3,134 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script> 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+
 
 <script>
 $(document).ready(function() {
+	var count = 0;
+	var del_count = 0;
        $('.summernote').summernote({
-	        width : 500,
-			height: 300,
+	        width : 700,
+			height: 500,
 	        lang: "ko-KR"
        });
        
        $('#fileAddBtn').on('click', function(){
-	        $('#fileup').append("&nbsp;&nbsp;<input type='file' name='realfile' multiple='multiple'>")
-	    })
+    		var del = $('.del_file').length;
+            if(del + count >= 5){
+           	   alert("첨부파일은 5개까지 등록가능합니다");
+               return;
+            }
+            count++;  
+            $('#fileup').append("&nbsp;&nbsp;<input type='file' name='realfile' multiple='multiple'>")
+            $('#count').val(count)
+       })
 
     $(".del_file").on("click", function() {
         a = $(this).val();
-        del_count++
+        del_count++;
         $('#fileup').append("<input type='hidden' name='del_files' value='"+a+"'>")
         
         $('#del_count').val(del_count)
         $(this).parent().remove();
-
+    })
+    
+     $('#updatebutton').on('click', function(){
+    	var noticeTitle = $('input[name="noticeTitle"]').val();
+    	var noticeCont = $('textarea[name="noticeCont"]').val();
+    	
+    	if(noticeTitle == '' || noticeTitle == null){
+    		alert("제목을 입력하세요");
+    		return;
+    	} else if(noticeCont == '' || noticeCont == null){
+    		alert("내용을 입력하세요");
+    		return;
+    	} else {
+    		alert("게시글을 수정 하였습니다.")
+    		$("#frm").submit();
+    	}
     })
 })       
 </script>
-<title>Insert title here</title>
-</head>
-<body>
-	<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/updateNotice" enctype="multipart/form-data">
-		
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">공지사항 타이틀</label>
+<style>
+	.card{
+		width:800px;
+		margin-left:150px;
+	}
+	h2{
+		text-align:center;
+		color : #1d25af;
+	}
+	#updatebutton{
+		float:right;
+	}
+</style>
+<div class="col-12" style="margin:50px;">
+	<div class="card">	
+		<h2>공지 사항 수정</h2>
+		<form id="frm" class="form-horizontal" method="POST" action="${cp}/admin/updateNotice" enctype="multipart/form-data">
 			<div class="col-sm-10">
+			<label for="userNm" class="col-sm-2 control-label">분류</label>
 				<select id="notice_head" name="noticeHead">
 					<c:if test="${noticeVo.noticeHead == 1}">
-						<option value="1" selected>이벤트</option>
+						<option value="1" selected>공지사항</option>
 						<option value="2">자주묻는질문</option>
-						<option value="3">알림</option>
 					</c:if>
 					<c:if test="${noticeVo.noticeHead == 2}">
-						<option value="1">이벤트</option>
+						<option value="1">공지사항</option>
 						<option value="2" selected>자주묻는질문</option>
-						<option value="3">알림</option>
-					</c:if>
-					<c:if test="${noticeVo.noticeHead == 3}">
-						<option value="1">이벤트</option>
-						<option value="2">자주묻는질문</option>
-						<option value="3" selected>알림</option>
 					</c:if>
 				</select>
 			</div>
-		</div>
 
 
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">공지사항 제목</label>
 			<div class="col-sm-10">
+			<label for="userNm" class="col-sm-2 control-label">제목</label>
 				<input type=text name="noticeTitle" style="width: 500px;"
 					value="${noticeVo.noticeTitle}">
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">공지사항 내용</label>
 			<div class="col-sm-10">
+			<label for="userNm" class="col-sm-2 control-label">내용</label>
 				<textarea class="summernote" name="noticeCont">${noticeVo.noticeCont}</textarea>
 			</div>
-		</div>
-		<div class="form-group">
+			
+			<hr>
 			<div class="col-sm-10">
-				<input type="hidden" name="noticeUwriter" value="${noticeVo.adminId}" />
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input type="hidden" name="noticeId" value="${noticeVo.noticeId}" />
-			</div>
-		</div>
-
-		<label class="col-sm-2 control-label">첨부파일</label> 
-
-		<c:forEach items="${filesList}" var="filesVo">
-			<div class="form-group">
-				<div id="${filesVo.filesId}">
-					&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
-					<button class="del_file" type="button" class="btn btn-default"
-						value="${filesVo.filesId}">삭제</button>
+				<label for="userNm" class="col-sm-2 control-label">첨부파일</label>
+				<button type="button" id="updatebutton" class="btn btn-success">수정</button>
+				<input type="button" id="fileAddBtn" value="파일추가">
+				
+				<div class="col-sm-10" id="fileup" class="col-sm-10">
+					<c:if test="${filesList != null}">
+						<c:forEach items="${filesList}" var="filesVo">
+							<div class="form-group">
+								<div id="${filesVo.filesId}">
+									&emsp;&emsp;&emsp;&emsp;${filesVo.filesNm}
+									<button class="del_file btn btn-danger" type="button" value="${filesVo.filesId}">삭제</button>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
-		</c:forEach>
 
-		<button type="button" id="fileAddBtn">파일추가</button>
-		<br>
-		<div class="col-sm-10" id="fileup" class="col-sm-10">
-		</div>
-		<input id="del_count" name="del_count" type="hidden" value="0">
-		<br>
-		
-		<div class="col-sm-10" id="fileup" class="col-sm-10"></div>
-
-
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">공지사항 수정</button>
+			<br>
+			<div class="col-sm-10" id="fileup" class="col-sm-10">
 			</div>
-		</div>
-	</form>
-</body>
-</html>
+			
+			<input id="count" name="count" type="hidden" value="0">
+			<input id="del_count" name="del_count" type="hidden" value="0">
+			<input type="hidden" name="noticeUwriter" value="${USERID}">
+			<input type="hidden" name="noticeId" value="${noticeVo.noticeId}">
+		</form>
+	</div>
+</div>

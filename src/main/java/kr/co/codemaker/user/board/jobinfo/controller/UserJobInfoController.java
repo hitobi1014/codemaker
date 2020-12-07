@@ -57,7 +57,7 @@ public class UserJobInfoController {
 		
 		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
-		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
+		model.addAttribute("jobinfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
 		model.addAttribute("pageSize", pageSize);
@@ -76,7 +76,7 @@ public class UserJobInfoController {
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("jobInfoVo", jobInfoVo);
+		model.addAttribute("jobinfoVo", jobInfoVo);
 		logger.debug("jobInfoVo : {}", jobInfoVo);
 		
 		List<FilesVO> filesList = filesService.selectAllFiles(jobinfoId);	

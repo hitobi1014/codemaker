@@ -2,6 +2,7 @@ package kr.co.codemaker.user.cart.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.codemaker.common.vo.UserVO;
-import kr.co.codemaker.user.cart.dao.UserPayMapper;
 import kr.co.codemaker.user.cart.service.UserPayService;
 import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
@@ -30,8 +30,8 @@ public class UserPayController {
 	@Resource(name="userPayService")
 	private UserPayService userPayService;
 	
-	@RequestMapping(path="user/payView")
-	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo) {
+	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")//@RequestBody List<LessonVO> jsonData
+	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo){
 		// 회원아이디, 강의 아이디 필요함
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인한 회원아이디 세션에서 가져오기
 		LessonVO getLessonVo = null;
@@ -45,11 +45,48 @@ public class UserPayController {
 		return "mainT/user/payment/pay";
 	}
 	
+	@RequestMapping(path="user/payViewList")
+	public String payViewList(HttpSession session, PayVO payVo,Model model, LessonVO lessonList) {
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		model.addAttribute("userVo", userVo);
+		List<LessonVO> lesson = new ArrayList<>();
+		for(int i=0; i<lessonList.getLessonList().size();i++) {
+			if(lessonList.getLessonList().get(i).getLesId() != null) {
+				lesson.add(lessonList.getLessonList().get(i));
+			}
+		}
+		model.addAttribute("lessonVoList", lesson);
+		return "mainT/user/payment/pay";
+	}
+	
 	//결제하기
 	@RequestMapping(path="user/pay")
 	public String pay(PayVO payVo) {
-		logger.debug("결제 정보 :{}",payVo);
-		return "";
+		String payGroup = UUID.randomUUID().toString();
+		//장바구니에서 결제할때
+		if(payVo.getPayList() != null) {
+			for(int i=0; i<payVo.getPayList().size();i++) {
+				CartVO cartVo = new CartVO();
+				cartVo.setLesId(payVo.getPayList().get(i).getLesId());
+				cartVo.setUserId(payVo.getPayList().get(i).getUserId());
+				try {
+					payVo.getPayList().get(i).setPayGroup(payGroup);
+					userPayService.insertPay(payVo.getPayList().get(i));
+					userPayService.deleteCart(cartVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		//강의 페이지에서 바로 결제 할때
+		}else if(payVo !=null) {
+			try {
+				payVo.setPayGroup(payGroup);
+				userPayService.insertPay(payVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/user/main";
 	}
 	
 	//강의담기 (장바구니 기능)
@@ -93,7 +130,7 @@ public class UserPayController {
 	
 	//장바구니로 이동, 담은강의 리스트 조회
 	@RequestMapping(path="user/cartView")
-	public String cartView(HttpSession session) {
+	public String cartView(HttpSession session,Model model,LessonVO lessonVo) {
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		List<CartVO> cartList = null;
 		try {
@@ -113,7 +150,7 @@ public class UserPayController {
 			}
 			lessonList.add(lesson);
 		}
-		logger.debug("추가된 강의 정보 :{}",lessonList);
+		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/payment/cart";
 	}

@@ -48,4 +48,8 @@ public class UserPayService {
 	public List<CartVO> selectCartList(CartVO cartVo) throws Exception{
 		return userPayMapper.selectCartList(cartVo);
 	}
+	
+	public int deleteCart(CartVO cartVo) throws Exception {
+		return userPayMapper.deleteCart(cartVo);
+	}
 }
