@@ -1,9 +1,8 @@
 package kr.co.codemaker.user.cart.controller;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -12,16 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.cart.service.UserPayService;
@@ -40,41 +30,63 @@ public class UserPayController {
 	@Resource(name="userPayService")
 	private UserPayService userPayService;
 	
-	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")
-	public String payView(HttpSession session, Model model, PayVO payVo, @RequestBody String jsonData) throws JsonParseException, JsonMappingException, IOException {
-//		ObjectMapper jsonMapper = new ObjectMapper();
-//		LessonVO lvo =new LessonVO();
-//		try {
-//			lvo = jsonMapper.readValue(jsonData, LessonVO.class);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-		logger.debug("데이터 : {}", jsonData);
-		Type collectionType = new TypeToken<List<LessonVO>>() {}.getType();
-		
-		Gson gson = new Gson();
-		gson.fromJson(jsonData, collectionType);
-		logger.debug("gson : {}",gson);
-//		JsonObject json = new JsonParser().parse(jsonData).getAsJsonObject();
-//		JsonArray jarr = json.getAsJsonObject().getAsJsonArray("");
-		return "";
+	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")//@RequestBody List<LessonVO> jsonData
+	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo){
 		// 회원아이디, 강의 아이디 필요함
-//		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인한 회원아이디 세션에서 가져오기
-//		LessonVO getLessonVo = null;
-//		try {
-//			getLessonVo = userPayService.selectLessonInfo(lessonVo);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		model.addAttribute("userVo", userVo);
-//		model.addAttribute("lessonVo", getLessonVo);
-//		return "mainT/user/payment/pay";
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인한 회원아이디 세션에서 가져오기
+		LessonVO getLessonVo = null;
+		try {
+			getLessonVo = userPayService.selectLessonInfo(lessonVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("userVo", userVo);
+		model.addAttribute("lessonVo", getLessonVo);
+		return "mainT/user/payment/pay";
+	}
+	
+	@RequestMapping(path="user/payViewList")
+	public String payViewList(HttpSession session, PayVO payVo,Model model, LessonVO lessonList) {
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		model.addAttribute("userVo", userVo);
+		List<LessonVO> lesson = new ArrayList<>();
+		for(int i=0; i<lessonList.getLessonList().size();i++) {
+			if(lessonList.getLessonList().get(i).getLesId() != null) {
+				lesson.add(lessonList.getLessonList().get(i));
+			}
+		}
+		model.addAttribute("lessonVoList", lesson);
+		return "mainT/user/payment/pay";
 	}
 	
 	//결제하기
 	@RequestMapping(path="user/pay")
 	public String pay(PayVO payVo) {
-		logger.debug("결제 정보 :{}",payVo);
-		return "";
+		String payGroup = UUID.randomUUID().toString();
+		//장바구니에서 결제할때
+		if(payVo.getPayList() != null) {
+			for(int i=0; i<payVo.getPayList().size();i++) {
+				CartVO cartVo = new CartVO();
+				cartVo.setLesId(payVo.getPayList().get(i).getLesId());
+				cartVo.setUserId(payVo.getPayList().get(i).getUserId());
+				try {
+					payVo.getPayList().get(i).setPayGroup(payGroup);
+					userPayService.insertPay(payVo.getPayList().get(i));
+					userPayService.deleteCart(cartVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		//강의 페이지에서 바로 결제 할때
+		}else if(payVo !=null) {
+			try {
+				payVo.setPayGroup(payGroup);
+				userPayService.insertPay(payVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/user/main";
 	}
 	
 	//강의담기 (장바구니 기능)
@@ -138,7 +150,6 @@ public class UserPayController {
 			}
 			lessonList.add(lesson);
 		}
-		logger.debug("추가된 강의 정보 :{}",lessonList);
 		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/payment/cart";

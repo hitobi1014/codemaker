@@ -41,4 +41,9 @@
 	<select id="selectCartList" resultType="kr.co.codemaker.user.cart.vo.CartVO" parameterType="kr.co.codemaker.user.cart.vo.CartVO">
 		SELECT * FROM cart WHERE user_id = #{userId}
 	</select>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteCart" parameterType="kr.co.codemaker.user.cart.vo.CartVO">
+		delete from cart where les_id = #{lesId} and user_id=#{userId}
+	</delete>
 </mapper>
