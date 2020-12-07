@@ -1,0 +1,27 @@
+@charset "UTF-8";
+.cartBoxArea{
+	margin-left: 25%;
+}
+#tbody{
+	border-top: 2px solid black;
+    border-bottom: 1px solid black;
+}
+table th{
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    line-height: 48px;
+    font-size: 18px;
+}
+.lessonTr{
+    border-bottom: 1px solid #c5c5c58f;
+}
+.chk{
+	text-align: center;
+}
+.tdLine{
+	border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+.tdCenter input[type="text"]{
+	text-align: center;
+}
