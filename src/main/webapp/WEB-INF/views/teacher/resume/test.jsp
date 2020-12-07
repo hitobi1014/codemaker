@@ -19,7 +19,7 @@
 </head>
 <body>
 	<div class="article">
-		<form action="" id="formBtn">
+		<form action="${cp }/insertResume" id="formBtn" class="form-horizontal" method="POST" role="form" enctype="multipart/form-data" >
 			<div class="subtitle_wrap">
 				<span style="font-weight:bold;font-size:medium;color:#4C4C4C;">기본인적사항</span>
 				<hr color="black">
@@ -38,7 +38,7 @@
 								<label class="labelText">이름</label>
 							</th>
 							<td>
-								<input name=resNm type="text" id="resNm" class="form-control" maxlength="10" style="width: 100px;  float: left;">
+								<input name=resNm type="text" id="resNm" value="${param.resNm }" class="form-control" maxlength="7" style="width: 100px;  float: left;">
 							</td>
 						</tr>
 						<tr>
@@ -46,7 +46,7 @@
 								<label class="labelText">휴대폰 번호</label>
 							</th>
 							<td>
-								<input name="resTel" type="text" id="resTel" class="form-control" maxlength="3" style="width: 89px;  float: left;">
+								<input name="resTel" type="text" id="resTel" value="${param.resTel }" class="form-control" maxlength="11" style="width: 89px;  float: left;">
 							</td>
 						</tr>
 						<tr>
@@ -78,7 +78,7 @@
 						<tr>
 							<th>
 								<div class="resume_photo">
-									<a href="##" name="resProfile" class="box_photo" data-api_type="layer" data-api_id="basic_photo"><span>사진추가</span></a>
+									<a href="##" type="file" name="resProfile" " id="resProfile" class="box_photo" data-api_type="layer" data-api_id="basic_photo"><span>사진추가</span></a>
 									<a class="photo_delete" href="##" style="display: none;"><span class="blind">사진 삭제</span></a>
 								</div>					
 							</th>
