@@ -108,7 +108,7 @@ public class TeacherLessonController {
 	 * 선생님 - 강의선택 -> 강의목차조회
 	 */
 	@ResponseBody
-	@RequestMapping(path="/teacherL/selectAllLessonIndex", method=RequestMethod.GET)
+	@RequestMapping(path="/teacherL/selectAllLessonIndex")
 	public List<LessonIndexVO> selectLessonPage(Model model,String lesId) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		lesIdxVO.setLesId(lesId);
@@ -187,10 +187,13 @@ public class TeacherLessonController {
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
 	@RequestMapping(path="/teacherL/insertLesson" ,method = RequestMethod.POST)
-	public String insertLesson(LessonIndexVO lessonIndexVO,LessonVO lessonVO,String tchId, String subId) {
+	public String insertLesson(LessonIndexVO lessonIndexVO,LessonVO lessonVO,HttpSession session) {
+		TeacherVO teacherVO = (TeacherVO)session.getAttribute("S_TEACHER");
+		String tchId = teacherVO.getTchId();
 		
-		lessonVO.setTchId("200ser");
-		lessonVO.setSubId("SUB0003");
+		logger.debug("과목,선생:{}",tchId);
+		lessonVO.setTchId(tchId);
+//		lessonVO.setSubId(subId);
 		
 		int lesCnt = 0;
 		int lesIdxCnt=0;
@@ -333,7 +336,7 @@ public class TeacherLessonController {
 		int upTempoCnt = 0;
 		int lesIdxCnt = 0;
 		try {
-			upCnt = lessonService.updateLesson(lessonVO);
+//			upCnt = lessonService.updateLesson(lessonVO);
 			upTempoCnt = lessonService.updateTempoLesson(lessonVO);
 			List<LessonIndexVO> List = lessonIndexVO.getLesIdxList();
 			logger.debug("강의 리스트 수:{}", List.size());

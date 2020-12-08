@@ -340,9 +340,8 @@ $(function(){
 			<br>
 			<br>
 			<div class="buttonDiv">
-				<button class="button button-inline button-small button-primary form-group label" id="push" >등록</button>
+				<button class="button button-inline button-small button-primary form-group label" id="push" >저장</button>
 				<button type="reset" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
-				<button class="button button-inline button-small button-danger form-group label" id="tempoPush" >임시저장</button>
 			</div>
 		</div>
 	</div>

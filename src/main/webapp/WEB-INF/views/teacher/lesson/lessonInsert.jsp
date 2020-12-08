@@ -162,8 +162,8 @@ function initData(){
 				<h2 class="card-title m-b-0">▪ 강의 추가</h2>
 				<br>
 				<form id="lesForm" action="${cp}/teacherL/insertLesson" method="POST" >
-				<input type="hidden" name="tchId">
-				<input type="hidden" name="subId">
+<!-- 				<input type="hidden" name="tchId"> -->
+<!-- 				<input type="hidden" name="subId"> -->
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
