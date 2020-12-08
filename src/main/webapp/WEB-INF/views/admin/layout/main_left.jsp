@@ -125,41 +125,29 @@
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-							
-							
 								<li class="section-title">
 									매출 조회
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">강의별 조회</span>
 									</a>
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사별 조회</span>
 									</a>
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">기간별 조회</span>
 									</a>
 								</li>
-	
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-							
-							
 							</div>
 						</ul>
 					</li>
@@ -175,35 +163,31 @@
 								<li class="section-title">
 									수강 관리 조회
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">수강후기 조회</span>
 									</a>
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">학생별 조회</span>
+										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">교사별 조회</span>
+										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
-							
-							
 								<li >
 									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">강의별 조회</span>
+										<span class="nav-text">과목 조회</span>
 									</a>
 								</li>
-							
+								<li >
+									<a class="sidenav-item-link" href="#">
+										<span class="nav-text">강의 조회</span>
+									</a>
+								</li>
 							</div>
 						</ul>
 					</li>
