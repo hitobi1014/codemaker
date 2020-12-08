@@ -68,4 +68,15 @@ $(function(){
 		})
 	})
 	
+	// 체크박스 전체선택&전체해제
+	$('#mainCheckbox').on('click',function(){
+		if($('#mainCheckbox').is(':checked')){
+			$('input[name=checkRow]').prop('checked',true);
+		}else{
+			$('input[name=checkRow]').prop('checked',false);
+		}
+	})
+	
 })
+
+

@@ -12,6 +12,8 @@ public interface AdminSubjectMapper {
 	int insertSubject(SubjectVO subjectVO) throws Exception;	// 과목 등록
 	
 	int updateSubject(SubjectVO subjectVO) throws Exception; 	// 과목 수정
+	
+	int deleteSubjcet(SubjectVO subjectVO) throws Exception;	// 과목 삭제
 
 	
 	

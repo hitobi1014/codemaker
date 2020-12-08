@@ -26,5 +26,9 @@ public class AdminSubjectService {
 	public int updateSubject(SubjectVO subjectVO) throws Exception{
 		return adminSubjectMappser.updateSubject(subjectVO);
 	}
+	
+	public int deleteSubjcet(SubjectVO subjectVO) throws Exception{
+		return adminSubjectMappser.deleteSubjcet(subjectVO);
+	}
 
 }

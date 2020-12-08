@@ -77,7 +77,7 @@ td{
 				<table id="subTable" class="table">
 					<thead class="thead-light">
 						<tr>
-							<th id="subThzero"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></th>
+							<th id="subThzero"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox" > <span class="checkmark"></span></label></th>
 							<th class="subTh"  id="subThFirst">과목ID</th>
 							<th class="subTh">과목명</th>
 							<th id="buttonTh">
@@ -90,7 +90,7 @@ td{
 					<tbody id="subTbody">
 						<c:forEach items="${subList}" var="subList">
 						<tr>
-							<td id="subTdzero"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></td>
+							<td id="subTdzero"><label class="customcheckbox m-b-20"> <input type="checkbox" name="checkRow"> <span class="checkmark"></span></label></td>
 							<td id="tdFirst">${subList.subId}</td>
 							<td>${subList.subNm}</td>
 							<td><button class="button button-inline button-small button-inverse form-control-label" id="upBtn" data-toggle="modal"  data-subnm="${subList.subNm}" data-subid="${subList.subId}">수정</button></td>	
