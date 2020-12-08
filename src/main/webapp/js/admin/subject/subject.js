@@ -20,8 +20,8 @@ $(function(){
 		
 		var row = $(this).parent().parent();
 		var tr = row.children();
-		var subId = tr.eq(0).text();
-		var subNm = tr.eq(1).text();
+		var subId = tr.eq(1).text();
+		var subNm = tr.eq(2).text();
 		
 		console.log(subId);
 		console.log(subNm);
@@ -43,6 +43,7 @@ $(function(){
 			alert('등록되었습니다');
 		}else if(action == 'update'){
 			url='/admin/updateSubject';
+			alert('수정되었습니다');
 		}
 		console.log(url);
 		var data ={ "subNm" : $('#subNm').val(),

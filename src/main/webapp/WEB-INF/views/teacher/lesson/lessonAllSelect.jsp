@@ -270,8 +270,7 @@ var addLes = function(){
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
-								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span>
-								</label></th>
+								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></th>
 								<th scope="col">강의명</th>
 								<th scope="col">강의소개</th>
 								<th scope="col">강의기간</th>
