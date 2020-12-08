@@ -29,7 +29,6 @@ import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
 /**
  * 
-* ExamController.java
 *
 * @author 박다미
 * @version 1.0
@@ -81,7 +80,6 @@ public class TeacherLessonController {
 	 * 선생님 - 과목명-> 강의 조회(select box)
 	 */
 	@RequestMapping(path="/teacherL/selectSubject",method= RequestMethod.POST)
-	@ResponseBody
 	public List<LessonVO> selectLesson(Model model,String subId,HttpSession session) {
 		logger.debug("과제아디!!:{}",subId);
 		

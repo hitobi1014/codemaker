@@ -184,7 +184,7 @@
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubjcet">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>
