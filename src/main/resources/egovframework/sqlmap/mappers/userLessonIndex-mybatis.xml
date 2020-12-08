@@ -8,6 +8,7 @@
 	  <where>
 	  	and les_id = #{les_id}
 	  </where>
+	    ORDER BY ASC lidx_num
 
 </select>
 </mapper>

@@ -4,15 +4,22 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class LessonVO extends BaseVO{
 
-	private String lesState;
-	private String lesId;
-	private String lesCont;
-	private String subId;
-	private String lesNm;
-	private String tchId;
-	private int lesTerm;
-	private int lesCash;
+	private String lesState;	// 강의 상태코드
+	private String lesId;		// 강의 아이디
+	private String lesCont;	// 강의 소개
+	private String subId;		// 과목 아이디
+	private String lesNm;		// 강의명
+	private String tchId;		// 선생님 아이디
+	private int lesTerm;		// 강의 기간
+	private int lesCash;		// 강의 수강료
+	private String subNm;		// 과목명
 	
+	public String getSubNm() {
+		return subNm;
+	}
+	public void setSubNm(String subNm) {
+		this.subNm = subNm;
+	}
 	public void setLesState(String lesState) {
 		this.lesState = lesState; 
 	}
