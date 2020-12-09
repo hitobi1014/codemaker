@@ -21,7 +21,6 @@
   </update>
   
   <select id="selectPoint" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.user.mypage.vo.PointVO">
-<!-- 	SELECT * FROM point WHERE user_id=#{userId} ORDER BY point_date DESC -->
 		SELECT *
 		FROM
 		(SELECT ROWNUM AS rn, a.*

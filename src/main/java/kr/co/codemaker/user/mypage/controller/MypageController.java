@@ -199,7 +199,6 @@ public class MypageController {
 	public String selectPoint(HttpSession session, HttpServletRequest request, PointVO pointVo, Model model,
 								@RequestParam(name="page",required = false, defaultValue = "1")int page,
 								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
-		
 
 		//세션에서아이디가져온다.
 		session = request.getSession();
