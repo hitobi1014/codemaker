@@ -90,16 +90,21 @@ td{
 					<tbody id="subTbody">
 						<c:forEach items="${subList}" var="subList">
 						<tr>
-							<td id="subTdzero"><label class="customcheckbox m-b-20"> <input type="checkbox" name="checkRow"> <span class="checkmark"></span></label></td>
-							<td id="tdFirst">${subList.subId}</td>
-							<td>${subList.subNm}</td>
-							<td><button class="button button-inline button-small button-inverse form-control-label" id="upBtn" data-toggle="modal"  data-subnm="${subList.subNm}" data-subid="${subList.subId}">수정</button></td>	
+							<c:choose>
+								<c:when test="${subList.subOut == 'N' }">
+									<td id="subTdzero"><label class="customcheckbox m-b-20"> <input type="checkbox" name="checkRow"  value="${subList.subId}"> <span class="checkmark"></span></label></td>
+									<td id="tdFirst" data-subid="${subList.subId}">${subList.subId}</td>
+									<td>${subList.subNm}</td>
+									<td><button class="button button-inline button-small button-inverse form-control-label" id="upBtn" data-toggle="modal"  data-subnm="${subList.subNm}" data-subid="${subList.subId}">수정</button></td>	
+								</c:when>
+								
+							</c:choose>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
 				<div>
-				<button class="button button-inline button-small button-danger form-control-label" id="delBtn" onclick="delSub()">선택삭제</button>
+				<button class="button button-inline button-small button-danger form-control-label" id="delBtn" >선택삭제</button>
 				</div>
 				
 			</div>

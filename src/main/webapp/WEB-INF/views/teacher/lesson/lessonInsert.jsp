@@ -138,6 +138,13 @@ $(function(){
 	$('#push').on('click', function(){
 		$('#lesForm').submit();
 	})
+	
+	// 취소 버튼
+	$('#cancel').on('click',function(){
+		$('form').each(function(){
+			this.reset();
+		})
+	})
 })
 
 function initData(){
@@ -247,7 +254,7 @@ function initData(){
 			<br>
 			<div class="buttonDiv">
 				<button class="button button-inline button-small button-primary form-group label" id="push" >등록</button>
-				<button type="reset" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
+				<button type="button" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
 			</div>
 			
 		</div>

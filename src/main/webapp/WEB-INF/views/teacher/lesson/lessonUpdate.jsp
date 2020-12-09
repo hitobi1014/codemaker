@@ -199,8 +199,6 @@ $(function(){
 		console.log(lidxNum);
 		console.log(lidxCont);
 		
-		alert('수정되었습니다!');
-		
 		$.ajax({
 				method:'get',
 				url:'/teacherL/updateLessonIndex?lidxId='+lidxId+'&lesId='+lesId,
@@ -219,6 +217,7 @@ $(function(){
 		})
 		
 	$('#push').on('click',function(){
+		alert('수정되었습니다!');
 		$('#lesForm').submit();
 	})
 	
@@ -226,6 +225,12 @@ $(function(){
 		$('#lesForm').submit();
 	})
 	
+	// 취소 버튼
+	$('#cancel').on('click',function(){
+		$('form').each(function(){
+			this.reset();
+		})
+	})
 	
 	
 })
@@ -341,7 +346,7 @@ $(function(){
 			<br>
 			<div class="buttonDiv">
 				<button class="button button-inline button-small button-primary form-group label" id="push" >저장</button>
-				<button type="reset" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
+				<button type="button" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
 			</div>
 		</div>
 	</div>

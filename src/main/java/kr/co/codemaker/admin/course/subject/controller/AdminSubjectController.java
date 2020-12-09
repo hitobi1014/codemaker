@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.admin.course.subject.service.AdminSubjectService;
@@ -80,7 +81,11 @@ public class AdminSubjectController {
 		return null;
 	}
 	
-
+	/**
+	 * 관리자 - 과목 수정
+	 * @param subjectVO
+	 * @return
+	 */
 	@RequestMapping(path="/admin/updateSubject")
 	public String updateSubject(SubjectVO subjectVO) {
 //		SubjectVO subjectVO = new SubjectVO();
@@ -98,5 +103,36 @@ public class AdminSubjectController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * 관리자 - 과목 삭제
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path="/admin/deleteSubject")
+	public String deleteSubject(@RequestParam(value="checkArr[]")List<String> checkArr) {
+		logger.debug("과목아디 배열:{}",checkArr);
+		String subId;
+		SubjectVO subjectVO = new SubjectVO();
+		int cnt =0;
+		
+//		logger.debug("subId:{}",subId);
+		try {
+			for(int i=0; i<checkArr.size(); i++) {
+				subId = checkArr.get(i);
+				subjectVO.setSubId(subId);
+				cnt = adminSubjectService.deleteSubjcet(subjectVO);
+			}
+			logger.debug("cnt:{}",cnt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(cnt >0) {
+			return "redirect:/admin/selectAllSubjcet";
+		}else {
+			return null;
+		}
 	}
 }

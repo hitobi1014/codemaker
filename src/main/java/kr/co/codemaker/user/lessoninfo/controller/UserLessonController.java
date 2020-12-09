@@ -92,5 +92,10 @@ public class UserLessonController {
 //		
 //		
 //	}
+	
+	@RequestMapping(path="/user/selectYou")
+	public String selectYou() {
+		return "mainT/user/lesson/you";
+	}
 
 }
