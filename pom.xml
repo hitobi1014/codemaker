@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co.codemaker</groupId>
-	<artifactId>codemaker</artifactId>
+	<artifactId>codemakerTest</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>codemaker</name>
+	<name>codemakerTest</name>
 	<url>http://www.egovframe.go.kr</url>
 
 	<licenses>
@@ -201,7 +200,7 @@
 		    <version>1.1.1</version>
 		</dependency>
 		
-			<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+		<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
 		<dependency>
 		    <groupId>net.sf.json-lib</groupId>
 		    <artifactId>json-lib</artifactId>

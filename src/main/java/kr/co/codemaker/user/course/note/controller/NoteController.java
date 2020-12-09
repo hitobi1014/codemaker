@@ -67,12 +67,6 @@ public class NoteController {
 
 	private static final Logger logger = LoggerFactory.getLogger(NoteController.class);
 
-	@RequestMapping("/note/test")
-	public String test() {
-		return "teacher/calendar/test";
-	}
-	
-	
 	/**
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
 	 * 
