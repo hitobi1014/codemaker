@@ -18,6 +18,7 @@ import kr.co.codemaker.user.cart.service.UserPayService;
 import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
+import kr.co.codemaker.user.cart.vo.PointVO;
 
 /**
  * @author 최민준
@@ -49,14 +50,19 @@ public class UserPayController {
 	public String payViewList(HttpSession session, PayVO payVo,Model model, LessonVO lessonList) {
 		logger.debug("정보 : {}",lessonList.getLessonList());
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
-		model.addAttribute("userVo", userVo);
+		PointVO pointVo = null;
+		try {
+			pointVo = userPayService.selectPoint(new PointVO(userVo.getUserId()));
+		} catch (Exception e) {e.printStackTrace();}
 		List<LessonVO> lesson = new ArrayList<>();
 		for(int i=0; i<lessonList.getLessonList().size();i++) {
 			if(lessonList.getLessonList().get(i).getLesId() != null) {
 				lesson.add(lessonList.getLessonList().get(i));
 			}
 		}
+		model.addAttribute("userVo", userVo);
 		model.addAttribute("lessonVoList", lesson);
+		model.addAttribute("pointVo", pointVo);
 		return "mainT/user/payment/payList";
 	}
 	

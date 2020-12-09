@@ -239,6 +239,7 @@ input[name='usePoint']{
     text-align: right;
     border-bottom: 1px solid #80808063;
     padding-right: 15px;
+    white-space: pre-line;
 }
 .point-div{
 	margin-bottom: 1em;

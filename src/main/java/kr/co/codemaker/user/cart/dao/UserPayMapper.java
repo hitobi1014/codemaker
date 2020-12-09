@@ -6,6 +6,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
+import kr.co.codemaker.user.cart.vo.PointVO;
 
 /**
 * UserPayMapper.java
@@ -18,7 +19,7 @@ import kr.co.codemaker.user.cart.vo.PayVO;
 * ------ ------------------------
 * 최민준  결제 최초 작성
 * 		  결제페이지에서 보여질 강의 정보 작성
-*
+*		  포인트 조회 및 사용(12.09)
  */
 @Mapper("userPayMapper")
 public interface UserPayMapper {
@@ -59,4 +60,10 @@ public interface UserPayMapper {
 	 * @param 회원아이디와, 강의 아이디
 	 */
 	public int deleteCart(CartVO cartVo) throws Exception;
+	
+	/**
+	 * 회원의 결제페이지가 로드될때 포인트조회
+	 * @param 회원아이디가 담긴 vo
+	 */
+	public PointVO selectPoint(PointVO pointVo) throws Exception;
 }
