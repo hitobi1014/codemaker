@@ -4,7 +4,7 @@ import java.util.List;
 
 import kr.co.codemaker.common.vo.BaseVO;
 
-public class LessonVO extends BaseVO{
+public class LessonVO {
 
 	private String lesId;      //강의아이디
 	private String lesNm;      //강의명
@@ -17,16 +17,17 @@ public class LessonVO extends BaseVO{
 	private String tchNm;	//선생님 이름
 	
 	private List<LessonVO> lessonList;
-	
-	public LessonVO(String lesId) {
-		this.lesId = lesId;
-	}
-	
+
 	public List<LessonVO> getLessonList() {
 		return lessonList;
 	}
+
 	public void setLessonList(List<LessonVO> lessonList) {
 		this.lessonList = lessonList;
+	}
+
+	public LessonVO(String lesId) {
+		this.lesId = lesId;
 	}
 	
 	public LessonVO() {

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.QnaService;
@@ -66,21 +67,35 @@ public class UserQnaController {
 		model.addAttribute("qnaVo", qnaVo);
 		model.addAttribute("replyList", replyList);
 		
-		return "";
+		return "mainT/user/qna/qna";
 	}
 	
-	@RequestMapping(path="/user/insertQna")
-	public String insertReply(QnaVO qnaVo, String lesId, Model model) {
-		return "";
+	@RequestMapping(path="/user/insertQna", method=RequestMethod.GET)
+	public String insertViewReply() {
+		
+		return "mainT/user/qna/qnaInsert";
 	}
-	
-	@RequestMapping(path="/user/updateQna")
-	public String updateReply(QnaVO qnaVo, Model model) {
-		return "";
+	@RequestMapping(path="/user/insertQna", method=RequestMethod.POST)
+	public String insertReply(QnaVO qnaVo) {
+		
+		try {
+			qnaService.insertQna(qnaVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/user/selectAllQna?lesId="+qnaVo.getLesId();
 	}
 	
 	@RequestMapping(path="/user/deleteQna")
 	public String deleteReply(QnaVO qnaVo) {
-		return "";
+		
+		try {
+			qnaService.deleteQna(qnaVo.getQnaId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/user/selectAllQna?lesId="+qnaVo.getLesId();
 	}
 }

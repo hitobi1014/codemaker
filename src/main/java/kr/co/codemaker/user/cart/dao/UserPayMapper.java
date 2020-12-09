@@ -53,4 +53,10 @@ public interface UserPayMapper {
 	 * @param 회원아이디
 	 */
 	public List<CartVO> selectCartList(CartVO cartVo) throws Exception;
+	
+	/**
+	 * 결제 시 장바구니에 담긴 목록 삭제
+	 * @param 회원아이디와, 강의 아이디
+	 */
+	public int deleteCart(CartVO cartVo) throws Exception;
 }

@@ -9,6 +9,7 @@
 	        B.USER_ID, B.LES_ID
 	FROM REVIEW A, PAY B
 	WHERE a.pay_id=b.pay_id and b.lES_ID=#{lesId}
+	order by review_date desc
 </select>
 
 <insert id="insertReview" parameterType="kr.co.codemaker.user.lessoninfo.vo.ReviewVO">
@@ -18,7 +19,23 @@
 </insert>
 
 <delete id="deleteReview" parameterType="java.lang.String">
-delete from review
-where review_id =#{reviewId}
+	delete from review
+	where review_id =#{reviewId}
 </delete>
+
+<select id="selectReviewAvg" parameterType="java.lang.String" resultType="java.lang.Float">
+	SELECT round(avg(review_star),1) from review A, pay B
+	where a.pay_id=b.pay_id and b.lES_ID=#{lesId}
+</select>
+
+
+<select id="selectReviewStar" parameterType="java.lang.String" resultType="kr.co.codemaker.user.lessoninfo.vo.ReviewStarVO">
+	SELECT COUNT(CASE WHEN review_star=5 THEN 1 END) AS five,
+	       COUNT(CASE WHEN review_star=4 THEN 1 END) AS four,
+	       COUNT(CASE WHEN review_star=3 THEN 1 END) AS three,
+	       COUNT(CASE WHEN review_star=2 THEN 1 END) AS two,
+	       COUNT(CASE WHEN review_star=1 THEN 1 END) AS one     
+	       FROM review A, pay B
+	where a.pay_id=b.pay_id and b.lES_ID=#{lesId}
+</select>
 </mapper>

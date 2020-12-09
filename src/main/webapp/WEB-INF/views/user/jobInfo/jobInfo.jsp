@@ -3,79 +3,98 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
+<!-- main(css)-->
+<link href="/vendor/user/main/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- main Custom styles for this template-->
+<link href="/css/user/main/sb-admin-2.min.css" rel="stylesheet">
+
+ <!-- main Bootstrap core JavaScript-->
+<script src="/vendor/user/main/jquery/jquery.min.js"></script>
+<script src="/vendor/user/main/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- main Core plugin JavaScript-->
+<script src="/vendor/user/main/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- main Custom scripts for all pages-->
+<script src="/js/user/main/sb-admin-2.min.js"></script>
+
+<!-- main Page level plugins -->
+<script src="/vendor/user/main/chart.js/Chart.min.js"></script>
+
+<!-- main Page level custom scripts -->
+<script src="/js/user/main/demo/chart-area-demo.js"></script>
+<script src="/js/user/main/demo/chart-pie-demo.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>취업공고</title>
 <script>
 $(document).ready(function(){
-
+	
+	$("#listbutton").on("click", function(){
+		document.location="${cp}/user/selectAllJobInfo";
+	})
+	
+	
 	$("button[id^=fileDownBtn]").on("click", function(){
 		filesId = $(this).val();
-		document.location="${cp}/user/downloadJobInfo?jobinfoId=${jobInfoVo.jobinfoId}&filesId="+filesId;
+		document.location="downloadJobInfo?jobinfoId=${noticeVo.noticeId}&filesId="+filesId;
 	});
-
-	 
-	$('textarea').keyup(function() {
-
-	    var content = $(this).val();
-	    $('#counter').html("("+content.length+" / 최대 500자)");    //글자수 실시간 카운팅
-
-	    if (content.length > 500){
-	        alert("최대 500자까지 입력 가능합니다.");
-	        $(this).val(content.substring(0, 200));
-	        $('#counter').html("(200 / 최대 500자)");
-	    }
-
-	});
-
 });
 
 </script>
+<style>
+	.filesButton{
+		background-color : #D4D4D4;
+		color : black;
+	}
+	.card{
+		width:1000px;
+		margin:auto;
+		background-color : #F8FFFF;
+	}
+	h2{
+		color : #1d25af;
+	}
+	.row{
+		margin: 50px 130px 0;
+		background-color: white;
+		margin-bottom:30px;
+	}
+</style>
+<div class="row shadow" >
+	<div class="col-12" style="margin:50px;">
+		<div class="card" style=" height:500px;">
+			<div style="text-align:center;">
+			<div>
+				<button type="button" id="listbutton" class="btn btn-primary" style="float:left;">목록</button>			
+			</div>
+				<h2>${jobinfoVo.jobinfoTitle}</h2>
+				<hr>
+			</div>
+			
+			<div>
+				<label class="control-label">&nbsp;&nbsp;&nbsp;${jobinfoVo.jobinfoId}</label>
+				<label style="float:right;" class="control-label">작성자 : ${jobinfoVo.adminId}</label>
+				<br>
+				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${jobinfoVo.jobinfoDate}" pattern="yyyy-MM-dd" /></label>
+				<hr>
+			</div>
 
-</head>
-<body>
-	<form class="form-horizontal" enctype="multipart/form-data" >
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 아이디</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.jobinfoId}</label>
+			<div>	
+				<c:if test="${filesList.size() != 0}">
+					<span style="margin-left:30px;">첨부파일 :</span> 
+				</c:if>
+				<c:forEach items="${filesList}" var="filesVo">
+					<button id="fileDownBtn" type="button" class="btn filesButton"
+						value="${filesVo.filesId}">${filesVo.filesNm}</button>
+				</c:forEach>
+			</div>
+			<br>
+			<div style="margin:30px;">
+				<label class="control-label">${jobinfoVo.jobinfoCont}</label>
 			</div>
 		</div>
-
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 제목</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.jobinfoTitle}</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="userNm" class="col-sm-2 control-label">취업공고 내용</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.jobinfoCont}</label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="pass" class="col-sm-2 control-label">작성 날짜</label>
-			<div class="col-sm-10">
-				<label class="control-label"><fmt:formatDate value="${jobInfoVo.jobinfoDate}" pattern="yyyy-MM-dd" /></label>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="pass" class="col-sm-2 control-label">작성자</label>
-			<div class="col-sm-10">
-				<label class="control-label">${jobInfoVo.adminId}</label>
-			</div>
-		</div>
-
-		<c:forEach items="${filesList}" var="filesVo">
-			<div class="form-group">
-				<label for="pass" class="col-sm-2 control-label">첨부파일</label>
-				<button id="fileDownBtn" type="button" class="btn btn-default"
-					value="${filesVo.filesId}">${filesVo.filesNm}</button>
-			</div>
-		</c:forEach>
-		
-	</form>
+	</div>
+</div>

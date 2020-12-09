@@ -68,6 +68,6 @@ private static final Logger logger = LoggerFactory.getLogger(UserQnaController.c
 		model.addAttribute("qnaVo", qnaVo);
 		model.addAttribute("replyList", replyList);
 		
-		return "";
+		return "mainT/teacher/qna/qna";
 	}
 }

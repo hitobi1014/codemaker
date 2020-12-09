@@ -1,7 +1,4 @@
-.button.button-success {
-    background: #5bb75b;
-    color: #fafafa;
-}
+
 .button.button-primary, .button.button-info, .button.button-success, .button.button-warning, .button.button-danger, .button.button-inverse {
     box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.2);
 }
@@ -50,13 +47,18 @@
     color: #222;
 }
 
-.button.button-danger {
-    background: #da4f49;
+
+.button.button-success .button.button-success:focus{
+    background: #4da54d;
+    color: #fafafa;
+}
+.button.button-danger .button.button-danger:focus{
+    background: #b53f3a;
     color: #fafafa;
 }
 
 .button.button-warning:hover, .button.button-warning:focus {
-    background: #f9960a;
+    background: #262aa0;
     color: #fafafa;
 }
 
@@ -74,14 +76,17 @@
     background: #339bba;
     color: #fafafa;
 }
-
+.button.button-success {
+    background: #5bb75b;
+    color: #fafafa;
+}
 .button.button-primary {
     background: #0088cc;
     color: #fafafa;
 }
 
 .button.button-warning {
-    background: #faa732;
+    background: #444af7;
     color: #fafafa;
 }
 

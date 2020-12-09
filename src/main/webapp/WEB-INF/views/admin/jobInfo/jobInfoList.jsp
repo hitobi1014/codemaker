@@ -32,15 +32,15 @@ $(document).ready(function(){
 	h2{
 		color : #1d25af;
 	}
-	.row{
+	#ff{
 		margin: 50px 130px 0;
 		background-color: white;
 	}
 </style>
 
-<div class="row shadow" >
-	<div class="col-12" style="margin:50px;">
-		<div id="firstdiv" class="card">
+<div id="ff">
+	<div style="margin:50px;">
+		<div class="card">
 	
 		<div>
 			<h2>CodeMaker 취업 공고 현황</h2>
@@ -75,7 +75,7 @@ $(document).ready(function(){
 					<c:choose>
 						<c:when test="${param.page != null and param.page != 1 and param.page != ''}">
 							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${1}"><<</a></li>
-							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${page-1}"><</a></li>
+							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${param.page-1}"><</a></li>
 						</c:when>
 					</c:choose>
 					
@@ -92,7 +92,7 @@ $(document).ready(function(){
 					
 					<c:choose>
 						<c:when test="${param.page != pages and pages != 1}">
-							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${page+1}">></a></li>
+							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${param.page+1}">></a></li>
 							  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllJobInfo?keyWord=${param.keyWord}&page=${pages}">>></a></li>
 						</c:when>
 					</c:choose> 	
@@ -100,7 +100,7 @@ $(document).ready(function(){
 				<hr>
 				<div>
 					<form name="form1"  method="post">
-				       <span>검색</span><input type="text" name="keyWord" value="${keyWord}" style="border : 1px solid black;">
+				       <span>검색</span><input type="text" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
 				       <input id="searchBtn" type="button" class="btn btn-warning btn-sm" value="조회">
 				    </form>
 				</div>

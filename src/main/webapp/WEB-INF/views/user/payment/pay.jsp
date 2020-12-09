@@ -5,49 +5,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<div>
-	<c:set value="${lessonVo.lesTerm}" var="lesTerm"/>
-	<%
-		int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
-		Date now = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(now);
-		cal.add(Calendar.DATE, lesTerm);
-	%>
-	<h1>임시테스트 정보 확인</h1>
-	강의명 : ${lessonVo.lesNm} <br>
-	강사명 : ${lessonVo.tchNm} <br>
-	수강기간 : <%= sdf.format(now)%> ~ <%= sdf.format(cal.getTime())%><br>
-	구매자 정보 : ${userVo.userId} <br>
-	결제금액 : ${lessonVo.lesCash} <br>
-	강의아이디 : ${lessonVo.lesId} <br>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="/css/user/cart/user-pay.css" rel="stylesheet" />   
+<div class="payBoxArea">
+	<h1>결제하기</h1>
+	<div class="divide"></div>
+	<c:url value="/user/pay" var="pay"/>
+	
+	<c:if test="${lessonVo !=null}">
+		<form action="${pay}" method="post" id="payFrm">
+			결제수단 : <input name="payWay" value="1"/><br>
+			결제금액 : <input name="paySum" value="${lessonVo.lesCash}"/>
+			수강기간 : <input name="cosTerm" value="${lessonVo.lesTerm}"/>
+			회원아이디 : <input name="userId" value="${userVo.userId}"/>
+			강의 아이디 : <input name="lesId" value="${lessonVo.lesId}"/>
+			<button id="payBtn">결제하기</button>
+		</form>
+	</c:if>
+	
+	<div class="row">
+		<div class="col">
+			<h3>결제내역</h3>
+			<c:if test="${lessonVoList != null}">
+				<form action="${pay}" method="post" id="payListFrm">
+						<% int sum = 0; %>
+						<c:forEach items="${lessonVoList}" var="lesson"  varStatus="stat">
+							<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
+							<input type="hidden" name="payList[${stat.index}].payWay" value="1"/>
+							<input type="hidden" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
+							<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
+							<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}"/>
+								<c:set value="${lesson.lesTerm}" var="lesTerm"/>
+								<c:set value="${lesson.lesCash}" var="lesCash"/>
+								<%
+									int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
+									Date now = new Date();
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+									Calendar cal = Calendar.getInstance();
+									cal.setTime(now);
+									cal.add(Calendar.DATE, lesTerm);
+									sum += (int)(pageContext.getAttribute("lesCash"));
+								%>
+							<div class="cont">
+								<img src="/img/icon/cube.png">
+								<div class="title">
+									<h3>${lesson.lesNm} &nbsp;&nbsp;</h3>
+								</div>
+								<ul class="lessonInfo">
+									<li><span>강사</span><b>${lesson.tchNm}</b></li>
+									<li><span>수강기간</span><b><%=sdf.format(now)%> ~ <%= sdf.format(cal.getTime()) %></b></li>
+									<fmt:formatNumber value="${lesson.lesCash}" var="lesCash" maxFractionDigits="3"/>
+									<li><span>결제금액</span><b>${lesCash}원</b></li>
+								</ul>
+								<div class="logo">
+									<img src="/img/icon/logo.png"/>
+								</div>
+							</div>
+						</c:forEach>			
+					<button id="payListBtn">결제하기</button>
+					총 합계 : <%= sum %>
+					회원아이디 : ${userVo.userId}<br>
+				</form>
+			</c:if>
+		</div>
+	</div>
 </div>
 
-<div>
-	<h1>폼 전송 테스트</h1>
-	<c:url value="/user/pay" var="pay"/>
-	<form:form action="${pay}" method="post" commandName="payVO" id="payFrm">
-		<!-- 넘어가야할 정보 
-			결제수단
-			결제금액
-			수강기간
-			회원아이디
-			강의아이디
-		-->
-		결제수단 : <form:input path="payWay" value="1"/><br>
-		결제금액 : <form:input path="paySum" value="${lessonVo.lesCash}"/>
-		수강기간 : <form:input path="cosTerm" value="${lessonVo.lesTerm}"/>
-		회원아이디 : <form:input path="userId" value="${userVo.userId}"/>
-		강의 아이디 : <form:input path="lesId" value="${lessonVo.lesId}"/>
-		<button id="payBtn">결제하기</button>
-	</form:form>
-</div>
 <script>
 $(function(){
 	$("#payBtn").on('click',function(){
 		$("#payFrm").submit();
+	})
+	
+	$("#payListBtn").on('click',function(){
+		$("#payListFrm").submit();
 	})
 })
 </script>

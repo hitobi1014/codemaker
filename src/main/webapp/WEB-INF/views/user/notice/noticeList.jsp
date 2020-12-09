@@ -85,31 +85,36 @@ $(document).ready(function(){
 			</c:if>
 			<hr>
 			
-		    <hr>
-			<table class="table table-striped">
-				<tr>
-					<th>공지사항 아이디</th>
-					<th>공지사항 제목</th>
-					<th>공지사항 작성일</th>
-					<th>작성자아이디</th>
-				</tr>
-				<tbody id="noticeList">
-					<c:forEach items="${noticeList}" var="notice">
+			<div style="background-color:white;">
+				    <hr>
+				<div style="margin:auto; width:1000px;">
+					<table class="table">
 						<tr>
-							<td>${notice.noticeId}</td>
-							<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-							<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
-							<td>${notice.adminId}</td>
+							<th>공지사항 아이디</th>
+							<th>공지사항 제목</th>
+							<th>공지사항 작성일</th>
+							<th>작성자아이디</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			
+						<tbody id="noticeList">
+							<c:forEach items="${noticeList}" var="notice">
+								<c:if test="${notice.noticeOut == 'N'}">
+									<tr>
+										<td>${notice.noticeId}</td>
+										<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
+										<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
+										<td>${notice.adminId}</td>
+									</tr>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 	
 		<div class="text-center" >
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
-					<c:when test="${param.page != 0 && param.page != 1 && param.page != null}">
+					<c:when test="${param.page != 0 and param.page != 1 and param.page != null}">
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page-1}"><i class="fas fa-angle-left"></i></a></li>
 					</c:when>
@@ -117,7 +122,7 @@ $(document).ready(function(){
 				
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
-						<c:when test="${i == param.page || param.page == null}">
+						<c:when test="${i == param.page and param.page == ''}">
 							<li class="page-item active"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
@@ -135,20 +140,18 @@ $(document).ready(function(){
 			</ul>
 			<hr>
 			<div>
-				<form name="form1"  method="post">
-			        <select name="searchOption">
-			            <c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
-				            <option value="1" selected>공지사항</option>
-				            <option value="2">자주묻는질문</option>
-			            </c:if>
-			            <c:if test="${searchOption == '2'}">
-				            <option value="1">공지사항</option>
-				            <option value="2" selected>자주묻는질문</option>
-			            </c:if>
-			        </select>
-			        <input id="keywords" type="text" name="keyWord" value="${param.keyWord}">
-			        <button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
-			    </form>
+		        <select name="searchOption">
+		            <c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
+			            <option value="1" selected>공지사항</option>
+			            <option value="2">자주묻는질문</option>
+		            </c:if>
+		            <c:if test="${searchOption == '2'}">
+			            <option value="1">공지사항</option>
+			            <option value="2" selected>자주묻는질문</option>
+		            </c:if>
+		        </select>
+		        <input id="keywords" type="text" name="keyWord" value="${param.keyWord}">
+		        <button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
 			</div>
 		</div>
 	</div>			

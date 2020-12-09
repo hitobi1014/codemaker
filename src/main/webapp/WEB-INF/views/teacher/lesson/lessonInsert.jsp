@@ -149,33 +149,7 @@ function initData(){
 // 	$('#lidxCont').val('갑자기만드네');
 }
 
-<<<<<<< HEAD
-	<div class="container" role="main">
-		<h2>강의 추가</h2>
-		<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/teacherL/insert">
-			<div class="mb-3">
-				<label for="title">강의 이름</label>
-				<input type="text" class="form-control" name="les_nm" id="les_nm" placeholder="강의이름을 입력해 주세요">
-			</div>
-			<div class="mb-3">
-				<label for="reg_id">강의 소개</label>
-				<textarea class="form-control" rows="5" name="les_cont" id="les_cont" placeholder="강의를 소개해주세요" ></textarea>
-			</div>
-			<div class="mb-3">
-				<label for="content">담당 쌤</label>
-				<input type="text" class="form-control" name="tch_id" id="tch_id" placeholder="담당 쌤">
-			</div>
-		</form>
-		<div >
-			<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
-		</div>
-	</div>
-</body>
-</html>
-=======
 </script>
->>>>>>> 선생님_강의
 
 </head>
 
@@ -188,8 +162,8 @@ function initData(){
 				<h2 class="card-title m-b-0">▪ 강의 추가</h2>
 				<br>
 				<form id="lesForm" action="${cp}/teacherL/insertLesson" method="POST" >
-				<input type="hidden" name="tchId">
-				<input type="hidden" name="subId">
+<!-- 				<input type="hidden" name="tchId"> -->
+<!-- 				<input type="hidden" name="subId"> -->
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
