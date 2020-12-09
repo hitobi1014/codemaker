@@ -29,6 +29,7 @@ var startCount = 0;
 				console.log(startCount);
 				$(this).attr('class', 'star btn btn-default btn-grey btn-xs');
 			}
+			
 		});
 
 		$("#reviewbox").on('click', function() {
@@ -36,10 +37,18 @@ var startCount = 0;
 			$('input[name=reviewStar]').attr('value',startCount).val();
 			$("textarea[name=reviewCont]").val();
 			
-// 			console.log(reviewCont);
+			if(startCount==0){
+				alert("별점을 체크해 주세요.");
+				return false;
+			}
 			
 			$("#reviewform").submit();
-		})
+		});
+		
+		$("#reviewDel").on('click', function() {
+			alert("수강후기가 삭제되었습니다.");
+		});
+			
 	})
 </script>
 
@@ -66,37 +75,43 @@ var startCount = 0;
 }
 
 
+img#starimg {
+    width: 30px;
+}
+img#starimg2 {
+    width: 20px;
+}
+
+#reviewDel{
+	float : right;
+}
+
+
 </style>
 
 <body>
+
     <div class="container">
-		<div class="row">
+<!-- 		<div class="row"> -->
 			<div class="col-sm-3">
 				<div class="rating-block">
-					<h4>✔ 수강 별점 평균</h4>
-					<h2 class="bold padding-bottom-7">4.3 <small>/ 5</small></h2>
-					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button>
-					<button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-					</button>
+					<h3 class="bold padding-bottom-7">🔔 수강 별점 평균</h3>
+					<h2 class="bold padding-bottom-7">${reviewAvg}<small>/ 5</small></h2>
+					<c:forEach var="i" begin="1" end="${reviewAvg}">
+<!-- 					<button type="button" class="btn btn-warning btn-sm" aria-label="Left Align"> -->
+<!-- 					  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
+<!-- 					</button> -->
+					<img src="${cp}/images/user/icons/star.png" id="starimg">
+					</c:forEach>
 				</div>
 			</div>
+			
 			<div class="col-sm-3">
-				<h4>Rating breakdown</h4>
+<!-- 				<h4>Rating breakdown</h4> -->
+					<br><br>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
-						<div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+						<div style="height:9px; margin:5px 0;"><b>5⭐️ </b></div>
 					</div>
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
@@ -105,11 +120,11 @@ var startCount = 0;
 						  </div>
 						</div>
 					</div>
-					<div class="pull-right" style="margin-left:10px;">1</div>
+					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.five}</div>
 				</div>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
-						<div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+						<div style="height:9px; margin:5px 0;"><b>4⭐️</b> </div>
 					</div>
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
@@ -118,11 +133,11 @@ var startCount = 0;
 						  </div>
 						</div>
 					</div>
-					<div class="pull-right" style="margin-left:10px;">1</div>
+					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.four}</div>
 				</div>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
-						<div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+						<div style="height:9px; margin:5px 0;"><b>3⭐️</b> </div>
 					</div>
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
@@ -131,11 +146,11 @@ var startCount = 0;
 						  </div>
 						</div>
 					</div>
-					<div class="pull-right" style="margin-left:10px;">0</div>
+					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.three}</div>
 				</div>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
-						<div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+						<div style="height:9px; margin:5px 0;"><b>2⭐️</b></div>
 					</div>
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
@@ -144,11 +159,11 @@ var startCount = 0;
 						  </div>
 						</div>
 					</div>
-					<div class="pull-right" style="margin-left:10px;">0</div>
+					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.two}</div>
 				</div>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
-						<div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+						<div style="height:9px; margin:5px 0;"><b>1⭐️</b> </div>
 					</div>
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
@@ -157,12 +172,12 @@ var startCount = 0;
 						  </div>
 						</div>
 					</div>
-					<div class="pull-right" style="margin-left:10px;">0</div>
+					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.one}</div>
 				</div>
 			</div>			
-		</div>			
+<!-- 		</div>			 -->
 		
-		
+		<br><br><br><br><br><br><br><br><br><br><br>
 		<form id="reviewform" action="${cp}/user/insertReview?lesId=${lesId}" method="POST">
 		<div class="row" style="margin-top:40px;">
 		<div class="col-md-6">
@@ -181,7 +196,7 @@ var startCount = 0;
 		
       </div>
         <br>
-           <textarea class="form-control animated" cols="100" id="new-review" name="reviewCont" placeholder="수강후기를 작성해주세요." rows="8"></textarea>
+           <textarea class="form-control animated" cols="100" rows="8" id="new-review" name="reviewCont" placeholder="수강후기를 작성해주세요."></textarea>
             <div class="row" id="post-review-box" style="display:none;">
 <!--                 <div class="col-md-12"> -->
 <!--                     <form accept-charset="UTF-8" action="" method="post"> -->
@@ -209,34 +224,39 @@ var startCount = 0;
 						<c:forEach items="${reviewList }" var="reviewList">
 						<div class="col-sm-3">
 							<img src="${cp}/images/user/icons/reviewimage2.png" class="img-rounded">
-							<div class="review-block-name">[‍${reviewList.userId}]</div>
-							<div class="review-block-date"><fmt:formatDate value="${reviewList.reviewDate}" pattern="yyyy-MM-dd"/><br/></div>
+							<div class="review-block-name">‍👨‍${reviewList.userId}</div>
+							
 						</div>
 
 						<div class="col-sm-9">
 							<div class="review-block-rate">
 								<c:forEach var="i" begin="1" end="${reviewList.reviewStar}">
-				
-								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-								</button>
+								<img src="${cp}/images/user/icons/star.png" id="starimg2">
+<!-- 								<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align"> -->
+<!-- 								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
+<!-- 								</button> -->
 								</c:forEach>
 <!-- 								<input type="button" class="" value="삭제"> -->
 								
-								<a href="${cp}/user/deleteReview?lesId=${lesId}&reviewId=${reviewList.reviewId}" class="button button-inline button-small button-primary"><span>삭제</span></a>
-							<input type="hidden" value="${reviewList.reviewId}">
+								<c:choose>
+									<c:when test="${reviewList.userId == MEMBER_INFO.userId}">
+										<a href="${cp}/user/deleteReview?lesId=${lesId}&reviewId=${reviewList.reviewId}" id="reviewDel"><span>🗑️삭제</span></a>
+									</c:when>
+								</c:choose>
+								
+								<input type="hidden" value="${reviewList.reviewId}">
 							
 <!-- 								<button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align"> -->
 <!-- 								  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> -->
 <!-- 								</button> -->
 							</div>
+							<div class="review-block-date"><fmt:formatDate value="${reviewList.reviewDate}" pattern="yyyy-MM-dd"/><br/></div>
 							<div class="review-block-description">${reviewList.reviewCont }</div>
-						
+						<hr/>
 						</div>
 						</c:forEach>
 					</div>
-				<hr/>
-		  			
+
 		
 
     </div> <!-- /container -->

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.lessoninfo.service.ReviewService;
+import kr.co.codemaker.user.lessoninfo.vo.ReviewStarVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
 
@@ -30,6 +31,8 @@ public class ReviewController {
 	public String selectReview(Model model, String lesId){
 
 		List<ReviewVO> reviewList=new ArrayList<ReviewVO>();
+		
+		//수강후기 조회
 		try {
 			reviewList = reviewService.selectReview(lesId);
 		} catch (Exception e) {
@@ -37,11 +40,35 @@ public class ReviewController {
 		}
 		logger.debug("reviewList");
 		
+		
+		//수강후기 별점 평균
+		float reviewAvg=0;
+		try {
+			reviewAvg = reviewService.selectReviewAvg(lesId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		//수강후기 별점 갯수
+		ReviewStarVO reviewStarVo = new ReviewStarVO();
+		try {
+			reviewStarVo = reviewService.selectReviewStar(lesId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		logger.debug("reviewStarVo : {} " , reviewStarVo);
+		
+		
 		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("lesId",lesId);
+		model.addAttribute("lesId", lesId);
+		model.addAttribute("reviewAvg", reviewAvg);
+		model.addAttribute("reviewStarVo", reviewStarVo);
 		
 		return "mainT/user/lesson/selectReview";
 	}
+	
 	
 
 	@RequestMapping("/user/insertReview")
