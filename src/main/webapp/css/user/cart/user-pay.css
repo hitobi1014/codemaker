@@ -222,3 +222,44 @@ h3{
     opacity: .65;
     cursor: default;
 }
+.point-box{
+	padding-left: 1em;
+}
+.point-group{
+	margin-bottom: 1em;
+}
+input[name='usePoint']{
+    text-align: right;
+    background: transparent;
+}
+.have-point, .use-point{
+    display: inline-block;
+    margin-left: 100px;
+    width: 65%;
+    text-align: right;
+    border-bottom: 1px solid #80808063;
+    padding-right: 15px;
+}
+.point-div{
+	margin-bottom: 1em;
+}
+#point-btn{
+    padding-right: 1.5em;
+    margin-top: 1em;
+    width: 100%;
+}
+#totalPointUse{
+	border: 1px solid rgb(0,95,134);
+    border-radius: 10px;
+    display: inline-block;
+    float: right;
+    width: 20%;
+    background: rgb(0,95,134);
+    color: white;
+}
+.pay-divide{
+	height: 6px;
+	background: #9090905c;
+    width: 100%;
+    margin-bottom: 1em;
+}

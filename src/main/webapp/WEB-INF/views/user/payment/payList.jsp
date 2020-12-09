@@ -15,40 +15,41 @@
 	<div class="row">
 		<div class="col">
 			<h3>결제내역</h3>
-			<form action="${pay}" method="post" id="payFrm">
-				<% int sum=0; %>
-				<input type="hidden" name="payWay" value="1"/><br>
-				<input type="hidden" name="paySum" value="${lessonVo.lesCash}"/>
-				<input type="hidden" name="cosTerm" value="${lessonVo.lesTerm}"/>
-				<input type="hidden" name="userId" value="${userVo.userId}"/>
-				<input type="hidden" name="lesId" value="${lessonVo.lesId}"/>
-				<c:set value="${lessonVo.lesTerm}" var="lesTerm"/>
-				<c:set value="${lessonVo.lesCash}" var="lesCash"/>
-				<%
-					int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
-					Date now = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-					Calendar cal = Calendar.getInstance();
-					cal.setTime(now);
-					cal.add(Calendar.DATE, lesTerm);
-					sum += (int)(pageContext.getAttribute("lesCash"));
-				%>
-				<div class="cont">
-					<img src="/img/icon/cube.png">
-					<div class="title">
-						<h3>${lessonVo.lesNm}</h3>
-					</div>
-					<ul class="lessonInfo">
-						<li><span>강사</span><b>${lessonVo.tchNm}</b></li>
-						<li><span>수강기간</span><b><%=sdf.format(now)%> ~ <%= sdf.format(cal.getTime()) %></b></li>
-						<fmt:formatNumber value="${lessonVo.lesCash}" var="lesCash" maxFractionDigits="3"/>
-						<li><span>결제금액</span><b>${lesCash}원</b></li>
-					</ul>
-					<div class="logo">
-						<img src="/img/icon/logo.png"/>
-					</div>
-				</div>
-				
+			<form action="${pay}" method="post" id="payListFrm">
+					<% int sum = 0; %>
+					<c:forEach items="${lessonVoList}" var="lesson"  varStatus="stat">
+						<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
+						<input type="hidden" name="payList[${stat.index}].payWay" value="1"/>
+						<input type="hidden" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
+						<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
+						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}"/>
+							<c:set value="${lesson.lesTerm}" var="lesTerm"/>
+							<c:set value="${lesson.lesCash}" var="lesCash"/>
+							<%
+								int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
+								Date now = new Date();
+								SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(now);
+								cal.add(Calendar.DATE, lesTerm);
+								sum += (int)(pageContext.getAttribute("lesCash"));
+							%>
+						<div class="cont">
+							<img src="/img/icon/cube.png">
+							<div class="title">
+								<h3>${lesson.lesNm}</h3>
+							</div>
+							<ul class="lessonInfo">
+								<li><span>강사</span><b>${lesson.tchNm}</b></li>
+								<li><span>수강기간</span><b><%=sdf.format(now)%> ~ <%= sdf.format(cal.getTime()) %></b></li>
+								<fmt:formatNumber value="${lesson.lesCash}" var="lesCash" maxFractionDigits="3"/>
+								<li><span>결제금액</span><b>${lesCash}원</b></li>
+							</ul>
+							<div class="logo">
+								<img src="/img/icon/logo.png"/>
+							</div>
+						</div>
+					</c:forEach>
 				<div class="row justify-content-center">
 					<div class="payinfo row">
 						<div class="buyer col-md-6 col-12">
@@ -132,8 +133,7 @@
 									<div class="pay-check-div">
 										<input type="checkbox" id="terms2" name="agree2" class="agree"/>
 										<label for="terms2">
-											<p>
-												구매조건 확인 및 
+											<p>구매조건 확인 및 
 												 	<b><!-- 
 													 --><a href="https://www.notion.so/566609b9392542329ab99e1946f8e3f5" target="_blank">개인정보처리약관</a><!-- 
 												 --></b><!-- 
@@ -145,7 +145,7 @@
 								<button id="payListBtn" disabled="disabled">결제하기</button>
 							</div>
 						</div>
-					</div>
+					</div>			
 				</div>
 			</form>
 		</div>
@@ -165,8 +165,9 @@ $(function(){
 	$(".pay-way").on('click',function(){
 		console.log($(this).val());
 	})
-	$("#payBtn").on('click',function(){
-		$("#payFrm").submit();
+	
+	$("#payListBtn").on('click',function(){
+		$("#payListFrm").submit();
 	})
 })
 </script>
