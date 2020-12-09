@@ -13,20 +13,47 @@
 	<div class="divide"></div>
 	<c:url value="/user/pay" var="pay"/>
 	
-	<c:if test="${lessonVo !=null}">
-		<form action="${pay}" method="post" id="payFrm">
-			결제수단 : <input name="payWay" value="1"/><br>
-			결제금액 : <input name="paySum" value="${lessonVo.lesCash}"/>
-			수강기간 : <input name="cosTerm" value="${lessonVo.lesTerm}"/>
-			회원아이디 : <input name="userId" value="${userVo.userId}"/>
-			강의 아이디 : <input name="lesId" value="${lessonVo.lesId}"/>
-			<button id="payBtn">결제하기</button>
-		</form>
-	</c:if>
-	
 	<div class="row">
 		<div class="col">
 			<h3>결제내역</h3>
+			<c:if test="${lessonVo !=null}">
+				<form action="${pay}" method="post" id="payFrm">
+					<% int sum=0; %>
+					<input type="hidden" name="payWay" value="1"/><br>
+					<input type="hidden" name="paySum" value="${lessonVo.lesCash}"/>
+					<input type="hidden" name="cosTerm" value="${lessonVo.lesTerm}"/>
+					<input type="hidden" name="userId" value="${userVo.userId}"/>
+					<input type="hidden" name="lesId" value="${lessonVo.lesId}"/>
+					<c:set value="${lessonVo.lesTerm}" var="lesTerm"/>
+					<c:set value="${lessonVo.lesCash}" var="lesCash"/>
+					<%
+						int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
+						Date now = new Date();
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(now);
+						cal.add(Calendar.DATE, lesTerm);
+						sum += (int)(pageContext.getAttribute("lesCash"));
+					%>
+					<div class="cont">
+						<img src="/img/icon/cube.png">
+						<div class="title">
+							<h3>${lessonVo.lesNm}</h3>
+						</div>
+						<ul class="lessonInfo">
+							<li><span>강사</span><b>${lessonVo.tchNm}</b></li>
+							<li><span>수강기간</span><b><%=sdf.format(now)%> ~ <%= sdf.format(cal.getTime()) %></b></li>
+							<fmt:formatNumber value="${lessonVo.lesCash}" var="lesCash" maxFractionDigits="3"/>
+							<li><span>결제금액</span><b>${lesCash}원</b></li>
+						</ul>
+						<div class="logo">
+							<img src="/img/icon/logo.png"/>
+						</div>
+					</div>
+					<button id="payBtn">결제하기</button>
+				</form>
+			</c:if>
+			
 			<c:if test="${lessonVoList != null}">
 				<form action="${pay}" method="post" id="payListFrm">
 						<% int sum = 0; %>
@@ -50,7 +77,7 @@
 							<div class="cont">
 								<img src="/img/icon/cube.png">
 								<div class="title">
-									<h3>${lesson.lesNm} &nbsp;&nbsp;</h3>
+									<h3>${lesson.lesNm}</h3>
 								</div>
 								<ul class="lessonInfo">
 									<li><span>강사</span><b>${lesson.tchNm}</b></li>
@@ -62,10 +89,95 @@
 									<img src="/img/icon/logo.png"/>
 								</div>
 							</div>
-						</c:forEach>			
-					<button id="payListBtn">결제하기</button>
-					총 합계 : <%= sum %>
-					회원아이디 : ${userVo.userId}<br>
+						</c:forEach>
+					<div class="row justify-content-center">
+						<div class="payinfo row">
+							<div class="buyer col-md-6 col-12">
+								<h3>구매자 정보</h3>
+								<div class="input-group"><span class="buyer-id">${userVo.userId}</span></div>
+								<div class="info-point">
+									<h3>포인트</h3>
+									<div>
+										<h3>포인트 결제</h3>
+										<div class="point-group">
+											<div>
+												<span>보유</span>
+												<span>101010원</span>
+											</div>
+											<div>
+												<span>사용</span>
+												<span>101010원</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="pay-method col-md-6 col-12">
+								<h3>결제 수단</h3>
+								<div class="payWayBoxArea form-group row">
+									<div class="payWayBox col-sm-3">
+										<div class="payB">
+											<input class="pay-way" name="payWay" type="radio" id="point" value="point" checked="checked"/>
+											<label for="point">포인트</label>
+										</div>
+									</div>
+									<div class="payWayBox col-sm-5" style="padding-right: 0px;">
+										<div class="payB">
+											<input class="pay-way" name="payWay" type="radio" id="kakaopay" value="kakaopay" />
+											<label for="kakaopay">
+												<img src="/img/icon/kakaopay.png">카카오페이
+											</label>
+										</div>
+									</div>
+									<div class="payWayBox col-sm-4">
+										<div class="payB">
+											<input class="pay-way" name="payWay" type="radio" id="creditcard" value="creditcard"/>
+											<label for="creditcard">신용카드</label>
+										</div>
+									</div>
+								</div>
+								<div class="pay-information col">
+									<div class="divider"></div>
+									<h3 style="padding-top: .8em;">결제 정보</h3>
+									<div class="cash-info row">
+										<div class="col">결제금액</div>
+										<div class="cash-info-text">
+											<fmt:formatNumber value="<%=sum%>" var="sum" maxFractionDigits="3"></fmt:formatNumber>
+											<span>${sum}<i>원</i></span>
+										</div>
+									</div>
+									<div class="pay-check">
+										<div class="pay-check-div">
+											<input type="checkbox" id="terms1" name="agree1" class="agree"/>
+											<label for="terms1">
+												<p>
+													<b>
+														<a href="https://www.notion.so/470057a434ca4eefbf2e0599a2f9dd36" target="_blank">결제 및 환불 규정</a><!--  
+													--></b><!-- 
+													 -->에 동의합니다 (필수)
+												</p>
+											</label>
+										</div>
+										<div class="pay-check-div">
+											<input type="checkbox" id="terms2" name="agree2" class="agree"/>
+											<label for="terms2">
+												<p>
+													구매조건 확인 및 
+													 	<b><!-- 
+														 --><a href="https://www.notion.so/566609b9392542329ab99e1946f8e3f5" target="_blank">개인정보처리약관</a><!-- 
+													 --></b><!-- 
+													 -->에 동의합니다 (필수)
+												</p>
+											</label>
+										</div>
+									</div>
+									<button id="payListBtn" disabled="disabled">
+										결제하기
+									</button>
+								</div>
+							</div>
+						</div>			
+					</div>
 				</form>
 			</c:if>
 		</div>
@@ -74,6 +186,17 @@
 
 <script>
 $(function(){
+	$(".agree").on('change',function(){
+		if($("#terms1").prop('checked') && $("#terms2").prop('checked')){
+			$("#payListBtn").attr('disabled',false);
+		}else{
+			$("#payListBtn").attr('disabled',true);
+		}
+	})
+		
+	$(".pay-way").on('click',function(){
+		console.log($(this).val());
+	})
 	$("#payBtn").on('click',function(){
 		$("#payFrm").submit();
 	})
