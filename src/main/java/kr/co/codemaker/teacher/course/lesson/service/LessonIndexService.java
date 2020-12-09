@@ -17,13 +17,7 @@ public class LessonIndexService {
 	private LessonIndexMapper lessonIndexMapper;
 	
 	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
-		
-		try {
-//			return lessonIndexMapper.selectLessonIndex(lesId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return lessonIndexMapper.selectLessonIndex(lesId);
 	}
 	
 	
@@ -31,5 +25,12 @@ public class LessonIndexService {
 		return lessonIndexMapper.insertLessonIndex(lesIdxVO);
 	}
 	
-
+	public int updateLessonIndex(LessonIndexVO lesIdxVO) throws Exception{
+		return lessonIndexMapper.updateLessonIndex(lesIdxVO);
+	}
+	
+	public int deleteLessonIndex(String lidxId) throws Exception{
+		return lessonIndexMapper.deleteLessonIndex(lidxId);
+	}
+	
 }

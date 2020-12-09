@@ -47,6 +47,7 @@ public class UserPayController {
 	
 	@RequestMapping(path="user/payViewList")
 	public String payViewList(HttpSession session, PayVO payVo,Model model, LessonVO lessonList) {
+		logger.debug("정보 : {}",lessonList.getLessonList());
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		model.addAttribute("userVo", userVo);
 		List<LessonVO> lesson = new ArrayList<>();

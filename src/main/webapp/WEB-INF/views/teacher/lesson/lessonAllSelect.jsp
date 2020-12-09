@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -269,8 +270,7 @@ var addLes = function(){
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
-								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span>
-								</label></th>
+								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></th>
 								<th scope="col">강의명</th>
 								<th scope="col">강의소개</th>
 								<th scope="col">강의기간</th>
