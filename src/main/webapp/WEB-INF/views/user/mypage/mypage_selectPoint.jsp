@@ -73,7 +73,8 @@
                     <td>
                       <div class="avatar-group">
                         <a href="#" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                          <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-1.jpg" class="rounded-circle">
+<!--                           <img alt="Image placeholder" src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-1.jpg" class="rounded-circle"> -->
+                          <img alt="Image placeholder" src="${cp }/mypage/profileImg?userId=${userVo.userId}" class="rounded-circle">
                         </a>
                       </div>
                     </td>
