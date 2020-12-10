@@ -81,7 +81,7 @@
 							<div class="payWayBoxArea form-group row">
 								<div class="payWayBox col-sm-5" style="padding-right: 0px;">
 									<div class="payB">
-										<input class="pay-way" name="payWay" type="radio" id="kakaopay" value="kakaopay" />
+										<input class="pay-way" type="radio" id="kakaopay" value="kakaopay" />
 										<label for="kakaopay">
 											<img src="/img/icon/payment_icon_yellow_small.png">카카오페이
 										</label>
@@ -89,7 +89,7 @@
 								</div>
 								<div class="payWayBox col-sm-4">
 									<div class="payB">
-										<input class="pay-way" name="payWay" type="radio" id="creditcard" value="creditcard"/>
+										<input class="pay-way" type="radio" id="creditcard" value="creditcard"/>
 										<label for="creditcard">신용카드</label>
 									</div>
 								</div>
@@ -116,7 +116,7 @@
 									<div class="pay-divide"></div>
 									<div class="col">결제금액</div>
 									<div class="cash-info-text">
-										<span id="totalCash">${total}<i>원</i></span>
+										<span id="totalCash">${sum}<i>원</i></span>
 									</div>
 								</div>
 								<div class="pay-check">
@@ -149,8 +149,8 @@
 					</div>			
 				</div>
 			</form>
-			<form action="${cp}/kakaoPay" method="POST">
-				<button>카카오페이</button>
+			<form action="${cp}/kakaoPay" method="POST" id="kakaoSubmit">
+				
 			</form>
 		</div>
 	</div>
@@ -255,8 +255,20 @@ $(function(){
 		var pointSum = parseInt($(".have-point").text().replace(',',''));
 		$("#pointSum").val(pointSum);
 		if(payWay == "kakaopay"){
-			console.log("test");
-			location.href="/kakaoPay";
+			var total = parseInt($("#totalCash").text().replace(',',''));
+			$.ajax({
+				url : '/kakaoPay',
+				data : {"total" : total},
+				method : 'post',
+				success : function(res){
+					window.open(res.url,"_blank","width=550,height=750,left=658,top=161");
+					console.log(res);
+					if(res.test !=null){
+						console.log(res.test);
+					}
+				}
+			})
+// 			$("#kakaoSubmit").submit();
 		}
 // 		$("#payListFrm").submit();
 	})
