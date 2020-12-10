@@ -8,18 +8,77 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>이력서작성 📄</title>
 
+<style>
+/* 	#resProfile{ */
+/* 		width: 50px; */
+/* 		height: 50px; */
+/* 	} */
+	#img{
+		width: 130px;
+		height: 150px;
+		border: 0.5px solid black;
+	}
+	#resTel1{
+		width: 100px;
+		height: 35px;
+	}
+</style>
 <script>
 	$(document).ready(function(){
-		$('#resumeBtn').on('click', function(){
-			$('#formBtn').submit();
-		})
-	})
+		$('#insertBtn').on('click', function(){
+			
+			var resMail1 = $("#resMail1").val();
+			var resMail2 = $("#resMail2").val();
+			var resEdu1 = $("#resEdu1").val();
+			var resEdu2 = $("#resEdu2").val();
+			var resEdu3 = $("#resEdu3").val();
+			var resEdu4 = $("#resEdu4").val();
+			var resTel1 = $("#resTel1").val();
+			var resTel2 = $("#resTel2").val();
+			var resTel3 = $("#resTel3").val();
+			
+			$("#resMail").val(resMail1 + resMail2);
+			
+			$("#resEdu").val(resEdu1 + '~' + resEdu2 + ' ' + resEdu3 + ' ' + resEdu4);
+			
+			$("#resTel").val(resTel1 + '-' + resTel2 + '-' + resTel3);
+			alert(resEdu1 + '~' + resEdu2 + ' ' + resEdu3 + ' ' + resEdu4);
+
+			$('#insertForm').submit();
+		});
+	});
+	function selectEmail(ele){ 
+		var $ele = $(ele);
+		var $email2 = $('input[name=resMail2]'); 
+		
+		// '1'인 경우 직접입력 
+		if($ele.val() == "1" ){ 
+			$email2.attr('readonly', false); 
+			$email2.val('@'); 
+		} else { 
+			$email2.attr('readonly', true); 
+			$email2.val($ele.val()); 
+			
+		}
+	}
+	
+	function loadImg(value){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+	
+
 </script>
 
 </head>
 <body>
 	<div class="article">
-		<form action="${cp }/insertResume" id="formBtn" class="form-horizontal" method="POST" role="form" enctype="multipart/form-data" >
+		<form action="${cp }/resume/insert" id="insertForm" class="form-horizontal" method="POST" enctype="multipart/form-data" name="insertForm" >
 			<div class="subtitle_wrap">
 				<span style="font-weight:bold;font-size:medium;color:#4C4C4C;">기본인적사항</span>
 				<hr color="black">
@@ -38,7 +97,7 @@
 								<label class="labelText">이름</label>
 							</th>
 							<td>
-								<input name=resNm type="text" id="resNm" value="${param.resNm }" class="form-control" maxlength="7" style="width: 100px;  float: left;">
+								<input name=resNm type="text" id="resNm" class="form-control" maxlength="5" style="width: 100px;  float: left;">
 							</td>
 						</tr>
 						<tr>
@@ -46,7 +105,19 @@
 								<label class="labelText">휴대폰 번호</label>
 							</th>
 							<td>
-								<input name="resTel" type="text" id="resTel" value="${param.resTel }" class="form-control" maxlength="11" style="width: 89px;  float: left;">
+								<div class="labelText" style="float: left; background-position: 92px 50%; width: 134px; margin-right: 10px;">
+									<select title="전화번호 분류" id="resTel1" name="resTel1">
+										<option value="" selected="selected">-</option>
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+									</select>
+								</div>
+								<input name="resTel2" type="text" id="resTel2" class="form-control" maxlength="4" style="width: 89px;  float: left;">
+								<input name="resTel3" type="text" id="resTel3" class="form-control" maxlength="4" style="width: 89px;  float: left;">
+								<input type="hidden" id="resTel" name="resTel"/>
 							</td>
 						</tr>
 						<tr>
@@ -54,34 +125,32 @@
 								<label class="labelText">이메일</label>
 							</th>
 							<td>                                        
-								<input name="resMail" type="text" id="resMail1" class="form-control" maxlength="30" style="width: 129px;  float: left; margin-right: 7px;">
-								<span class="atmark">@</span>
-								<input name="resMail" type="text" id="resMail2" class="form-control" maxlength="20" style="width:129px;float:left;">
-								
-								<span class="atmark"></span>
-								<div class="labelText" style="float: left; background-position: 92px 50%; width: 134px; margin-right: 10px;">
-									<span class="selected-text">직접입력</span>
-									<select title="이메일 분류" id="resMail3" name="resMail" selected="selected">
-										<option value="" selected="selected">직접입력</option>
-										<option value="naver.com">naver.com</option>
-										<option value="nate.com">nate.com</option>
-										<option value="dreamwiz.com">dreamwiz.com</option>
-										<option value="yahoo.co.kr">yahoo.co.kr</option>
-										<option value="gmail.com">gmail.com</option>
-										<option value="korea.com">korea.com</option>
-										<option value="hanmail.net">hanmail.net</option>
-										<option value="hotmail.com">hotmail.com</option>
-									</select>
-								</div>
+								<input name="resMail1" type="text" id="resMail1" class="form-control" maxlength="30" style="width: 129px;  float: left; margin-right: 7px;">
+								<input name="resMail2" type="text" id="resMail2" class="form-control" maxlength="20" style="width:129px;float:left;" value="@">
+								<select title="이메일 분류" id="selectMail" name="selectMail" onchange="selectEmail(this)">
+									<option value="1" selected="selected">직접 입력</option>
+									<option value="@maker.co.kr">maker.co.kr</option>
+									<option value="@naver.com">naver.com</option>
+									<option value="@nate.com">nate.com</option>
+									<option value="@yahoo.co.kr">yahoo.co.kr</option>
+									<option value="@gmail.com">gmail.com</option>
+									<option value="@korea.com">korea.com</option>
+									<option value="@hanmail.net">hanmail.net</option>
+								</select>
+								<input type="hidden" id="resMail" name="resMail"/>
 							</td>
 						</tr>
 						<tr>
 							<th>
-								<div class="resume_photo">
-									<a href="##" type="file" name="resProfile" " id="resProfile" class="box_photo" data-api_type="layer" data-api_id="basic_photo"><span>사진추가</span></a>
-									<a class="photo_delete" href="##" style="display: none;"><span class="blind">사진 삭제</span></a>
-								</div>					
 							</th>
+							<td>
+								<div class="resume_photo">
+									<img id="img" src="/images/teacher/imageAdd.PNG" style="cursor:pointer"><br><br>
+									<input type="file" id="resProfile" name="resProfile" style="display:none;" data-api_type="layer" data-api_id="basic_photo" onchange="loadImg(this);">
+									<input type="hidden" name="target_url"/>
+									<a class="photo_delete" href="##" style="display: none;"><span class="blind">사진 삭제</span></a>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -107,30 +176,26 @@
 							<td class="first">
 								<label class="hidden" for="txtStudy2Period1"> 대학교 기간</label>
 								<span class="input_text1">
-									<input name="txtStudy2Period1" type="text" id="txtStudy2Period1" maxlength="50" class="input_txt">
+									<input name="resEdu1" type="date" id="resEdu1" class="input_txt">
 								</span>
 								<span class="wa">~</span> <span class="input_text1">
-									<input name="txtStudy2Period2" type="text" id="txtStudy2Period2" maxlength="50" class="input_txt">
+									<input name="resEdu2" type="date" id="resEdu2" class="input_txt">
 								</span>
+								
 							</td>
 							<td class="al">
 								<span class="name">
 									<label for="txtStudy2School"> 대학교</label>
 								</span>
 								<span class="input_text2">
-									<input name="txtStudy2School" type="text" id="txtStudy2School" maxlength="50" class="input_txt">
-								</span>
-							</td>
-							<td>
-								<label class="hidden" for="txtStudy2Dept">   대학교 단과대(학부)</label>
-								<span class="input_text3">
-									<input name="txtStudy2Dept" type="text" id="txtStudy2Dept" maxlength="50" class="input_txt">
+									<input name="resEdu3" type="text" id="resEdu3" maxlength="50" class="input_txt">
 								</span>
 							</td>
 							<td>
 								<label class="hidden" for="txtStudy2Major">   대학교 학과(전공)</label>
 								<span class="input_text3">
-									<input name="txtStudy2Major" type="text" id="txtStudy2Major" maxlength="50" class="input_txt">
+									<input name="resEdu4" type="text" id="resEdu4" maxlength="50" class="input_txt">
+									<input type="hidden" id="resEdu" name="resEdu"/>
 								</span>
 							</td>
 						</tr>
@@ -149,10 +214,10 @@
 							</td>
 							<td style="padding-right: 0;">
 								<div class="">
-									<textarea name="taApplyMotivation" id="taApplyMotivation" onkeyup="checkByte(this,1200,'sp_ad_content_size_5', 'sp_ad_content_size_6');"></textarea>
+									<textarea name="resMotive" id="resMotive" onkeyup="checkByte(this,1200,'sp_ad_content_size_5', 'sp_ad_content_size_6');"></textarea>
 								</div>
 								<div class="remain_text" id="ad_content_size_3">
-									<span id="sp_ad_content_size_5">0</span>/1200byte ( <span id="sp_ad_content_size_6">0</span>/600자)
+									<span id="sp_ad_content_size_5">0</span>/500byte ( <span id="sp_ad_content_size_6">0</span>/150자)
 								</div>
 							</td>
 						</tr>
@@ -161,12 +226,8 @@
 			</div>
 			<div class="btn_area_recruit">
 				<p>
-					<button class="btn_squre btn_gray" type="submit" id="tempSave"><span>임시 저장하기</span></button>
-					<span class="btn_pack me type03"><a href="list.aspx">취소</a></span> 
-					<span id="Btn_Insert" class="btn_pack me type03">
-						<button type="submit" id="resumeBtn" onclick="javascript:return recruit();">지원하기</button>
-	                               
-					</span>
+					<span class="btn_pack me type03"><a href="${cp }/userT/main">취소</a></span> 
+					<input type="button" id="insertBtn"  value="지원하기" onclick="location.href='/success'"/>
 				</p>
 			</div>
 		</form>
