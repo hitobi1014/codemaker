@@ -44,7 +44,7 @@ public interface ExamMapper {
 	public List<LessonVO> selectAllLesson(LessonVO lessonVO) throws Exception;
 	
 	/**
-	 * 자신이 출제한 시험 문제를 전체 조회하는 메서드
+	 * 자신이 출제한 시험 문제를 전체 조회하는 메서드 
 	 * 
 	 * @author 김미연
 	 * @param examVO
@@ -53,13 +53,21 @@ public interface ExamMapper {
 	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception;
 	
 	/**
-	 * 시험을 등록하는 메서드
+	 * 자신이 출제한 시험 문제 전체수를 조회하는 메서드
 	 * 
 	 * @author 김미연
 	 * @param examVO
 	 * @return 
 	 */
-	public String insertExam(ExamVO examVO) throws Exception;
+	public int selectTotalCntExam(ExamVO examVO) throws Exception;
+	
+	/**
+	 * 해당 시험을 조회하는 메서드
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public ExamVO selectExam(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 시험을 수정하는 메서드
@@ -70,21 +78,14 @@ public interface ExamMapper {
 	 */
 	public int updateExam(ExamVO examVO) throws Exception;
 	
-	
 	/**
-	 * 페이징 처리를 위해 출제한 문제의 전체 수를 조회하는 메서드
+	 * 시험을 등록하는 메서드
 	 * 
-	 * @param examVO
-	 * @return
-	 */
-	public int selectTotalCntExam(ExamVO examVO) throws Exception;
-	
-	/**
-	 * 해당 시험을 조회하는 메서드
+	 * @author 김미연
 	 * @param examVO
 	 * @return 
 	 */
-	public ExamVO selectExam(ExamVO examVO) throws Exception;
+	public String insertExam(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 시험을 삭제하는 메서드

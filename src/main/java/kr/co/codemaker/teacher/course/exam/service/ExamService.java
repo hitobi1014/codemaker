@@ -76,6 +76,37 @@ public class ExamService {
 		return examMapper.selectAllExam(examVO);
 	}
 	
+	/**
+	 * 자신이 출제한 시험 문제 전체수를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public int selectTotalCntExam(ExamVO examVO) throws Exception{
+		return examMapper.selectTotalCntExam(examVO);
+	}
+	
+	/**
+	 * 해당 시험을 조회하는 메서드
+	 * 
+	 * @param examVO
+	 * @return
+	 */
+	public ExamVO selectExam(ExamVO examVO) throws Exception{
+		return examMapper.selectExam(examVO);
+	}
+
+	/**
+	 * 시험을 수정하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 */
+	public int updateExam(ExamVO examVO) throws Exception{
+		return examMapper.updateExam(examVO);
+	}
 
 	/**
 	 * 시험을 등록하는 메서드
@@ -92,40 +123,12 @@ public class ExamService {
 		}
 		return null;
 	}
+	
 
-	/**
-	 * 시험을 수정하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examVO
-	 * @return
-	 */
-	public int updateExam(ExamVO examVO) {
-		try {
-			return examMapper.updateExam(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
 
 	
 
-	/**
-	 * 해당 시험을 조회하는 메서드
-	 * 
-	 * @param examVO
-	 * @return
-	 */
-	public ExamVO selectExam(ExamVO examVO) {
-		try {
-			return examMapper.selectExam(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	
 	/**
 	 * 시험을 삭제하는 메서드
 	 * 

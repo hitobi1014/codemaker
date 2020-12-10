@@ -1,9 +1,6 @@
 package kr.co.codemaker.teacher.course.exam.vo;
 
 import java.util.Date;
-import java.util.List;
-
-import kr.co.codemaker.common.vo.BaseVO;
 
 /**
  * 
@@ -26,44 +23,44 @@ public class ExamVO extends LessonVO {
 	private Date examDate; 		// 시험 작성일
 	private String lidxCont;	// 목차명
 	
+	private String searchSubId;		// 선택한 과목 아이디
+	private String searchLesId;		// 선택한 강의 아이디
+	private String searchExamState;	// 선택한 등록 상태
+	
 	// 페이징 작업 추가
 	private int page; 			// 현재 보여주는 페이지 번호
-	private int startPage; 		// 시작 페이지
-	private int endPage; 		// 마지막 페이지
 	
-	
-
+	public String getSearchExamState() {
+		return searchExamState;
+	}
+	public void setSearchExamState(String searchExamState) {
+		this.searchExamState = searchExamState;
+	}
+	public String getSearchSubId() {
+		return searchSubId;
+	}
+	public void setSearchSubId(String searchSubId) {
+		this.searchSubId = searchSubId;
+	}
+	public String getSearchLesId() {
+		return searchLesId;
+	}
+	public void setSearchLesId(String searchLesId) {
+		this.searchLesId = searchLesId;
+	}
 	public String getLidxCont() {
 		return lidxCont;
 	}
-
 	public void setLidxCont(String lidxCont) {
 		this.lidxCont = lidxCont;
 	}
-
-	public ExamVO() {
-
-	}
-	
 	public int getPage() {
+		if(page == 0) page = 1;
 		return page;
 	}
 	public void setPage(int page) {
 		this.page = page;
 	}
-	public int getStartPage() {
-		return startPage;
-	}
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-	public int getEndPage() {
-		return endPage;
-	}
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
 	public String getExamId() {
 		return examId;
 	}

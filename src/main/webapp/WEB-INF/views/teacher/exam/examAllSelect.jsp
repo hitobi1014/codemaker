@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
 
@@ -19,7 +24,7 @@
 $(function() {
 	
 	// 처음 요청했을 화면
-	selectLesson('');
+	selectLesson('${examVO.searchSubId}');
 	
 	// 시험 등록 폼 제공
 	$('#regBtn').on('click', function(){
@@ -32,21 +37,40 @@ $(function() {
 	});
 	
 	// 시험 조회
-	$('#lesson').on('change', function(){
-		
+	$(document).on('change','#lesson', function(){
+		$('#subf').submit();
 	});
 	
-	// 시험 상세페이지 data-exam_id
-	$(document).on('click', '#examList tr td', function(){
-		console.log($('#lesson').val());
-// 		if ($(this).attr('class') == 'm') {
-// 			var examId = $(this).parent('tr').data("examid");
-// 			console.log(examId);
-// 			document.location = "/exam/selectExam?examId=" + examId;
-// 		}
+	// 조건에 따라 조회 - 등록상태
+	$('#search').on('change', function(){
+		$('#subf').submit();
 	});
+	
+	// 시험 상세페이지 이동 data-exam_id
+	$(document).on('click', '#examList tr td', function(){
+		var searchLesId = $('#lesson').val();
+		var searchSubId = $('#subject').val();
+		var searchExamState = $('#search').val();
+		
+		if ($(this).attr('class') == 'm') {
+			var examId = $(this).parent('tr').data("examid");
+			document.location = "/exam/selectExam?examId=" + examId + '&searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+		}
+	});
+	
+	// 페이징 처리 data-page
+	$('.pageMV').on('click', function(){
+		var page = $(this).data('page');
+		str = '<input type="hidden" name="page" value="' + page + '">';
+		$('#subf').append(str);
+		
+		$('#subf').submit();
+	})
+	
+	
 });
 
+// 강의 조회 함수
 var selectLesson = function(subId){
 	$.ajax({
 		url : '/exam/selectAllLesson',
@@ -56,10 +80,12 @@ var selectLesson = function(subId){
 		},
 		success : function(res){
 			console.log(res);
-			
-			str = '<select name="lesId" class="form-control" id="lesson">';
-			str += '<option value="99">강의</option>';
+			str = '<select name="searchLesId" class="form-control" id="lesson">';
+			str += '<option value="">강의</option>';
 			$.each(res.lessonList, function(index, data){
+				if(data.lesId == '${examVO.searchLesId}'){
+					str += '<option selected="selected" value="'+ data.lesId +'">'+ data.lesCont +'</option>';
+				}
 				str += '<option value="'+ data.lesId +'">'+ data.lesCont +'</option>';
 			})
 			str += '</select>';
@@ -76,6 +102,9 @@ var selectLesson = function(subId){
 <title>examAllSelect</title>
 
 <style>
+.pagination .page-item:first-child .page-link, .pagination .page-item:last-child .page-link {
+    height: 35px;
+}
 table{
 	table-layout: fixed;
 }
@@ -94,7 +123,6 @@ table{
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
-
 #right {
 	text-align: right;
 }
@@ -114,67 +142,115 @@ table{
 #les{
 	display: inline-block;
 }
+.py-4{
+	float: right;
+}
 </style>
 </head>
 <body>
 	<h2 id="hd">EXAM LIST</h2>
-	<form:form name="examVO" commandName="examVO" id="subf">
-	<div id="right">
-			<form:select path="subId" cssClass="form-control" id="subject">
-				<form:option value="99">과목</form:option>
-				<form:options items="${subjectList }" itemLabel="subNm" itemValue="subId"/>
-			</form:select>
+	<form:form name="examVO" commandName="examVO" id="subf" action="/exam/selectAllExam" method="post">
+		<div id="right">
+				<form:select path="searchSubId" cssClass="form-control" id="subject">
+					<form:option value="">과목</form:option>
+					<form:options items="${subjectList }" itemLabel="subNm" itemValue="subId"/>
+				</form:select>
+				
+				<div id="les"></div>
 			
-			<div id="les"></div>
+				<form:select path="searchExamState" cssClass="form-control" id="search">
+					<form:option value="">등록 상태</form:option>
+					<form:option value="N">수정중</form:option>
+					<form:option value="Y">등록완료</form:option>
+				</form:select>
+				 
+				<input type="button" class="btn btn-default" value="시험 등록" id="regBtn"> 
+				<input type="button" class="btn btn-default" value="시험 삭제" id="delBtn">
+			
+		</div>
 		
-			<input type="button" class="btn btn-default" value="시험 등록" id="regBtn"> 
-			<input type="button" class="btn btn-default" value="시험 삭제" id="delBtn">
-		
-	</div>
+		<table class="w3-hoverable w3-table w3-striped w3-bordered" id="wul">
+			<thead id ="tthe">
+				<tr class="w3-light-grey">
+					<th style="vertical-align : text-bottom; width: 70px;">순</th>
+					<th style="vertical-align : text-bottom; width: 450px;">강의 목차명</th>
+					<th style="vertical-align : text-bottom; width: 500px;">시험명</th>
+					<th style="vertical-align : text-bottom; width: 220px;">작성일</th>
+					<th style="vertical-align : text-bottom; width: 220px;">등록 상태</th>
+					<th style="vertical-align : text-bottom;">-</th>
+				</tr>
+			</thead>
+			<tbody id="examList">
+				<!-- 시험 문제 리스트 -->
+				<c:forEach items="${examList}" var="exam" varStatus="status">
+					<tr data-examid='${exam.examId }'>
+						<!-- 시험 문제를 볼때 -->
+						<td class='m'>${status.count }</td>
+						<td class='m'>${exam.lidxCont }</td>
+						<td class='m'>${exam.examNm }_테스트</td>
+						<td class='m'><fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" /></td>
+						<td data-examstate='${exam.examState }' class='m'>
+							<c:choose>
+								<c:when test="${exam.examState == 'Y' }">
+									등록완료
+								</c:when>
+								<c:otherwise>
+									수정중
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td><input type="checkbox" value='${exam.examId }' class='echk'>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<!-- 페이징 처리 -->
+		<div class="py-4">
+			<c:if test="${examList.size() ne 0 }">
+				<ul class="pagination justify-content-end mb-0">
+					<!-- 첫페이지가 아닐때 -->
+					<c:if test="${examVO.page ne 1 }">
+						<!-- 첫페이지로 가기 -->
+						<li class="page-item active">
+							<input type="button" class="page-link pageMove pageMV" value="&laquo;" data-page="1">
+						</li>
+						<!-- 이전 페이지로 가기 -->
+						<li class="page-item active">
+							<input type="button" class="page-link pageMove pageMV" value="&lt;" data-page="${examVO.page-1 }">
+						</li>
+					</c:if>
 	
-	<table class="w3-hoverable w3-table w3-striped w3-bordered" id="wul">
-		<thead id ="tthe">
-			<tr class="w3-light-grey">
-				<th style="vertical-align : text-bottom; width: 70px;">순</th>
-				<th style="vertical-align : text-bottom; width: 450px;">강의 목차명</th>
-				<th style="vertical-align : text-bottom; width: 500px;">시험명</th>
-				<th style="vertical-align : text-bottom; width: 220px;">작성일</th>
-				<th style="vertical-align : text-bottom; width: 220px;">
-					<select class="form-control" id="search">
-						<option value="99">등록 상태</option>
-						<option value="0">수정중</option>
-						<option value="1">등록완료</option>
-					</select> 
-				</th>
-				<th style="vertical-align : text-bottom;">-</th>
-			</tr>
-		</thead>
-		<tbody id="examList">
-			<!-- 시험 문제 리스트 -->
-			<c:forEach items="${examList}" var="exam" varStatus="status">
-				<tr data-examid='${exam.examId }'>
-					<!-- 시험 문제를 볼때 -->
-					<td class='m'>${status.count }</td>
-					<td class='m'>${exam.lidxCont }</td>
-					<td class='m'>${exam.examNm }_테스트</td>
-					<td class='m'><fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" /></td>
-					<td data-examstate='${exam.examState }' class='m'>
+					<c:forEach begin="1" end="${pages }" var="i">
+						<!-- 현재 있는 페이지와 구분 -->
 						<c:choose>
-							<c:when test="${exam.examState == 'Y' }">
-								등록완료
+							<c:when test="${i == examVO.page }">
+								<!-- 보고 있는 페이지와 현재 선택된 페이지가 같을 때 -->
+								<li class="page-item active"><span class="page-link"><strong>${i }</strong></span></li>
 							</c:when>
 							<c:otherwise>
-								수정중
+								<li class="page-item active">
+									<input type="button" class="page-link pageMove pageMV" value="${i}" data-page="${i}">
+								</li>
 							</c:otherwise>
 						</c:choose>
-					
-					</td>
-					<td><input type="checkbox" value='${exam.examId }' class='echk'>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+					</c:forEach>
+	
+					<!-- 마지막페이지가 아닐때 -->
+					<c:if test="${examVO.page ne pages }">
+						<!-- 다음 페이지로 이동 -->
+						<li class="page-item active">
+							<input type="button" class="page-link pageMove pageMV" value="&gt;" data-page="${examVO.page+1 }">
+						</li>
+						<!-- 마지막 페이지로 이동 -->
+						<li class="page-item active">
+							<input type="button" class="page-link pageMove pageMV" value="&raquo;" data-page="${pages }">
+						</li>
+					</c:if>
+	
+				</ul>
+			</c:if>
+		</div>
 	</form:form>
 
 </body>

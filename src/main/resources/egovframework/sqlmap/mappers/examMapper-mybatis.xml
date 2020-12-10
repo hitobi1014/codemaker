@@ -70,31 +70,54 @@ SELECT
     sub_id
 FROM
     lesson
-<where>
+WHERE
+	tch_id = #{tchId}
+<if test="subId != null and !subId.equals('')">
 AND
 	sub_id = #{subId}
-AND
-	tch_id = #{tchId}
-</where>
+</if>
 </select>
 <select id="selectAllExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
-SELECT
-    e.exam_id,
-    e.exam_nm,
-    e.exam_state,
-    e.exam_date,
-    e.lidx_id,
-    e.les_id,
-    li.lidx_cont,
-    l.tch_id
-FROM
-    exam e, lesson_index li, lesson l
-WHERE
-    li.lidx_id = e.lidx_id
-AND
-	l.les_id =  li.les_id
-AND
-	l.tch_id = #{tchId}
+SELECT *
+ FROM
+	(SELECT a.*, ROWNUM AS rn
+	  FROM
+		(SELECT
+		   e.exam_id,
+		   e.exam_nm,
+		   e.exam_state,
+		   e.exam_date,
+		   e.lidx_id,
+		   e.les_id,
+		   li.lidx_cont,
+		   l.tch_id
+		FROM
+		    exam e, lesson l, lesson_index li
+		WHERE
+			l.les_id =  e.les_id
+		AND
+			li.lidx_id =  e.lidx_id
+		AND
+			l.tch_id = #{tchId}
+		<if test="searchExamState != null and !searchExamState.equals('')">
+		AND
+			e.exam_state = #{searchExamState}
+		</if>
+		ORDER BY e.exam_date DESC) a)
+ WHERE rn BETWEEN 1 * (${page} - 1) + 1 AND #{page} * 1
 </select>
 
+<select id="selectTotalCntExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="java.lang.Integer">
+SELECT COUNT(*)
+ FROM
+    exam e, lesson l
+WHERE
+   	l.les_id =  e.les_id
+AND
+	l.tch_id = #{tchId}
+<if test="searchExamState != null and !searchExamState.equals('')">
+AND
+	e.exam_state = #{searchExamState}
+</if>
+</select>
 </mapper>
