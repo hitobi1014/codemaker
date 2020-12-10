@@ -52,7 +52,7 @@
 											</li>
 											
 											<li >
-												<a href="/exam/selectAllSubject">시험 등록 및 수정/삭제</a>
+												<a href="/exam/selectAllExam">시험 등록 및 수정/삭제</a>
 											</li>
 										
 										</div>
