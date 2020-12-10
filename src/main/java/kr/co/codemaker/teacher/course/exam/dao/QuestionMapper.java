@@ -26,19 +26,19 @@ public interface QuestionMapper {
 	 * 시험문제를 등록하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param questionVo
+	 * @param questionVO
 	 * @return 
 	 */
-	public String insertQuestion(QuestionVO questionVo) throws Exception;
+	public String insertQuestion(QuestionVO questionVO) throws Exception;
 	
 	/**
 	 * 시험문제를 수정하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param questionVo
+	 * @param questionVO
 	 * @return 
 	 */
-	public int updateQuestion(QuestionVO questionVo) throws Exception;
+	public int updateQuestion(QuestionVO questionVO) throws Exception;
 	
 	/**
 	 * 해당 시험문제를 조회하는 메서드

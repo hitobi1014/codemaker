@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,65 +17,77 @@
 
 <script>
 $(function() {
-	// 시험 등록 상태, 커리큘럼 아이디, 현재 보여주는 페이지 번호 인자로...
-// 	selectAllExam(99,${cur_id},1);
-	selectAllExam(99,'dd',1);
-
-	// 조회 조건에 따라서
-	$('#search').on('change', function(){
-		var es = $(this).val();
-		
-		// 해당 강의를 선택했을 때 가져온다.
-// 		var ci = ${cur_id};
-
-		// 해당 강의의 검색 조건에 따른 1페이지 가져오기
-// 		selectAllExam(es, ${cur_id}, 1);
-		selectAllExam(es, 'dd', 1);
-		
-	});
-
+	
+	// 처음 요청했을 화면
+	selectLesson('');
+	
 	// 시험 등록 폼 제공
 	$('#regBtn').on('click', function(){
-		var windowObj = window.open('/exam/insertExam?curId=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+		var windowObj = window.open('/exam/insertExamView?curId=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+	});
 
+	// 강의 조회 - 과목을 변경했을 경우에 조회
+	$('#subject').on('change', function(){
+		selectLesson($(this).val());
 	});
 	
-	// 시험 삭제
-	$('#delBtn').on('click', function(){
-		var examId = [];
-		
-		$('input:checkbox[class="echk"]:checked').each(function(i){
-			console.log($(this).val());
-
-			examId.push($(this).val());
-		});
-
-// 		deleteExam();
-	})
-
-	// 시험 상세페이지
-	$('#examList tr').on('click', function(){
-		var examId = $(this).data("examId");
-
-		console.log(examId);
-
-		//document.location = "/exam/selectExam?examId=" + examId;
+	// 시험 조회
+	$('#lesson').on('change', function(){
 		
 	});
 	
+	// 시험 상세페이지 data-exam_id
+	$(document).on('click', '#examList tr td', function(){
+		console.log($('#lesson').val());
+// 		if ($(this).attr('class') == 'm') {
+// 			var examId = $(this).parent('tr').data("examid");
+// 			console.log(examId);
+// 			document.location = "/exam/selectExam?examId=" + examId;
+// 		}
+	});
 });
+
+var selectLesson = function(subId){
+	$.ajax({
+		url : '/exam/selectAllLesson',
+		method : 'post',
+		data : {
+			subId : subId
+		},
+		success : function(res){
+			console.log(res);
+			
+			str = '<select name="lesId" class="form-control" id="lesson">';
+			str += '<option value="99">강의</option>';
+			$.each(res.lessonList, function(index, data){
+				str += '<option value="'+ data.lesId +'">'+ data.lesCont +'</option>';
+			})
+			str += '</select>';
+			
+			$('#les').html(str);
+		},
+		error: function(xhr){
+			alert("상태"+xhr.status);
+		}
+	});
+}
+
 </script>
 <title>examAllSelect</title>
 
 <style>
-#wul {
-	width: 1000px;
+table{
+	table-layout: fixed;
 }
-
+#wul {
+	width: calc(100% - 1px);
+}
 #hd {
 	margin-left: 15px;
 }
-
+#tthe{
+	text-align: center;
+}
 #search {
 	width: 115px;
 	display: inline-block;
@@ -86,53 +98,84 @@ $(function() {
 #right {
 	text-align: right;
 }
-
 #regBtn {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	margin-top: 8px;
 }
+#subject{
+	width: 120px;
+    display: inline-block;
+}
+#lesson{
+	display: inline-block;
+    width: 400px;
+}
+#les{
+	display: inline-block;
+}
 </style>
 </head>
 <body>
 	<h2 id="hd">EXAM LIST</h2>
+	<form:form name="examVO" commandName="examVO" id="subf">
 	<div id="right">
-		<select class="form-control" id="search">
-			<option value="99">등록 상태</option>
-			<option value="0">수정중</option>
-			<option value="1">등록완료</option>
-		</select> <input type="button" class="btn btn-default" value="시험 등록"
-			id="regBtn"> <input type="button" class="btn btn-default"
-			value="시험 삭제" id="delBtn">
+			<form:select path="subId" cssClass="form-control" id="subject">
+				<form:option value="99">과목</form:option>
+				<form:options items="${subjectList }" itemLabel="subNm" itemValue="subId"/>
+			</form:select>
+			
+			<div id="les"></div>
+		
+			<input type="button" class="btn btn-default" value="시험 등록" id="regBtn"> 
+			<input type="button" class="btn btn-default" value="시험 삭제" id="delBtn">
+		
 	</div>
+	
 	<table class="w3-hoverable w3-table w3-striped w3-bordered" id="wul">
-		<thead>
+		<thead id ="tthe">
 			<tr class="w3-light-grey">
-				<th>순</th>
-				<th>시험명</th>
-				<th>작성일</th>
-				<th>등록 상태</th>
-				<th>-</th>
+				<th style="vertical-align : text-bottom; width: 70px;">순</th>
+				<th style="vertical-align : text-bottom; width: 450px;">강의 목차명</th>
+				<th style="vertical-align : text-bottom; width: 500px;">시험명</th>
+				<th style="vertical-align : text-bottom; width: 220px;">작성일</th>
+				<th style="vertical-align : text-bottom; width: 220px;">
+					<select class="form-control" id="search">
+						<option value="99">등록 상태</option>
+						<option value="0">수정중</option>
+						<option value="1">등록완료</option>
+					</select> 
+				</th>
+				<th style="vertical-align : text-bottom;">-</th>
 			</tr>
 		</thead>
 		<tbody id="examList">
-			<!-- 	    <tr> -->
-			<!-- 	      <td>Jill</td> -->
-			<!-- 	      <td>Smith</td> -->
-			<!-- 	      <td>50</td> -->
-			<!-- 	    </tr> -->
+			<!-- 시험 문제 리스트 -->
+			<c:forEach items="${examList}" var="exam" varStatus="status">
+				<tr data-examid='${exam.examId }'>
+					<!-- 시험 문제를 볼때 -->
+					<td class='m'>${status.count }</td>
+					<td class='m'>${exam.lidxCont }</td>
+					<td class='m'>${exam.examNm }_테스트</td>
+					<td class='m'><fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" /></td>
+					<td data-examstate='${exam.examState }' class='m'>
+						<c:choose>
+							<c:when test="${exam.examState == 'Y' }">
+								등록완료
+							</c:when>
+							<c:otherwise>
+								수정중
+							</c:otherwise>
+						</c:choose>
+					
+					</td>
+					<td><input type="checkbox" value='${exam.examId }' class='echk'>
+					</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
+	</form:form>
 
-	<c:if test="${examList.size() ne 0 }">
-		<%-- pages : ${pages} --%>
-		<!-- 현재 있는 페이지 번호 출력 -->
-		<%-- page : ${page} --%>
-		<div class="text-center">
-			<ul class="pagination">
-
-			</ul>
-		</div>
-	</c:if>
 </body>
 </html>

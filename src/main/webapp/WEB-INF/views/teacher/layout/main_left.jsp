@@ -50,6 +50,10 @@
 											<li >
 												<a href="#">커리큘럼 임시저장소</a>
 											</li>
+											
+											<li >
+												<a href="/exam/selectAllSubject">시험 등록 및 수정/삭제</a>
+											</li>
 										
 										</div>
 									</ul>

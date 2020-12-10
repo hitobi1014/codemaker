@@ -6,7 +6,7 @@ import java.util.List;
 import kr.co.codemaker.common.vo.BaseVO;
 
 /**
- * 시험VO
+ * 
 * ExamVO.java
 *
 * @author 김미연
@@ -18,31 +18,50 @@ import kr.co.codemaker.common.vo.BaseVO;
 * 김미연 최초 생성
 *
  */
-public class ExamVO extends BaseVO {
+public class ExamVO extends LessonVO {
+
+	private String examId; 		// 시험 아이디
+	private String examNm; 		// 시험명
+	private String examState; 	// 시험 등록 상태
+	private Date examDate; 		// 시험 작성일
+	private String lidxCont;	// 목차명
 	
-	private String examId;		// 시험 아이디
-	private String examNm;		// 시험명
-	private String examState;	// 시험 등록 상태
-	private Date examDate;		// 시험 작성일
-	private String lidxId;		// 강의목차 아이디
+	// 페이징 작업 추가
+	private int page; 			// 현재 보여주는 페이지 번호
+	private int startPage; 		// 시작 페이지
+	private int endPage; 		// 마지막 페이지
 	
-	private String lesId;		// 강의 아이디
 	
+
+	public String getLidxCont() {
+		return lidxCont;
+	}
+
+	public void setLidxCont(String lidxCont) {
+		this.lidxCont = lidxCont;
+	}
+
 	public ExamVO() {
-		
+
 	}
 	
-	public ExamVO(String examId) {
-		this.examId = examId;
+	public int getPage() {
+		return page;
 	}
-	
-	public ExamVO(String examId, String examNm, String examState, Date examDate, String lidxId) {
-		
-		this.examId = examId;
-		this.examNm = examNm;
-		this.examState = examState;
-		this.examDate = examDate;
-		this.lidxId = lidxId;
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
 	}
 
 	public String getExamId() {
@@ -69,20 +88,5 @@ public class ExamVO extends BaseVO {
 	public void setExamDate(Date examDate) {
 		this.examDate = examDate;
 	}
-	public String getLidxId() {
-		return lidxId;
-	}
-	public void setLidxId(String lidxId) {
-		this.lidxId = lidxId;
-	}
-	public String getLesId() {
-		return lesId;
-	}
-	public void setLesId(String lesId) {
-		this.lesId = lesId;
-	}
 
-	
-	
-	
 }
