@@ -4,8 +4,8 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class AdminVO extends BaseVO {
 
-	private String adminId;
-	private String adminPass;
+	private String adminId;		// 관리자 아이디
+	private String adminPass;	// 관리자 비밀번호
 	
 	public AdminVO() {
 	}

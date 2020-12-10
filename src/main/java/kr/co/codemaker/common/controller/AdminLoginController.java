@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.LoginService;
-import kr.co.codemaker.common.vo.TeacherVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
-public class adminLoginController { 
-	private static final Logger logger = LoggerFactory.getLogger(adminLoginController.class);
+public class AdminLoginController { 
+	private static final Logger logger = LoggerFactory.getLogger(AdminLoginController.class);
 	
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
 	//로그인 화면
-	@RequestMapping(path="/login", method = RequestMethod.GET)
+	@RequestMapping(path="/loginView", method = RequestMethod.GET)
 	public String getView() {
-		logger.debug("adminLoginController.getView()");
+		logger.debug("AdminLoginController.getView()");
 		return "admin/login/adminLogin";
 	}
 	
@@ -90,15 +90,5 @@ public class adminLoginController {
 		return "teacherPage/teacher/main/teacherMain";
 	}
 	
-	@RequestMapping(path="/admin/test")
-	public String test() {
-		
-		return "adminPage/admin/main/test";
-	}
-	@RequestMapping(path="/teacher/test")
-	public String test2() {
-		
-		return "teacherPage/teacher/main/test";
-	}
 }
 

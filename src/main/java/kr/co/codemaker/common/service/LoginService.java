@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.dao.LoginMapper;
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
 * LoginService.java
@@ -42,8 +42,8 @@ public class LoginService {
 	}
 
 /**
- * 관리자 로그인
- * @param adminId
+ * 관리자 로그인, 강사 로그인
+ * @param adminId, tchId
  * @return
  * @author 이은지
  * @throws Exception
