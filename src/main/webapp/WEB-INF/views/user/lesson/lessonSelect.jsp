@@ -209,6 +209,12 @@ h2{
     height: 1.9rem;
     background-size: cover;
 }
+.note{
+	width: 1.9rem;
+    height: 1.9rem;
+    background-size: cover;
+    margin-left: 20px;
+}
 
 .container_teacher_top{
 	position: relative;
@@ -284,38 +290,30 @@ h2{
 /* .contdiv{max-width:200px;} */
 </style>
 <script>
+// 	var index =0;
 	$(function() {
-		$('#idxBtn').on('click', function() {
-			$('#idxli').css({
-				'background-color' : 'rgb(0,95,134)'
-			});
-			$('#idxBtn').css({
-				'color' : 'white'
-			});
-			$('#qnali').css({
-				'background-color' : 'white'
-			});
-			$('#qnaBtn').css({
-				'color' : '#69666d'
-			});
-
+		
+		$('a[id^="videoClick_"]').on('click',function(){
+			var path = $(this).attr('value');
+			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=1000,height=650, left=30, top=30");
 		})
 
-		$('#qnaBtn').on('click', function() {
-			$('#qnali').css({
-				'background-color' : 'rgb(0,95,134)'
-			})
-			$('#qnaBtn').css({
-				'color' : 'white'
-			})
-			$('#idxli').css({
-				'background-color' : 'white'
-			});
-			$('#idxBtn').css({
-				'color' : '#69666d'
-			});
-		})
 	})
+	
+// 	var length = $('.videoA').length;
+	
+	// 강의영상 클릭
+// 	for(index=0; index<length; index++){
+// 		var videoClick_index = function(){
+// 			var path = $('.videoA').attr('value');
+// 			console.log(path);	
+// 			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=800,height=800, left=30, top=30");
+// 			index++;
+// 		}
+		
+// 	}
+	
+
 </script>
 
 <div class="container">
@@ -342,18 +340,17 @@ h2{
 
 <div class="container_lesson" >
 	<div class="container_left" >
-		<c:forEach items="${lesIdxList}" var="lesIdxList">
+		<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
 			<div class="container_lessonIndex" >
 				<div class="container_lessonIndex_In" >
 					<div class="container_lessonIndex_section bg-index"> 	
 						<span class="lessonIndex">${lesIdxList.lidxNum}</span>
 						<div class="container_lessonCont_section">
 							<h2>${lesIdxList.lidxCont}</h2>
-							<a href=""><span><img class="video" src="/images/user/lesson/video2.png"></span></a>
+<!-- 							<a href=""><span><img class="video" src="/images/user/lesson/video2.png"></span></a> -->
+							<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA"><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
 						</div>
 					</div>
-					
-				
 				</div>
 			</div>
 		</c:forEach>

@@ -96,6 +96,10 @@
 	border-top: 10px solid #f7c573;
 	margin-bottom: 20px;
 }
+#lineLeft{
+	margin-left: 200px;
+}
+
 </style>
 
 <script>
@@ -112,16 +116,22 @@ $(function(){
         str +='<div class="row">	';
         str +='  <div class="col-lg-2">';
         str +='    <div class="form-group">';
-        str +='      <label class="form-control-label" for="input-email">강의 차수</label>';
+        str +='      <label class="form-control-label">강의 차수</label>';
         str +='        <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
         str +='    </div>';
         str +='  </div>';
         str +='  <div class="col-lg-7">';
         str +='    <div class="form-group">';
-        str +='      <label class="form-control-label" for="input-email">강의 내용</label>';
+        str +='      <label class="form-control-label">강의 내용</label>';
         str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
         str +='    </div>';
         str +='  </div>';
+        str +='<div class="col-lg-7" id="lineLeft">';
+	    str +='    <div class="form-group">';
+	    str +='      <label class="form-control-label">강의 주소</label>';
+	    str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
+	    str +='    </div>';
+        str +='</div>';
         str +='</div>';
       	str +='</div>';
       	
@@ -232,14 +242,25 @@ function initData(){
 	                  <div class="row">	
 	                    <div class="col-lg-2">
 	                      <div class="form-group">
-	                        <label class="form-control-label" for="input-email">강의 차수</label>
+	                        <label class="form-control-label" >강의 차수</label>
 	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList[0].lidxNum" id="lidxNum">
 	                      </div>
 	                    </div>
 	                    <div class="col-lg-7">
 	                      <div class="form-group">
-	                        <label class="form-control-label" for="input-email">강의 내용</label>
+	                        <label class="form-control-label" >강의 내용</label>
 	                         <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList[0].lidxCont" id="lidxCont" >
+	                      </div>
+	                    </div>
+	                    <br>
+	                    <div class="col-lg-2" >
+	                      <div class="form-group" >
+	                      </div>
+	                    </div>
+	                    <div class="col-lg-7" id="lineLeft">
+	                      <div class="form-group">
+	                        <label class="form-control-label">강의 주소</label>
+	                         <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList[0].lidxPath" id="lidxPath" >
 	                      </div>
 	                    </div>
 	                  </div>

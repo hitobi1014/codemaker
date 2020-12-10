@@ -108,8 +108,11 @@
 }
 
 .IdxContDiv{
-	width: 800px;
+	width: 1100px;
 	float: left;
+}
+#lineLeft{
+	margin-left: 180px;
 }
 </style>
 
@@ -121,8 +124,7 @@ $(function(){
 	$('#addLesBtn').on('click', function() {
 		console.log('눌림');
 		
-			str ='<div id="pl-lg-4-id_['+index+']">';
-			str +=' <div class="pl-lg-4" >';
+			str ='<div  class="pl-lg-4" id="pl-lg-4-id_['+index+']">';
 	        str +='  <div class="row">';	
 	        str +='    <div class="col-lg-2">';
 	        str +='      <div class="form-group">';
@@ -130,19 +132,24 @@ $(function(){
 	        str +='         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
 	        str +='      </div>';
 	        str +='    </div>';
+			str +='    <div class="col-lg-7">';
+			str +=' 	  <div class="form-group">';
+			str +=' 			<label class="form-control-label" for="input-email">강의 내용</label>'; 
+			str +=' 			<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList['+index+'].lidxCont" id="lidxCont">';
+			str +=' 	   </div>';
+			str +='     </div>';
 			str +=' 	<div class="IdxContDiv">';
-			str +=' 		<div class="col-lg-7">';
-			str +=' 			<div class="form-group">';
-			str +=' 				<label class="form-control-label" for="input-email">강의 내용</label>'; 
-			str +=' 				<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList['+index+'].lidxCont" id="lidxCont">';
-			str +=' 			</div>';
-			str +=' 		</div>';
+		 	str +='			<div class="col-lg-7" id="lineLeft">';
+		    str +='    			<div class="form-group">';
+		    str +='      			<label class="form-control-label">강의 주소</label>';
+		    str +='       			<input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
+		    str +='    			</div>';
+	        str +='			</div>';
 			str +=' 	 	<div>';
 			str +=' 			<input type="button" class="newIdxDelBtn" id="IdxDelBtn" value="삭제" data-del="pl-lg-4-id_['+index+']" >';
 			str +=' 		</div>';
 			str +=' 	</div>';
 			str +='   </div>';
-	        str +=' </div>';
 	        str +='</div>';
 	        
 		index++;
@@ -312,30 +319,36 @@ $(function(){
                  <br>
                 <div id="idxAdd">
 	               	<input type="hidden" value="lidxId">
-		                <div class="pl-lg-4" id="pl-lg-4-id_[0]">
-		          			<c:forEach items="${lesIdxList}" var="lesIdxList"  varStatus="status">
-			                  <div class="row">	
-			                    <div class="col-lg-2">
-			                      <div class="form-group">
-			                        <label class="form-control-label" for="input-email">강의 차수</label>
-			                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList.lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
-			                      </div>
-			                    </div>
-								<div class="IdxContDiv">
-									<div class="col-lg-7">
-										<div class="form-group">
-											<label class="form-control-label" for="input-email">강의 내용</label> 
-											<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList.lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
+		          		<c:forEach items="${lesIdxList}" var="lesIdxList"  varStatus="status">
+			                <div class="pl-lg-4" id="pl-lg-4-id_[0]">
+				                  <div class="row">	
+				                    <div class="col-lg-2">
+				                      <div class="form-group">
+				                        <label class="form-control-label" for="input-email">강의 차수</label>
+				                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList.lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
+				                      </div>
+				                    </div>
+										<div class="col-lg-7">
+											<div class="form-group">
+												<label class="form-control-label" for="input-email">강의 내용</label> 
+												<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList.lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
+											</div>
+										</div>
+									<div class="IdxContDiv">
+										 <div class="col-lg-7" id="lineLeft">
+		        							<div class="form-group">
+		          								<label class="form-control-label">강의 주소</label>
+		           								<input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList.lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
+		        						 	</div>
+	        							</div>
+									 	<div>
+											<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
+	<%-- 										<input type="button" id="${status.index}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}"> --%>
 										</div>
 									</div>
-								 	<div>
-										<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
-<%-- 										<input type="button" id="${status.index}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}"> --%>
-									</div>
 								</div>
-							</div>
-		             	</c:forEach>
-		              </div>
+			              </div>
+		             </c:forEach>
                 </div>
                 <br>
                 <br>

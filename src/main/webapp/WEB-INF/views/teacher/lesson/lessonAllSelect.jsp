@@ -245,7 +245,7 @@ var addLes = function(){
 		<div class="col-12" style="margin:50px;">
 			<div class="card" style="width:1200px;">
 				<div class="card-body text-center"></div>
-				<h2 class="card-title m-b-0">📢강의 조회 및 개설dd</h2>
+				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
 				<div id="addLesId">
 					<button class="button button-inline button-small button-success form-control-label" id="addBtn" style="float: right;" onclick="addLes()">강의 등록</button>
 				</div>
