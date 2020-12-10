@@ -57,4 +57,8 @@ public class UserPayService {
 	public PointVO selectPoint(PointVO pointVo) throws Exception{
 		return userPayMapper.selectPoint(pointVo);
 	}
+	
+	public int usePoint(PointVO pointVo) throws Exception{
+		return userPayMapper.usePoint(pointVo);
+	}
 }

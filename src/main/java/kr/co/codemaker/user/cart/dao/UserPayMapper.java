@@ -66,4 +66,10 @@ public interface UserPayMapper {
 	 * @param 회원아이디가 담긴 vo
 	 */
 	public PointVO selectPoint(PointVO pointVo) throws Exception;
+	
+	/**
+	 * 회원이 결제시 포인트 사용등록
+	 * @param 포인트합계, 사용포인트, 회원아이디가 담긴 vo
+	 */
+	public int usePoint(PointVO pointVo) throws Exception;
 }

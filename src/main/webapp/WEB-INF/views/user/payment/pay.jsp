@@ -18,10 +18,10 @@
 			<form action="${pay}" method="post" id="payFrm">
 				<% int sum=0; %>
 				<input type="hidden" name="payWay" value="1"/><br>
-				<input type="hidden" name="paySum" value="${lessonVo.lesCash}"/>
+				<input type="hidden" id="paySum" name="paySum" value="${lessonVo.lesCash}"/>
 				<input type="hidden" name="cosTerm" value="${lessonVo.lesTerm}"/>
 				<input type="hidden" name="userId" value="${userVo.userId}"/>
-				<input type="hidden" name="lesId" value="${lessonVo.lesId}"/>
+				<input type="hidden" name="lesId" value="${lessonVo.lesId}" class="lesson"/>
 				<c:set value="${lessonVo.lesTerm}" var="lesTerm"/>
 				<c:set value="${lessonVo.lesCash}" var="lesCash"/>
 				<%
@@ -59,16 +59,17 @@
 								<div class="point-box">
 									<div class="point-group">
 										<div class="point-div">
-											<fmt:formatNumber value="100000" var="usePoint" maxFractionDigits="3"/>
+											<fmt:formatNumber value="${pointVo.pointSum}" var="havePoint" maxFractionDigits="3"/>
 											<span>보유</span>
-											<span class="have-point">${usePoint}원</span>
+											<span class="have-point">${havePoint} P</span>
+											<input type="hidden" id="havePoint" value="${pointVo.pointSum}"/>
 										</div>
 										<div>
 											<span>사용</span>
-											<span class="use-point"><input type="text" name="usePoint" value="${usePoint}"/>원</span>
+											<span class="use-point"><input type="text" name="usePoint" id="usePoint"/> P</span>
 										</div>
 										<div id="point-btn">
-											<button id="totalPointUse">전액사용</button>
+											<input type="button" id="totalPointUse" value="전액사용"/>
 										</div>
 									</div>
 								</div>
@@ -99,22 +100,22 @@
 									<div class="col">정가</div>
 									<div class="cash-info-text">
 										<fmt:formatNumber value="<%=sum%>" var="sum" maxFractionDigits="3"/>
-										<span>${sum}<i>원</i></span>
+										<span id="sumVal">${sum}<i>원</i></span>
 									</div>
 								</div>
 								<div class="cash-info row">
 									<div class="col">포인트</div>
 									<div class="cash-info-text">
-										<span>${usePoint}<i>원</i></span>
+										<span id="pay-info-point">0<i>&nbsp;P</i></span>
+										<input type="hidden" id="pointSum" name="pointSum"/>
+										<input type="hidden" id="pointUpdate" name="pointUpdate"/>
 									</div>
 								</div>
 								<div class="cash-info row">
 									<div class="pay-divide"></div>
 									<div class="col">결제금액</div>
 									<div class="cash-info-text">
-										<c:set value="<%=sum -100000%>" var="totalCash"></c:set>
-										<fmt:formatNumber value="${totalCash}" var="total" maxFractionDigits="3"></fmt:formatNumber>
-										<span>${total}<i>원</i></span>
+										<span id="totalCash">${total}<i>원</i></span>
 									</div>
 								</div>
 								<div class="pay-check">
@@ -142,7 +143,7 @@
 										</label>
 									</div>
 								</div>
-								<button id="payListBtn" disabled="disabled">결제하기</button>
+								<button id="payBtn" disabled="disabled">결제하기</button>
 							</div>
 						</div>
 					</div>
@@ -154,11 +155,79 @@
 
 <script>
 $(function(){
+	$("#totalPointUse").on('click',function(){
+		var haveP = parseInt($("#havePoint").val());//보유포인트
+		var sumVal = parseInt($("#sumVal").text().replace(",",''));//상품 총 금액
+		var sumValTrans = "";
+		if(haveP > sumVal){//보유포인트가 상품금액보다 클때
+			sumValTrans = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#usePoint").val(sumValTrans);//사용포인트를 상품금액으로 변경
+			$("#pay-info-point").text(sumValTrans+" P");//결제정보 포인트 텍스트를 변경
+			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
+			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#totalCash").text(op+" 원");
+			$("#paySum").val(0);
+		}else{
+			havePTrans = haveP.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#usePoint").val(havePTrans);
+			$("#pay-info-point").text(havePTrans+" P");//결제정보 포인트 텍스트를 변경
+			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
+			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#totalCash").text(op+" 원");
+			paySum = parseInt($("#totalCash").text().replace(',',''));
+			$("#paySum").val(paySum);
+		}
+	})
+	
+	$("#usePoint").on('keyup',function(){
+		$(this).val($(this).val().replace(/^0/g,""));
+		$(this).val($(this).val().replace(/[^0-9]/g,""));
+		var point = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		var haveP = parseInt($("#havePoint").val());
+		var useP = $(this).val();
+		var sumVal = parseInt($("#sumVal").text().replace(",",''));
+		$("#pay-info-point").text(point+" P");
+		
+		if(useP =='' || useP == null){
+			sumVal = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text("0 P");
+			$("#totalCash").text(sumVal+" 원");
+			return false;
+		}
+		
+		if(this.value > haveP){
+			alert("보유 포인트 이상 사용은 불가능합니다");
+			$(this).val(haveP);
+			getHave = haveP.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text(getHave+" P");
+		}
+		
+		if(this.value > sumVal){
+			$(this).val(sumVal);
+			sum = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text(sum+" P");
+		}
+		
+		var	pointInfo = parseInt($("#pay-info-point").text().replace(",",''));
+		var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		$("#totalCash").text(op+" 원");
+		paySum = parseInt($("#totalCash").text().replace(',',''));
+		$("#paySum").val(paySum);
+	})
+	
+	$("#usePoint").on('focus',function(){
+		$(this).val($(this).val().replace(/[^\d]+/g,''));
+	})
+	
+	$("#usePoint").on('blur',function(){
+		$(this).val($(this).val().replace(/\B(?=(\d{3})+(?!\d))/g,","));
+	})
+	
 	$(".agree").on('change',function(){
 		if($("#terms1").prop('checked') && $("#terms2").prop('checked')){
-			$("#payListBtn").attr('disabled',false);
+			$("#payBtn").attr('disabled',false);
 		}else{
-			$("#payListBtn").attr('disabled',true);
+			$("#payBtn").attr('disabled',true);
 		}
 	})
 		
@@ -166,6 +235,10 @@ $(function(){
 		console.log($(this).val());
 	})
 	$("#payBtn").on('click',function(){
+		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
+		$("#pointUpdate").val(pointUpdate);
+		var pointSum = parseInt($(".have-point").text().replace(',',''));
+		$("#pointSum").val(pointSum);
 		$("#payFrm").submit();
 	})
 })

@@ -20,9 +20,9 @@
 					<c:forEach items="${lessonVoList}" var="lesson"  varStatus="stat">
 						<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
 						<input type="hidden" name="payList[${stat.index}].payWay" value="1"/>
-						<input type="hidden" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
+						<input type="hidden" id="paySum[${stat.index}]" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
 						<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
-						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}"/>
+						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}" class="lesson"/>
 							<c:set value="${lesson.lesTerm}" var="lesTerm"/>
 							<c:set value="${lesson.lesCash}" var="lesCash"/>
 							<%
@@ -71,7 +71,6 @@
 										</div>
 										<div id="point-btn">
 											<input type="button" id="totalPointUse" value="전액사용"/>
-<!-- 											<button id="totalPointUse" disabled="disabled">전액사용</button> -->
 										</div>
 									</div>
 								</div>
@@ -109,14 +108,14 @@
 									<div class="col">포인트</div>
 									<div class="cash-info-text">
 										<span id="pay-info-point">0<i>&nbsp;P</i></span>
+										<input type="hidden" id="pointSum" name="pointSum"/>
+										<input type="hidden" id="pointUpdate" name="pointUpdate"/>
 									</div>
 								</div>
 								<div class="cash-info row">
 									<div class="pay-divide"></div>
 									<div class="col">결제금액</div>
 									<div class="cash-info-text">
-<%-- 										<c:set value="<%=sum %>" var="sumCash"/> --%>
-<%-- 										<fmt:formatNumber value="${sumCash - pointVo.pointSum}" var="total" maxFractionDigits="3"/> --%>
 										<span id="totalCash">${total}<i>원</i></span>
 									</div>
 								</div>
@@ -160,6 +159,7 @@ $(function(){
 		var haveP = parseInt($("#havePoint").val());//보유포인트
 		var sumVal = parseInt($("#sumVal").text().replace(",",''));//상품 총 금액
 		var sumValTrans = "";
+		var lessonLen = $(".lesson").length;
 		if(haveP > sumVal){//보유포인트가 상품금액보다 클때
 			sumValTrans = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 			$("#usePoint").val(sumValTrans);//사용포인트를 상품금액으로 변경
@@ -167,6 +167,9 @@ $(function(){
 			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
 			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 			$("#totalCash").text(op+" 원");
+			for(i=0; i<lessonLen; i++){
+				$("#paySum\\["+i+"\\]").val(0);
+			}
 		}else{
 			havePTrans = haveP.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 			$("#usePoint").val(havePTrans);
@@ -174,6 +177,10 @@ $(function(){
 			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
 			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 			$("#totalCash").text(op+" 원");
+			paySum = (parseInt($("#totalCash").text().replace(',','')))/lessonLen;
+			for(i=0; i<lessonLen; i++){
+				$("#paySum\\["+i+"\\]").val(paySum);
+			}
 		}
 	})
 	
@@ -184,7 +191,7 @@ $(function(){
 		var haveP = parseInt($("#havePoint").val());
 		var useP = $(this).val();
 		var sumVal = parseInt($("#sumVal").text().replace(",",''));
-		
+		var lessonLen = $(".lesson").length;
 		$("#pay-info-point").text(point+" P");
 		
 		if(useP =='' || useP == null){
@@ -210,6 +217,10 @@ $(function(){
 		var	pointInfo = parseInt($("#pay-info-point").text().replace(",",''));
 		var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 		$("#totalCash").text(op+" 원");
+		paySum = (parseInt($("#totalCash").text().replace(',','')))/lessonLen;
+		for(i=0; i<lessonLen; i++){
+			$("#paySum\\["+i+"\\]").val(paySum);
+		}
 	})
 	
 	$("#usePoint").on('focus',function(){
@@ -232,7 +243,12 @@ $(function(){
 		console.log($(this).val());
 	})
 	
+	//결제하기 버튼 클릭시 발생
 	$("#payListBtn").on('click',function(){
+		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
+		$("#pointUpdate").val(pointUpdate);
+		var pointSum = parseInt($(".have-point").text().replace(',',''));
+		$("#pointSum").val(pointSum);
 		$("#payListFrm").submit();
 	})
 })
