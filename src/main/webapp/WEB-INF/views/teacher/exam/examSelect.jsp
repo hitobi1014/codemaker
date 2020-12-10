@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,12 +6,9 @@
 <meta charset="UTF-8">
 <!-- bootstrap 사용 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -131,7 +127,7 @@ body {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
-	margin-right: 90px;
+	margin-right: 366px;
 }
 
 .comment {
@@ -156,58 +152,54 @@ body {
 </style>
 </head>
 <body>
-	<form action="/exam/insertExam" id="examf" method="post">
+	<form action="/exam/updateExam" id="examf" method="post">
 		<div id="d2">
 			<div id="d1"></div>
 			<br>
 			<div id="d3">
 				<h2>시험</h2>
-				<br> <label for="sel1">${examVo.examNm }</label> <br>
+				<br> <label for="sel1">${examVO.examNm }_테스트</label> <br>
 			</div>
 			<br>
 			<br>
-			<br>
-
 			<c:forEach items="${questionList }" var="question" varStatus="status">
 				<br>
 				<div class="d4"></div>
 				<br>
 				<div class="d5">
 					<div class="d6">
-						<label for="sel1">${status.count }.${question.queCont }</label> <br>
+						<label for="sel1">${status.count }. ${question.queCont }</label> <br>
 						<br>
-						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }"
-							items="${answersheetLists }" varStatus="vs" var="answersheet">
+						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 							<div class="anw">
 								<div class="overlay"
 									<c:if test="${vs.count eq question.queAnswer }">
 										style="display:block"
 									</c:if>></div>
-								<input type="text" name="ans_cont" class="form-control radi"
-									value="${answersheet.ansCont}" readonly="readonly"> <input
-									type="checkbox" name="que_answer" value="${vs.count }"
-									class="chk" readonly="readonly" disabled="disabled"
+								<input type="text" name="ans_cont" class="form-control radi" value="${answersheet.ansCont}" readonly="readonly"> 
+								<input type="checkbox" name="que_answer" value="${vs.count }" class="chk" readonly="readonly" disabled="disabled"
 									<c:if test="${vs.count eq question.queAnswer }">
 										checked="checked"								
 									</c:if> />
 							</div>
 						</c:forEach>
 						<div class="anw">
-							<textarea class="form-control" rows="5" class="comment"
-								name="que_explain" readonly="readonly">
+							<textarea class="form-control" rows="5" class="comment" name="que_explain" readonly="readonly">
 								 ${question.queExplain}
 							</textarea>
 							<br>
 						</div>
 					</div>
 				</div>
+				<br>
 			</c:forEach>
 		</div>
 		<div class="btns">
-			<input type="button" class="btn btn-default" id="updateBtn"
-				value="수정하기"> <input type="button" class="btn btn-default"
-				id="regBtn" value="등록하기"> <input type="button"
-				class="btn btn-default" id="cancle" value="나가기">
+			<c:if test="${examVO.examState == 'N'}">
+				<input type="button" class="btn btn-default" id="updateBtn" value="수정하기"> 
+				<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
+			</c:if>
+			<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
 		</div>
 	</form>
 </body>

@@ -29,27 +29,27 @@ public class AnswersheetService {
 	@Resource(name = "answersheetMapper")
 	private AnswersheetMapper answersheetMapper;
 
-	public int insertAnswersheet(AnswersheetVO answersheetVo) {
+	public int insertAnswersheet(AnswersheetVO answersheetVO) {
 		try {
-			return answersheetMapper.insertAnswersheet(answersheetVo);
+			return answersheetMapper.insertAnswersheet(answersheetVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 
-	public int updateAnswersheet(AnswersheetVO answersheetVo) {
+	public int updateAnswersheet(AnswersheetVO answersheetVO) {
 		try {
-			return answersheetMapper.updateAnswersheet(answersheetVo);
+			return answersheetMapper.updateAnswersheet(answersheetVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 
-	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVo) {
+	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVO) {
 		try {
-			return answersheetMapper.selectAnswersheet(questionVo);
+			return answersheetMapper.selectAnswersheet(questionVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

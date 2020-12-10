@@ -49,4 +49,52 @@ WHERE
    exam_id =#{examId}
 </update>
 
+<select id="selectAllSubject" parameterType="kr.co.codemaker.teacher.course.exam.vo.SubjectVO" resultType="kr.co.codemaker.teacher.course.exam.vo.SubjectVO">
+SELECT
+    sub_id,
+    sub_nm,
+    sub_out
+FROM
+    subject
+   
+</select>
+<select id="selectAllLesson" parameterType="kr.co.codemaker.teacher.course.exam.vo.LessonVO" resultType="kr.co.codemaker.teacher.course.exam.vo.LessonVO">
+SELECT
+    les_id,
+    les_nm,
+    les_cont,
+    les_state,
+    les_cash,
+    les_term,
+    tch_id,
+    sub_id
+FROM
+    lesson
+<where>
+AND
+	sub_id = #{subId}
+AND
+	tch_id = #{tchId}
+</where>
+</select>
+<select id="selectAllExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+SELECT
+    e.exam_id,
+    e.exam_nm,
+    e.exam_state,
+    e.exam_date,
+    e.lidx_id,
+    e.les_id,
+    li.lidx_cont,
+    l.tch_id
+FROM
+    exam e, lesson_index li, lesson l
+WHERE
+    li.lidx_id = e.lidx_id
+AND
+	l.les_id =  li.les_id
+AND
+	l.tch_id = #{tchId}
+</select>
+
 </mapper>

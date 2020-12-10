@@ -29,27 +29,27 @@ public class QuestionService {
 	@Resource(name = "questionMapper")
 	private QuestionMapper questionMapper;
 
-	public String insertQuestion(QuestionVO questionVo) {
+	public String insertQuestion(QuestionVO questionVO) {
 		try {
-			return questionMapper.insertQuestion(questionVo);
+			return questionMapper.insertQuestion(questionVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public int updateQuestion(QuestionVO questionVo) {
+	public int updateQuestion(QuestionVO questionVO) {
 		try {
-			return questionMapper.updateQuestion(questionVo);
+			return questionMapper.updateQuestion(questionVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
-	public List<QuestionVO> selectQuestion(ExamVO examVo) {
+	public List<QuestionVO> selectQuestion(ExamVO examVO) {
 		try {
-			return questionMapper.selectQuestion(examVo);
+			return questionMapper.selectQuestion(examVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
