@@ -83,7 +83,7 @@
 									<div class="payB">
 										<input class="pay-way" name="payWay" type="radio" id="kakaopay" value="kakaopay" />
 										<label for="kakaopay">
-											<img src="/img/icon/kakaopay.png">카카오페이
+											<img src="/img/icon/payment_icon_yellow_small.png">카카오페이
 										</label>
 									</div>
 								</div>
@@ -143,11 +143,14 @@
 										</label>
 									</div>
 								</div>
-								<button id="payListBtn" disabled="disabled">결제하기</button>
+								<button type="button" id="payListBtn" disabled="disabled">결제하기</button>
 							</div>
 						</div>
 					</div>			
 				</div>
+			</form>
+			<form action="${cp}/kakaoPay" method="POST">
+				<button>카카오페이</button>
 			</form>
 		</div>
 	</div>
@@ -155,6 +158,7 @@
 
 <script>
 $(function(){
+	
 	$("#totalPointUse").on('click',function(){
 		var haveP = parseInt($("#havePoint").val());//보유포인트
 		var sumVal = parseInt($("#sumVal").text().replace(",",''));//상품 총 금액
@@ -245,11 +249,16 @@ $(function(){
 	
 	//결제하기 버튼 클릭시 발생
 	$("#payListBtn").on('click',function(){
+		var payWay = $("input[type=radio]:checked").val();
 		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
 		$("#pointUpdate").val(pointUpdate);
 		var pointSum = parseInt($(".have-point").text().replace(',',''));
 		$("#pointSum").val(pointSum);
-		$("#payListFrm").submit();
+		if(payWay == "kakaopay"){
+			console.log("test");
+			location.href="/kakaoPay";
+		}
+// 		$("#payListFrm").submit();
 	})
 })
 </script>

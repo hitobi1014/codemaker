@@ -82,7 +82,7 @@
 									<div class="payB">
 										<input class="pay-way" name="payWay" type="radio" id="kakaopay" value="kakaopay" />
 										<label for="kakaopay">
-											<img src="/img/icon/kakaopay.png">카카오페이
+											<img src="/img/icon/payment_icon_yellow_small.png">카카오페이
 										</label>
 									</div>
 								</div>
@@ -143,7 +143,7 @@
 										</label>
 									</div>
 								</div>
-								<button id="payBtn" disabled="disabled">결제하기</button>
+								<button type="button" id="payBtn" disabled="disabled">결제하기</button>
 							</div>
 						</div>
 					</div>
@@ -155,6 +155,11 @@
 
 <script>
 $(function(){
+	
+	$("input[type=radio]").on('click',function(){
+		$(this).attr('checked',true);	
+	})
+	
 	$("#totalPointUse").on('click',function(){
 		var haveP = parseInt($("#havePoint").val());//보유포인트
 		var sumVal = parseInt($("#sumVal").text().replace(",",''));//상품 총 금액
