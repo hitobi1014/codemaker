@@ -19,6 +19,7 @@ public class LessonIndexVO extends BaseVO{
 	public String getLidxCont() {
 		return lidxCont;
 	}
+	
 
 
 	public void setLidxCont(String lidxCont) {

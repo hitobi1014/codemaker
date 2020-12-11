@@ -28,6 +28,7 @@ public class TeacherLessonIndexController {
 	@Resource(name="lessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
+	
 //	/**
 //	 * 선생님 - 강의목차 삭제
 //	 */
