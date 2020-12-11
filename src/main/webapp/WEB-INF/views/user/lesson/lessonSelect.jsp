@@ -113,44 +113,207 @@ button {
 	text-align: left;
 }
 
-.lidxBtn {border-bottom: 1px solid #69666d;
+.lidxBtn {
+	border-bottom: 1px solid #69666d;
+}
+ #videoImg{
+ 	width: 40px;
+ 	height: 40px;
+ }
+.container_lesson{
+	margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 1140px;
+    min-height: 830.438px;
+}
+.container_left{
+	width: 50%;
+	height : auto;
+	display: inline-block;
+}
+.container_right{
+	width: 40%;
+	height : auto;
+	display: inline-block;
+	margin-left: 50px;
+}
+.container_lessonIndex{
+	margin-bottom: 1.5rem;
+}
+.container_lessonIndex_In{
+	display: block;
+    position: relative;
+    height: 3.5rem
+}
+.container_lessonIndex_section{
+	position: absolute;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.0rem;
+    background-color: #dde0ea;
+    border-radius: .8rem;
+}
+.bg-index{
+	background-image: linear-gradient(154deg, #005F86, #005F86) !important;
+}
+.secion_indes{
+	width: 6.3rem;
+    flex-shrink: 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: -0.39px;
+    
+}
+.lessonIndex{
+	width: 5.0rem;
+    flex-shrink: 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: -0.39px;
+    color : white;
+}
+.container_lessonCont_section{
+color: #333236;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    height: 100%;
+    padding-left: 2.5rem;
+    padding-right: 2rem;
+    background-color: #ffffff;
+    border-radius: .8rem;
+    font-weight: 600;
+}
+h2{
+	display: block;
+    font-size: 1.2em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 600;
+    color: #333236;
+}
+.video{
+	width: 1.9rem;
+    height: 1.9rem;
+    background-size: cover;
+}
+.note{
+	width: 1.9rem;
+    height: 1.9rem;
+    background-size: cover;
+    margin-left: 20px;
+}
+
+.container_teacher_top{
+	position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   	padding-bottom: 20%;
+    padding-top: 10rem;
+    height: 0;
+    margin-bottom: 1.5rem;
+    border-radius: .6rem;
+    background-color: #d8d8d8;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.container_teacher_top{
+	position: relative;
+	width: 240px;
+	height: 240px;
+	margin-left: 100px;
+	border-radius: 50%;
+	background-color: white;
+}
+#teacher{
+	border-radius: 50%;
+	width: 240px;
+    height: 240px;
+}
+.container_teacher_bottom{
+	padding: 3.5rem 3rem;
+	display: flex;
+    border-radius: .5rem;
+    box-shadow: 10px 9px 27px 0 rgba(27, 16, 93, 0.06);
+    background-color: #ffffff;
+    height: 300px;
+}
+ .teacher_title{ 
+ 	display: flex; 
+     align-items: center; 
+     position: relative; 
+     margin-bottom: 1.1rem; 
+     font-size: 1.4rem; 
+     font-weight: 600; 
+     letter-spacing: -0.32px; 
+     color: #736f79; 
+     height: 40px;
+ } 
+/* h3{ */
+/* 	display: block; */
+/*     font-size: 1.17em; */
+/*     margin-block-start: 1em; */
+/*     margin-block-end: 1em; */
+/*     margin-inline-start: 0px; */
+/*     margin-inline-end: 0px; */
+/*     font-weight: bold; */
+/* } */
+
+.teacher_cont{
+	font-size: 1.5rem;
+    line-height: 1.73;
+    letter-spacing: -0.35px;
+    color: #050505;
+    display: inline-block;
+    margin-top: 70px;
+    margin-left: -120px;
+}
+}
+
+
 }
 
 /* .contdiv{max-width:200px;} */
 </style>
 <script>
+// 	var index =0;
 	$(function() {
-		$('#idxBtn').on('click', function() {
-			$('#idxli').css({
-				'background-color' : 'rgb(0,95,134)'
-			});
-			$('#idxBtn').css({
-				'color' : 'white'
-			});
-			$('#qnali').css({
-				'background-color' : 'white'
-			});
-			$('#qnaBtn').css({
-				'color' : '#69666d'
-			});
-
+		
+		$('a[id^="videoClick_"]').on('click',function(){
+			var path = $(this).attr('value');
+			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=1000,height=650, left=30, top=30");
 		})
 
-		$('#qnaBtn').on('click', function() {
-			$('#qnali').css({
-				'background-color' : 'rgb(0,95,134)'
-			})
-			$('#qnaBtn').css({
-				'color' : 'white'
-			})
-			$('#idxli').css({
-				'background-color' : 'white'
-			});
-			$('#idxBtn').css({
-				'color' : '#69666d'
-			});
-		})
 	})
+	
+// 	var length = $('.videoA').length;
+	
+	// 강의영상 클릭
+// 	for(index=0; index<length; index++){
+// 		var videoClick_index = function(){
+// 			var path = $('.videoA').attr('value');
+// 			console.log(path);	
+// 			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=800,height=800, left=30, top=30");
+// 			index++;
+// 		}
+		
+// 	}
+	
+
 </script>
 
 <div class="container">
@@ -160,7 +323,7 @@ button {
 
 <div class="container" style="height: 200px;">
 	<div class="card shadow lessonHeader" id="lessonInt"
-		style="height: 220px;">강의소개</div>
+		style="height: 220px;">강의소개4</div>
 	<div class="btn" style="border: 1px solid #69666d; margin-top: 50px;">
 		<a onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
 	</div>
@@ -177,32 +340,38 @@ button {
 	</div>
 </div>
 
-<div class="container">
-	<ul>
-		<li class="liDiv shadow" id="idxli"
-			style="border-radius: 10px 0 0 10px;"><button id="idxBtn">강의목차</button></li>
-		<li class="liDiv shadow" id="qnali"
-			style="border-radius: 0 10px 10px 0;"><button id="qnaBtn">QnA</button></li>
-	</ul>
-	<div class="lessonHeader" id="lessonCont2"
-		style="border: 1px solid black; width: 900px; height: 500px;">
-		<div class="lessonMid">
-			<c:forEach items="${lesIdxList}" var="lesIdxList">
-				<li>
-					<button class="lidxBtn" >
-						<strong class="lidxnum">${lesIdxList.lidxNum}</strong>
-						<h4 class="lidxcont">${lesIdxList.lidxCont}</h4>
-
-					</button>
-				</li>
-			</c:forEach>
-		</div>
-		<div class="teacher"
-			style="border: 1px solid black; margin-top: 50px;">
-			<h2>강사소개</h2>
-			<br>
-		</div>
+<div class="container_lesson" >
+	<div class="container_left" >
+		<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
+			<div class="container_lessonIndex" >
+				<div class="container_lessonIndex_In" >
+					<div class="container_lessonIndex_section bg-index"> 	
+						<span class="lessonIndex">${lesIdxList.lidxNum}</span>
+						<div class="container_lessonCont_section">
+							<h2>${lesIdxList.lidxCont}</h2>
+<!-- 							<a href=""><span><img class="video" src="/images/user/lesson/video2.png"></span></a> -->
+							<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA"><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 	</div>
+	<div class="container_right" >
+		<div class="container_teacher_top">
+			<img id="teacher" src="/images/user/lesson/teacher.png">
+		</div>
+		<div class="container_teacher_bottom">
+			<div class="teacher_title">
+				<h3>강사 이름</h3>
+			</div>
+			<div class="teacher_cont">
+				<p>강사 소개, 약력</p>
+			</div>
+		</div>
+		
+	</div>
+	
 </div>
 
 <div class="container">

@@ -4,6 +4,9 @@ $(function(){
 	var action='';
 	var type='';
 	var subno = 0;
+	var subId2='';
+//	var list = new Array();
+	var checkArr = new Array();
 	
 	// 과목등록 버튼 클릭
 	$('#addBtn').on('click',function(){
@@ -71,12 +74,54 @@ $(function(){
 	// 체크박스 전체선택&전체해제
 	$('#mainCheckbox').on('click',function(){
 		if($('#mainCheckbox').is(':checked')){
-			$('input[name=checkRow]').prop('checked',true);
+			// 전체선택
+			$('input[name="checkRow"]').prop('checked',true);
+//			$('input[name="checkRow"]').each(function(){
+//				// 배열생성
+//				var checkL = $('input[name="checkRow"]').length;
+//				console.log(checkL);
+//				// 배열에 값 주입
+//				checkArr = new Array(checkL);
+//				for(var i=0; i<checkL; i++){
+//					checkArr[i] = $('input[name="checkRow"]').eq(i).val();
+//				}
+//				console(checkArr[i]);
+//			})
+			// 전체해제
 		}else{
-			$('input[name=checkRow]').prop('checked',false);
+			$('input[name="checkRow"]').prop('checked',false);
 		}
+		
 	})
 	
+	// 선택삭제 버튼 클릭
+	$('#delBtn').on('click',function(){
+		
+		// 체크박스 선택한것만 
+		$('input:checkbox[name=checkRow]').each(function(){
+			if ($(this).is(':checked')) {
+					var id = $(this).val();
+					console.log(id);
+					checkArr.push(id);
+			}
+		})
+		console.log(checkArr);
+		alert('삭제되었습니다');
+		
+		//체크한 항목의 val값 가져오는지?
+		$.ajax({
+			url:'/admin/deleteSubject',
+			data : {"checkArr" : checkArr},
+			success:function(data){
+			},complete : function(data){
+						location.reload();
+			},error : function(data){
+//				alert('안됨');
+			}
+		})
+	
+	})
+
 })
 
 
