@@ -23,13 +23,15 @@ INSERT INTO exam (
     exam_nm,
     exam_state,
     exam_date,
-    lidx_id
+    lidx_id,
+    les_id
 ) VALUES (
 	'EXAM'||LPAD(EXAM_SEQ.NEXTVAL,4,'0'),
 	#{examNm},
 	#{examState},
 	SYSDATE,
-	#{lidxId}
+	#{lidxId},
+	#{lesId}
 )
 </insert>
 
@@ -42,7 +44,9 @@ WHERE exam_id =#{examId}
 <update id="updateExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
 UPDATE exam
    SET
-   exam_nm = #{examNm},
+ <if test="examNm != null and !examNm.equals('')">
+		exam_nm = #{examNm},
+ </if>
    exam_state = #{examState},
    exam_date = SYSDATE
 WHERE
@@ -87,32 +91,45 @@ SELECT *
 		   e.exam_nm,
 		   e.exam_state,
 		   e.exam_date,
-		   e.lidx_id,
-		   e.les_id,
+		   l.les_id,
+		   l.les_cont,
+		   li.lidx_id,
 		   li.lidx_cont,
 		   l.tch_id
 		FROM
-		    exam e, lesson l, lesson_index li
+		    lesson l, lesson_index li, exam e
 		WHERE
-			l.les_id =  e.les_id
-		AND
-			li.lidx_id =  e.lidx_id
+			l.les_id =  li.les_id
+		AND 
+			e.lidx_id(+) = li.lidx_id
 		AND
 			l.tch_id = #{tchId}
-		<if test="searchExamState != null and !searchExamState.equals('')">
-		AND
-			e.exam_state = #{searchExamState}
-		</if>
+			<choose>
+				<when test="searchExamState != null and !searchExamState.equals('')">
+					<choose>
+						<when test='searchExamState.equals("0")'>
+							AND e.exam_id is NULL
+						</when>
+						<otherwise>
+							AND e.exam_state = #{searchExamState}
+						</otherwise>
+					</choose>
+				</when>
+			</choose>
 		ORDER BY e.exam_date DESC) a)
- WHERE rn BETWEEN 1 * (${page} - 1) + 1 AND #{page} * 1
+ WHERE rn BETWEEN 1 * (#{page} - 1) + 1 AND #{page} * 1
 </select>
 
 <select id="selectTotalCntExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="java.lang.Integer">
 SELECT COUNT(*)
  FROM
-    exam e, lesson l
+     lesson l, lesson_index li,
+      (SELECT *
+        FROM exam) e
 WHERE
-   	l.les_id =  e.les_id
+   	l.les_id =  li.les_id
+AND 
+	e.lidx_id(+) = li.lidx_id
 AND
 	l.tch_id = #{tchId}
 <if test="searchExamState != null and !searchExamState.equals('')">

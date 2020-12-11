@@ -29,31 +29,28 @@ public class AnswersheetService {
 	@Resource(name = "answersheetMapper")
 	private AnswersheetMapper answersheetMapper;
 
-	public int insertAnswersheet(AnswersheetVO answersheetVO) {
-		try {
-			return answersheetMapper.insertAnswersheet(answersheetVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
+	public int insertAnswersheet(AnswersheetVO answersheetVO) throws Exception {
+		return answersheetMapper.insertAnswersheet(answersheetVO);
 	}
 
-	public int updateAnswersheet(AnswersheetVO answersheetVO) {
-		try {
-			return answersheetMapper.updateAnswersheet(answersheetVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
+	public int updateAnswersheet(AnswersheetVO answersheetVO) throws Exception {
+		return answersheetMapper.updateAnswersheet(answersheetVO);
 	}
 
-	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVO) {
-		try {
-			return answersheetMapper.selectAnswersheet(questionVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVO) throws Exception {
+		return answersheetMapper.selectAnswersheet(questionVO);
 	}
+	
+	/**
+	 * 시험보기를 삭제하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param questionVo
+	 * @return 
+	 */
+	public int deleteAnswersheet(QuestionVO questionVo) throws Exception{
+		return answersheetMapper.deleteAnswersheet(questionVo);
+	};
+
 
 }

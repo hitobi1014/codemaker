@@ -1,6 +1,7 @@
 package kr.co.codemaker.teacher.course.exam.vo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -22,11 +23,35 @@ public class ExamVO extends LessonVO {
 	private String examState; 	// 시험 등록 상태
 	private Date examDate; 		// 시험 작성일
 	private String lidxCont;	// 목차명
+	private String lidxId;		// 강의 목차 아이디
 	
 	private String searchSubId;		// 선택한 과목 아이디
 	private String searchLesId;		// 선택한 강의 아이디
 	private String searchExamState;	// 선택한 등록 상태
 	
+	private List<QuestionVO> questionList;			// 문제 리스트
+	private List<AnswersheetVO> answersheetLists;	// 보기 리스트
+	
+	
+	
+	public String getLidxId() {
+		return lidxId;
+	}
+	public void setLidxId(String lidxId) {
+		this.lidxId = lidxId;
+	}
+	public List<QuestionVO> getQuestionList() {
+		return questionList;
+	}
+	public void setQuestionList(List<QuestionVO> questionList) {
+		this.questionList = questionList;
+	}
+	public List<AnswersheetVO> getAnswersheetLists() {
+		return answersheetLists;
+	}
+	public void setAnswersheetLists(List<AnswersheetVO> answersheetLists) {
+		this.answersheetLists = answersheetLists;
+	}
 	// 페이징 작업 추가
 	private int page; 			// 현재 보여주는 페이지 번호
 	

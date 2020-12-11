@@ -17,9 +17,6 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-<!-- js 추가 -->
-<script src="/js/teacher/exam/exam.js"></script>
-
 <script>
 $(function() {
 	
@@ -27,8 +24,11 @@ $(function() {
 	selectLesson('${examVO.searchSubId}');
 	
 	// 시험 등록 폼 제공
-	$('#regBtn').on('click', function(){
-		var windowObj = window.open('/exam/insertExamView?curId=cur2','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes');
+	$('.regBtn').on('click', function(){
+		// data-lesid
+		console.log($(this).data('lesid'));
+		
+		//var windowObj = window.open('/exam/insertExamView','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes,left=500,top=50');
 	});
 
 	// 강의 조회 - 과목을 변경했을 경우에 조회
@@ -54,7 +54,9 @@ $(function() {
 		
 		if ($(this).attr('class') == 'm') {
 			var examId = $(this).parent('tr').data("examid");
-			document.location = "/exam/selectExam?examId=" + examId + '&searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+			if(examId != ''){
+				document.location = "/exam/selectExam?examId=" + examId + '&searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+			}
 		}
 	});
 	
@@ -127,9 +129,7 @@ table{
 	text-align: right;
 }
 #regBtn {
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-top: 8px;
+	height: 36px;
 }
 #subject{
 	width: 120px;
@@ -160,13 +160,11 @@ table{
 			
 				<form:select path="searchExamState" cssClass="form-control" id="search">
 					<form:option value="">등록 상태</form:option>
-					<form:option value="N">수정중</form:option>
-					<form:option value="Y">등록완료</form:option>
+					<form:option value="0">시험 등록</form:option>
+					<form:option value="1">수정중</form:option>
+					<form:option value="2">등록완료</form:option>
+					<form:option value="3">시험 배포</form:option>
 				</form:select>
-				 
-				<input type="button" class="btn btn-default" value="시험 등록" id="regBtn"> 
-				<input type="button" class="btn btn-default" value="시험 삭제" id="delBtn">
-			
 		</div>
 		
 		<table class="w3-hoverable w3-table w3-striped w3-bordered" id="wul">
@@ -182,20 +180,31 @@ table{
 			</thead>
 			<tbody id="examList">
 				<!-- 시험 문제 리스트 -->
+				<c:if test="${examList.size() == 0}">
+					<tr>
+						<td colspan="6" style="text-align: center;">조회한 데이터가 없습니다.</td>
+					</tr>
+				</c:if>
 				<c:forEach items="${examList}" var="exam" varStatus="status">
 					<tr data-examid='${exam.examId }'>
 						<!-- 시험 문제를 볼때 -->
 						<td class='m'>${status.count }</td>
 						<td class='m'>${exam.lidxCont }</td>
-						<td class='m'>${exam.examNm }_테스트</td>
+						<td class='m'>${exam.examNm }</td>
 						<td class='m'><fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" /></td>
 						<td data-examstate='${exam.examState }' class='m'>
 							<c:choose>
-								<c:when test="${exam.examState == 'Y' }">
+								<c:when test="${exam.examState == '3' }">
+									배포완료
+								</c:when>
+								<c:when test="${exam.examState == '2' }">
 									등록완료
 								</c:when>
-								<c:otherwise>
+								<c:when test="${exam.examState == '1' }">
 									수정중
+								</c:when>
+								<c:otherwise>
+									<input type="button" class="btn btn-default regBtn" data-lesid="${exam.lesId }/${exam.lidxId}" value="시험 등록"> 
 								</c:otherwise>
 							</c:choose>
 						</td>

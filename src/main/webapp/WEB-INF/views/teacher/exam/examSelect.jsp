@@ -7,19 +7,13 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
-<!-- js 추가 -->
-<script src="/js/teacher/exam/exam.js"></script>
 
 <script>
 $(function() {
 	
 	// 수정하기
 	$('#updateBtn').on('click', function(){
-		str = '<input type="hidden" name="examState" value="N">';
-		str += '<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">';
-		str += '<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">';
-		str += '<input type="hidden" name="searchExamState" value="${examVO.searchExamState}">';
-		str += '<input type="hidden" name="examId" value="${examVO.examId}">';
+		str = '<input type="hidden" name="examState" value="1">';
 		
 		$('#examf').append(str);
 		
@@ -28,13 +22,10 @@ $(function() {
 	
 	// 등록하기 - 상태값을 수정하면 끝
 	$('#regBtn').on('click', function(){
-		str = '<input type="hidden" name="examState" value="Y">';
-		str += '<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">';
-		str += '<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">';
-		str += '<input type="hidden" name="searchExamState" value="${examVO.searchExamState}">';
-		str += '<input type="hidden" name="examId" value="${examVO.examId}">';
-
+		str = '<input type="hidden" name="examState" value="2">';
+		
 		$('#examf').append(str);
+		
 		$('#examf').attr('action', '/exam/updateExam');
 		
 		$('#examf').submit();
@@ -152,12 +143,17 @@ $(function() {
 }
 </style>
 	<form action="/exam/updateViewExam" id="examf" method="post">
+		<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">
+		<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">
+		<input type="hidden" name="searchExamState" value="${examVO.searchExamState}">
+		<input type="hidden" name="examId" value="${examVO.examId}">
+		
 		<div id="d2">
 			<div id="d1"></div>
 			<br>
 			<div id="d3">
 				<h2 id="hh2">시험</h2>
-				<br> <label for="sel1" id="sel1"><h4>${ev.examNm }_테스트</h4></label><br>
+				<br> <label for="sel1" id="sel1"><h4>${ev.examNm }</h4></label><br>
 			</div>
 			<br>
 			<c:forEach items="${questionList }" var="question" varStatus="status">
@@ -190,7 +186,7 @@ $(function() {
 			</c:forEach>
 		</div>
 		<div class="btns">
-			<c:if test="${ev.examState == 'N'}">
+			<c:if test="${ev.examState != '3'}">
 				<input type="button" class="btn btn-default" id="updateBtn" value="수정하기"> 
 				<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
 			</c:if>
