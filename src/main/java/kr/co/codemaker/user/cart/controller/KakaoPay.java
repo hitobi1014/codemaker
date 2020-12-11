@@ -17,6 +17,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.user.cart.vo.KakaoPayApprovalVO;
 import kr.co.codemaker.user.cart.vo.KakaoPayReadyVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
 
@@ -25,6 +26,7 @@ public class KakaoPay {
 	private static final Logger logger = LoggerFactory.getLogger(KakaoPay.class);
 	private static final String HOST = "https://kapi.kakao.com/v1/payment/ready";
 	private KakaoPayReadyVO kakaoPayReadyVo;
+	private KakaoPayApprovalVO kakaoPayApprovalVO;
 	
 	public String kakaoPayReady(String total,HttpSession session) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -40,12 +42,12 @@ public class KakaoPay {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("cid", "TC0ONETIME");
 		params.add("partner_order_id", "1233");
-		params.add("partner_user_id", userVo.getUserId());
+		params.add("partner_user_id", "a001");
 		params.add("item_name", "코드메이커 강의");
 		params.add("quantity", "1");
 		params.add("total_amount", total);
 		params.add("tax_free_amount", "0");
-		params.add("approval_url", "http://localhost/kakaoPay?test=1");
+		params.add("approval_url", "http://localhost/kakaoPaySuccess?total="+total);
 		params.add("cancel_url", "http://localhost/user/login");
 		params.add("fail_url", "http://localhost/user/selectSubject");
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String,String>>(params, headers);
@@ -56,5 +58,33 @@ public class KakaoPay {
 			e.printStackTrace();
 		}
 		return "/user/payView";
+	}
+	
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token,String total) {
+		RestTemplate restTemplate = new RestTemplate();
+		
+		logger.debug("받은토큰 :{}",pg_token);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK 80498dac11d5ee25d3fd2a587144ded1");
+		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
+		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE+";charset=UTF-8");
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("cid", "TC0ONETIME");
+		params.add("tid", kakaoPayReadyVo.getTid());
+		params.add("partner_order_id", "1233");
+		params.add("partner_user_id", "a001");
+		params.add("pg_token", pg_token);
+		params.add("total_amount", total);
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String,String>>(params, headers);
+		
+		try {
+			kakaoPayApprovalVO = restTemplate.postForObject(new URI("https://kapi.kakao.com/v1/payment/approve"), body,KakaoPayApprovalVO.class);
+			return kakaoPayApprovalVO;
+		} catch (RestClientException | URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

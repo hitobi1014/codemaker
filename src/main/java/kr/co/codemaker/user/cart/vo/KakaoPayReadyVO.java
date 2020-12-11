@@ -1,9 +1,19 @@
 package kr.co.codemaker.user.cart.vo;
 
+import java.util.Date;
+
 public class KakaoPayReadyVO {
 	//응답
 	private String tid;
 	private String next_redirect_pc_url;
+	private Date created_at;
+	
+	public Date getCreated_at() {
+		return created_at;
+	}
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
 	public String getTid() {
 		return tid;
 	}

@@ -19,7 +19,7 @@
 					<% int sum = 0; %>
 					<c:forEach items="${lessonVoList}" var="lesson"  varStatus="stat">
 						<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
-						<input type="hidden" name="payList[${stat.index}].payWay" value="1"/>
+						<input type="hidden" name="payList[${stat.index}].payWay" value="1" class="paywayCl"/>
 						<input type="hidden" id="paySum[${stat.index}]" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
 						<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
 						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}" class="lesson"/>
@@ -81,7 +81,7 @@
 							<div class="payWayBoxArea form-group row">
 								<div class="payWayBox col-sm-5" style="padding-right: 0px;">
 									<div class="payB">
-										<input class="pay-way" type="radio" id="kakaopay" value="kakaopay" />
+										<input class="pay-way" name="pwy" type="radio" id="kakaopay" value="kakaopay" />
 										<label for="kakaopay">
 											<img src="/img/icon/payment_icon_yellow_small.png">카카오페이
 										</label>
@@ -89,7 +89,7 @@
 								</div>
 								<div class="payWayBox col-sm-4">
 									<div class="payB">
-										<input class="pay-way" type="radio" id="creditcard" value="creditcard"/>
+										<input class="pay-way" name="pwy" type="radio" id="creditcard" value="creditcard"/>
 										<label for="creditcard">신용카드</label>
 									</div>
 								</div>
@@ -158,6 +158,9 @@
 
 <script>
 $(function(){
+	if('${kakao}' == "kakao"){
+		console.log("탄다");
+	}
 	
 	$("#totalPointUse").on('click',function(){
 		var haveP = parseInt($("#havePoint").val());//보유포인트
@@ -250,6 +253,11 @@ $(function(){
 	//결제하기 버튼 클릭시 발생
 	$("#payListBtn").on('click',function(){
 		var payWay = $("input[type=radio]:checked").val();
+		var len = $(".paywayCl").length;
+		for(i=0; i<len; i++){
+			$(".paywayCl").val(payWay);
+		}
+		
 		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
 		$("#pointUpdate").val(pointUpdate);
 		var pointSum = parseInt($(".have-point").text().replace(',',''));
@@ -261,16 +269,18 @@ $(function(){
 				data : {"total" : total},
 				method : 'post',
 				success : function(res){
-					window.open(res.url,"_blank","width=550,height=750,left=658,top=161");
-					console.log(res);
-					if(res.test !=null){
-						console.log(res.test);
+					if(res.url !=null){
+						window.open(res.url,"_blank","width=550,height=750,left=658,top=161");
 					}
 				}
 			})
-// 			$("#kakaoSubmit").submit();
+		}else{
+			$("#payListFrm").submit();
 		}
-// 		$("#payListFrm").submit();
 	})
+	
 })
+function sumbitTest(){
+	$("#payListFrm").submit();
+}
 </script>

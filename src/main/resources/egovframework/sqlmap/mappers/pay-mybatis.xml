@@ -54,6 +54,7 @@
 		WHERE ROWNUM=1
 	</select>
 	
+	<!-- 포인트 사용 -->
 	<insert id="usePoint" parameterType="kr.co.codemaker.user.cart.vo.PointVO">
 		INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
 				VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 

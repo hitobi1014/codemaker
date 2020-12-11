@@ -1,6 +1,7 @@
 package kr.co.codemaker.user.cart.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,14 +18,28 @@ public class SampleController {
 	private KakaoPay kakaoPay;
 	
 	@RequestMapping("/kakaoPay")
-	public String kakaoPay(String total, Model model, HttpSession session,@RequestParam(required = false)String test) {
+	public String kakaoPay(@RequestParam(required = false)String total, Model model, HttpSession session,@RequestParam(required = false)String test) {
 		logger.debug("받은 정보 :{}", total);
-		String url = kakaoPay.kakaoPayReady(total,session);
-		model.addAttribute("url", url);
-		if(test!=null) {
-			logger.debug("테스트 :{}",test);
-			model.addAttribute("test", test);
+		if(total != null) {
+			String url = kakaoPay.kakaoPayReady(total,session);
+			model.addAttribute("url", url);
 		}
 		return "jsonView";
 	}
+	
+	@RequestMapping("/kakaoPaySuccess")
+	public String kakaoPaySuccess(Model model,@RequestParam(name="pg_token") String pg_token, HttpServletRequest request, String total) {
+		logger.debug("새로운");
+		logger.debug("토큰 :{}", pg_token);
+		model.addAttribute("info", kakaoPay.kakaoPayInfo(pg_token, total));
+		return "user/payment/temp";
+		
+	}
+	
+//	@RequestMapping("/kakaoPaySuccess")
+//	public void kakaoPaySuccess(@RequestParam("pg_token")String pg_token, Model model) {
+//		logger.debug("토큰 : {}",pg_token);
+//		
+//		model.addAttribute("info", kakaoPay.kakaoPayInfo(pg_token));
+//	}
 }

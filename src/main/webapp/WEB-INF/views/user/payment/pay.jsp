@@ -17,7 +17,6 @@
 			<h3>결제내역</h3>
 			<form action="${pay}" method="post" id="payFrm">
 				<% int sum=0; %>
-				<input type="hidden" name="payWay" value="1"/><br>
 				<input type="hidden" id="paySum" name="paySum" value="${lessonVo.lesCash}"/>
 				<input type="hidden" name="cosTerm" value="${lessonVo.lesTerm}"/>
 				<input type="hidden" name="userId" value="${userVo.userId}"/>
@@ -240,11 +239,28 @@ $(function(){
 		console.log($(this).val());
 	})
 	$("#payBtn").on('click',function(){
+		var payWay = $("input[type=radio]:checked").val();
 		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
 		$("#pointUpdate").val(pointUpdate);
 		var pointSum = parseInt($(".have-point").text().replace(',',''));
 		$("#pointSum").val(pointSum);
-		$("#payFrm").submit();
+		if(payWay == "kakaopay"){
+			var total = parseInt($("#totalCash").text().replace(',',''));
+			$.ajax({
+				url : '/kakaoPay',
+				data : {"total" : total},
+				method : 'post',
+				success : function(res){
+					if(res.url !=null){
+						window.open(res.url,"_blank","width=550,height=750,left=658,top=161");
+					}
+				}
+			})
+		}
+// 		$("#payFrm").submit();
 	})
 })
+function sumbitTest(){
+	$("#payFrm").submit();
+}
 </script>

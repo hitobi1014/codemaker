@@ -1,6 +1,9 @@
 package kr.co.codemaker.user.cart.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,7 +76,7 @@ public class UserPayController {
 	
 	//결제하기
 	@RequestMapping(path="user/pay")
-	public String pay(PayVO payVo, PointVO pointVo,HttpSession session) {
+	public String pay(PayVO payVo, PointVO pointVo,HttpSession session,Model model) {
 		String payGroup = UUID.randomUUID().toString();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		pointVo.setUserId(userVo.getUserId());
@@ -86,6 +89,8 @@ public class UserPayController {
 		logger.debug("결제정보 : {}",payVo.getPayList());
 		//장바구니에서 결제할때
 		if(payVo.getPayList() != null) {
+			List<LessonVO> lessonList = new ArrayList<>();
+			LessonVO lvo = null;
 			for(int i=0; i<payVo.getPayList().size();i++) {
 				CartVO cartVo = new CartVO();
 				cartVo.setLesId(payVo.getPayList().get(i).getLesId());
@@ -94,10 +99,22 @@ public class UserPayController {
 					payVo.getPayList().get(i).setPayGroup(payGroup);
 					userPayService.insertPay(payVo.getPayList().get(i));
 					userPayService.deleteCart(cartVo);
+					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				Date now = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(now);
+				cal.add(Calendar.DATE, lvo.getLesTerm());
+				lvo.setLesDate(cal.getTime());
+				lessonList.add(lvo);
 			}
+			model.addAttribute("payList", payVo.getPayList());
+			model.addAttribute("pointVo", pointVo);
+			model.addAttribute("lessonList", lessonList);
+			return "mainT/user/payment/payment-complete";
 		//강의 페이지에서 바로 결제 할때
 		}else if(payVo !=null) {
 			try {

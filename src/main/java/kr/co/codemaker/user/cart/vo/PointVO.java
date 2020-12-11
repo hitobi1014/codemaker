@@ -4,12 +4,12 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class PointVO extends BaseVO{
 
-	private String pointSum;
-	private String pointDate;
-	private String pointId;
-	private String pointGn;
-	private String userId;
-	private String pointUpdate;
+	private String pointSum;	//보유 포인트
+	private String pointDate;	//포인트 이력날짜
+	private String pointId;		//포인트아이디
+	private String pointGn;		//포인트구분
+	private String userId;		//회원아이디
+	private String pointUpdate;	//포인트 사용/적립
 	
 	public PointVO() {}
 	
