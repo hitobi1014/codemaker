@@ -33,4 +33,5 @@ public class LessonIndexService {
 		return lessonIndexMapper.deleteLessonIndex(lidxId);
 	}
 	
+	
 }

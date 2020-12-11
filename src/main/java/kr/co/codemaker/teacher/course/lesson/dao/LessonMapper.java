@@ -21,4 +21,5 @@ public interface LessonMapper {
 
 	int updateTempoLesson(LessonVO lessonVO) throws Exception;  //강의 임시저장
 
+	
 }

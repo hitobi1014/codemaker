@@ -1,14 +1,12 @@
 package kr.co.codemaker.teacher.course.lesson.vo;
 
-
 import kr.co.codemaker.common.vo.BaseVO;
 
 public class SubjectVO extends BaseVO{
 
-	private String subOut;	// 과목 삭제여부
-	private String subNm;	// 과목명
-	private String subId;	// 과목 아이디
-	
+	private String subOut;
+	private String subNm;
+	private String subId;
 	
 	public void setSubOut(String subOut) {
 		this.subOut = subOut; 
