@@ -27,12 +27,8 @@
 						</div>
 					</div>
 					<div>
-						<input type="button" class="idxDelBtn" value="삭제"
-							data-lidxid="${lesIdxList.lidxId}"
-							data-lesid="${lesIdxList.lesId}"> <input type="button"
-							id="${status.index}" class="idxUpBtn" value="수정!!!"
-							data-lidxid="${lesIdxList.lidxId}"
-							data-lesid="${lesIdxList.lesId}">
+						<input type="button" class="idxDelBtn" value="삭제"data-lidxid="${lesIdxList.lidxId}"data-lesid="${lesIdxList.lesId}">
+						 <input type="button"id="${status.index}" class="idxUpBtn" value="수정!!!"data-lidxid="${lesIdxList.lidxId}"data-lesid="${lesIdxList.lesId}">
 					</div>
 				</div>
 			</div>

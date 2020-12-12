@@ -113,26 +113,32 @@ $(function(){
 		
 		str="";
 		str +='<div class="pl-lg-4" id="pl-lg-4-id">';
-        str +='<div class="row">	';
-        str +='  <div class="col-lg-2">';
-        str +='    <div class="form-group">';
-        str +='      <label class="form-control-label">강의 차수</label>';
-        str +='        <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
-        str +='    </div>';
-        str +='  </div>';
-        str +='  <div class="col-lg-7">';
-        str +='    <div class="form-group">';
-        str +='      <label class="form-control-label">강의 내용</label>';
-        str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
-        str +='    </div>';
-        str +='  </div>';
-        str +='<div class="col-lg-7" id="lineLeft">';
-	    str +='    <div class="form-group">';
-	    str +='      <label class="form-control-label">강의 주소</label>';
-	    str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
-	    str +='    </div>';
-        str +='</div>';
-        str +='</div>';
+        str +='   <div class="row">	';
+        str +='     <div class="col-lg-2">';
+        str +='       <div class="form-group">';
+        str +='         <label class="form-control-label">강의 차수</label>';
+        str +='           <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
+        str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-7">';
+        str +='       <div class="form-group">';
+        str +='         <label class="form-control-label">강의 내용</label>';
+        str +='          <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
+        str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-5" id="lineLeft">';
+	    str +='       <div class="form-group">';
+	    str +='         <label class="form-control-label">강의 주소</label>';
+	    str +='          <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
+	    str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-2">';
+        str +='   		<div class="form-group">';
+        str +='     	  <label class="form-control-label" >강의 전체시간</label>';
+        str +='      	  <input type="text"  class="form-control form-control-alternative" placeholder="lessondurtime" name="lesIdxList[0].lidxDurtime" id="lidxDurtime">';
+        str +='   		</div>';
+      	str +='     </div>';
+        str +='   </div>';
       	str +='</div>';
       	
       	index++;
@@ -257,10 +263,16 @@ function initData(){
 	                      <div class="form-group" >
 	                      </div>
 	                    </div>
-	                    <div class="col-lg-7" id="lineLeft">
+	                    <div class="col-lg-5" id="lineLeft">
 	                      <div class="form-group">
 	                        <label class="form-control-label">강의 주소</label>
 	                         <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList[0].lidxPath" id="lidxPath" >
+	                      </div>
+	                    </div>
+	                    <div class="col-lg-2">
+	                      <div class="form-group">
+	                        <label class="form-control-label" >강의 전체시간</label>
+	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessondurtime" name="lesIdxList[0].lidxDurtime" id="lidxDurtime">
 	                      </div>
 	                    </div>
 	                  </div>

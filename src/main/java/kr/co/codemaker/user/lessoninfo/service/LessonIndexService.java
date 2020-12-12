@@ -15,8 +15,12 @@ public class LessonIndexService {
 	@Resource(name="userLessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
-	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
-			return lessonIndexMapper.selectLessonIndex(lesId);
+	public List<LessonIndexVO> selectLessonIndex(LessonIndexVO lessonIndexVO) throws Exception {
+		return lessonIndexMapper.selectLessonIndex(lessonIndexVO);
+	}
+	
+	public int updateLessonIndex(LessonIndexVO lessonIndexVO) throws Exception{
+		return lessonIndexMapper.updateLessonIndex(lessonIndexVO); 
 	}
 	
 	
