@@ -1,5 +1,6 @@
 package kr.co.codemaker.user.cart.vo;
 
+import java.util.Date;
 import java.util.List;
 
 import kr.co.codemaker.common.vo.BaseVO;
@@ -15,7 +16,15 @@ public class LessonVO {
 	private String tchId;      //선생님아이디
 	private String subId;		//과목아이디
 	private String tchNm;	//선생님 이름
+	private Date lesDate;	//강의 기간 , 필요에의해 만든 필드
 	
+	public Date getLesDate() {
+		return lesDate;
+	}
+
+	public void setLesDate(Date lesDate) {
+		this.lesDate = lesDate;
+	}
 	private List<LessonVO> lessonList;
 
 	public List<LessonVO> getLessonList() {
