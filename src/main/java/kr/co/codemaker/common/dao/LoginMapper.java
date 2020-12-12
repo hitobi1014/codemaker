@@ -3,8 +3,8 @@ package kr.co.codemaker.common.dao;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.admin.vo.AdminVO;
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
 * LoginMapper.java

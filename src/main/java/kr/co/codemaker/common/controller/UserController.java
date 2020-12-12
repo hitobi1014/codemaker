@@ -71,7 +71,7 @@ public class UserController {
 				// 서버의 상태가 바뀔때는 중복이 되지 않게 redirect요청을 해준다.
 				// redirect한다는것은 메소드 인자를 웹 브라우저 주소창에 넣으라는 것이기 떄문에 정상동작이 안될수 있으므로 contextpath넣어주기
 //				return "redirect:/member/memberSelect?userid="+user_id;
-				return "test";
+				return "redirect:/user/main";
 			}
 
 		} catch (Exception e) {

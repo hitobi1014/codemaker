@@ -9,12 +9,9 @@
 <meta charset="UTF-8">
 <!-- bootstrap 사용 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
@@ -22,22 +19,14 @@
 <script>
 	$(function() {
 		
-		// 커리큘럼 선택시
-		$('#sel1').on('change', function(){
-			changeCurriculum();
-			
-		});
-
 		// 문제 추가
-		$(document).on('click', '.plusBtn', function() {
-			$(this).attr('style','display:none');
-			
+		$('#plusBtn').on('click' , function() {
 			createExam();
 		})
 
 		// #e6f4ea, que_answer, anw
 		// 정답 체크시 오버레이
-		$(document).on('click', 'input[name=que_answer]',function() {
+		$(document).on('click', 'input[name=queAnswer]',function() {
 			var ol = $(this).prevAll("div[class=overlay]");
 			
 			if($(this).is(":checked") == true){
@@ -51,39 +40,43 @@
 		});
 
 		// 임시저장, 등록, 취소
-		$(document).on('click', '.btns input[type=button]',function() {
-			//console.log('aa');
-			var bid = $(this).attr('id');
-			console.log(bid);
+// 		$(document).on('click', '.btns input[type=button]',function() {
+// 			//console.log('aa');
+// 			var bid = $(this).attr('id');
+// 			console.log(bid);
 
-			// 빈칸 체크
-			var ia = $('#examf').children('input');
-			console.log(ia);
+// 			// 빈칸 체크
+// 			var ia = $('#examf').children('input');
+// 			console.log(ia);
 
-			// examf
-			// 임시저장 버튼일 경우
-			if(bid == 'temps'){
-				str = '<input type="text" name="examState" value="0">';
-				str += '<input type="text" name="lesId" value="${lessonIndexList[0].lesId }">';
+// 			// examf
+// 			// 임시저장 버튼일 경우
+// 			if(bid == 'temps'){
+// 				str = '<input type="text" name="examState" value="1">';
 
-				$('#examf').append(str);
+// 				$('#examf').append(str);
 				
-				$('#examf').submit();
+// 				$('#examf').submit();
 
-			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
-				str = '<input type="text" name="examState" value="1">';
-				str += '<input type="text" name="lesId" value="${lessonIndexList[0].lesId }">';
+// 			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
+// 				str = '<input type="text" name="examState" value="2">';
 
-				$('#examf').append(str);
+// 				$('#examf').append(str);
 
-				$('#examf').submit();
+// 				$('#examf').submit();
 				
-			}else{ // 취소 버튼일 경우 , cancle -> 해당 강의 페이지로 이동한다.
-				//document.location = "/post/selectPost?postid=" + postid;
-			}
-		});
+// 			}else{ // 취소 버튼일 경우 , cancle -> 해당 강의 페이지로 이동한다.
+// 				//document.location = "/post/selectPost?postid=" + postid;
+// 			}
+// 		});
 		
-		
+		$('#temps').on('click', function(){
+			var a = [];
+				a = $('input[name=queCont]').val();
+			console.log(a);
+			
+			//$('#examf').submit();
+		})
 
 	})
 </script>
@@ -122,7 +115,7 @@ body {
 .d4 {
 	background-color: #4285f4;
 	display: inline-block;
-	height: 520px;
+	height: 480px;
 	width: calc(1% + 2px);
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;
@@ -136,7 +129,7 @@ body {
 	width: calc(80% + 2px);
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
-	height: 520px;
+	height: 480px;
 	text-align: left;
 	margin-top: 10px;
 }
@@ -146,8 +139,8 @@ body {
 	padding-top: 5px;
 }
 
-#sel1 {
-	width: 500px;
+.sel1 {
+	margin-top : 5px;
 }
 
 .form-control {
@@ -203,71 +196,51 @@ body {
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험 등록</h2>
-				<br> <label for="sel1">시험을 등록할 커리큘럼을 선택해주세요.</label> <br>
-				<form:select path="lidxId" cssClass="form-control" id="sel1">
-					<form:option value="99">커리큘럼을 선택해주세요.</form:option>
-					<form:options items="${lessonIndexList}" itemLabel="lidxCont" itemValue="lidxId"/>
-				</form:select>
-<!-- 				<select class="form-control" id="sel1" name="curId"> -->
-<!-- 					<option value="99">커리큘럼을 선택해주세요.</option> -->
-<%-- 					<c:forEach var="lessonIndex" items="${lessonIndexList }"> --%>
-<%-- 						<option value="${lessonIndex.lidxId }/${lessonIndex.lidxCont }" --%>
-<%-- 							<c:if test="${lessonIndex.lidxId eq lidxId }"> --%>
-<!-- 									selected="selected" -->
-<%-- 							</c:if>>${lessonIndex.lidxCont }</option> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</select> -->
+				<br> 
+				<label for="sel0">시험 이름</label> <br>
 			</div>
-			<br> <br> <br>
+			<br><br>
+			<br>
 
 			<div class="d5">
 				<div class="d4"></div>
 				<div class="d6">
-					<label for="sel1"> 문제를 입력해주세요. </label> <br> <input
-						type="text" name="que_cont" class="form-control que" /> <br>
-					<label for="sel1"> 보기를 입력해주세요. </label>
+					<label for="sel1" class="sel1"> 문제를 입력해주세요. </label> <br> 
+					<input type="text" name="queCont" class="form-control que" /> <br>
+					<label for="sel2"> 보기를 입력해주세요. </label>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi"
-							placeholder="보기1"> <input type="checkbox"
-							name="que_answer" value="1" class="chk" />
-					</div>
-					<div class="anw">
-						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi"
-							placeholder="보기2"> <input type="checkbox"
-							name="que_answer" value="2" class="chk" />
+						<input type="text" name="ansCont" class="form-control radi" placeholder="보기1"> 
+						<input type="checkbox" name="queAnswer" value="1" class="chk" />
 					</div>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi"
-							placeholder="보기3"> <input type="checkbox"
-							name="que_answer" value="3" class="chk" />
+						<input type="text" name="ansCont" class="form-control radi" placeholder="보기2"> 
+						<input type="checkbox" name="queAnswer" value="2" class="chk" />
 					</div>
 					<div class="anw">
 						<div class="overlay"></div>
-						<input type="text" name="ans_cont" class="form-control radi"
-							placeholder="보기4"> <input type="checkbox"
-							name="que_answer" value="4" class="chk" />
+						<input type="text" name="ansCont" class="form-control radi" placeholder="보기3"> 
+						<input type="checkbox" name="queAnswer" value="3" class="chk" />
 					</div>
-					<br> <label for="sel1"> 문제 해설을 입력해주세요. </label>
 					<div class="anw">
-						<textarea class="form-control" rows="5" class="comment"
-							name="que_explain"></textarea>
+						<div class="overlay"></div>
+						<input type="text" name="ansCont" class="form-control radi" placeholder="보기4"> 
+						<input type="checkbox" name="queAnswer" value="4" class="chk" />
 					</div>
-					<div class="btnd">
-						<button type="button" class="btn btn-default plusBtn">문제
-							추가</button>
+					<br> <label for="sel3"> 문제 해설을 입력해주세요. </label>
+					<div class="anw">
+						<textarea class="form-control" rows="5" class="comment" name="queExplain" style="resize: none"></textarea>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="btns">
-			<input type="button" class="btn btn-default" id="temps" value="임시저장">
-			<input type="button" class="btn btn-default" id="regBtn" value="등록하기">
-			<input type="button" class="btn btn-default" id="cancle" value="취소">
-		</div>
 	</form:form>
+	<div class="btns">
+		<input type="button" class="btn btn-default" id="plusBtn" value="문제 추가">
+		<input type="button" class="btn btn-default" id="temps" value="임시저장">
+		<input type="button" class="btn btn-default" id="regBtn" value="등록하기">
+		<input type="button" class="btn btn-default" id="cancle" value="취소">
+	</div>
 </body>
 </html>

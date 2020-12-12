@@ -29,31 +29,27 @@ public class QuestionService {
 	@Resource(name = "questionMapper")
 	private QuestionMapper questionMapper;
 
-	public String insertQuestion(QuestionVO questionVo) {
-		try {
-			return questionMapper.insertQuestion(questionVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public String insertQuestion(QuestionVO questionVO) throws Exception {
+		return questionMapper.insertQuestion(questionVO);
 	}
 
-	public int updateQuestion(QuestionVO questionVo) {
-		try {
-			return questionMapper.updateQuestion(questionVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
+	public int updateQuestion(QuestionVO questionVO) throws Exception {
+		return questionMapper.updateQuestion(questionVO);
 	}
 	
-	public List<QuestionVO> selectQuestion(ExamVO examVo) {
-		try {
-			return questionMapper.selectQuestion(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public List<QuestionVO> selectQuestion(ExamVO examVO) throws Exception {
+		return questionMapper.selectQuestion(examVO);
+	}
+	
+	/**
+	 * 시험문제를 삭제하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVo
+	 * @return 
+	 */
+	public int deleteQuestion(ExamVO examVo) throws Exception {
+		return questionMapper.deleteQuestion(examVo);
 	}
 
 }

@@ -20,43 +20,37 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var flag = true;
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
+      plugins: [ 'dayGrid', 'list', 'interaction' ],
       header: {
     	 left: 'prev,next today',
          center: 'title',
-         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+         right: 'dayGridMonth,listWeek'
       },
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectMirror: true,
       select: function(arg) {
-    	console.log(arg);
-    	$('.modal').find('#schSdate').val(arg.startStr);
-		$('.modal').find('#schEdate').val(arg.endStr);
+    	// 종료 날짜 하루 빼준다.
+    	moment(arg.end.setDate(arg.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
+    	
+    	$('.modal').find('#sDate').val(moment(arg.start).format('YYYY-MM-DD'));
+    	$('.modal').find('#schTSdate').val(moment(arg.start).format('HH:mm'));
+		$('.modal').find('#eDate').val(moment(arg.end).format('YYYY-MM-DD'));
+		$('.modal').find('#schTEdate').val(moment(arg.end).format('HH:mm'));
     	$('.modal').modal('show');
-//         var title = '';
-//         if (title) {
-//           calendar.addEvent({
-//             title: title,
-//             start: arg.start,
-//             end: arg.end,
-//             allDay: arg.allDay
-//           })
-//         }
+    	
         calendar.unselect()
       },
-      editable: true,
+      editable: false,
    	  eventLimit: true,
       events: ${jarray},
       eventClick : function(info) {
-		   	console.log(info);
-		   	console.log(info.event.id);
-		   	
 		   	if(flag){
 			   	//Show contextmenu:
 				//Get window size:
@@ -111,14 +105,21 @@ document.addEventListener('DOMContentLoaded', function() {
 					$('#save-event').val('수정하기');
 					$('#ff').attr('action','/admin/updateSchedule');
 		 		    $('.modal').find('#schCont').val(info.event.title);
-		 		    $('.modal').find('#schSdate').val(info.event.start);
-		 		    $('.modal').find('#schEdate').val(info.event.end);
+		 		    
+		 			// 종료 날짜 하루 빼준다.
+		 	    	moment(info.event.end.setDate(info.event.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
+		 		    
+		 		    $('.modal').find('#sDate').val(moment(info.event.start).format('YYYY-MM-DD'));
+		 	    	$('.modal').find('#schTSdate').val(moment(info.event.start).format('HH:mm'));
+		 			$('.modal').find('#eDate').val(moment(info.event.end).format('YYYY-MM-DD'));
+		 			$('.modal').find('#schTEdate').val(moment(info.event.end).format('HH:mm'));
+		 			
 		 		    flag = true;
 				});
 				
 				// 일정 삭제하기
 				$('#da').on('click', function(){
-					console.log('dfad');
+					console.log('삭제');
 		 		    flag = true;
 					$(".contextmenu").hide();
 					document.location = "/admin/deleteSchedule?schId="+ info.event.id;
@@ -137,10 +138,22 @@ document.addEventListener('DOMContentLoaded', function() {
   
   $(function(){
 	  
-// 	  // 일정 삭제하기
-// 	  $('#da').on('click', function(){
-// 		  $(".contextmenu").hide();
-// 	  })
+	  // 일정 등록 및 수정
+	  $('#save-event').on('click', function(){
+		  // 일정 빈칸 체크
+		  if($('#schCont').val() == null || $('#schCont').val() == ''){
+			  alert('일정 내용을 입력해주세요.');
+		  }else{
+			  //schSdate,schEdate
+			  var sDate = $('#sDate').val() + ' ' + $('#schTSdate').val();
+			  var eDate = $('#eDate').val() + ' ' + $('#schTEdate').val();
+			  str = '<input type="hidden" id="schSdate" name="schSdate" value="'+ sDate +'">';
+			  str += '<input type="hidden" id="schEdate" name="schEdate" value="'+ eDate +'">';
+			  $('#ff').append(str);
+			  
+			  $('#ff').submit();
+		  }
+	  });
 	  
 	  // 입력된 값 초기화
 	  $('.modal').on('hidden.bs.modal', function (e) {
@@ -227,13 +240,16 @@ body {
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="starts-at">스케줄 시작일</label> 
-								<input type="date" name="schSdate" id="schSdate" />
+								<input type="date" name="sDate" id="sDate" />
+								<input type="time" name="schTSdate" id="schTSdate" />
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="ends-at">스케줄 종료일</label> 
-								<input type="date" name="schEdate" id="schEdate" />
+<!-- 								<input type="datetime-local" name="schEdate" id="schEdate" /> -->
+								<input type="date" name="eDate" id="eDate" />
+								<input type="time" name="schTEdate" id="schTEdate" />
 							</div>
 						</div>
 						<div class="row">
@@ -244,7 +260,7 @@ body {
 						</div>
 					</div>
 					<div class="modal-footer">
-						 <input type="submit" class="btn btn-primary" id="save-event" value="등록하기">
+						 <input type="button" class="btn btn-primary" id="save-event" value="등록하기">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="clo">Close</button>
 					</div>
 				</form>

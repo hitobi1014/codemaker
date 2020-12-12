@@ -338,6 +338,8 @@ h2{
 	<div class="btn" style="border: 1px solid black;">
 		<a>담기</a>
 	</div>
+	<div class="btn" style="border: 1px solid black;">
+		<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
 	<div id="payBtn" class="btn" style="border: 1px solid black;">
 		<c:url value="/user/payView" var="pay">
 			<c:param name="lesId" value="${lesId}"/>
