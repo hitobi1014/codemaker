@@ -37,26 +37,20 @@ $(function() {
 	
 	// 목록으로 가기
 	$('#cancle').on('click', function(){
-		var searchSubId = '${examVO.searchSubId }';
-		var searchLesId = '${examVO.searchLesId }';
-		var searchExamState = '${examVO.searchExamState }';
-		
-		document.location = '/exam/selectAllExam?searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+		$('#subf').attr('action', '/exam/selectAllExam');
+		$('#subf').submit();
 	});
 	
 	// 수정하기
 	$('#temps').on('click', function(){
 		str = '<input type="hidden" name="examState" value="N">';
-		
 		$('#examf').append(str);
-		
 		$('#examf').submit();
 	});
 	
 	// 등록하기 - 상태값을 수정하면 끝
 	$('#regBtn').on('click', function(){
 		str = '<input type="hidden" name="examState" value="Y">';
-		
 		$('#examf').append(str);
 		$('#examf').submit();
 	});

@@ -115,19 +115,9 @@ public class ExamService {
 	 * @param examVO
 	 * @return
 	 */
-	public String insertExam(ExamVO examVO) {
-		try {
-			return examMapper.insertExam(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public int insertExam(ExamVO examVO) throws Exception {
+		return examMapper.insertExam(examVO);
 	}
-	
-
-
-	
-
 	
 	/**
 	 * 시험을 삭제하는 메서드
