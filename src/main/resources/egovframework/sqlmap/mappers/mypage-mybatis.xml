@@ -46,7 +46,7 @@
                                 SELECT point_sum FROM POINT
                                 WHERE user_id=#{userId}
                                 order by point_date desc) a
-                                WHERE ROWNUM=1) + #{pointSum}, #{userId})
+                                WHERE ROWNUM=1) + #{pointUpdate}, #{userId})
 </insert>
 
 <select id="deletePointCompare" parameterType="java.lang.String" resultType="int" >
@@ -66,7 +66,7 @@
                                 SELECT point_sum FROM POINT
                                 WHERE user_id=#{userId}
                                 order by point_date desc) a
-                                WHERE ROWNUM=1) - #{pointSum}, #{userId})
+                                WHERE ROWNUM=1) - #{pointUpdate}, #{userId})
 </insert>
 
 </mapper>

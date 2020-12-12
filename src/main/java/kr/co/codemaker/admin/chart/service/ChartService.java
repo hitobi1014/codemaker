@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.chart.dao.ChartMapper;
+import kr.co.codemaker.admin.chart.vo.LessonChartVO;
 import kr.co.codemaker.admin.chart.vo.PayVO;
 import kr.co.codemaker.common.vo.PageVo;
 
@@ -37,6 +38,10 @@ public class ChartService {
 
 	public List<PayVO> lessonPayExcel() throws Exception{
 		return chartMapper.lessonPayExcel();
+	}
+
+	public List<LessonChartVO> lessonPayTotal() throws Exception {
+		return chartMapper.lessonPayTotal();
 	}
 
 

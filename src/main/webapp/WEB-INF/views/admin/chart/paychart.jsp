@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <head>
 <title>Line Chart</title>
+</head>
 <style>
 canvas{
 	-moz-user-select: none;
@@ -22,68 +23,55 @@ canvas{
  display: block; margin: 0px auto;
 }
 </style>
-</head>
 <body>
 	<div style="width:75%;" id="candiv">
 	
 		<canvas id="canvas" width="300" height="80"></canvas>
 		
-	<button class="btn btn-sm btn-default float-right" id="randomizeData">Randomize Data</button>
-	<button class="btn btn-sm btn-default float-right" id="addDataset">Add Dataset</button>
-	<button class="btn btn-sm btn-default float-right" id="removeDataset">Remove Dataset</button>
-	<button class="btn btn-sm btn-default float-right" id="addData">Add Data</button>
-	<button class="btn btn-sm btn-default float-right" id="removeData">Remove Data</button>
-	
+		<button class="btn btn-sm btn-default float-right" id="randomizeData">Randomize Data</button>
+		<button class="btn btn-sm btn-default float-right" id="addDataset">Add Dataset</button>
+		<button class="btn btn-sm btn-default float-right" id="removeDataset">Remove Dataset</button>
+		<button class="btn btn-sm btn-default float-right" id="addData">Add Data</button>
+		<button class="btn btn-sm btn-default float-right" id="removeData">Remove Data</button>
 	</div>
 	
-	<br>
-	<br>
-	
-	<script>
+				
+				<c:forEach var="i"  begin="1" end="30" step="5">
+				
+				</c:forEach>
+			
+<script>
+
+// 		var i = 30;
+// 		var j = 100;
+		
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-// 		var sum= $('#aaa').val();
-// 		console.log(sum);
 		var config = {
 			type: 'line',
 			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],  //X축제목
-				datasets: [{
-					label: 'My First dataset',
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
-					data: [
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor()
-							${paySum}
-					],
-					fill: false,
-				}, {
-					label: 'My Second dataset',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: [
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor(),
-// 						randomScalingFactor()
-						
-					],
-				}]
+				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+// 				labels: ${jarray2},  //X축제목
+				datasets: [
+					<c:forEach items="${lessonPayTotal}" var="lessonPay" varStatus="status">
+							{
+							label: '<c:out value="${lessonPay.lesId}"/>',
+							backgroundColor: 'rgb(${status.index*80+100}, ${status.index*60}, ${status.index*40})',
+							borderColor: 'rgb(${status.index*80+100}, ${status.index*60}, ${status.index*40})',
+							data: [
+								<c:out value="${lessonPay.result}"/>
+								],
+							fill: false,
+							}
+							<c:if test="${!status.last}">,</c:if>
+					</c:forEach>	
+							
+					]
 			},
 			options: {
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart'
+					text: '[월별 강의 매출]'
 				},
 				tooltips: {
 					mode: 'index',
@@ -101,15 +89,16 @@ canvas{
 							labelString: 'Month'
 						}
 					}],
-					yAxes: [{ //y축
-						display: true,
-						scaleLabel: {
-// 							 min: 0, // minimum value
-//                              max: 10 ,
-							display: true,
-							labelString: 'Sales'
-						}
-					}]
+					yAxes: [{ //y 축
+							 display: true,
+							 labelString: 'Sales',
+								ticks : {
+									beginAtZero: true,
+	                                steps: 10,
+	                                stepValue: 50000,
+	                                max: 1600000
+								}
+							}]
 				}
 			}
 		};
@@ -124,7 +113,6 @@ canvas{
 				dataset.data = dataset.data.map(function() {
 					return randomScalingFactor();
 				});
-
 			});
 
 			window.myLine.update();
@@ -135,7 +123,7 @@ canvas{
 			var colorName = colorNames[config.data.datasets.length % colorNames.length];
 			var newColor = window.chartColors[colorName];
 			var newDataset = {
-				label: 'Dataset ' + config.data.datasets.length,
+				label: 'Dataset' + config.data.datasets.length,
 				backgroundColor: newColor,
 				borderColor: newColor,
 				data: [],
@@ -177,6 +165,7 @@ canvas{
 
 			window.myLine.update();
 		});
+		
 </script>
 
 <!-- 매출 테이블입니다. -->

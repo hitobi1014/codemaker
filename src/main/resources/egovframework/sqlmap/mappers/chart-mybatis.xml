@@ -26,4 +26,62 @@
 	ORDER BY a.pay_date DESC
 </select>
 
+<select id="lessonPayTotal" resultType="kr.co.codemaker.admin.chart.vo.LessonChartVO">
+WITH chart AS (
+    SELECT
+        z.*,
+        nvl(y.pay_sum,0) pay_sum
+    FROM
+        (
+            SELECT
+                b.les_id,
+                a.pay_yyyymm
+            FROM
+                (
+                    SELECT
+                        '2020'
+                        || lpad(level,2,'0') pay_yyyymm
+                    FROM
+                        dual
+                    CONNECT BY
+                        level <![CDATA[<]]> 13
+                ) a,
+                (
+                    SELECT
+                        *
+                    FROM
+                        lesson
+                    WHERE
+                        les_state = 'Y'
+                ) b
+        ) z,
+        (
+            SELECT
+                TO_CHAR(pay_date,'yyyymm') pay_date,
+                les_id,
+                SUM(pay_sum) AS pay_sum
+            FROM
+                pay
+            GROUP BY
+                TO_CHAR(pay_date,'yyyymm'),
+                les_id
+        ) y
+    WHERE
+        z.les_id = y.les_id (+)
+        AND   z.pay_yyyymm = y.pay_date (+)
+    ORDER BY
+        z.les_id ASC,
+        z.pay_yyyymm ASC
+) SELECT
+    les_id,
+    LISTAGG(pay_sum,
+    ',') WITHIN GROUP(
+    ORDER BY
+        pay_sum
+    ) AS result
+  FROM
+    chart
+GROUP BY
+    les_id
+</select>
 </mapper>

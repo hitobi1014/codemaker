@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -182,9 +183,9 @@
 	        <form action="${cp}/mypage/insertPoint" method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸충전할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="text" class="form-control" name="pointUpdate" placeholder="POINT">
-	       <input type="hidden" class="form-control" name="pointSum" >
-	       <input type="hidden" class="form-control" name="userId" >
+	       <input type="number" class="form-control" name="pointUpdate" placeholder="POINT">
+<!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
+	       <input type="hidden" class="form-control" name="userId" id="userId">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-primary" id="pointin">충전하기</button>
@@ -223,11 +224,11 @@
 	       
 	        <h4 class="modal-title" id="myModalLabel">💰 POINT 환불</h4>
 	      </div>
-	        <form action="${cp}/mypage/deletePoint" method="post">
+	        <form  method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸환불할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="text" class="form-control" name="pointUpdate" placeholder="POINT">
-	       <input type="hidden" class="form-control" name="pointSum" >
+	       <input type="text" class="form-control" id="pointUpdate" name="pointUpdate" placeholder="POINT">
+<!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" >
 	      </div>
 	      <div class="modal-footer">
@@ -254,5 +255,29 @@
 // 	$("#signin").on( "click", function() {
 // 	        $('#myModal2').modal('show');  
 // 	});
-              
+       
+	
+	$(document).ready(function(){
+	$('#out').on("click",function(){
+	
+		var flag=true;
+		$.ajax({
+			url : "/mypage/deletePoint",
+			type : "post",
+			dataType : "json",
+			data : { pointUpdate : $('#pointUpdate').val()},
+			async: false, //비동기식인 ajax를 동기식으로 설정
+			success : function(res) {
+				if (res == "1") {
+					alert("환불잔액이 부족합니다.");
+					flag=false;
+				} else {
+					alert("환불처리를 진행하겠습니다.");
+				}
+			}
+		}); // idchk
+			return flag;
+	})
+});
+	
 </script>    

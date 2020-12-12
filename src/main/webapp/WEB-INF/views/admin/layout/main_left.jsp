@@ -129,18 +129,13 @@
 									매출 조회
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/selectLessonPay">
 										<span class="nav-text">강의별 조회</span>
 									</a>
 								</li>
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사별 조회</span>
-									</a>
-								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">기간별 조회</span>
 									</a>
 								</li>
 								<li >

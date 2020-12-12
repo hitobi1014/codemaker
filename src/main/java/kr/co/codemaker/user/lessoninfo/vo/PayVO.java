@@ -14,6 +14,7 @@ public class PayVO {
 	private Date cosTerm;
 	private int cosProcess;
 	private int payGroup;
+	
 	public String getPayId() {
 		return payId;
 	}
