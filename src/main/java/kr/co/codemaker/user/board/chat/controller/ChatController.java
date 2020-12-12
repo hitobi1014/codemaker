@@ -1,91 +1,79 @@
 package kr.co.codemaker.user.board.chat.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.RemoteEndpoint.Basic;
-import javax.websocket.server.ServerEndpoint;
-import javax.websocket.Session;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.co.codemaker.common.service.LoginService;
+import kr.co.codemaker.user.board.chat.service.ChatRoomService;
+import kr.co.codemaker.user.board.chat.service.ChatService;
+import kr.co.codemaker.user.board.chat.vo.ChatRoomVO;
+import kr.co.codemaker.user.board.chat.vo.ChatVO;
 
 
 @Controller
-@ServerEndpoint(value="/chat")
 public class ChatController {
-	private static final List<Session> sessionList=new ArrayList<Session>();
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
-	public ChatController() {
-        System.out.println("웹소켓(서버) 객체생성");
-    }
-    
-    @OnOpen
-    public void onOpen(Session session) {
-        logger.info("Open session id:" + session.getId());
-        try {
-            final Basic basic = session.getBasicRemote();
-            basic.sendText("대화방에 연결 되었습니다.");
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        sessionList.add(session);
-    }
-    
-    /*
-     * 모든 사용자에게 메시지를 전달한다.
-     * @param self
-     * @param sender
-     * @param message
-     */
-    private void sendAllSessionToMessage(Session self, String sender, String message) {
-    	
-        try {
-            for(Session session : ChatController.sessionList) {
-                if(!self.getId().equals(session.getId())) {
-                    session.getBasicRemote().sendText(sender+" : "+message);
-                }
-            }
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    /*
-     * 내가 입력하는 메세지
-     * @param message
-     * @param session
-     */
-    @OnMessage
-    public void onMessage(String message,Session session) {
-    	
-    	String sender = message.split(",")[1];
-    	message = message.split(",")[0];
-    	
-        logger.info("Message From "+sender + ": "+message);
-        try {
-            final Basic basic=session.getBasicRemote();
-            basic.sendText("<나> : "+message);
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        sendAllSessionToMessage(session, sender, message);
-    }
-    
-    @OnError
-    public void onError(Throwable e,Session session) {
-        
-    }
-    
-    @OnClose
-    public void onClose(Session session) {
-        logger.info("Session "+session.getId()+" has ended");
-        sessionList.remove(session);
-    }
+	
+	@Resource(name="chatService")
+	private ChatService chatService;
+	
+	@Resource(name="chatRoomService")
+	private ChatRoomService chatRoomService;
+	
+	@Resource(name="loginService")
+	private LoginService loginService;
+	
+//	@RequestMapping("/chat/chat")
+//	public String mulchat(Model model) {
+//		List<ChatRoomVO> chatList = chatRoomService.selectAllChatRoom();
+//		
+//		model.addAttribute("chatList", chatList);
+//		
+//		return "user/chat/testchat2";
+//	}
+	
+	@RequestMapping(path="/chat/realchat", method=RequestMethod.GET)
+	public String realchatView(ChatVO chatVo, Model model) {
+		List<ChatRoomVO> chatList = chatRoomService.selectAllChatRoom();
+		
+		
+		logger.debug("chat {}", chatVo);
+		model.addAttribute("chatList", chatList);
+		
+		return "user/chat/chat";
+	}
+	
+	@RequestMapping(path="/chat/realchat", method=RequestMethod.POST)
+	public String realchat(ChatVO chatVo, Model model, HttpSession session) {
+		List<ChatVO> chattingList = chatService.selectAllChat(chatVo);
+		
+		session.setAttribute("chatroomId", chatVo.getChatroomId());
+		
+		model.addAttribute("chattingList", chattingList);
+		
+		return "jsonView";
+	}
+	
+	@RequestMapping(path="/chat/insertChat", method=RequestMethod.POST)
+	public String insertChat(ChatVO chatVo, Model model) {
+		
+		chatService.insertChat(chatVo);
+		
+		return "user/chat/chat";
+	}
+	
+	
 }

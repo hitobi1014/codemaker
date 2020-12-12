@@ -6,10 +6,11 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class LessonIndexVO extends BaseVO{
 
-	private String lidxId;
-	private String lidxCont;
-	private String lesId;
-	private int lidxNum;
+	private String lidxId; 	// 목차아이디
+	private String lidxCont;	// 목차 과정내용
+	private String lesId;		// 강의아이디
+	private int lidxNum;		// 목차 강의차수
+	private String lidxPath;	// 목차 주소
 	
 								
 	private List<LessonIndexVO> lesIdxList;
@@ -18,6 +19,7 @@ public class LessonIndexVO extends BaseVO{
 	public String getLidxCont() {
 		return lidxCont;
 	}
+	
 
 
 	public void setLidxCont(String lidxCont) {
@@ -63,6 +65,17 @@ public class LessonIndexVO extends BaseVO{
 	public void setLesIdxList(List<LessonIndexVO> lesIdxList) {
 		this.lesIdxList = lesIdxList;
 	}
+
+
+	public String getLidxPath() {
+		return lidxPath;
+	}
+
+
+	public void setLidxPath(String lidxPath) {
+		this.lidxPath = lidxPath;
+	}
+	
 	
 	
 

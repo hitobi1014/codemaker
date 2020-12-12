@@ -14,6 +14,7 @@ public class LessonVO extends BaseVO{
 	private int lesCash;		// 강의 수강료
 	private String subNm;		// 과목명
 	
+	
 	public String getSubNm() {
 		return subNm;
 	}

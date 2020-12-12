@@ -4,18 +4,34 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class ResumeVO extends BaseVO{
 
-	private String resId;
-	private String resCode;
-	private String resNm;
-	private String resTel;
-	private String resMail;
-	private String resProfile;
-	private String resMotive;
-	private String resEdu;
-	private String resLicense;
-	private String resCareer;
-	private String resState;
+	private String resId;		//이력서 아이디
+	private String resCode;		//이력서 승인코드
+	private String resNm;		//이력서 이름
+	private String resTel;		//이력서 전화번호
+	private String resMail;		//이력서 이메일
+	private String resProfile_path;	//이력서 프로필
+	private String resMotive;	//이력서 지원동기
+	private String resEdu;		//이력서 학력
+	private String resLicense;	//이력서 자격증
+	private String resCareer;	//이력서 경력
+	private String resState;	//이력서 관리자 승인상태
 	public ResumeVO() {
+	}
+	
+	public ResumeVO(String resId, String resCode, String resNm, String resTel, 
+					String resMail, String resProfile_path, String resMotive, String resEdu,
+					String resLicense, String resCareer, String resState) {
+		this.resId = resId;
+		this.resCode = resCode;
+		this.resNm = resNm;
+		this.resTel = resTel;
+		this.resMail = resMail;
+		this.resProfile_path = resProfile_path;
+		this.resMotive = resMotive;
+		this.resEdu = resEdu;
+		this.resLicense = resLicense;
+		this.resCareer = resCareer;
+		this.resState = resState;
 	}
 	
 	public ResumeVO(String resCode) {
@@ -53,12 +69,15 @@ public class ResumeVO extends BaseVO{
 	public void setResMail(String resMail) {
 		this.resMail = resMail;
 	}
-	public String getResProfile() {
-		return resProfile;
+	
+	public String getResProfile_path() {
+		return resProfile_path;
 	}
-	public void setResProfile(String resProfile) {
-		this.resProfile = resProfile;
+
+	public void setResProfile_path(String resProfile_path) {
+		this.resProfile_path = resProfile_path;
 	}
+
 	public String getResMotive() {
 		return resMotive;
 	}

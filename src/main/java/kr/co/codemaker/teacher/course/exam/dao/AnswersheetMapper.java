@@ -26,19 +26,19 @@ public interface AnswersheetMapper {
 	 * 시험문제 보기를 등록하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param answersheetVo
+	 * @param answersheetVO
 	 * @return 
 	 */
-	public int insertAnswersheet(AnswersheetVO answersheetVo) throws Exception;
+	public int insertAnswersheet(AnswersheetVO answersheetVO) throws Exception;
 
 	/**
 	 * 시험보기를 수정하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param answersheetVo
+	 * @param answersheetVO
 	 * @return 
 	 */
-	public int updateAnswersheet(AnswersheetVO answersheetVo) throws Exception;
+	public int updateAnswersheet(AnswersheetVO answersheetVO) throws Exception;
 
 	/**
 	 * 해당 시험보기를 조회하는 메서드

@@ -10,4 +10,5 @@ public interface TeacherSubjectMapper {
 	
 	List<SubjectVO> selectSubject() throws Exception;
 
+	
 }

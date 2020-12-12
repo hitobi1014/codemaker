@@ -6,9 +6,9 @@
 	SELECT * 
 	  FROM lesson_index
 	  <where>
-	  	and les_id = #{les_id}
+	  	and les_id = #{lesId}
 	  </where>
-	    ORDER BY ASC lidx_num
+	    ORDER BY lidx_num ASC
 
 </select>
 </mapper>
