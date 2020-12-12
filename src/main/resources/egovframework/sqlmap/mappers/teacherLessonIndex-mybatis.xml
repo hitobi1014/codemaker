@@ -13,7 +13,7 @@
 	
 	<insert id="insertLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">
 		INSERT INTO lesson_index
-		VALUES('LIDX'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lidxNum}, #{lidxCont}, #{lidxPath}, #{lesId} )
+		VALUES('LIDX'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lidxNum}, #{lidxCont}, #{lidxPath}, #{lesId}, #{lidxDurtime},'0' )
 	</insert>
 	
 	<update id="updateLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">

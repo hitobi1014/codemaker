@@ -14,6 +14,29 @@ public class LessonVO extends BaseVO{
 	private int lesCash;		// 강의 수강료
 	private String subNm;		// 과목명
 	
+	private String lidxId;		// 강의목차 아이디
+	private int lidxDurtime;	// 강의 전체시간
+	private int lidxCurtime;	// 강의 재생시간
+	
+	
+	public String getLidxId() {
+		return lidxId;
+	}
+	public void setLidxId(String lidxId) {
+		this.lidxId = lidxId;
+	}
+	public int getLidxDurtime() {
+		return lidxDurtime;
+	}
+	public void setLidxDurtime(int lidxDurtime) {
+		this.lidxDurtime = lidxDurtime;
+	}
+	public int getLidxCurtime() {
+		return lidxCurtime;
+	}
+	public void setLidxCurtime(int lidxCurtime) {
+		this.lidxCurtime = lidxCurtime;
+	}
 	
 	public String getSubNm() {
 		return subNm;

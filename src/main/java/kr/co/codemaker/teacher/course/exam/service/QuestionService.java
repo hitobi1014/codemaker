@@ -29,7 +29,7 @@ public class QuestionService {
 	@Resource(name = "questionMapper")
 	private QuestionMapper questionMapper;
 
-	public String insertQuestion(QuestionVO questionVO) throws Exception {
+	public int insertQuestion(QuestionVO questionVO) throws Exception {
 		return questionMapper.insertQuestion(questionVO);
 	}
 

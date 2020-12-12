@@ -16,7 +16,6 @@ $(function() {
 		str = '<input type="hidden" name="examState" value="1">';
 		
 		$('#examf').append(str);
-		
 		$('#examf').submit();
 	});
 	
@@ -25,19 +24,14 @@ $(function() {
 		str = '<input type="hidden" name="examState" value="2">';
 		
 		$('#examf').append(str);
-		
 		$('#examf').attr('action', '/exam/updateExam');
-		
 		$('#examf').submit();
 	});
 	
 	// 목록으로 가기
 	$('#cancle').on('click', function(){
-		var searchSubId = '${examVO.searchSubId }';
-		var searchLesId = '${examVO.searchLesId }';
-		var searchExamState = '${examVO.searchExamState }';
-		
-		document.location = '/exam/selectAllExam?searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+		$('#examf').attr('action', '/exam/selectAllExam');
+		$('#examf').submit();
 	});
 
 })

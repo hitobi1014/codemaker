@@ -8,7 +8,9 @@ import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 @Mapper("userLessonIndexMapper")
 public interface LessonIndexMapper {
 	
-	List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception;
+	List<LessonIndexVO> selectLessonIndex(LessonIndexVO lessonIndexVO) throws Exception;	// 강의목차 조회
+	
+	int updateLessonIndex(LessonIndexVO lessonIndexVO) throws Exception; //강의목차 수정(진행률)
 	
 
 }
