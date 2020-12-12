@@ -15,14 +15,14 @@
     <!-- 현재 path는 echo-ws.html 을 가리키고 있다 -->
 
     <!-- 웹소켓 클라이언트가 '/echo-ws' 로 접속하면 -->
-<!-- echoHandler라는 bean으로 처리하겠다는 것 (아래 bean 선언과 연결하여..) -->
+	<!-- echoHandler라는 bean으로 처리하겠다는 것 (아래 bean 선언과 연결하여..) -->
     <websocket:handlers>
-	  <websocket:mapping handler="echoHandler" path="/websocket/echo.do" />
+	  <websocket:mapping handler="echoHandler" path="/web-alert" />
 	</websocket:handlers>
 
     <!-- 위에서 선언한 핸들러의 bean 설정 -->
     <!-- Controller의 경로를 정확시 설정해준다 -->
-    <bean id="echoHandler" class="kr.co.codemaker.user.board.chat.controller.EchoHandler" />
+    <bean id="echoHandler" class="kr.co.codemaker.common.controller.AlertHandler" />
     
     <websocket:handlers>
       <websocket:mapping handler="chatHandler" path="/chat-ws" />

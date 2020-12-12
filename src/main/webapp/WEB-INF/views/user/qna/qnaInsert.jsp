@@ -29,8 +29,12 @@ $(document).ready(function() {
     		alert("내용을 입력하세요");
     		return;
     	} else {
-    		alert("게시글 등록이 완료되었습니다.")
-    		$("#insertQna").submit();
+    		$.ajax({
+        		url : "/common/alert",
+        		success : function(){
+        			$("#insertQna").submit();
+        		}
+        	})
     	}
     })
 })	
@@ -72,7 +76,7 @@ $(document).ready(function() {
 					<hr>
 			
 					<div class="col-sm-10">
-						<input type="hidden" name="userId" value="" />
+						<input type="hidden" name="userId" value="${MEMBER_INFO.userId}" />
 					</div>
 					
 					<div class="col-sm-10">

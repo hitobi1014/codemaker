@@ -132,7 +132,7 @@ $(document).ready(function(){
 				</c:forEach>
 				
 				<c:choose>
-					<c:when test="${param.page != pages && param.page != null}">
+					<c:when test="${param.page != pages and param.page != null}">
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page+1}"><i class="fas fa-angle-right"></i></a></li>
 						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-double-right"></i></a></li>
 					</c:when>
@@ -141,7 +141,7 @@ $(document).ready(function(){
 			<hr>
 			<div>
 		        <select name="searchOption">
-		            <c:if test="${searchOption == '1' || searchOption == '' || searchOption == null}">
+		            <c:if test="${searchOption == '1' or searchOption == '' or searchOption == null}">
 			            <option value="1" selected>공지사항</option>
 			            <option value="2">자주묻는질문</option>
 		            </c:if>
