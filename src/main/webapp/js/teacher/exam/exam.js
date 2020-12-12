@@ -34,6 +34,7 @@ var createExam = function() {
 	str += '		<div class="anw">                                                                                                  ';
 	str += '			<textarea class="form-control" rows="5" class="comment" name="queExplainList" style="resize: none"></textarea> ';
 	str += '		</div>                                                                                                             ';
+	str += '		<input type="button" class="btn btn-default delBtn" value="문제 삭제">                                      ';
 	str += '	</div>                                                                                                                 ';
 	str += '</div>';
 	

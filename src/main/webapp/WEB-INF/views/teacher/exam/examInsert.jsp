@@ -77,7 +77,11 @@ $(function() {
 	// 취소 버튼
 	$('#cancle').on('click', function(){
 		self.close();
-	})
+	});
+	
+	$(document).on('click', '#delBtn' ,function(){
+		console.log('aa');
+	});
 	
 })
 </script>
@@ -116,7 +120,7 @@ body {
 .d4 {
 	background-color: #4285f4;
 	display: inline-block;
-	height: 570px;
+	height: 670px;
 	width: calc(1% + 2px);
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;
@@ -130,7 +134,7 @@ body {
 	width: calc(80% + 2px);
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
-	height: 570px;
+	height: 670px;
 	text-align: left;
 	margin-top: 10px;
 }
@@ -239,8 +243,11 @@ body {
 					<div class="anw">
 						<textarea class="form-control" rows="5" class="comment" name="queExplainList" style="resize: none"></textarea>
 					</div>
+					<input type="button" class="btn btn-default delBtn" value="문제 삭제">
 				</div>
 			</div>
+			
+			
 		</div>
 	</form:form>
 	<div class="btns">

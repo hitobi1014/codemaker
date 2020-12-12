@@ -88,7 +88,7 @@ $(function() {
 .d4 {
 	background-color: #4285f4;
 	display: inline-block;
-	height: 480px;
+	height: 670px;
 	width: calc(1% + 2px);
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;
@@ -103,7 +103,7 @@ $(function() {
 	border-bottom-left-radius: 8px;
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
-	height: 480px;
+	height: 670px;
 	text-align: left;
 	margin-top: 10px;
 }
@@ -199,7 +199,8 @@ $(function() {
 						<label for="sel2" class="sel2">문제를 입력해주세요.</label><br>
 						<input type="hidden" name="questionList[${status.index }].queId" class="form-control" value="${question.queId }"/>
 						<input type="text" name="questionList[${status.index }].queCont" class="form-control que" value="${question.queCont }" /> 
-						<br> 
+						<br>
+						<input type="text" name="questionList[${status.index }].queScore" class="form-control que" value="${question.queScore }"/><br>
 						<label for="sel3">보기를 입력해주세요. </label>
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 							<div class="anw">
