@@ -16,5 +16,6 @@ public interface LessonIndexMapper {
 	
 	int deleteLessonIndex(String lidxId) throws Exception;		// 강의목차 삭제
 	
+	
 
 }

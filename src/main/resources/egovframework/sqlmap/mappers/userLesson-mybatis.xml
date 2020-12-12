@@ -4,5 +4,8 @@
 	<select id="selectLesson" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonVO">
 		SELECT * 
 		  FROM lesson
+		  <where>
+		  	AND les_state='3'
+		  </where>
 	</select>
 </mapper>

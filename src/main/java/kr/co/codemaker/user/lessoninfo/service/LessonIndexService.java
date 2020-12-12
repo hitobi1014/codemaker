@@ -15,15 +15,8 @@ public class LessonIndexService {
 	@Resource(name="userLessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
-	public List<LessonIndexVO> selectLessonIndex(String lesId) {
-		
-		try {
+	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
 			return lessonIndexMapper.selectLessonIndex(lesId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	

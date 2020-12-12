@@ -57,7 +57,7 @@ public class UserPayController {
 			}
 		}
 		model.addAttribute("lessonVoList", lesson);
-		return "mainT/user/payment/pay";
+		return "mainT/user/payment/payList";
 	}
 	
 	//결제하기

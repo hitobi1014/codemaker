@@ -12,117 +12,163 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.teacher.course.exam.dao.AnswersheetMapper;
 import kr.co.codemaker.teacher.course.exam.dao.ExamMapper;
 import kr.co.codemaker.teacher.course.exam.dao.QuestionMapper;
-import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
+import kr.co.codemaker.teacher.course.exam.vo.LessonVO;
 import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
+import kr.co.codemaker.teacher.course.exam.vo.SubjectVO;
 
 /**
  * 
-* ExamService.java
-*
-* @author 김미연
-* @version 1.0
-* @since 2020. 11. 24.
-*
-* 수정자 수정내용
-* ------ ------------------------
-* 김미연 최초 생성
-*
+ * ExamService.java
+ *
+ * @author 김미연
+ * @version 1.0
+ * @since 2020. 11. 24.
+ *
+ *        수정자 수정내용 ------ ------------------------ 김미연 최초 생성
+ *
  */
 @Service("examService")
 public class ExamService {
-	
+
 	@Resource(name = "examMapper")
 	private ExamMapper examMapper;
-	
+
 	@Resource(name = "questionMapper")
 	private QuestionMapper questionMapper;
-	
+
 	@Resource(name = "answersheetMapper")
 	private AnswersheetMapper answersheetMapper;
+	
+	
+	/**
+	 * 과목을 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param subjectVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SubjectVO> selectAllSubject(SubjectVO subjectVO) throws Exception{
+		return examMapper.selectAllSubject(subjectVO);
+	}
+	
+	/**
+	 * 강의을 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param lessonVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<LessonVO> selectAllLesson(LessonVO lessonVO) throws Exception{
+		return examMapper.selectAllLesson(lessonVO);
+	}
+	
+	/**
+	 * 자신이 출제한 시험 문제를 전체 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 */
+	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception {
+		return examMapper.selectAllExam(examVO);
+	}
+	
+	/**
+	 * 자신이 출제한 시험 문제 전체수를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public int selectTotalCntExam(ExamVO examVO) throws Exception{
+		return examMapper.selectTotalCntExam(examVO);
+	}
+	
+	/**
+	 * 해당 시험을 조회하는 메서드
+	 * 
+	 * @param examVO
+	 * @return
+	 */
+	public ExamVO selectExam(ExamVO examVO) throws Exception{
+		return examMapper.selectExam(examVO);
+	}
 
-	public String insertExam(ExamVO examVo) {
+	/**
+	 * 시험을 수정하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 */
+	public int updateExam(ExamVO examVO) throws Exception{
+		return examMapper.updateExam(examVO);
+	}
+
+	/**
+	 * 시험을 등록하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 */
+	public String insertExam(ExamVO examVO) {
 		try {
-			return examMapper.insertExam(examVo);
+			return examMapper.insertExam(examVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public int updateExam(ExamVO examVo) {
-		try {
-			return examMapper.updateExam(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+
+
 	
-	public Map<String, Object> selectAllExam(ExamRequestVO examRequestVo) {
-		Map<String, Object> examMap = new HashMap<String, Object>();
-		
-		List<ExamVO> examList = new ArrayList<ExamVO>();
-		try {
-			examList = examMapper.selectAllExam(examRequestVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		examMap.put("examList", examList);
-		
-		int totalCnt = 0;
-		try {
-			totalCnt = examMapper.selectTotalCntExam(examRequestVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		examMap.put("totalCnt", totalCnt);
-		
-		return examMap;
-	}
+
 	
-	public ExamVO selectExam(ExamVO examVo) {
-		try {
-			return examMapper.selectExam(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public int deleteExam(ExamVO examVo) {
-		
+	/**
+	 * 시험을 삭제하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 */
+	public int deleteExam(ExamVO examVO) {
+
 		List<QuestionVO> questionList = new ArrayList<>();
 		try {
-			questionList = questionMapper.selectQuestion(examVo);
+			questionList = questionMapper.selectQuestion(examVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// 시험문제 보기 삭제
-		for(QuestionVO questionVo : questionList) {
-			for(int i = 0; i < 4 ; i++) {
+		for (QuestionVO questionVO : questionList) {
+			for (int i = 0; i < 4; i++) {
 				try {
-					answersheetMapper.deleteAnswersheet(questionVo);
+					answersheetMapper.deleteAnswersheet(questionVO);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		
+
 		// 시험 문제 삭제
 		try {
-			questionMapper.deleteQuestion(examVo);
+			questionMapper.deleteQuestion(examVO);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			// 시험 삭제
-			return examMapper.deleteExam(examVo);
+			return examMapper.deleteExam(examVO);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 		return 0;
 	}
 

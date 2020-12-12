@@ -138,6 +138,7 @@ $(function(){
 // 		})
 // 	})
 	
+	// 강의목차 조회
 	$('.lesIdxTbody').on("click","tr",function(){
 		console.log("뭐떠라");
 		var lesVal = $(this).data("lesid");
@@ -167,8 +168,9 @@ $(function(){
 	})
 	
 	
-	
+	// 삭제 버튼
 	$('#lesTbody').on('click', '.delClass', function(){
+		alert('삭제되었습니다.');
 		var lesid = $(this).data("lesid");
 		console.log(lesid);
 		$.ajax({
@@ -187,6 +189,7 @@ $(function(){
 			})
 	})
 	
+	// 수정버튼
 	$('#lesTbody').on('click','.upClass',function(){
 		var lesId=$(this).data("lesid");
 		var subId=$(this).data("subid");
@@ -196,7 +199,7 @@ $(function(){
 	
 })	
 
-
+// 과목선택하고 강의조회버튼
 var selLes = function(){
 	var subVal = $("#subject option:selected").val();
 	console.log(subVal);

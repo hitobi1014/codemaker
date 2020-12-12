@@ -17,6 +17,7 @@ public class TeacherVO {
 	private String resId;
 	private String comId;
 	
+	
 	public TeacherVO() {
 	}
 	

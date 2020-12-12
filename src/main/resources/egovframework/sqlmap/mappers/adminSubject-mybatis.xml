@@ -20,10 +20,11 @@
 	</update>
 	
 	<delete id="deleteSubjcet" parameterType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
-		DELETE FROM subject
-		<where>
-			AND sub_id=#{subId}
-		</where>
+		UPDATE subject
+		   SET sub_out='Y'
+		   <where>
+		   		AND sub_id=#{subId}
+		   </where>
 	</delete>
 
 </mapper>

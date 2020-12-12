@@ -10,12 +10,14 @@ public class ScheduleVO extends BaseVO {
 
 	private String schCont;		// 스케줄 내용
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date schEdate;		// 스케줄 종료일
+	
 	private String schId;		// 스케줄 아이디
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Date schSdate;		// 스케줄 시작일
+	
 	private String schAllday;	// 스케줄 종일 여부
 	private String adminId;		// 관리자 아이디
 	

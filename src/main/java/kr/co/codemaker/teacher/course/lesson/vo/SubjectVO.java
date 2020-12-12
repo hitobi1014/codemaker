@@ -7,6 +7,7 @@ public class SubjectVO extends BaseVO{
 	private String subOut;
 	private String subNm;
 	private String subId;
+	
 	public void setSubOut(String subOut) {
 		this.subOut = subOut; 
 	}
