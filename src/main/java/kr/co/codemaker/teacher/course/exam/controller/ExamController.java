@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
@@ -19,7 +20,6 @@ import kr.co.codemaker.teacher.course.exam.service.QuestionService;
 import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
 import kr.co.codemaker.teacher.course.exam.vo.LessonVO;
-import kr.co.codemaker.teacher.course.exam.vo.ParamExamVO;
 import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
 import kr.co.codemaker.teacher.course.exam.vo.SubjectVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
@@ -213,7 +213,7 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/insertExamView")
-	public String insertViewExam(ExamVO examVO, Model model) {
+	public String insertViewExam(ExamVO examVO) {
 		return "teacher/exam/examInsert";
 	}
 
@@ -224,33 +224,36 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/insertExam")
-	public String insertExam(ParamExamVO paramExamVO) {
-
-		logger.debug("aa");
-		logger.debug("aa");
-		// cur_id 와 exam_nm 분리하여 다시 셋팅
-//		String[] examInfo = examVO.getLidxId().trim().split("\"");
-//		examVO.setLidxId(examInfo[0]);
-//		examVO.setExamNm(examInfo[1]);
-//
-//		String exam_id = examService.insertExam(examVO); // 시험 아이디를 가져온다.
-//
-//		int index = 0;
-//		for (QuestionVO questionVO : questionList) {
-//			// 시험 아이디를 셋팅
-//			questionVO.setExamId(exam_id);
-//
-//			String que_id = questionService.insertQuestion(questionVO);
-//
-//			for (int i = index; i < index + 4; i++) { // 보기가 4개씩 존재
-//				// 시험 문제 아이디를 셋팅
-//				answerList.get(i).setQueId(que_id);
-//			}
-//			index = +4;
-//		}
-
-		// 등록된 시험 화면으로 이동
-		return "redirect:/exam/selectExam?exam_id=";
+	@ResponseBody
+	public void insertExam(ExamVO examVO) {
+		int index = 0;
+		try {
+				examService.insertExam(examVO);
+				for (int i=0; i < examVO.getQueContList().size(); i++) {
+					// 시험 아이디를 셋팅
+					QuestionVO questionVO = new QuestionVO();
+					questionVO.setExamId(examVO.getExamId());
+					questionVO.setQueCont(examVO.getQueContList().get(i));
+					questionVO.setQueAnswer(examVO.getQueAnswerList().get(i));
+					questionVO.setQueExplain(examVO.getQueExplainList().get(i));
+					questionVO.setQueScore(examVO.getQueScoreList().get(i));
+					
+					questionService.insertQuestion(questionVO);
+	
+				for (int j = index; j < index + 4; j++) { // 보기가 4개씩 존재
+					// 시험 문제 아이디를 셋팅
+					AnswersheetVO answersheetVO = new AnswersheetVO();
+					answersheetVO.setAnsCont(examVO.getAnsContList().get(j));
+					answersheetVO.setQueId(questionVO.getQueId());
+					
+					answersheetService.insertAnswersheet(answersheetVO);
+				}
+				index =+4;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
 
 

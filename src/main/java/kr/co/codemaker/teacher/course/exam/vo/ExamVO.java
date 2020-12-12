@@ -32,8 +32,45 @@ public class ExamVO extends LessonVO {
 	private List<QuestionVO> questionList;			// 문제 리스트
 	private List<AnswersheetVO> answersheetLists;	// 보기 리스트
 	
+	private List<String> queContList;		// 문제 리스트
+	private List<String> queAnswerList;		// 정답 리스트
+	private List<String> queExplainList;	// 해설 리스트
+	private List<Integer> queScoreList;		// 점수 리스트
+
+	private List<String> ansContList;		// 보기 리스트
 	
 	
+	
+	public List<String> getQueContList() {
+		return queContList;
+	}
+	public void setQueContList(List<String> queContList) {
+		this.queContList = queContList;
+	}
+	public List<String> getQueAnswerList() {
+		return queAnswerList;
+	}
+	public void setQueAnswerList(List<String> queAnswerList) {
+		this.queAnswerList = queAnswerList;
+	}
+	public List<String> getQueExplainList() {
+		return queExplainList;
+	}
+	public void setQueExplainList(List<String> queExplainList) {
+		this.queExplainList = queExplainList;
+	}
+	public List<Integer> getQueScoreList() {
+		return queScoreList;
+	}
+	public void setQueScoreList(List<Integer> queScoreList) {
+		this.queScoreList = queScoreList;
+	}
+	public List<String> getAnsContList() {
+		return ansContList;
+	}
+	public void setAnsContList(List<String> ansContList) {
+		this.ansContList = ansContList;
+	}
 	public String getLidxId() {
 		return lidxId;
 	}
