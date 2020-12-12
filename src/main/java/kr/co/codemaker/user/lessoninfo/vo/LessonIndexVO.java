@@ -9,7 +9,21 @@ public class LessonIndexVO extends BaseVO{
 	private String lidxNum;	// 목차 강의차수
 	private String lidxId;		// 목차 아이디
 	private String lidxPath;	// 강의 주소
+	private int lidxDurtime;	// 강의 전체시간
+	private int lidxCurtime;	// 강의 재생시간
 	
+	public int getLidxDurtime() {
+		return lidxDurtime;
+	}
+	public void setLidxDurtime(int lidxDurtime) {
+		this.lidxDurtime = lidxDurtime;
+	}
+	public int getLidxCurtime() {
+		return lidxCurtime;
+	}
+	public void setLidxCurtime(int lidxCurtime) {
+		this.lidxCurtime = lidxCurtime;
+	}
 	public void setLidxCont(String lidxCont) {
 		this.lidxCont = lidxCont; 
 	}

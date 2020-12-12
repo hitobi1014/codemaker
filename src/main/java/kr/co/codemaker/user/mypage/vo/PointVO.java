@@ -4,55 +4,54 @@ import java.util.Date;
 
 public class PointVO {
 
-	private String pointSum;
+	private int pointSum;
 	private Date pointDate;
 	private String pointId;
 	private String pointGn;
 	private String userId;
-	private String pointUpdate;
-	
-	public void setPointSum(String pointSum) {
-		this.pointSum = pointSum; 
+	private int pointUpdate;
+	public int getPointSum() {
+		return pointSum;
 	}
-	public String getPointSum() {
-		return pointSum; 
+	public void setPointSum(int pointSum) {
+		this.pointSum = pointSum;
 	}
-
 	public Date getPointDate() {
 		return pointDate;
 	}
 	public void setPointDate(Date pointDate) {
 		this.pointDate = pointDate;
 	}
-	public void setPointId(String pointId) {
-		this.pointId = pointId; 
-	}
 	public String getPointId() {
-		return pointId; 
+		return pointId;
 	}
-	public void setPointGn(String pointGn) {
-		this.pointGn = pointGn; 
+	public void setPointId(String pointId) {
+		this.pointId = pointId;
 	}
 	public String getPointGn() {
-		return pointGn; 
+		return pointGn;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId; 
+	public void setPointGn(String pointGn) {
+		this.pointGn = pointGn;
 	}
 	public String getUserId() {
-		return userId; 
+		return userId;
 	}
-	public void setPointUpdate(String pointUpdate) {
-		this.pointUpdate = pointUpdate; 
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPointUpdate() {
-		return pointUpdate; 
+	public int getPointUpdate() {
+		return pointUpdate;
+	}
+	public void setPointUpdate(int pointUpdate) {
+		this.pointUpdate = pointUpdate;
 	}
 	@Override
 	public String toString() {
 		return "PointVO [pointSum=" + pointSum + ", pointDate=" + pointDate + ", pointId=" + pointId + ", pointGn="
 				+ pointGn + ", userId=" + userId + ", pointUpdate=" + pointUpdate + "]";
 	}
+
 
 	
 	

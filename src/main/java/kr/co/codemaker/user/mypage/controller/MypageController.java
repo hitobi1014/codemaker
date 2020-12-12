@@ -21,8 +21,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import jxl.biff.formula.ParseContext;
 import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
@@ -199,7 +201,6 @@ public class MypageController {
 	public String selectPoint(HttpSession session, HttpServletRequest request, PointVO pointVo, Model model,
 								@RequestParam(name="page",required = false, defaultValue = "1")int page,
 								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
-		
 
 		//세션에서아이디가져온다.
 		session = request.getSession();
@@ -237,16 +238,17 @@ public class MypageController {
 	public String insertPoint(PointVO pointVo,HttpSession session, HttpServletRequest request) {
 		
 		//세션에서아이디가져온다.
-		session = request.getSession();
         UserVO userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String pointUser = userVo.getUserId();
         String userId = pointUser;
 		
-		String pointSum=pointVo.getPointUpdate();
+//		String pointSum=pointVo.getPointSum();
 		
 		pointVo.setUserId(userId);
-		pointVo.setPointSum(pointSum);
+//		pointVo.setPointSum(pointSum);
+//		
+
 		
 		int insertCnt=0;
 		
@@ -262,28 +264,19 @@ public class MypageController {
 	
 	
 	@RequestMapping(path="/mypage/deletePoint" ,method=RequestMethod.POST)
-	public String deletePoint(PointVO pointVo,HttpSession session, HttpServletRequest request) {
+	@ResponseBody
+	public String deletePoint(PointVO pointVo, HttpSession session) {
 		
-		logger.debug("환불 인서트~!!!!!!");
-		logger.debug("환불 되기 전  : {}", pointVo.getPointUpdate());
-		
-		session = request.getSession();
         UserVO userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String pointUser = userVo.getUserId();
         String userId = pointUser;
         
-        
-		String pointSum=pointVo.getPointUpdate();
-		String pointUpdate=pointVo.getPointUpdate();
+		int pointSum=pointVo.getPointSum();
+		int pointUpdate=pointVo.getPointUpdate();
 				
-		
 		pointVo.setUserId(userId);
 		pointVo.setPointSum(pointSum);
-		
-		
-		logger.debug("pointVo:{}",pointVo);
-		
 		
 		//생각을 해보자
 		//만약. 한 회원의 환불총합계(pointSum)보다 환불하려는 금액(pointUpdate)이 더 큰 경우
@@ -299,22 +292,21 @@ public class MypageController {
 			point = mypageService.deletePointCompare(userId);
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		}
-		logger.debug("point!!!!!!!!!!! : {} " , point);
-		
-		if(point < Integer.parseInt(pointUpdate)){
-			return "mypageT/user/mypage/mypage_myinfo";
+		}  
+		if(point < pointUpdate){
+			
+			String pp = "1";
+			return pp;
 		}else {
 			int deleteCnt=0;
 			try {
 				deleteCnt=mypageService.deletePoint(pointVo);
-				logger.debug("pointVo:{}",pointVo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			logger.debug("환불 후 pointVo:{}",pointVo);
+			return "0";
 		}
-		return "redirect:/mypage/selectPoint";
+//		return "redirect:/mypage/selectPoint";
 	}
 	
 }

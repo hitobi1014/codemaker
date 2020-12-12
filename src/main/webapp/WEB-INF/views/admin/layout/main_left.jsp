@@ -60,7 +60,7 @@
 										<div class="sub-menu">
 										
 											<li >
-												<a href="#">이력서 조회</a>
+												<a href="${cp }/admin/resumeList">이력서 조회</a>
 											</li>
 										    
 										</div>
@@ -129,18 +129,13 @@
 									매출 조회
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/selectLessonPay">
 										<span class="nav-text">강의별 조회</span>
 									</a>
 								</li>
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사별 조회</span>
-									</a>
-								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">기간별 조회</span>
 									</a>
 								</li>
 								<li >

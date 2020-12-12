@@ -1,8 +1,8 @@
-package kr.co.codemaker.user.lessoninfo.vo;
+package kr.co.codemaker.admin.chart.vo;
 
 import java.util.Date;
 
-public class PayVO {
+public class PayVO extends LessonVO{
 
 	private String payId;
 	private String lesId;

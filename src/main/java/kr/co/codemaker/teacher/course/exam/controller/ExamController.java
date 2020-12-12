@@ -201,6 +201,8 @@ public class ExamController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// redirect Attribute
+		
 		// 수정된 시험 화면으로 이동
 		return "redirect:/exam/selectExam?examId=" + examVO.getExamId() + "&searchSubId=" + examVO.getSearchSubId() 
 														+ "&searchLesId=" + examVO.getSearchLesId() + "&searchExamState=" + examVO.getSearchExamState();
