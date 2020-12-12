@@ -8,7 +8,7 @@ import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 @Mapper("TeacherSubjectMapper")
 public interface TeacherSubjectMapper {
 	
-	List<SubjectVO> selectSubject() throws Exception;
+	List<SubjectVO> selectSubject() throws Exception;		// 과목 조회
 
 	
 }

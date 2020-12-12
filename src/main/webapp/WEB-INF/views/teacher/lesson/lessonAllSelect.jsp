@@ -252,11 +252,11 @@ var addLes = function(){
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
 						<option value="0">과목</option>
-						<option value="SUB0001">DB</option>
-						<option value="SUB0002">Spring</option>
-						<option value="SUB0003">Java</option>
-						<option value="SUB0004">Python</option>
-						<option value="SUB0005">Jsp</option>
+						<option value="${subjectList.subId}">${subjectList.subNm}</option>
+<!-- 						<option value="SUB0002">Spring</option> -->
+<!-- 						<option value="SUB0003">Java</option> -->
+<!-- 						<option value="SUB0004">Python</option> -->
+<!-- 						<option value="SUB0005">Jsp</option> -->
 					</select> 
 <!-- 					<select class="form-control" id="lesson"> -->
 <!-- 						<option value="99">강의</option> -->

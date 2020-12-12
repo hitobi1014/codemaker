@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
  * 
@@ -57,12 +57,15 @@ public class TeacherLessonController {
 	@RequestMapping(path = "/teacherL/selectSubject", method = RequestMethod.GET)
 	public String selecSubject(Model model, HttpSession session) {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
+		List<SubjectVO> subjectList;
 		String tchId = teacherVO.getTchId();
 
 		List<LessonVO> noLessonList;
 		try {
 			noLessonList = lessonService.selectNoLesson(tchId);
+			subjectList = subjectService.selectSubject();
 			model.addAttribute("noLessonList", noLessonList);
+			model.addAttribute("subjectList", subjectList);
 
 			logger.debug("개설안된강의!!:{}", noLessonList);
 			return "teacherPage/teacher/lesson/lessonAllSelect";
