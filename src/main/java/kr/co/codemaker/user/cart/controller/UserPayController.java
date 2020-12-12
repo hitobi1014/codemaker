@@ -77,6 +77,11 @@ public class UserPayController {
 	//결제하기
 	@RequestMapping(path="user/pay")
 	public String pay(PayVO payVo, PointVO pointVo,HttpSession session,Model model) {
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		Calendar cal = Calendar.getInstance();
+		LessonVO lvo = null;
+		
 		String payGroup = UUID.randomUUID().toString();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		pointVo.setUserId(userVo.getUserId());
@@ -87,10 +92,10 @@ public class UserPayController {
 		}
 		logger.debug("포인트 : {}",pointVo);
 		logger.debug("결제정보 : {}",payVo.getPayList());
+		logger.debug("결제 단건 :{}",payVo);
 		//장바구니에서 결제할때
 		if(payVo.getPayList() != null) {
 			List<LessonVO> lessonList = new ArrayList<>();
-			LessonVO lvo = null;
 			for(int i=0; i<payVo.getPayList().size();i++) {
 				CartVO cartVo = new CartVO();
 				cartVo.setLesId(payVo.getPayList().get(i).getLesId());
@@ -103,9 +108,6 @@ public class UserPayController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Date now = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-				Calendar cal = Calendar.getInstance();
 				cal.setTime(now);
 				cal.add(Calendar.DATE, lvo.getLesTerm());
 				lvo.setLesDate(cal.getTime());
@@ -120,10 +122,20 @@ public class UserPayController {
 			try {
 				payVo.setPayGroup(payGroup);
 				userPayService.insertPay(payVo);
+				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
+				logger.debug("가져온 lvo : {}",lvo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			cal.setTime(now);
+			cal.add(Calendar.DATE, lvo.getLesTerm());
+			lvo.setLesDate(cal.getTime());
+			model.addAttribute("payVo", payVo);
+			model.addAttribute("pointVo", pointVo);
+			model.addAttribute("lessonVo", lvo);
+			return "mainT/user/payment/paymentOne-complete";
 		}
+		
 		return "redirect:/user/main";
 	}
 	

@@ -12,10 +12,6 @@
 <div class="pay-info-boxArea">
 	<c:set var="now" value="<%=new java.util.Date()%>"/> <!-- 오늘날짜구하기 -->
 	<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="day"/>
-	<c:set value="0" var="total"/>
-	<c:forEach items="${payList}" var="pay">
-			<c:set value="${total + pay.paySum}" var="total"/>
-	</c:forEach>
 	
 	<div class="pay-info-box">
 		<h3>결제정보</h3>
@@ -30,21 +26,16 @@
 					<th>강의료</th>
 				</tr>
 			</thead>
-			<c:set value="0"  var="lesPrice"/>
-			<c:forEach items="${lessonList}" var="lesson">
-				<c:set value="${lesson.lesTerm}" var="lesTerm"/>
-				<c:set value="${lesPrice+lesson.lesCash}" var="lesPrice"/>
-				<tbody>
-					<tr>
-						<td>${lesson.lesNm}</td>
-						<td>${lesson.tchNm}</td>
-						<fmt:formatDate value="${lesson.lesDate}" var="lesDate" pattern="yyyy.MM.dd"/>
-						<td>${day}~ ${lesDate}</td>
-						<fmt:formatNumber value="${lesson.lesCash}" var="lesCash"/>
-						<td>${lesCash}</td>
-					</tr>
-				</tbody>
-			</c:forEach>
+			<tbody>
+				<tr>
+					<td>${lessonVo.lesNm}</td>
+					<td>${lessonVo.tchNm}</td>
+					<fmt:formatDate value="${lessonVo.lesDate}" var="lesDate" pattern="yyyy.MM.dd"/>
+					<td>${day}~ ${lesDate}</td>
+					<fmt:formatNumber value="${lessonVo.lesCash}" var="lesCash"/>
+					<td>${lesCash}</td>
+				</tr>
+			</tbody>
 		</table>
 		<!-- 결제정보들 -->
 		<div class="pay-info">
@@ -57,9 +48,7 @@
 				<div>
 					<div class="total-info-items wid-20" >
 						<span class="fs-15">정가</span>
-						<span class="fs-11">
-							<fmt:formatNumber value="${lesPrice}" maxFractionDigits="3"/>
-						</span>
+						<span class="fs-11">${lesCash}</span>
 					</div>
 					<div class="total-info-items wid-10" style="padding-top: 53px;">
 						<span class="fs-15"><img src="/img/icon/iconmonstr-minus-6.svg" style="width: 24px;"></span>
@@ -76,7 +65,7 @@
 					<div class="total-info-items wid-20">
 						<span class="fs-15">결제금액</span>
 						<span class="fs-11" id="pay-txt">
-							<fmt:formatNumber value="${total}" var="payCost" maxFractionDigits="3"/><c:out value="${payCost}원"/>
+							<fmt:formatNumber value="${payVo.paySum}" var="payCost" maxFractionDigits="3"/><c:out value="${payCost}원"/>
 						</span>
 					</div>				
 				</div>

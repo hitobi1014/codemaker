@@ -18,6 +18,7 @@
 			<form action="${pay}" method="post" id="payFrm">
 				<% int sum=0; %>
 				<input type="hidden" id="paySum" name="paySum" value="${lessonVo.lesCash}"/>
+				<input type="hidden" name="payWay" value="1"/>
 				<input type="hidden" name="cosTerm" value="${lessonVo.lesTerm}"/>
 				<input type="hidden" name="userId" value="${userVo.userId}"/>
 				<input type="hidden" name="lesId" value="${lessonVo.lesId}" class="lesson"/>
@@ -256,8 +257,9 @@ $(function(){
 					}
 				}
 			})
+		}else{
+			$("#payFrm").submit();
 		}
-// 		$("#payFrm").submit();
 	})
 })
 function sumbitTest(){
