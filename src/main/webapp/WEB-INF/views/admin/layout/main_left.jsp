@@ -60,7 +60,7 @@
 										<div class="sub-menu">
 										
 											<li >
-												<a href="#">이력서 조회</a>
+												<a href="${cp }/admin/resumeList">이력서 조회</a>
 											</li>
 										    
 										</div>

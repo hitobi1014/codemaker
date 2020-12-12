@@ -28,7 +28,7 @@ public class ResumeController {
 	@RequestMapping(path="/resume/view", method = RequestMethod.GET)
 	public String resumeView() {
 		
-		return "mainT/teacher/resume/test";
+		return "mainT/teacher/resume/resumeInsert";
 	}
 	
 	@RequestMapping(path="/resume/insert", method = RequestMethod.POST)
@@ -61,7 +61,7 @@ public class ResumeController {
 		} catch (Exception e) {
 			
 		}
-		return "mainT/teacher/resume/test";
+		return "mainT/teacher/resume/resumeInsert";
 	}
 	
 	
