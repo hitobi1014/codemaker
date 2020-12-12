@@ -15,6 +15,7 @@ public class ResumeVO extends BaseVO{
 	private String resLicense;	//이력서 자격증
 	private String resCareer;	//이력서 경력
 	private String resState;	//이력서 관리자 승인상태
+	
 	public ResumeVO() {
 	}
 	
