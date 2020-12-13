@@ -255,7 +255,7 @@ html, body {
     
     // 나가기 버튼 클릭시 작동 함수
     function disconnect() {
-        wsocket.close();
+        wsocket.close;
     }
     
     /*
@@ -318,18 +318,20 @@ html, body {
     }
 
     $(function(){
-        
-		$('#message').keypress(function(event){
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-            
-			if(keycode == '13'){
-				send(); 
-			}
-			event.stopPropagation();
-        });
-		
+    	
+    	$("#chat-input").keydown(function(key) {
+    		if (key.keyCode == 13) {
+    			send(); 
+    			$("#chat-input").val('');
+    			$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+    		}
+    	});
+
+    	
+    	
         $('#chat-submit').click(function() { 
         	send(); 
+        	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
         });
         
         $('#exitBtn').click(function() { 
