@@ -136,54 +136,54 @@ $(function() {
 	padding-top: 5px;
 }
 </style>
-	<form action="/exam/updateViewExam" id="examf" method="post">
-		<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">
-		<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">
-		<input type="hidden" name="searchExamState" value="${examVO.searchExamState}">
-		<input type="hidden" name="examId" value="${examVO.examId}">
-		
-		<div id="d2">
-			<div id="d1"></div>
+<form action="/exam/updateViewExam" id="examf" method="post">
+	<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">
+	<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">
+	<input type="hidden" name="searchExamState" value="${examVO.searchExamState}">
+	<input type="hidden" name="examId" value="${examVO.examId}">
+	
+	<div id="d2">
+		<div id="d1"></div>
+		<br>
+		<div id="d3">
+			<h2 id="hh2">시험</h2>
+			<br> <label for="sel1" id="sel1"><h4>${ev.examNm }</h4></label><br>
+		</div>
+		<br>
+		<c:forEach items="${questionList }" var="question" varStatus="status">
 			<br>
-			<div id="d3">
-				<h2 id="hh2">시험</h2>
-				<br> <label for="sel1" id="sel1"><h4>${ev.examNm }</h4></label><br>
-			</div>
+			<div class="d4"></div>
 			<br>
-			<c:forEach items="${questionList }" var="question" varStatus="status">
-				<br>
-				<div class="d4"></div>
-				<br>
-				<div class="d5">
-					<div class="d6">
-						<label for="sel2" class="sel2"><h5>${status.count }. ${question.queCont }</h5></label> <br>
-						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
-							<div class="anw">
-								<div class="overlay"
-									<c:if test="${vs.count eq question.queAnswer }">
-										style="display:block"
-									</c:if>></div>
-								<input type="text" name="ansCont" class="form-control radi" value="${answersheet.ansCont}" readonly="readonly"> 
-								<input type="checkbox" name="queAnswer" value="${vs.count }" class="chk" readonly="readonly" disabled="disabled"
-									<c:if test="${vs.count eq question.queAnswer }">
-										checked="checked"								
-									</c:if> />
-							</div>
-						</c:forEach>
+			<div class="d5">
+				<div class="d6">
+					<label for="sel2" class="sel2"><h5>${status.count }. ${question.queCont }</h5></label> <br>
+					<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 						<div class="anw">
-							<textarea class="form-control comment" rows="5" name="queExplain" readonly="readonly" >${question.queExplain}</textarea>
-							<br>
+							<div class="overlay"
+								<c:if test="${vs.count eq question.queAnswer }">
+									style="display:block"
+								</c:if>></div>
+							<input type="text" name="ansCont" class="form-control radi" value="${answersheet.ansCont}" readonly="readonly"> 
+							<input type="checkbox" name="queAnswer" value="${vs.count }" class="chk" readonly="readonly" disabled="disabled"
+								<c:if test="${vs.count eq question.queAnswer }">
+									checked="checked"								
+								</c:if> />
 						</div>
+					</c:forEach>
+					<div class="anw">
+						<textarea class="form-control comment" rows="5" name="queExplain" readonly="readonly" >${question.queExplain}</textarea>
+						<br>
 					</div>
 				</div>
-				<br>
-			</c:forEach>
-		</div>
-		<div class="btns">
-			<c:if test="${ev.examState != '3'}">
-				<input type="button" class="btn btn-default" id="updateBtn" value="수정하기"> 
-				<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
-			</c:if>
-			<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
-		</div>
-	</form>
+			</div>
+			<br>
+		</c:forEach>
+	</div>
+	<div class="btns">
+		<c:if test="${ev.examState != '3'}">
+			<input type="button" class="btn btn-default" id="updateBtn" value="수정하기"> 
+			<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
+		</c:if>
+		<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
+	</div>
+</form>

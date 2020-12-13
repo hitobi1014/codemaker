@@ -35,6 +35,6 @@ WHERE
 <delete id="deleteAnswersheet" parameterType="kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO">
 DELETE FROM answersheet
 WHERE
-    ans_id = #{ansId}
+    que_id = #{queId}
 </delete>
 </mapper>

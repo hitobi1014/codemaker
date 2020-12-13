@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
@@ -187,8 +188,10 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/updateExam")
-	public String updateExam(ExamVO examVO) {
+	public String updateExam(ExamVO examVO, RedirectAttributes redirectAttributes) {
+		
 		try {
+			// 기존 문제의 수정
 			examService.updateExam(examVO);
 			for (QuestionVO questionVO : examVO.getQuestionList()) {
 				questionService.updateQuestion(questionVO);
@@ -198,14 +201,30 @@ public class ExamController {
 				answersheetService.updateAnswersheet(answersheetVO);
 			}
 			
+			// 기존문제를 삭제할 경우
+			for(String queId : examVO.getDelqueIdList()) {
+				AnswersheetVO answersheetVO = new AnswersheetVO();
+				answersheetVO.setQueId(queId);
+				
+				QuestionVO questionVO = new QuestionVO();
+				questionVO.setQueId(queId);
+				
+				answersheetService.deleteAnswersheet(answersheetVO);
+				questionService.deleteQuestion(questionVO);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// 새로운 문제 추가
+		insertExam(examVO);
+		
 		// redirect Attribute
+		redirectAttributes.addFlashAttribute("examVO", examVO);
 		
 		// 수정된 시험 화면으로 이동
-		return "redirect:/exam/selectExam?examId=" + examVO.getExamId() + "&searchSubId=" + examVO.getSearchSubId() 
-														+ "&searchLesId=" + examVO.getSearchLesId() + "&searchExamState=" + examVO.getSearchExamState();
+		return "redirect:/exam/selectExam";
 	}
 	
 	/**
@@ -260,19 +279,31 @@ public class ExamController {
 
 
 
-//
-//	/**
-//	 * 등록한 시험문제를 삭제하는 메서드
-//	 * 
-//	 * @author 김미연
-//	 * @return
-//	 */
-//	@RequestMapping(path = "/exam/deleteExam")
-//	public String deleteExam(ExamVO examVO) {
-//
-//		examService.deleteExam(examVO);
-//
-//		return "redirect:/exam/selectAllExam";
-//	}
+
+	/**
+	 * 등록한 시험문제를 삭제하는 메서드
+	 * 
+	 * @author 김미연
+	 * @return
+	 */
+	@RequestMapping(path = "/exam/deleteExam")
+	public String deleteExam(ExamVO examVO, RedirectAttributes redirectAttributes) {
+		try {
+			for(AnswersheetVO answersheetVO : examVO.getAnswersheetLists()) {
+				answersheetService.deleteAnswersheet(answersheetVO);
+			}
+			for(QuestionVO questionVO : examVO.getQuestionList()) {
+				questionService.deleteQuestion(questionVO);
+			}
+			examService.deleteExam(examVO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		redirectAttributes.addFlashAttribute("examVO", examVO);
+		
+		return "redirect:/exam/selectAllExam";
+	}
 
 }

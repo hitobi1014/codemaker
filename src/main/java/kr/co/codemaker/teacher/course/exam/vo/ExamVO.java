@@ -39,8 +39,16 @@ public class ExamVO extends LessonVO {
 
 	private List<String> ansContList;		// 보기 리스트
 	
+	private List<String> delqueIdList;	// 삭제하는 리스트
 	
 	
+	
+	public List<String> getDelqueIdList() {
+		return delqueIdList;
+	}
+	public void setDelqueIdList(List<String> delqueIdList) {
+		this.delqueIdList = delqueIdList;
+	}
 	public List<String> getQueContList() {
 		return queContList;
 	}
