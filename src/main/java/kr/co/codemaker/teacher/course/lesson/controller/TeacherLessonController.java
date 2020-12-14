@@ -57,6 +57,7 @@ public class TeacherLessonController {
 	@RequestMapping(path = "/teacherL/selectSubject", method = RequestMethod.GET)
 	public String selecSubject(Model model, HttpSession session) {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
+		List<SubjectVO> subjectList;
 		String tchId = teacherVO.getTchId();
 
 		List<LessonVO> noLessonList;

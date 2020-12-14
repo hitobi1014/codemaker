@@ -16,10 +16,9 @@ public class TeacherSubjectService {
 	private TeacherSubjectMapper subjectMapper;
 	
 	
-	public List<SubjectVO> selectSubject() throws Exception{ 
+	public List<SubjectVO> selectSubject() throws Exception{
 		return subjectMapper.selectSubject();
 	}
-	
 
 	
 }
