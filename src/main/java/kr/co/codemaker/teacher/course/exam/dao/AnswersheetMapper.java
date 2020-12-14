@@ -51,9 +51,9 @@ public interface AnswersheetMapper {
 	 * 시험보기를 삭제하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param questionVo
+	 * @param answersheetVO
 	 * @return 
 	 */
-	public int deleteAnswersheet(QuestionVO questionVo) throws Exception;
+	public int deleteAnswersheet(AnswersheetVO answersheetVO) throws Exception;
 
 }

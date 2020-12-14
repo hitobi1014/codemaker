@@ -20,11 +20,6 @@
 <script>
 $(function() {
 	
-	// 처음 요청했을 화면
-    $('#subf').attr("action", "/exam/selectAllExam");
-    $('#subf').attr("target", "");
-	selectLesson('${examVO.searchSubId}');
-	
 	// 시험 등록 폼 제공
 	$('.regBtn').on('click', function(){
 		// data-lesinfo="${exam.lesId }/${exam.lidxId}/${exam.lidxCont }"

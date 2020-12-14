@@ -51,9 +51,9 @@ public interface QuestionMapper {
 	 * 시험문제를 삭제하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examVo
+	 * @param questionVO
 	 * @return 
 	 */
-	public int deleteQuestion(ExamVO examVo) throws Exception;
+	public int deleteQuestion(QuestionVO questionVO) throws Exception;
 	
 }

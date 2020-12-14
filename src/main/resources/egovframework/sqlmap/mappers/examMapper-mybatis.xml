@@ -41,7 +41,6 @@ INSERT INTO exam (
 <delete id="deleteExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
 DELETE FROM exam
 WHERE exam_id =#{examId}
-  AND exam_state =#{examState}
 </delete>
 
 <update id="updateExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
@@ -135,9 +134,17 @@ AND
 	e.lidx_id(+) = li.lidx_id
 AND
 	l.tch_id = #{tchId}
-<if test="searchExamState != null and !searchExamState.equals('')">
-AND
-	e.exam_state = #{searchExamState}
-</if>
+<choose>
+	<when test="searchExamState != null and !searchExamState.equals('')">
+		<choose>
+			<when test='searchExamState.equals("0")'>
+				AND e.exam_id is NULL
+			</when>
+			<otherwise>
+				AND e.exam_state = #{searchExamState}
+			</otherwise>
+		</choose>
+	</when>
+</choose>
 </select>
 </mapper>

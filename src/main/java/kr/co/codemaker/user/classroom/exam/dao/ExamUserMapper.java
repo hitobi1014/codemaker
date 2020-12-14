@@ -3,11 +3,7 @@ package kr.co.codemaker.user.classroom.exam.dao;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
-import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
-import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
-import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
-import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 /**
  * 
@@ -29,45 +25,27 @@ public interface ExamUserMapper {
 	 * 시험 문제를 전체 조회하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examRequestVo
+	 * @param examVO
 	 * @return 
 	 */
-	public List<ExamVO> selectAllExam(ExamRequestVO examRequestVo) throws Exception;
+	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 페이징 처리를 위해 출제한 문제의 전체 수를 조회하는 메서드
 	 * 
-	 * @param examRequestVo
+	 * @author 김미연
+	 * @param examVO
 	 * @return
 	 */
-	public int selectTotalCntExam(ExamRequestVO examRequestVo) throws Exception;
+	public int selectTotalCntExam(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 해당 시험을 조회하는 메서드
+	 * 
+	 * @author 김미연
 	 * @param examVo
 	 * @return 
 	 */
 	public ExamVO selectExam(ExamVO examVo) throws Exception;
-	
-	/**
-	 * 시험 결과를 조회하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examVo
-	 * @return
-	 * @throws Exception
-	 */
-	public List<ExamResultVO> selectExamResult(ExamVO examVo) throws Exception;
-	
-	/**
-	 * 해당 시험 점수를 조회하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examScoreVo
-	 * @return
-	 * @throws Exception
-	 */
-	public ExamScoreVO selectExamScore(ExamScoreVO examScoreVo) throws Exception;
-
 	
 }

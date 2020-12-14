@@ -1,8 +1,7 @@
 package kr.co.codemaker.user.classroom.exam.vo;
 
-import kr.co.codemaker.common.vo.BaseVO;
 
-public class ExamResultVO extends BaseVO {
+public class ExamResultVO extends QuestionVO {
 	
 	private String queId;		// 문제 아이디
 	private String userId;		// 회원 아이디

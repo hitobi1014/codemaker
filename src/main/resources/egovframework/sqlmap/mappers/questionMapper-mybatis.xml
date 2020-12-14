@@ -16,6 +16,8 @@ FROM
     question
 WHERE
 	exam_id = #{examId}
+ORDER BY
+	SUBSTR(que_id,4)
 </select>
 <insert id="insertQuestion" parameterType="kr.co.codemaker.teacher.course.exam.vo.QuestionVO">
 <selectKey resultType="String" keyProperty="queId" order="BEFORE">

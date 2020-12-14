@@ -57,4 +57,11 @@ WHERE
        les_id = #{lesId}
 </update>
 
+<update id="updateExam" parameterType="kr.co.codemaker.admin.course.lesson.vo.ExamVO">
+UPDATE exam
+    SET
+       exam_state = #{examState}
+WHERE
+       les_id = #{lesId}
+</update>
 </mapper>
