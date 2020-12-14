@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 			<!-- Aplication Brand -->
@@ -34,7 +34,8 @@
 										<div class="sub-menu">
 										      
 											<li >
-												<a href="#">정보조회</a>
+												<c:url value="/admin/selectUserInfo" var="selectUser"/>
+												<a href="${selectUser}">정보조회</a>
 											</li>
 											
 											<li >

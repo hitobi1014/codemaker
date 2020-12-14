@@ -15,6 +15,9 @@ local.properties
 .loadpath
 .recommenders
 
+.project
+.classpath
+
 # ignore properties file
 db.properties
 db_dev.properties

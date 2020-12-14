@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
  * 
