@@ -41,7 +41,8 @@ public class ExamVO extends LessonVO {
 	
 	private List<String> delqueIdList;	// 삭제하는 리스트
 	
-	
+	// 페이징 작업 추가
+	private int page; 			// 현재 보여주는 페이지 번호
 	
 	public List<String> getDelqueIdList() {
 		return delqueIdList;
@@ -97,8 +98,6 @@ public class ExamVO extends LessonVO {
 	public void setAnswersheetLists(List<AnswersheetVO> answersheetLists) {
 		this.answersheetLists = answersheetLists;
 	}
-	// 페이징 작업 추가
-	private int page; 			// 현재 보여주는 페이지 번호
 	
 	public String getSearchExamState() {
 		return searchExamState;

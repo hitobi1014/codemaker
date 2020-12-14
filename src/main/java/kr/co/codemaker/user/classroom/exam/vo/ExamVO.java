@@ -24,24 +24,32 @@ public class ExamVO extends BaseVO {
 	private String examState;	// 시험 등록 상태
 	private Date examDate;		// 시험 작성일
 	private String curId;		// 커리큘럼 아이디
+	private String lesId;		// 강의 아이디
 	
-	public ExamVO() {
-		
-	}
-	
-	public ExamVO(String examId) {
-		this.examId = examId;
-	}
-	
-	public ExamVO(String examId, String examNm, String examState, Date examDate, String curId) {
-		
-		this.examId = examId;
-		this.examNm = examNm;
-		this.examState = examState;
-		this.examDate = examDate;
-		this.curId = curId;
-	}
+	private String userId;		// 회원 아이디
 
+	// 페이징 작업 추가
+	private int page; 			// 현재 보여주는 페이지 번호
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public String getLesId() {
+		return lesId;
+	}
+	public void setLesId(String lesId) {
+		this.lesId = lesId;
+	}
 	public String getExamId() {
 		return examId;
 	}

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.admin.course.lesson.vo.ExamVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonVO;
 import kr.co.codemaker.admin.course.lesson.vo.SubjectVO;
@@ -70,6 +71,14 @@ public interface AdminLessonMapper {
 	 * @return
 	 */
 	public int updateLesson(LessonVO lessonVO) throws Exception;
+
+	/**
+	 * 해당 시험의 상태를 변경하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 */
+	public int updateExam(ExamVO examVO) throws Exception;
 	
 	
 

@@ -1,23 +1,30 @@
 package kr.co.codemaker.user.classroom.exam.vo;
 
-import kr.co.codemaker.common.vo.BaseVO;
+import java.util.Date;
+import java.util.List;
 
-public class ExamScoreVO extends BaseVO {
+public class ExamScoreVO extends ExamVO {
 	
 	private String examId;	// 시험 아이디
 	private String userId;	// 회원 아이디
 	private int esFscore;	// 첫점수
 	private int esLscore;	// 다시풀기 점수
+	private Date esEdate;	// 시험을 마지막으로 푼 날짜
 	
-	public ExamScoreVO() {
+	private List<ExamResultVO> examResultList;	// 시험결과 리스트
 	
+	public List<ExamResultVO> getExamResultList() {
+		return examResultList;
 	}
-	
-	public ExamScoreVO(String examId, String userId) {
-		this.examId = examId;
-		this.userId = userId;
+	public void setExamResultList(List<ExamResultVO> examResultList) {
+		this.examResultList = examResultList;
 	}
-	
+	public Date getEsEdate() {
+		return esEdate;
+	}
+	public void setEsEdate(Date esEdate) {
+		this.esEdate = esEdate;
+	}
 	public String getExamId() {
 		return examId;
 	}
