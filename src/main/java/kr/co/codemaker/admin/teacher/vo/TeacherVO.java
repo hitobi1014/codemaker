@@ -6,19 +6,24 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class TeacherVO extends BaseVO{
 
-	private String tchGn;
-	private String tchPass;
-	private String tchTel;
-	private String tchId;
-	private String tchCode;
-	private String resId;
-	private String tchNm;
-	private Date tchJoin;
-	private String tchIntro;
-	private String tchProfile;
-	private Date tchRetire;
-	private String comId;
+	private String tchGn;		//기업구분자
+	private String tchPass;		//비밀번호
+	private String tchTel;		//전화번호
+	private String tchId;		//아이디
+	private String tchCode;		//가입인증코드
+	private String resId;		//이력서아이디
+	private String tchNm;		//이름
+	private Date tchJoin;		//입사일
+	private String tchIntro;	//소개말
+	private String tchProfile;	//프로필
+	private Date tchRetire;		//퇴사일
+	private String comId;		//기업아이디
 	
+	public TeacherVO() {}
+	
+	public TeacherVO(String tchId) {
+		this.tchId = tchId;
+	}
 	public String getTchProfile() {
 		return tchProfile;
 	}

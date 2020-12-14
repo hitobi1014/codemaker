@@ -66,12 +66,10 @@ h3{
     border: 1px solid orange;
 }
 #btn3{
-	background: #ff0000b8;
-    color: white;
-    border: 1px solid #ff0000b8;
-}
-#btn4{
    	background: #000000b8;
     color: white;
     border: 1px solid #000000b8;
+}
+.tr-cl:hover{
+	cursor: pointer;
 }
