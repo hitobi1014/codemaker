@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
@@ -76,9 +77,12 @@
 									</a>
 									<ul  class="collapse"  id="forms">
 										<div class="sub-menu">
-										
+											<c:url value="/admin/selectAllJobInfo" var="selectAllJobInfo">
+												<c:param name="keyWord" value="${param.keyWord}"/>
+												<c:param name="page" value="1"/>
+											</c:url>
 											<li >
-											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
+											  <a href="${selectAllJobInfo}">기업 정보 조회</a>
 											</li>
 										
 										</div>
@@ -88,7 +92,14 @@
 								<li  class="has-sub" >
 									<ul  class="collapse" id="forms">
 										<div class="sub-menu">
-											  <a href="${cp}/admin/selectAllNotice">공지 사항 조회</a>
+											<c:url value="/admin/selectAllNotice" var="selectAllNotice">
+												<c:param name="searchOption" value="1"/>
+												<c:param name="keyWord" value="${param.keyWord}"/>
+												<c:param name="page" value="1"/>
+											</c:url>
+											<li >
+											  <a href="${selectAllNotice}">공지 사항 조회</a>
+											 </li>
 										</div>
 									</ul>
 								</li>

@@ -47,6 +47,7 @@ public class NoticeService {
 		
 		int pages =(int) Math.ceil((double)cnt/(int) map.get("pageSize"));
 		map2.put("pages", pages); 
+		map2.put("totalCnt", cnt);
 		return map2;
 	}
 
