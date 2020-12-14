@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="selectAllNotice" resultType="kr.co.codemaker.common.vo.NoticeVO" parameterType="java.util.HashMap">
-	SELECT * FROM
+SELECT * FROM
 			(SELECT ROWNUM AS RN,
 			       A.*
 			  FROM (SELECT *
@@ -43,11 +43,12 @@
 							 OR NOTICE_TITLE LIKE '%' || #{keyWord} || '%')
 						</if>
 					</where>
-					) A)
+					) A
+					ORDER BY NOTICE_ID DESC)
 					<where>
 					 AND RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 					</where>
-	</select>
+</select>
 	
 	<insert id="insertNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
 		insert into notice values ('NOTICE'||LPAD(NOTICE_SEQ.NEXTVAL,4,'0'), #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, NULL, NULL,#{adminId})

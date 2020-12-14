@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 			<!-- Aplication Brand -->
@@ -24,25 +25,20 @@
 						</a>
 						<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 							<div class="sub-menu">
-							  
-							  
 								<li  class="has-sub" >
 									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
 										<span class="nav-text">학생 관리</span> <b class="caret"></b>
 									</a>
 									<ul  class="collapse"  id="components">
 										<div class="sub-menu">
-										      
-											<li >
+											<li>
 												<c:url value="/admin/selectUserInfo" var="selectUser"/>
 												<a href="${selectUser}">정보조회</a>
 											</li>
-											
-											<li >
+											<li>
 												<a href="#">블랙리스트 관리</a>
 											</li>
-											
-											<li >
+											<li>
 												<a href="#">장학제도</a>
 											</li>
 										
@@ -77,9 +73,12 @@
 									</a>
 									<ul  class="collapse"  id="forms">
 										<div class="sub-menu">
-										
+											<c:url value="/admin/selectAllJobInfo" var="selectAllJobInfo">
+												<c:param name="keyWord" value="${param.keyWord}"/>
+												<c:param name="page" value="1"/>
+											</c:url>
 											<li >
-											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
+											  <a href="${selectAllJobInfo}">기업 정보 조회</a>
 											</li>
 										
 										</div>
@@ -89,7 +88,14 @@
 								<li  class="has-sub" >
 									<ul  class="collapse" id="forms">
 										<div class="sub-menu">
-											  <a href="${cp}/admin/selectAllNotice">공지 사항 조회</a>
+											<c:url value="/admin/selectAllNotice" var="selectAllNotice">
+												<c:param name="searchOption" value="1"/>
+												<c:param name="keyWord" value="${param.keyWord}"/>
+												<c:param name="page" value="1"/>
+											</c:url>
+											<li >
+											  <a href="${selectAllNotice}">공지 사항 조회</a>
+											 </li>
 										</div>
 									</ul>
 								</li>
