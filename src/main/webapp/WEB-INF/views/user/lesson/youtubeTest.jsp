@@ -19,8 +19,8 @@
       var durTime;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '360',
-          width: '640',
+          height: '800',
+          width: '1100',
           videoId: '${lidxPath}',
           events: {
             'onReady': onPlayerReady,
@@ -71,19 +71,6 @@
         	 
         	 done = true;
         }
-		
-// 		function stopVideo() {
-// 			// 일시정지 버튼눌렀을때
-// 			if (event.data == YT.PlayerState.PAUSED && !done) {
-// 	        	//현재시간
-// 	        	 console.log(curTime);
-// 	        	 // 전체시간
-// 	        	 console.log(durTime)
-// 	        	 done = false;
-// 	        	 document.location="/user/time?curtime="+curTime+"&durTimr="+durTime;
-// 	        }
-// 	     }
-		
       }
 	var btn = function(){
 // 		alert('클릭');
@@ -139,38 +126,13 @@
 
 		})
 	})
-	// 	function closePage(){
-	// 		alert('X클릭');
-	// 		var lidxId = $('#btn').data('lidxid');
-	// 		console.log(lidxId);
-	// 		// 현재시간
-	//    	 	console.log(curTime);
-	//    		 // 전체시간
-	// 	 	console.log(durTime);
-
-	//    		$.ajax({
-	//    			url:"/user/updateLessonPage",
-	//    			type:"get",
-	//    			data:{'curTime' : curTime,
-	//    				  'lidxId' : lidxId},
-	//    			success:function(data){
-	// // 				document.location="/user/selectLessonPage";
-	// // 				alert('넘어옴');
-	// 				opener.parent.location.reload();
-	//    				self.close();
-	//    			},error:function(){
-	//    				alert('안됨');
-	//    			}
-	//    		}) 
-
-	// }
 </script>
 <html>
   <body>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
     <div>
-    	<button id="btn" type="button"  onclick="btn()" data-lidxid="${lidxId}">클릭3
+    	<button id="btn" type="button"  onclick="btn()" data-lidxid="${lidxId}">강의 종료
     	</button>
     </div>
 

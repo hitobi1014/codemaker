@@ -303,7 +303,7 @@ h2{
 		$('a[id^="videoClick_"]').on('click',function(){
 			var path = $(this).attr('value');
 			var lidxId = $(this).data('lidxid');
-			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1000,height=650, left=30, top=30");
+			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=900,height=800, left=30, top=30");
 		})
 
 	})
@@ -340,11 +340,12 @@ h2{
 	</div>
 	<div class="btn" style="border: 1px solid black;">
 		<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
-	<div id="payBtn" class="btn" style="border: 1px solid black;">
-		<c:url value="/user/payView" var="pay">
-			<c:param name="lesId" value="${lesId}"/>
-		</c:url>
-		<a href="${pay}">결제하기</a>
+		<div id="payBtn" class="btn" style="border: 1px solid black;">
+			<c:url value="/user/payView" var="pay">
+				<c:param name="lesId" value="${lesId}" />
+			</c:url>
+			<a href="${pay}">결제하기</a>
+		</div>
 	</div>
 </div>
 

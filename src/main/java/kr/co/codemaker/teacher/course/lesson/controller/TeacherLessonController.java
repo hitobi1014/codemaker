@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
  * 
@@ -60,9 +60,12 @@ public class TeacherLessonController {
 		String tchId = teacherVO.getTchId();
 
 		List<LessonVO> noLessonList;
+		List<SubjectVO> subjectList;
 		try {
 			noLessonList = lessonService.selectNoLesson(tchId);
+			subjectList = subjectService.selectSubject();
 			model.addAttribute("noLessonList", noLessonList);
+			model.addAttribute("subjectList", subjectList);
 
 			logger.debug("개설안된강의!!:{}", noLessonList);
 			return "teacherPage/teacher/lesson/lessonAllSelect";
@@ -178,8 +181,17 @@ public class TeacherLessonController {
 	 * 선생님 - 강의 등록(페이지만 띄우기)
 	 */
 	@RequestMapping(path = "/teacherL/insertViewLesson")
-	public String insertViewLesson() {
-		return "teacherPage/teacher/lesson/lessonInsert";
+	public String insertViewLesson(Model model) {
+		List<SubjectVO> subjectList;
+			try {
+				subjectList = subjectService.selectSubject();
+				model.addAttribute("subjectList", subjectList);
+				return "teacherPage/teacher/lesson/lessonInsert";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 	}
 
 	/**

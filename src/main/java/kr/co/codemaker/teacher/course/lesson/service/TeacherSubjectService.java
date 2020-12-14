@@ -16,14 +16,8 @@ public class TeacherSubjectService {
 	private TeacherSubjectMapper subjectMapper;
 	
 	
-	public List<SubjectVO> selectSubject(){
-		try {
-			return subjectMapper.selectSubject();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public List<SubjectVO> selectSubject() throws Exception{ 
+		return subjectMapper.selectSubject();
 	}
 	
 

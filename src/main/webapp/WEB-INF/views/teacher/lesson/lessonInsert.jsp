@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -195,13 +196,13 @@ function initData(){
                     <div class="col-lg-7">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의명</label>
-                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonname" name="lesNm" id="lesNm">
+                         <input type="text"  class="form-control form-control-alternative" placeholder="강의명" name="lesNm" id="lesNm">
                       </div>
                     </div>
                     <div class="col-lg-7">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의소개</label>
-                         <input type="text"  class="form-control form-control-alternative" placeholder="lessoncontent" name="lesCont" id="lesCont">
+                         <input type="text"  class="form-control form-control-alternative" placeholder="소개" name="lesCont" id="lesCont">
                       </div>
                     </div>
                   </div>
@@ -209,13 +210,13 @@ function initData(){
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">강의 수강료</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="lessoncash" name="lesCash" id="lesCash">
+                        <input type="text"  class="form-control form-control-alternative" placeholder="수강료" name="lesCash" id="lesCash">
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">강의기간</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="lessonterm"  name="lesTerm" id="lesTerm" >
+                        <input type="text"  class="form-control form-control-alternative" placeholder="기간"  name="lesTerm" id="lesTerm" >
                       </div>
                     </div>
                     <div class="col-lg-7">
@@ -223,11 +224,13 @@ function initData(){
                         <label class="form-control-label" for="input-last-name" class="form-control form-control-alternative" >강의과목&nbsp;&nbsp;</label>
     					<select name="subId" id="subId">
     						<option value="0">과목</option>
-							<option value="SUB0001">DB</option>
-							<option value="SUB0002">Spring</option>
-							<option value="SUB0003">Java</option>
-							<option value="SUB0004">Python</option>
-							<option value="SUB0005">Jsp</option>
+							<c:forEach items="${subjectList}" var="sub"	>
+								<c:choose>
+									<c:when test="${sub.subOut == 'N'}">
+										<option value="${sub.subId}">${sub.subNm}</option>
+									</c:when>
+								</c:choose>
+							</c:forEach>
     					</select>                    
                       </div>
                     </div>
@@ -249,13 +252,13 @@ function initData(){
 	                    <div class="col-lg-2">
 	                      <div class="form-group">
 	                        <label class="form-control-label" >강의 차수</label>
-	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList[0].lidxNum" id="lidxNum">
+	                         <input type="text"  class="form-control form-control-alternative" placeholder="차수" name="lesIdxList[0].lidxNum" id="lidxNum">
 	                      </div>
 	                    </div>
 	                    <div class="col-lg-7">
 	                      <div class="form-group">
 	                        <label class="form-control-label" >강의 내용</label>
-	                         <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList[0].lidxCont" id="lidxCont" >
+	                         <input type="text" class="form-control form-control-alternative" placeholder="내용" name="lesIdxList[0].lidxCont" id="lidxCont" >
 	                      </div>
 	                    </div>
 	                    <br>

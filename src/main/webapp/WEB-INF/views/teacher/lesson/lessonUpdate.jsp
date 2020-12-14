@@ -288,7 +288,7 @@ $(function(){
                     <div class="col-lg-7">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의소개</label>
-                         <input type="text"  class="form-control form-control-alternative" placeholder="강의소개" name="lesCont" id="lesCont" value="${lessonVO.lesCont}">
+                         <input type="text"  class="form-control form-control-alternative" placeholder="소개" name="lesCont" id="lesCont" value="${lessonVO.lesCont}">
                       </div>
                     </div>
                   </div>
@@ -296,13 +296,13 @@ $(function(){
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">강의 수강료</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="강의 수강료" name="lesCash" id="lesCash" value="${lessonVO.lesCash}">
+                        <input type="text"  class="form-control form-control-alternative" placeholder="수강료" name="lesCash" id="lesCash" value="${lessonVO.lesCash}">
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">강의기간</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="강의기간"  name="lesTerm" id="lesTerm"  value="${lessonVO.lesTerm}">
+                        <input type="text"  class="form-control form-control-alternative" placeholder="기간"  name="lesTerm" id="lesTerm"  value="${lessonVO.lesTerm}">
                       </div>
                     </div>
                   </div>
@@ -325,13 +325,13 @@ $(function(){
 				                    <div class="col-lg-2">
 				                      <div class="form-group">
 				                        <label class="form-control-label" for="input-email">강의 차수</label>
-				                         <input type="text"  class="form-control form-control-alternative" placeholder="강의차수" name="lesIdxList.lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
+				                         <input type="text"  class="form-control form-control-alternative" placeholder="차수" name="lesIdxList.lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
 				                      </div>
 				                    </div>
 										<div class="col-lg-7">
 											<div class="form-group">
 												<label class="form-control-label" for="input-email">강의 내용</label> 
-												<input type="text" class="form-control form-control-alternative" placeholder="강의내용" name="lesIdxList.lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
+												<input type="text" class="form-control form-control-alternative" placeholder="내용" name="lesIdxList.lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
 											</div>
 										</div>
 									<div class="IdxContDiv">

@@ -61,14 +61,12 @@
 
 	<!-- 회원_메인페이지 -->
 	<definition name="mainT/*/*/*" extends="main.layout">
-		<put-attribute name="content"
-			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 
 	<!-- 회원_마이페이지 -->
 	<definition name="mypageT/*/*/*" extends="mypage.layout">
-		<put-attribute name="content"
-			value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 	
 	<!-- 관리자_마이페이지 -->

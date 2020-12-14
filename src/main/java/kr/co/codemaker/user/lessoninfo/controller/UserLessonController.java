@@ -53,7 +53,6 @@ public class UserLessonController {
 	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO ) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		
-		
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
 		
@@ -64,8 +63,6 @@ public class UserLessonController {
 			logger.debug("강의목차:{}",lesIdxList);
 			model.addAttribute("lesIdxList", lesIdxList);
 			model.addAttribute("lesId", lessonIndexVO.getLesId());
-			
-			
 			return "mainT/user/lesson/lessonSelect";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

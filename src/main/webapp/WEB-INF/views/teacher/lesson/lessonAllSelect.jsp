@@ -252,20 +252,14 @@ var addLes = function(){
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
 						<option value="0">과목</option>
-						<option value="SUB0001">DB</option>
-						<option value="SUB0002">Spring</option>
-						<option value="SUB0003">Java</option>
-						<option value="SUB0004">Python</option>
-						<option value="SUB0005">Jsp</option>
+						<c:forEach items="${subjectList}" var="sub"	>
+							<c:choose>
+								<c:when test="${sub.subOut == 'N'}">
+									<option value="${sub.subId}">${sub.subNm}</option>
+								</c:when>
+							</c:choose>
+						</c:forEach>
 					</select> 
-<!-- 					<select class="form-control" id="lesson"> -->
-<!-- 						<option value="99">강의</option> -->
-<!-- 						<option value="LESSON0001">Why Java?</option> -->
-<!-- 						<option value="0">Spring</option> -->
-<!-- 						<option value="1">Java</option> -->
-<!-- 						<option value="1">Python</option> -->
-<!-- 						<option value="1">Jsp</option> -->
-<!-- 					</select>  -->
 					<input id="selBtn" type="button" value="조회" onclick="selLes()">
 				</div>
 				<br>
