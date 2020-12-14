@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 	
 	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode === 13) {
+		  if (event.keyCode == 13) {
 		    event.preventDefault();
 		  };
 	}, true);
@@ -69,40 +69,41 @@ $(document).ready(function(){
 		margin-left:10%; 
 		margin-right:10%; 
 		height:800px; 
-		text-align:center;
 	}
 </style>
 <div class="d-flex">
-		<div class="table-responsive" style="margin-left:10%; margin-right:10%; height:800px; text-align:center;">
+		<div class="table-responsive" style="height:800px;">
 			<br>
-			<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
-				<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
-				<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
-			</c:if>
-			<c:if test="${param.searchOption == '2'}">
-				<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
-				<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
-			</c:if>
+			<div style="text-align:center;">
+				<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
+					<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
+					<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
+				</c:if>
+				<c:if test="${param.searchOption == '2'}">
+					<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
+					<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
+				</c:if>
+			</div>
 			<hr>
 			
 			<div style="background-color:white;">
 				    <hr>
 				<div style="margin:auto; width:1000px;">
-					<table class="table">
-						<tr>
-							<th>공지사항 아이디</th>
+					<table class="table" >
+						<tr style="text-align:center;">
+							<th>공지사항 번호</th>
 							<th>공지사항 제목</th>
 							<th>공지사항 작성일</th>
 							<th>작성자아이디</th>
 						</tr>
 						<tbody id="noticeList">
-							<c:forEach items="${noticeList}" var="notice">
+							<c:forEach items="${noticeList}" var="notice" varStatus="i">
 								<c:if test="${notice.noticeOut == 'N'}">
 									<tr>
-										<td>${notice.noticeId}</td>
+										<td style="text-align:center;">${i.index}</td>
 										<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-										<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
-										<td>${notice.adminId}</td>
+										<td style="text-align:center;"><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
+										<td style="text-align:center;">${notice.adminId}</td>
 									</tr>
 								</c:if>
 							</c:forEach>
