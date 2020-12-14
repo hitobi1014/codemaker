@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <style>
 #cont {
@@ -303,7 +302,7 @@ h2{
 		$('a[id^="videoClick_"]').on('click',function(){
 			var path = $(this).attr('value');
 			var lidxId = $(this).data('lidxid');
-			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=900,height=800, left=30, top=30");
+			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
 		})
 
 	})

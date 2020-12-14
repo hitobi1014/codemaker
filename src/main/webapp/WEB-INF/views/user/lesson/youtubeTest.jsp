@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
 <script>
 
@@ -44,15 +42,6 @@
           console.log(event);
           curTime = player.getCurrentTime();
           durTime = player.getDuration()
-          
-	      
-//         if (event.data == YT.PlayerState.PLAYING && !done) {
-// //           setTimeout(stopVideo, 3000);
-// 			console.log(player.getCurrentTime());
-//         	 // 전체시간
-//         	 console.log(player.getDuration())
-//           done = true;
-//         }
 
 		// 일시정지 버튼눌렀을때
 		if (event.data == YT.PlayerState.PAUSED && !done) {
@@ -127,14 +116,11 @@
 		})
 	})
 </script>
-<html>
-  <body>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
-    <div>
-    	<button id="btn" type="button"  onclick="btn()" data-lidxid="${lidxId}">강의 종료
-    	</button>
-    </div>
 
-  </body>
-</html>
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="player"></div>
+<div>
+	<button id="btn" type="button"  onclick="btn()" data-lidxid="${lidxId}">강의 종료
+	</button>
+</div>
+

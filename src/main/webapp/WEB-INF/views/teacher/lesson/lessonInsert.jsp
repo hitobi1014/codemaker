@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -111,7 +109,6 @@ $(function(){
 	$('#addLesBtn').on('click', function() {
 		console.log('눌림');
 		
-		
 		str="";
 		str +='<div class="pl-lg-4" id="pl-lg-4-id">';
         str +='   <div class="row">	';
@@ -153,7 +150,8 @@ $(function(){
 		
 	// 강의등록 버튼
 	$('#push').on('click', function(){
-		$('#lesForm').submit();
+// 		alert('등록');
+		lessonChk();
 	})
 	
 	// 취소 버튼
@@ -162,6 +160,7 @@ $(function(){
 			this.reset();
 		})
 	})
+	
 })
 
 function initData(){
@@ -169,13 +168,55 @@ function initData(){
 	$('#lesCont').val('갑자기 만드는 웹페이지');
 	$('#lesCash').val('80000');
 	$('#lesTerm').val('90');
-// 	$('#lidxNum').val(1);
-// 	$('#lidxCont').val('갑자기만드네');
+}
+
+// 강의등록 빈칸 체크
+function lessonChk(){
+	if($('#lesNm').val() == ""){
+		alert('강의명을 입력하시오');
+		return false;
+	}
+	if($('#lesCont').val() == ""){
+		alert('강의내용을 입력하시오');
+		return false;
+	}
+	if($('#lesCash').val() == ""){
+		alert('강의수강료를 입력하시오');
+		return false;
+	}
+	if($('#lesTerm').val() == ""){
+		alert('강의기간을 입력하시오');
+		return false;
+	}
+// 	if($('#subId').val() == ""){
+// 		alert('과목을 선택하시오');
+// 		return false;
+// 	}
+	
+	if($('#lidxNum').val() == ""){
+		alert('차수을 입력하시오');
+		return false;
+	}
+	if($('#lidxCont').val() == ""){
+		alert('내용을 입력하시오');
+		return false;
+	}
+	if($('#lidxPath').val() == ""){
+		alert('주소을 입력하시오');
+		return false;
+	}
+	if($('#lidxDurtime').val() == ""){
+		alert('강의시간을 입력하시오');
+		return false;
+	}
+	
+	else{
+		$('#lesForm').submit();
+	}
 }
 
 </script>
 
-</head>
 
 <!-- 강의 추가 -->
 <div id="containerId">
@@ -186,8 +227,6 @@ function initData(){
 				<h2 class="card-title m-b-0">▪ 강의 추가</h2>
 				<br>
 				<form id="lesForm" action="${cp}/teacherL/insertLesson" method="POST" >
-<!-- 				<input type="hidden" name="tchId"> -->
-<!-- 				<input type="hidden" name="subId"> -->
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
@@ -203,6 +242,20 @@ function initData(){
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의소개</label>
                          <input type="text"  class="form-control form-control-alternative" placeholder="소개" name="lesCont" id="lesCont">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 개설날짜</label>
+                         <input type="date"  class="form-control form-control-alternative"  name="lesSdate" id="lesSdate">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 종료날짜</label>
+                         <input type="date" class="form-control form-control-alternative" name="lesEdate" id="lesEdate">
                       </div>
                     </div>
                   </div>
@@ -257,7 +310,7 @@ function initData(){
 	                    </div>
 	                    <div class="col-lg-7">
 	                      <div class="form-group">
-	                        <label class="form-control-label" >강의 내용</label>
+	                        <label class="form-control-label" >목차 내용</label>
 	                         <input type="text" class="form-control form-control-alternative" placeholder="내용" name="lesIdxList[0].lidxCont" id="lidxCont" >
 	                      </div>
 	                    </div>
@@ -297,4 +350,3 @@ function initData(){
 	</div>
 </div>
 
-</html>

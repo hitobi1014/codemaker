@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -139,13 +135,19 @@ $(function(){
 			str +=' 	   </div>';
 			str +='     </div>';
 			str +=' 	<div class="IdxContDiv">';
-		 	str +='			<div class="col-lg-7" id="lineLeft">';
-		    str +='    			<div class="form-group">';
-		    str +='      			<label class="form-control-label">강의 주소</label>';
-		    str +='       			<input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
-		    str +='    			</div>';
-	        str +='			</div>';
-			str +=' 	 	<div>';
+		 	str +='			<div class="col-lg-5" id="lineLeft">';
+			str +='				<div class="form-group">';
+			str +='					<label class="form-control-label">강의 주소</label>';
+			str +='					<input type="text" class="form-control form-control-alternative" placeholder="주소" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
+			str +='				</div>';
+			str +='			</div>';
+			str +='			<div class="col-lg-2">';
+			str +='				<div class="form-group">';
+			str +='					<label class="form-control-label">강의 전체시간</label>';
+			str +='					<input type="text" class="form-control form-control-alternative" placeholder="전체시간" name="lesIdxList['+index+'].lidxDurtime" id="lidxDurtime" >';
+			str +='				</div>';
+			str +='			</div>';
+			str +='			<div>';
 			str +=' 			<input type="button" class="newIdxDelBtn" id="IdxDelBtn" value="삭제" data-del="pl-lg-4-id_['+index+']" >';
 			str +=' 		</div>';
 			str +=' 	</div>';
@@ -175,6 +177,7 @@ $(function(){
 		alert("삭제됩니다!")
 		var lidxId = $(this).data("lidxid");
 		var lesId = $(this).data("lesid");
+		var subId = $(this).data("subid");
 		console.log(lidxId);
 		console.log(lesId);
 		$.ajax({
@@ -183,7 +186,8 @@ $(function(){
 				dataType:'html',
 				success:function(data){
 					console.log(lesId);
-					$('#idxAdd').load('/teacherL/updateLoadLesIdx?lesId='+lesId);
+					document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
+// 					$('#idxAdd').load('/teacherL/updateLoadLesIdx?lesId='+lesId);
 				},
 				error:function(data){
 					alert('안됨');
@@ -223,6 +227,7 @@ $(function(){
 			})
 		})
 		
+	// 저장버튼
 	$('#push').on('click',function(){
 		alert('수정되었습니다!');
 		$('#lesForm').submit();
@@ -243,18 +248,8 @@ $(function(){
 })
 
 
-// function initData(){
-// 	$('#lesNm').val('갑자기만드는 JAVA');
-// 	$('#lesCont').val('갑자기 만드는 웹페이지');
-// 	$('#lesCash').val('80000');
-// 	$('#lesTerm').val('90');
-// 	$('#lidxNum').val(1);
-// 	$('#lidxCont').val('갑자기만드네');	
-// }
-
 </script>
 
-</head>
 
 <!-- 강의 수정 -->
 <div id="containerId">
@@ -335,15 +330,20 @@ $(function(){
 											</div>
 										</div>
 									<div class="IdxContDiv">
-										 <div class="col-lg-7" id="lineLeft">
-		        							<div class="form-group">
-		          								<label class="form-control-label">강의 주소</label>
-		           								<input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList.lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
-		        						 	</div>
-	        							</div>
-									 	<div>
-											<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}">
-	<%-- 										<input type="button" id="${status.index}" class="idxUpBtn" value="수정!!!" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}"> --%>
+											<div class="col-lg-5" id="lineLeft">
+												<div class="form-group">
+													<label class="form-control-label">강의 주소</label>
+													<input type="text" class="form-control form-control-alternative" placeholder="주소" name="lesIdxList.lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
+												</div>
+											</div>
+											<div class="col-lg-2">
+												<div class="form-group">
+													<label class="form-control-label">강의 전체시간</label>
+													<input type="text" class="form-control form-control-alternative" placeholder="전체시간" name="lesIdxList.lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">
+												</div>
+											</div>
+											<div>
+											<input type="button"  class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}" data-lesid="${lesIdxList.lesId}" data-subid="${lessonVO.subId}">
 										</div>
 									</div>
 								</div>
@@ -365,4 +365,3 @@ $(function(){
 	</div>
 </div>
 
-</html>
