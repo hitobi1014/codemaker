@@ -82,7 +82,7 @@ public class AdminLoginController {
 	
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
-		return "adminPage/admin/main/test";
+		return "adminPage/admin/main/adminMain";
 	}
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {

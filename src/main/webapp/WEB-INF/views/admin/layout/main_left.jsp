@@ -77,8 +77,11 @@
 									<ul  class="collapse"  id="forms">
 										<div class="sub-menu">
 										
-											<li >
-											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
+											<li>
+											  <a href="">기업 정보</a>
+											</li>
+											<li>
+											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>
 											</li>
 										
 										</div>
@@ -158,28 +161,28 @@
 								<li class="section-title">
 									수강 관리 조회
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">수강후기 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
+								<li>
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
 										<span class="nav-text">과목 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
+								<li>
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>

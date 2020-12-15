@@ -23,6 +23,18 @@ import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 
 
+/**
+ * UserLessonController.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8. ???????언제지?
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Controller
 public class UserLessonController {
 
@@ -103,17 +115,17 @@ public class UserLessonController {
 	}
 	
 	// 강의 동영상
-	@RequestMapping(path="/user/selectYou")
+	@RequestMapping(path="/user/selectYoutube")
 	public String selectYou(String lidxPath, Model model,String lidxId) {
 		model.addAttribute("lidxPath",lidxPath);
 		model.addAttribute("lidxId", lidxId);
-		return "user/lesson/youtubeTest";
+		return "user/lesson/lessonYoutube";
 	}
 
 	// 강의 동영상 테스트
 	@RequestMapping(path="/user/testYou")
 	public String testYou() {
-		return "user/lesson/youtubeTest";
+		return "user/lesson/lessonYoutube";
 	}
 	
 	// 강의 동영상 값 넘겨오는지 

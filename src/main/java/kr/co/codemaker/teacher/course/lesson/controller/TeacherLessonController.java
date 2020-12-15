@@ -33,13 +33,15 @@ import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
- * 
+ * TeacherLessonController.java
  *
  * @author 박다미
  * @version 1.0
  * @since 2020. 12. 1.
  *
- *        수정자 수정내용 ------ ------------------------ 박다미 최초 생성
+ *   수정자 수정내용 
+ *   ------ ------------------------ 
+ *   박다미 최초 생성
  *
  */
 @Controller
@@ -64,20 +66,20 @@ public class TeacherLessonController {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		String tchId = teacherVO.getTchId();
 
-		List<LessonVO> noLessonList;
-		List<SubjectVO> subjectList;
+		List<LessonVO> noLessonList = new ArrayList<LessonVO>();
+		List<SubjectVO> subjectList = new ArrayList<SubjectVO>();
+		
 		try {
 			noLessonList = lessonService.selectNoLesson(tchId);
 			subjectList = subjectService.selectSubject();
-			model.addAttribute("noLessonList", noLessonList);
-			model.addAttribute("subjectList", subjectList);
-
-			logger.debug("개설안된강의!!:{}", noLessonList);
-			return "teacherPage/teacher/lesson/lessonAllSelect";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		model.addAttribute("noLessonList", noLessonList);
+		model.addAttribute("subjectList", subjectList);
+		
+		logger.debug("개설안된강의!!:{}", noLessonList);
+		return "teacherPage/teacher/lesson/lessonAllSelect";
 	}
 
 	/**
@@ -95,16 +97,16 @@ public class TeacherLessonController {
 		LessonVO lessonVO = new LessonVO();
 		lessonVO.setTchId("dammie7");
 		lessonVO.setSubId(subId);
-		List<LessonVO> leList;
+		List<LessonVO> leList = new ArrayList<LessonVO>();
+		
 		try {
 			leList = lessonService.selectLesson(lessonVO);
-			model.addAttribute("lessonList", leList);
-			logger.debug("리스트!!:{}", leList);
-			return leList;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		model.addAttribute("lessonList", leList);
+		logger.debug("리스트!!:{}", leList);
+		return leList;
 	}
 
 	/**
@@ -117,16 +119,15 @@ public class TeacherLessonController {
 		lesIdxVO.setLesId(lesId);
 
 		logger.debug("강의번호:{}", lesId);
-		List<LessonIndexVO> lesIdxList;
+		List<LessonIndexVO> lesIdxList = new ArrayList<LessonIndexVO>();
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-			logger.debug("강의목차:{}", lesIdxList);
-			model.addAttribute("lesIdxList", lesIdxList);
-			return lesIdxList;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		logger.debug("강의목차:{}", lesIdxList);
+		model.addAttribute("lesIdxList", lesIdxList);
+		return lesIdxList;
 	}
 
 	/**
@@ -178,16 +179,16 @@ public class TeacherLessonController {
 	 */
 	@RequestMapping(path = "/teacherL/insertViewLesson")
 	public String insertViewLesson(Model model) {
-		List<SubjectVO> subjectList;
+		List<SubjectVO> subjectList = new ArrayList<SubjectVO>();
+		
 			try {
 				subjectList = subjectService.selectSubject();
-				model.addAttribute("subjectList", subjectList);
-				return "teacherPage/teacher/lesson/lessonInsert";
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return null;
+			
+			model.addAttribute("subjectList", subjectList);
+			return "teacherPage/teacher/lesson/lessonInsert";
 	}
 
 	/**
@@ -204,17 +205,6 @@ public class TeacherLessonController {
 		logger.debug("과목,선생:{}", tchId);
 		
 		lessonVO.setTchId(tchId);
-		// lessonVO.setSubId(subId);
-//		SimpleDateFormat sdf = new  SimpleDateFormat("yyyy-MM-dd");
-//		String sd = sdf.format(lessonVO.getLesSdate());
-//		String ed = sdf.format(lessonVO.getLesEdate());
-//		
-//		Date sdate = sdf.parse(sd);
-//		Date edate = sdf.parse(ed);
-//		
-//		lessonVO.setLesSdate(sdate);
-//		lessonVO.setLesEdate(edate);
-		
 		logger.debug("강의123123123123123 추가됐니?:{}", lessonVO);
 		
 		int lesCnt = 0;
@@ -285,12 +275,12 @@ public class TeacherLessonController {
 			// 삭제한거 제외한 강의목차 조회
 			logger.debug("delCnt값,delCnt값:{},{}", delCnt, upCnt);
 			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-			if (delCnt == 1) {
-				model.addAttribute("lesIdxList", lesIdxList);
-				return "teacher/lesson/lessonIndexUpdateHTML";
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if (delCnt == 1) {
+			model.addAttribute("lesIdxList", lesIdxList);
+			return "teacher/lesson/lessonIndexUpdateHTML";
 		}
 		return null;
 	}

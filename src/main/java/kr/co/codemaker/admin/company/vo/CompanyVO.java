@@ -4,12 +4,23 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class CompanyVO extends BaseVO{
 
-	private String comCode;
-	private String comOwner;
-	private String comTel;
-	private String comAdd;
-	private String comId;
-	private String comNm;
+	private String comCode;	// 기업 인증코드
+	private String comOwner;	// 기업 대표자
+	private String comTel;		// 기업 전화번호
+	private String comAdd;		// 기업 주소
+	private String comId;		// 기업 아이디
+	private String comNm;		// 기업명
+	private String comState;	// 기업 계약서 승인여부
+	private String filesId;	// 첨부파일 아이디
+	private String comImg;		// 기업 서명이미지
+	
+	
+	public String getComState() {
+		return comState;
+	}
+	public void setComState(String comState) {
+		this.comState = comState;
+	}
 	public void setComCode(String comCode) {
 		this.comCode = comCode; 
 	}

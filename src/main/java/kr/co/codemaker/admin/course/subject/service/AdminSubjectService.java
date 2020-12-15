@@ -9,6 +9,18 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.admin.course.subject.dao.AdminSubjectMapper;
 import kr.co.codemaker.admin.course.subject.vo.SubjectVO;
 
+/**
+ * AdminSubjectService.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8.
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Service("adminSubjectService")
 public class AdminSubjectService {
 	
