@@ -98,7 +98,6 @@ public class ExamVO extends LessonVO {
 	public void setAnswersheetLists(List<AnswersheetVO> answersheetLists) {
 		this.answersheetLists = answersheetLists;
 	}
-	
 	public String getSearchExamState() {
 		return searchExamState;
 	}
