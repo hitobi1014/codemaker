@@ -198,30 +198,34 @@ var selLes = function(){
 	var subVal = $("#subject option:selected").val();
 	console.log(subVal);
 	$.ajax({
-		url:'/teacherL/selectSubject',
+		url:'/teacherL/selectLesson',
 		data:{'subId':subVal},
-		method:'post',
+		method:'get',
 		dataType:'json',
 		success:function(data){
-			var str="";
+			var html="";
 			for(var i=0; i<data.length; i++){
 				var lessonList =  data[i];
-				str += "<tr data-lesid='"+lessonList.lesId+"' data-toggle=modal data-target=#exampleModalCenter>";
-				str += "<td>" + '' + "</td>";
-				str += "<td>" + lessonList.lesNm+ "</td>";
-				str += "<td>" + lessonList.lesCont+ "</td>";
-				str += "<fmt:parseDate value='"+lessonList.lesSdate+"' pattern='yyyy-MM-dd' var='sdate'></fmt:parseDate>"
-				str += "<td>" + sdate+ "</td>";
-				str += "<td>" + lessonList.lesEdate+ "</td>";
-				str += "<td>" + lessonList.lesTerm + "</td>";
-				str += "<td>" + lessonList.lesCash + "</td>";
-				str += "</tr>";
+				html += "<tr data-lesid='"+lessonList.lesId+"' data-toggle=modal data-target=#exampleModalCenter>";
+				html += "<td>" + '' + "</td>";
+				html += "<td>" + lessonList.lesNm+ "</td>";
+				html += "<td>" + lessonList.lesCont+ "</td>";
+				var sdate = new Date(lessonList.lesSdate);
+				console.log(moment(sdate).format('YYYY-MM-DD'));
+				html += "<td>" + moment(sdate).format('YYYY-MM-DD') + "</td>";
+				var edate = new Date(lessonList.lesEdate);
+				console.log(moment(edate).format('YYYY-MM-DD'));
+				html += "<td>" + moment(edate).format('YYYY-MM-DD') + "</td>";
+				html += "<td>" + lessonList.lesTerm + "</td>";
+				var lescash = lessonList.lesCash;
+				html += "<td>" + lescash.toLocaleString()+ "</td>";
+				html += "</tr>";
 			}
-			$('.lesIdxTbody').html(str);
+			$('.lesIdxTbody').html(html);
 		},
 		error:function(data){
-			alert('안됨');
 			console.log(data);
+			alert('안됨');
 		}
 	})
 }
@@ -291,8 +295,8 @@ var addLes = function(){
 				      <div class="modal-body">
 				        <table>
 							<tr>
-								<th>강의 차순</th>
-								<th>강의 목차내용</th>
+								<th>차순</th>
+								<th>목차내용</th>
 							</tr>
 							<tbody class="lesTbody">
 							

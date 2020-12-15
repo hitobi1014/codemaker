@@ -179,17 +179,14 @@
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubjcet">
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>
 							</div>
 						</ul>
 					</li>
-				
-				
 				</ul>
-			
 			</div>
 		</div>
 	</aside>

@@ -84,16 +84,16 @@ public class TeacherLessonController {
 	 * 선생님 - 과목명-> 강의 조회
 	 */
 	@ResponseBody
-	@RequestMapping(path = "/teacherL/selectSubject", method = RequestMethod.POST)
+	@RequestMapping(path = "/teacherL/selectLesson")
 	public List<LessonVO> selectLesson(Model model, String subId, HttpSession session) {
 		logger.debug("과제아디!!:{}", subId);
 
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		logger.debug("로그인한 선생님VO:{}", teacherVO);
 
-		String tchId = teacherVO.getTchId();
+//		String tchId = teacherVO.getTchId();
 		LessonVO lessonVO = new LessonVO();
-		lessonVO.setTchId(tchId);
+		lessonVO.setTchId("dammie7");
 		lessonVO.setSubId(subId);
 		List<LessonVO> leList;
 		try {
@@ -112,7 +112,7 @@ public class TeacherLessonController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "/teacherL/selectAllLessonIndex")
-	public String selectLessonPage(Model model, String lesId) {
+	public List<LessonIndexVO> selectLessonPage(Model model, String lesId) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		lesIdxVO.setLesId(lesId);
 
@@ -122,7 +122,7 @@ public class TeacherLessonController {
 			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
 			logger.debug("강의목차:{}", lesIdxList);
 			model.addAttribute("lesIdxList", lesIdxList);
-			return "jsonView";
+			return lesIdxList;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

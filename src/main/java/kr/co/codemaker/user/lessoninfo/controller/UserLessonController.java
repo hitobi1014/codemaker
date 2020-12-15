@@ -129,6 +129,12 @@ public class UserLessonController {
 		return "user/lesson/canvas";
 	}
 	
+	// 컨버스 테스트
+	@RequestMapping(path="/canvas2")
+	public String canvas2Test() {
+		return "user/lesson/canvas4";
+	}
+	
 	
 	
 }
