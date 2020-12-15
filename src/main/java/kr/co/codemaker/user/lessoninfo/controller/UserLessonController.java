@@ -123,15 +123,11 @@ public class UserLessonController {
 		return "";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 컨버스 테스트
+	@RequestMapping(path="/canvas")
+	public String canvasTest() {
+		return "user/lesson/canvas";
+	}
 	
 	
 	

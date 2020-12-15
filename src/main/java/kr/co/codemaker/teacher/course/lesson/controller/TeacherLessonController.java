@@ -112,7 +112,7 @@ public class TeacherLessonController {
 	 */
 	@ResponseBody
 	@RequestMapping(path = "/teacherL/selectAllLessonIndex")
-	public List<LessonIndexVO> selectLessonPage(Model model, String lesId) {
+	public String selectLessonPage(Model model, String lesId) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		lesIdxVO.setLesId(lesId);
 
@@ -122,7 +122,7 @@ public class TeacherLessonController {
 			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
 			logger.debug("강의목차:{}", lesIdxList);
 			model.addAttribute("lesIdxList", lesIdxList);
-			return lesIdxList;
+			return "jsonView";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
