@@ -31,11 +31,11 @@ public class AdminUserController {
 				userVo.setUserOut("N");
 				userVo.setUserBlack("N");
 			}else if(gubun.equals("2")) {	//정지회원일때
-				userVo.setUserOut("Y");
-				userVo.setUserBlack("N");
-			}else if(gubun.equals("3")) {	//탈퇴회원일때
 				userVo.setUserOut("N");
 				userVo.setUserBlack("Y");
+			}else if(gubun.equals("3")) {	//탈퇴회원일때
+				userVo.setUserOut("Y");
+				userVo.setUserBlack("N");
 			}
 			try {userList = adminUserService.selectAllUser(userVo);} catch (Exception e) {e.printStackTrace();}
 			model.addAttribute("userList", userList);
