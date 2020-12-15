@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+	.dropBox{
+		display: none;
+	}
+</style>
+<script>
+$(function(){
+	var len =$(".sidenav-item-link").length;
+	for(i=0; i<len; i++){
+		$($(".sidenav-item-link").eq(i).data('target')).addClass('dropBox');
+	}
+	
+	$(".sidenav-item-link").on('click',function(){
+		var toggle = $(this).data('toggle');
+		var target = $(this).data('target');
+		if(toggle == "collapse"){
+			$(target).removeClass('dropBox');
+			$(this).data('toggle','uncollapse');			
+		}else{
+			$(target).addClass('dropBox');
+			$(this).data('toggle','collapse');
+		}
+	})
+})
+</script>
 <aside class="left-sidebar bg-sidebar">
 	<div id="sidebar" class="sidebar sidebar-with-footer">
 		<!-- Aplication Brand -->
@@ -29,7 +55,7 @@
 									<div class="sub-menu">
 										<c:url value="/admin/selectUserInfo" var="selectUser"/>
 										<li><a href="${selectUser}">정보조회</a></li>
-										<li><a href="#">블랙리스트 관리</a></li>
+										<li><a href="#">신고조회</a></li>
 										<li><a href="#">장학제도</a></li>
 									</div>
 								</ul>
@@ -43,16 +69,6 @@
 										<c:url value="/admin/selectAllTeacher" var="selectTeacher"></c:url>
 										<li><a href="${selectTeacher}">선생님 조회</a></li>
 										<li><a href="${cp }/admin/resumeList">이력서 조회</a></li>
-									</div>
-								</ul>
-							</li>
-							<li class="has-sub">
-								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#forms" aria-expanded="false" aria-controls="forms">
-									<span class="nav-text">기업 관리</span><b class="caret"></b>
-								</a>
-								<ul class="collapse" id="forms">
-									<div class="sub-menu">
-										<li><a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a></li>
 									</div>
 								</ul>
 							</li>
