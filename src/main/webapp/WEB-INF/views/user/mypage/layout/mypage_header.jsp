@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <script>
 $(function(){
 // 	$("input:checkbox[id='remember']").prop('checked',true);
@@ -27,7 +28,10 @@ $(function(){
 
 	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group">
-			<img id="imglogo" src="/images/codemaker_name3.png">
+			<c:url value="/user/main" var="userMain"/>
+			<a href="${userMain}">
+				<img id="imglogo" src="/images/codemaker_name3.png">
+			</a>
 		</div>
 	</form>
 
@@ -91,7 +95,8 @@ $(function(){
 					<a class="dropdown-item" href="#"> 
 						<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>마이페이지
 					</a>
-					<a class="dropdown-item" href="#"> 
+					<c:url value="/user/myLesson" var="myLesson"/>
+					<a class="dropdown-item" href="${myLesson}"> 
 						<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>내강의실
 					</a> 
 					<a class="dropdown-item" href="#"> 
@@ -115,8 +120,3 @@ $(function(){
 			</li>
 		</ul>
 	</nav>
-             <!-- End of Topbar -->
-
-
-
-

@@ -83,7 +83,8 @@
 				<a class="dropdown-item" href="${cp}/mypage/myinfoSelect"> 
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 마이페이지
 				</a> 
-				<a class="dropdown-item" href="#"> 
+				<c:url value="/user/myLesson" var="myLesson"/>
+				<a class="dropdown-item" href="${myLesson}"> 
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 내강의실
 				</a>
 				<c:url value="/user/cartView" var="cartView"/>
