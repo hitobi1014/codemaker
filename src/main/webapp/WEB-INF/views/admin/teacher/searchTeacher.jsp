@@ -19,10 +19,10 @@
 			<tr>
 				<c:choose> 
 					 <c:when test="${teacher.tchGn == 'Y'}"> 
-						<td style="color:orange;">기업직원</td>
+						<td style="color:orange;">기업강사</td>
 					</c:when>
 					<c:otherwise>
-						<td style="color:rgb(0,95,134);">정규직원</td>
+						<td style="color:rgb(0,95,134);">정규강사</td>
 					</c:otherwise>
 				</c:choose>
 				<td>${teacher.tchId}</td>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.teacher.dao.AdminTeacherMapper;
+import kr.co.codemaker.admin.teacher.vo.LessonVO;
 import kr.co.codemaker.admin.teacher.vo.ResumeVO;
 import kr.co.codemaker.admin.teacher.vo.TeacherVO;
 
@@ -38,5 +39,9 @@ public class AdminTeacherService {
 	
 	public ResumeVO selectResume(ResumeVO resumeVo) throws Exception{
 		return adminTeacherMapper.selectResume(resumeVo);
+	}
+	
+	public List<LessonVO> selectLesson(LessonVO lessonVo) throws Exception{
+		return adminTeacherMapper.selectLesson(lessonVo);
 	}
 }

@@ -3,6 +3,7 @@ package kr.co.codemaker.admin.teacher.dao;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.admin.teacher.vo.LessonVO;
 import kr.co.codemaker.admin.teacher.vo.ResumeVO;
 import kr.co.codemaker.admin.teacher.vo.TeacherVO;
 
@@ -40,4 +41,11 @@ public interface AdminTeacherMapper {
 	 * @return 승인코드에 해당하는 이력서 정보
 	 */
 	public ResumeVO selectResume(ResumeVO resumeVo) throws Exception;
+	
+	/**
+	 * 선생님 상세조회시 하단에 담당하고있는 과목 조회 
+	 * @param 선생님 아이디
+	 * @return 아이디에 해당하는 강의정보
+	 */
+	public List<LessonVO> selectLesson(LessonVO lessonVo) throws Exception;
 }

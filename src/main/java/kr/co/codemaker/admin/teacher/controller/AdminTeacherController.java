@@ -1,17 +1,27 @@
 package kr.co.codemaker.admin.teacher.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.admin.teacher.service.AdminTeacherService;
+import kr.co.codemaker.admin.teacher.vo.LessonVO;
 import kr.co.codemaker.admin.teacher.vo.ResumeVO;
 import kr.co.codemaker.admin.teacher.vo.TeacherVO;
 
@@ -43,25 +53,40 @@ public class AdminTeacherController {
 	
 	@RequestMapping(path="/admin/selectTeacher")
 	public String selectTeacherView(String tchId, Model model) {
-		logger.debug("선생님 아이디 :{}",tchId);
 		TeacherVO tvo = new TeacherVO(tchId);
 		TeacherVO teacherVo = null;
 		ResumeVO rvo = new ResumeVO();
 		ResumeVO resumeVo = null;
+		LessonVO lvo = new LessonVO();
+		List<LessonVO> lessonList = null;
 		try {
 			teacherVo = adminTeacherService.selectTeacher(tvo);
-			logger.debug("가져온 정보 : {}", teacherVo);
-			logger.debug("tch코드 : {}",teacherVo.getTchCode());
 			rvo.setResCode(teacherVo.getTchCode());
-			logger.debug("rvo 정보 :{}",rvo);
 			resumeVo = adminTeacherService.selectResume(rvo);
-			logger.debug("이력서 정보 : {}", resumeVo);
+			lvo.setTchId(teacherVo.getTchId());
+			lessonList = adminTeacherService.selectLesson(lvo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		model.addAttribute("lessonList", lessonList);
 		model.addAttribute("teacherVo", teacherVo);
 		model.addAttribute("resumeVo", resumeVo);
 		return "adminPage/admin/teacher/detailSelectTeacher";
+	}
+	
+	//상세조회에서 이미지 처리
+	@RequestMapping(path="/admin/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
 	}
 }

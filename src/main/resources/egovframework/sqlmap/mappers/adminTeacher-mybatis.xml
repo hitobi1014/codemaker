@@ -20,4 +20,10 @@
 	<select id="selectResume" resultType="kr.co.codemaker.admin.teacher.vo.ResumeVO" parameterType="kr.co.codemaker.admin.teacher.vo.ResumeVO">
 		SELECT * FROM resume WHERE RES_CODE = #{resCode}
 	</select>
+	<select id="selectLesson" resultType="kr.co.codemaker.admin.teacher.vo.LessonVO" parameterType="kr.co.codemaker.admin.teacher.vo.LessonVO">
+		SELECT b.* , a.*
+		FROM SUBJECT b,(SELECT * FROM lesson
+		            WHERE TCH_ID = #{tchId}) a
+		WHERE b.sub_id = a.sub_id
+	</select>
 </mapper>
