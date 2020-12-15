@@ -15,11 +15,11 @@
 <script>
 	$(document).ready(function(){
 		$("#resState1").on("click", function(){
-			alert('');
+			alert('승인 처리가 완료되었습니다.');
 			document.location="/admin/resumeList";
 		});
 		$("#resState2").on("click", function(){
-			alert();
+			alert('미승인 처리가 완료되었습니다.');
 			document.location="/admin/resumeList";
 		});
 	});

@@ -6,14 +6,24 @@
 <head>
 	<%@ include file="/WEB-INF/views/admin/layout/main_commonLib.jsp" %>
 </head>
+<style>
+	@font-face {
+		font-family: 'LotteMartDream';
+		font-style: normal;
+		font-weight: 300;
+		src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+	}
+	body {
+		font-family: 'LotteMartDream';
+	}
+</style>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
-	<div class="mobile-sticky-body-overlay"></div>
 	<div class="wrapper">
 		<tiles:insertAttribute name="left"/>
 		<div class="page-wrapper">
 			<tiles:insertAttribute name="header"/>
-			<div class="content-wrapper">
-				<div class="content" style="background-color: #e8eaec;">
+			<div class="content-wrapper" style="background-color: #e8eaec;">
+				<div class="content">
 					<tiles:insertAttribute name="content"/>
 				</div> <!-- content -->
 			</div> <!-- content-wrapper -->
