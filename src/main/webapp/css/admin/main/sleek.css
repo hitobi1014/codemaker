@@ -11002,7 +11002,6 @@ div.copied {
 	top: 100%;
 	left: 0;
 	right: 0;
-	box-shadow: 1px 2px 5px #212a39;
 }
 
 .navbar .search-form #search-results-container li {
@@ -11171,7 +11170,7 @@ div.copied {
 
 .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle:after
 	{
-	border: 3px solid #005F86;
+	border: 2px solid #005F86;
 	content: '';
 	margin: 0;
 	position: relative;

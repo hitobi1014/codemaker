@@ -1,7 +1,11 @@
 package kr.co.codemaker.common.controller;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,16 +86,28 @@ public class AdminLoginController {
 	
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
-		return "adminPage/admin/main/test";
+		return "adminPage/admin/main/adminMain";
 	}
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {
 		
 		return "teacherPage/teacher/main/teacherMain";
 	}
-	@RequestMapping(path="/test/admin/main")
-	public String test() {
-		return "adminPage/admin/main/test";
+	
+	// 메인 강사 이미지 처리
+	@RequestMapping(path="/teacher/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
 	}
 	
 }

@@ -1,8 +1,12 @@
 package kr.co.codemaker.admin.course.resume.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +44,21 @@ public class ResumeAdminController {
 
 		return "adminPage/admin/resume/selectResume";
 	}
+	
+	//상세조회에서 이미지 처리
+		@RequestMapping(path="/resume/teacherImg")
+		public void imgView(String resProfile, HttpServletResponse response) throws IOException {
+			response.setContentType("image");
+			FileInputStream fis = new FileInputStream(resProfile);
+			ServletOutputStream sos = response.getOutputStream();
+			byte[] buffer = new byte[512];
+			while(fis.read(buffer) != -1) {
+				sos.write(buffer);
+			}
+			fis.close();
+			sos.flush();
+			sos.close();
+		}
 	
 	@RequestMapping(path="/admin/resume/state")
 	public String updateState()throws Exception {
