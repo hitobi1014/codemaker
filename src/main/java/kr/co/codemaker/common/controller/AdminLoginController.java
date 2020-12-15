@@ -48,7 +48,7 @@ public class AdminLoginController {
 			
 			return "adminPage/admin/main/adminMain";
 		}
-		return "redirect:/login?=";
+		return "redirect:/loginView?=";
 	}
 	
 	// 로그아웃
@@ -56,7 +56,7 @@ public class AdminLoginController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		logger.debug("로그아웃했땅!!!!!!!!!!======", session);
-		return "redirect:/login";
+		return "redirect:/loginView";
 	}
 	
 	
@@ -77,7 +77,7 @@ public class AdminLoginController {
 			
 			return "teacherPage/teacher/main/teacherMain";
 		}
-		return "redirect:/login?=";
+		return "redirect:/loginView?=";
 	}
 	
 	@RequestMapping(path="/admin/main")
@@ -88,6 +88,10 @@ public class AdminLoginController {
 	public String teacherMain() {
 		
 		return "teacherPage/teacher/main/teacherMain";
+	}
+	@RequestMapping(path="/test/admin/main")
+	public String test() {
+		return "adminPage/admin/main/test";
 	}
 	
 }

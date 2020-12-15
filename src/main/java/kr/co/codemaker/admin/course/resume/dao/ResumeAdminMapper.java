@@ -8,7 +8,7 @@ import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 @Mapper("resumeAdminMapper")
 public interface ResumeAdminMapper {
 	
-	List<ResumeVO> selectAllResume() throws Exception;
+	List<ResumeVO> selectAllResume(ResumeVO resumeVO) throws Exception;
 	
 	ResumeVO getAllResume(ResumeVO resumeVO) throws Exception;
 	

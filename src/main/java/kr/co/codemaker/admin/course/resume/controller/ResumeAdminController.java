@@ -1,6 +1,5 @@
 package kr.co.codemaker.admin.course.resume.controller;
 
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,28 +16,35 @@ import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 @Controller
 public class ResumeAdminController {
 	private static final Logger logger = LoggerFactory.getLogger(ResumeAdminController.class);
-	
+
 	@Resource(name="resumeAdminService")
 	private ResumeAdminService resumeAdminService;
-	
+
 	@RequestMapping(path="/admin/resumeList")
 	public String selectAllResume(Model model, ResumeVO resumeVO) throws Exception {
 		logger.debug("resumeVO에 모가 들어이쓰까리~~ : {}", resumeVO);
-		List<ResumeVO> resumeList = resumeAdminService.selectAllResume();
+		List<ResumeVO> resumeList = resumeAdminService.selectAllResume(resumeVO);
 		model.addAttribute("resumeList", resumeList);
-		
+		model.addAttribute("resState", resumeVO.getResState());
+
 		// ajax 이용해서 이력서 정보 불러오기
 		return "adminPage/admin/resume/listResume";
 	}
-	
+   
 	@RequestMapping(path="/admin/resume")
 	public String getAllResume(ResumeVO resumeVO, Model model) throws Exception {
 		ResumeVO resume = resumeAdminService.getAllResume(resumeVO);
 		model.addAttribute("resume", resume);
-		
+
 		logger.debug("resume!!!!!!!!!!!!!!!!!!!! : {}", resume);
-		
+
 		return "adminPage/admin/resume/selectResume";
 	}
 	
+	@RequestMapping(path="/admin/resume/state")
+	public String updateState()throws Exception {
+		
+		return "adminPage/admin/resume/listResume";
+	}
+
 }
