@@ -15,8 +15,8 @@ public class ResumeAdminService {
 	@Resource(name="resumeAdminMapper")
 	private ResumeAdminMapper resumeAdminMapper;
 	
-	public List<ResumeVO> selectAllResume() throws Exception{
-		return resumeAdminMapper.selectAllResume();
+	public List<ResumeVO> selectAllResume(ResumeVO resumeVO) throws Exception{
+		return resumeAdminMapper.selectAllResume(resumeVO);
 	}
 	
 	public ResumeVO getAllResume(ResumeVO resumeVO) throws Exception{

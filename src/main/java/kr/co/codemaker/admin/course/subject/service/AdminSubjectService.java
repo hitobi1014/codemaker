@@ -19,7 +19,7 @@ public class AdminSubjectService {
 		return adminSubjectMappser.selectAllSubject(subjectVO);
 	}
 	
-	public int insertSubjcet(SubjectVO subjectVO) throws Exception{
+	public int insertSubject(SubjectVO subjectVO) throws Exception{
 		return adminSubjectMappser.insertSubject(subjectVO);
 	}
 	
@@ -27,8 +27,8 @@ public class AdminSubjectService {
 		return adminSubjectMappser.updateSubject(subjectVO);
 	}
 	
-	public int deleteSubjcet(SubjectVO subjectVO) throws Exception{
-		return adminSubjectMappser.deleteSubjcet(subjectVO);
+	public int deleteSubject(SubjectVO subjectVO) throws Exception{
+		return adminSubjectMappser.deleteSubject(subjectVO);
 	}
 
 }
