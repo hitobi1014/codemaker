@@ -78,7 +78,7 @@
 										<div class="sub-menu">
 										
 											<li>
-											  <a href="">기업 정보</a>
+											  <a href="${cp}/admin/selectAllCompany">기업 정보</a>
 											</li>
 											<li>
 											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>

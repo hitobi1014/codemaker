@@ -19,9 +19,11 @@
 	width:1500px;
 	height:700px;
 	margin:auto;
+	border: none;
 }
 h2{
 	color : #1d25af;
+	font-size: 2.0em;
 }
 #ff{
 	margin: 50px 130px 0;
@@ -45,16 +47,38 @@ div, li{
 font-family: 'LotteMartDream';
   font-weight: 700;
   font-size: 1.5em;
+  text-align: center;
 }
 .table td{
 font-family: 'LotteMartDream';
   font-weight: 500;
   font-size: 1.2em;
+  text-align: center;
+  line-height: 40px;
+}
+.table tr{
+	border-top: 2px solid #bdbdbd;
+    border-bottom: 2px solid #bdbdbd;
 }
 .card .table {
-   margin-bottom: 50px;
+   margin-bottom: 70px;
 }
-
+#contImg{
+	width: 50px;
+    height: 45px;
+    margin-top: -7px;
+}
+#contImgN{
+	width: 40px;
+    height: 40px;
+}
+#contImgY{
+	width: 35px;
+    height: 35px;
+}
+#banner{
+	margin: 20px;
+}
 
 </style>
 
@@ -62,18 +86,18 @@ font-family: 'LotteMartDream';
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12">
 			<div class="card">
-		<div>
-			<h2>CodeMaker 기업 정보</h2>
+		<div id="banner">
+			<h2>기업 정보</h2>
+			<br>
 		</div>
-		<hr>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
 					<th>기업 아이디</th>
 					<th>기업명</th>
-					<th>기업 주소</th>
-					<th>기업 대표자</th>
-					<th>기업 전화번호</th>
+					<th>주소</th>
+					<th>대표자</th>
+					<th>전화번호</th>
 					<th></th>
 					<th>승인여부</th>
 				</tr>
@@ -85,8 +109,15 @@ font-family: 'LotteMartDream';
 							<td>${company.comAdd}</td>
 							<td>${company.comOwner}</td>
 							<td>${company.comTel}</td>
-							<td><button type="button">계약서</button></td>
-							<td>${company.comState}</td>
+							<td><a href=""><img id="contImg" src="/images/admin/company/contract.png"></a></td>
+							<c:choose>
+								<c:when test="${company.comState =='N'}">
+									<td><a href=""><img id="contImgN" src="/images/admin/company/check.png"></a></td>
+								</c:when>
+								<c:when test="${company.comState =='Y'}">
+									<td><a href=""><img id="contImgY" src="/images/admin/company/x.png"></a></td>
+								</c:when>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -116,7 +147,6 @@ font-family: 'LotteMartDream';
               	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${pages}">&raquo;</a></li>
               </c:if>
             </ul>
-            <hr>
             <div>
             </div>
          </div>      
