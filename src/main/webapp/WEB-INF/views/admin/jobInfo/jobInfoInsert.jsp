@@ -21,17 +21,6 @@ $(document).ready(function() {
 		lang: "ko-KR"
 	});
 	
-	$('#fileAddBtn').on('click', function(){
-		count++
-		if(count < 6){
-	        $('#fileup').append("<br><input type='file' name='realfile' multiple='multiple'>")
-	        return;
-		}else{
-			alert("첨부파일은 5개 까지 등록 가능합니다.");
-			return;
-		}
-    })
-    
     $('#insertbutton').on('click', function(){
     	var jobinfoTitle = $('input[name="jobinfoTitle"]').val();
     	var jobinfoCont = $('textarea[name="jobinfoCont"]').val();
@@ -79,13 +68,10 @@ $(document).ready(function() {
 				<hr>
 				<div class="col-sm-10">
 					<label for="userNm" class="col-sm-2 control-label">첨부파일</label>
-					<input type="button" id="fileAddBtn" value="파일추가">
-					
-					<div class="col-sm-10" id="fileup" class="col-sm-10">
-					</div>
+					<input type='file' name='realfile' multiple='multiple' value="파일추가">
 				</div>
 				<div class="col-sm-10">
-					<input type="hidden" name="adminId" value="${USERID}"/>
+					<input type="hidden" name="adminId" value="${S_ADMIN.adminId}"/>
 				</div>
 				
 				<div class="form-group">

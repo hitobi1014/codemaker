@@ -33,12 +33,28 @@ public interface NoticeMapper {
 	public List<NoticeVO> selectAllNotice(Map<String, Object> map) throws Exception;
 	
 	/**
+	 * 조건 별 공지사항을 조회하는 메서드
+	 * @author 박경호
+	 * @param map 가져갈 객체
+	 * @return 조건별 공지사항 리스트
+	 */
+	public List<NoticeVO> selectAllNoticeU(Map<String, Object> map) throws Exception;
+	
+	/**
 	 * 공지사항의 총 수를 구하는 메서드
 	 * @author 박경호
 	 * @param map 가져갈 객체
 	 * @return 공지사항의 총 갯수
 	 */
 	public int noticeTotalCnt(Map<String, Object> map) throws Exception;
+	
+	/**
+	 * 공지사항의 총 수를 구하는 메서드
+	 * @author 박경호
+	 * @param map 가져갈 객체
+	 * @return 공지사항의 총 갯수
+	 */
+	public int noticeTotalCntU(Map<String, Object> map) throws Exception;
 	
 	/**
 	 * 하나의 공지사항을 조회하는 메서드

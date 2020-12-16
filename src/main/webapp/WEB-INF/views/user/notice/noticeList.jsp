@@ -38,15 +38,15 @@ $(document).ready(function(){
 			var searchOption = $("select[name='searchOption']").val();
 			var keyWord = $("input[name='keyWord']").val();
 		
-			document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
+			document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
 		}
 	});
 	
-	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode == 13) {
-		    event.preventDefault();
-		  };
-	}, true);
+// 	document.addEventListener('keydown', function(event) {
+// 		  if (event.keyCode == 13) {
+// 		    event.preventDefault();
+// 		  };
+// 	}, true);
 	
 	
 	$("#searchBtn").on("click", function(){

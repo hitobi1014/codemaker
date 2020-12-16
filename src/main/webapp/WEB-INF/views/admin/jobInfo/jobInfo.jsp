@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 	
 	$("#listbutton").on("click", function(){
-		document.location="${cp}/admin/selectAllJobInfo";
+		document.location="${cp}/admin/selectAllJobInfo?keyWord=&page=1";
 	});
 
 

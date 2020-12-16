@@ -32,7 +32,7 @@ import kr.co.codemaker.fileUpload.FileUploadUtil;
 
 
 /**
-* NoticeController.java
+* AdminJobInfoController.java
 *
 * @author 박경호
 * @version 1.0
@@ -80,6 +80,7 @@ public class AdminJobInfoController {
 		
 		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
@@ -168,7 +169,7 @@ public class AdminJobInfoController {
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectAllJobInfo";
+			return "redirect:selectAllJobInfo?keyWord=&page=1";
 		}else {
 			return "adminPage/admin/jobInfo/jobInfoInsert";
 		}
@@ -261,7 +262,7 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:selectAllJobInfo";
+		return "redirect:selectAllJobInfo?keyWord=&page=1";
 		
 	}
 	

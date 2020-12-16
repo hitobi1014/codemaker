@@ -37,12 +37,27 @@ public interface JobInfoMapper {
 	public List<JobInfoVO> selectAllJobInfo(Map<String, Object> map);
 	
 	/**
+	 * 모든 취업 공고를 조회하기 위한 메서드
+	 * @author 박경호
+	 * @return 취업 공고 리스트
+	 */
+	public List<JobInfoVO> selectAllJobInfoU(Map<String, Object> map);
+	
+	/**
 	 * 취업 공고의 수를 구하는 메세드
 	 * @author 박경호
 	 * @param map 가져갈 객체
 	 * @return 취업 공고의 총 갯수
 	 */
 	public int jobInfoTotalCnt(Map<String, Object> map);
+	
+	/**
+	 * 취업 공고의 수를 구하는 메세드
+	 * @author 박경호
+	 * @param map 가져갈 객체
+	 * @return 취업 공고의 총 갯수
+	 */
+	public int jobInfoTotalCntU(Map<String, Object> map);
 	
 	/**
 	 * 취업 공고를 추가하는 메서드
