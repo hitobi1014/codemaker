@@ -31,11 +31,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script>
 $(document).ready(function(){
+	
+	
+	$("#keywords").keydown(function(key) {
+		if (key.keyCode == 13) {
+			var searchOption = $("select[name='searchOption']").val();
+			var keyWord = $("input[name='keyWord']").val();
 		
-
+			document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
+		}
+	});
 	
 	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode === 13) {
+		  if (event.keyCode == 13) {
 		    event.preventDefault();
 		  };
 	}, true);
@@ -46,20 +54,20 @@ $(document).ready(function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
 		
 	});
 	
 	$("#notice1").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption=1&keyWord="+keyWord+"&page=1";
 	});
 	
 	$("#notice2").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord;
+		document.location="${cp}/user/selectAllNotice?searchOption=2&keyWord="+keyWord+"&page=1";
 	});
 	
 })
@@ -69,43 +77,50 @@ $(document).ready(function(){
 		margin-left:10%; 
 		margin-right:10%; 
 		height:800px; 
-		text-align:center;
+	}
+	a{
+		color : black;
 	}
 </style>
+
 <div class="d-flex">
-		<div class="table-responsive" style="margin-left:10%; margin-right:10%; height:800px; text-align:center;">
+		<div class="table-responsive" style="height:800px;">
 			<br>
-			<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
-				<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
-				<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
-			</c:if>
-			<c:if test="${param.searchOption == '2'}">
-				<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
-				<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
-			</c:if>
+			<div style="text-align:center;">
+				<c:if test="${param.searchOption == '1' || param.searchOption == '' || param.searchOption == null}">
+					<button id="notice1" type="button" class="btn btn-info btn-lg active">공지사항</button>
+					<button id="notice2" type="button" class="btn btn-info btn-lg">자주묻는질문</button>
+				</c:if>
+				<c:if test="${param.searchOption == '2'}">
+					<button id="notice1" type="button" class="btn btn-info btn-lg">공지사항</button>
+					<button id="notice2" type="button" class="btn btn-info btn-lg active">자주묻는질문</button>
+				</c:if>
+			</div>
 			<hr>
 			
 			<div style="background-color:white;">
 				    <hr>
 				<div style="margin:auto; width:1000px;">
-					<table class="table">
-						<tr>
-							<th>공지사항 아이디</th>
+					<table class="table" >
+						<tr style="text-align:center;">
+							<th>공지사항 번호</th>
 							<th>공지사항 제목</th>
 							<th>공지사항 작성일</th>
 							<th>작성자아이디</th>
 						</tr>
 						<tbody id="noticeList">
-							<c:forEach items="${noticeList}" var="notice">
-								<c:if test="${notice.noticeOut == 'N'}">
-									<tr>
-										<td>${notice.noticeId}</td>
-										<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-										<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
-										<td>${notice.adminId}</td>
-									</tr>
-								</c:if>
-							</c:forEach>
+							<c:set var="num" value="${totalCnt - ((param.page-1)*10) }"/>
+								<c:forEach items="${noticeList}" var="notice" >
+									<c:if test="${notice.noticeOut == 'N'}">
+										<tr>
+											<td style="text-align:center;">${num}</td>
+											<td><a href="${cp}/user/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
+											<td style="text-align:center;"><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
+											<td style="text-align:center;">${notice.adminId}</td>
+										</tr>
+									</c:if>
+									<c:set var="num" value="${num-1}"/>
+								</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -115,15 +130,17 @@ $(document).ready(function(){
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
 					<c:when test="${param.page != 0 and param.page != 1 and param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${1}"><i class="fas fa-angle-double-left"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page-1}"><i class="fas fa-angle-left"></i></a></li>
+					<fmt:parseNumber var="pg" value="${((page / 5 ) - 1 ) * 5 + 1}"/>
+						<c:if test="${page > 5}">
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pg}">이전</a></li>
+						</c:if>
 					</c:when>
 				</c:choose>
 				
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
-						<c:when test="${i == param.page and param.page == ''}">
-							<li class="page-item active"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
+						<c:when test="${i == param.page}">
+							<li class="page-item active"><a class="page-link">${i}</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${i}">${i}</a></li>
@@ -133,8 +150,10 @@ $(document).ready(function(){
 				
 				<c:choose>
 					<c:when test="${param.page != pages && param.page != null}">
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${param.page+1}"><i class="fas fa-angle-right"></i></a></li>
-						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pages}"><i class="fas fa-angle-double-right"></i></a></li>
+						<fmt:parseNumber var="pg" value="${((page / 5 ) + 1 ) * 5 + 1 }"/>
+						<c:if test="${pages >= pg}">
+						  <li class="page-item"><a class="page-link" href="${cp}/user/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pg}">다음</a></li>
+						</c:if>
 					</c:when>
 				</c:choose> 	
 			</ul>

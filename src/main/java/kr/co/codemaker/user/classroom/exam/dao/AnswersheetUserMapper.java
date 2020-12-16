@@ -24,9 +24,11 @@ public interface AnswersheetUserMapper {
 	
 	/**
 	 * 해당 시험보기를 조회하는 메서드
-	 * @param questionVo
+	 * 
+	 * @author 김미연
+	 * @param questionVO
 	 * @return 
 	 */
-	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVo) throws Exception;
+	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVO) throws Exception;
 
 }

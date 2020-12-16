@@ -13,7 +13,10 @@
 <link href="/css/admin/main/toastr.min.css" rel="stylesheet" />
 <!-- SLEEK CSS -->
 <link id="sleek-css" rel="stylesheet" href="/css/admin/main/sleek.css" />
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 <!-- js -->
@@ -35,6 +38,6 @@
 <script src="/js/admin/main/moment.min.js"></script>
 <script src="/js/admin/main/nprogress.js"></script>
 <script src="/js/admin/main/select2.min.js"></script>
-<script src="/js/admin/main/sleek.js"></script>
+<!-- <script src="/js/admin/main/sleek.js"></script> -->
 <script src="/js/admin/main/spin.min.js"></script>
 <script src="/js/admin/main/toastr.min.js"></script>

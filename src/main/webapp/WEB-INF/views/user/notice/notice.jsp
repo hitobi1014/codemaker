@@ -33,9 +33,8 @@
 $(document).ready(function(){
 	
 	$("#listbutton").on("click", function(){
-		document.location="${cp}/user/selectAllNotice";
+		document.location="${cp}/user/selectAllNotice?searchOption=1&keyWord=${param.keyWord}&page=1";
 	})
-	
 	
 	$("button[id^=fileDownBtn]").on("click", function(){
 		filesId = $(this).val();

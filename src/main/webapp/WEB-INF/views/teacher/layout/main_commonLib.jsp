@@ -22,10 +22,10 @@
 <!-- js -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>
 <script src="/js/teacher/main/jquery.min.js"></script>
-<script src="/js/teacher/main/bootstrap.bundle.min.js"></script>
+<!-- <script src="/js/teacher/main/bootstrap.bundle.min.js"></script> -->
 <script src="/js/teacher/main/toastr.min.js"></script>
 <script src="/js/teacher/main/jquery.slimscroll.min.js"></script>
-<script src="/js/teacher/main/Chart.min.js"></script>
+<!-- <script src="/js/teacher/main/Chart.min.js"></script> -->
 <script src="/js/teacher/main/spin.min.js"></script>
 <script src="/js/teacher/main/ladda.min.js"></script>
 <script src="/js/teacher/main/jquery.mask.min.js"></script>
@@ -35,7 +35,7 @@
 <script src="/js/teacher/main/moment.min.js"></script>
 <script src="/js/teacher/main/daterangepicker.js"></script>
 <!-- <script src="/js/teacher/main/jekyll-search.min.js"></script> -->
-<script src="/js/teacher/main/sleek.js"></script>
+<!-- <script src="/js/teacher/main/sleek.js"></script> -->
 <script src="/js/teacher/main/chart.js"></script>
 <script src="/js/teacher/main/date-range.js"></script>
 <script src="/js/teacher/main/custom.js"></script>

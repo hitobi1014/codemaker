@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.user.classroom.exam.dao.ExamUserMapper">
+
+<select id="selectExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
+SELECT
+    e.exam_id,
+    e.exam_nm,
+    e.exam_state,
+    e.exam_date,
+    e.lidx_id
+FROM
+    exam e
+WHERE
+	e.exam_id = #{examId}
+</select>
+<select id="selectSExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
+SELECT
+    e.exam_id,
+    e.exam_nm,
+    e.exam_state,
+    e.exam_date,
+    e.lidx_id,
+    NVL(es.es_fscore, 0) es_fscore,
+    NVL(es.es_lscore, 0) es_lscore
+FROM
+    exam e, examscore es
+WHERE
+	e.exam_id = #{examId}
+AND
+	e.exam_id = es.exam_id
+</select>
+<select id="selectAllExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
+SELECT b.*, c.avgScore
+ FROM
+	(SELECT a.*, ROWNUM AS rn
+	  FROM
+		(SELECT
+		   e.exam_id,
+		   e.exam_nm,
+		   e.exam_state,
+		   e.exam_date,
+		   l.les_id,
+		   l.les_cont,
+		   li.lidx_id,
+		   li.lidx_cont,
+		   NVL(es.es_fscore, 0) es_fscore,
+           NVL(es.es_lscore, 0) es_lscore,
+           es.es_edate
+		FROM
+		    lesson l, lesson_index li, exam e, pay p, examscore es
+		WHERE
+			l.les_id =  li.les_id
+		AND 
+			e.lidx_id = li.lidx_id
+		AND
+			p.les_id = l.les_id
+		AND
+			p.user_id = #{userId}
+		 AND
+            es.exam_id(+) = e.exam_id
+		<if test="lesId != null and !lesId.equals('')">
+			AND
+				l.les_id = #{lesId}
+		</if>
+		ORDER BY SUBSTR(li.lidx_id, 5)) a) b, 
+		(SELECT ROUND(AVG(es_fscore), 2) avgScore FROM examscore) c 
+ WHERE rn BETWEEN 1 * (#{page} - 1) + 1 AND #{page} * 1
+</select>
+
+<select id="selectTotalCntExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="java.lang.Integer">
+SELECT COUNT(*)
+ FROM
+     lesson l, lesson_index li, exam e, pay p
+WHERE
+   	l.les_id =  li.les_id
+AND 
+	e.lidx_id = li.lidx_id
+AND
+	p.les_id = l.les_id
+AND
+	p.user_id = #{userId}
+</select>
+
+</mapper>

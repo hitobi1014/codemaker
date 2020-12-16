@@ -64,12 +64,14 @@ public class UserNoticeController {
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		try {
 			map2 = noticeService.selectAllNotice(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		logger.debug("map2 {}", map2);
 		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));

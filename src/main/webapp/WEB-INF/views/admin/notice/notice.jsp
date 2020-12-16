@@ -19,7 +19,7 @@ $(document).ready(function(){
 	});
 	
 	$("#listbutton").on("click", function(){
-		document.location="${cp}/admin/selectAllNotice";
+		document.location="${cp}/admin/selectAllNotice?searchOption=1&keyWord=&page=1";
 	});
 
 

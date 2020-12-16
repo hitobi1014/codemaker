@@ -1,61 +1,126 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
 <script>
 
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
 
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      var curTime;
+      var durTime;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '800',
+          width: '1100',
+          videoId: '${lidxPath}',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+       
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      
+      function onPlayerStateChange(event) {
+          console.log(event);
+          curTime = player.getCurrentTime();
+          durTime = player.getDuration()
+
+		// 일시정지 버튼눌렀을때
+		if (event.data == YT.PlayerState.PAUSED && !done) {
+        	// 현재시간
+        	 console.log(curTime);
+        	// 전체시간
+        	 console.log(durTime)
+        	 done = false;
+        }
+		// 영상을 끝까지 보았을때
+		if (event.data == YT.PlayerState.ENDED && !done) {
+        	// 현재시간
+        	 console.log(curTime);
+        	// 전체시간
+        	 console.log(durTime)
+        	 
+        	 done = true;
+        }
+      }
+	var btn = function(){
+// 		alert('클릭');
+		var lidxId = $('#btn').data('lidxid');
+		console.log(lidxId);
+		// 현재시간
+   	 	console.log(curTime);
+   		 // 전체시간
+	 	console.log(durTime);
+   		 
+   		$.ajax({
+   			url:"/user/updateLessonPage",
+   			type:"get",
+   			data:{'curTime' : curTime,
+   				  'lidxId' : lidxId},
+   			success:function(data){
+// 				document.location="/user/selectLessonPage";
+// 				alert('넘어옴');
+				opener.parent.location.reload();
+   				self.close();
+   			},error:function(){
+//    				alert('안됨');
+   			}
+   		}) 
+	}
 	
-	clear();
-	(function getTotalHours() {
-	    var totalHours = 0;
-	    var ar = document.querySelectorAll("#thumbnail-container #thumbnail " + 
-	"#overlays span.style-scope.ytd-thumbnail-overlay-time-status-renderer");
-	    
-	    var min = 0;
-	    var sec = 0;
-	    for(var i = 0; i < ar.length; i++) {
-	        min = min + parseInt(ar[i].innerText.split(":")[0]);
-	        sec = sec + parseInt(ar[i].innerText.split(":")[1]);
-	    }
-	    totalHours = (min+sec/60)/60;
-	    var u = 1/100;
-	    totalHours = Math.round(totalHours/u)*u;
-	    console.log( "총 재생시간은 " + totalHours +"시간 입니다.");
-	})();
-	(function getHoursLeft() {
-	    var totalHours = 0;
-	    var ar = document.querySelectorAll("#thumbnail-container #thumbnail " + 
-	"#overlays span.style-scope.ytd-thumbnail-overlay-time-status-renderer");
-	    var index = document.querySelector('#publisher-container span.style-scope.yt-formatted-string').innerText;
-	    var min = 0, sec = 0;
-	    for(var i = index-1; i < ar.length; i++) {
-	        min = min + parseInt(ar[i].innerText.split(":")[0]);
-	        sec = sec + parseInt(ar[i].innerText.split(":")[1]);
-	    }
-	    totalHours = (min+sec/60)/60;
-	    var u = 1/100;
-	    totalHours = Math.round(totalHours/u)*u;
-	    console.log( "남은  재생시간은 " + totalHours +"시간 입니다.");
-	})();
+	$(function(){
+		$(window).on('beforeunload', function(){
+			var lidxId = $('#btn').data('lidxid');
+	 		alert(lidxId);
+			// 현재시간
+			console.log(curTime);
+			// 전체시간
+			console.log(durTime);
 
+			$.ajax({
+				url : "/user/updateLessonPage",
+				type : "get",
+				// 	    			async:false,
+				data : {
+					'curTime' : curTime,
+					'lidxId' : lidxId
+				},
+				success : function(data) {
+					// 				document.location="/user/selectLessonPage";
+									alert('넘어옴');
+					opener.document.location.reload();
+				},
+				error : function() {
+// 					alert('안됨');
+				}
+			})
 
-
-
-
-
+		})
+	})
 </script>
-</head>
-<body>
 
+<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+<div id="player"></div>
 <div>
-	<iframe width="1000" height="600" src="https://www.youtube.com/embed/DFH2NpzgQ2E?rel=0&theme=light&modestbranding=1&showinfo=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+	<button id="btn" type="button"  onclick="btn()" data-lidxid="${lidxId}">강의 종료
+	</button>
 </div>
 
-<div id="player"></div>
-
-
-</body>
-</html>

@@ -13,7 +13,7 @@ public interface AdminSubjectMapper {
 	
 	int updateSubject(SubjectVO subjectVO) throws Exception; 	// 과목 수정
 	
-	int deleteSubjcet(SubjectVO subjectVO) throws Exception;	// 과목 삭제
+	int deleteSubject(SubjectVO subjectVO) throws Exception;	// 과목 삭제
 
 	
 	

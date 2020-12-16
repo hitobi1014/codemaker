@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
 #cont {
@@ -130,12 +130,12 @@ button {
     min-height: 830.438px;
 }
 .container_left{
-	width: 50%;
+	width: 55%;
 	height : auto;
 	display: inline-block;
 }
 .container_right{
-	width: 40%;
+	width: 37%;
 	height : auto;
 	display: inline-block;
 	margin-left: 50px;
@@ -188,7 +188,7 @@ color: #333236;
     justify-content: space-between;
     width: 90%;
     height: 100%;
-    padding-left: 2.5rem;
+    padding-left: 2.0rem;
     padding-right: 2rem;
     background-color: #ffffff;
     border-radius: .8rem;
@@ -196,7 +196,7 @@ color: #333236;
 }
 h2{
 	display: block;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
     margin-inline-start: 0px;
@@ -282,9 +282,15 @@ h2{
     margin-top: 70px;
     margin-left: -120px;
 }
+.lidxCont{
+	width: 60%;
 }
-
-
+.lidxImg{
+	width: 40%;
+}
+#spanText{
+	color:#007bff;
+	font-weight: 900;
 }
 
 /* .contdiv{max-width:200px;} */
@@ -295,7 +301,8 @@ h2{
 		
 		$('a[id^="videoClick_"]').on('click',function(){
 			var path = $(this).attr('value');
-			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=1000,height=650, left=30, top=30");
+			var lidxId = $(this).data('lidxid');
+			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
 		})
 
 	})
@@ -332,11 +339,12 @@ h2{
 	</div>
 	<div class="btn" style="border: 1px solid black;">
 		<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
-	<div id="payBtn" class="btn" style="border: 1px solid black;">
-		<c:url value="/user/payView" var="pay">
-			<c:param name="lesId" value="${lesId}"/>
-		</c:url>
-		<a href="${pay}">결제하기</a>
+		<div id="payBtn" class="btn" style="border: 1px solid black;">
+			<c:url value="/user/payView" var="pay">
+				<c:param name="lesId" value="${lesId}" />
+			</c:url>
+			<a href="${pay}">결제하기</a>
+		</div>
 	</div>
 </div>
 
@@ -348,9 +356,21 @@ h2{
 					<div class="container_lessonIndex_section bg-index"> 	
 						<span class="lessonIndex">${lesIdxList.lidxNum}</span>
 						<div class="container_lessonCont_section">
+						<div class="lidxCont">
 							<h2>${lesIdxList.lidxCont}</h2>
+						</div>
+						<div class="lidxImg">
+							<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
+							<c:choose>
+								<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
+									<span id="spanText">완료</span>
+								</c:when>
+								<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
+									<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
+								</c:when>
+							</c:choose>
+						</div>
 <!-- 							<a href=""><span><img class="video" src="/images/user/lesson/video2.png"></span></a> -->
-							<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA"><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
 						</div>
 					</div>
 				</div>

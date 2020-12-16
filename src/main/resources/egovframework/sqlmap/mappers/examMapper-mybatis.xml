@@ -18,6 +18,9 @@ WHERE
 </select>
 
 <insert id="insertExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
+<selectKey resultType="String" keyProperty="examId" order="BEFORE">
+  		SELECT 'EXAM'||LPAD(EXAM_SEQ.NEXTVAL,4,'0') FROM dual
+</selectKey>
 INSERT INTO exam (
     exam_id,
     exam_nm,
@@ -26,7 +29,7 @@ INSERT INTO exam (
     lidx_id,
     les_id
 ) VALUES (
-	'EXAM'||LPAD(EXAM_SEQ.NEXTVAL,4,'0'),
+	#{examId},
 	#{examNm},
 	#{examState},
 	SYSDATE,
@@ -38,7 +41,6 @@ INSERT INTO exam (
 <delete id="deleteExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
 DELETE FROM exam
 WHERE exam_id =#{examId}
-  AND exam_state =#{examState}
 </delete>
 
 <update id="updateExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
@@ -132,9 +134,17 @@ AND
 	e.lidx_id(+) = li.lidx_id
 AND
 	l.tch_id = #{tchId}
-<if test="searchExamState != null and !searchExamState.equals('')">
-AND
-	e.exam_state = #{searchExamState}
-</if>
+<choose>
+	<when test="searchExamState != null and !searchExamState.equals('')">
+		<choose>
+			<when test='searchExamState.equals("0")'>
+				AND e.exam_id is NULL
+			</when>
+			<otherwise>
+				AND e.exam_state = #{searchExamState}
+			</otherwise>
+		</choose>
+	</when>
+</choose>
 </select>
 </mapper>

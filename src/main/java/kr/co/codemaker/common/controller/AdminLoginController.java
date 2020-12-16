@@ -1,7 +1,11 @@
 package kr.co.codemaker.common.controller;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,7 +52,7 @@ public class AdminLoginController {
 			
 			return "adminPage/admin/main/adminMain";
 		}
-		return "redirect:/login?=";
+		return "redirect:/loginView?=";
 	}
 	
 	// 로그아웃
@@ -56,7 +60,7 @@ public class AdminLoginController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		logger.debug("로그아웃했땅!!!!!!!!!!======", session);
-		return "redirect:/login";
+		return "redirect:/loginView";
 	}
 	
 	
@@ -77,7 +81,7 @@ public class AdminLoginController {
 			
 			return "teacherPage/teacher/main/teacherMain";
 		}
-		return "redirect:/login?=";
+		return "redirect:/loginView?=";
 	}
 	
 	@RequestMapping(path="/admin/main")
@@ -88,6 +92,22 @@ public class AdminLoginController {
 	public String teacherMain() {
 		
 		return "teacherPage/teacher/main/teacherMain";
+	}
+	
+	// 메인 강사 이미지 처리
+	@RequestMapping(path="/teacher/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
 	}
 	
 }

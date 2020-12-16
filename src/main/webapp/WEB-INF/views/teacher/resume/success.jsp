@@ -5,9 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+	.box1{
+		text-align: center;
+	}
+</style>
 </head>
 <body>
-	이력서 제출 완료~!^0^ 테스트~~
-	[메인화면으로 돌아가기]
+	<div class="box1">
+		<br>
+		<br>
+		<br>
+		<h3>코드메이커 지원에 감사드립니다.</h3>
+		<br>
+		<br>
+		<br>
+	</div>
+	<div class="box1">
+		<input type="button" value="메인화면으로 이동" onclick="location.href='/userT/main'"/>
+	</div>
 </body>
 </html>

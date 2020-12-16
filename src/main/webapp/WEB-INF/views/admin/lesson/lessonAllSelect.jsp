@@ -19,12 +19,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<!-- js 추가 -->
-<script src="/js/admin/lesson/lesson.js"></script>
 <title>lessonAllList</title>
 
 <script>
 $(function(){
+	
 	// 강의 상세조회 페이지로
 	$('#lesidx tr td').on('click', function(){
 		if($(this).attr('class') != 'chb'){
@@ -41,13 +40,12 @@ $(function(){
 		$('input:checkbox[name=chk]').each(function() {
 			if ($(this).is(':checked')) {
 				var lesId = $(this).val();
-				console.log(lesId);
 				lesIds.push(lesId);
 			}
 		});
 		
 		if(lesIds.length > 0){
-			document.location = "/admin/updateLesson?lesState=3&lesIds=" + lesIds;
+			document.location = "/admin/updateLesson?lesState=3&lesIds=" + lesIds + "&examState=3";
 		}else{
 			alert("승인할 강의를 선택해주세요.");
 		}
@@ -65,7 +63,7 @@ $(function(){
 		});
 		
 		if(lesIds.length > 0){
-			document.location = "/admin/updateLesson?lesState=4&lesIds=" + lesIds;
+			document.location = "/admin/updateLesson?lesState=4&lesIds=" + lesIds + "&examState=4";
 		}else{
 			alert("반려할 강의를 선택해주세요.");
 		}
@@ -155,8 +153,6 @@ table{
 	text-align: right;
 }
 </style>
-
-
 
 
 </head>
