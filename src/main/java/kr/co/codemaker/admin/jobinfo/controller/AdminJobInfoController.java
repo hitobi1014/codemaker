@@ -56,7 +56,7 @@ public class AdminJobInfoController {
 	
 	@RequestMapping(path="/admin/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
 		
