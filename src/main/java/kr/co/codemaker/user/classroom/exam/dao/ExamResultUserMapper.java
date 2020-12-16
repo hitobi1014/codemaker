@@ -5,6 +5,7 @@ import java.util.List;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 
 /**
  * 
@@ -26,11 +27,11 @@ public interface ExamResultUserMapper {
 	 * 회원의 성적을 조회하는 메서드 - 상세페이지
 	 * 
 	 * @author 김미연
-	 * @param examScoreVO
+	 * @param examVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ExamResultVO> selectAllExamResult(ExamScoreVO examScoreVO) throws Exception;
+	public List<ExamResultVO> selectAllExamResult(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 회원의 성적을 등록하는 메서드

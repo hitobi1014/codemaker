@@ -68,15 +68,4 @@ public class ExamUserService {
 		return examUserMapper.selectExam(examVO);
 	}
 	
-	/**
-	 * 해당 시험을 조회하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examVO
-	 * @return 
-	 */
-	public ExamVO selectSExam(ExamVO examVO) throws Exception{
-		return examUserMapper.selectSExam(examVO);
-	}
-	
 }
