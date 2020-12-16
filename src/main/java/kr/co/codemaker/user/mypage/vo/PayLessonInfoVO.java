@@ -13,7 +13,14 @@ public class PayLessonInfoVO extends BaseVO{
 	private String tchNm;		//선생님이름
 	private String userId;		//회원아이디
 	private int lesTerm;		//강의기간
+	private String lesId;		//강의아이디
 	
+	public String getLesId() {
+		return lesId;
+	}
+	public void setLesId(String lesId) {
+		this.lesId = lesId;
+	}
 	public int getLesTerm() {
 		return lesTerm;
 	}

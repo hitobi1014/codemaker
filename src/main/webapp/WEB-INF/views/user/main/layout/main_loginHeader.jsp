@@ -80,7 +80,8 @@
 				<img id="navicon" class="img-profile rounded-circle" src="/images/user/main/mypage_icon.png">
 			</a>
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="${cp}/mypage/myinfoSelect"> 
+				<c:url value="/mypage/myinfoSelect" var="myinfoSelect"/>
+				<a class="dropdown-item" href="${myinfoSelect}"> 
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 마이페이지
 				</a> 
 				<c:url value="/user/myLesson" var="myLesson"/>
