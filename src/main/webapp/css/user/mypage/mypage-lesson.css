@@ -1,7 +1,21 @@
 @charset "UTF-8";
 
-.myles-box-area{
+.progress{
+	width: 104px;
+}
+#lesson-tb{
+    margin: 23px auto 0;
     border: 1px solid;
-    width: 75%;
-    margin: 50px auto 0;
+    width: 80%;
+    text-align: center;
+}
+.info-remain{
+	display: flex;
+    padding-left: 0px;
+    justify-content: center;
+    align-items: center;
+}
+.info-remain span{
+    display: inline-block;
+    width: 50px;
 }

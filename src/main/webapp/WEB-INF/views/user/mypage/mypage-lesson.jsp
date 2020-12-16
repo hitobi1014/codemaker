@@ -4,18 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="now" class="java.util.Date"/>
 <link href="/css/user/mypage/mypage-lesson.css" rel="stylesheet">
-<div class="myles-box-area">
+<div class="card shadow">
 	<div class="myles-box">
-		<table>
+		<table id="lesson-tb">
 			<thead>
 				<tr>
-					<th>번호</th>
 					<th>과목</th>
 					<th>강의명</th>
 					<th>강사</th>
 					<th>시작일</th>
 					<th>종료일</th>
-					<th>남은일수</th>
+					<th colspan="2">남은일수</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,13 +28,21 @@
 					<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true " var="now2"></fmt:parseNumber>
 					<fmt:parseNumber value="${end-now2}" integerOnly="true" var="day"/>
 					<tr>
-						<td>${stat.count}</td>
 						<td>${lesson.subNm}</td>
 						<td>${lesson.lesNm}</td>
 						<td>${lesson.tchNm}</td>
 						<td>${startLes}</td>
 						<td>${endLes}</td>
-						<td><c:out value="${day}"/> 일</td>
+						<td colspan="2">
+							<div class="info-remain">
+								<span><c:out value="${day}"/>일</span>
+								<!-- 남은일수 진행바 -->
+								<div class="progress" >
+									<fmt:parseNumber value="${lesson.lesTerm - (lesson.lesTerm / day)}" integerOnly="true" var="remainDay"></fmt:parseNumber>
+									<div class="progress-bar" style="width: ${lesson.lesTerm - (lesson.lesTerm / day)}%;">${remainDay}%</div>
+								</div>
+							</div>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
