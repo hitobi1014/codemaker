@@ -82,7 +82,7 @@
                     <td>
                           <span class="badge badge-dot mr-4">
                           <i class="bg-info"></i>
-                          <fmt:formatNumber value="${point.pointSum }"></fmt:formatNumber>&nbsp;Point
+                          <fmt:formatNumber value="${point.pointSum}"></fmt:formatNumber>&nbsp;Point
                           </span>
                     </td>
                   </tr>

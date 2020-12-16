@@ -25,7 +25,6 @@ $(function() {
 		$('#subf').removeAttr("target");
 	});
 	
-	
 	// 시험 제공
 	$('.regBtn').on('click', function(){
 		// data-examid
@@ -42,7 +41,6 @@ $(function() {
         $('#subf').attr("target", "selectViewExam");
         $('#subf').submit();
 	});
-
 	
 	// 조건에 따라 조회 - 등록상태
 	$('#search').on('change', function(){
@@ -56,14 +54,17 @@ $(function() {
 		var searchExamState = $('#search').val();
 		
 		if ($(this).attr('class') == 'm') {
-			var examId = $(this).parent('tr').data("examid");
+			var examId = $(this).parent('tr').data("examid").split("/")[0];
+			var searchEsScore = $(this).parent('tr').data("examid").split("/")[1];
 			
-			if(examId != ''){
+			if(searchEsScore != '999'){
 				var str = '<input type="hidden" name="examId" value="'+ examId +'">';
 				$('#subf').append(str);
 				
-				$('#subf').attr('action', '/exam/selectExam');
+				$('#subf').attr('action', '/examUser/selectExamScore');
 				$('#subf').submit();
+			}else{
+				alert("시험 결과가 존재 하지 않습니다.");
 			}
 		}
 	});
@@ -164,17 +165,35 @@ table{
 					</tr>
 				</c:if>
 				<c:forEach items="${examList}" var="exam" varStatus="status">
-					<tr data-examid='${exam.examId }'>
+					<tr data-examid='${exam.examId }/${exam.searchEsScore}'>
 						<!-- 시험 문제를 볼때 -->
 						<td class='m'>${status.count }</td>
 						<td class='m'>${exam.lidxCont }</td>
 						<td class='m'>${exam.examNm }</td>
-						<td class='m'>${exam.esFscore }</td>
-						<td class='m'>${exam.esLscore }</td>
+						<td class='m'>
+							<c:choose>
+								<c:when test="${exam.esFscore == 999}">
+									-
+								</c:when>
+								<c:otherwise>
+									${exam.esFscore } / ${exam.queTotal }
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td class='m'>
+							<c:choose>
+								<c:when test="${exam.esLscore == 999}">
+									-
+								</c:when>
+								<c:otherwise>
+									${exam.esLscore } / ${exam.queTotal }
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td class='m'><fmt:formatDate value="${exam.esEdate }" pattern="yyyy-MM-dd" /></td>
 						<td>
 							<c:choose>
-								<c:when test="${exam.esFscore == '0' }">
+								<c:when test="${exam.searchEsScore == '999' }">
 									<input type="button" class="btn btn-default regBtn" data-examid="${exam.examId }/0" value="시험 풀기"> 
 								</c:when>
 								<c:otherwise>

@@ -19,94 +19,18 @@ $(function() {
 	// #e6f4ea, que_answer, anw
 	// 정답 체크시 오버레이
 	$('input[name=erAnswerList]').on('click' ,function() {
-		var ol = $(this).prevAll("div[class=overlay]");
+		var ol = $(this).prevAll("input[name=ansCont]");
 		
 		if($(this).is(":checked") == true){
-			ol.attr('style','display: block');
+			ol.attr('style','background-color: rgba(230, 244, 234);');
 		}else{
-			ol.attr('style','display: none');
+			ol.attr('style','background-color: #eee;');
 		}
 	});
 	
 	// 채점하기
 	$('#checkScore').on('click',function() {
-		var bid = $(this).attr('id');
-		
-		// 빈칸 체크
-		var state = 0;
-		if(state == 0){
-			if($('.chk:checked').length != $('.d5').length){
-				alert('정답이 입력되지 않았습니다.');
-				state = 1;
-				return false;
-			}
-		}
-		
-		// examf
-		if(state == 0){
-			var answers = [];			// 정답
-			var studentAnswers = [];	// 학생 정답
-			var queScores = [];			// 배점
-			var erChecks = [];			// 오답 여부
-			
-			$('input[name="queScore"]').each(function() { 
-				queScores.push($(this).val());
-			});
-			
-			$('input[name="queAnswer"]').each(function() { 
-				answers.push($(this).val());
-			});
-			
-			$('input[name="erAnswerList"]:checked').each(function() { 
-				studentAnswers.push($(this).val());
-			});
-			
-			// 채점
-			for(var i=0; i < answers.length; i++){
-				if(answers[i] == studentAnswers[i]){
-					var jum = parseInt(queScores[i], 0);
-					erChecks.push(jum);
-				}else{
-					erChecks.push(0);
-				}
-			}
-			
-			// 총점
-			var sum = 0;
-			for(var i=0; i < erChecks.length; i++){
-				sum += erChecks[i];
-			}
-			
-			// 시험 첫 점수가 없다면 첫점수에 그게 아니라면 다시풀기 점수에...
-			if($('#esFscore').val() == '0'){
-				$('#esFscore').val(sum);
-			}else{
-				$('#esLscore').val(sum);
-			}
-			
-			str = '<input type="hidden" name="erCheckList" value="' + erChecks + '">';
-			
-			$('#examf').append(str);
-			//$('#examf').submit();
-			
-			$.ajax({
-				url : '/examUser/insertExamResult',
-				method : 'post',
-				data : 
-					$("#examf").serialize()
-				,
-				success : function(res){
-					alert("채점 완료");
-					opener.parent.location.reload(); // 부모창 리로드
-					// 초기화
-					$('#examf')[0].reset();
-					self.close();
-				},
-				error: function(xhr){
-					alert("상태"+xhr.status);
-				}
-			});
-		}
+		scoring();
 	});
 	
 	// 취소 버튼
@@ -117,12 +41,128 @@ $(function() {
 		self.close();
 	});
 	
+	// 시험 시작
 	$('#st').on('click', function(){
-		console.log('aa');
 		$('#start').attr('style', 'display: block;');
-	})
-	
+		// 시험 타이머
+		var time = 10;	// 기준 시간
+		var min = "";
+		var sec = "";
+		
+		var timer = setInterval(function(){
+			min = parseInt(time/60);
+			sec = time%60;
+			
+			$('#timer').text("타이머 : " + min + "분 " + sec + "초");
+			time--;
+			
+			// 시간초과
+			if(time < -1){
+				clearInterval(timer);
+				$('#timer').text("시간 초과");
+				alert("시간초과 되었습니다. 채점합니다.");
+
+				scoring();
+			}
+		}, 1000);
+		
+	});
 })
+
+var scoring = function(){
+	// 빈칸 체크
+	var state = 0;
+	var jumsu = [];
+	
+	if(state == 0){
+		$('input[name="erAnswerList"]').each(function() {
+			if($(this).is(":checked") == false){
+				jumsu.push('0');
+			}else{
+				jumsu.push($(this).val());
+			}
+		});
+		state = 1;
+	}
+	
+	// examf
+	if(state == 1){
+		var answers = [];			// 정답
+		var studentAnswers = [];	// 학생 정답
+		var queScores = [];			// 배점
+		var erChecks = [];			// 오답 여부
+		
+		$('input[name="queScore"]').each(function() { 
+			queScores.push($(this).val());
+		});
+		
+		$('input[name="queAnswer"]').each(function() { 
+			answers.push($(this).val());
+		});
+		
+		for(var ind=0; ind < $('.d5').length; ind++){
+			var c = 0;
+			for(var i=ind*4; i < (ind+1)*4-1 ; i++){
+				if(jumsu[i] != '0'){
+					studentAnswers.push(jumsu[i]);
+					c = c - 1;
+				}
+				c = c + 1;
+			}
+			if(c == 3){
+				studentAnswers.push('0');
+			}
+		}
+		
+		// 채점
+		for(var i=0; i < answers.length; i++){
+			if(answers[i] == studentAnswers[i]){
+				var jum = parseInt(queScores[i], 0);
+				erChecks.push(jum);
+			}else{
+				erChecks.push(0);
+			}
+		}
+		
+		// 총점
+		var sum = 0;
+		for(var i=0; i < erChecks.length; i++){
+			sum += erChecks[i];
+		}
+		
+		// 시험 첫 점수가 없다면 첫점수에 그게 아니라면 다시풀기 점수에...
+		if($('#searchEsScore').val() == '0'){
+			$('#esFscore').val(sum);
+		}else{
+			$('#esLscore').val(sum);
+		}
+		
+		str = '<input type="hidden" name="erCheckList" value="' + erChecks + '">';
+		str += '<input type="hidden" name="studentAnswers" value="' + studentAnswers + '">';
+		
+		$('#examf').append(str);
+		//$('#examf').submit();
+		
+		$.ajax({
+			url : '/examUser/insertExamResult',
+			method : 'post',
+			data : 
+				$("#examf").serialize()
+			,
+			success : function(res){
+				alert("채점 완료");
+				opener.parent.location.reload(); // 부모창 리로드
+				// 초기화
+				$('#examf')[0].reset();
+				self.close();
+			},
+			error: function(xhr){
+				alert("상태"+xhr.status);
+			}
+		});
+	}
+}
+
 </script>
 <title>examInsert</title>
 <style>
@@ -212,19 +252,9 @@ input{
 	resize: none;
 	text-align: left;
 }
-.overlay {
-	z-index: 3;
-	position: absolute;
-	display: none;
-	background-color: rgba(230, 244, 234, 0.5);
-	width: 840px;
-	height: 42px;
-}
 .chk {
-	z-index: 4;
 	margin-left: 4px;
 	margin-top: 10px;
-	position: relative;
 }
 .rig{
 	float: right;
@@ -249,13 +279,14 @@ input{
 		<form:input type="hidden" path="examId" class="form-control" value="${examId }"/>
 		<input type="hidden" name="esFscore" class="form-control" id="esFscore" value="${ev.esFscore }"/>
 		<input type="hidden" name="esLscore" class="form-control" id="esLscore" value="${ev.esLscore }"/>
-		<input type="hidden" name="searchEsScore" class="form-control" id="searchEsScore" value="${searchEsScore }"/>
+		<form:input type="hidden" path="searchEsScore" class="form-control" id="searchEsScore" value="${searchEsScore }"/>
 		<div id="d2">
 			<div id="d1"></div>
 			<div id="d3">
 				<h2>시험</h2>
 				<br> 
-				<label for="sel0" id="sel0">${ev.examNm }</label> <br>
+				<label for="sel0" id="sel0">${ev.examNm }</label><br>
+				<label id="timer"></label>
 			</div>
 			<br>
 
@@ -273,15 +304,10 @@ input{
 						
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 							<div class="anw">
-								<div class="overlay"></div>
 								<input type="text" name="ansCont" class="form-control radi" value="${answersheet.ansCont }" readonly="readonly" />
 								<input type="checkbox" name="erAnswerList" value="${vs.count }" class="chk"/>
 							</div>
 						</c:forEach>
-						<div class="anw">
-							<label for="sel5" class="sel5 hide">문제해설을 입력해주세요.</label>
-							<textarea class="form-control comment hide" rows="5" name="queExplain" readonly="readonly">${question.queExplain}</textarea>
-						</div>
 					</div>
 				</div>
 			</c:forEach>
