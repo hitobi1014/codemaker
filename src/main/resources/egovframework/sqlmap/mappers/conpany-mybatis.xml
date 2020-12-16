@@ -16,6 +16,14 @@
 		  	      	
 	</select>
 	
+	<select id="selectCompany" parameterType="kr.co.codemaker.admin.company.vo.CompanyVO" resultType="kr.co.codemaker.admin.company.vo.CompanyVO">
+		SELECT *
+		  FROM company
+		  <where>
+		  	AND com_id=#{comId}
+		  </where>
+	</select>
+	
 	<select id="selectCompanyCnt" resultType="int">
 		SELECT count(*)
 		  FROM company

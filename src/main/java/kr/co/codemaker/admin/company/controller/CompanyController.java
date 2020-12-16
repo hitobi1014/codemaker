@@ -62,5 +62,26 @@ public class CompanyController {
 		return "adminPage/admin/company/companyAllSelect";
 	}
 	
+	
+	// codemaker & 기업 계약서
+	@RequestMapping(path="/admin/companyContract")
+	public String contractTest(String comId, Model model) {
+		CompanyVO companyVO = new CompanyVO();
+		companyVO.setComId(comId);
+		
+		try {
+			companyVO = companyService.selectCompany(companyVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("companyVO", companyVO);
+		return "admin/company/canvas4";
+	}
 
+	
+	@RequestMapping(path="/contract")
+	public String contract() {
+		return "user/lesson/canvas4";
+	}
 }

@@ -22,13 +22,22 @@ import kr.co.codemaker.admin.company.vo.CompanyVO;
 public interface CompanyMapper {
 	
 	/**
-	 * / 기업리스트 조회
+	 * 기업리스트 조회
 	 * @author 박다미
 	 * @param companyVO
-	 * @return 기업 리스트
+	 * @return 
 	 * @throws Exception
 	 */
 	public List<CompanyVO> selectAllCompany(Map<String, Object> map) throws Exception;	
+	
+	/**
+	 * 기업 조회
+	 * @author 박다미
+	 * @param companyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public CompanyVO selectCompany(CompanyVO companyVO) throws Exception;
 	
 	/**
 	 * 전체 기업리스트 수

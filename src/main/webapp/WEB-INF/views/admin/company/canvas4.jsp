@@ -124,7 +124,6 @@
 					<!-- 지우기 버튼 -->
 					<button id="erase">Erase</button>
 					</div>
-					
 			</div>
 			
 			<div class="signdiv companySign" >
@@ -143,7 +142,6 @@
 <div>
 	<button>제출</button>
 </div>
-
 
 
 

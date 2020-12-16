@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>title</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<title>Insert title here</title>
+
 <style type="text/css">
 @font-face {
     font-family: 'NotoSerifKR';
@@ -69,9 +71,72 @@
 }
 
 </style>
+<script>
+var ge = null; // 그래픽 에디터 객체를 가리키는 변수
+
+function init() {
+    var canvas = null; // 캔버스 DOM 객체를 가리키는 변수
+    var context = null; // 캔버스에 그림을 그리는 도구 객체를 가리키는 변수
+
+    canvas = document.getElementById("myCanvas");
+    context = canvas.getContext("2d");
+
+    ge = new GraphicEditor(canvas, context); // 그래픽 에디터 객체 생성
+}
+
+class GraphicEditor { // 캔버스에 그림 그리는 자바스크립트 클래스
+    constructor(canvas, context) { // 생성자
+        this.canvas = canvas;     // 프로퍼티 canvas 생성
+        this.context = context; // 프로퍼티 context 생성
+        this.startX = 0;    // 프로퍼티 startX 생성
+        this.startY = 0;    // 프로퍼티 startY 생성
+        this.drawing = false;    // 프로퍼티 drawing 생성
+
+        // 선굵기와 색 초기화
+        this.context.lineWidth = 2; // 선 굵기를 2로 설정
+        this.context.strokeStyle = "blue";
+
+        // 이벤트 리스너 등록
+        this.canvas.onmousedown = function (e) { ge.down(e); }
+        this.canvas.onmouseup = function (e) { ge.up(e); }
+        this.canvas.onmousemove = function (e) { ge.move(e); }
+        this.canvas.onmouseout = function (e) { ge.out(e); }
+
+        // 이벤트 리스너가 canvas 객체에 달려 있기 때문에, 리스너가 실행되는 그 때
+        // this는 canvas 객체를 가리키며, ge.down(e)를 this.down(e)로 한다면
+        // 곧 canvas의 멤버 메소드 down(e)를 호출하는 것이 된다.
+        // 하지만 canvas 객체에는 down(e) 메소드가 없기 때문에 
+        // 실행 중에 오류가 발생한다.
+        // 그러므로 전역 변수 ge를 두어, ge.down(e)를 호출하도록 하였음
+
+    }
+
+    draw(curX, curY) {//(startX, startY)에서 (curX, curY) 까지 선그리는 메소드
+        this.context.beginPath();
+        this.context.moveTo(this.startX, this.startY);
+        this.context.lineTo(curX, curY);
+        this.context.stroke();
+    }
+
+    down(e) { // 마우스 다운시 호출되는 메소드
+        this.startX = e.offsetX; this.startY = e.offsetY;
+        this.drawing = true;
+    }
+
+    up(e) { this.drawing = false; } // 마우스 업 시 호출되는 메소드
+
+    move(e) { // 마우스를 움직이는 동안 계속 호출되는 메소드
+        if(!this.drawing) return;
+        var curX = e.offsetX, curY = e.offsetY;
+        ge.draw(curX, curY);
+        this.startX = curX; this.startY = curY;
+    }
+
+    out(e) { this.drawing = false; } // 마우스가 캔버스 바깥으로 나가는 순간 호출되는 메소드
+}
+</script>
 </head>
 <body>
-
 <div class="frame" >
 	<div class="header"><p id="ptag"><strong>표준 산학협력 협약서(안)</strong></p></div>
 	
@@ -112,22 +177,14 @@
 		</div>
 		
 		<div class="sign" >
-			<div class="signdiv codeSign" >
+				<div class="signdiv codeSign" >
 					<div>
 						<p>[갑] 학원명 :  codemaker</p>
 					</div>
-					<!-- 서명 공간 -->
-					<div style="width:400px; height:200px;">
-					<canvas id="canvas" style="border:1px solid black"></canvas>
-					</div>
-					<div>
-					<!-- 지우기 버튼 -->
-					<button id="erase">Erase</button>
-					</div>
 					
-			</div>
-			
-			<div class="signdiv companySign" >
+				</div>
+				
+				<div class="signdiv companySign" >
 					<div class="stamp 1st">
 					  <p>[을]  회사명 : ${companyVO.comNm}</p>
 					  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주 소 : ${companyVO.comAdd}</p>
@@ -136,136 +193,16 @@
 					<div class="stamp 2nd">
 					    <img id="stampId" src="/images/admin/company/stamp.png">
 					</div>
-			</div>
+				</div>
 		</div>
 	</div>
-</div>	
+</div>
+
 <div>
 	<button>제출</button>
 </div>
 
 
-
-
-<script>
-(function(obj){
-obj.init();
-$(obj.onLoad);
-})((function(){
-var canvas = $("#canvas");
-var div = canvas.parent("div");
-// 캔버스의 오브젝트를 가져옵니다.
-var ctx = canvas[0].getContext("2d");
-var drawble = false;
-function canvasResize(){
-canvas[0].height = div.height();
-canvas[0].width = div.width();
-}
-// pc에서 서명을 할 경우 사용되는 이벤트입니다.
-function draw(e){
-function getPosition(){
-return {
-X: e.pageX - canvas[0].offsetLeft,
-Y: e.pageY - canvas[0].offsetTop
-}
-}
-switch(e.type){
-case "mousedown":{
-drawble = true;
-ctx.beginPath();
-ctx.moveTo(getPosition().X, getPosition().Y);
-}
-break;
-case "mousemove":{
-if(drawble){
-ctx.lineTo(getPosition().X, getPosition().Y);
-ctx.stroke();
-}
-}
-break;
-case "mouseup":
-case "mouseout":{
-drawble = false;
-ctx.closePath();
-}
-break;
-}
-}
-// 스마트 폰에서 서명을 할 경우 사용되는 이벤트입니다.
-function touchdraw(e){
-function getPosition(){
-return {
-X: e.changedTouches[0].pageX - canvas[0].offsetLeft,
-Y: e.changedTouches[0].pageY - canvas[0].offsetTop
-}
-}
-switch(e.type){
-case "touchstart":{
-drawble = true;
-ctx.beginPath();
-ctx.moveTo(getPosition().X, getPosition().Y);
-}
-break;
-case "touchmove":{
-if(drawble){
-// 스크롤 이동등 이벤트 중지..
-e.preventDefault();
-ctx.lineTo(getPosition().X, getPosition().Y);
-ctx.stroke();
-}
-}
-break;
-case "touchend":
-case "touchcancel":{
-drawble = false;
-ctx.closePath();
-}
-break;
-}
-}
-// 참고로 mousedown은 touchstart와 mousemove는 touchmove, mouseup은 touchend와 같습니다.
-// mouseout와 touchcancel은 서로 다른 동작인데, mouseout은 canvas 화면을 벗어났을 때이고 touchcancel는 모바일에서 터치가 취소, 즉 에러가 났을 때 입니다.
-return {
-init: function(){
-// 캔버스 사이즈 조절
-$(window).on("resize", canvasResize);
-canvas.on("mousedown", draw);
-canvas.on("mousemove", draw);
-canvas.on("mouseup", draw);
-canvas.on("mouseout", draw);
-// 저장
-$("#save").on("click", function(){
-// a 태그를 만들어서 다운로드를 만듭니다.
-var link = document.createElement('a');
-// base64데이터 링크 달기
-link.href = canvas[0].toDataURL("image/png");
-// 다운로드시 파일명 지정
-link.download = "image.png";
-// body에 추가
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-// 다운로드용 a 태그는 다운로드가 끝나면 삭제합니다.
-form.remove();
-});
-
-// 지우기
-$('#erase').on('click',function(){
-    ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-    // 컨텍스트 리셋
-    ctx.beginPath();
-})
-
-
-
-},
-onLoad: function(){
-// 캔버스 사이즈 조절
-canvasResize();
-}
-}
-})());
-</script>
 </body>
 </html>
 

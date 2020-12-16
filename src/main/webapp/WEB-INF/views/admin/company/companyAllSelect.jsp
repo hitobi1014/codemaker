@@ -12,8 +12,7 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-<script>
-</script>
+
 <style>
 .card{
 	width:1500px;
@@ -67,6 +66,7 @@ font-family: 'LotteMartDream';
 	width: 50px;
     height: 45px;
     margin-top: -7px;
+    cursor: pointer;
 }
 #contImgN{
 	width: 40px;
@@ -77,10 +77,20 @@ font-family: 'LotteMartDream';
     height: 35px;
 }
 #banner{
-	margin: 20px;
+	margin: 20px 0px 20px 0;
 }
-
 </style>
+
+<script>
+
+$(function(){
+	$('a[id^="contract_"]').on('click',function(){
+		var comId = $(this).attr('value');
+		window.open("/admin/companyContract?comId="+comId, "video_popup","width=1000,height=900, left=400, top=30");
+	})
+	
+})
+</script>
 
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
@@ -102,20 +112,20 @@ font-family: 'LotteMartDream';
 					<th>승인여부</th>
 				</tr>
 				<tbody id="companyList">
-					<c:forEach items="${companyList}" var="company">
+					<c:forEach items="${companyList}" var="company" varStatus="status">
 						<tr>
 							<td>${company.comId}</td>
 							<td>${company.comNm}</td>
 							<td>${company.comAdd}</td>
 							<td>${company.comOwner}</td>
 							<td>${company.comTel}</td>
-							<td><a href=""><img id="contImg" src="/images/admin/company/contract.png"></a></td>
+							<td><a id="contract_${status.index}" value="${company.comId}"><img id="contImg" src="/images/admin/company/contract.png"></a></td>
 							<c:choose>
 								<c:when test="${company.comState =='N'}">
-									<td><a href=""><img id="contImgN" src="/images/admin/company/check.png"></a></td>
+									<td><img id="contImgN" src="/images/admin/company/check.png"></td>
 								</c:when>
 								<c:when test="${company.comState =='Y'}">
-									<td><a href=""><img id="contImgY" src="/images/admin/company/x.png"></a></td>
+									<td><img id="contImgY" src="/images/admin/company/x.png"></td>
 								</c:when>
 							</c:choose>
 						</tr>

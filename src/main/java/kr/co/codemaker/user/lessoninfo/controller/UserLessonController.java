@@ -121,12 +121,6 @@ public class UserLessonController {
 		model.addAttribute("lidxId", lidxId);
 		return "user/lesson/lessonYoutube";
 	}
-
-	// 강의 동영상 테스트
-	@RequestMapping(path="/user/testYou")
-	public String testYou() {
-		return "user/lesson/lessonYoutube";
-	}
 	
 	// 강의 동영상 값 넘겨오는지 
 	@RequestMapping(path="/user/time")
@@ -135,17 +129,6 @@ public class UserLessonController {
 		return "";
 	}
 	
-	// 컨버스 테스트
-	@RequestMapping(path="/canvas")
-	public String canvasTest() {
-		return "user/lesson/canvas";
-	}
-	
-	// 컨버스 테스트
-	@RequestMapping(path="/canvas2")
-	public String canvas2Test() {
-		return "user/lesson/canvas4";
-	}
 	
 	
 	
