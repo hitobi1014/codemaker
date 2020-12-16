@@ -9,6 +9,10 @@
     INSERT INTO users VALUES(#{userId}, #{userPass}, #{userNm}, #{userTel}, #{userProfile}, 'N', 'N')
   </insert>
   
+  <insert id="joinPoint" parameterType="java.lang.String">
+	INSERT INTO point VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, 0, '1', 0, #{userId}) 
+  </insert>
+  
   <select id="idchk" resultType="Integer">
   	SELECT count(*) FROM users where user_id = #{userId}
   </select>

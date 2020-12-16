@@ -14,6 +14,16 @@ public class LessonIndexVO extends BaseVO{
 	private int lidxDurtime;	// 강의 전체시간
 	private int lidxCurtime;	// 강의 재생시간
 	
+	private String subId;		// 과목 아이디
+	
+	
+	
+	public String getSubId() {
+		return subId;
+	}
+	public void setSubId(String subId) {
+		this.subId = subId;
+	}
 	public int getLidxDurtime() {
 		return lidxDurtime;
 	}

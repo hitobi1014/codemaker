@@ -18,7 +18,7 @@ import kr.co.codemaker.admin.course.subject.vo.SubjectVO;
 import kr.co.codemaker.teacher.course.lesson.controller.TeacherLessonController;
 
 /**
- * 
+ * AdminSubjectController.java
 *
 * @author 박다미
 * @version 1.0
@@ -41,7 +41,7 @@ public class AdminSubjectController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path="/admin/selectAllSubjcet")
+	@RequestMapping(path="/admin/selectAllSubject")
 	public String selectAllSubject(Model model) {
 		SubjectVO subjectVO = new SubjectVO();
 		List<SubjectVO> subList;
@@ -62,7 +62,7 @@ public class AdminSubjectController {
 	 * @param subNm 과목명
 	 * @return
 	 */
-	@RequestMapping(path="/admin/insertSubjcet")
+	@RequestMapping(path="/admin/insertSubject")
 	public String insertSubject(String subNm) {
 		
 		logger.debug("과목이름:{}",subNm);
@@ -70,9 +70,9 @@ public class AdminSubjectController {
 		subjectVO.setSubNm(subNm);
 		
 		try {
-			int cnt = adminSubjectService.insertSubjcet(subjectVO);
+			int cnt = adminSubjectService.insertSubject(subjectVO);
 			if(cnt ==1 ) {
-				return "redirect:/admin/selectAllSubjcet";
+				return "redirect:/admin/selectAllSubject";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -96,7 +96,7 @@ public class AdminSubjectController {
 		try {
 			int cnt = adminSubjectService.updateSubject(subjectVO);
 			if(cnt ==1) {
-				return "redirect:/admin/selectAllSubjcet";
+				return "redirect:/admin/selectAllSubject";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -122,7 +122,7 @@ public class AdminSubjectController {
 			for(int i=0; i<checkArr.size(); i++) {
 				subId = checkArr.get(i);
 				subjectVO.setSubId(subId);
-				cnt = adminSubjectService.deleteSubjcet(subjectVO);
+				cnt = adminSubjectService.deleteSubject(subjectVO);
 			}
 			logger.debug("cnt:{}",cnt);
 		} catch (Exception e) {
@@ -130,9 +130,10 @@ public class AdminSubjectController {
 			e.printStackTrace();
 		}
 		if(cnt >0) {
-			return "redirect:/admin/selectAllSubjcet";
+			return "redirect:/admin/selectAllSubject";
 		}else {
 			return null;
 		}
 	}
+	
 }

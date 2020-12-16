@@ -42,7 +42,7 @@ $(function(){
 		var url='';
 		
 		if(action ==  'insert'){
-			url='/admin/insertSubjcet';
+			url='/admin/insertSubject';
 			alert('등록되었습니다');
 		}else if(action == 'update'){
 			url='/admin/updateSubject';

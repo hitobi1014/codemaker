@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
-import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
@@ -30,22 +29,15 @@ public class QuestionUserService {
 	@Resource(name = "questionUserMapper")
 	private QuestionUserMapper questionUserMapper;
 	
-	public List<QuestionVO> selectQuestion(ExamVO examVo) {
-		try {
-			return questionUserMapper.selectQuestion(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * 해당 시험문제를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public List<QuestionVO> selectQuestion(ExamVO examVO) throws Exception {
+		return questionUserMapper.selectQuestion(examVO);
 	}
 	
-	public int intsertExamResult(ExamResultVO examResultVo) {
-		try {
-//			return questionUserMapper.intsertExamResult(examResultVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
 }

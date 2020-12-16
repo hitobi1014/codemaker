@@ -45,11 +45,11 @@ public class AnswersheetService {
 	 * 시험보기를 삭제하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param questionVo
+	 * @param answersheetVO
 	 * @return 
 	 */
-	public int deleteAnswersheet(QuestionVO questionVo) throws Exception{
-		return answersheetMapper.deleteAnswersheet(questionVo);
+	public int deleteAnswersheet(AnswersheetVO answersheetVO) throws Exception{
+		return answersheetMapper.deleteAnswersheet(answersheetVO);
 	};
 
 

@@ -25,8 +25,8 @@ public class MypageService{
 		return myPageMapper.myinfoSelect(userId);
 	}
 
-	public int deleteUser(String userId) throws Exception {
-		return myPageMapper.deleteUser(userId);
+	public int deleteUser(UserVO userVo) throws Exception {
+		return myPageMapper.deleteUser(userVo);
 	}
 
 	public int updateUser(UserVO userVo) throws Exception {

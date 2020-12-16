@@ -30,57 +30,86 @@ $(function() {
 		var ol = $(this).prevAll("div[class=overlay]");
 		
 		if($(this).is(":checked") == true){
-			//console.log('ddfd');
 			ol.attr('style','display: block');
 		}else{
-			//console.log('dadfad');
 			ol.attr('style','display: none');
 		}
-
 	});
 	
 	// 임시저장, 등록
 	$('.btns input[type=button]').on('click',function() {
 		var bid = $(this).attr('id');
-		// 빈칸 체크 - 추후
-		var ia = [];
-		ia = $('#examf').children('input');
-		console.log(ia);
-
-		// examf
-		// 임시저장 버튼일 경우
-		if(bid == 'temps'){
-			str = '<input type="hidden" name="examState" value="1">';
-		}else if(bid == 'regBtn'){ // 등록 버튼일 경우
-			str = '<input type="hidden" name="examState" value="2">';
-		}
 		
-		$('#examf').append(str);
-		
-		$.ajax({
-			url : '/exam/insertExam',
-			method : 'post',
-			data : 
-				$("#examf").serialize()
-			,
-			success : function(res){
-				alert("시험이 등록되었습니다.");
-				opener.parent.location.reload(); // 부모창 리로드
-				self.close();
-			},
-			error: function(xhr){
-				alert("상태"+xhr.status);
+		// 빈칸 체크
+		var state = 0;
+		$('#examf').find('type="text"').each(function(index, data){
+			if($(this).val().trim() == ''){
+				alert('값이 입력되지 않았습니다.');
+				state = 1;
+				return false;
 			}
 		});
+		if(state == 0){
+			$('.comment').each(function(index, data){
+				if($(this).val().trim() == ''){
+					alert('해설이 입력되지 않았습니다.');
+					state = 1;
+					return false;
+				}
+			});
+		}
+		if(state == 0){
+			if($('.chk:checked').length != $('.d5').length){
+				alert('정답이 입력되지 않았습니다.');
+				state = 1;
+				return false;
+			}
+		}
+		
+		// examf
+		// 임시저장 버튼일 경우
+		if(state == 0){
+			if(bid == 'temps'){
+				str = '<input type="hidden" name="examState" value="1">';
+			}else if(bid == 'regBtn'){ // 등록 버튼일 경우
+				str = '<input type="hidden" name="examState" value="2">';
+			}
+			$('#examf').append(str);
+			
+			$.ajax({
+				url : '/exam/insertExam',
+				method : 'post',
+				data : 
+					$("#examf").serialize()
+				,
+				success : function(res){
+					alert("시험이 등록되었습니다.");
+					opener.parent.location.reload(); // 부모창 리로드
+					// 초기화
+					$('#examf')[0].reset();
+					self.close();
+				},
+				error: function(xhr){
+					alert("상태"+xhr.status);
+				}
+			});
+		}
 	});
 	
 	// 취소 버튼
 	$('#cancle').on('click', function(){
+		// 초기화
+		$('#examf')[0].reset();
+		opener.parent.location.reload(); // 부모창 리로드
 		self.close();
 	});
 	
-	$(document).on('click', '#delBtn' ,function(){
-		console.log('aa');
+	// 문제 삭제
+	$(document).on('click', '.delBtn' ,function(){
+		// 해당 문제 삭제
+		var parent = $(this).parents('div .d5');
+		// 부모 삭제
+		parent.remove();
 	});
 	
 })
@@ -90,11 +119,12 @@ $(function() {
 body {
 	background-color: rgb(240, 235, 248);
 }
-
+input{
+	margin-top: 5px;
+}
 #d2 {
 	text-align: center;
 }
-
 #d1 {
 	background: rgb(103, 58, 183);
 	display: inline-block;
@@ -104,7 +134,6 @@ body {
 	width: calc(80% + 2px);
 	margin-top: 30px;
 }
-
 #d3 {
 	padding-left: 20px;
 	display: inline-block;
@@ -116,17 +145,15 @@ body {
 	height: 150px;
 	text-align: left;
 }
-
 .d4 {
 	background-color: #4285f4;
 	display: inline-block;
-	height: 670px;
+	height: 515px;
 	width: calc(1% + 2px);
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;
 	float: left;
 }
-
 .d5 {
 	display: inline-block;
 	margin-left: -6px;
@@ -134,64 +161,67 @@ body {
 	width: calc(80% + 2px);
 	border-top-right-radius: 8px;
 	border-bottom-right-radius: 8px;
-	height: 670px;
+	border-top-left-radius: 8px;
+	height: 515px;
 	text-align: left;
 	margin-top: 10px;
 }
-
 .d6 {
 	padding-left: 20px;
 	padding-top: 5px;
 }
-
 .sel1 {
 	margin-top : 5px;
 }
-
 .form-control {
 	width: 800px;
 }
-
 .radi {
 	display: inline-block;
 	margin-right: 5px;
 }
-
 .anw {
-	margin-top: 10px;
+	margin-top: 5px;
 }
-
 .btnd {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
 }
-
 .btns {
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
 	margin-right: 90px;
 }
-
 .comment {
 	resize: none;
+	text-align: left;
 }
-
 .overlay {
 	z-index: 1;
 	position: absolute;
 	display: none;
 	background-color: rgba(230, 244, 234, 0.5);
 	width: 840px;
-	height: 35px;
+	height: 42px;
 }
-
 .chk {
 	z-index: 2;
 	margin-left: 4px;
 	margin-top: 10px;
 	position: relative;
+}
+.rig{
+	float: right;
+}
+.delBtn{
+	margin-right: 60px;
+    background-color: cadetblue;
+}
+.queS{
+	display: inline-block;
+	width: 200px;
 }
 </style>
 </head>
@@ -213,11 +243,11 @@ body {
 			<div class="d5">
 				<div class="d4"></div>
 				<div class="d6">
-					<label for="sel1" class="sel1"> 문제를 입력해주세요. </label> <br> 
-					<input type="text" name="queContList" class="form-control que" /><br>
-					<label for="sel1" class="sel1"> 배점을 입력해주세요. </label> <br> 
-					<input type="text" name="queScoreList" class="form-control que" /><br>
-					
+					<label for="sel1" class="sel1"> 문제를 입력해주세요. </label> 
+					<input type="text" name="queContList" class="form-control que" />
+					<label for="sel4" class="sel4"> 배점을 입력해주세요.(숫자만 입력가능합니다.) &nbsp;&nbsp;&nbsp;</label>
+					<input type="number" name="queScoreList" class="form-control que queS" />
+					<br>
 					<label for="sel2"> 보기를 입력해주세요. </label>
 					<div class="anw">
 						<div class="overlay"></div>
@@ -239,15 +269,15 @@ body {
 						<input type="text" name="ansContList" class="form-control radi" placeholder="보기4"> 
 						<input type="checkbox" name="queAnswerList" value="4" class="chk" />
 					</div>
-					<br> <label for="sel3"> 문제 해설을 입력해주세요. </label>
 					<div class="anw">
-						<textarea class="form-control" rows="5" class="comment" name="queExplainList" style="resize: none"></textarea>
+						<label for="sel3"> 문제 해설을 입력해주세요. </label>
+						<textarea class="form-control comment" rows="5" name="queExplainList"></textarea>
 					</div>
-					<input type="button" class="btn btn-default delBtn" value="문제 삭제">
+					<div class="anw rig">
+						<input type="button" class="btn btn-default delBtn" value="문제 삭제">
+					</div>
 				</div>
 			</div>
-			
-			
 		</div>
 	</form:form>
 	<div class="btns">

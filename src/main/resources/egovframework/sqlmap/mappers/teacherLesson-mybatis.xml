@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.teacher.course.lesson.dao.LessonMapper">
 
+	<!-- 	승인된 강의리스트 조회 -->
 	<select id="selectLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT *
 		  FROM lesson
@@ -13,6 +14,7 @@
  		   ORDER BY les_id ASC
 	</select>
 	
+	<!-- 	승인되지않은 강의리스트 조회 -->
 	<select id="selectNoLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT *
  		  FROM lesson
@@ -23,6 +25,7 @@
  		 ORDER BY les_id ASC
 	</select>
 	
+	<!-- 	강의 조회 -->
 	<select id="selectDetailLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		SELECT  a.*, b.sub_nm 
 		  FROM lesson a,(select sub_nm from subject WHERE sub_id = #{subId}) b 
@@ -31,6 +34,7 @@
 		  </where>
 	</select>
 	
+	<!-- 	강의삭제 -->
 	<update id="deleteLesson" parameterType="String" >
 		UPDATE lesson 
    		   SET les_state='5' 
@@ -39,22 +43,16 @@
    		 </where>  
 	</update>
 	
+	<!-- 	강의등록 : les_state = '1'(임시저장) -->
 	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		INSERT INTO lesson
-     	VALUES('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId})
+INSERT INTO lesson
+     	VALUES ('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId}, #{lesSdate}, #{lesEdate})
 	     <selectKey keyProperty="lesId" resultType="String">
 			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
 		</selectKey>
-	</insert>
+</insert>
 	
-	<update id="updateLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		UPDATE lesson
-   		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}
-   		   <where>
-		      AND les_id=#{lesId}
-   		   </where>
-	</update>
-	
+	<!-- 	강의 수정 : les_state = '1'(임시저장) -->
 	<update id="updateTempoLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		UPDATE lesson
    		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}, les_state='1'
@@ -62,4 +60,22 @@
 		      AND les_id=#{lesId}
    		   </where>
 	</update>
+	
+	<!-- 	강의 요청 : les_state = '2'(승인요청) -->
+	<update id="updatePermissionLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+		UPDATE lesson
+   		   SET 	les_state='2'
+   		   <where>
+		      AND les_id=#{lesId}
+   		   </where>
+	</update>
+	
+	<select id="selectExamCnt" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO" resultType="int">
+		SELECT count(*) 
+		  FROM exam
+		  <where>
+			  AND exam_state = '1'
+			  AND les_id=#{lesId}
+		  </where>
+	</select>
 </mapper>

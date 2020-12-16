@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
@@ -25,20 +24,24 @@
 						</a>
 						<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 							<div class="sub-menu">
+							  
+							  
 								<li  class="has-sub" >
 									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
 										<span class="nav-text">학생 관리</span> <b class="caret"></b>
 									</a>
 									<ul  class="collapse"  id="components">
 										<div class="sub-menu">
-											<li>
-												<c:url value="/admin/selectUserInfo" var="selectUser"/>
-												<a href="${selectUser}">정보조회</a>
+										      
+											<li >
+												<a href="#">정보조회</a>
 											</li>
-											<li>
+											
+											<li >
 												<a href="#">블랙리스트 관리</a>
 											</li>
-											<li>
+											
+											<li >
 												<a href="#">장학제도</a>
 											</li>
 										
@@ -73,12 +76,12 @@
 									</a>
 									<ul  class="collapse"  id="forms">
 										<div class="sub-menu">
-											<c:url value="/admin/selectAllJobInfo" var="selectAllJobInfo">
-												<c:param name="keyWord" value="${param.keyWord}"/>
-												<c:param name="page" value="1"/>
-											</c:url>
-											<li >
-											  <a href="${selectAllJobInfo}">기업 정보 조회</a>
+										
+											<li>
+											  <a href="${cp}/admin/selectAllCompany">기업 정보</a>
+											</li>
+											<li>
+											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>
 											</li>
 										
 										</div>
@@ -88,14 +91,7 @@
 								<li  class="has-sub" >
 									<ul  class="collapse" id="forms">
 										<div class="sub-menu">
-											<c:url value="/admin/selectAllNotice" var="selectAllNotice">
-												<c:param name="searchOption" value="1"/>
-												<c:param name="keyWord" value="${param.keyWord}"/>
-												<c:param name="page" value="1"/>
-											</c:url>
-											<li >
-											  <a href="${selectAllNotice}">공지 사항 조회</a>
-											 </li>
+											  <a href="${cp}/admin/selectAllNotice">공지 사항 조회</a>
 										</div>
 									</ul>
 								</li>
@@ -165,38 +161,35 @@
 								<li class="section-title">
 									수강 관리 조회
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">수강후기 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
+								<li>
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
 										<span class="nav-text">과목 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubjcet">
+								<li>
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>
 							</div>
 						</ul>
 					</li>
-				
-				
 				</ul>
-			
 			</div>
 		</div>
 	</aside>

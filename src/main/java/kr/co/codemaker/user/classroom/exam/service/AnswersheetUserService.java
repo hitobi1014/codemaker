@@ -29,13 +29,15 @@ public class AnswersheetUserService {
 	@Resource(name = "answersheetUserMapper")
 	private AnswersheetUserMapper answersheetUserMapper;
 
-	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVo) {
-		try {
-			return answersheetUserMapper.selectAnswersheet(questionVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * 해당 시험보기를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param questionVO
+	 * @return 
+	 */
+	public List<AnswersheetVO> selectAnswersheet(QuestionVO questionVO) throws Exception {
+		return answersheetUserMapper.selectAnswersheet(questionVO);
 	}
 
 }

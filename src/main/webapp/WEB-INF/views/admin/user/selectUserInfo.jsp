@@ -37,7 +37,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${userList}" var="user">
-						<tr>
+						<tr class="tr-cl">
 							<c:choose> 
 								 <c:when test="${user.userOut == 'Y'}"> 
 									 <td style="color:#ff0000b8;">탈퇴</td>

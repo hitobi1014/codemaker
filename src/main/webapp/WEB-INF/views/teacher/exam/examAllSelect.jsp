@@ -21,6 +21,8 @@
 $(function() {
 	
 	// 처음 요청했을 화면
+    $('#subf').attr("action", "/exam/selectAllExam");
+    $('#subf').attr("target", "");
 	selectLesson('${examVO.searchSubId}');
 	
 	// 시험 등록 폼 제공
@@ -180,6 +182,7 @@ table{
 					<form:option value="1">수정중</form:option>
 					<form:option value="2">등록완료</form:option>
 					<form:option value="3">시험 배포</form:option>
+					<form:option value="4">반려</form:option>
 				</form:select>
 		</div>
 		
@@ -191,7 +194,6 @@ table{
 					<th style="vertical-align : text-bottom; width: 500px;">시험명</th>
 					<th style="vertical-align : text-bottom; width: 220px;">작성일</th>
 					<th style="vertical-align : text-bottom; width: 220px;">등록 상태</th>
-					<th style="vertical-align : text-bottom;">-</th>
 				</tr>
 			</thead>
 			<tbody id="examList">
@@ -223,8 +225,6 @@ table{
 									<input type="button" class="btn btn-default regBtn" data-lesinfo="${exam.lesId }/${exam.lidxId}/${exam.lidxCont }" value="시험 등록"> 
 								</c:otherwise>
 							</c:choose>
-						</td>
-						<td><input type="checkbox" value='${exam.examId }' class='echk'>
 						</td>
 					</tr>
 				</c:forEach>

@@ -3,7 +3,7 @@ package kr.co.codemaker.fileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ContentDisposition;
+//import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ContentDisposition;
 
 public class FileUploadUtil {
 	// from- data; name="img"; filename="sally.png"
