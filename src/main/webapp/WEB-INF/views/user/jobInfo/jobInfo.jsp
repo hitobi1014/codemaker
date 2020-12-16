@@ -33,7 +33,7 @@
 $(document).ready(function(){
 	
 	$("#listbutton").on("click", function(){
-		document.location="${cp}/user/selectAllJobInfo";
+		document.location="${cp}/user/selectAllJobInfo?keyWord=&page=1";
 	})
 	
 	

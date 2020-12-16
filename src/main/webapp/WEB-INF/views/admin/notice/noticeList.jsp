@@ -9,36 +9,39 @@
 <title>Insert title here</title>
 <script>
 $(document).ready(function(){
+	
+	$("#keywords").keydown(function(key) {
+		if (key.keyCode == 13) {
+			var searchOption = $("select[name='searchOption']").val();
+			var keyWord = $("input[name='keyWord']").val();
+				
+			document.location="${cp}/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
+		}
+	});
 		
 	$("#btnWrite").on("click", function(){
 		document.location="${cp}/admin/insertNotice";
 	});
-	
-	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode === 13) {
-		    event.preventDefault();
-		  };
-	}, true);
 	
 	
 	$("#searchBtn").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
+		document.location="/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
 		
 	});
 	
 	$("#notice1").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/admin/selectAllNotice?searchOption=1&keyWord="+keyWord+"&page=1";
+		document.location="/admin/selectAllNotice?searchOption=1&keyWord="+keyWord+"&page=1";
 	});
 	
 	$("#notice2").on("click", function(){
 		var searchOption = $("select[name='searchOption']").val();
 		var keyWord = $("input[name='keyWord']").val();
-		document.location="${cp}/admin/selectAllNotice?searchOption=2&keyWord="+keyWord+"&page=1";
+		document.location="/admin/selectAllNotice?searchOption=2&keyWord="+keyWord+"&page=1";
 	});
 })
 </script>
@@ -129,7 +132,7 @@ $(document).ready(function(){
 					<c:when test="${param.page != pages && param.page != null}">
 						<fmt:parseNumber var="pg" value="${((page / 5 ) + 1 ) * 5 + 1 }"/>
 						<c:if test="${pages >= pg}">
-						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pg}">다음</i></a></li>
+						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pg}">다음</a></li>
 						</c:if>
 					</c:when>
 				</c:choose> 	
@@ -149,8 +152,8 @@ $(document).ready(function(){
 							<option value="2" selected>자주묻는질문</option>
 						</c:if>
 					</select> 
-					<input type="text" name="keyWord" value="${param.keyWord}"><input id="searchBtn"type="button" class="btn btn-warning btn-sm" value="조회">
-					
+					<input type="text" id="keywords" name="keyWord" value="${param.keyWord}">
+					<button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
 				</form>
 			</div>
 		</div>

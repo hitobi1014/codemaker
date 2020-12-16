@@ -63,8 +63,8 @@ $(document).ready(function(){
 	}
 </style>
 <div class="row shadow" >
-	<div class="col-12" style="margin:50px;">
-		<div class="card" style=" height:500px;">
+	<div class="col-12" style="margin:50px; min-height:1080px;">
+		<div class="card" style=" height:auto; min-height:500px;">
 			<div style="text-align:center;">
 			<div>
 				<button type="button" id="listbutton" class="btn btn-primary" style="float:left;">목록</button>			

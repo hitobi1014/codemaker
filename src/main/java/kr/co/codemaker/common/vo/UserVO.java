@@ -10,6 +10,14 @@ public class UserVO extends BaseVO{
 	private String userBlack;
 	private String userProfile;
 	
+	private String count; // 신고당한 횟수
+	
+	public String getCount() {
+		return count;
+	}
+	public void setCount(String count) {
+		this.count = count;
+	}
 	public String getUserProfile() {
 		return userProfile;
 	}

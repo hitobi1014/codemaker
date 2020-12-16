@@ -63,7 +63,7 @@ public class UserNoticeController {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		try {
-			map2 = noticeService.selectAllNotice(map);
+			map2 = noticeService.selectAllNoticeU(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
