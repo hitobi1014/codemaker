@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
+			<!-- Aplication Brand -->
 			<div class="app-brand">
-				<c:url value="/admin/main" var="adminMain"/>
-				<a href="${adminMain}">
+				<a href="#">
 					<img src="/images/codemaker_name3.png">
 					<span class="brand-name">관리자</span>
 				</a>
 			</div>
 			
+			
+			<!-- begin sidebar scrollbar -->
 			<div class="sidebar-scrollbar">
+			<!-- sidebar menu -->
 				<ul class="nav sidebar-inner" id="sidebar-menu">
+				
 					<li  class="has-sub" >
 						<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#ui-elements" aria-expanded="false" aria-controls="ui-elements">
 							<i class="mdi mdi-folder-multiple-outline"></i>
@@ -21,24 +24,33 @@
 						</a>
 						<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 							<div class="sub-menu">
+							  
+							  
 								<li  class="has-sub" >
 									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
 										<span class="nav-text">학생 관리</span> <b class="caret"></b>
 									</a>
 									<ul  class="collapse"  id="components">
 										<div class="sub-menu">
+										      
 											<li >
 												<a href="#">정보조회</a>
 											</li>
+											
 											<li >
 												<a href="#">블랙리스트 관리</a>
 											</li>
+											
 											<li >
 												<a href="#">장학제도</a>
 											</li>
+										
 										</div>
 									</ul>
 								</li>
+								
+								
+								
 								
 								<li  class="has-sub" >
 									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons" aria-expanded="false" aria-controls="icons">
@@ -46,12 +58,17 @@
 									</a>
 									<ul  class="collapse"  id="icons">
 										<div class="sub-menu">
+										
 											<li >
 												<a href="${cp }/admin/resumeList">이력서 조회</a>
 											</li>
+										    
 										</div>
 									</ul>
 								</li>
+							
+							
+							
 							
 								<li  class="has-sub" >
 									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#forms" aria-expanded="false" aria-controls="forms">
@@ -59,9 +76,14 @@
 									</a>
 									<ul  class="collapse"  id="forms">
 										<div class="sub-menu">
-											<li >
-											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
+										
+											<li>
+											  <a href="${cp}/admin/selectAllCompany">기업 정보</a>
 											</li>
+											<li>
+											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>
+											</li>
+										
 										</div>
 									</ul>
 								</li>
@@ -73,9 +95,13 @@
 										</div>
 									</ul>
 								</li>
+								
 							</div>
 						</ul>
 					</li>
+				
+				
+				
 				
 					<li  class="has-sub" >
 						<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#charts" aria-expanded="false" aria-controls="charts">
@@ -84,14 +110,19 @@
 						</a>
 						<ul  class="collapse"  id="charts" data-parent="#sidebar-menu">
 							<div class="sub-menu">
+							
 								<li class="section-title">
 									사용자 조회
 								</li>
+							 
+							 
 								<li >
 									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">강사 조회</span>
+										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
+							 
+							
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
@@ -106,12 +137,12 @@
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectTeacherPay">
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사별 조회</span>
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/lessonUserChart">
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
@@ -126,31 +157,32 @@
 						</a>
 						<ul  class="collapse"  id="documentation" data-parent="#sidebar-menu">
 							<div class="sub-menu">
+							
 								<li class="section-title">
 									수강 관리 조회
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">수강후기 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">강사 조회</span>
+										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
+								<li>
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
 										<span class="nav-text">과목 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
+								<li>
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>

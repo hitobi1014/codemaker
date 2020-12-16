@@ -11,10 +11,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-.card{
-	width: 1000px;
-    margin-left: 40px;
-    border-style: none;
+.card {
+    width: 92%;
+    min-height: 700px;
+    height: auto;
+    margin: 0 auto;
+    border: none;
 }
 #subTable{
 /* 	margin-left: 100px; */

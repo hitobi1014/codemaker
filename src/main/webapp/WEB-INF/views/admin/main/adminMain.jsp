@@ -6,5 +6,4 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>adminMain</title>
-
 	<h3>관리자의 첫 화면은 마이페이지 입니당~~!!ㅋㄷ</h3>

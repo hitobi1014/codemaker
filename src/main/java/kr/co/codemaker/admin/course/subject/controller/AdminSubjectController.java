@@ -18,7 +18,7 @@ import kr.co.codemaker.admin.course.subject.vo.SubjectVO;
 import kr.co.codemaker.teacher.course.lesson.controller.TeacherLessonController;
 
 /**
- * 
+ * AdminSubjectController.java
 *
 * @author 박다미
 * @version 1.0

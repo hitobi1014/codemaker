@@ -302,7 +302,7 @@ h2{
 		$('a[id^="videoClick_"]').on('click',function(){
 			var path = $(this).attr('value');
 			var lidxId = $(this).data('lidxid');
-			window.open("/user/selectYou?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
+			window.open("/user/selectYoutube?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
 		})
 
 	})
