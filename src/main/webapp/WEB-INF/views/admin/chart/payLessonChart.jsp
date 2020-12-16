@@ -2,17 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="/js/admin/chart/Chart.min.js"></script>
 <script src="/js/admin/chart/utils.js"></script>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<head>
-<title>Line Chart</title>
-</head>
+
+
+
 <style>
 canvas{
 	-moz-user-select: none;
@@ -22,6 +21,11 @@ canvas{
 #candiv{
  display: block; margin: 0px auto;
 }
+.pagination .page-item:first-child .page-link, .pagination .page-item:last-child .page-link
+	{
+	height: 35px;
+}
+
 </style>
 <body>
 	<div style="width:75%;" id="candiv">
@@ -35,10 +39,6 @@ canvas{
 		<button class="btn btn-sm btn-default float-right" id="removeData">Remove Data</button>
 	</div>
 	
-				
-				<c:forEach var="i"  begin="1" end="30" step="5">
-				
-				</c:forEach>
 			
 <script>
 
@@ -177,9 +177,9 @@ canvas{
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <a href="${cp}/admin/downExcel" class="btn btn-sm btn-default float-right">EXCEL다운로드</a>
+              <a href="${cp}/admin/lessonPayExcelDown" class="btn btn-sm btn-default float-right">EXCEL다운로드</a>
 <%--               <a href="${cp}/mypage/insertPoint" class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#pointadd">포인트 충전</a> --%>
-              <h3 class="mb-0">💵 강의 매출내역</h3>
+              <h3 class="mb-0">강의 매출내역</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -212,7 +212,7 @@ canvas{
                     	${lesPayList.payId}
                     </td>
                     <td>
- 						${lesPayList.paySum } 
+                     <fmt:formatNumber value="${lesPayList.paySum }"></fmt:formatNumber>
                     </td>
                     <td>
                       	<fmt:formatDate value="${lesPayList.payDate}" pattern="yyyy-MM-dd"/>
@@ -284,6 +284,3 @@ canvas{
 	      </div>
 	   </div>
 	</div>
-</body>
-
-</html>
