@@ -48,4 +48,11 @@ public class LessonService{
 		return lessonMapper.updateTempoLesson(lessonVO);
 	}
 	
+	public int updatePermissionLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.updatePermissionLesson(lessonVO);
+	}
+	
+	public int selectExamCnt(LessonVO lessonVO) throws Exception{
+		return lessonMapper.selectExamCnt(lessonVO);
+	}
 }

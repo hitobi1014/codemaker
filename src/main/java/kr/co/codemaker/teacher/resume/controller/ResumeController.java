@@ -37,7 +37,7 @@ public class ResumeController {
 		String fileName = UUID.randomUUID().toString();
 		logger.debug("fileName 안에 들은게 뭐냐~~~~~~~~~~~ : {}", fileName);
 		
-		File fileUpload = new File("d:\\file\\" + file.getOriginalFilename());
+		File fileUpload = new File("d:/file/" + file.getOriginalFilename());
 		if(file.getSize() > 0) {
 			try {
 				file.transferTo(fileUpload);
@@ -46,7 +46,7 @@ public class ResumeController {
 			}
 		}
 		
-		resumeVO.setResProfile_path("d:\\file\\" + file.getOriginalFilename());
+		resumeVO.setResProfile_path("d:/file/" + file.getOriginalFilename());
 		
 		int insertCnt = 0;
 		

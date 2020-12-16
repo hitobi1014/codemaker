@@ -15,11 +15,11 @@
 <script>
 	$(document).ready(function(){
 		$("#resState1").on("click", function(){
-			alert('');
+			alert('승인 처리가 완료되었습니다.');
 			document.location="/admin/resumeList";
 		});
 		$("#resState2").on("click", function(){
-			alert();
+			alert('미승인 처리가 완료되었습니다.');
 			document.location="/admin/resumeList";
 		});
 	});
@@ -45,8 +45,11 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group focused">
+									<c:url value="/resume/teacherImg" var="resumeImg">
+										<c:param name="resProfile" value="${resumeList.resProfile}"/>
+									</c:url>
+									<img id="resumeicon" alt="" src="${resumeImg}"> <br>
 										<label class="form-control-label" for="input-username">프로필</label>
-										<img id="resProfile">
 									</div>
 								</div>
 							</div>

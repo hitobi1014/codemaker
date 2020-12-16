@@ -2,7 +2,6 @@ package kr.co.codemaker.user.classroom.exam.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamResultUserService;
@@ -83,25 +83,29 @@ public class ExamUserController {
 		model.addAttribute("examList", examList);      
 		model.addAttribute("pages", pages);
 		
-		return "mypageT/user/exam/examAllSelect";
+		return "mypageT/user/exam/examUserAllSelect";
 	}
 	
 	/**
-	 * 시험문제를 상세 조회하는 메서드
+	 * 시험문제 화면을 요청하는 메서드
 	 * 
 	 * @author 김미연
 	 * @param examVO
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path = "/examUser/selectExam")
-	public String selectExam(ExamVO examVO, Model model) {
+	@RequestMapping(path = "/examUser/selectViewExam")
+	public String selectViewExam(ExamVO examVO, Model model) {
 		ExamVO ev = new ExamVO();
 		List<QuestionVO> questionList = new ArrayList<>();
 		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
 		try {
-			ev = examUserService.selectExam(examVO);
+			if(examVO.getSearchEsScore().equals("0")) {
+				ev = examUserService.selectExam(examVO);
+			}else {
+				ev = examUserService.selectSExam(examVO);
+			}
 			questionList = questionUserService.selectQuestion(examVO);
 			for (QuestionVO questionVO : questionList) {
 				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
@@ -118,62 +122,8 @@ public class ExamUserController {
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "teacher/exam/examSelect";
+		return "/user/exam/examSelect";
 	}
-	
-	/**
-	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
-	 * 
-	 * @author 김미연
-	 * @param examScoreVO
-	 * @return
-	 * @throws Exception
-	 */
-	public String selectAllExamScore(ExamScoreVO examScoreVO, Model model, HttpSession session) {
-//		String userId = (String)session.getAttribute("");
-		
-		String userId = "b001@naver.com";
-		examScoreVO.setUserId(userId);
-		
-		List<ExamScoreVO> examScoreList = new ArrayList<>();
-		
-		try {
-			examScoreList = examScoreUserService.selectAllExamScore(examScoreVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("examScoreList", examScoreList);
-		
-		return "";
-	}
-	
-	/**
-	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
-	 * 
-	 * @author 김미연
-	 * @param examScoreVO
-	 * @return
-	 * @throws Exception
-	 */
-	public String selectExamScore(ExamScoreVO examScoreVO, Model model) {
-		
-		ExamScoreVO esv = new ExamScoreVO();
-		ExamResultVO examResultVO = new ExamResultVO();
-		List<ExamResultVO> examResultList = new ArrayList<>();
-		
-		try {
-			esv = examScoreUserService.selectExamScore(examScoreVO);
-			examResultList = examResultUserService.selectAllExamResult(examScoreVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("examScoreVO", esv);
-		model.addAttribute("examResultList", examResultList);
-		
-		return "";
-	}
-	
 	
 	/**
 	 * 시험점수와 시험결과를 등록하는 메서드 - 처음 시험을 풀때만
@@ -183,81 +133,127 @@ public class ExamUserController {
 	 * @param session
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(path = "/examUser/insertExamResult")
-	public String insertExamResult(ExamScoreVO examScoreVO, HttpSession session) {
+	public void insertExamResult(ExamVO examVO, HttpSession session) {
 		
 //		String userId = (String)session.getAttribute("");
 		String userId = "b001@naver.com";
 		
+		ExamScoreVO examScoreVO = new ExamScoreVO();
+		examScoreVO.setExamId(examVO.getExamId());
+		examScoreVO.setEsFscore(examVO.getEsFscore());
+		examScoreVO.setEsLscore(examVO.getEsLscore());
+		examScoreVO.setUserId(userId);
+		
 		try {
-			examScoreUserService.insertExamScore(examScoreVO);
-			
-			for(ExamResultVO examResultVO : examScoreVO.getExamResultList()) {
-				examResultUserService.insertExamResult(examResultVO);
+			if(examVO.getSearchEsScore().equals("0")) {
+				examScoreUserService.insertExamScore(examScoreVO);
+				for(int i=0; i < examVO.getQueIdList().size(); i++) {
+					ExamResultVO examResultVO = new ExamResultVO();
+					examResultVO.setQueId(examVO.getQueIdList().get(i));
+					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErCheck(examVO.getErCheckList().get(i));
+					examResultVO.setUserId(userId);
+					examResultVO.setExamId(examVO.getExamId());
+					
+					examResultUserService.insertExamResult(examResultVO);
+				}
+			}else {
+				examScoreUserService.updateExamScore(examScoreVO);
+				for(int i=0; i < examVO.getQueIdList().size(); i++) {
+					ExamResultVO examResultVO = new ExamResultVO();
+					examResultVO.setQueId(examVO.getQueIdList().get(i));
+					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErCheck(examVO.getErCheckList().get(i));
+					
+					examResultUserService.updateExamResult(examResultVO);
+				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-//		List<QuestionVO> questionList = questionUserService.selectQuestion(examVO);
-//		
-//		ExamScoreVO esv = examUserService.selectExamScore(examScoreVO);
-//		
-//		int score = 0;
-//		
-//		for(int i=0; i < questionList.size(); i++) {
-//			// 정답일 경우
-//			if(questionList.get(i).getQueAnswer().equals(examResultList.get(i).getErAnswer())) {
-//				examResultList.get(i).setErCheck("Y");
-//				score += questionList.get(i).getQueScore();
-//			}else {	// 오답일 경우
-//				examResultList.get(i).setErCheck("N");
-//			}
-//			examResultList.get(i).setUserId(userId);
-//			examResultList.get(i).setExamId(examScoreVO.getExamId());
-//		}
-//		
-//		// 문제 수 만큼 등록
-//		for(ExamResultVO examResultVo : examResultList) {
-//			questionUserService.intsertExamResult(examResultVo);
-//		}
-//		
-//		// 처음 풀 경우
-//		if(esv.getEsFscore() == 0) {
-//			examScoreVO.setEsFscore(score);
-//			examUserService.insertExamScore(examScoreVO);
-//			
-//		}else { // 다시 풀 경우
-//			examScoreVO.setEsLscore(score);
-//			examUserService.updateExamScore(examScoreVO);
-//		}
-		
-		return "";
-		
 	}
 	
-	/**
-	 * 회원의 성적을 수정하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examScoreVO
-	 * @return
-	 * @throws Exception
-	 */
-	public String updateExamScore(ExamScoreVO examScoreVO) {
-		try {
-			examScoreUserService.updateExamScore(examScoreVO);
-			
-			for(ExamResultVO examResultVO : examScoreVO.getExamResultList()) {
-				examResultUserService.updateExamResult(examResultVO);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "";
-	}
+//	
+//	/**
+//	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
+//	 * 
+//	 * @author 김미연
+//	 * @param examScoreVO
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	public String selectAllExamScore(ExamScoreVO examScoreVO, Model model, HttpSession session) {
+////		String userId = (String)session.getAttribute("");
+//		
+//		String userId = "b001@naver.com";
+//		examScoreVO.setUserId(userId);
+//		
+//		List<ExamScoreVO> examScoreList = new ArrayList<>();
+//		
+//		try {
+////			examScoreList = examScoreUserService.selectAllExamScore(examScoreVO);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		model.addAttribute("examScoreList", examScoreList);
+//		
+//		return "";
+//	}
+//	
+//	/**
+//	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
+//	 * 
+//	 * @author 김미연
+//	 * @param examScoreVO
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	public String selectExamScore(ExamScoreVO examScoreVO, Model model) {
+//		
+//		ExamScoreVO esv = new ExamScoreVO();
+//		ExamResultVO examResultVO = new ExamResultVO();
+//		List<ExamResultVO> examResultList = new ArrayList<>();
+//		
+//		try {
+//			esv = examScoreUserService.selectExamScore(examScoreVO);
+//			examResultList = examResultUserService.selectAllExamResult(examScoreVO);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		model.addAttribute("examScoreVO", esv);
+//		model.addAttribute("examResultList", examResultList);
+//		
+//		return "";
+//	}
+//	
+//	
+
+//	
+//	/**
+//	 * 회원의 성적을 수정하는 메서드
+//	 * 
+//	 * @author 김미연
+//	 * @param examScoreVO
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	public String updateExamScore(ExamScoreVO examScoreVO) {
+//		try {
+//			examScoreUserService.updateExamScore(examScoreVO);
+//			
+//			for(ExamResultVO examResultVO : examScoreVO.getExamResultList()) {
+//				examResultUserService.updateExamResult(examResultVO);
+//			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return "";
+//	}
 
 }
