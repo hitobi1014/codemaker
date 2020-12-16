@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.ComplainService;
 import kr.co.codemaker.common.vo.ComplainVO;
@@ -41,11 +42,6 @@ public class UserComplainController {
 		
 		complainService.insertComplain(complainVo);
 		
-		if(complainVo.getReplyId() != null) {
-			String reId = complainService.selectReplyQna(complainVo);
-			return "redirect:selectQna?qnaId="+reId;
-		}else {
-			return "redirect:selectQna?qnaId="+complainVo.getQnaId();
-		}
+		return "jsonView";
 	}
 }

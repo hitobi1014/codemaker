@@ -57,7 +57,7 @@ public class AdminJobInfoController {
 	@RequestMapping(path="/admin/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();

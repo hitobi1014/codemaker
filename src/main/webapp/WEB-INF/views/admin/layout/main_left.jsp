@@ -38,7 +38,7 @@
 											</li>
 											
 											<li >
-												<a href="#">블랙리스트 관리</a>
+												<a href="/admin/selectAllComplain">블랙리스트 관리</a>
 											</li>
 											
 											<li >

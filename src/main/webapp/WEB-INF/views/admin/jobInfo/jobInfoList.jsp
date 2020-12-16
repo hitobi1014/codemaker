@@ -20,7 +20,7 @@ $(document).ready(function(){
 		if (key.keyCode == 13) {
 			var keyWord = $("input[name='keyWord']").val();
 				
-			document.location="${cp}/admin/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
+			document.location="/admin/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
 		}
 	});
 		
@@ -32,7 +32,7 @@ $(document).ready(function(){
 		
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/admin/selectAllJobInfo?keyWord="+keyWord+"&page=1";
+		document.location="/admin/selectAllJobInfo?keyWord="+keyWord+"&page=1";
 		
 	});
 })
@@ -125,12 +125,19 @@ font-family: 'LotteMartDream';
 					<th>삭제여부</th>
 				</tr>
 				<tbody id="jobInfoList">
-				<c:set var="num" value="${totalCnt - ((param.page-1)*10) }"/>
+				<c:choose>
+					<c:when test="${page != null}">
+						<c:set var="num" value="${totalCnt - ((page-1)*10) }"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="num" value="${totalCnt}"/>
+					</c:otherwise>
+				</c:choose>
 					<c:forEach items="${jobInfoList}" var="jobInfo">
 						<tr>	
 							<td>${num}</td>
 							<td>${jobInfo.jobinfoId}</td>
-							<td><a href="${cp}/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
+							<td><a href="/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
 							<td><fmt:formatDate value="${jobInfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${jobInfo.adminId}</td>
 							<td>${jobInfo.jobinfoOut}</td>
@@ -144,25 +151,25 @@ font-family: 'LotteMartDream';
 		
 		 <div class="text-center">
             <ul class="pagination justify-content-center m-0">
-              <c:if test="${page != 1}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${1}">&laquo;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page-1}">&lt;</a></li>
+              <c:if test="${param.page != 1}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${1}">&laquo;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page-1}">&lt;</a></li>
               </c:if>
                
                <c:forEach var="i" begin="1" end="${pages}">
                   <c:choose>
-                     <c:when test="${i == page}">
+                     <c:when test="${i == param.page}">
                         <li class="page-item active"><a class="page-link pageMove pageMV">${i}</a></li>
                      </c:when>
                      <c:otherwise>
-                        <li class="page-item"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
+                        <li class="page-item"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
                      </c:otherwise>
                   </c:choose>   
                </c:forEach>
                
-               <c:if test="${page != pages}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page +1}">&gt;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pages}">&raquo;</a></li>
+               <c:if test="${param.page != pages}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page+1}">&gt;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pages}">&raquo;</a></li>
               </c:if>
             </ul>
             <button type="button" id="btnWrite" class="btn btn-info btn-sm" style="float:right; width:100px; height:30px;">공고등록</button>

@@ -52,7 +52,7 @@ public class AdminComplainController {
 		
 		complainService.checkComplain(complainVo);
 		
-		return "adminPage/admin/complain/complainList";
+		return "jsonView";
 	}
 	
 	@RequestMapping(path="/admin/selectBlackList")

@@ -19,12 +19,13 @@
 		
 		$("#check").on("click", function(){
 			var cont = $("#cpCont").val();
+			
+			
+			
 			if(cont != ''){
 				var sub = confirm("접수하시겠습니까?")
 				if(sub){
 					smit();
-					alert("접수되었습니다");
-					return;
 				}else{
 					return;
 				}
@@ -32,12 +33,39 @@
 				alert("내용을 입력해주세요");
 				return;
 			}
-			window.close();
+			
 		})
 	})
 	
 	function smit(){
-		$("#insertcp").submit();
+		var cont = $("#cpCont").val();
+		var cpGn = $("input[name='cpGn']").val();
+		var replyId = $("#replyId").val();
+		var qnaId = $("#qnaId").val();
+
+		var complainVo = {};
+		
+		
+		if(cpGn == 1){
+			complainVo = {cpCont : cont,
+						replyId : replyId,
+						cpGn : cpGn}
+		}else{
+			complainVo = {cpCont : cont,
+					qnaId : qnaId,
+					cpGn : cpGn}
+		}
+		
+		$.ajax({
+			url : "/user/insertComplain",
+			data : complainVo,
+			type : "post",
+			dataType : 'json',
+			success : function(){
+				alert("접수되었습니다");
+				self.close();
+			}
+		})
 	}
 	
 	
@@ -46,7 +74,6 @@
 <body>
 <div>신고하기</div>
 <br>
-<form id="insertcp" action="${cp}/user/insertComplain" method="POST">
 	<table>
 		<tr>
 			<td>글 아이디</td>
@@ -66,7 +93,6 @@
 			<td><textarea rows="10" cols="30" name="cpCont" id="cpCont"></textarea></td>
 		</tr>
 	</table>
-</form>
 <input type="button" id="cancle" name="cancle" value="닫기">
 <input type="button" id="check" name="check" value="신고접수">
 </body>

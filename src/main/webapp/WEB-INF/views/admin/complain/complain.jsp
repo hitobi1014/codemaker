@@ -16,10 +16,21 @@
 		})
 		
 		$("#check").on("click", function(){
+			var cpId = $("#cpId").val();
 			var select = confirm("처리하시겠습니까?");
+			var complainVo = {cpId : cpId};
+			
 			if(select){
-				document.location="/admin/checkComplain?cpId=${cpVo.cpId}";
-				self.close();
+				$.ajax({
+					url : "/admin/checkComplain",
+					type : "post",
+					data : complainVo,
+					dataType : 'json',
+					success : function(){
+						opener.parent.location.reload();
+						self.close();
+					}
+				})
 			}else{
 				return;
 			}
@@ -42,6 +53,7 @@
 </script>
 </head>
 <body>
+<input type="hidden" name="cpId" id="cpId" value="${cpVo.cpId}">
 <table border="block">
 	<tr>
 		<td>신고 아이디</td>
