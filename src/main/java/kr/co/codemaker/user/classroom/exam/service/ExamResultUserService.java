@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.user.classroom.exam.dao.ExamResultUserMapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 
 /**
  * 
@@ -33,12 +34,12 @@ public class ExamResultUserService {
 	 * 회원의 성적을 조회하는 메서드 - 상세페이지
 	 * 
 	 * @author 김미연
-	 * @param examScoreVO
+	 * @param examVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ExamResultVO> selectAllExamResult(ExamScoreVO examScoreVO) throws Exception {
-		return examResultUserMapper.selectAllExamResult(examScoreVO);
+	public List<ExamResultVO> selectAllExamResult(ExamVO examVO) throws Exception {
+		return examResultUserMapper.selectAllExamResult(examVO);
 	}
 	
 	/**
