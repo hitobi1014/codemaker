@@ -13,7 +13,17 @@
 <div class="text-center">
 	<img class="img-fluid" style="width: 130rem;" src="/images/main_mid.jpg" alt="">
 </div>
-
+<style>
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+.container-fluid, .container-fluid a{
+	font-family: 'LotteMartDream' !important;
+}
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Content Row -->

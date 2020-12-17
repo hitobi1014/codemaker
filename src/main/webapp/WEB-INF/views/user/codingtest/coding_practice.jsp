@@ -4,7 +4,7 @@
 <script type="text/javascript" src="/js/codemirror/codemirror.js"></script>
 <script type="text/javascript" src="/js/codemirror/javascript.js"></script>
 <script type="text/javascript" src="/js/codemirror/codeLanguage.js"></script>
-<link href="/css/user/main/codingtest.css" rel="stylesheet">
+<link href="/css/user/coding/coding-practice.css" rel="stylesheet">
 <link href="/css/user/coding/codemirror.css" rel="stylesheet">
 <link href="/css/user/coding/eclipse.css" rel="stylesheet">
 <div class="shadow coding-container">
