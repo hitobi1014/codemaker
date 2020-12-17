@@ -193,7 +193,6 @@ public class TeacherLessonController {
 
 	/**
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
-	 * @throws ParseException 
 	 */
 	@RequestMapping(path = "/teacherL/insertLesson", method = RequestMethod.POST)
 	public String insertLesson(LessonIndexVO lessonIndexVO, LessonVO lessonVO, HttpSession session) throws ParseException {

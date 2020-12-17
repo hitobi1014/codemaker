@@ -60,7 +60,12 @@ public class UserLessonController {
 		return "mainT/user/lesson/subjectSelect";
 	}
 	
-	// 강의목차 조회페이지
+	/**
+	 * 회원 - 강의목차 조회페이지
+	 * @param model
+	 * @param lessonIndexVO
+	 * @return
+	 */
 	@RequestMapping(path="/user/selectLessonPage")
 	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO ) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
@@ -84,7 +89,12 @@ public class UserLessonController {
 		
 	}
 	
-	// 강의목차 진행률 수정
+	/**
+	 * 회원 - 강의목차 진행률 수정
+	 * @param model
+	 * @param lidxId
+	 * @param curTime
+	 */
 	@ResponseBody
 	@RequestMapping(path="/user/updateLessonPage")
 	public void updateLessonPage(Model model,String lidxId,@RequestParam(required=false)String curTime ) {
@@ -114,7 +124,13 @@ public class UserLessonController {
 		
 	}
 	
-	// 강의 동영상
+	/**
+	 * 회원 - 강의 동영상 보기
+	 * @param lidxPath
+	 * @param model
+	 * @param lidxId
+	 * @return
+	 */
 	@RequestMapping(path="/user/selectYoutube")
 	public String selectYou(String lidxPath, Model model,String lidxId) {
 		model.addAttribute("lidxPath",lidxPath);

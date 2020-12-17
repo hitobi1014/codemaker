@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>title</title>
+<link rel="stylesheet" href="/css/teacher/lesson/button.css">
+<script src="/js/admin/company/html2canvas.js"></script>
+<script src="/js/admin/company/jspdf.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>Insert title here</title>
-
 <style type="text/css">
 @font-face {
     font-family: 'NotoSerifKR';
@@ -30,7 +31,7 @@
 }
 .frame{
 	width: 900px;
-    margin: 0 20px 0 20px;
+    margin: 22px auto 0;
    font-family: 'NotoSerifKR';
 }
 .text1st{
@@ -42,11 +43,11 @@
     line-height: 5px;
 }
 .date{
-	margin: 60px 0 68px 400px;
+	margin: 42px 0 3px 400px;
 }
 .sign{
 	padding: 38px;
-    height: 200px;
+    height: 300px;
 }
 .signdiv{
 	width: 49%;
@@ -69,140 +70,269 @@
 	width: 400px;
 	height: 200px;
 }
-
+#submitBtn{
+	margin-left: 427px;
+}
 </style>
-<script>
-var ge = null; // 그래픽 에디터 객체를 가리키는 변수
-
-function init() {
-    var canvas = null; // 캔버스 DOM 객체를 가리키는 변수
-    var context = null; // 캔버스에 그림을 그리는 도구 객체를 가리키는 변수
-
-    canvas = document.getElementById("myCanvas");
-    context = canvas.getContext("2d");
-
-    ge = new GraphicEditor(canvas, context); // 그래픽 에디터 객체 생성
-}
-
-class GraphicEditor { // 캔버스에 그림 그리는 자바스크립트 클래스
-    constructor(canvas, context) { // 생성자
-        this.canvas = canvas;     // 프로퍼티 canvas 생성
-        this.context = context; // 프로퍼티 context 생성
-        this.startX = 0;    // 프로퍼티 startX 생성
-        this.startY = 0;    // 프로퍼티 startY 생성
-        this.drawing = false;    // 프로퍼티 drawing 생성
-
-        // 선굵기와 색 초기화
-        this.context.lineWidth = 2; // 선 굵기를 2로 설정
-        this.context.strokeStyle = "blue";
-
-        // 이벤트 리스너 등록
-        this.canvas.onmousedown = function (e) { ge.down(e); }
-        this.canvas.onmouseup = function (e) { ge.up(e); }
-        this.canvas.onmousemove = function (e) { ge.move(e); }
-        this.canvas.onmouseout = function (e) { ge.out(e); }
-
-        // 이벤트 리스너가 canvas 객체에 달려 있기 때문에, 리스너가 실행되는 그 때
-        // this는 canvas 객체를 가리키며, ge.down(e)를 this.down(e)로 한다면
-        // 곧 canvas의 멤버 메소드 down(e)를 호출하는 것이 된다.
-        // 하지만 canvas 객체에는 down(e) 메소드가 없기 때문에 
-        // 실행 중에 오류가 발생한다.
-        // 그러므로 전역 변수 ge를 두어, ge.down(e)를 호출하도록 하였음
-
-    }
-
-    draw(curX, curY) {//(startX, startY)에서 (curX, curY) 까지 선그리는 메소드
-        this.context.beginPath();
-        this.context.moveTo(this.startX, this.startY);
-        this.context.lineTo(curX, curY);
-        this.context.stroke();
-    }
-
-    down(e) { // 마우스 다운시 호출되는 메소드
-        this.startX = e.offsetX; this.startY = e.offsetY;
-        this.drawing = true;
-    }
-
-    up(e) { this.drawing = false; } // 마우스 업 시 호출되는 메소드
-
-    move(e) { // 마우스를 움직이는 동안 계속 호출되는 메소드
-        if(!this.drawing) return;
-        var curX = e.offsetX, curY = e.offsetY;
-        ge.draw(curX, curY);
-        this.startX = curX; this.startY = curY;
-    }
-
-    out(e) { this.drawing = false; } // 마우스가 캔버스 바깥으로 나가는 순간 호출되는 메소드
-}
-</script>
 </head>
 <body>
-<div class="frame" >
-	<div class="header"><p id="ptag"><strong>표준 산학협력 협약서(안)</strong></p></div>
-	
-	<div class="content" >
-		<div class="text1st">
-			<p>&nbsp;&nbsp;&nbsp;이 협약서는 codemaker(이하 "갑"이라 한다)과 ○○회사(이하 "을"이라 한다)는 상호간의 협력에 관한 필요한 사항을</p>
-			<p>정하고 이를 성실하게 준수할 것을 목적으로 하며 codemaker는 우수한 인재를 양성하며 기업에 지원하고 기업은 </p>
-			<p>codemaker에 인재개발을 위하여 노력하여 상호 공동발전 및 우호증진을 위하여 다음과 같이 산학협력 협약을 체결한다.</p>
-		</div>
+
+<div id="pdfDiv">
+	<div class="frame" >
+		<div class="header"><p id="ptag"><strong>표준 산학협력 협약서(안)</strong></p></div>
 		
-		<div class="text2nd" >
-			<p>1. "갑"은 "을"에게 수료예정자 및 수료자를 추천하고, 다양하고 폭넓은 취업 기회를 쌓을 수 있도록 최선의 기회를</p>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;제공한다.</p> 
-		</div>
-		<div class="text2nd" >
-			<p>2. "을"은 "갑"의 구인 상황에 적극적으로 지원한다.</p>
-		</div>
-		<div class="text2nd" >
-			<p>3. "갑"과 "을"은 우수 인재 양성을 위하여 상호간에 기술·장비 등 제한 여건의 협조 요청에 특별한 사유가 없는 한 </p>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;성실히 협조한다.</p>
-		</div>
-		<div class="text2nd" >
-			<p>4. "갑"과 "을"이 상호 신의성실 원칙에 따라 이 협약서를 준수하기 위한 노력을 하여야 하며, 상호간에 중대한 </p>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;사항을 위반하거나, "갑"이 추천한 인재에 대하여 부당 행위를 한 경우 "갑"의 요청에 의해 이 협약을 </p>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;취소할 수 있다.</p>
-		</div>
-		<div class="text2nd" >
-			<p>5. 기타 이 협약서에 평가되지 아니한 사항에 대하여는 상호 협의하에 결정한다.</p>
-		</div>
-		<div class="text2nd" >
-			<p>본 협약서는 2부를 작성하여 "갑", "을"이 기명날인한 후 각각 1부씩 보관한다.</p>
-		</div>
-		
-		<div class="date">
-		
-					<jsp:useBean id="toDay" class="java.util.Date"/>
-					<fmt:formatDate value="${toDay}" pattern="yyyy년 MM월dd일"/>
-		</div>
-		
-		<div class="sign" >
+		<div class="content" >
+			<div class="text1st">
+				<p>&nbsp;&nbsp;&nbsp;이 협약서는 codemaker(이하 "갑"이라 한다)과 ○○회사(이하 "을"이라 한다)는 상호간의 협력에 관한 필요한 사항을</p>
+				<p>정하고 이를 성실하게 준수할 것을 목적으로 하며 codemaker는 우수한 인재를 양성하며 기업에 지원하고 기업은 </p>
+				<p>codemaker에 인재개발을 위하여 노력하여 상호 공동발전 및 우호증진을 위하여 다음과 같이 산학협력 협약을 체결한다.</p>
+			</div>
+			
+			<div class="text2nd" >
+				<p>1. "갑"은 "을"에게 수료예정자 및 수료자를 추천하고, 다양하고 폭넓은 취업 기회를 쌓을 수 있도록 최선의 기회를</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;제공한다.</p> 
+			</div>
+			<div class="text2nd" >
+				<p>2. "을"은 "갑"의 구인 상황에 적극적으로 지원한다.</p>
+			</div>
+			<div class="text2nd" >
+				<p>3. "갑"과 "을"은 우수 인재 양성을 위하여 상호간에 기술·장비 등 제한 여건의 협조 요청에 특별한 사유가 없는 한 </p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;성실히 협조한다.</p>
+			</div>
+			<div class="text2nd" >
+				<p>4. "갑"과 "을"이 상호 신의성실 원칙에 따라 이 협약서를 준수하기 위한 노력을 하여야 하며, 상호간에 중대한 </p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;사항을 위반하거나, "갑"이 추천한 인재에 대하여 부당 행위를 한 경우 "갑"의 요청에 의해 이 협약을 </p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;취소할 수 있다.</p>
+			</div>
+			<div class="text2nd" >
+				<p>5. 기타 이 협약서에 평가되지 아니한 사항에 대하여는 상호 협의하에 결정한다.</p>
+			</div>
+			<div class="text2nd" >
+				<p>본 협약서는 2부를 작성하여 "갑", "을"이 기명날인한 후 각각 1부씩 보관한다.</p>
+			</div>
+			
+			<div class="date">
+			
+						<jsp:useBean id="toDay" class="java.util.Date"/>
+						<fmt:formatDate value="${toDay}" pattern="yyyy년 MM월dd일"/>
+			</div>
+			
+			<div class="sign" >
 				<div class="signdiv codeSign" >
-					<div>
-						<p>[갑] 학원명 :  codemaker</p>
-					</div>
-					
+						<div>
+							<p>[갑] 학원명 :  codemaker</p>
+						</div>
+						서명 공간
+						<div style="width:400px; height:200px;">
+						<canvas id="canvas" style="border:1px solid black"></canvas>
+						</div>
+						<div id="erase-div">
+						지우기 버튼
+						<button id="erase">Erase</button>
+						</div>
 				</div>
 				
 				<div class="signdiv companySign" >
-					<div class="stamp 1st">
-					  <p>[을]  회사명 : ${companyVO.comNm}</p>
-					  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주 소 : ${companyVO.comAdd}</p>
-					  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대 표 : ${companyVO.comOwner}</p>
-					</div>
-					<div class="stamp 2nd">
-					    <img id="stampId" src="/images/admin/company/stamp.png">
-					</div>
+						<div class="stamp 1st">
+						  <p>[을]  회사명 : ${companyVO.comNm}</p>
+						  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주 소 : ${companyVO.comAdd}</p>
+						  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대 표 : ${companyVO.comOwner}</p>
+						</div>
+						<div class="stamp 2nd" id="stamp2Id">
+<!-- 							<canvas id="canvas" width="90px" height="90px"></canvas> -->
+						    <img id="stampId" src="/images/admin/company/stamp.png" alt="직인">
+						</div>
 				</div>
+			</div>
 		</div>
-	</div>
+	</div>	
 </div>
 
 <div>
-	<button>제출</button>
+	<button type="button" id="savePdf" class="button button-primary button-small form-control-label" data-comnm="${companyVO.comNm}">제출</button>
 </div>
 
 
+
+
+<script>
+
+(function(obj){
+obj.init();
+$(obj.onLoad);
+	var comId = $(this).data("comid");
+	var allText=$('.frame').html();
+
+})((function(){
+var canvas = $("#canvas");
+var div = canvas.parent("div");
+// 캔버스의 오브젝트를 가져옵니다.
+var ctx = canvas[0].getContext("2d");
+var drawble = false;
+function canvasResize(){
+canvas[0].height = div.height();
+canvas[0].width = div.width();
+}
+// pc에서 서명을 할 경우 사용되는 이벤트입니다.
+function draw(e){
+function getPosition(){
+return {
+X: e.pageX - canvas[0].offsetLeft,
+Y: e.pageY - canvas[0].offsetTop
+}
+}
+switch(e.type){
+case "mousedown":{
+drawble = true;
+ctx.beginPath();
+ctx.moveTo(getPosition().X, getPosition().Y);
+}
+break;
+case "mousemove":{
+if(drawble){
+ctx.lineTo(getPosition().X, getPosition().Y);
+ctx.stroke();
+}
+}
+break;
+case "mouseup":
+case "mouseout":{
+drawble = false;
+ctx.closePath();
+}
+break;
+}
+}
+// 스마트 폰에서 서명을 할 경우 사용되는 이벤트입니다.
+function touchdraw(e){
+function getPosition(){
+return {
+X: e.changedTouches[0].pageX - canvas[0].offsetLeft,
+Y: e.changedTouches[0].pageY - canvas[0].offsetTop
+}
+}
+switch(e.type){
+case "touchstart":{
+drawble = true;
+ctx.beginPath();
+ctx.moveTo(getPosition().X, getPosition().Y);
+}
+break;
+case "touchmove":{
+if(drawble){
+// 스크롤 이동등 이벤트 중지..
+e.preventDefault();
+ctx.lineTo(getPosition().X, getPosition().Y);
+ctx.stroke();
+}
+}
+break;
+case "touchend":
+case "touchcancel":{
+drawble = false;
+ctx.closePath();
+}
+break;
+}
+}
+// 참고로 mousedown은 touchstart와 mousemove는 touchmove, mouseup은 touchend와 같습니다.
+// mouseout와 touchcancel은 서로 다른 동작인데, mouseout은 canvas 화면을 벗어났을 때이고 touchcancel는 모바일에서 터치가 취소, 즉 에러가 났을 때 입니다.
+return {
+init: function(){
+// 캔버스 사이즈 조절
+$(window).on("resize", canvasResize);
+canvas.on("mousedown", draw);
+canvas.on("mousemove", draw);
+canvas.on("mouseup", draw);
+canvas.on("mouseout", draw);
+// 저장
+$("#save").on("click", function(){
+// a 태그를 만들어서 다운로드를 만듭니다.
+var link = document.createElement('a');
+// base64데이터 링크 달기
+link.href = canvas[0].toDataURL("image/png");
+// 다운로드시 파일명 지정
+link.download = "image.png";
+// body에 추가
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+// 다운로드용 a 태그는 다운로드가 끝나면 삭제합니다.
+form.remove();
+});
+
+// 지우기
+$('#erase').on('click',function(){
+    ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
+    // 컨텍스트 리셋
+    ctx.beginPath();
+})
+
+
+
+},
+onLoad: function(){
+// 캔버스 사이즈 조절
+canvasResize();
+}
+}
+})());
+
+
+
+$(document).ready(function() {
+	$('#savePdf').click(function() { // pdf저장 button id
+	    var comNm = $(this).data("comnm"); // 회사아이디
+	 	$("#erase-div").css({"display":"none"});
+	    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
+	    	
+	    // 캔버스를 이미지로 변환
+	    var imgData = canvas.toDataURL('image/png');
+	    console.log(imgData);
+	    window.open("data:application/pdf;base64, " +imgData.base64EncodedPDF);
+
+	    
+// 	    $.ajax({
+// 	 		url:"/pdfTest",
+// 	 		type:"post",
+// 	 		dataType:"json",
+// 	 		data : {'imgData' : imgData},
+// 	 		success:function(data){
+// 	 			console.log(imgData);
+// // 	 			opener.parent.location.reload();
+// // 	 				self.close();
+// 	 			},error:function(){
+// 	 				alert('안됨');
+// 	 			}
+// 	 	})
+	    
+// 	    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+// 	    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+// 	    var imgHeight = canvas.height * imgWidth / canvas.width;
+// 	    var heightLeft = imgHeight;
+// 	    var margin = 10; // 출력 페이지 여백설정
+// 	    var doc = new jsPDF('p', 'mm');
+// 	    var position = 0;
+	       
+// 	    // 첫 페이지 출력
+// 	    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+// 	    heightLeft -= pageHeight;
+	         
+// 	    // 한 페이지 이상일 경우 루프 돌면서 출력
+// 	    while (heightLeft >= 20) {
+// 	        position = heightLeft - imgHeight;
+// 	        doc.addPage();
+// 	        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+// 	        heightLeft -= pageHeight;
+// 	    }
+	   
+// 	    // 파일 저장
+// 	    doc.save(comNm+'.pdf');
+	});
+  });
+})
+
+</script>
 </body>
 </html>
 

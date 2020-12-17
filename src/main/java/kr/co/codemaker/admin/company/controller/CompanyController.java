@@ -1,18 +1,53 @@
 package kr.co.codemaker.admin.company.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorker;
+import com.itextpdf.tool.xml.XMLWorkerFontProvider;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
+import com.itextpdf.tool.xml.html.CssAppliersImpl;
+import com.itextpdf.tool.xml.html.Tags;
+import com.itextpdf.tool.xml.parser.XMLParser;
+import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
+import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 import kr.co.codemaker.admin.company.service.CompanyService;
 import kr.co.codemaker.admin.company.vo.CompanyVO;
@@ -39,6 +74,15 @@ public class CompanyController {
 	@Resource(name="companyService")
 	private CompanyService companyService;
 	
+	
+	
+	/**
+	 * 관리자 - 기업리스트 조회
+	 * @param page
+	 * @param pageSize
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(path="/admin/selectAllCompany")
 	public String selectAllCompany(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "3")int pageSize,Model model) {
@@ -63,7 +107,12 @@ public class CompanyController {
 	}
 	
 	
-	// codemaker & 기업 계약서
+	/**
+	 * 관리자 - 기업 계약서 조회
+	 * @param comId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(path="/admin/companyContract")
 	public String contractTest(String comId, Model model) {
 		CompanyVO companyVO = new CompanyVO();
@@ -76,12 +125,39 @@ public class CompanyController {
 			e.printStackTrace();
 		}
 		model.addAttribute("companyVO", companyVO);
-		return "admin/company/canvas4";
+		return "admin/company/companyContract";
 	}
 
-	
-	@RequestMapping(path="/contract")
-	public String contract() {
-		return "user/lesson/canvas4";
+	/**
+	 * html태그를 pdf파일로 변환 테스트
+	 * @param comId
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path="/pdfTest" ,method=RequestMethod.POST)
+	public void contractTest(String imgData,HttpServletResponse response, HttpServletRequest request) {
+		//1. comId넘어오는지?
+//		logger.debug("회사아이디!!:{}",comId);
+//		CompanyVO companyVO = new CompanyVO();
+//		companyVO.setComId(comId);
+		
+		//2. html태그 넘어오는지?
+		logger.debug("이미지 url:{}",imgData);
+		
+		String filePath ="C:\\pdf\\";
+		String FileName = "test.pdf";
+		
+		// base64 -> pdf로 만들기
+		try {
+			byte[] input_file = Files.readAllBytes(Paths.get(filePath+FileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
+	
 }
