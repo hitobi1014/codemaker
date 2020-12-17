@@ -38,8 +38,8 @@ public class AdminLessonService {
 	 * @author 김미연
 	 * @return
 	 */
-	public List<LessonVO> selectAgreeCnt() throws Exception{
-		return adminLessonMapper.selectAgreeCnt();
+	public List<LessonVO> selectAgreeCnt(LessonVO lessonVO) throws Exception{
+		return adminLessonMapper.selectAgreeCnt(lessonVO);
 	}
 	
 	/**
