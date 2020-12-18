@@ -29,7 +29,7 @@
 									<div class="sub-menu">
 										<c:url value="/admin/selectUserInfo" var="selectUserInfo"/>
 										<li ><a href="${selectUserInfo}">정보조회</a></li>
-										<li ><a href="#">블랙리스트 관리</a></li>
+										<li ><a href="/admin/selectAllComplain">블랙리스트 관리</a></li>
 										<li ><a href="#">장학제도</a></li>
 									</div>
 								</ul>

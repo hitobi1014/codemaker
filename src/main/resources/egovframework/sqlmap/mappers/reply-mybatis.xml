@@ -6,7 +6,6 @@ select QNA_ID,
       		 LEVEL REPLYLEVEL,
      		 REPLY_ID,
       		 REPLY_ROOT,
-       	     CASE WHEN LEVEL = 1 THEN '' ELSE LPAD('→ ', LEVEL*2, '―') END ||
       		 CASE WHEN REPLY_OUT = 'Y' THEN '**삭제된 댓글입니다**'  ELSE REPLY_CONT END REPLY_CONT,
     	     REPLY_WRITER,
       		 REPLY_OUT,

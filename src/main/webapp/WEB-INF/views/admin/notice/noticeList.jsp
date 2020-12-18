@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-<title>Insert title here</title>
+<title>관리자 공지사항</title>
 <script>
 $(document).ready(function(){
 	
@@ -88,7 +88,7 @@ font-family: 'LotteMartDream';
   font-weight: 500;
   font-size: 1.2em;
   text-align: center;
-  line-height: 40px;
+  line-height: 30px;
 }
 .table tr{
 	border-top: 2px solid #bdbdbd;
@@ -113,6 +113,15 @@ font-family: 'LotteMartDream';
 #banner{
 	margin: 20px;
 }
+.checkImg{
+	width: 30px;
+}
+.formDiv{
+	margin: 30px;
+}
+.aClass{
+	color:#0621b9;
+}
 </style>
 
 <div id="containerId">
@@ -134,9 +143,8 @@ font-family: 'LotteMartDream';
 				</div>
 			</div>
 			
-			<hr>
-		
 		<div class="table-responsive">
+		<button type="button" id="btnWrite" class="btn btn-info btn-sm" style="float:right; width:100px; height:30px; margin-bottom:5px;">공지 작성</button>
 			<table class="table">
 				<tr style="text-align:center;">
 					<th>공지사항 번호</th>
@@ -157,12 +165,19 @@ font-family: 'LotteMartDream';
 					</c:choose>
 					<c:forEach items="${noticeList}" var="notice">
 						<tr>
-							<td style="text-align:center;">${num}</td>
-							<td style="text-align:center;">${notice.noticeId}</td>
-							<td><a href="${cp}/admin/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
-							<td style="text-align:center;"><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
-							<td style="text-align:center;">${notice.adminId}</td>
-							<td style="text-align:center;">${notice.noticeOut}</td>
+							<td>${num}</td>
+							<td>${notice.noticeId}</td>
+							<td style="text-align:left;"><a class="aClass" href="${cp}/admin/selectNotice?noticeId=${notice.noticeId}">${notice.noticeTitle}</a></td>
+							<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd" /></td>
+							<td>${notice.adminId}</td>
+							<c:choose>
+								<c:when test="${notice.noticeOut == 'N'}">
+									<td></td>
+								</c:when>
+								<c:when test="${notice.noticeOut == 'Y'}">
+									<td><img class="checkImg" src="/images/admin/company/check.png"></td>
+								</c:when>
+							</c:choose>
 						</tr>
 						<c:set var="num" value="${num-1}"/>
 					</c:forEach>
@@ -202,10 +217,9 @@ font-family: 'LotteMartDream';
 					</c:when>
 				</c:choose> 	
 			</ul>
-			<button type="button" id="btnWrite" class="btn btn-info btn-sm" style="float:right; width:100px; height:30px;">공지 작성</button>
 			
-			<hr>
-			<div>
+			
+			<div class="formDiv">
 				<form name="form1" method="post">
 					<select name="searchOption">
 						<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->

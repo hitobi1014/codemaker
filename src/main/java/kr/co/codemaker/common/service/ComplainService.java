@@ -1,6 +1,7 @@
 package kr.co.codemaker.common.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,8 +17,17 @@ public class ComplainService {
 	@Resource(name="complainMapper")
 	private ComplainMapper complainMapper;
 	
-	public List<ComplainVO> selectAllComplain(){
-		return complainMapper.selectAllComplain();
+	public Map<String, Object> selectAllComplain(Map<String, Object> map){
+		
+		map.put("complainList", complainMapper.selectAllComplain(map));
+		
+		int cnt = complainMapper.complainTotalCnt();
+		
+		int pages = (int)Math.ceil((double)cnt/(int)map.get("pageSize"));
+		
+		map.put("pages", pages);
+		
+		return map;
 	}
 	
 	public int insertComplain(ComplainVO complainVo) {

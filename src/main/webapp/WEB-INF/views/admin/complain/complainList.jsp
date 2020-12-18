@@ -14,7 +14,7 @@
 			var cpId = $(this).parents('tr').data("cpid");
 			
 			var url = "${cp}/admin/selectComplain?cpId="+cpId;
-			var option = "width = 1000, height = 1000, top = 100, left = 200, location = no"
+			var option = "width = 500, height = 448, top = 200, left = 400, location = no"
 			window.open(url, "신고내역", option);
 		})
 		
@@ -86,7 +86,7 @@ font-family: 'LotteMartDream';
 }
 </style>
 
-<body>
+
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12">
@@ -98,6 +98,7 @@ font-family: 'LotteMartDream';
 				<button type="button" class="btn btn-primary" id="blacklist" name="blacklist">블랙리스트</button>
 			</div>
 		</div>
+		<div class="table-responsive">
 		<table class="table">
 			<tr>
 				<th>신고 아이디</th>
@@ -118,8 +119,36 @@ font-family: 'LotteMartDream';
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>	
+	</div>
+	
+	<div class="text-center">
+            <ul class="pagination justify-content-center m-0">
+              <c:if test="${page != 1}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllComplain?page=${1}">&laquo;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="$/admin/selectAllComplain?page=${page-1}">&lt;</a></li>
+              </c:if>
+               
+               <c:forEach var="i" begin="1" end="${pages}">
+                  <c:choose>
+                     <c:when test="${i == page}">
+                        <li class="page-item active"><a class="page-link pageMove pageMV">${i}</a></li>
+                     </c:when>
+                     <c:otherwise>
+                        <li class="page-item"><a class="page-link pageMove pageMV" href="/admin/selectAllComplain?page=${i}">${i}</a></li>
+                     </c:otherwise>
+                  </c:choose>   
+               </c:forEach>
+               
+               <c:if test="${page != pages}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllComplain?page=${page+1}">&gt;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllComplain?page=${pages}">&raquo;</a></li>
+              </c:if>
+            </ul>
+            <div>
+            </div>
+         </div>  
+         </div>	
 	</div>
 	</div>
 </div>
-</body>
+

@@ -52,7 +52,7 @@ public class AdminLoginController {
 			
 			return "adminPage/admin/main/adminMain";
 		}
-		return "redirect:/loginView?=";
+		return "redirect:loginView";
 	}
 	
 	// 로그아웃
@@ -60,7 +60,7 @@ public class AdminLoginController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		logger.debug("로그아웃했땅!!!!!!!!!!======", session);
-		return "redirect:/loginView";
+		return "redirect:loginView";
 	}
 	
 	
@@ -76,12 +76,19 @@ public class AdminLoginController {
 			e.printStackTrace();
 		}
 		
+		logger.debug("선생님========== : {}", teacherVO);
+		logger.debug("선생님 비밀=============== : {}", dbTeacherVO.getTchPass());
+		logger.debug("선생님 번호=============== : {}", teacherVO.getTchPass());
+		
+		
 		if(teacherVO != null && dbTeacherVO.getTchPass().equals(teacherVO.getTchPass())) {
 			session.setAttribute("S_TEACHER", teacherVO);
 			
+			logger.debug("선생님 ========= : {}", session.getAttribute("S_TEACHER"));
+			
 			return "teacherPage/teacher/main/teacherMain";
 		}
-		return "redirect:/loginView?=";
+		return "redirect:loginView";
 	}
 	
 	@RequestMapping(path="/admin/main")

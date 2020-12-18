@@ -9,8 +9,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
 <script>
 $(document).ready(function() {
@@ -32,23 +34,45 @@ $(document).ready(function() {
     		alert("내용을 입력하세요");
     		return;
     	} else {
-    		alert("게시글 등록이 완료되었습니다.")
-    		$("#insertJobInfo").submit();
+    		if(confirm("등록하시겠습니까?")){
+	    		$("#insertJobInfo").submit();
+    		}else{
+    			return;
+    		}
     	}
     })
+    
+    $("#listBtn").on('click', function(){
+    	if(confirm("작성을 취소하시겠습니까?")){
+    		document.location="/admin/selectAllJobInfo";
+    	}else{
+    		return;
+    	}
+    })
+    	
+    
 })       
 </script>
 <style>
+	.note-editable p{
+		text-align:left;
+		font-size: 1.0em;
+	}
 	.card{
-	width:800px;
-	height:800px;
-	margin:auto;
-	border: none;
-}
-h2{
-	color : #1d25af;
-	font-size: 2.0em;
-}
+		width:92%;
+		height:auto;
+		margin:30px auto;
+		min-height:1080px;
+		font-size: 1.2em;
+/* 		border: none; */
+	}
+	h2{
+		color : #1d25af;
+		font-family: 'LotteMartDream';
+		font-weight: 700;
+		text-align : center;
+		font-size:2.0em;
+	}
 #ff{
 	margin: 50px 130px 0;
 	background-color: white;
@@ -86,28 +110,35 @@ font-family: 'LotteMartDream';
 }
 .card .table {
    margin-bottom: 70px;
-}
-#insertbutton{
-	float:right;
+   
 }
 #banner{
 	margin: 20px;
 }
+.fix{
+	margin-left : auto;
+	margin-right : auto;
+}
+.note-editable p{
+		text-align:left;
+		font-size: 1.0em;
+	}
+	th{
+		padding : 10px;
+	}
 </style>
-<div id="containerId">
-	<div class="row shadow" style="background-color: white;">
-		<div class="col-12">
-		<div class="card">
+<div class="card shadow">
 	
 		<div id="banner">	
 			<h2>채용 공고 등록</h2>
 			<br>
 		</div>	
+		<div class="fix">
 			<form id="insertJobInfo" enctype="multipart/form-data" class="form-horizontal" method="POST" action="/admin/insertJobInfo">
 				<table>
 					<tr>
 						<th>제목</th>
-						<th><input type="text" name="jobinfoTitle" style="width:300px;"></th>
+						<th><input type="text" name="jobinfoTitle" style="width:700px;"></th>
 					</tr>
 					<tr>
 						<th>내용</th>
@@ -124,13 +155,10 @@ font-family: 'LotteMartDream';
 					<input type="hidden" name="adminId" value="${S_ADMIN.adminId}"/>
 				</div>
 				
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="button" id="insertbutton" class="btn btn-success">등록</button>
-					</div>
+				<div class="form-group" style="float:right">
+						<button style="font-size: 1.0em;" type="button" id="insertbutton" class="btn btn-success">등록</button>
+						<button style="font-size: 1.0em;"type="button" id="listBtn" class="btn btn-warning">나가기</button>
 				</div>
 			</form>
 		</div>	
-	</div>
-	</div>
 </div>

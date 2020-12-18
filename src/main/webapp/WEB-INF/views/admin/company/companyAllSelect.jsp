@@ -16,10 +16,11 @@
 </script>
 <style>
 .card{
-	width:1500px;
-	height:700px;
-	margin:auto;
-	border: none;
+	width: 100%;
+    height: 800px;
+    margin: 20px auto 0;
+    border: none;
+    padding: 40px;
 }
 h2{
 	color : #1d25af;
@@ -82,10 +83,7 @@ font-family: 'LotteMartDream';
 
 </style>
 
-<div id="containerId">
-	<div class="row shadow" style="background-color: white;">
-		<div class="col-12">
-			<div class="card">
+	<div class="card shadow">
 		<div id="banner">
 			<h2>기업 정보</h2>
 			<br>
@@ -151,6 +149,3 @@ font-family: 'LotteMartDream';
             </div>
          </div>      
       </div>
-   </div>
-</div>
-</div>

@@ -11,7 +11,13 @@
 	$(function(){
 		$("input[id^='checkBlack']").on("click", function(){
 			var userid = $(this).parents('tr').data("userid");
-			document.location="/admin/insertBlackList?userId="+userid;
+			if(confirm("추가하시겠습니까?")){
+				document.location="/admin/insertBlackList?userId="+userid;
+				return;
+			}else{
+				return;
+			}
+			
 		})
 		
 		$("#complains").on('click', function(){
@@ -110,9 +116,14 @@ font-family: 'LotteMartDream';
 						<td>${black.userNm}</td>
 						<td>${black.userBlack}</td>
 						<td>${black.count}</td>
-						<c:if test="${black.userBlack != 'Y'}">
-							<td><input type="button" id="checkBlack" value="블랙리스트 추가"></td>
-						</c:if>
+						<c:choose>
+							<c:when test="${black.userBlack != 'Y'}">
+								<td><input type="button" id="checkBlack" value="블랙리스트 추가"></td>	
+							</c:when>
+							<c:otherwise>
+								<td style="color:red;">블랙리스트</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</tbody>

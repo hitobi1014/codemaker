@@ -47,6 +47,7 @@ $(document).ready(function(){
 h2{
 	color : #1d25af;
 	font-size: 2.0em;
+	
 }
 #ff{
 	margin: 50px 130px 0;
@@ -109,7 +110,6 @@ font-family: 'LotteMartDream';
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12">
 		<div class="card">
-	
 		<div id="banner">
 			<h2>CodeMaker 취업 공고 현황</h2>
 			<br>
@@ -140,7 +140,14 @@ font-family: 'LotteMartDream';
 							<td><a href="/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
 							<td><fmt:formatDate value="${jobInfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${jobInfo.adminId}</td>
-							<td>${jobInfo.jobinfoOut}</td>
+							<c:choose>
+								<c:when test="${jobInfo.jobinfoOut == 'N'}">
+									<td></td>
+								</c:when>
+								<c:when test="${jobInfo.jobinfoOut == 'Y'}">
+									<td><img class="checkImg" src="/images/admin/company/check.png"></td>
+								</c:when>
+							</c:choose>
 						</tr>
 						<c:set var="num" value="${num-1}"/>
 					</c:forEach>
@@ -148,7 +155,7 @@ font-family: 'LotteMartDream';
 			</table>
 			
 		</div>	
-		
+		</div>
 		 <div class="text-center">
             <ul class="pagination justify-content-center m-0">
               <c:if test="${param.page != 1}">
@@ -176,12 +183,11 @@ font-family: 'LotteMartDream';
             <div>
             <hr>
 				<form name="form1"  method="post">
-			       <span>검색&nbsp</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
+			       <span>검색&nbsp;</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
 			       <input id="searchBtn" type="button" class="btn btn-warning btn-sm" value="조회">
 			    </form>
 			</div>
 			</div>		
 		</div>
-	</div>
 	</div>
 </div>

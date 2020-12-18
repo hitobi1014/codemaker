@@ -6,8 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원 취업공고</title>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
 <script>
 $(document).ready(function(){
@@ -26,22 +28,73 @@ $(document).ready(function(){
 		var keyWord = $("input[name='keyWord']").val();
 	
 		document.location="${cp}/user/selectAllJobInfo?keyWord="+keyWord+"&page=1";
-		
 	});
 })
 </script>
 <style>
-	.table-responsive {
-		margin-left:10%; 
-		margin-right:10%; 
-		height:800px; 
-		text-align:center;
-	}
+.card{
+	width:1500px;
+	height:700px;
+	margin:auto;
+	border: none;
+}
+h2{
+	color : #1d25af;
+	font-size: 2.0em;
+	font-family: 'LotteMartDream';
+	font-weight: 700;
+}
+#ff{
+	margin: 50px 130px 0;
+	background-color: white;
+}
+.pagination .page-item:first-child .page-link, .pagination .page-item:last-child .page-link
+{
+ height: 37px; 
+}
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+div, li{
+ font-family: 'LotteMartDream';
+  font-weight: 500;
+}
+.table th{
+font-family: 'LotteMartDream';
+  font-weight: 700;
+  font-size: 1.5em;
+  text-align: center;
+}
+.table td{
+font-family: 'LotteMartDream';
+  font-weight: 500;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: 40px;
+}
+.table tr{
+	border-top: 2px solid #bdbdbd;
+    border-bottom: 2px solid #bdbdbd;
+}
+.card .table {
+   margin-bottom: 70px;
+}
+.table-responsive {
+	margin-left:10%; 
+	margin-right:10%; 
+	height:800px; 
+	text-align:center;
+	margin-top: 30px;
+}
 </style>
 <div class="d-flex">
-		<div class="table-responsive" style="margin-left:10%; margin-right:10%; height:800px; text-align:center;">
-			<h2>CodeMaker취업 공고</h2>
-			<div style="background-color:white;">
+		<div class="table-responsive">
+			<br>
+			<h2>CodeMaker 취업 공고</h2>
+			<div style="background-color:white;" >
 				    <hr>
 				<div style="margin:auto; width:1000px;">
 					<table class="table">
@@ -57,7 +110,7 @@ $(document).ready(function(){
 								<c:if test="${jobinfo.jobinfoOut == 'N'}">
 									<tr>
 										<td>${num}</td>
-										<td style="text-align:left;"><a href="${cp}/user/selectJobInfo?jobinfoId=${jobinfo.jobinfoId}">${jobinfo.jobinfoTitle}</a></td>
+										<td style="text-align:left;"><a style="color : black; font-size : 20px;" href="${cp}/user/selectJobInfo?jobinfoId=${jobinfo.jobinfoId}">${jobinfo.jobinfoTitle}</a></td>
 										<td><fmt:formatDate value="${jobinfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
 										<td>${jobinfo.adminId}</td>
 									</tr>
@@ -102,7 +155,7 @@ $(document).ready(function(){
 			</ul>
 			<hr>
 			<div>
-		        <span>검색</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
+		        <span>검색&nbsp;</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
 		        <button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
 			</div>
 		</div>

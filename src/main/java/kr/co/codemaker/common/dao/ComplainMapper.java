@@ -1,6 +1,7 @@
 package kr.co.codemaker.common.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.common.vo.ComplainVO;
@@ -14,7 +15,7 @@ public interface ComplainMapper {
 	 * @author 박경호
 	 * @return 들어온 모든 신고
 	 */
-	public List<ComplainVO> selectAllComplain();
+	public List<ComplainVO> selectAllComplain(Map<String, Object> map);
 	
 	/**
 	 * 글에 대한 신고내역을 작성하는 메서드
@@ -62,5 +63,12 @@ public interface ComplainMapper {
 	 * @return 블랙리스트에 추가된 회원 수
 	 */
 	public int insertBlackList(UserVO userVo);
+	
+	/**
+	 * 모든 신고횟수를 조회하는메서드
+	 * @author 박경호
+	 * @return 총 신고횟수
+	 */
+	public int complainTotalCnt();
 	
 }
