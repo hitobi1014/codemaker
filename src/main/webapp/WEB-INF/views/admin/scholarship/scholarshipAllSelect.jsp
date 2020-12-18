@@ -12,7 +12,11 @@
 </head>
 <script>
 $(function(){
-	findIdShow();
+	if('${scholarshipVO.searchGn}' == '1'){
+		findPwShow();
+	}else{
+		findIdShow();
+	}
 	
 	$('#fIBtn').on('click', function(){
 		findIdShow();
@@ -29,39 +33,106 @@ $(function(){
 	
 	// 과목 검색 조건 - 장학금 지급한 내역
 	$('#searchASubject').on('change', function(){
+		var str = '<input type="hidden" name="searchGn" value="1">';
+		$('#schof').append(str);
+		
 		$('#schof').submit();
 	});
 	
 	// 수강중인 회원 상세 조회
 	$('.total').on('click', function(){
-		var lesId = $(this).parents('tr').data('lesid');
-		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
-		$('#schof').append(str);
-		
-		$('#schof').attr('action', '/scholarship/selectCurAllLesson');
-		$('#schof').submit();
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			str += '<input type="hidden" name="curGn" value="1">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectCurAllLesson');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
 		
 	});
 	
 	// 완강 회원 상세 조회
 	$('.lescnt').on('click', function(){
-		var lesId = $(this).parents('tr').data('lesid');
-		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
-		$('#schof').append(str);
-		
-		$('#schof').attr('action', '/scholarship/selectLessonScholarship');
-		$('#schof').submit();
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			str += '<input type="hidden" name="curGn" value="2">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectLessonScholarship');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
 	});
 	
 	// 시험 완료 회원 상세 조회
 	$('.examcnt').on('click', function(){
-		var lesId = $(this).parents('tr').data('lesid');
-		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
-		$('#schof').append(str);
-		
-		$('#schof').attr('action', '/scholarship/selectExamScholarship');
-		$('#schof').submit();
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectExamScholarship');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
 	});
+	
+	// 완강 장학금 지급 회원 상세 조회
+	$('.lesPayCnt').on('click', function(){
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			str += '<input type="hidden" name="searchGn" value="1">';
+			str += '<input type="hidden" name="curGn" value="4">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectLessonPayScholarship');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
+	});
+	
+	// 시험 장학금 지급 회원 상세 조회
+	$('.examPayCnt').on('click', function(){
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			str += '<input type="hidden" name="searchGn" value="1">';
+			str += '<input type="hidden" name="curGn" value="5">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectExamPayScholarship');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
+	});
+	
+	// 총 지급 회원 상세 조회
+	$('.totalPay').on('click', function(){
+		if($(this).text() != '0'){
+			var lesId = $(this).parents('tr').data('lesid');
+			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+			str += '<input type="hidden" name="searchGn" value="1">';
+			str += '<input type="hidden" name="curGn" value="6">';
+			$('#schof').append(str);
+			
+			$('#schof').attr('action', '/scholarship/selectTotalPayScholarship');
+			$('#schof').submit();
+		}else{
+			alert('데이터가 없습니다.');			
+		}
+	});
+	
+	
 	
 })
 
@@ -153,10 +224,19 @@ button:focus{
 .total{
 	color: green;
 }
-.lsecnt{
+.lescnt{
 	color: blue;
 }
 .examcnt{
+	color: red;
+}
+.totalPay{
+	color: green;
+}
+.lesPayCnt{
+	color: blue;
+}
+.examPayCnt{
 	color: red;
 }
 .tdc{
@@ -165,6 +245,11 @@ button:focus{
 .right{
     margin-top: 50px;
     margin-bottom: 15px;
+    width: 100%;
+}
+.searchC{
+	float: right;
+	width: 150px;
 }
 </style>
 <body>
@@ -187,12 +272,12 @@ button:focus{
 					</ul>
 				</div>
 				<div class="right">
-					<form:select path="searchSubject" cssClass="form-control" id="searchSubject">
+					<form:select path="searchSubject" cssClass="form-control searchC" id="searchSubject">
 						<form:option value="">과목</form:option>
 						<form:options items="${subjectList }" itemLabel="subNm" itemValue="subId"/>
 					</form:select>
 					
-					<form:select path="searchASubject" cssClass="form-control" id="searchASubject">
+					<form:select path="searchASubject" cssClass="form-control searchC" id="searchASubject">
 						<form:option value="">과목</form:option>
 						<form:options items="${subjectList }" itemLabel="subNm" itemValue="subId"/>
 					</form:select>
@@ -201,10 +286,10 @@ button:focus{
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col" style="width: 10%;">순</th>
-								<th scope="col" style="width: 50%;">강의명</th>
+								<th scope="col" style="width: 5%;">순</th>
+								<th scope="col" style="width: 40%;">강의명</th>
 								<th scope="col" style="width: 15%;">수강중인<br>회원 수</th>
-								<th scope="col" style="width: 10%;">완강한<br>회원 수</th>
+								<th scope="col" style="width: 15%;">완강한<br>회원 수</th>
 								<th scope="col" style="width: 15%;">시험을 완료한<br>회원 수</th>
 							</tr>
 						</thead>
@@ -236,10 +321,10 @@ button:focus{
 						<thead class="thead-light">
 							<tr>
 								<th scope="col" style="width: 5%;">순</th>
-								<th scope="col" style="width: 50%;">강의명</th>
+								<th scope="col" style="width: 40%;">강의명</th>
 								<th scope="col" style="width: 10%;">지급일</th>
-								<th scope="col" style="width: 10%;">완강<br>지급 수</th>
-								<th scope="col" style="width: 10%;">시험<br>지급 수</th>
+								<th scope="col" style="width: 15%;">완강<br>지급 수</th>
+								<th scope="col" style="width: 15%;">시험<br>지급 수</th>
 								<th scope="col" style="width: 15%;">총<br>지급 금액</th>
 							</tr>
 						</thead>
@@ -248,12 +333,12 @@ button:focus{
 								<c:when test="${scholarshipAList.size() ne 0}">
 									<c:forEach items="${scholarshipAList}" var="scholarship" varStatus="status">
 										<tr data-lesid='${scholarship.lesId }'>
-											<td>${status.count }</td>
+											<td class="tdc">${status.count }</td>
 											<td>${scholarship.lesNm }</td>
-											<td><fmt:formatDate value="${scholarship.schlDate }" pattern="yyyy-MM-dd" /></td>
-											<td>${scholarship.completeLesPay }</td>
-											<td>${scholarship.completeExamPay }</td>
-											<td>${scholarship.totalPay }</td>
+											<td class="tdc"><fmt:formatDate value="${scholarship.schlDate }" pattern="yyyy-MM-dd" /></td>
+											<td class="tdc"><button class="lesPayCnt abtn">${scholarship.completeLesPay }</button></td>
+											<td class="tdc"><button class="examPayCnt abtn">${scholarship.completeExamPay }</button></td>
+											<td class="tdc"><button class="totalPay abtn">${scholarship.totalPay }</button></td>
 										</tr>
 									</c:forEach>
 								</c:when>

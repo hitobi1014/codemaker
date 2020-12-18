@@ -1,44 +1,48 @@
 package kr.co.codemaker.admin.course.scholarship.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.admin.chart.controller.ExcelUtil;
 import kr.co.codemaker.admin.course.scholarship.service.ScholarshipService;
 import kr.co.codemaker.admin.course.scholarship.vo.PointVO;
 import kr.co.codemaker.admin.course.scholarship.vo.ScholarshipVO;
 import kr.co.codemaker.admin.course.scholarship.vo.SubjectVO;
 
-
 /**
  * 
-* ScholarshipController.java
-*
-* @author 김미연
-* @version 1.0
-* @since 2020. 12. 17.
-*
-* 수정자 수정내용
-* ------ ------------------------
-* 김미연 최초 생성
-*
+ * ScholarshipController.java
+ *
+ * @author 김미연
+ * @version 1.0
+ * @since 2020. 12. 17.
+ *
+ *        수정자 수정내용 ------ ------------------------ 김미연 최초 생성
+ *
  */
 @Controller
 public class ScholarshipController {
-	
+
 	// admin/scholarship
-	
+
 	@Resource(name = "scholarshipService")
 	private ScholarshipService scholarshipService;
-	
+
 	/**
-	 * 강의별로 장학금을 지급할 학생들을 조회하는 메서드 (간략 조회)
+	 * 강의별로 장학금을 지급할 회원 + 강의별로 장학금을 지급한 내역을 조회하는 메서드 (간략 조회)
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -49,7 +53,7 @@ public class ScholarshipController {
 		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
 		List<ScholarshipVO> scholarshipAList = new ArrayList<ScholarshipVO>();
 		List<SubjectVO> subjectList = new ArrayList<>();
-		
+
 		try {
 			scholarshipList = scholarshipService.selectAllScholarshipCnt(scholarshipVO);
 			subjectList = scholarshipService.selectAllSubject(scholarshipVO);
@@ -57,16 +61,16 @@ public class ScholarshipController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		model.addAttribute("scholarshipList", scholarshipList);
 		model.addAttribute("subjectList", subjectList);
 		model.addAttribute("scholarshipAList", scholarshipAList);
-		
+
 		return "adminPage/admin/scholarship/scholarshipAllSelect";
 	}
-	
+
 	/**
-	 * 수강중인 학생들을 상세조회
+	 * 수강중인 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -81,12 +85,12 @@ public class ScholarshipController {
 			e.printStackTrace();
 		}
 		model.addAttribute("scholarshipList", scholarshipList);
-		
-		return "adminPage/admin/scholarship/lessonCurSelect";
+
+		return "adminPage/admin/scholarship/lessonScholarshipSelect";
 	}
-	
+
 	/**
-	 * 완강한 학생들을 상세조회
+	 * 완강한 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -101,12 +105,12 @@ public class ScholarshipController {
 			e.printStackTrace();
 		}
 		model.addAttribute("scholarshipList", scholarshipList);
-		
-		return "adminPage/admin/scholarship/lessonSelect";
+
+		return "adminPage/admin/scholarship/lessonScholarshipSelect";
 	}
-	
+
 	/**
-	 * 완강한 학생들 중에서 모든 시험을 푼 학생들을 상세조회
+	 * 완강한 회원들 중에서 모든 시험을 푼 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -121,10 +125,105 @@ public class ScholarshipController {
 			e.printStackTrace();
 		}
 		model.addAttribute("scholarshipList", scholarshipList);
-		
-		return "adminPage/admin/scholarship/examAllSelect";
+
+		return "adminPage/admin/scholarship/examScholarshipSelect";
 	}
-	
+
+	/**
+	 * 상세조회한 회원들의 목록을 엑셀 파일로 저장
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	@RequestMapping(path = "scholarship/excelScholarship")
+	@ResponseBody
+	public void excelScholarship(ScholarshipVO scholarshipVO, HttpServletRequest request, HttpServletResponse response) {
+		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
+		List<Integer> countList = new ArrayList<>();
+		
+		// 받은 데이터를 맵에 담는다.
+		Map<String, Object> beans = new HashMap<String, Object>();
+
+		ExcelUtil excelUtil = new ExcelUtil();
+		try {
+			// 수강중인 회원 목록
+			if (scholarshipVO.getExcelGn().equals("1")) {
+				scholarshipList = scholarshipService.selectCurAllLesson(scholarshipVO);
+			}
+			// 완강 목록
+			else if (scholarshipVO.getExcelGn().equals("2")) {
+				scholarshipList = scholarshipService.selectLessonScholarship(scholarshipVO);
+			}
+			// 시험 완료
+			else if (scholarshipVO.getExcelGn().equals("3")) {
+				scholarshipList = scholarshipService.selectExamScholarship(scholarshipVO);
+			}
+			// 완강 지급
+			else if (scholarshipVO.getExcelGn().equals("4")) {
+				scholarshipList = scholarshipService.selectLessonPayScholarship(scholarshipVO);
+				beans.put("totalPay", scholarshipList.size()*100000);
+			}
+			// 시험 지급
+			else if (scholarshipVO.getExcelGn().equals("5")) {
+				scholarshipList = scholarshipService.selectExamPayScholarship(scholarshipVO);
+				beans.put("totalPay", scholarshipList.size()*150000);
+			}
+			// 전체 지급
+			else if (scholarshipVO.getExcelGn().equals("6")) {
+				scholarshipList = scholarshipService.selectTotalPayScholarship(scholarshipVO);
+				beans.put("totalPay", scholarshipList.get(0).getTotalPay());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// 순서
+		for (int i = 1; i < scholarshipList.size() + 1; i++) {
+			countList.add(i);
+		}
+		beans.put("scholarshipList", scholarshipList);
+		beans.put("countList", countList);
+		beans.put("count", scholarshipList.size());
+
+		try {
+			// 수강중인 회원 목록
+			if (scholarshipVO.getExcelGn().equals("1")) {
+				String filesNm = new String("수강 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm , "scholarshipCurLessonList.xlsx");
+			}
+			// 완강 목록
+			else if (scholarshipVO.getExcelGn().equals("2")) {
+				String filesNm = new String("완강 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipLessonList.xlsx");
+			}
+			// 시험 완료
+			else if (scholarshipVO.getExcelGn().equals("3")) {
+				String filesNm = new String("시험 완료 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipExamList.xlsx");
+			}
+			// 완강 지급
+			else if (scholarshipVO.getExcelGn().equals("4")) {
+				String filesNm = new String("장학금 완강 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipLessonPayList.xlsx");
+			}
+			// 시험 지급
+			else if (scholarshipVO.getExcelGn().equals("5")) {
+				String filesNm = new String("장학금 시험완료 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipExamPayList .xlsx");
+			}
+			// 통합 지급
+			else if (scholarshipVO.getExcelGn().equals("6")) {
+				String filesNm = new String("장학금 통합 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipTotalPayList.xlsx");
+			}
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 장학금을 지급하는 메서드
 	 * 
@@ -133,17 +232,16 @@ public class ScholarshipController {
 	 * @return
 	 */
 	@RequestMapping(path = "scholarship/insertScholarship")
-	@ResponseBody
-	public void insertScholarship(ScholarshipVO scholarshipVO) {
+	public String insertScholarship(ScholarshipVO scholarshipVO) {
 		try {
 			// 완강한 회원 장학금 지급 -> 10만원
-			if(scholarshipVO.getSchlState().equals("1")) {
-				for(String userId :  scholarshipVO.getUserIdList()) {
+			if (scholarshipVO.getSchlState().equals("1")) {
+				for (String userId : scholarshipVO.getUserIdList()) {
 					PointVO pointVO = new PointVO();
 					pointVO.setUserId(userId);
 					pointVO.setPointUpdate(100000);
 					scholarshipService.insertPoint(pointVO);
-					
+
 					scholarshipVO.setSchlPay(100000);
 					scholarshipVO.setSchlState("1");
 					scholarshipVO.setUserId(userId);
@@ -151,14 +249,14 @@ public class ScholarshipController {
 				}
 			}
 			// 완강하고 시험평균도 일정 이상이 회원 지급 -> 15만원
-			else if(scholarshipVO.getSchlState().equals("2")) {
-				for(String userId :  scholarshipVO.getUserIdList()) {
+			else if (scholarshipVO.getSchlState().equals("2")) {
+				for (String userId : scholarshipVO.getUserIdList()) {
 					PointVO pointVO = new PointVO();
 					pointVO.setUserId(userId);
-					pointVO.setPointUpdate(200000);
+					pointVO.setPointUpdate(150000);
 					scholarshipService.insertPoint(pointVO);
-					
-					scholarshipVO.setSchlPay(200000);
+
+					scholarshipVO.setSchlPay(150000);
 					scholarshipVO.setSchlState("2");
 					scholarshipVO.setUserId(userId);
 					scholarshipService.insertScholarship(scholarshipVO);
@@ -167,6 +265,70 @@ public class ScholarshipController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return "redirect:/scholarship/selectAllScholarship";
 	}
+
 	
+	/**
+	 * 장학금 지급 완강한 회원 상세조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	@RequestMapping(path = "scholarship/selectLessonPayScholarship")
+	public String selectLessonPayScholarship(ScholarshipVO scholarshipVO, Model model) {
+		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
+		try {
+			scholarshipList = scholarshipService.selectLessonPayScholarship(scholarshipVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("scholarshipList", scholarshipList);
+
+		return "adminPage/admin/scholarship/lessonScholarshipSelect";
+	}
+
+	
+	/**
+	 * 장학금 지급 시험 완료 회원들을 상세조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	@RequestMapping(path = "scholarship/selectExamPayScholarship")
+	public String selectExamPayScholarship(ScholarshipVO scholarshipVO, Model model) {
+		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
+		try {
+			scholarshipList = scholarshipService.selectExamPayScholarship(scholarshipVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("scholarshipList", scholarshipList);
+
+		return "adminPage/admin/scholarship/lessonScholarshipSelect";
+	}
+
+	
+	/**
+	 * 장학금 지급 전체 회원들을 상세조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	@RequestMapping(path = "scholarship/selectTotalPayScholarship")
+	public String selectTotalPayScholarship(ScholarshipVO scholarshipVO, Model model) {
+		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
+		try {
+			scholarshipList = scholarshipService.selectTotalPayScholarship(scholarshipVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("scholarshipList", scholarshipList);
+
+		return "adminPage/admin/scholarship/lessonScholarshipSelect";
+	}
 }

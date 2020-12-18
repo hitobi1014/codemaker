@@ -43,7 +43,7 @@ public class ScholarshipService {
 	}
 	
 	/**
-	 * 강의별로 장학금을 지급할 학생들을 조회하는 메서드 (간략 조회)
+	 * 강의별로 장학금을 지급할 회원들을 조회하는 메서드 (간략 조회)
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -54,7 +54,7 @@ public class ScholarshipService {
 	}
 	
 	/**
-	 * 수강중인 학생들을 상세조회
+	 * 수강중인 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -65,7 +65,7 @@ public class ScholarshipService {
 	}
 	
 	/**
-	 * 완강한 학생들을 상세조회
+	 * 완강한 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -76,7 +76,7 @@ public class ScholarshipService {
 	}
 	
 	/**
-	 * 완강한 학생들 중에서 모든 시험을 푼 학생들을 상세조회
+	 * 완강한 회원들 중에서 모든 시험을 푼 회원들을 상세조회
 	 * 
 	 * @author 김미연
 	 * @param scholarshipVO
@@ -117,6 +117,39 @@ public class ScholarshipService {
 	 */
 	public int insertPoint(PointVO pointVO) throws Exception{
 		return scholarshipMapper.insertPoint(pointVO);
+	}
+	
+	/**
+	 * 장학금을 지급 완강 회원 목록 조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	public List<ScholarshipVO> selectLessonPayScholarship(ScholarshipVO scholarshipVO) throws Exception{
+		return scholarshipMapper.selectLessonPayScholarship(scholarshipVO); 
+	}
+	
+	/**
+	 * 장학금을 지급 시험 완료 회원 목록 조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	public List<ScholarshipVO> selectExamPayScholarship(ScholarshipVO scholarshipVO) throws Exception {
+		return scholarshipMapper.selectExamPayScholarship(scholarshipVO);
+	}
+	
+	/**
+	 * 장학금을 지급한 전체 회원 목록 조회
+	 * 
+	 * @author 김미연
+	 * @param scholarshipVO
+	 * @return
+	 */
+	public List<ScholarshipVO> selectTotalPayScholarship(ScholarshipVO scholarshipVO) throws Exception {
+		return scholarshipMapper.selectTotalPayScholarship(scholarshipVO);
 	}
 
 }

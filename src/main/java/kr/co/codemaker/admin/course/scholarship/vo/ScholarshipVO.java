@@ -55,7 +55,30 @@ public class ScholarshipVO {
 	
 	private List<String> userIdList;	// 지급할 회원 리스트
 	
+	private String curGn;	// 조회 구분
+	private String excelGn;	// 엑셀 다운 구분
 	
+	private String searchGn;	// 조회 탭 구분
+	
+	
+	public String getSearchGn() {
+		return searchGn;
+	}
+	public void setSearchGn(String searchGn) {
+		this.searchGn = searchGn;
+	}
+	public String getExcelGn() {
+		return excelGn;
+	}
+	public void setExcelGn(String excelGn) {
+		this.excelGn = excelGn;
+	}
+	public String getCurGn() {
+		return curGn;
+	}
+	public void setCurGn(String curGn) {
+		this.curGn = curGn;
+	}
 	public List<String> getUserIdList() {
 		return userIdList;
 	}
