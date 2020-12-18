@@ -137,12 +137,12 @@
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/selectTeacherPay">
 										<span class="nav-text">교사별 조회</span>
 									</a>
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/lessonUserChart">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>

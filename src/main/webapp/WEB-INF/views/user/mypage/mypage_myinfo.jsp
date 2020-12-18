@@ -8,18 +8,6 @@
 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-	
-$("#userout").on( "click", function() {
-	alert("✔CODEMAKER 탈퇴를 진행하시겠습니까?");
-})
-
-})
-
-
-</script>
-
 
 <body>
 
@@ -90,7 +78,6 @@ $("#userout").on( "click", function() {
       </div>
     </div>
   </div>
-
 
 </body>
 

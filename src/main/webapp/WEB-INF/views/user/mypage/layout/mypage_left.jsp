@@ -26,9 +26,9 @@
 		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="${cp}/mypage/myinfoSelect">◾ 내정보조회</a> 
-				<a class="collapse-item" href="${cp}/mypage/deleteUser">◾ 회원탈퇴</a> 
-				<a class="collapse-item" href="${cp}/mypage/selectPoint">◾ 포인트</a> 
+				<a class="collapse-item" href="/mypage/myinfoSelect">◾ 내정보조회</a> 
+				<a class="collapse-item" href="/mypage/deleteUser">◾ 회원탈퇴</a> 
+				<a class="collapse-item" href="/mypage/selectPoint">◾ 포인트</a> 
 				<a class="collapse-item" href="cards.html">◾ 알림</a>
 			</div>
 		</div>
@@ -50,11 +50,11 @@
 	<!-- Nav Item - Tables -->
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
-			<i class="fas fa-fw fa-folder"></i><span>장바구니</span>
+			<i class="fas fa-fw fa-folder"></i><span>결제내역</span>
 		</a>
 		<div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="#">◾ 장바구니 내역</a> 
+				<a class="collapse-item" href="/mypage/selectAllMyPay">◾ 결제내역 조회</a> 
 			</div>
 		</div>
 	</a></li>

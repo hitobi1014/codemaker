@@ -32,11 +32,11 @@ canvas{
 	
 		<canvas id="canvas" width="300" height="80"></canvas>
 		
-		<button class="btn btn-sm btn-default float-right" id="randomizeData">Randomize Data</button>
-		<button class="btn btn-sm btn-default float-right" id="addDataset">Add Dataset</button>
-		<button class="btn btn-sm btn-default float-right" id="removeDataset">Remove Dataset</button>
-		<button class="btn btn-sm btn-default float-right" id="addData">Add Data</button>
-		<button class="btn btn-sm btn-default float-right" id="removeData">Remove Data</button>
+<!-- 		<button class="btn btn-sm btn-default float-right" id="randomizeData">Randomize Data</button> -->
+<!-- 		<button class="btn btn-sm btn-default float-right" id="addDataset">Add Dataset</button> -->
+<!-- 		<button class="btn btn-sm btn-default float-right" id="removeDataset">Remove Dataset</button> -->
+<!-- 		<button class="btn btn-sm btn-default float-right" id="addData">Add Data</button> -->
+<!-- 		<button class="btn btn-sm btn-default float-right" id="removeData">Remove Data</button> -->
 	</div>
 	
 			

@@ -192,7 +192,7 @@ public class ChartController {
 	    ExcelUtil excelUtil = new ExcelUtil();
 	    excelUtil.download(request, response, beans, "excel",  "ExcelTemplate2.xlsx");
 	}
-	
+	 
 	
 	@RequestMapping("/admin/lessonUserChart")
 	public String lessonUserChart(Model model) {
@@ -201,12 +201,9 @@ public class ChartController {
 		
 		try {
 			lessonUserCnt = chartService.lessonUserCnt();
-			
-			logger.debug("dd: {} ",lessonUserCnt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		//강의를 듣는 총 학생수 구하기
 		int lessonUserTotal=0;
