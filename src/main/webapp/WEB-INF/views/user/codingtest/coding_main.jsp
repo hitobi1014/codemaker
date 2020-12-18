@@ -8,7 +8,7 @@
 		<a href="${cdpractice}">코딩연습하기</a>
 	</div>
 	<div class="cmenu-box">
-		<c:url value="/user/coding/test" var="cdtest"></c:url>
-		<a href="${cdtest}">코딩테스트</a>
+		<c:url value="/user/coding/solution" var="cdsolution"></c:url>
+		<a href="${cdsolution}">코딩테스트</a>
 	</div>
 </div>

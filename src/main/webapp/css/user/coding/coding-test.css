@@ -44,6 +44,25 @@ pre.CodeMirror-line:visited{
 }
 .coding-container{
 	background: #263747;
+	display: flex;
+	flex-direction: column;
+}
+.coding-item1{
+	flex-grow: 1;
+}
+
+.coding-item2{
+	display: flex;
+	flex-grow: 9;
+}
+.coding-item2-section1{
+	width: 40%;
+}
+.coding-item2-section2{
+	width: 60%;
+}
+.coding-item2-section2{
+	border-left: 3px solid #bdbdbd99;
 }
 .result-box-area{
     height: 40%;
@@ -63,6 +82,7 @@ pre.CodeMirror-line:visited{
 }
 #result{
 	margin-left: 25px;
+	margin-top : 20px;
 	font-size: 18px;
 	font-family: 'LotteMartDream';
     color: #ffffffb8;
@@ -98,4 +118,34 @@ pre.CodeMirror-line:visited{
 }
 .lang-select div{
 	margin-left: 21px; 	
+}
+.solution-box{
+	margin: 0 0 0 19px;
+}
+.solution-box h6, .solution-box h5{
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    margin-top: 15px;
+}
+.solution-box p, .solution-box ul li{
+	color: #B2C0CC;
+    font-size: 16px;
+}
+.solution-box ul{
+	list-style-type: disc !important;
+	margin-left: 30px;
+}
+.ct2-tb{
+    width: 240px;
+    border : 2px solid #adadad;
+}
+.ct2-tb *{
+	text-align: center;
+	color: white;
+}
+.ct2-tb td, .ct2-tb th{
+	border: 2px solid #adadad;
 }

@@ -100,6 +100,7 @@
 				 	console.log("에러" + data.Errors);
 			 	}else{
 				 	$("#result").html(data.Result);
+				 	$("#result").css({"color":"white"});
 			 	}
 			 	var json = JSON.stringify(data);
 			 	console.log(JSON.stringify(data));

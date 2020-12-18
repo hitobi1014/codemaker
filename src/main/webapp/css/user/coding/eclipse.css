@@ -1,7 +1,7 @@
 .cm-s-eclipse span.cm-meta { color: #FF1717; }
 .cm-s-eclipse span.cm-keyword { line-height: 1em; font-weight: bold; color: #c38fe5; }
 .cm-s-eclipse span.cm-atom { color: #219; }
-.cm-s-eclipse span.cm-number { color: #164; }
+.cm-s-eclipse span.cm-number { color: #d8d8d8; }
 .cm-s-eclipse span.cm-def { color: #ffeb40; }
 .cm-s-eclipse span.cm-variable { color: #4caf4c; }
 .cm-s-eclipse span.cm-variable-2 { color: #0000C0; }
