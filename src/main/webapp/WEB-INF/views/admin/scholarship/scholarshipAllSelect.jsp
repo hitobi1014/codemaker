@@ -32,6 +32,37 @@ $(function(){
 		$('#schof').submit();
 	});
 	
+	// 수강중인 회원 상세 조회
+	$('.total').on('click', function(){
+		var lesId = $(this).parents('tr').data('lesid');
+		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+		$('#schof').append(str);
+		
+		$('#schof').attr('action', '/scholarship/selectCurAllLesson');
+		$('#schof').submit();
+		
+	});
+	
+	// 완강 회원 상세 조회
+	$('.lescnt').on('click', function(){
+		var lesId = $(this).parents('tr').data('lesid');
+		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+		$('#schof').append(str);
+		
+		$('#schof').attr('action', '/scholarship/selectLessonScholarship');
+		$('#schof').submit();
+	});
+	
+	// 시험 완료 회원 상세 조회
+	$('.examcnt').on('click', function(){
+		var lesId = $(this).parents('tr').data('lesid');
+		var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+		$('#schof').append(str);
+		
+		$('#schof').attr('action', '/scholarship/selectExamScholarship');
+		$('#schof').submit();
+	});
+	
 })
 
 function findIdShow(){
@@ -70,6 +101,14 @@ function findPwShow(){
 }
 </script>
 <style>
+.abtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.abtn:hover{
+    text-decoration: underline;
+}
 .row{
 	width: 100%;
     height: 1000px;
@@ -176,9 +215,9 @@ button:focus{
 										<tr data-lesid='${scholarship.lesId }'>
 											<td class="tdc">${status.count }</td>
 											<td>${scholarship.lesNm }</td>
-											<td class="tdc"><a class="total" href="">${scholarship.totalCnt }</a></td>
-											<td class="tdc"><a class="lescnt" href="">${scholarship.completeLesCnt }</a></td>
-											<td class="tdc"><a class="examcnt" href="">${scholarship.completeExamCnt }</a></td>
+											<td class="tdc"><button class="total abtn">${scholarship.totalCnt }</button></td>
+											<td class="tdc"><button class="lescnt abtn">${scholarship.completeLesCnt }</button></td>
+											<td class="tdc"><button class="examcnt abtn">${scholarship.completeExamCnt }</button></td>
 										</tr>
 									</c:forEach>
 								</c:when>
