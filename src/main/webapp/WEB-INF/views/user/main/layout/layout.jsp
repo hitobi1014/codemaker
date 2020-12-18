@@ -30,7 +30,7 @@
   src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
 #page-top{
-	font-family: 'LotteMartDream';
+	font-family: 'LotteMartDream' !important;
 }
 </style>
 

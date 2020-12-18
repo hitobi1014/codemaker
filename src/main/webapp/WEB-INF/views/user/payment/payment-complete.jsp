@@ -86,7 +86,8 @@
 		<div class="btn-box">
 			<c:url value="/user/main" var="main"/>
 			<a href="${main}" class="move-item" id="mainMove">메인으로</a>
-			<a href="#" class="move-item">내강의실</a>
+			<c:url value="/user/myLesson" var="myLesson"/>
+			<a href="${myLesson}" class="move-item">내강의실</a>
 		</div>
 	</div>
 </div>

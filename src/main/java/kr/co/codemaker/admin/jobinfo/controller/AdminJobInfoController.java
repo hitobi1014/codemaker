@@ -32,7 +32,7 @@ import kr.co.codemaker.fileUpload.FileUploadUtil;
 
 
 /**
-* NoticeController.java
+* AdminJobInfoController.java
 *
 * @author 박경호
 * @version 1.0
@@ -56,8 +56,8 @@ public class AdminJobInfoController {
 	
 	@RequestMapping(path="/admin/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -80,6 +80,7 @@ public class AdminJobInfoController {
 		
 		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
@@ -168,7 +169,7 @@ public class AdminJobInfoController {
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectAllJobInfo";
+			return "redirect:selectAllJobInfo?keyWord=&page=1";
 		}else {
 			return "adminPage/admin/jobInfo/jobInfoInsert";
 		}
@@ -261,7 +262,7 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:selectAllJobInfo";
+		return "redirect:selectAllJobInfo?keyWord=&page=1";
 		
 	}
 	

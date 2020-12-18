@@ -23,6 +23,20 @@ $(document).ready(function(){
 		}
 	})
 	
+	$("#qnaComplain").on("click", function(){
+		var url = "/user/insertComplain?qnaId=${qnaVo.qnaId}";
+		var option = "width = 600, height = 300, top = 300, left = 200, location = no";
+		window.open(url, "신고내역", option);
+	})
+	
+	
+	$("button[id^=replyComplain]").on("click", function(){
+		var replyId = $(this).val();
+		var url = "/user/insertComplain?replyId="+replyId;
+		var option = "width = 600, height = 300, top = 300, left = 200, location = no";
+		window.open(url, "신고내역", option);
+	})
+	
 	$("button[id^=rreply]").on('click', function(){
 		var root = $(this).val();
 		count++
@@ -67,8 +81,8 @@ $(document).ready(function(){
 	}
 </style>
 <div class="row shadow" >
-	<div class="col-12" style="margin:50px;">
-		<div class="card" style=" height:500px;">
+	<div class="col-12" style="margin:50px; min-height:1080px;">
+		<div class="card" style=" height:auto; min-height:500px;">
 			<div style="text-align:center;">
 			<div>
 				<button type="button" id="listbutton" class="btn btn-primary" style="float:left;">목록</button>			
@@ -114,8 +128,9 @@ $(document).ready(function(){
 								<td>${reply.replyWriter}</td>
 								<c:if test="${reply.replyOut != 'Y'}">
 									<c:choose>
-										<c:when test="${reply.replyWriter != USERID}">
+										<c:when test="${reply.replyWriter != MEMBER_INFO.userId}">
 											<td><button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button></td>
+											<td><button id="replyComplain" type="button" name="replyComplain" value="${reply.replyId}">신고</button></td>
 										</c:when>
 										<c:otherwise>
 										<td>
@@ -151,6 +166,7 @@ $(document).ready(function(){
 			<div>
 				<button type="button" id="listbutton" class="btn btn-primary">목록</button>
 				<button type="button" id="insertbutton" class="btn btn-success">댓글작성</button>
+				<button type="button" id="qnaComplain" class="btn btn-success">신고</button>
 			</div>
 		</div>
 	</div>

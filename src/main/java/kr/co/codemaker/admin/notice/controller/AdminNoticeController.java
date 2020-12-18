@@ -56,8 +56,8 @@ public class AdminNoticeController {
 	
 	@RequestMapping(path="/admin/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 	
@@ -67,12 +67,14 @@ public class AdminNoticeController {
 		map.put("keyWord", keyWord);
 		map.put("pages", map.get("pages"));
 		
-		Map<String, Object> map2 = new HashMap<>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
 		try {
 			map2 = noticeService.selectAllNotice(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		logger.debug("map2 {}", map2);
 		
 		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("noticeList", map2.get("noticeList"));

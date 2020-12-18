@@ -41,16 +41,20 @@ UPDATE examscore
 WHERE
     exam_id = #{examId}
 </update>
-<select id="selectExamScore" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO">
+<select id="selectExamScore" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO">
 SELECT
-    exam_id,
-    es_fscore,
-    es_lscore,
-    user_id,
-    es_edate
+    e.exam_id,
+    es.es_fscore,
+    es.es_lscore,
+    es.user_id,
+    es.es_edate,
+    e.exam_nm
 FROM
-    examscore
+    examscore es, exam e
 WHERE
-	exam_id = #{examId}
+	e.exam_id = #{examId}
+AND
+	e.exam_id = es.exam_id
+	
 </select>
 </mapper>

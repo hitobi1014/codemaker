@@ -101,11 +101,7 @@ public class ExamUserController {
 		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
 		try {
-			if(examVO.getSearchEsScore().equals("0")) {
-				ev = examUserService.selectExam(examVO);
-			}else {
-				ev = examUserService.selectSExam(examVO);
-			}
+			ev = examUserService.selectExam(examVO);
 			questionList = questionUserService.selectQuestion(examVO);
 			for (QuestionVO questionVO : questionList) {
 				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
@@ -122,7 +118,7 @@ public class ExamUserController {
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "/user/exam/examSelect";
+		return "/user/exam/examUserSelect";
 	}
 	
 	/**
@@ -152,7 +148,7 @@ public class ExamUserController {
 				for(int i=0; i < examVO.getQueIdList().size(); i++) {
 					ExamResultVO examResultVO = new ExamResultVO();
 					examResultVO.setQueId(examVO.getQueIdList().get(i));
-					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
 					examResultVO.setErCheck(examVO.getErCheckList().get(i));
 					examResultVO.setUserId(userId);
 					examResultVO.setExamId(examVO.getExamId());
@@ -164,7 +160,7 @@ public class ExamUserController {
 				for(int i=0; i < examVO.getQueIdList().size(); i++) {
 					ExamResultVO examResultVO = new ExamResultVO();
 					examResultVO.setQueId(examVO.getQueIdList().get(i));
-					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
 					examResultVO.setErCheck(examVO.getErCheckList().get(i));
 					
 					examResultUserService.updateExamResult(examResultVO);
@@ -175,7 +171,42 @@ public class ExamUserController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
+	 * 
+	 * @author 김미연
+	 * @param examScoreVO
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(path = "/examUser/selectExamScore")
+	public String selectExamScore(ExamVO examVO, Model model) {
+		ExamScoreVO examScoreVO = new ExamScoreVO();
+		List<ExamResultVO> examResultList = new ArrayList<>();
+		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
+		
+		try {
+			examScoreVO = examScoreUserService.selectExamScore(examVO);
+			examResultList = examResultUserService.selectAllExamResult(examVO);
+			for (QuestionVO questionVO : examResultList) {
+				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
+				
+				for (AnswersheetVO answersheetVO : answersheetList) {
+					answersheetLists.add(answersheetVO);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("examScoreVO", examScoreVO);
+		model.addAttribute("examResultList", examResultList);
+		model.addAttribute("answersheetLists", answersheetLists);
+		
+		return "mypageT/user/exam/examUserUpdate";
+	}
 	
+//	
 //	
 //	/**
 //	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
@@ -204,56 +235,7 @@ public class ExamUserController {
 //		return "";
 //	}
 //	
-//	/**
-//	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String selectExamScore(ExamScoreVO examScoreVO, Model model) {
-//		
-//		ExamScoreVO esv = new ExamScoreVO();
-//		ExamResultVO examResultVO = new ExamResultVO();
-//		List<ExamResultVO> examResultList = new ArrayList<>();
-//		
-//		try {
-//			esv = examScoreUserService.selectExamScore(examScoreVO);
-//			examResultList = examResultUserService.selectAllExamResult(examScoreVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		model.addAttribute("examScoreVO", esv);
-//		model.addAttribute("examResultList", examResultList);
-//		
-//		return "";
-//	}
-//	
-//	
 
-//	
-//	/**
-//	 * 회원의 성적을 수정하는 메서드
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String updateExamScore(ExamScoreVO examScoreVO) {
-//		try {
-//			examScoreUserService.updateExamScore(examScoreVO);
-//			
-//			for(ExamResultVO examResultVO : examScoreVO.getExamResultList()) {
-//				examResultUserService.updateExamResult(examResultVO);
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "";
-//	}
+
 
 }

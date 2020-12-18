@@ -8,8 +8,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
+<link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
 <script>
 $(document).ready(function() {
@@ -17,12 +19,12 @@ $(document).ready(function() {
 	$('.summernote').summernote({
 		width : 700,
 		height: 500,
-		lang: "ko-KR"
+		lang: "ko-KR",
 	});
 	
 	$("#notice_head").on('change', function(){
 		selectText = $("#notice_head option:selected").text();
-		$("input[name='noticeTitle']").val('<'+selectText+'>');
+		$("input[name='noticeTitle']").val('<'+selectText+'> ');
 	})
 	
 	
@@ -32,7 +34,7 @@ $(document).ready(function() {
     	var last_char = noticeTitle.substr(noticeTitle.length-1, 1);
     	
     	
-    	if(noticeTitle == '' || last_char == '>'){
+    	if(noticeTitle == '' || last_char == '> '){
     		alert("제목을 입력하세요");
     		return;
     	} else if(noticeCont == ''){
@@ -43,59 +45,130 @@ $(document).ready(function() {
     		$("#insertNotice").submit();
     	}
     })
+    
+    $("#listBtn").on('click', function(){
+    	if(confirm("작성을 취소하시겠습니까?")){
+    		document.location="/admin/selectAllNotice";
+    	}else{
+    		return;
+    	}
+    })
 	
 })       
 </script>
 <style>
+	.note-editable p{
+		text-align:left;
+		font-size: 1.0em;
+	}
 	.card{
-		width:800px;
-		margin-left:150px;
+		width:92%;
+		height:auto;
+		margin:30px auto;
+		min-height:1080px;
+		font-size: 1.2em;
+/* 		border: none; */
 	}
 	h2{
-		text-align:center;
 		color : #1d25af;
+		font-family: 'LotteMartDream';
+		font-weight: 700;
+		text-align : center;
+		font-size:2.0em;
 	}
-	#insertbutton{
-		float:right;
+#ff{
+	margin: 50px 130px 0;
+	background-color: white;
+}
+.pagination .page-item:first-child .page-link, .pagination .page-item:last-child .page-link
+{
+ height: 37px; 
+}
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+div, li{
+ font-family: 'LotteMartDream';
+  font-weight: 500;
+}
+.table th{
+font-family: 'LotteMartDream';
+  font-weight: 700;
+  font-size: 1.5em;
+  text-align: center;
+}
+.table td{
+font-family: 'LotteMartDream';
+  font-weight: 500;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: 40px;
+}
+.table tr{
+	border-top: 2px solid #bdbdbd;
+    border-bottom: 2px solid #bdbdbd;
+}
+.card .table {
+   margin-bottom: 70px;
+   
+}
+#banner{
+	margin: 20px;
+}
+.fix{
+	margin-left : auto;
+	margin-right : auto;
+}
+.note-editable p{
+		text-align:left;
+		font-size: 1.0em;
+	}
+	th{
+		padding : 10px;
 	}
 </style>
-<div class="col-12" style="margin:50px;">
-	<div class="card">	
-		<h2>공지 사항 등록</h2>
+<div class="card shadow">
+		<div id="banner">	
+			<h2>공지 사항 등록</h2>
+			<br>
+		</div>	
+		<div class="fix">
 		<form id="insertNotice" enctype="multipart/form-data" class="form-horizontal" method="POST" action="${cp}/admin/insertNotice">
-			<div class="col-sm-10">
-				<label for="userNm" class="col-sm-2 control-label">분류</label>
-				<select id="notice_head" name="noticeHead">
-					<option value="1">공지사항</option>
-					<option value="2">자주묻는질문</option>
-					<option value="1">이벤트</option>
-				</select>
-			</div>
+			<table>
+				<tr>
+					<th>분류</th>
+					<th>
+						<select id="notice_head" name="noticeHead">
+							<option value="1">공지사항</option>
+							<option value="2">자주묻는질문</option>
+							<option value="1">이벤트</option>
+						</select>
+					</th>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<th><input type="text" name="noticeTitle" style="width:700px;" value='<공지사항>'></th>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<th><textarea style="margin-left:100px; text-align:left;" class="summernote" name="noticeCont"></textarea></th>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<th><input type='file' name='realfile' multiple='multiple' value="파일추가"></th>
+				</tr>
+			</table>
 
-			<div class="col-sm-10">
-			<label for="userNm" class="col-sm-2 control-label">제목</label>
-				<input type="text" name="noticeTitle" style="width:300px;" value='<공지사항>'>
-			</div>
-
-			<div class="col-sm-10">
-			<label for="userNm" class="col-sm-2 control-label">내용</label>
-				<textarea style="margin-left:100px;" class="summernote" name="noticeCont"></textarea>
-			</div>
-			
-			<hr>
-			<div class="form-group">
-				<label for="userNm" class="col-sm-2 control-label">첨부파일</label>
-				<input type='file' name='realfile' multiple='multiple' value="파일추가">
-			</div>
-	
 			<div class="col-sm-10">
 				<input type="hidden" name="adminId" value="${S_ADMIN.adminId}" />
 			</div>
 	
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" id="insertbutton" class="btn btn-success">등록</button>
-				</div>
+			<div class="form-group" style="float:right;">
+				<button style="font-size: 1.0em;" type="button" id="insertbutton" class="btn btn-success">등록</button>
+				<button style="font-size: 1.0em;" type="button" id="listBtn" class="btn btn-warning">나가기</button>
 			</div>
 		</form>
 	</div>

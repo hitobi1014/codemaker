@@ -15,7 +15,7 @@ import kr.co.codemaker.common.vo.BaseVO;
 * 김미연 최초 생성
 *
  */
-public class QuestionVO extends BaseVO {
+public class QuestionVO extends AnswersheetVO {
 	
 	private String queId;		// 시험 문제 아이디
 	private String queCont;		// 시험 문제
