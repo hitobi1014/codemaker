@@ -30,7 +30,7 @@
 										<c:url value="/admin/selectUserInfo" var="selectUserInfo"/>
 										<li ><a href="${selectUserInfo}">정보조회</a></li>
 										<li ><a href="/admin/selectAllComplain">블랙리스트 관리</a></li>
-										<li ><a href="#">장학제도</a></li>
+										<li ><a href="/scholarship/selectAllScholarship">장학제도</a></li>
 									</div>
 								</ul>
 							</li>
@@ -144,7 +144,7 @@
 								</a>
 							</li>
 							<li>
-								<a class="sidenav-item-link" href="#">
+								<a class="sidenav-item-link" href="/admin/selectAllAgree">
 									<span class="nav-text">강의 조회</span>
 								</a>
 							</li>

@@ -14,9 +14,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.codemaker.admin.chart.controller.ExcelUtil;
 import kr.co.codemaker.admin.course.scholarship.service.ScholarshipService;
 import kr.co.codemaker.admin.course.scholarship.vo.PointVO;
 import kr.co.codemaker.admin.course.scholarship.vo.ScholarshipVO;
@@ -30,7 +28,8 @@ import kr.co.codemaker.admin.course.scholarship.vo.SubjectVO;
  * @version 1.0
  * @since 2020. 12. 17.
  *
- *        수정자 수정내용 ------ ------------------------ 김미연 최초 생성
+ *        수정자 수정내용 ------ 
+ *        ------------------------ 김미연 최초 생성
  *
  */
 @Controller
@@ -137,15 +136,13 @@ public class ScholarshipController {
 	 * @return
 	 */
 	@RequestMapping(path = "scholarship/excelScholarship")
-	@ResponseBody
 	public void excelScholarship(ScholarshipVO scholarshipVO, HttpServletRequest request, HttpServletResponse response) {
 		List<ScholarshipVO> scholarshipList = new ArrayList<ScholarshipVO>();
-		List<Integer> countList = new ArrayList<>();
 		
 		// 받은 데이터를 맵에 담는다.
 		Map<String, Object> beans = new HashMap<String, Object>();
 
-		ExcelUtil excelUtil = new ExcelUtil();
+//		ExcelUtil excelUtil = new ExcelUtil();
 		try {
 			// 수강중인 회원 목록
 			if (scholarshipVO.getExcelGn().equals("1")) {
@@ -172,21 +169,24 @@ public class ScholarshipController {
 			// 전체 지급
 			else if (scholarshipVO.getExcelGn().equals("6")) {
 				scholarshipList = scholarshipService.selectTotalPayScholarship(scholarshipVO);
-				beans.put("totalPay", scholarshipList.get(0).getTotalPay());
+				for(ScholarshipVO schol : scholarshipList) {
+					if(schol.getSchlState().equals("1")) {
+						schol.setSchlState("완강");
+					}else if(schol.getSchlState().equals("2")) {
+						schol.setSchlState("시험 완료");
+					}
+				}
+				beans.put("totalPay", scholarshipVO.getTotalPay());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		// 순서
-		for (int i = 1; i < scholarshipList.size() + 1; i++) {
-			countList.add(i);
-		}
 		beans.put("scholarshipList", scholarshipList);
-		beans.put("countList", countList);
 		beans.put("count", scholarshipList.size());
 
 		try {
+			ExcelUtil excelUtil = new ExcelUtil();
 			// 수강중인 회원 목록
 			if (scholarshipVO.getExcelGn().equals("1")) {
 				String filesNm = new String("수강 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
@@ -210,7 +210,7 @@ public class ScholarshipController {
 			// 시험 지급
 			else if (scholarshipVO.getExcelGn().equals("5")) {
 				String filesNm = new String("장학금 시험완료 회원 목록".getBytes("UTF-8"), "ISO-8859-1");
-				excelUtil.download(request, response, beans, filesNm, "scholarshipExamPayList .xlsx");
+				excelUtil.download(request, response, beans, filesNm, "scholarshipExamPayList.xlsx");
 			}
 			// 통합 지급
 			else if (scholarshipVO.getExcelGn().equals("6")) {

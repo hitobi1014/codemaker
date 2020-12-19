@@ -26,6 +26,7 @@ $(function(){
 	
 	// 장학금 지급
 	$('#agree').on('click', function(){
+		$('#schof').attr('action', '/scholarship/insertScholarship');
 		$('#schof').submit();
 	});
 	
