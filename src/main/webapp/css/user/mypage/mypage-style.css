@@ -393,6 +393,7 @@ hr {
   border-radius: .375rem;
   background-color: #fff;
   background-clip: border-box;
+  width: 103%;
 }
 
 .card>hr {

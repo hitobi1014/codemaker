@@ -53,7 +53,7 @@ WITH chart AS (
                     FROM
                         lesson
                     WHERE
-                        les_state = 'Y'
+                        les_state = '3'
                 ) b
         ) z,
         (
@@ -142,15 +142,15 @@ GROUP BY
     tch_nm
 </select>
 <select id="lessonUserCnt" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
-	select a.les_id, b.les_nm, count(*) cnt                                                                                                                                                                                                                                                                                                                                                                                                 
+select a.les_id, b.les_nm, count(*) cnt                                                                                                                                                                                                                                                                                                                                                                                                 
 	from pay a, lesson b
-	where a.les_id=b.les_id and b.les_state = 'Y'
+	where a.les_id=b.les_id and b.les_state = '3'
 	group by a. les_id ,b.les_nm
 	order by cnt desc
 </select>
 <select id="lessonUserTotal" resultType="int">
-	select count(*)
+select count(*)
 	from pay a, lesson b
-	where a.les_id=b.les_id and b.les_state = 'Y'
+	where a.les_id=b.les_id and b.les_state = '3'
 </select>
 </mapper>

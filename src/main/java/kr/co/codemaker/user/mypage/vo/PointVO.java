@@ -10,6 +10,7 @@ public class PointVO {
 	private String pointGn;
 	private String userId;
 	private int pointUpdate;
+	
 	public int getPointSum() {
 		return pointSum;
 	}

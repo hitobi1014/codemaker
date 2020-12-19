@@ -64,7 +64,7 @@
 									<ul class="collapse" id="icons">
 										<div class="sub-menu">
 											<li >
-												<a href="#">질문 응답 게시판</a>
+												<a href="/teacher/selectAllQna">질문 응답 게시판</a>
 											</li>
 										</div>
 									</ul>

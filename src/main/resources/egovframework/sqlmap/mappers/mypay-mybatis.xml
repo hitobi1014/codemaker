@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.codemaker.user.mypage.dao.MyPayMapper">
+
+<select id="selectAllMyPay" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.user.mypage.vo.MyPayVO">
+	SELECT z.* 
+	FROM(
+	select ROWNUM AS rn, c.*, f.*
+	from
+	(SELECT a.pay_id, a.pay_date, a.cos_term, a.pay_way, a.pay_refund, a.pay_sum, b.les_nm, b.les_id
+	FROM pay a, Lesson b
+	WHERE a.les_id = b.les_id AND a.user_id=#{userId}
+	ORDER BY a.pay_date DESC) c,
+	(SELECT sum(e.lidx_curtime)as les_total, d.les_id as les_id2
+	   FROM lesson_index d, index_time e 
+	  where e.user_id=#{userId}and d.lidx_id = e.lidx_id
+	GROUP BY d.les_id) f
+	where c.les_id = f.les_id2)z
+	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+</select>
+
+<select id="selectTotalCnt" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="int">
+	SELECT count(*)
+	FROM pay A, Lesson B
+	WHERE a.les_id = b.les_id and a.user_id=#{userId}
+</select>
+
+<select id="selectMyPay" resultType="kr.co.codemaker.user.mypage.vo.MyPayVO" parameterType="kr.co.codemaker.user.mypage.vo.PayVO">
+	select ab.*,cd.*
+	from(
+		(select a.pay_id, a.pay_date, a.pay_way, a.pay_sum, b.les_nm, b.les_id
+		from pay a, lesson b
+		where a.les_id = b.les_id and a.user_id=#{userId} and a.pay_id=#{payId}))ab,
+	  		(SELECT sum(e.lidx_curtime)as les_total, d.les_id as les_id2
+	  	 	FROM lesson_index d, index_time e 
+	  		where e.user_id=#{userId} and d.lidx_id = e.lidx_id
+			GROUP BY d.les_id)cd
+	where ab.les_id = cd.les_id2          
+</select>
+</mapper>

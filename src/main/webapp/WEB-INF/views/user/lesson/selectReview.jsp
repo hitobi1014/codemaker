@@ -32,31 +32,53 @@ var startCount = 0;
 			
 		});
 
-		$("#reviewbox").on('click', function() {
-			
-			$('input[name=reviewStar]').attr('value',startCount).val();
-			$("textarea[name=reviewCont]").val();
-			
-			if(startCount==0){
-				alert("별점을 체크해 주세요.");
-				return false;
-			}
-			
-			$("#reviewform").submit();
-		});
-		
 		$("#reviewDel").on('click', function() {
 			alert("수강후기가 삭제되었습니다.");
 		});
-			
-	})
+		
+		
+		$(document).ready(function(){
+			$('#reviewbox').on("click", function(){
+				
+				$('input[name=reviewStar]').attr('value',startCount).val();
+				$("textarea[name=reviewCont]").val();
+				
+				if(startCount==0){
+					alert("별점을 체크해 주세요.");
+					return false;
+				}
+				var lesId= $("#lesId").val();
+				var flag=true;
+				
+				$.ajax({
+					url : "${cp}/user/insertReview",
+					type : "post",
+					data : $("#reviewform").serialize(),
+					dataType : 'json',
+					async: false, //비동기식인 ajax를 동기식으로 설정
+					success : function(res) {
+						if (res == "0") {
+							alert("회원님이 수강한 강의가 아닙니다.");
+							$('#new-review').val('');
+							flag=false;
+						}else {
+							alert("수강후기를 작성합니다.");
+							location.href="${cp}/user/selectReview?lesId="+lesId;
+						}
+					}
+				});
+					return flag;
+				})
+			});
+})
 </script>
 
 <style>
+body{
+	margin : 0;
+}
 .container{
-	margin-left: 33%;
-	margin-top: 3%;
-
+	margin: 12px auto 3px 33%;
 }
 .img-rounded {
     border-radius: 6px;
@@ -72,6 +94,7 @@ var startCount = 0;
 }
 .review-block {
     background: white;
+    margin: 20px 106px 0 0;
 }
 
 
@@ -85,14 +108,26 @@ img#starimg2 {
 #reviewDel{
 	float : right;
 }
-
+h1{
+    font-weight: 600;
+    margin-bottom: 1.2em;
+    font-size: 2.1rem;
+    margin: 50px auto 25px 30%;
+}
+.row{
+margin: 0 auto 0 33%;
+}
+.row1 {
+    margin: 10px auto 93px -10px;
+}
 
 </style>
 
 <body>
-
-    <div class="container">
-<!-- 		<div class="row"> -->
+<!--     <div class="container"> -->
+<h1>수강후기</h1>
+<hr>
+		<div class="row">
 			<div class="col-sm-3">
 				<div class="rating-block">
 					<h3 class="bold padding-bottom-7">🔔 수강 별점 평균</h3>
@@ -175,16 +210,15 @@ img#starimg2 {
 					<div class="pull-right" style="margin-left:10px;">${reviewStarVo.one}</div>
 				</div>
 			</div>			
-<!-- 		</div>			 -->
+		</div>			
 		
-		<br><br><br><br><br><br><br><br><br><br><br>
 		<form id="reviewform" action="${cp}/user/insertReview?lesId=${lesId}" method="POST">
+		<input type="hidden" value="${lesId}" id="lesId" name="lesId">
 		<div class="row" style="margin-top:40px;">
 		<div class="col-md-6">
     	<div class="well well-sm">
             <div class="text-right">
               <a class="btn btn-success btn-green" id="reviewbox">후기 작성</a>
-          
           <div class="review-block-rate"><br>
           <input type="hidden" name="reviewStar" value="">
           <c:forEach var="i" begin="1" end="5">
@@ -220,7 +254,7 @@ img#starimg2 {
 			<div class="col-sm-7">
 				<hr/>
 				<div class="review-block">
-					<div class="row">
+					<div class="row1">
 						<c:forEach items="${reviewList }" var="reviewList">
 						<div class="col-sm-3">
 							<img src="${cp}/images/user/icons/reviewimage2.png" class="img-rounded">
@@ -259,7 +293,7 @@ img#starimg2 {
 
 		
 
-    </div> <!-- /container -->
+<!--     </div> /container -->
 					
     <!-- Bootstrap core JavaScript
     ================================================== -->

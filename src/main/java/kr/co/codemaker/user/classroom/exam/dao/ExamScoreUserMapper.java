@@ -36,11 +36,11 @@ public interface ExamScoreUserMapper {
 	 * 회원의 성적 1개를 조회하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examScoreVO
+	 * @param examVO
 	 * @return
 	 * @throws Exception
 	 */
-	public ExamScoreVO selectExamScore(ExamScoreVO examScoreVO) throws Exception;
+	public ExamScoreVO selectExamScore(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 회원의 성적을 등록하는 메서드

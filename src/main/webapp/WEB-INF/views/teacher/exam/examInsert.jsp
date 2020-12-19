@@ -198,16 +198,7 @@ input{
 	resize: none;
 	text-align: left;
 }
-.overlay {
-	z-index: 1;
-	position: absolute;
-	display: none;
-	background-color: rgba(230, 244, 234, 0.5);
-	width: 840px;
-	height: 42px;
-}
 .chk {
-	z-index: 2;
 	margin-left: 4px;
 	margin-top: 10px;
 	position: relative;
@@ -250,22 +241,18 @@ input{
 					<br>
 					<label for="sel2"> 보기를 입력해주세요. </label>
 					<div class="anw">
-						<div class="overlay"></div>
 						<input type="text" name="ansContList" class="form-control radi" placeholder="보기1"> 
 						<input type="checkbox" name="queAnswerList" value="1" class="chk" />
 					</div>
 					<div class="anw">
-						<div class="overlay"></div>
 						<input type="text" name="ansContList" class="form-control radi" placeholder="보기2"> 
 						<input type="checkbox" name="queAnswerList" value="2" class="chk" />
 					</div>
 					<div class="anw">
-						<div class="overlay"></div>
 						<input type="text" name="ansContList" class="form-control radi" placeholder="보기3"> 
 						<input type="checkbox" name="queAnswerList" value="3" class="chk" />
 					</div>
 					<div class="anw">
-						<div class="overlay"></div>
 						<input type="text" name="ansContList" class="form-control radi" placeholder="보기4"> 
 						<input type="checkbox" name="queAnswerList" value="4" class="chk" />
 					</div>

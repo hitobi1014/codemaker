@@ -20,7 +20,7 @@ $(document).ready(function(){
 		if (key.keyCode == 13) {
 			var keyWord = $("input[name='keyWord']").val();
 				
-			document.location="${cp}/admin/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
+			document.location="/admin/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
 		}
 	});
 		
@@ -32,7 +32,7 @@ $(document).ready(function(){
 		
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/admin/selectAllJobInfo?keyWord="+keyWord+"&page=1";
+		document.location="/admin/selectAllJobInfo?keyWord="+keyWord+"&page=1";
 		
 	});
 })
@@ -47,6 +47,7 @@ $(document).ready(function(){
 h2{
 	color : #1d25af;
 	font-size: 2.0em;
+	
 }
 #ff{
 	margin: 50px 130px 0;
@@ -109,7 +110,6 @@ font-family: 'LotteMartDream';
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12">
 		<div class="card">
-	
 		<div id="banner">
 			<h2>CodeMaker 취업 공고 현황</h2>
 			<br>
@@ -125,15 +125,29 @@ font-family: 'LotteMartDream';
 					<th>삭제여부</th>
 				</tr>
 				<tbody id="jobInfoList">
-				<c:set var="num" value="${totalCnt - ((param.page-1)*10) }"/>
+				<c:choose>
+					<c:when test="${page != null}">
+						<c:set var="num" value="${totalCnt - ((page-1)*10) }"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="num" value="${totalCnt}"/>
+					</c:otherwise>
+				</c:choose>
 					<c:forEach items="${jobInfoList}" var="jobInfo">
 						<tr>	
 							<td>${num}</td>
 							<td>${jobInfo.jobinfoId}</td>
-							<td><a href="${cp}/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
+							<td><a href="/admin/selectJobInfo?jobinfoId=${jobInfo.jobinfoId}">${jobInfo.jobinfoTitle}</a></td>
 							<td><fmt:formatDate value="${jobInfo.jobinfoDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${jobInfo.adminId}</td>
-							<td>${jobInfo.jobinfoOut}</td>
+							<c:choose>
+								<c:when test="${jobInfo.jobinfoOut == 'N'}">
+									<td></td>
+								</c:when>
+								<c:when test="${jobInfo.jobinfoOut == 'Y'}">
+									<td><img class="checkImg" src="/images/admin/company/check.png"></td>
+								</c:when>
+							</c:choose>
 						</tr>
 						<c:set var="num" value="${num-1}"/>
 					</c:forEach>
@@ -141,40 +155,39 @@ font-family: 'LotteMartDream';
 			</table>
 			
 		</div>	
-		
+		</div>
 		 <div class="text-center">
             <ul class="pagination justify-content-center m-0">
-              <c:if test="${page != 1}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${1}">&laquo;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page-1}">&lt;</a></li>
+              <c:if test="${param.page != 1}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${1}">&laquo;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page-1}">&lt;</a></li>
               </c:if>
                
                <c:forEach var="i" begin="1" end="${pages}">
                   <c:choose>
-                     <c:when test="${i == page}">
+                     <c:when test="${i == param.page}">
                         <li class="page-item active"><a class="page-link pageMove pageMV">${i}</a></li>
                      </c:when>
                      <c:otherwise>
-                        <li class="page-item"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
+                        <li class="page-item"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
                      </c:otherwise>
                   </c:choose>   
                </c:forEach>
                
-               <c:if test="${page != pages}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page +1}">&gt;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pages}">&raquo;</a></li>
+               <c:if test="${param.page != pages}">
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page+1}">&gt;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pages}">&raquo;</a></li>
               </c:if>
             </ul>
             <button type="button" id="btnWrite" class="btn btn-info btn-sm" style="float:right; width:100px; height:30px;">공고등록</button>
             <div>
             <hr>
 				<form name="form1"  method="post">
-			       <span>검색&nbsp</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
+			       <span>검색&nbsp;</span><input type="text" id="keywords" name="keyWord" value="${param.keyWord}" style="border : 1px solid black;">
 			       <input id="searchBtn" type="button" class="btn btn-warning btn-sm" value="조회">
 			    </form>
 			</div>
 			</div>		
 		</div>
-	</div>
 	</div>
 </div>

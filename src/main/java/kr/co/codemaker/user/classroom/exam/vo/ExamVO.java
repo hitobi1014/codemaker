@@ -34,16 +34,28 @@ public class ExamVO extends ExamScoreVO {
 	private float avgScore;			// 평균 점수
 	
 	private List<String> queIdList;		// 문제 아이디 리스트
-	private List<String> erAnswerList;	// 학생 정답 리스트
+	private List<String> studentAnswers;	// 학생 정답 리스트
 	private List<Integer> erCheckList;	// 학생 오답 여부
 	
 	private String searchEsScore;	// 시험 점수 유무
-	
+	private int queTotal;			// 총점
 
 	// 페이징 작업 추가
 	private int page; 			// 현재 보여주는 페이지 번호
 	
 	
+	public List<String> getStudentAnswers() {
+		return studentAnswers;
+	}
+	public void setStudentAnswers(List<String> studentAnswers) {
+		this.studentAnswers = studentAnswers;
+	}
+	public int getQueTotal() {
+		return queTotal;
+	}
+	public void setQueTotal(int queTotal) {
+		this.queTotal = queTotal;
+	}
 	public String getSearchEsScore() {
 		return searchEsScore;
 	}
@@ -55,12 +67,6 @@ public class ExamVO extends ExamScoreVO {
 	}
 	public void setQueIdList(List<String> queIdList) {
 		this.queIdList = queIdList;
-	}
-	public List<String> getErAnswerList() {
-		return erAnswerList;
-	}
-	public void setErAnswerList(List<String> erAnswerList) {
-		this.erAnswerList = erAnswerList;
 	}
 	public List<Integer> getErCheckList() {
 		return erCheckList;

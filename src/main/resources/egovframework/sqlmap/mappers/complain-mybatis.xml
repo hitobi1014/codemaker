@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="kr.co.codemaker.common.dao.ComplainMapper"><select id="selectAllComplain" resultType="kr.co.codemaker.common.vo.ComplainVO">
-SELECT * FROM COMPLAIN ORDER BY CP_DATE DESC
+<mapper namespace="kr.co.codemaker.common.dao.ComplainMapper"><select id="selectAllComplain" resultType="kr.co.codemaker.common.vo.ComplainVO" parameterType="java.util.HashMap">
+SELECT * FROM
+		(SELECT ROWNUM AS RN,
+		A.*
+		FROM (SELECT *
+		FROM COMPLAIN) A
+	ORDER BY CP_ID DESC)
+	WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
 <select id="selectComplain" parameterType="kr.co.codemaker.common.vo.ComplainVO" resultType="kr.co.codemaker.common.vo.ComplainVO">
 SELECT * 
@@ -35,4 +41,8 @@ SELECT B.QNA_ID
 <update id="insertBlackList" parameterType="kr.co.codemaker.common.vo.UserVO">
 UPDATE users set USER_BLACK = 'Y' WHERE USER_ID = #{userId}
 </update>
+<select id="complainTotalCnt" resultType="int">
+SELECT count(*) 
+  FROM COMPLAIN
+</select>
 </mapper>

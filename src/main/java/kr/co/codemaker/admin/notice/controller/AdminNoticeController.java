@@ -56,8 +56,8 @@ public class AdminNoticeController {
 	
 	@RequestMapping(path="/admin/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 	

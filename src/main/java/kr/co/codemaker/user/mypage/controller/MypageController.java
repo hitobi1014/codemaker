@@ -42,13 +42,12 @@ public class MypageController {
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
 		UserVO userVo = new UserVO();
-		//session = request.getSession();
+
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
-        
-        userId = "a001@naver.com";
 		userVo.setUserId(userId);
-		userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+		
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
@@ -68,7 +67,6 @@ public class MypageController {
 	public void profileImg(Model model, HttpServletResponse response,HttpSession session,HttpServletRequest request) throws Exception {
 
 		UserVO userVo = new UserVO();
-		session = request.getSession();
         userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
@@ -208,7 +206,6 @@ public class MypageController {
 								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
 
 		//세션에서아이디가져온다.
-		session = request.getSession();
         UserVO userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String pointUser = userVo.getUserId();

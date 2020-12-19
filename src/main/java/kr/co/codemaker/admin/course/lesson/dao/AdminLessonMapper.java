@@ -27,15 +27,13 @@ import kr.co.codemaker.admin.course.lesson.vo.SubjectVO;
 @Mapper("adminLessonMapper")
 public interface AdminLessonMapper {
 	
-	
-	
 	/**
 	 * 등록된 전체 과목을 조회하는 메서드
 	 * 
 	 * @author 김미연
 	 * @return
 	 */
-	public List<LessonVO> selectAgreeCnt() throws Exception;
+	public List<LessonVO> selectAgreeCnt(LessonVO lessonVO) throws Exception;
 	
 	/**
 	 * 등록된 요청을 상세조회하는 메서드

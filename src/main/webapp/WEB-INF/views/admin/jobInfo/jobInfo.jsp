@@ -11,22 +11,26 @@
 <script>
 $(document).ready(function(){
 	$("#upbutton").on("click", function(){
-		document.location="${cp}/admin/updateJobInfo?jobinfoId=${jobInfoVo.jobinfoId}";
+		document.location="/admin/updateJobInfo?jobinfoId=${jobInfoVo.jobinfoId}";
 	});
 	
 	$("#delbutton").on("click", function(){
-		alert("게시글을 삭제처리 하였습니다.")
-		document.location="${cp}/admin/deleteJobInfo?jobinfoId=${jobInfoVo.jobinfoId}";
+		if(confirm("삭제하시겠습니까?")){
+			document.location="/admin/deleteJobInfo?jobinfoId=${jobInfoVo.jobinfoId}";
+			return;
+		}else{
+			return;
+		}
 	});
 	
 	$("#listbutton").on("click", function(){
-		document.location="${cp}/admin/selectAllJobInfo?keyWord=&page=1";
+		document.location="/admin/selectAllJobInfo?keyWord=&page=1";
 	});
 
 
 	$("button[id^=fileDownBtn]").on("click", function(){
 		filesId = $(this).val();
-		document.location="${cp}/admin/downloadJobInfo?jobinfoId=${jobInfoVo.jobinfoId}&filesId="+filesId;
+		document.location="/admin/downloadJobInfo?jobinfoId=${jobInfoVo.jobinfoId}&filesId="+filesId;
 	});
 
 	 
@@ -52,37 +56,80 @@ $(document).ready(function(){
 		color : black;
 	}
 	.card{
-		width:1000px;
-		margin:auto;
-		background-color : #F8FFFF;
+		width: 92%;
+	    height: 700px;
+	    margin: 20px auto 0;
+	    border: none;
+	    padding: 40px;
 	}
-	h2{
+	.titleDiv{
+		text-align:center;
+		margin:20px;
+	}
+	#title{
 		color : #1d25af;
+		font-weight: 600;
+		font-family: 'LotteMartDream';
+		font-size: 35px
 	}
 	.row{
 		margin: 50px 130px 0;
 		background-color: white;
 	}
-	#delbutton, #upbutton{
+	.btnClass{
 		float:right;
+		width: 80px;
+		margin-right: 10px;
+	}
+	.header{
+		float: right;
+	}
+	.headerId{
+		width: 100%;
+		text-align: right;
+		font-size: 20px;
+    	font-weight: 600;
+	} 
+	.headerDate{
+		width: 100%;
+		text-align: right;
+		color: #a9a8a8;
+   		font-size: 17px;
+    	font-weight: 400;
+    	margin-top: -10px;
+	}
+	#idImg{
+		width: 20px;
+	}
+	.contentDiv{
+		margin: 30px;
+	    border: 2px solid #c1bebe;
+	    height: 350px;
+	    padding: 20px;
+	    font-size: 18px;
+    	font-weight: 500;
+	}
+	#listbutton{
+		width: 80px;
+   		margin-left: 30px;
+	}
+	.btnDiv{
+		margin-right: 19px;
 	}
 </style>
-<div class="row shadow" >
-	<div class="col-12" style="margin:50px;">
 		<div class="card">
-			<div style="text-align:center;">
-				<h2>${jobInfoVo.jobinfoTitle}</h2>
-				<hr>
+			<div class="titleDiv">
+				<h2 id="title">${jobInfoVo.jobinfoTitle}</h2>
 			</div>
 			
-			<div>
-				<label class="control-label">&nbsp;&nbsp;&nbsp;${jobInfoVo.jobinfoId}</label>
-				<label style="float:right;" class="control-label">작성자 : ${jobInfoVo.adminId}</label>
-				<br>
-				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${jobInfoVo.jobinfoDate}" pattern="yyyy-MM-dd" /></label>
-				<hr>
+			<div class="header">
+<%-- 				<label class="control-label">&nbsp;&nbsp;&nbsp;${noticeVo.noticeId}</label> --%>
+				<label class="headerId"><img id="idImg" src="/images/admin/notice/id.png">&nbsp;&nbsp;${jobInfoVo.adminId}</label>
+				<label class="headerDate"><fmt:formatDate value="${jobInfoVo.jobinfoDate}" pattern="yyyy-MM-dd HH:mm" /></label>
 			</div>
 			
+			<button type="button" id="listbutton" class="btn btn-primary">목록</button>
+			<br>
 			<div>	
 				<c:if test="${filesList.size() != 0}">
 					<span style="margin-left:30px;">첨부파일 :</span> 
@@ -93,19 +140,12 @@ $(document).ready(function(){
 				</c:forEach>
 			</div>
 			<br>
-			<div style="margin-left:30px;">
+			<div class="contentDiv">
 				<label class="control-label">${jobInfoVo.jobinfoCont}</label>
 			</div>
 
-			<div>
-				<label style="float:right;"class="control-label">삭제여부 : ${jobInfoVo.jobinfoOut}</label>
-			</div>
-			<hr>
-			<div>
-				<button type="button" id="listbutton" class="btn btn-primary">목록</button>
-				<button type="button" id="upbutton" class="btn btn-success">수정</button>
-				<button type="button" id="delbutton" class="btn btn-warning">삭제</button>
+			<div class="btnDiv">
+				<button type="button" id="upbutton" class="btn btn-success btnClass">수정</button>
+				<button type="button" id="delbutton" class="btn btn-warning btnClass">삭제</button>
 			</div>
 		</div>
-	</div>
-</div>

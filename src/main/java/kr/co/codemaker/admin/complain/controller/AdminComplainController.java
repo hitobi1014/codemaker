@@ -1,6 +1,8 @@
 package kr.co.codemaker.admin.complain.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.ComplainService;
 import kr.co.codemaker.common.vo.ComplainVO;
@@ -23,10 +26,20 @@ public class AdminComplainController {
 	private ComplainService complainService;
 	
 	@RequestMapping(path="/admin/selectAllComplain")
-	public String selectAllComplain(Model model) {
-		List<ComplainVO> complainList = complainService.selectAllComplain();
+	public String selectAllComplain(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, Model model) {
 		
-		model.addAttribute("complainList", complainList);
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("page", page);
+		map.put("pageSize", pageSize);
+		
+		map = complainService.selectAllComplain(map);
+		
+		model.addAttribute("complainList",map.get("complainList"));
+		model.addAttribute("page", page);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pages", map.get("pages"));
 		
 		return "adminPage/admin/complain/complainList";
 	}
@@ -52,7 +65,7 @@ public class AdminComplainController {
 		
 		complainService.checkComplain(complainVo);
 		
-		return "adminPage/admin/complain/complainList";
+		return "jsonView";
 	}
 	
 	@RequestMapping(path="/admin/selectBlackList")
