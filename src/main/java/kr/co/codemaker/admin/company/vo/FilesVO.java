@@ -4,10 +4,10 @@ import kr.co.codemaker.common.vo.BaseVO;
 
 public class FilesVO extends BaseVO{
 
-	private String filesGroup;
-	private String filesNm;
-	private String filesId;
-	private String filesPath;
+	private String filesGroup;	// 첨부파일그룹
+	private String filesNm;	// 첨부파일명
+	private String filesId;	// 첨부파일 아이디
+	private String filesPath;	// 첨부파일 경로
 	
 	public void setFilesGroup(String filesGroup) {
 		this.filesGroup = filesGroup; 
