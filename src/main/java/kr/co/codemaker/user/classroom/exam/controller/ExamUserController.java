@@ -64,9 +64,9 @@ public class ExamUserController {
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
-		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
-//		String userId = "b001@naver.com";
+		String userId = "b001@naver.com";
 		examVO.setUserId(userId);
 		
 		List<ExamVO> examList = new ArrayList<>();
@@ -134,8 +134,8 @@ public class ExamUserController {
 	@RequestMapping(path = "/examUser/insertExamResult")
 	public void insertExamResult(ExamVO examVO, HttpSession session) {
 		
-		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
-//		String userId = "b001@naver.com";
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		String userId = "b001@naver.com";
 		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
 		examScoreVO.setExamId(examVO.getExamId());

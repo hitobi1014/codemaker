@@ -55,9 +55,11 @@ public class ExamController {
 	 */
 	@RequestMapping(path = "/exam/selectAllExam")
 	public String selectAllExam(Model model, HttpSession session, ExamVO examVO) {
-		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
+//		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
+//		
+//		examVO.setTchId(tchId);
 		
-		examVO.setTchId(tchId);
+		examVO.setTchId("200ser@maker.com");
 		
 		List<SubjectVO> subjectList = new ArrayList<>();
 		List<LessonVO> lessonList = new ArrayList<>();
