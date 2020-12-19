@@ -4,19 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 
-* ScholarshipVO.java
-*
-* @author 김미연
-* @version 1.0
-* @since 2020. 12. 17.
-*
-* 수정자 수정내용
-* ------ ------------------------
-* 김미연 최초 생성
-*
- */
-/**
 * ScholarshipVO.java
 *
 * @author 김미연
