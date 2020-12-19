@@ -79,7 +79,7 @@
 				<!-- 문제명 -->
 				<c:url value="/user/coding/test/5" var="cdtest5"></c:url>
 				<div>
-					<a href="${cdtest5}">문제5
+					<a href="${cdtest5}">직사각형 별찍기
 						<div class="info-sub"><span>Java</span></div>
 					</a>
 				</div>
@@ -89,7 +89,7 @@
 				<!-- 문제명 -->
 				<c:url value="/user/coding/test/6" var="cdtest6"></c:url>
 				<div>
-					<a href="${cdtest6}">문제6
+					<a href="#">문제가 뭘까요
 						<div class="info-sub"><span>Java</span></div>
 					</a>
 				</div>

@@ -149,3 +149,11 @@ pre.CodeMirror-line:visited{
 .ct2-tb td, .ct2-tb th{
 	border: 2px solid #adadad;
 }
+.codehilite{
+	color: white;
+	background: #202B3D;
+	padding: 20px 0 0 12px;
+}
+.highlight{
+	margin-top: 10px;
+}

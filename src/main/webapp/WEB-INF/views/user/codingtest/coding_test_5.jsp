@@ -11,7 +11,7 @@
 	<!-- content 1번째 섹션 -->
 	<div class="lang-select coding-item1">
 		<div>
-			<span style="color:#ffffffb8;">문자열을 정수로 바꾸기</span>
+			<span style="color:#ffffffb8;">직사각형 별 찍기</span>
 		</div>
 	</div>
 	
@@ -22,21 +22,27 @@
 			<div class="solution-box">
 				<h6>문제 설명</h6>
 				<div>
-					<p>문자열 s를 숫자로 변환한 결과를 반환하는 함수, solution을 완성하세요.</p>
+					<p>
+						이 문제에는 표준 입력으로 두 개의 정수 n과 m이 주어집니다.<br> 별(*) 문자를 이용해 가로의 길이가
+						n, 세로의 길이가 m인 직사각형 형태를 출력해보세요.
+					</p>
 					<h5>제한 조건</h5>
 					<ul>
-						<li>s의 길이는 1 이상 5이하입니다.</li>
-						<li>s의 맨앞에는 부호(+, -)가 올 수 있습니다.</li>
-						<li>s는 부호와 숫자로만 이루어져있습니다.</li>
-						<li>s는 <q>0</q>으로 시작하지 않습니다.</li>
+						<li>n과 m은 각각 1000 이하인 자연수입니다.</li>
 					</ul>
-					<h5>입출력 예</h5>
-					<p>예를들어 str이 
-						<q>1234</q>
-						이면 1234를 반환하고, 
-						<q>-1234</q>이면 -1234를 반환하면 됩니다.<br>
-						str은 부호(+,-)와 숫자로만 구성되어 있고, 잘못된 값이 입력되는 경우는 없습니다.
-					</p>
+					<h5>예시</h5>
+					<p>입력</p>
+					<div class="highlight">
+						<pre class="codehilite"><!-- 
+							 --><code>5 3</code>
+						</pre>
+					</div>
+					<p>출력</p>
+					<div class="highlight">
+						<pre class="codehilite"><!-- 
+							 --><code>*****<br>*****<br>*****</code>
+						</pre>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -79,8 +85,9 @@
     editor.setSize("100%","100%");
 	
 	//초기 기본데이터 (자바로 설정)
-	var random = Math.floor((Math.random()*(10000+10000))-10000);
-	var txt = java(random);
+	var ran1 = Math.floor(Math.random()*5+1);
+	var ran2 = Math.floor(Math.random()*5+1);
+	var txt = java5(ran1,ran2);
 	editor.setValue(txt);
 	
 	$("#run").click(function(){
@@ -103,8 +110,8 @@
 				 	console.log("에러" + data.Errors);
 			 	}else{
 			 		var res = "<table><tr><td>입력값 → "+ data.Result +"</td></tr>";
-			 			res += "<tr><td>기대값 → " + random+"</td></tr>"; 
-			 		if(data.Result == random){
+			 			res += "<tr><td>기대값 → " + ran1+"</td></tr>"; 
+			 		if(data.Result == ran1){
 			 			res += "<tr><td style='color:#91fffa;'>테스트를 통과하셨습니다 (☞ﾟヮﾟ)☞</td></tr>";
 			 		}else{
 			 			res += "<tr><td style='color:red;'>테스트를 실패하셨습니다 (;´༎ຶД༎ຶ`)</td></tr>";

@@ -66,19 +66,22 @@ function java4(){
 	text += "		}\n";		
 	text +=	"}\n";
 	return text;
-//	 String answer = "";
-//     if(s.length() % 2 ==0){
-//         int val = s.length() / 2;
-//         answer = s.substring(val-1,val+1);
-//     }else{
-//         int val = (int)(s.length()/2);
-//         answer = s.substring(val,val+1);
-//     }
-//     return answer;
 }
 
-function java5(){
-	
+function java5(ran1, ran2){
+	var text ="//CODE MAKER Java 직사각형 별 찍기\n";
+	text += "import java.util.*;\n";
+	text += "import java.lang.*;\n";
+	text += "import java.util.Scanner;\n\n";
+	text += "class Rextester {\n";
+	text += "	    public static void main(String args[]){\n";
+	text += '			Scanner sc = new Scanner(System.in);\n';
+	text += '			int a = '+ran1+';\n';
+	text += '			int b = '+ran2+';\n';
+	text += '			System.out.print(a+b);\n'; 
+	text += "	    }\n";
+	text +=	"}\n";
+	return text;
 }
 
 function java6(){

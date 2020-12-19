@@ -11,7 +11,7 @@
 	<!-- content 1번째 섹션 -->
 	<div class="lang-select coding-item1">
 		<div>
-			<span style="color:#ffffffb8;">문자열을 정수로 바꾸기</span>
+			<span style="color:#ffffffb8;">가운데 글자 가져오기</span>
 		</div>
 	</div>
 	
