@@ -20,10 +20,10 @@
 <script>
 $(function() {
 	
-	$(document).ready(function(){
-		$('#subf').attr("action", "/examUser/selectAllExam");
-		$('#subf').removeAttr("target");
-	});
+// 	$(document).ready(function(){
+// 		$('#subf').attr("action", "/examUser/selectAllExam");
+// 		$('#subf').removeAttr("target");
+// 	});
 	
 	// 시험 제공
 	$('.regBtn').on('click', function(){
@@ -35,7 +35,7 @@ $(function() {
 		str += '<input type="hidden" name="searchEsScore" value="' + searchEsScore + '">';
 		
 		$('#subf').append(str);
-        window.open('', "selectViewExam", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50') ;
+        window.open('', "selectViewExam", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50');
          
         $('#subf').attr("action", "/examUser/selectViewExam");
         $('#subf').attr("target", "selectViewExam");
@@ -44,6 +44,8 @@ $(function() {
 	
 	// 조건에 따라 조회 - 등록상태
 	$('#search').on('change', function(){
+		$('#subf').attr("action", "/examUser/selectAllExam");
+		$('#subf').removeAttr("target");
 		$('#subf').submit();
 	});
 	
@@ -71,6 +73,9 @@ $(function() {
 	
 	// 페이징 처리 data-page
 	$('.pageMV').on('click', function(){
+		$('#subf').attr("action", "/examUser/selectAllExam");
+		$('#subf').removeAttr("target");
+		
 		var page = $(this).data('page');
 		str = '<input type="hidden" name="page" value="' + page + '">';
 		$('#subf').append(str);
