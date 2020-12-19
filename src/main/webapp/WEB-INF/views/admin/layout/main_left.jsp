@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
@@ -75,10 +76,10 @@
 										<span class="nav-text">기업 관리</span> <b class="caret"></b>
 									</a>
 									<ul  class="collapse"  id="forms">
+									<c:url value="/admin/company" var="company"/>
 										<div class="sub-menu">
-										
 											<li>
-											  <a href="${cp}/admin/selectAllCompany">기업 정보</a>
+											  <a href="${company}/selectAllCompany">기업 정보</a>
 											</li>
 											<li>
 											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>

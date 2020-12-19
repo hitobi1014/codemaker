@@ -46,5 +46,15 @@ public interface CompanyMapper {
 	 * @throws Exception
 	 */
 	public int selectCompanyCnt() throws Exception;	
+	
+	/**
+	 * 해당기업에 계약서 업로드
+	 * @param companyVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateCompany(CompanyVO companyVO) throws Exception;
+	
+	
 
 }

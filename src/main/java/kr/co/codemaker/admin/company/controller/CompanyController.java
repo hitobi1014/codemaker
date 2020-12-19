@@ -1,56 +1,35 @@
 package kr.co.codemaker.admin.company.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorker;
-import com.itextpdf.tool.xml.XMLWorkerFontProvider;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
-import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
-import com.itextpdf.tool.xml.html.CssAppliersImpl;
-import com.itextpdf.tool.xml.html.Tags;
-import com.itextpdf.tool.xml.parser.XMLParser;
-import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
-import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
-import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 import kr.co.codemaker.admin.company.service.CompanyService;
+import kr.co.codemaker.admin.company.service.AdminFilesService;
 import kr.co.codemaker.admin.company.vo.CompanyVO;
+import kr.co.codemaker.admin.company.vo.FilesVO;
 import kr.co.codemaker.admin.jobinfo.controller.AdminJobInfoController;
 
 /**
@@ -74,6 +53,9 @@ public class CompanyController {
 	@Resource(name="companyService")
 	private CompanyService companyService;
 	
+	@Resource(name="adminFilesService")
+	private AdminFilesService adminFilesService;
+	
 	
 	
 	/**
@@ -83,9 +65,9 @@ public class CompanyController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path="/admin/selectAllCompany")
+	@RequestMapping(path="/admin/company/selectAllCompany")
 	public String selectAllCompany(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "3")int pageSize,Model model) {
+			@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize,Model model) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("page", page);
@@ -113,7 +95,7 @@ public class CompanyController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path="/admin/companyContract")
+	@RequestMapping(path="/admin/company/companyContract")
 	public String contractTest(String comId, Model model) {
 		CompanyVO companyVO = new CompanyVO();
 		companyVO.setComId(comId);
@@ -129,35 +111,125 @@ public class CompanyController {
 	}
 
 	/**
-	 * html태그를 pdf파일로 변환 테스트
+	 * 사인한 계약서 pdf파일로 변경
 	 * @param comId
 	 * @param model
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(path="/pdfTest" ,method=RequestMethod.POST)
-	public void contractTest(String imgData,HttpServletResponse response, HttpServletRequest request) {
-		//1. comId넘어오는지?
-//		logger.debug("회사아이디!!:{}",comId);
-//		CompanyVO companyVO = new CompanyVO();
-//		companyVO.setComId(comId);
-		
-		//2. html태그 넘어오는지?
+	@RequestMapping(path="/admin/company/companyPdf" ,method=RequestMethod.POST)
+	public void contractPdf(@RequestParam(value="imgData", required= false) String imgData,String comId,HttpServletResponse response, HttpServletRequest request) {
 		logger.debug("이미지 url:{}",imgData);
+		FilesVO filesVO = new FilesVO();
+		CompanyVO companyVO = new CompanyVO();
+		companyVO.setComId(comId);
 		
-		String filePath ="C:\\pdf\\";
-		String FileName = "test.pdf";
 		
-		// base64 -> pdf로 만들기
 		try {
-			byte[] input_file = Files.readAllBytes(Paths.get(filePath+FileName));
-		} catch (IOException e) {
+			companyVO = companyService.selectCompany(companyVO);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		logger.debug("회사VO@@!!:{}",companyVO);
+		
+		String filePath = "";
+		String filename = "";
+		
+		try{
+            if(imgData == null || imgData=="") {
+                throw new Exception();    
+            }
+            
+            imgData = imgData.replaceAll("data:image/png;base64,", "");
+            byte[] file = Base64.decodeBase64(imgData);
+            // pdf 업로드할 경로 설정
+            
+            filePath = "C:\\pdf\\";
+            filename = companyVO.getComNm()+".pdf";
+            File root = new File(filePath);
+            
+//            logger.debug("파일!!:{}",file);
+            
+            // jsp에서 받은 canvas를 png로 만들기
+            Image image = Image.getInstance(file);
+            // pdf 사이즈 설정
+            float imageWidth = 595;
+            float pageHeight = (float) (imageWidth * 1.414);
+            float imageHeight = image.getHeight() * imageWidth / image.getWidth();
+            float heightLeft = imageHeight;
+            
+            // pdf형식의 document를 생성
+            Document document = new Document();
+            
+            // PdfWriter를 취득하고, 파일IO 스트림을 취득
+            PdfWriter.getInstance(document, new FileOutputStream(new File(root,filename)));
+            float position = 0;
+            image.scaleAbsolute(imageWidth, imageHeight);
+            image.setAbsolutePosition(0, position);
+            // document open
+            document.open();
+            document.newPage();
+
+            // pdf에 만든 png추가
+            document.add(image);
+            heightLeft -= pageHeight;
+            document.close();
+            
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		logger.debug("파일이름,패스:{},{}", filename, filePath);
+		filesVO.setFilesNm(filename);
+		filesVO.setFilesPath(filePath+filename);
+		
+		logger.debug("fileVO!!:{}", filesVO);
+		try {
+			// 파일VO insert
+			adminFilesService.insertFiles(filesVO);
+			// 해당 기업에 생성된 파일id update
+			
+			if(!companyVO.getComState().equals("Y")) {
+				companyService.updateCompany(companyVO);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(path="/admin/company/companyPdfDown")
+	public void companyPdfDown(String filesId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		FilesVO filesVO = new FilesVO();
+		filesVO.setFilesId(filesId);
+		
+		try {
+			filesVO = adminFilesService.selectFiles(filesVO);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		// 파일이름 한글로 다운받기
+		String filesNm = new String(filesVO.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		response.setHeader("Content-Disposition", "attachment; filename=\"\"" + filesNm + "\"");
+		response.setContentType("application/octet-stream");
+		response.setCharacterEncoding("UTF-8");
 		
+		FileInputStream fis = new FileInputStream(filesVO.getFilesPath());
+		ServletOutputStream sos = response.getOutputStream();
+		
+		byte[] buffer = new byte[512];
+		
+		while(fis.read(buffer) != -1) { 
+			sos.write(buffer);
+		}
+		
+		fis.close();
+		sos.flush();
+		sos.close();
 		
 	}
-	
 }

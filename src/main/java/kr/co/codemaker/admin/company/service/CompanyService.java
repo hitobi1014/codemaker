@@ -42,5 +42,9 @@ public class CompanyService {
 	public CompanyVO selectCompany(CompanyVO companyVO) throws Exception{
 		return companyMapper.selectCompany(companyVO);
 	}
+	
+	public int updateCompany(CompanyVO companyVO) throws Exception{
+		return companyMapper.updateCompany(companyVO);
+	}
 
 }

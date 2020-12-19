@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>관리자 취업공고</title>
+<title>관리자 기업정보</title>
 
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
@@ -63,18 +63,9 @@ font-family: 'LotteMartDream';
    margin-bottom: 70px;
 }
 #contImg{
-	width: 50px;
-    height: 45px;
+	width: 45px;
     margin-top: -7px;
     cursor: pointer;
-}
-#contImgN{
-	width: 40px;
-    height: 40px;
-}
-#contImgY{
-	width: 35px;
-    height: 35px;
 }
 #banner{
 	margin: 20px 0px 20px 0;
@@ -86,8 +77,14 @@ font-family: 'LotteMartDream';
 $(function(){
 	$('a[id^="contract_"]').on('click',function(){
 		var comId = $(this).attr('value');
-		window.open("/admin/companyContract?comId="+comId, "video_popup","width=1000,height=900, left=400, top=30");
+		window.open("/admin/company/companyContract?comId="+comId, "video_popup","width=1000,height=900, left=400, top=30");
 	})
+	
+	$('a[id^="down_"]').on('click',function(){
+		var filesId = $(this).attr('value');
+		document.location="/admin/company/companyPdfDown?filesId="+filesId;
+	})
+	
 	
 })
 </script>
@@ -109,7 +106,6 @@ $(function(){
 					<th>대표자</th>
 					<th>전화번호</th>
 					<th></th>
-					<th>승인여부</th>
 				</tr>
 				<tbody id="companyList">
 					<c:forEach items="${companyList}" var="company" varStatus="status">
@@ -119,13 +115,12 @@ $(function(){
 							<td>${company.comAdd}</td>
 							<td>${company.comOwner}</td>
 							<td>${company.comTel}</td>
-							<td><a id="contract_${status.index}" value="${company.comId}"><img id="contImg" src="/images/admin/company/contract.png"></a></td>
 							<c:choose>
-								<c:when test="${company.comState =='N'}">
-									<td><img id="contImgN" src="/images/admin/company/check.png"></td>
-								</c:when>
 								<c:when test="${company.comState =='Y'}">
-									<td><img id="contImgY" src="/images/admin/company/x.png"></td>
+									<td><a id="down_${status.index}" value="${company.filesId}"><img id="contImg" src="/images/admin/company/down.png"></a></td>
+								</c:when>
+								<c:when test="${company.comState =='N'}">
+									<td><a id="contract_${status.index}" value="${company.comId}"><img id="contImg" src="/images/admin/company/pdfCreate.png"></a></td>
 								</c:when>
 							</c:choose>
 						</tr>
@@ -137,8 +132,8 @@ $(function(){
 		   <div class="text-center">
             <ul class="pagination justify-content-center m-0">
               <c:if test="${page != 1}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${1}">&laquo;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${page-1}">&lt;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/company/selectAllCompany?page=${1}">&laquo;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/company/selectAllCompany?page=${page-1}">&lt;</a></li>
               </c:if>
                
                <c:forEach var="i" begin="1" end="${pages}">
@@ -147,14 +142,14 @@ $(function(){
                         <li class="page-item active"><a class="page-link pageMove pageMV">${i}</a></li>
                      </c:when>
                      <c:otherwise>
-                        <li class="page-item"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${i}">${i}</a></li>
+                        <li class="page-item"><a class="page-link pageMove pageMV" href="${cp}/admin/company/selectAllCompany?page=${i}">${i}</a></li>
                      </c:otherwise>
                   </c:choose>   
                </c:forEach>
                
                <c:if test="${page != pages}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${page +1}">&gt;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/selectAllCompany?page=${pages}">&raquo;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/company/selectAllCompany?page=${page +1}">&gt;</a></li>
+              	<li class="page-item active"><a class="page-link pageMove pageMV" href="${cp}/admin/company/selectAllCompany?page=${pages}">&raquo;</a></li>
               </c:if>
             </ul>
             <div>

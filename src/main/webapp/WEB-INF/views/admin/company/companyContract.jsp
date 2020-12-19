@@ -149,7 +149,7 @@
 </div>
 
 <div>
-	<button type="button" id="savePdf" class="button button-primary button-small form-control-label" data-comnm="${companyVO.comNm}">제출</button>
+	<button type="button" id="savePdf" class="button button-primary button-small form-control-label" data-comnm="${companyVO.comNm}" data-comid="${companyVO.comId}">제출</button>
 </div>
 
 
@@ -282,29 +282,34 @@ canvasResize();
 
 $(document).ready(function() {
 	$('#savePdf').click(function() { // pdf저장 button id
-	    var comNm = $(this).data("comnm"); // 회사아이디
+// 	    var comNm = $(this).data("comnm"); // 회사명
+	    var comId = $(this).data("comid"); // 회사 아이디
 	 	$("#erase-div").css({"display":"none"});
 	    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
 	    	
 	    // 캔버스를 이미지로 변환
 	    var imgData = canvas.toDataURL('image/png');
 	    console.log(imgData);
-	    window.open("data:application/pdf;base64, " +imgData.base64EncodedPDF);
+// 	    window.open("data:application/pdf;base64, " +imgData.base64EncodedPDF);
 
 	    
-// 	    $.ajax({
-// 	 		url:"/pdfTest",
-// 	 		type:"post",
-// 	 		dataType:"json",
-// 	 		data : {'imgData' : imgData},
-// 	 		success:function(data){
-// 	 			console.log(imgData);
-// // 	 			opener.parent.location.reload();
-// // 	 				self.close();
-// 	 			},error:function(){
+	    $.ajax({
+	 		url:"/admin/company/companyPdf",
+	 		type:"post",
+	 		dataType:"json",
+	 		data : {'imgData' : imgData,
+	 				'comId' : comId},
+	 		success:function(data){
+	 			console.log(imgData);
+// 	 			opener.parent.location.reload();
+// 	 			self.close();
+	 			},error:function(data){
 // 	 				alert('안됨');
-// 	 			}
-// 	 	})
+	 				opener.parent.location.reload();
+	 				self.close();
+	 				
+	 			}
+	 	})
 	    
 // 	    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
 // 	    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
