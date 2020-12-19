@@ -81,7 +81,7 @@ $(function(){
 	$(".exam-btn").on("click",function(){
 		var lesid = $(this).data('lesid');
 		console.log(lesid);
-		location.href="";
+		location.href= "/examUser/selectAllExam";
 	})
 })
 </script>
