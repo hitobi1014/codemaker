@@ -6,6 +6,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.admin.chart.vo.PayVO;
 import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.user.mypage.vo.MyPayVO;
+import kr.co.codemaker.user.mypage.vo.PointVO;
 
 @Mapper("myPayMapper")
 public interface MyPayMapper {
@@ -16,4 +17,7 @@ public interface MyPayMapper {
 
 	MyPayVO selectMyPay(PayVO payVo)throws Exception;
 
+	int payRefund(String payId)throws Exception;
+
+	int insertRefund(PointVO pointVo)throws Exception;
 }

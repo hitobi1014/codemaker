@@ -14,6 +14,7 @@ import kr.co.codemaker.admin.chart.vo.PayVO;
 import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.user.mypage.dao.MyPayMapper;
 import kr.co.codemaker.user.mypage.vo.MyPayVO;
+import kr.co.codemaker.user.mypage.vo.PointVO;
 
 @Service("myPayService")
 public class MyPayService {
@@ -48,6 +49,19 @@ public class MyPayService {
 	public MyPayVO selectMyPay(PayVO payVo) throws Exception {
 		return myPayMapper.selectMyPay(payVo);
 	}
+
+
+	public int payRefund(String payId) throws Exception {
+		return myPayMapper.payRefund(payId);
+	}
+
+
+	public int insertRefund(PointVO pointVo) throws Exception {
+		return myPayMapper.insertRefund(pointVo);
+	}
+
+
+	
 
 	
 }

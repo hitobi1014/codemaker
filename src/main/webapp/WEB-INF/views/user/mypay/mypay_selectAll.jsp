@@ -9,16 +9,34 @@
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 <script>
 $(function(){
+
 	$("#reBtn").on('click',function(){
+		
+		var lesTotal="";
 		var payId = "";
 		
-		$('input:checkbox[name=payId]').each(function(){
-			payId= $("input:checkbox[name='payId']:checked").val()
-		})
 		
-		var url = '/mypage/payRefund?payId='+payId;
+		if($("#refundradio").is(":checked") == false){
+			alert("환불할 내역을 선택해 주세요.");
+			return false;
+		}
 		
-		var windowObj = window.open(url,'mypay_refund', 'width=449,height=799,resizable=no,scrollbars=yes,left=800,top=50');
+			$('input:radio[name=payId]').each(function(){
+				
+				lesTotal=$("input:radio[name='payId']:checked").next().val();
+				console.log(lesTotal);
+				if(lesTotal >= 1){
+					alert("수강중인 내역이 존재하므로 환불이 불가합니다.");
+					return false;
+				}else{
+					
+					payId= $("input:radio[name='payId']:checked").val();
+					var url = '/mypage/payRefund?payId='+payId;
+					
+					var windowObj = window.open(url,'mypay_refund', 'width=449,height=799,resizable=no,scrollbars=yes,left=800,top=50');
+				}
+			})
+		
 	})
 	
 })
@@ -87,10 +105,27 @@ $(function(){
                           <fmt:formatNumber value="${myPay.paySum }"></fmt:formatNumber>
                     </td>
                     <td>
-                    	${myPay.payRefund}
+                    	<c:choose>
+							<c:when test="${myPay.payRefund=='N'}">
+			                    <span class="badge badge-success">수강중</span>
+							</c:when>
+							<c:otherwise>
+								<span class="badge badge-danger">환불완료</span>
+							</c:otherwise>
+                    	</c:choose>
+                    	
                     </td>
                     <td>
-                    	<input type="checkbox" id="check" name="payId" value="${myPay.payId}">
+                    	<c:choose>
+                    		<c:when test="${myPay.payRefund=='N'}">
+		                    	<input type="radio" id="refundradio" name="payId" value="${myPay.payId}">
+		                    	<input type="hidden" id="lesTotal" name="lesTotal" value="${myPay.lesTotal}">
+                    		</c:when>
+                    		<c:otherwise>
+                    			<input type="radio" id="refundradio" name="payId" value="${myPay.payId}" disabled="disabled">
+		                    	<input type="hidden" id="lesTotal" name="lesTotal" value="${myPay.lesTotal}">
+                    		</c:otherwise>
+                    	</c:choose>
                     </td>
                   </tr>
              	</c:forEach>
