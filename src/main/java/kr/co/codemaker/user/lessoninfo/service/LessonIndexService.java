@@ -16,8 +16,12 @@ public class LessonIndexService {
 	@Resource(name="userLessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
-	public List<LessonIndexVO> selectLessonIndex(LessonIndexVO lessonIndexVO) throws Exception {
+	public List<LessonIndexVO> selectLesonIndex(LessonIndexVO lessonIndexVO) throws Exception{
 		return lessonIndexMapper.selectLessonIndex(lessonIndexVO);
+	}
+	
+	public List<LessonIndexVO> selectLessonIndex_login(LessonIndexVO lessonIndexVO) throws Exception {
+		return lessonIndexMapper.selectLessonIndex_login(lessonIndexVO);
 	}
 	
 	public int updateLessonIndex(LessonIndexVO lessonIndexVO) throws Exception{
@@ -28,12 +32,16 @@ public class LessonIndexService {
 		return lessonIndexMapper.insertIndexTime(indexTimeVO);
 	}
 	
-	public IndexTimeVO selectCurTime(IndexTimeVO indexTimeVO) throws Exception{
+	public List<IndexTimeVO> selectCurTime(IndexTimeVO indexTimeVO) throws Exception{
 		return lessonIndexMapper.selectCurTime(indexTimeVO);
 	}
 	
 	public List<IndexTimeVO> selectLidxId(String userId) throws Exception{
 		return lessonIndexMapper.selectLidxId(userId);
+	}
+	
+	public int updateIndexTime(IndexTimeVO indexTimeVO) throws Exception{
+		return lessonIndexMapper.updateIndexTime(indexTimeVO);
 	}
 
 }

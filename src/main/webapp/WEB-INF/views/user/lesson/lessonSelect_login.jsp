@@ -344,19 +344,19 @@ h2{
 						<div class="lidxCont">
 							<h2>${lesIdxList.lidxCont}</h2>
 						</div>
-						<c:if test="${MEMBER_INFO.userId != null}">
-							<div class="lidxImg">
-								<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
-								<c:choose>
-									<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
-										<span id="spanText">완료</span>
-									</c:when>
-									<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
-										<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
-									</c:when>
-								</c:choose>
-							</div>
-						</c:if>
+							<c:if test="${lesIdxList.userId == MEMBER_INFO.userId}">
+								<div class="lidxImg">
+									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
+									<c:choose>
+										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
+											<span id="spanText">완료</span>
+										</c:when>
+										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
+											<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
+										</c:when>
+									</c:choose>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>

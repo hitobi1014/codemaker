@@ -20,6 +20,10 @@
     border-radius: 0px 70px 70px 0px;
     
 }
+.at{
+	color: black;
+	font-size: 0.7em;
+}
 /* .CourseCard__graphicHeader #cardDiv{background: linear-gradient:(45deg, #f6d8f6, #d14e97f7);} */
 
 </style>
@@ -46,7 +50,14 @@
 									<c:choose>
 										<c:when test="${subList.subId == lesList.subId}">
 											<div class="h1 mb-0 font-weight-bold text-gray-900">
-												<a id="at" href="${cp}/user/selectLessonPage?lesId=${lesList.lesId}" style="font-size: 0.7em;">${lesList.lesNm}</a>
+											<c:choose>
+											<c:when test="${MEMBER_INFO != null }" >
+												<a class="at" href="${cp}/user/selectLessonPageLogin?lesId=${lesList.lesId}" >${lesList.lesNm}</a>
+											</c:when>
+											<c:when test="${MEMBER_INFO == null }" >
+												<a class="at" href="${cp}/user/selectLessonPage?lesId=${lesList.lesId}" >${lesList.lesNm}</a>
+											</c:when>
+											</c:choose>
 												<br>
 											</div>
 										</c:when>

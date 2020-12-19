@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.codemaker.admin.user.vo.UserVO;
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
 import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
@@ -64,30 +64,65 @@ public class UserLessonController {
 	}
 	
 	/**
+	 * 회원 - 강의목차 조회페이지(로그인했을시)
+	 * @param model
+	 * @param lessonIndexVO
+	 * @return
+	 */
+	@RequestMapping(path="/user/selectLessonPageLogin")
+	public String selectLessonPageLogin(Model model,HttpSession session,String lesId ) {
+		// 1. 파라미터 lesId -> VO객체로 받기
+		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
+		LessonIndexVO lessonIndexVO = new LessonIndexVO();
+		
+		// 로그인세션 가져오기
+		UserVO userVO = new UserVO();
+		userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		logger.debug("userVO:{}",userVO);
+		
+		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+		
+		try {
+//			lessonIndexVO.setUserId(userVO.getUserId());
+			lessonIndexVO.setLesId(lesId);
+			// lessonIndexVO에다가 curTime 집어넣기
+			// 쿼리 조인문 해서 값 가져오기
+			lesIdxList = lessonIndexService.selectLessonIndex_login(lessonIndexVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
+		logger.debug("강의목차:{}",lesIdxList);
+		model.addAttribute("lesIdxList", lesIdxList);
+		model.addAttribute("lesId", lessonIndexVO.getLesId());
+		return "mainT/user/lesson/lessonSelect";
+		
+	}
+	/**
 	 * 회원 - 강의목차 조회페이지
 	 * @param model
 	 * @param lessonIndexVO
 	 * @return
 	 */
 	@RequestMapping(path="/user/selectLessonPage")
-	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session ) {
+	public String selectLessonPage(Model model,HttpSession session,String lesId ) {
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
-		LessonIndexVO lesIdxVO = new LessonIndexVO();
-		IndexTimeVO indexTimeVO = new IndexTimeVO();
-		
-		// 로그인세션 가져오기
-		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
-		indexTimeVO.setUserId(userVO.getUserId());
+		LessonIndexVO lessonIndexVO = new LessonIndexVO();
 		
 		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
-		try {
-			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+			try {
+				lessonIndexVO.setLesId(lesId);
+				logger.debug("lessonIndexVO:{}",lessonIndexVO);
+				lesIdxList = lessonIndexService.selectLesonIndex(lessonIndexVO);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
 		logger.debug("강의목차:{}",lesIdxList);
 		model.addAttribute("lesIdxList", lesIdxList);
@@ -111,28 +146,26 @@ public class UserLessonController {
 		// 3. 진행률 업데이트
 		
 		// 로그인세션 가져오기
-		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
+		UserVO userVO = new UserVO();
+		userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		int cnt=0;
 		
 		
-		logger.debug("lidxId : {}", lidxId);
+		logger.debug("userVO : {}", userVO);
 		logger.debug("재생시간 : {}", curTime);
 		
 		int time = ((int)Double.parseDouble(curTime)/60);
 		
 		logger.debug("curArray: {}", time);
-		lesIdxVO.setLidxId(lidxId);
-		lesIdxVO.setLidxCurtime(time);
-		logger.debug("lesIdxVO: {}", lesIdxVO);
 		
 		IndexTimeVO indexTimeVO = new IndexTimeVO();
 		indexTimeVO.setUserId(userVO.getUserId());
 		indexTimeVO.setLidxId(lidxId);
 		indexTimeVO.setLidxCurtime(time);
 		
+		logger.debug("indexTimeVO: {}", indexTimeVO);
 		try {
-			lessonIndexService.updateLessonIndex(lesIdxVO);
-			lessonIndexService.insertIndexTime(indexTimeVO);
-			
+			cnt = lessonIndexService.updateIndexTime(indexTimeVO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

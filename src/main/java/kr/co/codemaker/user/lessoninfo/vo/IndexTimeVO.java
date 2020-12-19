@@ -1,10 +1,13 @@
 package kr.co.codemaker.user.lessoninfo.vo;
 
-public class IndexTimeVO {
+import kr.co.codemaker.common.vo.BaseVO;
 
-	private String userId;
-	private String lidxId;
-	private int lidxCurtime;
+public class IndexTimeVO extends BaseVO{
+
+	private String userId;		// 사용자 아이디
+	private String lidxId;		// 강의목차 아이디
+	private int lidxCurtime;	// 강의 재생시간
+	
 	public void setUserId(String userId) {
 		this.userId = userId; 
 	}
