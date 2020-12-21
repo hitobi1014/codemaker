@@ -64,9 +64,8 @@ public class ExamUserController {
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
-//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
-		String userId = "b001@naver.com";
 		examVO.setUserId(userId);
 		
 		List<ExamVO> examList = new ArrayList<>();
@@ -79,7 +78,7 @@ public class ExamUserController {
 			e.printStackTrace();
 		}
 		
-		int pages = (int) Math.ceil((double) totalCnt / 1);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 		
 		model.addAttribute("examList", examList);      
 		model.addAttribute("pages", pages);
@@ -119,7 +118,7 @@ public class ExamUserController {
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "/user/exam/examUserSelect";
+		return "/user/exam/examUserInsert";
 	}
 	
 	/**
@@ -133,9 +132,7 @@ public class ExamUserController {
 	@ResponseBody
 	@RequestMapping(path = "/examUser/insertExamResult")
 	public void insertExamResult(ExamVO examVO, HttpSession session) {
-		
-//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
-		String userId = "b001@naver.com";
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
 		examScoreVO.setExamId(examVO.getExamId());
@@ -204,7 +201,7 @@ public class ExamUserController {
 		model.addAttribute("examResultList", examResultList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "mypageT/user/exam/examUserUpdate";
+		return "mypageT/user/exam/examUserSelect";
 	}
 	
 
