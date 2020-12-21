@@ -45,10 +45,10 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group focused">
-									<c:url value="/resume/teacherImg" var="resumeImg">
-										<c:param name="resProfile" value="${resumeList.resProfile}"/>
-									</c:url>
-									<img id="resumeicon" alt="" src="${resumeImg}"> <br>
+										<c:url value="/resume/teacherImg" var="resumeImg">
+											<c:param name="resProfile" value="${resume.resProfile_path}"/>
+										</c:url>
+										<img id="resumeicon" alt="" src="${resumeImg}"> <br>
 										<label class="form-control-label" for="input-username">프로필</label>
 									</div>
 								</div>
