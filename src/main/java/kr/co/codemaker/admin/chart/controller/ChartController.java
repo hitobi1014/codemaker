@@ -1,11 +1,5 @@
 package kr.co.codemaker.admin.chart.controller;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,27 +9,19 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.hsqldb.auth.AuthUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.jxls.common.Context;
-import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 import kr.co.codemaker.admin.chart.service.ChartService;
 import kr.co.codemaker.admin.chart.vo.LessonChartVO;
-import kr.co.codemaker.admin.chart.vo.LessonVO;
 import kr.co.codemaker.admin.chart.vo.PayVO;
-import kr.co.codemaker.admin.course.schedule.vo.ScheduleVO;
+import kr.co.codemaker.admin.chart.vo.TeacherChartVO;
+import kr.co.codemaker.admin.chart.vo.TeacherPayVO;
 import kr.co.codemaker.common.vo.PageVo;
 
 @Controller
@@ -110,15 +96,14 @@ public class ChartController {
 //		model.addAttribute("jarray", a.replace("\"", ""));
 //		model.addAttribute("jarray", jarray);
 
-		
 
-		return "adminPage/admin/chart/paychart";
+		return "adminPage/admin/chart/payLessonChart";
 	}
 	
 	
 
-	@RequestMapping("/admin/downExcel")
-	public void excelList(HttpServletRequest request 
+	@RequestMapping("/admin/lessonPayExcelDown")
+	public void lessonPayExcelDown(HttpServletRequest request 
 	                          ,HttpServletResponse response, Model model ) throws Exception  {
 
 //	    if( !AuthUtil.isAdmin()) {
@@ -128,7 +113,6 @@ public class ChartController {
 		// 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
 		List<PayVO> lesPayList = chartService.lessonPayExcel();
 		
-		
 		// 받은 데이터를 맵에 담는다.
 	    Map<String , Object> beans = new HashMap<String , Object>();
 	    beans.put("lesPayList", lesPayList);
@@ -137,6 +121,86 @@ public class ChartController {
 	    //FIX: 한글 NAME 안되는 현상 해결하기
 	    ExcelUtil excelUtil = new ExcelUtil();
 	    excelUtil.download(request, response, beans, "excel",  "ExcelTemplate.xlsx");
+	}
+	
+	
+	@RequestMapping("/admin/selectTeacherPay")
+	public String selectTeacherPay(TeacherPayVO teacherPayVo, Model model,
+			@RequestParam(name="page",required = false, defaultValue = "1")int page,
+			@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
+		
+		model.addAttribute("page",page);
+		model.addAttribute("pageSize", pageSize);
+	
+		PageVo pageVo = new PageVo();
+		pageVo.setPage(page);
+		pageVo.setPageSize(pageSize);
+		
+		model.addAttribute("pageVo", pageVo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			map = chartService.selectTeacherPay(pageVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//교사별 매출 통계 select
+		List<TeacherChartVO> teacherPayTotal = new ArrayList<>();
+		try {
+			teacherPayTotal = chartService.teacherPayTotal();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("tchPayList", map.get("tchPayList"));
+		model.addAttribute("pages", map.get("pages"));
+		model.addAttribute("teacherPayTotal", teacherPayTotal);
+		
+		return "adminPage/admin/chart/payTeacherChart";
+	}
+	
+	
+	@RequestMapping("/admin/teacherPayExcelDown")
+	public void excelList2(HttpServletRequest request 
+	                          ,HttpServletResponse response, Model model ) throws Exception  {
+	    
+		// 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
+		List<TeacherPayVO> tchPayList = chartService.teacherPayExcel();
+		
+		// 받은 데이터를 맵에 담는다.
+	    Map<String , Object> beans = new HashMap<String , Object>();
+	    beans.put("tchPayList", tchPayList);
+
+	    //FIX: 한글 NAME 안되는 현상 해결하기
+	    ExcelUtil excelUtil = new ExcelUtil();
+	    excelUtil.download(request, response, beans, "excel",  "ExcelTemplate2.xlsx");
+	}
+	 
+	
+	@RequestMapping("/admin/lessonUserChart")
+	public String lessonUserChart(Model model) {
+		
+		List<TeacherChartVO> lessonUserCnt = new ArrayList<>();
+		
+		try {
+			lessonUserCnt = chartService.lessonUserCnt();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//강의를 듣는 총 학생수 구하기
+		int lessonUserTotal=0;
+		try {
+			lessonUserTotal = chartService.lessonUserTotal();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("lessonUserCnt", lessonUserCnt);
+		model.addAttribute("lessonUserTotal", lessonUserTotal);
+		
+		return "adminPage/admin/chart/totalChart";
 	}
 
 }

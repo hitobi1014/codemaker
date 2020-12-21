@@ -41,8 +41,6 @@ public class ScheduleController {
 		return "admin/calendar/testSch";
 	}
 	
-	private static final Logger logger = LoggerFactory.getLogger(ScheduleController.class);
-	
 	/**
 	 * 스케줄 정보 하나만 가져오는 메서드
 	 * 
@@ -87,7 +85,8 @@ public class ScheduleController {
 		}
 		model.addAttribute("jarray", jarray);
 		
-		return "admin/calendar/scheduleAllSelect";
+//		return "admin/calendar/scheduleAllSelect";
+		return "adminPage/admin/main/adminMain";
 	}
 	
 	/**

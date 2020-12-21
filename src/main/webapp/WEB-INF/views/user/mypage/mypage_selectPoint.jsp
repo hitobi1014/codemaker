@@ -22,7 +22,7 @@
             <div class="card-header border-0">
               <a href="${cp}/mypage/deletePoint" class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#pointminus">포인트 환불</a>
               <a href="${cp}/mypage/insertPoint" class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#pointadd">포인트 충전</a>
-              <h3 class="mb-0">💰 포인트 내역</h3>
+              <h3 class="mb-0">포인트 내역</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -43,9 +43,9 @@
                   <tr>
                     <th scope="row">
                       <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
+                        <span class="avatar rounded-circle mr-3">
                           <img alt="Image placeholder" src="${cp}/images/user/icons/dollar.png">
-                        </a>
+                        </span>
                         <div class="media-body">
                           <span class="mb-0 text-sm"></span>
                         </div>
@@ -56,7 +56,7 @@
                     </td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                        ${point.pointUpdate } Point
+                      <fmt:formatNumber value="${point.pointUpdate }"></fmt:formatNumber>&nbsp;Point
                       </span>
                     </td>
                     <td>
@@ -81,7 +81,9 @@
                     </td>
                     <td>
                           <span class="badge badge-dot mr-4">
-                          <i class="bg-info"></i>${point.pointSum } Point</span>
+                          <i class="bg-info"></i>
+                          <fmt:formatNumber value="${point.pointSum}"></fmt:formatNumber>&nbsp;Point
+                          </span>
                     </td>
                   </tr>
              	</c:forEach>
@@ -183,7 +185,7 @@
 	        <form action="${cp}/mypage/insertPoint" method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸충전할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="number" class="form-control" name="pointUpdate" placeholder="POINT">
+	       <input type="number" class="form-control" name="pointUpdate" placeholder="충전할 금액">
 <!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" id="userId">
 	      </div>
@@ -227,7 +229,7 @@
 	        <form  method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸환불할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="text" class="form-control" id="pointUpdate" name="pointUpdate" placeholder="POINT">
+	       <input type="text" class="form-control" id="pointUpdate" name="pointUpdate" placeholder="환불할 금액">
 <!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" >
 	      </div>
@@ -270,6 +272,7 @@
 			success : function(res) {
 				if (res == "1") {
 					alert("환불잔액이 부족합니다.");
+					$("#pointUpdate").val('');
 					flag=false;
 				} else {
 					alert("환불처리를 진행하겠습니다.");

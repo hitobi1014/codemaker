@@ -45,10 +45,10 @@ public class AdminLessonController {
 	 * @return
 	 */
 	@RequestMapping("/admin/selectAllAgree")
-	public String selectAgreeCnt(Model model){
+	public String selectAgreeCnt(LessonVO lessonVO, Model model){
 		List<LessonVO> lessonList = new ArrayList<>();
 		try {
-			lessonList = adminLessonService.selectAgreeCnt();
+			lessonList = adminLessonService.selectAgreeCnt(lessonVO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class AdminLessonController {
 		
 		try {
 			lessonLists = adminLessonService.selectAllLesson(lessonVO);
-			lessonList = adminLessonService.selectAgreeCnt();
+			lessonList = adminLessonService.selectAgreeCnt(lessonVO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamResultUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamScoreUserService;
@@ -63,7 +64,7 @@ public class ExamUserController {
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
-//		String userId = (String)session.getAttribute("");
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
 		String userId = "b001@naver.com";
 		examVO.setUserId(userId);
@@ -101,11 +102,7 @@ public class ExamUserController {
 		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
 		try {
-			if(examVO.getSearchEsScore().equals("0")) {
-				ev = examUserService.selectExam(examVO);
-			}else {
-				ev = examUserService.selectSExam(examVO);
-			}
+			ev = examUserService.selectExam(examVO);
 			questionList = questionUserService.selectQuestion(examVO);
 			for (QuestionVO questionVO : questionList) {
 				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
@@ -122,7 +119,7 @@ public class ExamUserController {
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "/user/exam/examSelect";
+		return "/user/exam/examUserSelect";
 	}
 	
 	/**
@@ -137,7 +134,7 @@ public class ExamUserController {
 	@RequestMapping(path = "/examUser/insertExamResult")
 	public void insertExamResult(ExamVO examVO, HttpSession session) {
 		
-//		String userId = (String)session.getAttribute("");
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		String userId = "b001@naver.com";
 		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
@@ -152,7 +149,7 @@ public class ExamUserController {
 				for(int i=0; i < examVO.getQueIdList().size(); i++) {
 					ExamResultVO examResultVO = new ExamResultVO();
 					examResultVO.setQueId(examVO.getQueIdList().get(i));
-					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
 					examResultVO.setErCheck(examVO.getErCheckList().get(i));
 					examResultVO.setUserId(userId);
 					examResultVO.setExamId(examVO.getExamId());
@@ -164,7 +161,7 @@ public class ExamUserController {
 				for(int i=0; i < examVO.getQueIdList().size(); i++) {
 					ExamResultVO examResultVO = new ExamResultVO();
 					examResultVO.setQueId(examVO.getQueIdList().get(i));
-					examResultVO.setErAnswer(examVO.getErAnswerList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
 					examResultVO.setErCheck(examVO.getErCheckList().get(i));
 					
 					examResultUserService.updateExamResult(examResultVO);
@@ -175,85 +172,40 @@ public class ExamUserController {
 			e.printStackTrace();
 		}
 	}
-	
-//	
-//	/**
-//	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String selectAllExamScore(ExamScoreVO examScoreVO, Model model, HttpSession session) {
-////		String userId = (String)session.getAttribute("");
-//		
-//		String userId = "b001@naver.com";
-//		examScoreVO.setUserId(userId);
-//		
-//		List<ExamScoreVO> examScoreList = new ArrayList<>();
-//		
-//		try {
-////			examScoreList = examScoreUserService.selectAllExamScore(examScoreVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		model.addAttribute("examScoreList", examScoreList);
-//		
-//		return "";
-//	}
-//	
-//	/**
-//	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String selectExamScore(ExamScoreVO examScoreVO, Model model) {
-//		
-//		ExamScoreVO esv = new ExamScoreVO();
-//		ExamResultVO examResultVO = new ExamResultVO();
-//		List<ExamResultVO> examResultList = new ArrayList<>();
-//		
-//		try {
-//			esv = examScoreUserService.selectExamScore(examScoreVO);
-//			examResultList = examResultUserService.selectAllExamResult(examScoreVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		model.addAttribute("examScoreVO", esv);
-//		model.addAttribute("examResultList", examResultList);
-//		
-//		return "";
-//	}
-//	
-//	
 
-//	
-//	/**
-//	 * 회원의 성적을 수정하는 메서드
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String updateExamScore(ExamScoreVO examScoreVO) {
-//		try {
-//			examScoreUserService.updateExamScore(examScoreVO);
-//			
-//			for(ExamResultVO examResultVO : examScoreVO.getExamResultList()) {
-//				examResultUserService.updateExamResult(examResultVO);
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "";
-//	}
+	/**
+	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
+	 * 
+	 * @author 김미연
+	 * @param examScoreVO
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(path = "/examUser/selectExamScore")
+	public String selectExamScore(ExamVO examVO, Model model) {
+		ExamScoreVO examScoreVO = new ExamScoreVO();
+		List<ExamResultVO> examResultList = new ArrayList<>();
+		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
+		
+		try {
+			examScoreVO = examScoreUserService.selectExamScore(examVO);
+			examResultList = examResultUserService.selectAllExamResult(examVO);
+			for (QuestionVO questionVO : examResultList) {
+				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
+				
+				for (AnswersheetVO answersheetVO : answersheetList) {
+					answersheetLists.add(answersheetVO);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("examScoreVO", examScoreVO);
+		model.addAttribute("examResultList", examResultList);
+		model.addAttribute("answersheetLists", answersheetLists);
+		
+		return "mypageT/user/exam/examUserUpdate";
+	}
+	
 
 }

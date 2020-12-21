@@ -48,13 +48,4 @@ public interface ExamUserMapper {
 	 */
 	public ExamVO selectExam(ExamVO examVO) throws Exception;
 	
-	/**
-	 * 해당 시험을 조회하는 메서드
-	 * 
-	 * @author 김미연
-	 * @param examVO
-	 * @return 
-	 */
-	public ExamVO selectSExam(ExamVO examVO) throws Exception;
-	
 }

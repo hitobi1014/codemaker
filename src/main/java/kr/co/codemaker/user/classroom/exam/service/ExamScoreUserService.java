@@ -45,12 +45,12 @@ public class ExamScoreUserService {
 	 * 회원의 성적 1개를 조회하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examScoreVO
+	 * @param examVO
 	 * @return
 	 * @throws Exception
 	 */
-	public ExamScoreVO selectExamScore(ExamScoreVO examScoreVO) throws Exception {
-		return examScoreUserMapper.selectExamScore(examScoreVO);
+	public ExamScoreVO selectExamScore(ExamVO examVO) throws Exception {
+		return examScoreUserMapper.selectExamScore(examVO);
 	}
 	
 	/**

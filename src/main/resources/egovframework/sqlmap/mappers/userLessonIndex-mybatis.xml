@@ -3,13 +3,12 @@
 <mapper namespace="kr.co.codemaker.user.lessoninfo.dao.LessonIndexMapper">
 
 	<select id="selectLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
-		SELECT * 
-		  FROM lesson_index
-		  <where>
-		  		AND les_id = #{lesId}
-		  </where>
-		    ORDER BY lidx_num ASC
-	</select>
+SELECT a.*, b.lidx_curtime
+    FROM lesson_index a, index_time b
+    where a.les_id = #{lesId}
+    and a.lidx_id = b.lidx_id
+    ORDER BY lidx_num ASC
+</select>
 	
 	<update id="updateLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
 		UPDATE lesson_index

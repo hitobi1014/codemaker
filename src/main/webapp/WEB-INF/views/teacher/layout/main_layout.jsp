@@ -13,8 +13,8 @@
 		font-weight: 300;
 		src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 	}
-	body {
-		font-family: 'LotteMartDream';
+	#body {
+		font-family: 'LotteMartDream' !important;
 	}
 </style>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">

@@ -28,7 +28,6 @@ public class UserLoginController {
 	
 	@RequestMapping(path="user/login", method = RequestMethod.GET)
 	public String userLoginView(@RequestParam(required=false) String msg, Model model) {
-		logger.debug("로그인진입");
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
 		}
@@ -39,7 +38,6 @@ public class UserLoginController {
 	public String userLogin(UserVO userVo,
 			@RequestParam(name="rememberMe", required=false, defaultValue="0") int rememberMe, Model model, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException{
-		logger.debug("받은 아이디 :{}",userVo.getUserId());
 		UserVO getUserVo = null;
 		try {
 			getUserVo = loginService.selectUser(userVo.getUserId());

@@ -11,10 +11,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-.card{
-	width: 1000px;
-    margin-left: 40px;
-    border-style: none;
+.card {
+    width: 92%;
+    min-height: 700px;
+    height: auto;
+    margin: 0 auto;
+    border: none;
 }
 #subTable{
 /* 	margin-left: 100px; */
@@ -55,6 +57,9 @@ td{
     vertical-align: middle;
     padding-left: 100px;
 }
+h2{
+	font-family: 'LotteMartDream';
+}
 
 </style>
 
@@ -63,7 +68,6 @@ td{
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin:50px;">
 			<div class="card">
-				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢 과목조회</h2>
 				<div id="addLesId">
 				</div>

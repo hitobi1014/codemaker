@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(function(){
 // 	$("input:checkbox[id='remember']").prop('checked',true);
@@ -14,11 +16,14 @@ $(function(){
 	
 });
 </script>
-
+<style>
+.user-header{
+	margin-right: 49px !important;
+}
+</style>
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background: #005F86">
-
 	<!-- Sidebar Toggle (Topbar) -->
 	<button id="sidebarToggleTop"
 		class="btn btn-link d-md-none rounded-circle mr-3">
@@ -27,13 +32,15 @@ $(function(){
 
 	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 		<div class="input-group">
-			<img id="imglogo" src="/images/codemaker_name3.png">
+			<c:url value="/user/main" var="userMain"/>
+			<a href="${userMain}">
+				<img id="imglogo" src="/images/codemaker_name3.png">
+			</a>
 		</div>
 	</form>
 
 	<!-- Topbar Navbar -->
-	<ul class="navbar-nav ml-auto">
-
+	<ul class="navbar-nav ml-auto user-header">
 		<!-- 로그인시에 떠야할 Nav Item - Alerts -->
 			<li class="nav-item dropdown no-arrow mx-1">
 				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,35 +95,25 @@ $(function(){
 					<img id="navicon" class="img-profile rounded-circle" src="/images/user/main/mypage_icon.png">
 				</a>
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#"> 
+				<c:url value="/mypage/myinfoSelect" var="myinfoSelect"/>
+					<a class="dropdown-item" href="${myinfoSelect}"> 
 						<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>마이페이지
 					</a>
-					<a class="dropdown-item" href="#"> 
+					<c:url value="/user/myLesson" var="myLesson"/>
+					<a class="dropdown-item" href="${myLesson}"> 
 						<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>내강의실
 					</a> 
-					<a class="dropdown-item" href="#"> 
+					<c:url value="/user/cartView" var="cartView"/>
+					<a class="dropdown-item" href="${cartView}">
 						<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>장바구니
 					</a>
 					<div class="dropdown-divider">
 				</div>
-					<a class="dropdown-item" href="${cp}/user/logout" data-toggle="modal" data-target="#logoutModal">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+					<c:url value="/user/logout" var="logout"></c:url>
+					<a class="dropdown-item" href="${logout}">
+						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>로그아웃
 					</a>
 				</div>
 			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&emsp;&emsp;&emsp;&emsp;&emsp; </a>
-			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-			</li>
 		</ul>
 	</nav>
-             <!-- End of Topbar -->
-
-
-
-

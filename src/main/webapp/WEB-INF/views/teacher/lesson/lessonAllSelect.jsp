@@ -99,7 +99,9 @@
 
 .lesIdxTbody:hover{
 	cursor: pointer;
-	
+}
+h2{
+	font-family: 'LotteMartDream';
 }
 
 

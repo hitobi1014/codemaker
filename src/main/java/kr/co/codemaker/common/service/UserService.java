@@ -16,12 +16,16 @@ public class UserService {
 	public UserService() {
 	}
 	
-	public int insertUser(UserVO userVo) {
+	public int insertUser(UserVO userVo) throws Exception {
 		return userMapper.insertUser(userVo);
 	}
 
-	public int idchk(UserVO userVo) {
+	public int idchk(UserVO userVo) throws Exception {
 		return userMapper.idchk(userVo);
+	}
+
+	public int joinPoint(String userId) throws Exception {
+		return userMapper.joinPoint(userId);
 	}
 	
 	

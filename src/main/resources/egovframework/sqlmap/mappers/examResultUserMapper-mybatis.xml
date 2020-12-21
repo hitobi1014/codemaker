@@ -4,17 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.user.classroom.exam.dao.ExamResultUserMapper">
 
-<select id="selectAllExamResult" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamResultVO">
+<select id="selectAllExamResult" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamResultVO">
 SELECT
-    que_id,
-    er_answer,
-    er_check,
-    user_id,
-    exam_id
+    er.er_answer,
+    er.er_check,
+    er.user_id,
+    q.*,
+    erc.answerCount
 FROM
-    examresult
+    examresult er, question q, 
+    (SELECT COUNT(*) answerCount
+	  FROM
+    		examresult
+	WHERE
+		er_check != 0
+	AND 
+		exam_id = #{examId}) erc
 WHERE
-	exam_id = #{examId}
+	er.exam_id = #{examId}
+AND
+	er.que_id = q.que_id
 </select>
 <insert id="insertExamResult" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamResultVO">
 INSERT INTO examresult (

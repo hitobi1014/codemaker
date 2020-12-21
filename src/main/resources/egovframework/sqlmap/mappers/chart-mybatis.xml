@@ -15,6 +15,7 @@
 		    ORDER BY a.pay_date DESC)a)
 	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
+
 <select id="selectTotalCnt"  parameterType="kr.co.codemaker.common.vo.PageVo" resultType="int">
 	SELECT COUNT(*) FROM PAY
 </select>
@@ -52,7 +53,7 @@ WITH chart AS (
                     FROM
                         lesson
                     WHERE
-                        les_state = 'Y'
+                        les_state = '3'
                 ) b
         ) z,
         (
@@ -83,5 +84,73 @@ WITH chart AS (
     chart
 GROUP BY
     les_id
+</select>
+
+<select id="selectTeacherPay" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.admin.chart.vo.TeacherPayVO">
+SELECT *
+    FROM
+    (SELECT ROWNUM AS rn, a.*
+    FROM(
+SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
+FROM pay A, lesson B, teacher C
+WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
+ORDER BY a.pay_date DESC)a)
+	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+</select>
+
+<select id="teacherPayCnt" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="int">
+SELECT COUNT(*) FROM PAY
+</select>
+
+<select id="teacherPayExcel" resultType="kr.co.codemaker.admin.chart.vo.TeacherPayVO">
+SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
+FROM pay A, lesson B, teacher C
+WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
+ORDER BY a.pay_date DESC
+</select>
+
+
+<select id="teacherPayTotal" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
+WITH chart AS (
+SELECT z.*, nvl(y.pay_sum,0) pay_sum
+from
+(select les_id, tch_nm, a.pay_yyyymm
+from (SELECT '2020'|| lpad(level,2,'0') pay_yyyymm
+                    FROM dual
+                    CONNECT BY level <![CDATA[<]]> 13) a,
+                    (SELECT * FROM lesson A , teacher b 
+                     where a.tch_id=b.tch_id )b)z,
+                (SELECT TO_CHAR(pay_date,'yyyymm') pay_date, les_id, SUM(pay_sum) AS pay_sum
+                  FROM pay
+                 GROUP BY TO_CHAR(pay_date,'yyyymm'), les_id) y
+        WHERE
+        z.les_id = y.les_id (+)
+        AND z.pay_yyyymm = y.pay_date (+)
+    ORDER BY
+        z.les_id ASC,
+        z.pay_yyyymm ASC
+) SELECT
+    tch_nm,
+    LISTAGG(pay_sum,
+    ',') WITHIN GROUP(
+    ORDER BY
+        pay_sum
+    ) AS result
+  FROM
+    chart
+GROUP BY
+    tch_nm
+</select>
+<select id="lessonUserCnt" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
+select a.les_id, b.les_nm, count(*) cnt                                                                                                                                                                                                                                                                                                                                                                                                 
+	from pay a, lesson b
+	where a.les_id=b.les_id and b.les_state = '3'
+	group by a. les_id ,b.les_nm
+	order by cnt desc
+</select>
+<select id="lessonUserTotal" resultType="int">
+select count(*)
+	from pay a, lesson b
+	where a.les_id=b.les_id and b.les_state = '3'
 </select>
 </mapper>

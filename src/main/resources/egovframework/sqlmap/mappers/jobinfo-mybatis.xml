@@ -29,10 +29,11 @@ SELECT * FROM
 			</if>
 		</where>
 		<if test="keyWord == '' or keyWord == null">
-			)A)
+				ORDER BY JOBINFO_DATE DESC) A)
 		</if>
 		
 		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	
 </select>
 <update id="updateJobInfo" parameterType="kr.co.codemaker.common.vo.JobInfoVO">
 update jobInfo set
@@ -45,6 +46,43 @@ update jobInfo set
 </delete>
 <select id="jobInfoTotalCnt" resultType="int">
 select count(*) from
-		jobInfo
+		jobInfo 
+		<where>
+			<if test="keyWord != '' and keyWord != null">
+				AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
+				OR JOBINFO_CONT LIKE '%' || #{keyWord} || '%'
+			</if>
+		</where>
+		
+</select>
+<select id="jobInfoTotalCntU" resultType="int">
+SELECT count(*) 
+  FROM JOBINFO 
+  <where>
+  	and JOBINFO_OUT = 'N'
+			<if test="keyWord != '' and keyWord != null">
+				AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
+				OR JOBINFO_CONT LIKE '%' || #{keyWord} || '%'
+			</if>
+		</where>
+</select>
+<select id="selectAllJobInfoU" resultType="kr.co.codemaker.common.vo.JobInfoVO" parameterType="java.util.HashMap">
+SELECT * FROM
+		(SELECT ROWNUM AS RN,
+		A.*
+		FROM (SELECT *
+		FROM JOBINFO
+		<where>
+		and JOBINFO_OUT = 'N'
+			<if test="keyWord != '' and keyWord != null">
+				AND JOBINFO_TITLE LIKE '%' || #{keyWord} || '%'
+				OR JOBINFO_CONT LIKE '%' || #{keyWord} || '%')A)
+			</if>
+		</where>
+		<if test="keyWord == '' or keyWord == null">
+				ORDER BY JOBINFO_DATE DESC) A)
+		</if>
+		
+		WHERE RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
 </mapper>

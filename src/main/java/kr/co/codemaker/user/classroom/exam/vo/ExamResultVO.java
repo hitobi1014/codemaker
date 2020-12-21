@@ -9,8 +9,15 @@ public class ExamResultVO extends QuestionVO {
 	private int erCheck;		// 오답 여부
 	private String examId;		// 시험 아이디
 	
+	private int answerCount;	// 정답 개수
 	
 	
+	public int getAnswerCount() {
+		return answerCount;
+	}
+	public void setAnswerCount(int answerCount) {
+		this.answerCount = answerCount;
+	}
 	public int getErCheck() {
 		return erCheck;
 	}

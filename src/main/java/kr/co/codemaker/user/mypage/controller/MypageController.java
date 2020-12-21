@@ -42,13 +42,12 @@ public class MypageController {
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
 		UserVO userVo = new UserVO();
-		//session = request.getSession();
+
+        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
-        
-        userId = "a001@naver.com";
 		userVo.setUserId(userId);
-		userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+		
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
@@ -68,7 +67,6 @@ public class MypageController {
 	public void profileImg(Model model, HttpServletResponse response,HttpSession session,HttpServletRequest request) throws Exception {
 
 		UserVO userVo = new UserVO();
-		session = request.getSession();
         userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
@@ -93,37 +91,42 @@ public class MypageController {
 		sos.close();
 		
 	}
-	
-	@RequestMapping("/mypage/deleteUser")
-	public String deleteUser(UserVO userVo,HttpSession session,HttpServletRequest request) {
-		logger.debug("삭제 타니???????????????");
 
-		session = request.getSession();
-        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
-        
-        String userId = userVo.getUserId();
-		userVo.setUserId(userId);
+    @RequestMapping(path="/mypage/deleteUser", method=RequestMethod.GET)
+    public String deleteUser() {
+    	
+    	return "mypageT/user/mypage/mypage_deleteUser";
+    }
+    
+    @ResponseBody
+    @RequestMapping(path="/mypage/deleteUser", method=RequestMethod.POST)
+    public String deleteUser(UserVO userVo) {
+
+    	String userId= userVo.getUserId(); 
+    	String userPass=userVo.getUserPass();
+    	
+    	userVo.setUserId(userId);
+    	userVo.setUserPass(userPass);
 		
-		logger.debug("세션아~!!!!!!!:{}" , userId);
 		int deleteCnt=0;
 		try {
-			deleteCnt = mypageService.deleteUser(userId);
+			deleteCnt = mypageService.deleteUser(userVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		if(deleteCnt ==1) {
-			return "redirect:/user/login";
+		if(deleteCnt == 1) {
+			return "1";
 		}else {
-			return "mypageT/user/mypage/mypage_myinfo";
+			return "0";
 		}
-	}
+    	
+    }
 	
 	@RequestMapping(path="/mypage/updateUser", method=RequestMethod.GET)
 	public String updateUser(Model model,UserVO userVo,HttpSession session,HttpServletRequest request) {
 		
 		//세션에서아이디가져온다.
-		session = request.getSession();
         userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
@@ -203,16 +206,11 @@ public class MypageController {
 								@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
 
 		//세션에서아이디가져온다.
-		session = request.getSession();
         UserVO userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
         
         String pointUser = userVo.getUserId();
         String userId = pointUser;
-        
-//        String userProfile = userVo.getUserProfile();
 		
-		
-		logger.debug("브이오 !!!!!!: {}" ,pointVo);
 		model.addAttribute("page",page);
 		model.addAttribute("pageSize", pageSize);
 	
@@ -247,8 +245,6 @@ public class MypageController {
 		
 		pointVo.setUserId(userId);
 //		pointVo.setPointSum(pointSum);
-//		
-
 		
 		int insertCnt=0;
 		
@@ -309,4 +305,6 @@ public class MypageController {
 //		return "redirect:/mypage/selectPoint";
 	}
 	
+	
+    
 }
