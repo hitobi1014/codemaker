@@ -132,12 +132,12 @@ public class AdminNoticeController {
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(filesNm);
-				String fileName = UUID.randomUUID().toString();
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
 				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					filesPath = "C:\\profile\\" + fileName + "." + ext;
+					filesPath = "C:\\profile\\" + fileName;
 					File file = new File("C:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
@@ -263,7 +263,9 @@ public class AdminNoticeController {
 		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
 		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());

@@ -76,8 +76,8 @@
    			data:{'curTime' : curTime,
    				  'lidxId' : lidxId},
    			success:function(data){
-// 				document.location="/user/selectLessonPage";
 // 				alert('넘어옴');
+// 				document.location="/user/selectLessonPage?curTime"+curTime+"&lidxId="+lidxId;
 				opener.parent.location.reload();
    				self.close();
    			},error:function(){
