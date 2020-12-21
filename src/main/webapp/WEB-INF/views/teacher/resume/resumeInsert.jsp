@@ -105,7 +105,7 @@
 							<th>
 								<div class="resume_photo">
 									<img id="img" src="/images/teacher/imageAdd.PNG" style="cursor:pointer"><br><br>
-									<input type="file" id="resProfile" name="resProfile" style="display:none;" data-api_type="layer" data-api_id="basic_photo" onchange="loadImg(this);">
+									<input type="file" id="resProfile" name="profile" style="display:none;" data-api_type="layer" data-api_id="basic_photo" onchange="loadImg(this);">
 									<input type="hidden" name="target_url"/>
 <!-- 									<a class="photo_delete" href="##" style="display: none;"><span class="blind">사진 삭제</span></a> -->
 								</div>

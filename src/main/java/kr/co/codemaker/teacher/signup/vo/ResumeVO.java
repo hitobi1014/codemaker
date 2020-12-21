@@ -9,7 +9,7 @@ public class ResumeVO extends BaseVO{
 	private String resNm;		//이력서 이름
 	private String resTel;		//이력서 전화번호
 	private String resMail;		//이력서 이메일
-	private String resProfile_path;	//이력서 프로필
+	private String resProfile;	//이력서 프로필
 	private String resMotive;	//이력서 지원동기
 	private String resEdu;		//이력서 학력
 	private String resLicense;	//이력서 자격증
@@ -27,7 +27,7 @@ public class ResumeVO extends BaseVO{
 		this.resNm = resNm;
 		this.resTel = resTel;
 		this.resMail = resMail;
-		this.resProfile_path = resProfile_path;
+		this.resProfile = resProfile_path;
 		this.resMotive = resMotive;
 		this.resEdu = resEdu;
 		this.resLicense = resLicense;
@@ -35,6 +35,14 @@ public class ResumeVO extends BaseVO{
 		this.resState = resState;
 	}
 	
+	public String getResProfile() {
+		return resProfile;
+	}
+
+	public void setResProfile(String resProfile) {
+		this.resProfile = resProfile;
+	}
+
 	public ResumeVO(String resCode) {
 		super();
 		this.resCode = resCode;
@@ -71,14 +79,6 @@ public class ResumeVO extends BaseVO{
 		this.resMail = resMail;
 	}
 	
-	public String getResProfile_path() {
-		return resProfile_path;
-	}
-
-	public void setResProfile_path(String resProfile_path) {
-		this.resProfile_path = resProfile_path;
-	}
-
 	public String getResMotive() {
 		return resMotive;
 	}
