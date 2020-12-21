@@ -22,7 +22,7 @@
 		<!-- Table -->
 		<div class="row justify-content-center" style="display:table;table-layout:fixed;">
 			<div class="headmsg">
-				<h1 style="text-align:center;">신규채용을 축하드립니다</h1>
+				<h1 style="text-align:center;">선생님 가입</h1>
 			</div>
 			<div class="col-lg-6 col-md-8">
 				<div class="card bg-secondary shadow border-0">
@@ -32,19 +32,6 @@
 					<div class="card-body px-lg-5 py-lg-5">
 						<c:url value="/teacher/signup" var="signup"/>
 						<form:form action="${signup}" id="frm" commandName="teacherVO" method="post" enctype="multipart/form-data">
-							<div class="picCla">
-								<label for="tchProfile" class="fontCl">프로필 사진</label> 
-								<div class="" id="pictureView" >
-									<img id="pictureViewImg" style="width: 115%; height: 100%;"/>
-								</div>
-								<div class="form-group">
-									<div class="picbox">
-										<label for="picture">사진 선택</label>
-										<input type="file" id="picture" name="picture" accept=".gif, .jpg, .png" style="font-size: 12px;" >
-									</div>
-								</div>
-							</div>
-							
 							<div class="bigBox">
 								<div class="form-group marginB">
 									<div style="width:70%;">
@@ -138,7 +125,7 @@ function codeChk(){
 			}
 		},
 		error : function(xhr){
-				alert("확인되지 않은 인증코드 입니다");
+				alert("미승인상태이거나 존재하지 않습니다");
 		}
 	})
 }

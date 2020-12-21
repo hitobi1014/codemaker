@@ -11,7 +11,7 @@
 	<select id="selectResume" resultType="kr.co.codemaker.teacher.signup.vo.ResumeVO" parameterType="kr.co.codemaker.teacher.signup.vo.ResumeVO">
 		SELECT * 
 		FROM resume 
-		WHERE res_code=#{resCode}
+		WHERE res_code=#{resCode} and res_state = 'Y'
 	</select>
 	
 	<select id="tchIdChk" resultType="kr.co.codemaker.teacher.signup.vo.TeacherVO" parameterType="kr.co.codemaker.teacher.signup.vo.TeacherVO">
