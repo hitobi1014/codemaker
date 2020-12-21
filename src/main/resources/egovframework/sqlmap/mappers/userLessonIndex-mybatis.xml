@@ -2,23 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.user.lessoninfo.dao.LessonIndexMapper">
 
-	<select id="selectLessonIndex_login" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
-SELECT a.*, b.lidx_curtime
-    	FROM lesson_index a, index_time b
-    	<where>
-	   		 AND a.les_id = #{lesId}
-	    	 AND a.lidx_id = b.lidx_id
-    	</where>
-   		 ORDER BY lidx_num ASC
-</select>
-	
 	<select id="selectLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
-	SELECT *
-    	FROM lesson_index
-    	<where>
-	   		 AND les_id = #{lesId}
-    	</where>
-   		 ORDER BY lidx_num ASC
+		SELECT c.lidx_curtime ,a.*, b.user_id
+   		  FROM lesson_index a
+    	  LEFT OUTER JOIN pay b on a.les_id = b.les_id AND b.user_id =#{userId , jdbcType=VARCHAR}
+   		  LEFT OUTER JOIN index_time c on a.lidx_id = c.lidx_id
+		 where a.les_id = #{lesId}
+		 ORDER BY lidx_num ASC
 	</select>
 	
 	<update id="updateLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
@@ -61,7 +51,7 @@ SELECT a.*, b.lidx_curtime
 		 </where>  
 	</update>
 
-	<select id="selectLidxId" resultType="kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO" parameterType="java.lang.String">
+	<select id="selectLidxId" parameterType="kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO" resultType="kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO" >
 	select c.lidx_id 
 	  from lesson a, pay b, lesson_index c
 	 where b.user_id = #{userId} 

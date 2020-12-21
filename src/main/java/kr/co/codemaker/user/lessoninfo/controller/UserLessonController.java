@@ -80,14 +80,13 @@ public class UserLessonController {
 		userVO = (UserVO) session.getAttribute("MEMBER_INFO");
 		logger.debug("userVO:{}",userVO);
 		
+		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
 		
 		try {
-//			lessonIndexVO.setUserId(userVO.getUserId());
-			lessonIndexVO.setLesId(lesId);
-			// lessonIndexVO에다가 curTime 집어넣기
-			// 쿼리 조인문 해서 값 가져오기
-			lesIdxList = lessonIndexService.selectLessonIndex_login(lessonIndexVO);
+				lessonIndexVO.setUserId(userVO.getUserId());
+				lessonIndexVO.setLesId(lesId);
+				lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +116,7 @@ public class UserLessonController {
 			try {
 				lessonIndexVO.setLesId(lesId);
 				logger.debug("lessonIndexVO:{}",lessonIndexVO);
-				lesIdxList = lessonIndexService.selectLesonIndex(lessonIndexVO);
+				lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

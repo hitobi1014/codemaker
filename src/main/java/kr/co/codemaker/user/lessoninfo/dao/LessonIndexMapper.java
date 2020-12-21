@@ -11,15 +11,13 @@ public interface LessonIndexMapper {
 	
 	List<LessonIndexVO> selectLessonIndex(LessonIndexVO lessonIndexVO) throws Exception; //강의목차 조회
 	
-	List<LessonIndexVO> selectLessonIndex_login(LessonIndexVO lessonIndexVO) throws Exception;	// 강의목차 조회(로그인 했을시)
-	
 	int updateLessonIndex(LessonIndexVO lessonIndexVO) throws Exception; //강의목차 수정(진행률)
 	
 	int insertIndexTime(IndexTimeVO indexTimeVO) throws Exception; 	// 강의 재생시간 추가
 	
 	List<IndexTimeVO> selectCurTime(IndexTimeVO indexTimeVO) throws Exception; 	// 강의 재생시간 조회
 	
-	List<IndexTimeVO> selectLidxId(String userId) throws Exception; 	// 회원이 구매한 강의 목차 조회
+	List<IndexTimeVO> selectLidxId(IndexTimeVO indexTimeVO) throws Exception; 	// 회원이 구매한 강의 목차 조회
 	
 	int updateIndexTime(IndexTimeVO indexTimeVO) throws Exception;		// 강의 재생시간 수정
 

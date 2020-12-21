@@ -94,11 +94,6 @@ public class UserPayController {
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		pointVo.setUserId(userVo.getUserId());
 		
-		try {
-			lidxIds = lessonIndexService.selectLidxId(userVo.getUserId());
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		
 		
 		
@@ -122,6 +117,10 @@ public class UserPayController {
 					userPayService.insertPay(payVo.getPayList().get(i));
 					userPayService.deleteCart(cartVo);
 					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
+					
+					indexTimeVO.setUserId(userVo.getUserId());
+					lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
+					logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
 					
 					for(int j=0; j<lidxIds.size(); j++) {
 						  String lidxId = lidxIds.get(j).getLidxId();
@@ -148,12 +147,12 @@ public class UserPayController {
 				payVo.setPayGroup(payGroup);
 				userPayService.insertPay(payVo);
 				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
-				for(int i=0; i<lidxIds.size(); i++) {
-					  String lidxId = lidxIds.get(i).getLidxId();
-					  indexTimeVO.setLidxId(lidxId);
-					  indexTimeVO.setUserId(userVo.getUserId());
-					  lessonIndexService.insertIndexTime(indexTimeVO);
-				}
+//				for(int i=0; i<lidxIds.size(); i++) {
+//					  String lidxId = lidxIds.get(i).getLidxId();
+//					  indexTimeVO.setLidxId(lidxId);
+//					  indexTimeVO.setUserId(userVo.getUserId());
+//					  lessonIndexService.insertIndexTime(indexTimeVO);
+//				}
 				logger.debug("가져온 lvo : {}",lvo);
 			} catch (Exception e) {
 				e.printStackTrace();
