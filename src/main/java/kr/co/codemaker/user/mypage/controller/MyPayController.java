@@ -8,13 +8,16 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.stringtemplate.v4.compiler.STParser.mapExpr_return;
 
 import com.mysql.fabric.xmlrpc.base.Array;
@@ -24,6 +27,7 @@ import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MyPayService;
 import kr.co.codemaker.user.mypage.vo.MyPayVO;
+import kr.co.codemaker.user.mypage.vo.PointVO;
 
 @Controller
 public class MyPayController {
@@ -60,8 +64,8 @@ public class MyPayController {
 	}
 	
 	
-	@RequestMapping("/mypage/payRefund")
-	public String payRefund(Model model, String payId, HttpSession session, HttpServletRequest request) {
+	@RequestMapping(path="/mypage/payRefund", method=RequestMethod.GET)
+	public String payRefundView(Model model, String payId, HttpSession session, HttpServletRequest request) {
 		
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		String userId = userVo.getUserId();
@@ -83,5 +87,34 @@ public class MyPayController {
 		return "user/mypay/mypay_refund";
 	}
 
+	@ResponseBody
+	@RequestMapping(path="/mypage/payRefund", method=RequestMethod.POST)
+	public String payRefund(String payId, int paySum, HttpSession session, HttpServletRequest request) {
+		
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		String userId = userVo.getUserId();
+
+		int updateCnt = 0;
+
+		try {
+			updateCnt = myPayService.payRefund(payId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		PointVO pointVo = new PointVO();
+		pointVo.setPointUpdate(paySum);
+		pointVo.setUserId(userId);
+
+		int insertCnt = 0;
+		if (updateCnt == 1) {
+			try {
+				insertCnt = myPayService.insertRefund(pointVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return "1";
+	}
 
 }
