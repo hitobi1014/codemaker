@@ -7,6 +7,39 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+<script>
+$(function(){
+	$("#refundBtn").on("click", function(){
+		
+		if($("#checkcheck").is(":checked") == false){
+			alert("약관에 동의해 주세요.");
+			return false;
+		}
+		
+		var payId= $("#payId").text();
+		var paySum = $("#paySum").text();
+		
+
+			$.ajax({
+				url : "/mypage/payRefund",
+				type : "post",
+				dataType : "json",
+				data : { payId : payId, paySum : paySum},
+				success : function(res) {
+					if(res=="1"){
+						alert("환불이 완료되었습니다.");
+						// 부모창 리로드
+						opener.location.reload();
+						window.close();
+					}		
+				}
+			}); //
+		})
+
+});
+
+</script>
 <style>
 .paycontainer{
 	background-color: white;
@@ -26,13 +59,23 @@ p {
 .listbox{
 	background-color: #e1e4e833;
     border: 1px solid #cbcdd2;
-    height: 500px;
+    height: 513px;
     margin: 28px 15px 0px 15px;
 }
-.title{
-	background-color: #232356;
+.title {
 	text-align: center;
-	color: white;
+    display: inline-block;
+    background-color: #1a346b;
+    color: white;
+    width: 130px;
+    height: 28px;
+    margin: 12px 0px 1px 32px;
+}
+.refundCheck {
+    margin: 20px 0px 18px 22px;
+}
+input#refundBtn {
+    margin: 1px 0 11px 351px;
 }
 </style>
 <body>
@@ -41,31 +84,38 @@ p {
 	<p>강의 환불</p>
 	</div>
 	<div class="listbox">
-	
 	<table>
 		<tbody id="mypayVo">
 				<tr>
-					<td class="title">결제ID</td>
-					<td>${mypayVo.payId }</td>
+					<td><span class="title">결제ID</span></td>
+					<td><span id="payId">${mypayVo.payId }</span></td>
 				</tr>
 				<tr>
-					<td class="title">강의명</td>
-					<td>${mypayVo.lesNm }</td>
+					<td><span class="title">강의명</span></td>
+					<td>${mypayVo.lesNm}</td>
 				</tr>
 				<tr>
-					<td class="title">결제일</td>
+					<td><span class="title">결제일</span></td>
 					<td><fmt:formatNumber value="${mypayVo.paySum }"></fmt:formatNumber></td>
 				</tr>
 				<tr>
-					<td class="title">결제방식</td>
+					<td><span class="title">결제방식</span></td>
 					<td>${mypayVo.payWay }</td>
 				</tr>
 				<tr>
-					<td class="title">결제금액</td>
-					<td>${mypayVo.paySum }</td>
+						<td><span class="title">결제금액</span></td>
+					<td><span id="paySum">${mypayVo.paySum }</span></td>
 				</tr>
 		</tbody>
 	</table>
+		<div class="refundCheck">
+			<input type="checkbox" name="checkcheck" id="checkcheck">&nbsp;<b>약관동의</b><br>
+			<span><b>환불 안내</b></span><br>
+			<span>CODEMAKER의 모든 강의는 환불 시 포인트 적립으로 환불됩니다.</span><br>
+			<span>강의 결제 후 수강진행을 시작한 강의는 환불할 수 없습니다.</span><br>
+			<span>강의 결제 후 수강진행을 시작하지 않은 강의는 위약금 없이 100% 환불 가능합니다.</span>
+		</div>
+			<input type="button" id="refundBtn" value="환불">
 	</div>
 </div>
 

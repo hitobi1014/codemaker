@@ -52,6 +52,7 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<c:url value="/user/cartView" var="cartView"/>
 				<a class="collapse-item" href="${cartView}">◾ 장바구니</a> 
+				<a class="collapse-item" href="/mypage/selectAllMyPay">◾ 결제내역</a> 
 			</div>
 		</div>
 	</a></li>
