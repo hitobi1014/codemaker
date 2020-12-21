@@ -65,7 +65,7 @@ public class TeacherSignUpController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/login";
+		return "redirect:/loginView";
 	}
 	
 	@RequestMapping(path="teacher/chkResCode", method=RequestMethod.GET)

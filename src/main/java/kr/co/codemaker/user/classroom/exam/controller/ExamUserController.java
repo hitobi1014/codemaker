@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamResultUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamScoreUserService;
@@ -63,7 +64,7 @@ public class ExamUserController {
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
-//		String userId = (String)session.getAttribute("");
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
 		String userId = "b001@naver.com";
 		examVO.setUserId(userId);
@@ -133,7 +134,7 @@ public class ExamUserController {
 	@RequestMapping(path = "/examUser/insertExamResult")
 	public void insertExamResult(ExamVO examVO, HttpSession session) {
 		
-//		String userId = (String)session.getAttribute("");
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		String userId = "b001@naver.com";
 		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
@@ -206,36 +207,5 @@ public class ExamUserController {
 		return "mypageT/user/exam/examUserUpdate";
 	}
 	
-//	
-//	
-//	/**
-//	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String selectAllExamScore(ExamScoreVO examScoreVO, Model model, HttpSession session) {
-////		String userId = (String)session.getAttribute("");
-//		
-//		String userId = "b001@naver.com";
-//		examScoreVO.setUserId(userId);
-//		
-//		List<ExamScoreVO> examScoreList = new ArrayList<>();
-//		
-//		try {
-////			examScoreList = examScoreUserService.selectAllExamScore(examScoreVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		model.addAttribute("examScoreList", examScoreList);
-//		
-//		return "";
-//	}
-//	
-
-
 
 }

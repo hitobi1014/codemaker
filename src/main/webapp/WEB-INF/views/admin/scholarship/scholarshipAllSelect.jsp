@@ -123,6 +123,7 @@ $(function(){
 			var str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
 			str += '<input type="hidden" name="searchGn" value="1">';
 			str += '<input type="hidden" name="curGn" value="6">';
+			str += '<input type="hidden" name="totalPay" value="' + $(this).text() + '">';
 			$('#schof').append(str);
 			
 			$('#schof').attr('action', '/scholarship/selectTotalPayScholarship');

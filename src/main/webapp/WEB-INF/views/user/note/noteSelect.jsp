@@ -6,25 +6,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
 
-
-<style>
-#pt{
-	font-size: 25px;
-}
-.nfn{
-	color: #32325d;
-}
-#noteTitle{
-	width: 820px;
-}
-#nt{
-	font-size: 18px;
-}
-#d1{
-	text-align: right;
-	width: 820px;
-}
-</style>
+<!-- 노트css -->
+<link href="/css/user/mypage/mypage-note-select.css" rel="stylesheet"/>
 <script>
 	$(document).ready(function() {
 		// 써머노트 사용
@@ -57,25 +40,25 @@
 			document.location = "/note/selectPageNote";
 		});
 	});
-	
-	
 </script>
-<div class="container" role="main">
-	<p class="mb-0 nfn" id="pt"><strong>필기 노트</strong></p>
-	<br>
-	<form name="form" id="form" role="form">
-		<label for="title" class="nfn" id="nt"><strong>필기 제목</strong></label>
-		<div class="mb-3">
-			<input type="text" id="noteTitle" class="form-control" name="noteTitle" value="${noteVO.noteTitle }" readonly="readonly">
+<div class="note-select-box shadow" role="main">
+	<div class="note-select-item">
+		<p class="mb-0 nfn" id="pt"><strong>필기 노트</strong></p>
+		<div class="divider"></div>
+		<form name="form" id="form" role="form">
+			<label for="title" class="nfn" id="nt"><strong>필기 제목</strong></label>
+			<div class="mb-3">
+				<input type="text" id="noteTitle" class="form-control" name="noteTitle" value="${noteVO.noteTitle }" readonly="readonly">
+			</div>
+			<div class="mb-3">
+				<textarea class="form-control" id="summernote" name="noteCont" readonly="readonly"></textarea>
+			</div>
+		</form>
+		<div id="d1">
+			<button type="button" class="btn btn-sm btn-primary" id="updateBtn">수정</button>
+			<button type="button" class="btn btn-sm btn-primary" id="delBtn">삭제</button>
+			<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 		</div>
-		<div class="mb-3">
-			<textarea class="form-control" id="summernote" name="noteCont" readonly="readonly"></textarea>
-		</div>
-	</form>
-	<div id="d1">
-		<button type="button" class="btn btn-sm btn-primary" id="updateBtn">수정</button>
-		<button type="button" class="btn btn-sm btn-primary" id="delBtn">삭제</button>
-		<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 	</div>
 </div>
 

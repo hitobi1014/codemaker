@@ -16,11 +16,14 @@ $(function(){
 	
 });
 </script>
-
+<style>
+.user-header{
+	margin-right: 49px !important;
+}
+</style>
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background: #005F86">
-
 	<!-- Sidebar Toggle (Topbar) -->
 	<button id="sidebarToggleTop"
 		class="btn btn-link d-md-none rounded-circle mr-3">
@@ -37,8 +40,7 @@ $(function(){
 	</form>
 
 	<!-- Topbar Navbar -->
-	<ul class="navbar-nav ml-auto">
-
+	<ul class="navbar-nav ml-auto user-header">
 		<!-- 로그인시에 떠야할 Nav Item - Alerts -->
 			<li class="nav-item dropdown no-arrow mx-1">
 				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,19 +109,11 @@ $(function(){
 					</a>
 					<div class="dropdown-divider">
 				</div>
-					<a class="dropdown-item" href="${cp}/user/logout" data-toggle="modal" data-target="#logoutModal">
-						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout
+					<c:url value="/user/logout" var="logout"></c:url>
+					<a class="dropdown-item" href="${logout}">
+						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>로그아웃
 					</a>
 				</div>
-			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&emsp;&emsp;&emsp;&emsp;&emsp; </a>
-			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-			</li>
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="space" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 			</li>
 		</ul>
 	</nav>
