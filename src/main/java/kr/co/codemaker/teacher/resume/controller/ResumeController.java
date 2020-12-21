@@ -2,10 +2,13 @@ package kr.co.codemaker.teacher.resume.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +67,21 @@ public class ResumeController {
 		return "mainT/teacher/resume/resumeInsert";
 	}
 	
-	
+	// 메인 강사 이미지 처리
+	@RequestMapping(path="/teacher/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
+	}	
 
 	@RequestMapping(path="success")
 	public String success() {

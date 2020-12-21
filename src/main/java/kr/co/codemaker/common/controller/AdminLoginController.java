@@ -1,11 +1,7 @@
 package kr.co.codemaker.common.controller;
 
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.LoginService;
@@ -36,8 +34,8 @@ public class AdminLoginController {
 	
 	// 관리자 로그인
 	@RequestMapping(path="/admin/login", method=RequestMethod.POST)
-	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request,
-								HttpSession session) throws Exception{
+	@ResponseBody
+	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request, HttpSession session, Model model) throws Exception{
 		AdminVO adminVO = null;
 		try {
 			adminVO = loginService.getAdmin(dbAdminVO.getAdminId());
@@ -49,10 +47,9 @@ public class AdminLoginController {
 		
 		if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
 			session.setAttribute("S_ADMIN", adminVO);
-			
-			return "adminPage/admin/main/adminMain";
+			return "Y";
 		}
-		return "redirect:/loginView?=";
+		return "N";
 	}
 	
 	// 로그아웃
@@ -65,6 +62,7 @@ public class AdminLoginController {
 	
 	
 	@RequestMapping(path="/teacher/login", method=RequestMethod.POST)
+	@ResponseBody
 	public String getTeacher(TeacherVO dbTeacherVO, HttpServletResponse response,
 								HttpSession session) throws Exception{
 		TeacherVO teacherVO = null;
@@ -79,9 +77,26 @@ public class AdminLoginController {
 		if(teacherVO != null && dbTeacherVO.getTchPass().equals(teacherVO.getTchPass())) {
 			session.setAttribute("S_TEACHER", teacherVO);
 			
-			return "teacherPage/teacher/main/teacherMain";
+			return "Y";
 		}
-		return "redirect:/loginView?=";
+		return "N";
+	}
+	
+	@ResponseBody
+	@RequestMapping(path="/login/VerifyRecaptcha", method=RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+		VerifyRecaptcha.setSecretKey("6Le8jQgaAAAAAMiEzVgjpuUPkZgyxJJP-tkUCEO7");
+		String gRecaptchaResponse = request.getParameter("recaptcha");
+		try {
+			if(VerifyRecaptcha.verify(gRecaptchaResponse)) {
+				return 0; // 성공
+			}
+			else return 1; // 실패
+		} catch (Exception e) {
+			logger.debug("리캡챠!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", gRecaptchaResponse);
+			e.printStackTrace();
+			return -1; //에러
+		}
 	}
 	
 	@RequestMapping(path="/admin/main")
@@ -92,22 +107,6 @@ public class AdminLoginController {
 	public String teacherMain() {
 		
 		return "teacherPage/teacher/main/teacherMain";
-	}
-	
-	// 메인 강사 이미지 처리
-	@RequestMapping(path="/teacher/teacherImg")
-	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
-		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
-		response.setContentType("image");
-		FileInputStream fis = new FileInputStream(tchProfile);
-		ServletOutputStream sos = response.getOutputStream();
-		byte[] buffer = new byte[512];
-		while(fis.read(buffer) != -1) {
-			sos.write(buffer);
-		}
-		fis.close();
-		sos.flush();
-		sos.close();
 	}
 	
 }

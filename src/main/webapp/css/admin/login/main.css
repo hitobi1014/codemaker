@@ -1,15 +1,11 @@
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 @font-face {
-	font-family: Ubuntu-Regular;
-	src: url('../fonts/ubuntu/Ubuntu-Regular.ttf');
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 300;
+	src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
-
-@font-face {
-	font-family: Ubuntu-Bold;
-	src: url('../fonts/ubuntu/Ubuntu-Bold.ttf');
-}
-
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 * {
@@ -20,13 +16,13 @@
 
 body, html {
 	height: 100%;
-	font-family: Ubuntu-Regular, sans-serif;
+	font-family: 'LotteMartDream';
 	background: #212a39;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Ubuntu-Regular;
+	font-family: 'LotteMartDream';
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -52,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-	font-family: Ubuntu-Regular;
+	font-family: 'LotteMartDream';
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -134,7 +130,7 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-	font-family: Ubuntu-Regular;
+	font-family: 'LotteMartDream';
 	font-size: 16px;
 	color: #003B5C;
 	line-height: 1.4;
@@ -179,7 +175,7 @@ iframe {
 }
 
 .login100-form-title {
-	font-family: Ubuntu-Bold;
+	font-family: 'LotteMartDream';
 	font-size: 30px;
 	color: #1D252D;
 	line-height: 1.2;
@@ -202,7 +198,7 @@ iframe {
 
 /*---------------------------------------------*/
 .input100 {
-	font-family: Ubuntu-Bold;
+	font-family: 'LotteMartDream';
 	color: #444444;
 	line-height: 1.2;
 	font-size: 18px;
@@ -264,7 +260,7 @@ iframe {
 }
 
 .label-checkbox100 {
-	font-family: Ubuntu-Regular;
+	font-family: 'LotteMartDream';
 	font-size: 16px;
 	color: #999999;
 	line-height: 1.2;
@@ -276,7 +272,7 @@ iframe {
 
 .label-checkbox100::before {
 	content: "\f00c";
-	font-family: FontAwesome;
+	font-family: 'LotteMartDream';
 	font-size: 13px;
 	color: transparent;
 	display: -webkit-box;
@@ -319,7 +315,7 @@ iframe {
 }
 
 .login100-form-btn {
-	font-family: Ubuntu-Bold;
+	font-family: 'LotteMartDream';
 	font-size: 16px;
 	color: #fff;
 	line-height: 1.2;
@@ -369,7 +365,7 @@ iframe {
 	transform: translateY(-50%);
 	right: 12px;
 	pointer-events: none;
-	font-family: Ubuntu-Regular;
+	font-family: 'LotteMartDream';
 	color: #c80000;
 	font-size: 14px;
 	line-height: 1.4;
@@ -384,7 +380,7 @@ iframe {
 
 .alert-validate::after {
 	content: "\f12a";
-	font-family: FontAwesome;
+	font-family: 'LotteMartDream';
 	display: block;
 	position: absolute;
 	color: #c80000;
