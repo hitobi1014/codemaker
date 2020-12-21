@@ -18,7 +18,7 @@ import kr.co.codemaker.common.vo.BaseVO;
 public class AnswersheetVO extends BaseVO {
 	
 	private String ansId;		// 보기 아이디
-	private String ansCont;	// 보기 내용
+	private String ansCont;		// 보기 내용
 	private String queId;		// 시험문제 아이디
 	
 	public AnswersheetVO() {

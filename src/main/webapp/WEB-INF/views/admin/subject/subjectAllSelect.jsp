@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,10 +11,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-.card{
-	width: 1000px;
-    margin-left: 40px;
-    border-style: none;
+.card {
+    width: 92%;
+    min-height: 700px;
+    height: auto;
+    margin: 0 auto;
+    border: none;
 }
 #subTable{
 /* 	margin-left: 100px; */
@@ -58,16 +57,17 @@ td{
     vertical-align: middle;
     padding-left: 100px;
 }
+h2{
+	font-family: 'LotteMartDream';
+}
 
 </style>
 
-</head>
 
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin:50px;">
 			<div class="card">
-				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢 과목조회</h2>
 				<div id="addLesId">
 				</div>

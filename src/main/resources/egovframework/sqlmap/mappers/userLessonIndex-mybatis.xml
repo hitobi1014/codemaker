@@ -2,13 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.user.lessoninfo.dao.LessonIndexMapper">
 
-	<select id="selectLessonIndex" parameterType="String" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
-	SELECT * 
-	  FROM lesson_index
-	  <where>
-	  	and les_id = #{lesId}
-	  </where>
-	    ORDER BY lidx_num ASC
-
+	<select id="selectLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
+SELECT a.*, b.lidx_curtime
+    FROM lesson_index a, index_time b
+    where a.les_id = #{lesId}
+    and a.lidx_id = b.lidx_id
+    ORDER BY lidx_num ASC
 </select>
+	
+	<update id="updateLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
+		UPDATE lesson_index
+   		SET LIDX_CURTIME = #{lidxCurtime}
+   		<where>
+	   		AND LIDX_ID=#{lidxId}
+   		</where>
+	</update>
+	
 </mapper>

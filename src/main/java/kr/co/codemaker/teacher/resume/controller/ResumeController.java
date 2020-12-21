@@ -2,10 +2,13 @@ package kr.co.codemaker.teacher.resume.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +31,7 @@ public class ResumeController {
 	@RequestMapping(path="/resume/view", method = RequestMethod.GET)
 	public String resumeView() {
 		
-		return "mainT/teacher/resume/test";
+		return "mainT/teacher/resume/resumeInsert";
 	}
 	
 	@RequestMapping(path="/resume/insert", method = RequestMethod.POST)
@@ -37,7 +40,7 @@ public class ResumeController {
 		String fileName = UUID.randomUUID().toString();
 		logger.debug("fileName 안에 들은게 뭐냐~~~~~~~~~~~ : {}", fileName);
 		
-		File fileUpload = new File("d:\\file\\" + file.getOriginalFilename());
+		File fileUpload = new File("d:/file/" + file.getOriginalFilename());
 		if(file.getSize() > 0) {
 			try {
 				file.transferTo(fileUpload);
@@ -46,7 +49,7 @@ public class ResumeController {
 			}
 		}
 		
-		resumeVO.setResProfile_path("d:\\file\\" + file.getOriginalFilename());
+		resumeVO.setResProfile_path("d:/file/" + file.getOriginalFilename());
 		
 		int insertCnt = 0;
 		
@@ -61,10 +64,24 @@ public class ResumeController {
 		} catch (Exception e) {
 			
 		}
-		return "mainT/teacher/resume/test";
+		return "mainT/teacher/resume/resumeInsert";
 	}
 	
-	
+	// 메인 강사 이미지 처리
+	@RequestMapping(path="/teacher/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
+	}	
 
 	@RequestMapping(path="success")
 	public String success() {

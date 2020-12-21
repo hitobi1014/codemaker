@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
@@ -60,7 +61,7 @@
 										<div class="sub-menu">
 										
 											<li >
-												<a href="#">이력서 조회</a>
+												<a href="${cp }/admin/resumeList">이력서 조회</a>
 											</li>
 										    
 										</div>
@@ -75,10 +76,13 @@
 										<span class="nav-text">기업 관리</span> <b class="caret"></b>
 									</a>
 									<ul  class="collapse"  id="forms">
+									<c:url value="/admin/company" var="company"/>
 										<div class="sub-menu">
-										
-											<li >
-											  <a href="${cp}/admin/selectAllJobInfo">기업 정보 조회</a>
+											<li>
+											  <a href="${company}/selectAllCompany">기업 정보</a>
+											</li>
+											<li>
+											  <a href="${cp}/admin/selectAllJobInfo">취업 공고</a>
 											</li>
 										
 										</div>
@@ -129,18 +133,13 @@
 									매출 조회
 								</li>
 								<li >
-									<a class="sidenav-item-link" href="#">
+									<a class="sidenav-item-link" href="${cp}/admin/selectLessonPay">
 										<span class="nav-text">강의별 조회</span>
 									</a>
 								</li>
 								<li >
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사별 조회</span>
-									</a>
-								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
-										<span class="nav-text">기간별 조회</span>
 									</a>
 								</li>
 								<li >
@@ -163,38 +162,35 @@
 								<li class="section-title">
 									수강 관리 조회
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">수강후기 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">학생 조회</span>
 									</a>
 								</li>
-								<li >
+								<li>
 									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">교사 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="#">
+								<li>
+									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubject">
 										<span class="nav-text">과목 조회</span>
 									</a>
 								</li>
-								<li >
-									<a class="sidenav-item-link" href="${cp}/admin/selectAllSubjcet">
+								<li>
+									<a class="sidenav-item-link" href="#">
 										<span class="nav-text">강의 조회</span>
 									</a>
 								</li>
 							</div>
 						</ul>
 					</li>
-				
-				
 				</ul>
-			
 			</div>
 		</div>
 	</aside>

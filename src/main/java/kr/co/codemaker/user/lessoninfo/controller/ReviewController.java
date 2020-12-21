@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.lessoninfo.service.ReviewService;
+import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewStarVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
@@ -38,8 +39,6 @@ public class ReviewController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.debug("reviewList");
-		
 		
 		//수강후기 별점 평균
 		float reviewAvg=0;
@@ -49,7 +48,6 @@ public class ReviewController {
 			e.printStackTrace();
 		}
 		
-		
 		//수강후기 별점 갯수
 		ReviewStarVO reviewStarVo = new ReviewStarVO();
 		try {
@@ -57,8 +55,6 @@ public class ReviewController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		logger.debug("reviewStarVo : {} " , reviewStarVo);
 		
 		
 		model.addAttribute("reviewList", reviewList);
@@ -69,39 +65,51 @@ public class ReviewController {
 		return "mainT/user/lesson/selectReview";
 	}
 	
-	
 
+	@ResponseBody
 	@RequestMapping("/user/insertReview")
 	public String insertReview(Model model , ReviewVO reviewVo, String lesId, HttpSession session, HttpServletRequest request) {
 		
-		
-		session = request.getSession();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		
 		String reviewUser = userVo.getUserId();
 		String userId = reviewUser;
 		 
 		reviewVo.setUserId(reviewUser);
-		logger.debug("reviewVo!! : {} ", reviewVo);
 		
-		int insertCnt=0;
-
-		try {
-			insertCnt = reviewService.insertReview(reviewVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		PayVO payVo = new PayVO();
+		payVo.setLesId(lesId);
+		payVo.setUserId(userId);
+		
 		
 		model.addAttribute("reviewVo", reviewVo);
 		
-		return "redirect:/user/selectReview?lesId="+lesId;
+		String checkPayId="";
+		try {
+			checkPayId = reviewService.checkPayId(payVo);
+			logger.debug("checkPayId:{}",checkPayId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
+		int insertCnt=0;
+		
+		if(checkPayId!=null) {
+			try {
+				insertCnt = reviewService.insertReview(reviewVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "1";
+		}else {
+			return "0";
+		}
 	}
+	
 	
 	@RequestMapping("/user/deleteReview")
 	public String deleteReview(ReviewVO reviewVo, String lesId) {
 
-	
 		String reviewId =reviewVo.getReviewId();
 
 		int deleteCnt = 0;

@@ -115,19 +115,9 @@ public class ExamService {
 	 * @param examVO
 	 * @return
 	 */
-	public String insertExam(ExamVO examVO) {
-		try {
-			return examMapper.insertExam(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public int insertExam(ExamVO examVO) throws Exception {
+		return examMapper.insertExam(examVO);
 	}
-	
-
-
-	
-
 	
 	/**
 	 * 시험을 삭제하는 메서드
@@ -136,40 +126,9 @@ public class ExamService {
 	 * @param examVO
 	 * @return
 	 */
-	public int deleteExam(ExamVO examVO) {
-
-		List<QuestionVO> questionList = new ArrayList<>();
-		try {
-			questionList = questionMapper.selectQuestion(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// 시험문제 보기 삭제
-		for (QuestionVO questionVO : questionList) {
-			for (int i = 0; i < 4; i++) {
-				try {
-					answersheetMapper.deleteAnswersheet(questionVO);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		// 시험 문제 삭제
-		try {
-			questionMapper.deleteQuestion(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		try {
-			// 시험 삭제
-			return examMapper.deleteExam(examVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
+	public int deleteExam(ExamVO examVO)  throws Exception {
+		// 시험 삭제
+		return examMapper.deleteExam(examVO);
 	}
 
 }

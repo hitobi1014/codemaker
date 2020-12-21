@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.codemaker.admin.course.lesson.dao.AdminLessonMapper;
+import kr.co.codemaker.admin.course.lesson.vo.ExamVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonVO;
 import kr.co.codemaker.admin.course.lesson.vo.SubjectVO;
@@ -37,8 +38,8 @@ public class AdminLessonService {
 	 * @author 김미연
 	 * @return
 	 */
-	public List<LessonVO> selectAgreeCnt() throws Exception{
-		return adminLessonMapper.selectAgreeCnt();
+	public List<LessonVO> selectAgreeCnt(LessonVO lessonVO) throws Exception{
+		return adminLessonMapper.selectAgreeCnt(lessonVO);
 	}
 	
 	/**
@@ -81,6 +82,17 @@ public class AdminLessonService {
 	 */
 	public int updateLesson(LessonVO lessonVO) throws Exception{
 		return adminLessonMapper.updateLesson(lessonVO);
+	}
+
+	/**
+	 * 해당 시험의 상태를 변경하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 */
+	public int updateExam(ExamVO examVO) throws Exception {
+		return adminLessonMapper.updateExam(examVO);
+		
 	}
 
 

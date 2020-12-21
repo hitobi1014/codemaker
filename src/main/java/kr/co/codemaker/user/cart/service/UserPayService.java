@@ -10,6 +10,7 @@ import kr.co.codemaker.user.cart.dao.UserPayMapper;
 import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
+import kr.co.codemaker.user.cart.vo.PointVO;
 
 /**
 * UserPayService.java
@@ -51,5 +52,13 @@ public class UserPayService {
 	
 	public int deleteCart(CartVO cartVo) throws Exception {
 		return userPayMapper.deleteCart(cartVo);
+	}
+	
+	public PointVO selectPoint(PointVO pointVo) throws Exception{
+		return userPayMapper.selectPoint(pointVo);
+	}
+	
+	public int usePoint(PointVO pointVo) throws Exception{
+		return userPayMapper.usePoint(pointVo);
 	}
 }

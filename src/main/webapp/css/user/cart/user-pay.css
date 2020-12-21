@@ -199,7 +199,7 @@ h3{
     text-decoration: none;
     background-color: transparent;
 }
-#payListBtn{
+#payListBtn, #payBtn{
 	border: 2px solid rgb(0,95,134);
     position: relative !important;
     display: inline-block;
@@ -212,11 +212,11 @@ h3{
     margin-top: 3em;
     width: 100%;
 }
-#payListBtn:enabled:hover{
+#payListBtn:enabled:hover, #payBtn:enabled:hover{
 	background-color: rgb(0,95,134);
     color: white;
 }
-#payListBtn:disabled{
+#payListBtn:disabled,#payBtn:disabled{
     border-color: #80808094;
     color: #808080c2;
     opacity: .65;
@@ -239,6 +239,7 @@ input[name='usePoint']{
     text-align: right;
     border-bottom: 1px solid #80808063;
     padding-right: 15px;
+    white-space: pre-line;
 }
 .point-div{
 	margin-bottom: 1em;

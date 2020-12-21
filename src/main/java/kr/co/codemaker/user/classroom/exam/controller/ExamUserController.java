@@ -2,7 +2,6 @@ package kr.co.codemaker.user.classroom.exam.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -10,12 +9,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
+import kr.co.codemaker.user.classroom.exam.service.ExamResultUserService;
+import kr.co.codemaker.user.classroom.exam.service.ExamScoreUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
 import kr.co.codemaker.user.classroom.exam.service.QuestionUserService;
 import kr.co.codemaker.user.classroom.exam.vo.AnswersheetVO;
-import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
@@ -46,148 +48,164 @@ public class ExamUserController {
 	@Resource(name = "answersheetUserService")
 	private AnswersheetUserService answersheetUserService;
 	
-//	@Resource(name = "curriculumService")
-//	private CurriculumServiceI curriculumService;
+	@Resource(name = "examScoreUserService")
+	private ExamScoreUserService examScoreUserService;
+	
+	@Resource(name = "examResultUserService")
+	private ExamResultUserService examResultUserService;
 	
 	/**
 	 * 시험문제를 전체 조회하는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/examUser/selectAllResExam")
-	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
-		
-		Map<String, Object> examMap = examUserService.selectAllExam(examRequestVo);
-		
-		model.addAttribute("examList", (List<ExamVO>)examMap.get("examList"));      
-		
-		int totalCnt = (int)examMap.get("totalCnt");
-		
-//		int pages = (int) Math.ceil((double) totalCnt / examRequestVo.getPageSize());
-		int pages = (int) Math.ceil((double) totalCnt / 5);
-
-		model.addAttribute("pages", pages);
-		model.addAttribute("startPage", 1);
-		model.addAttribute("endPage", pages);
-		model.addAttribute("page", examRequestVo.getPage());
-		
-		session.setAttribute("exam_state", examRequestVo.getExamState()); // 검색 조건
-		
-		return "teacher/exam/examAllSelectAjaxHTML";
-	}
-	
-	/**
-	 * 등록한 시험문제를 전체 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
-	public String selectAllTestExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
+	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
-		return "teacher/exam/examAllSelect";
+		String userId = "b001@naver.com";
+		examVO.setUserId(userId);
+		
+		List<ExamVO> examList = new ArrayList<>();
+		int totalCnt = 0;
+		
+		try {
+			examList = examUserService.selectAllExam(examVO);
+			totalCnt = examUserService.selectTotalCntExam(examVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int pages = (int) Math.ceil((double) totalCnt / 1);
+		
+		model.addAttribute("examList", examList);      
+		model.addAttribute("pages", pages);
+		
+		return "mypageT/user/exam/examUserAllSelect";
 	}
 	
 	/**
-	 * 시험문제를 상세 조회하는 메서드
+	 * 시험문제 화면을 요청하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @param model
 	 * @return
 	 */
-	@RequestMapping(path = "/examUser/selectExam")
-	public String selectExam(ExamVO examVo, Model model) {
-		ExamVO ev = examUserService.selectExam(examVo);
-		model.addAttribute("examVo", ev);
+	@RequestMapping(path = "/examUser/selectViewExam")
+	public String selectViewExam(ExamVO examVO, Model model) {
+		ExamVO ev = new ExamVO();
+		List<QuestionVO> questionList = new ArrayList<>();
+		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
-		List<QuestionVO> questionList = questionUserService.selectQuestion(examVo);
-		model.addAttribute("questionList", questionList);
-		
-		List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
-		
-		for(QuestionVO questionVo : questionList) {
-			List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVo);
-			
-			for(AnswersheetVO answersheetVo : answersheetList) {
-				answersheetLists.add(answersheetVo);
+		try {
+			ev = examUserService.selectExam(examVO);
+			questionList = questionUserService.selectQuestion(examVO);
+			for (QuestionVO questionVO : questionList) {
+				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
+				
+				for (AnswersheetVO answersheetVO : answersheetList) {
+					answersheetLists.add(answersheetVO);
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		model.addAttribute("ev", ev);
+		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "teacher/exam/examSelect";
+		return "/user/exam/examUserSelect";
 	}
 	
 	/**
-	 * 시험점수를 가져오는 메서드
+	 * 시험점수와 시험결과를 등록하는 메서드 - 처음 시험을 풀때만
+	 * 
+	 * @author 김미연
+	 * @param examScoreVO
+	 * @param session
 	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(path = "/examUser/insertExamResult")
+	public void insertExamResult(ExamVO examVO, HttpSession session) {
+		
+//		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		String userId = "b001@naver.com";
+		
+		ExamScoreVO examScoreVO = new ExamScoreVO();
+		examScoreVO.setExamId(examVO.getExamId());
+		examScoreVO.setEsFscore(examVO.getEsFscore());
+		examScoreVO.setEsLscore(examVO.getEsLscore());
+		examScoreVO.setUserId(userId);
+		
+		try {
+			if(examVO.getSearchEsScore().equals("0")) {
+				examScoreUserService.insertExamScore(examScoreVO);
+				for(int i=0; i < examVO.getQueIdList().size(); i++) {
+					ExamResultVO examResultVO = new ExamResultVO();
+					examResultVO.setQueId(examVO.getQueIdList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
+					examResultVO.setErCheck(examVO.getErCheckList().get(i));
+					examResultVO.setUserId(userId);
+					examResultVO.setExamId(examVO.getExamId());
+					
+					examResultUserService.insertExamResult(examResultVO);
+				}
+			}else {
+				examScoreUserService.updateExamScore(examScoreVO);
+				for(int i=0; i < examVO.getQueIdList().size(); i++) {
+					ExamResultVO examResultVO = new ExamResultVO();
+					examResultVO.setQueId(examVO.getQueIdList().get(i));
+					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
+					examResultVO.setErCheck(examVO.getErCheckList().get(i));
+					
+					examResultUserService.updateExamResult(examResultVO);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 회원의 성적 1개를 조회하는 메서드 - 상세조회 : 점수조회 + 문제조회
+	 * 
+	 * @author 김미연
+	 * @param examScoreVO
+	 * @return
+	 * @throws Exception
 	 */
 	@RequestMapping(path = "/examUser/selectExamScore")
-	public String selectExamScore(ExamScoreVO examScoreVo, Model model) {
-		ExamScoreVO esv = examUserService.selectExamScore(examScoreVo);
+	public String selectExamScore(ExamVO examVO, Model model) {
+		ExamScoreVO examScoreVO = new ExamScoreVO();
+		List<ExamResultVO> examResultList = new ArrayList<>();
+		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
-		model.addAttribute("examScoreVo", esv);
-		
-		return "user/exam/examScroeSelect";
-		
-	}
-	
-	/**
-	 * 시험결과를 가져오는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/examUser/selectExamResult")
-	public String selectExamResult(ExamVO examVo, Model model) {
-		
-		List<ExamResultVO> examResultList = examUserService.selectExamResult(examVo); 
-		
-		model.addAttribute("examResultList", examResultList);
-		
-		return "";
-		
-	}
-	
-	/**
-	 * 시험점수와 시험결과를 등록하는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/examUser/insertExamResult")
-	public String insertExamResult(ExamScoreVO examScoreVo, List<ExamResultVO> examResultList, HttpSession session) {
-		
-//		String userId = (String)session.getAttribute("");
-		String userId = "";
-		
-		ExamVO examVo = new ExamVO(examScoreVo.getExamId());
-		examScoreVo.setUserId(userId);
-		
-		List<QuestionVO> questionList = questionUserService.selectQuestion(examVo);
-		
-		ExamScoreVO esv = examUserService.selectExamScore(examScoreVo);
-		
-		int score = 0;
-		
-		for(int i=0; i < questionList.size(); i++) {
-			// 정답일 경우
-			if(questionList.get(i).getQueAnswer().equals(examResultList.get(i).getErAnswer())) {
-				examResultList.get(i).setErCheck("Y");
-				score += questionList.get(i).getQueScore();
-			}else {	// 오답일 경우
-				examResultList.get(i).setErCheck("N");
+		try {
+			examScoreVO = examScoreUserService.selectExamScore(examVO);
+			examResultList = examResultUserService.selectAllExamResult(examVO);
+			for (QuestionVO questionVO : examResultList) {
+				List<AnswersheetVO> answersheetList = answersheetUserService.selectAnswersheet(questionVO);
+				
+				for (AnswersheetVO answersheetVO : answersheetList) {
+					answersheetLists.add(answersheetVO);
+				}
 			}
-			examResultList.get(i).setUserId(userId);
-			examResultList.get(i).setExamId(examScoreVo.getExamId());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		model.addAttribute("examScoreVO", examScoreVO);
+		model.addAttribute("examResultList", examResultList);
+		model.addAttribute("answersheetLists", answersheetLists);
 		
-		// 문제 수 만큼 등록
-		for(ExamResultVO examResultVo : examResultList) {
-			questionUserService.intsertExamResult(examResultVo);
-		}
-		
-		// 처음 풀 경우
-		if(esv.getEsFscore() == 0) {
-			examScoreVo.setEsFscore(score);
-			examUserService.insertExamScore(examScoreVo);
-			
-		}else { // 다시 풀 경우
-			examScoreVo.setEsLscore(score);
-			examUserService.updateExamScore(examScoreVo);
-		}
-		
-		return "";
-		
+		return "mypageT/user/exam/examUserUpdate";
 	}
+	
 
 }

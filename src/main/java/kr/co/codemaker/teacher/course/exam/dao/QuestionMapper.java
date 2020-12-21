@@ -29,7 +29,7 @@ public interface QuestionMapper {
 	 * @param questionVO
 	 * @return 
 	 */
-	public String insertQuestion(QuestionVO questionVO) throws Exception;
+	public int insertQuestion(QuestionVO questionVO) throws Exception;
 	
 	/**
 	 * 시험문제를 수정하는 메서드
@@ -51,9 +51,9 @@ public interface QuestionMapper {
 	 * 시험문제를 삭제하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examVo
+	 * @param questionVO
 	 * @return 
 	 */
-	public int deleteQuestion(ExamVO examVo) throws Exception;
+	public int deleteQuestion(QuestionVO questionVO) throws Exception;
 	
 }

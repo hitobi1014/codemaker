@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -110,29 +109,34 @@ $(function(){
 	$('#addLesBtn').on('click', function() {
 		console.log('눌림');
 		
-		
 		str="";
 		str +='<div class="pl-lg-4" id="pl-lg-4-id">';
-        str +='<div class="row">	';
-        str +='  <div class="col-lg-2">';
-        str +='    <div class="form-group">';
-        str +='      <label class="form-control-label">강의 차수</label>';
-        str +='        <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
-        str +='    </div>';
-        str +='  </div>';
-        str +='  <div class="col-lg-7">';
-        str +='    <div class="form-group">';
-        str +='      <label class="form-control-label">강의 내용</label>';
-        str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
-        str +='    </div>';
-        str +='  </div>';
-        str +='<div class="col-lg-7" id="lineLeft">';
-	    str +='    <div class="form-group">';
-	    str +='      <label class="form-control-label">강의 주소</label>';
-	    str +='       <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
-	    str +='    </div>';
-        str +='</div>';
-        str +='</div>';
+        str +='   <div class="row">	';
+        str +='     <div class="col-lg-2">';
+        str +='       <div class="form-group">';
+        str +='         <label class="form-control-label">강의 차수</label>';
+        str +='           <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList['+index+'].lidxNum" id="lidxNum">';
+        str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-7">';
+        str +='       <div class="form-group">';
+        str +='         <label class="form-control-label">강의 내용</label>';
+        str +='          <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList['+index+'].lidxCont" id="lidxCont" >';
+        str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-5" id="lineLeft">';
+	    str +='       <div class="form-group">';
+	    str +='         <label class="form-control-label">강의 주소</label>';
+	    str +='          <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList['+index+'].lidxPath" id="lidxPath" >';
+	    str +='       </div>';
+        str +='     </div>';
+        str +='     <div class="col-lg-2">';
+        str +='   		<div class="form-group">';
+        str +='     	  <label class="form-control-label" >강의 전체시간</label>';
+        str +='      	  <input type="text"  class="form-control form-control-alternative" placeholder="lessondurtime" name="lesIdxList[0].lidxDurtime" id="lidxDurtime">';
+        str +='   		</div>';
+      	str +='     </div>';
+        str +='   </div>';
       	str +='</div>';
       	
       	index++;
@@ -146,7 +150,8 @@ $(function(){
 		
 	// 강의등록 버튼
 	$('#push').on('click', function(){
-		$('#lesForm').submit();
+// 		alert('등록');
+		lessonChk();
 	})
 	
 	// 취소 버튼
@@ -155,6 +160,7 @@ $(function(){
 			this.reset();
 		})
 	})
+	
 })
 
 function initData(){
@@ -162,13 +168,55 @@ function initData(){
 	$('#lesCont').val('갑자기 만드는 웹페이지');
 	$('#lesCash').val('80000');
 	$('#lesTerm').val('90');
-// 	$('#lidxNum').val(1);
-// 	$('#lidxCont').val('갑자기만드네');
+}
+
+// 강의등록 빈칸 체크
+function lessonChk(){
+	if($('#lesNm').val() == ""){
+		alert('강의명을 입력하시오');
+		return false;
+	}
+	if($('#lesCont').val() == ""){
+		alert('강의내용을 입력하시오');
+		return false;
+	}
+	if($('#lesCash').val() == ""){
+		alert('강의수강료를 입력하시오');
+		return false;
+	}
+	if($('#lesTerm').val() == ""){
+		alert('강의기간을 입력하시오');
+		return false;
+	}
+// 	if($('#subId').val() == ""){
+// 		alert('과목을 선택하시오');
+// 		return false;
+// 	}
+	
+	if($('#lidxNum').val() == ""){
+		alert('차수을 입력하시오');
+		return false;
+	}
+	if($('#lidxCont').val() == ""){
+		alert('내용을 입력하시오');
+		return false;
+	}
+	if($('#lidxPath').val() == ""){
+		alert('주소을 입력하시오');
+		return false;
+	}
+	if($('#lidxDurtime').val() == ""){
+		alert('강의시간을 입력하시오');
+		return false;
+	}
+	
+	else{
+		$('#lesForm').submit();
+	}
 }
 
 </script>
 
-</head>
 
 <!-- 강의 추가 -->
 <div id="containerId">
@@ -179,8 +227,6 @@ function initData(){
 				<h2 class="card-title m-b-0">▪ 강의 추가</h2>
 				<br>
 				<form id="lesForm" action="${cp}/teacherL/insertLesson" method="POST" >
-<!-- 				<input type="hidden" name="tchId"> -->
-<!-- 				<input type="hidden" name="subId"> -->
 				<div class="lesDiv" style="background:#fbf2e4;">
             	<br>
             	<br>
@@ -189,13 +235,27 @@ function initData(){
                     <div class="col-lg-7">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의명</label>
-                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonname" name="lesNm" id="lesNm">
+                         <input type="text"  class="form-control form-control-alternative" placeholder="강의명" name="lesNm" id="lesNm">
                       </div>
                     </div>
                     <div class="col-lg-7">
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">강의소개</label>
-                         <input type="text"  class="form-control form-control-alternative" placeholder="lessoncontent" name="lesCont" id="lesCont">
+                         <input type="text"  class="form-control form-control-alternative" placeholder="소개" name="lesCont" id="lesCont">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 개설날짜</label>
+                         <input type="date"  class="form-control form-control-alternative"  name="lesSdate" id="lesSdate">
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 종료날짜</label>
+                         <input type="date" class="form-control form-control-alternative" name="lesEdate" id="lesEdate">
                       </div>
                     </div>
                   </div>
@@ -203,13 +263,13 @@ function initData(){
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">강의 수강료</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="lessoncash" name="lesCash" id="lesCash">
+                        <input type="text"  class="form-control form-control-alternative" placeholder="수강료" name="lesCash" id="lesCash">
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">강의기간</label>
-                        <input type="text"  class="form-control form-control-alternative" placeholder="lessonterm"  name="lesTerm" id="lesTerm" >
+                        <input type="text"  class="form-control form-control-alternative" placeholder="기간"  name="lesTerm" id="lesTerm" >
                       </div>
                     </div>
                     <div class="col-lg-7">
@@ -217,11 +277,13 @@ function initData(){
                         <label class="form-control-label" for="input-last-name" class="form-control form-control-alternative" >강의과목&nbsp;&nbsp;</label>
     					<select name="subId" id="subId">
     						<option value="0">과목</option>
-							<option value="SUB0001">DB</option>
-							<option value="SUB0002">Spring</option>
-							<option value="SUB0003">Java</option>
-							<option value="SUB0004">Python</option>
-							<option value="SUB0005">Jsp</option>
+							<c:forEach items="${subjectList}" var="sub"	>
+								<c:choose>
+									<c:when test="${sub.subOut == 'N'}">
+										<option value="${sub.subId}">${sub.subNm}</option>
+									</c:when>
+								</c:choose>
+							</c:forEach>
     					</select>                    
                       </div>
                     </div>
@@ -243,13 +305,13 @@ function initData(){
 	                    <div class="col-lg-2">
 	                      <div class="form-group">
 	                        <label class="form-control-label" >강의 차수</label>
-	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessonnumber" name="lesIdxList[0].lidxNum" id="lidxNum">
+	                         <input type="text"  class="form-control form-control-alternative" placeholder="차수" name="lesIdxList[0].lidxNum" id="lidxNum">
 	                      </div>
 	                    </div>
 	                    <div class="col-lg-7">
 	                      <div class="form-group">
-	                        <label class="form-control-label" >강의 내용</label>
-	                         <input type="text" class="form-control form-control-alternative" placeholder="lessoncontent" name="lesIdxList[0].lidxCont" id="lidxCont" >
+	                        <label class="form-control-label" >목차 내용</label>
+	                         <input type="text" class="form-control form-control-alternative" placeholder="내용" name="lesIdxList[0].lidxCont" id="lidxCont" >
 	                      </div>
 	                    </div>
 	                    <br>
@@ -257,10 +319,16 @@ function initData(){
 	                      <div class="form-group" >
 	                      </div>
 	                    </div>
-	                    <div class="col-lg-7" id="lineLeft">
+	                    <div class="col-lg-5" id="lineLeft">
 	                      <div class="form-group">
 	                        <label class="form-control-label">강의 주소</label>
 	                         <input type="text" class="form-control form-control-alternative" placeholder="lessonpath" name="lesIdxList[0].lidxPath" id="lidxPath" >
+	                      </div>
+	                    </div>
+	                    <div class="col-lg-2">
+	                      <div class="form-group">
+	                        <label class="form-control-label" >강의 전체시간</label>
+	                         <input type="text"  class="form-control form-control-alternative" placeholder="lessondurtime" name="lesIdxList[0].lidxDurtime" id="lidxDurtime">
 	                      </div>
 	                    </div>
 	                  </div>
@@ -282,4 +350,3 @@ function initData(){
 	</div>
 </div>
 
-</html>

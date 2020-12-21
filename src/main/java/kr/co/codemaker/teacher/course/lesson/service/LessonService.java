@@ -12,6 +12,18 @@ import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonVO;
 import kr.co.codemaker.teacher.course.lesson.vo.SubjectVO;
 
+/**
+ * TeacherService.java
+ *
+ * @author 박다미
+ * @version 1.0
+ * @since 2020. 12. 1.
+ *
+ *   수정자 수정내용 
+ *   ------ ------------------------ 
+ *   박다미 최초 생성
+ *
+ */
 @Service("lessonService")
 public class LessonService{
 	
@@ -48,4 +60,11 @@ public class LessonService{
 		return lessonMapper.updateTempoLesson(lessonVO);
 	}
 	
+	public int updatePermissionLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.updatePermissionLesson(lessonVO);
+	}
+	
+	public int selectExamCnt(LessonVO lessonVO) throws Exception{
+		return lessonMapper.selectExamCnt(lessonVO);
+	}
 }

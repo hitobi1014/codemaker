@@ -19,7 +19,7 @@
 		   </where> 
 	</update>
 	
-	<delete id="deleteSubjcet" parameterType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
+	<delete id="deleteSubject" parameterType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
 		UPDATE subject
 		   SET sub_out='Y'
 		   <where>

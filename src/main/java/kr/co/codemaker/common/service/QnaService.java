@@ -47,6 +47,24 @@ public class QnaService {
 		map2.put("pages", pages); 
 		return map2;
 	}
+	
+	public Map<String, Object> selectAllQnaT(Map<String, Object> map) throws Exception {
+		
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("qnaList", qnaMapper.selectAllQnaT(map));
+		
+		// 15건, 페이지사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
+		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요
+		String tchId = (String) map.get("tchId");
+		logger.debug("-----------------------{}--------------------------", map);
+		
+		int cnt = qnaMapper.qnaTotalCntT(tchId);
+		
+		
+		int pages =(int) Math.ceil((double)cnt/(int) map.get("pageSize"));
+		map2.put("pages", pages); 
+		return map2;
+	}
 
 	
 	public QnaVO selectQna(String qnaId) throws Exception {

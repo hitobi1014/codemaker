@@ -9,6 +9,18 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.admin.course.subject.dao.AdminSubjectMapper;
 import kr.co.codemaker.admin.course.subject.vo.SubjectVO;
 
+/**
+ * AdminSubjectService.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8.
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Service("adminSubjectService")
 public class AdminSubjectService {
 	
@@ -19,7 +31,7 @@ public class AdminSubjectService {
 		return adminSubjectMappser.selectAllSubject(subjectVO);
 	}
 	
-	public int insertSubjcet(SubjectVO subjectVO) throws Exception{
+	public int insertSubject(SubjectVO subjectVO) throws Exception{
 		return adminSubjectMappser.insertSubject(subjectVO);
 	}
 	
@@ -27,8 +39,8 @@ public class AdminSubjectService {
 		return adminSubjectMappser.updateSubject(subjectVO);
 	}
 	
-	public int deleteSubjcet(SubjectVO subjectVO) throws Exception{
-		return adminSubjectMappser.deleteSubjcet(subjectVO);
+	public int deleteSubject(SubjectVO subjectVO) throws Exception{
+		return adminSubjectMappser.deleteSubject(subjectVO);
 	}
 
 }

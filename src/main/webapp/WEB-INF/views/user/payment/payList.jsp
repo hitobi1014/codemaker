@@ -19,10 +19,10 @@
 					<% int sum = 0; %>
 					<c:forEach items="${lessonVoList}" var="lesson"  varStatus="stat">
 						<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
-						<input type="hidden" name="payList[${stat.index}].payWay" value="1"/>
-						<input type="hidden" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
+						<input type="hidden" name="payList[${stat.index}].payWay" value="1" class="paywayCl"/>
+						<input type="hidden" id="paySum[${stat.index}]" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
 						<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
-						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}"/>
+						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}" class="lesson"/>
 							<c:set value="${lesson.lesTerm}" var="lesTerm"/>
 							<c:set value="${lesson.lesCash}" var="lesCash"/>
 							<%
@@ -60,16 +60,17 @@
 								<div class="point-box">
 									<div class="point-group">
 										<div class="point-div">
-											<fmt:formatNumber value="100000" var="usePoint" maxFractionDigits="3"/>
+											<fmt:formatNumber value="${pointVo.pointSum}" var="havePoint" maxFractionDigits="3"/>
 											<span>보유</span>
-											<span class="have-point">${usePoint}원</span>
+											<span class="have-point">${havePoint} P</span>
+											<input type="hidden" id="havePoint" value="${pointVo.pointSum}"/>
 										</div>
 										<div>
 											<span>사용</span>
-											<span class="use-point"><input type="text" name="usePoint" value="${usePoint}"/>원</span>
+											<span class="use-point"><input type="text" name="usePoint" id="usePoint"/> P</span>
 										</div>
 										<div id="point-btn">
-											<button id="totalPointUse">전액사용</button>
+											<input type="button" id="totalPointUse" value="전액사용"/>
 										</div>
 									</div>
 								</div>
@@ -80,15 +81,15 @@
 							<div class="payWayBoxArea form-group row">
 								<div class="payWayBox col-sm-5" style="padding-right: 0px;">
 									<div class="payB">
-										<input class="pay-way" name="payWay" type="radio" id="kakaopay" value="kakaopay" />
+										<input class="pay-way" name="pwy" type="radio" id="kakaopay" value="kakaopay" />
 										<label for="kakaopay">
-											<img src="/img/icon/kakaopay.png">카카오페이
+											<img src="/img/icon/payment_icon_yellow_small.png">카카오페이
 										</label>
 									</div>
 								</div>
 								<div class="payWayBox col-sm-4">
 									<div class="payB">
-										<input class="pay-way" name="payWay" type="radio" id="creditcard" value="creditcard"/>
+										<input class="pay-way" name="pwy" type="radio" id="creditcard" value="creditcard"/>
 										<label for="creditcard">신용카드</label>
 									</div>
 								</div>
@@ -100,22 +101,22 @@
 									<div class="col">정가</div>
 									<div class="cash-info-text">
 										<fmt:formatNumber value="<%=sum%>" var="sum" maxFractionDigits="3"/>
-										<span>${sum}<i>원</i></span>
+										<span id="sumVal">${sum}<i>원</i></span>
 									</div>
 								</div>
 								<div class="cash-info row">
 									<div class="col">포인트</div>
 									<div class="cash-info-text">
-										<span>${usePoint}<i>원</i></span>
+										<span id="pay-info-point">0<i>&nbsp;P</i></span>
+										<input type="hidden" id="pointSum" name="pointSum"/>
+										<input type="hidden" id="pointUpdate" name="pointUpdate"/>
 									</div>
 								</div>
 								<div class="cash-info row">
 									<div class="pay-divide"></div>
 									<div class="col">결제금액</div>
 									<div class="cash-info-text">
-										<c:set value="<%=sum -100000%>" var="totalCash"></c:set>
-										<fmt:formatNumber value="${totalCash}" var="total" maxFractionDigits="3"></fmt:formatNumber>
-										<span>${total}<i>원</i></span>
+										<span id="totalCash">${sum}<i>원</i></span>
 									</div>
 								</div>
 								<div class="pay-check">
@@ -142,11 +143,14 @@
 										</label>
 									</div>
 								</div>
-								<button id="payListBtn" disabled="disabled">결제하기</button>
+								<button type="button" id="payListBtn" disabled="disabled">결제하기</button>
 							</div>
 						</div>
 					</div>			
 				</div>
+			</form>
+			<form action="${cp}/kakaoPay" method="POST" id="kakaoSubmit">
+				
 			</form>
 		</div>
 	</div>
@@ -154,6 +158,86 @@
 
 <script>
 $(function(){
+	if('${kakao}' == "kakao"){
+		console.log("탄다");
+	}
+	
+	$("#totalPointUse").on('click',function(){
+		var haveP = parseInt($("#havePoint").val());//보유포인트
+		var sumVal = parseInt($("#sumVal").text().replace(",",''));//상품 총 금액
+		var sumValTrans = "";
+		var lessonLen = $(".lesson").length;
+		if(haveP > sumVal){//보유포인트가 상품금액보다 클때
+			sumValTrans = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#usePoint").val(sumValTrans);//사용포인트를 상품금액으로 변경
+			$("#pay-info-point").text(sumValTrans+" P");//결제정보 포인트 텍스트를 변경
+			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
+			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#totalCash").text(op+" 원");
+			for(i=0; i<lessonLen; i++){
+				$("#paySum\\["+i+"\\]").val(0);
+			}
+		}else{
+			havePTrans = haveP.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#usePoint").val(havePTrans);
+			$("#pay-info-point").text(havePTrans+" P");//결제정보 포인트 텍스트를 변경
+			var	pointInfo = parseInt($("#usePoint").val().replace(",",''));//사용포인트를 int로변경
+			var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#totalCash").text(op+" 원");
+			paySum = (parseInt($("#totalCash").text().replace(',','')))/lessonLen;
+			for(i=0; i<lessonLen; i++){
+				$("#paySum\\["+i+"\\]").val(paySum);
+			}
+		}
+	})
+	
+	$("#usePoint").on('keyup',function(){
+		$(this).val($(this).val().replace(/^0/g,""));
+		$(this).val($(this).val().replace(/[^0-9]/g,""));
+		var point = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		var haveP = parseInt($("#havePoint").val());
+		var useP = $(this).val();
+		var sumVal = parseInt($("#sumVal").text().replace(",",''));
+		var lessonLen = $(".lesson").length;
+		$("#pay-info-point").text(point+" P");
+		
+		if(useP =='' || useP == null){
+			sumVal = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text("0 P");
+			$("#totalCash").text(sumVal+" 원");
+			return false;
+		}
+		
+		if(this.value > haveP){
+			alert("보유 포인트 이상 사용은 불가능합니다");
+			$(this).val(haveP);
+			getHave = haveP.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text(getHave+" P");
+		}
+		
+		if(this.value > sumVal){
+			$(this).val(sumVal);
+			sum = sumVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+			$("#pay-info-point").text(sum+" P");
+		}
+		
+		var	pointInfo = parseInt($("#pay-info-point").text().replace(",",''));
+		var op = (sumVal - pointInfo).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+		$("#totalCash").text(op+" 원");
+		paySum = (parseInt($("#totalCash").text().replace(',','')))/lessonLen;
+		for(i=0; i<lessonLen; i++){
+			$("#paySum\\["+i+"\\]").val(paySum);
+		}
+	})
+	
+	$("#usePoint").on('focus',function(){
+		$(this).val($(this).val().replace(/[^\d]+/g,''));
+	})
+	
+	$("#usePoint").on('blur',function(){
+		$(this).val($(this).val().replace(/\B(?=(\d{3})+(?!\d))/g,","));
+	})
+	
 	$(".agree").on('change',function(){
 		if($("#terms1").prop('checked') && $("#terms2").prop('checked')){
 			$("#payListBtn").attr('disabled',false);
@@ -166,8 +250,37 @@ $(function(){
 		console.log($(this).val());
 	})
 	
+	//결제하기 버튼 클릭시 발생
 	$("#payListBtn").on('click',function(){
-		$("#payListFrm").submit();
+		var payWay = $("input[type=radio]:checked").val();
+		var len = $(".paywayCl").length;
+		for(i=0; i<len; i++){
+			$(".paywayCl").val(payWay);
+		}
+		
+		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
+		$("#pointUpdate").val(pointUpdate);
+		var pointSum = parseInt($(".have-point").text().replace(',',''));
+		$("#pointSum").val(pointSum);
+		if(payWay == "kakaopay"){
+			var total = parseInt($("#totalCash").text().replace(',',''));
+			$.ajax({
+				url : '/kakaoPay',
+				data : {"total" : total},
+				method : 'post',
+				success : function(res){
+					if(res.url !=null){
+						window.open(res.url,"_blank","width=550,height=750,left=658,top=161");
+					}
+				}
+			})
+		}else{
+			$("#payListFrm").submit();
+		}
 	})
+	
 })
+function sumbitTest(){
+	$("#payListFrm").submit();
+}
 </script>

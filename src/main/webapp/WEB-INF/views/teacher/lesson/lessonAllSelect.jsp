@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- bootstrap 사용 설정 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -103,40 +99,15 @@
 
 .lesIdxTbody:hover{
 	cursor: pointer;
-	
+}
+h2{
+	font-family: 'LotteMartDream';
 }
 
 
 </style>
-</head>
 <script>
 $(function(){
-// 	$('#subject').change(function(){
-// // 		console.log('a');
-// 		$('#lesson').find('option').each(function(){
-// 			$(this).remove();
-// 		})
-// 		var option = "<option value= 'SELECT'></option>";
-// 		$('#lesson').append('option');
-// 		var selectVal = $(this).val();
-// 		$.ajax({
-// 			type:'POST',
-// 			url:'/teacherL/selectSubject',
-// 			data:{'subId':selectVal},
-// 			dataType:'json',
-// 			success:function(data){
-// // 				alert('data');
-// 				console.log(data);
-// // 					var list = data.lessonList;
-// 				for (var i=0; i<data.length; i++){
-// 					$('#lesson').append("<option value='" + data[i].lesId +"'>" + data[i].lesNm + "</option>");
-// 				}
-// 			},
-// 			error:function(data){
-// 				alert('안됨');
-// 			}
-// 		})
-// 	})
 	
 	// 강의목차 조회
 	$('.lesIdxTbody').on("click","tr",function(){
@@ -172,19 +143,21 @@ $(function(){
 	$('#lesTbody').on('click', '.delClass', function(){
 		alert('삭제되었습니다.');
 		var lesid = $(this).data("lesid");
+		var check = $(this).data("check");
 		console.log(lesid);
 		$.ajax({
 				method:'get',
 				url:'/teacherL/deleteLesson',
-				data:{'lesId':lesid},
-				dataType:'html',
+				data:{'lesId':lesid,
+					 'check':check},
 				success:function(data){
 					console.log(data);
-					$('#lesTbody').load('/teacherL/selectloadSubject');
-// 					$('#lesTbody').html(data);
+					document.location="/teacherL/selectSubject";
+// 					$('#lesTbody').load('/teacherL/selectloadSubject');
 				},
 				error:function(data){
-					alert('안됨');
+					alert('data');
+					console.log(data);
 				}
 			})
 	})
@@ -196,7 +169,30 @@ $(function(){
 		document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
 	})
 	
-	
+	// 요청버튼
+	$('#lesTbody').on('click','.reqClass',function(){
+		alert('승인요청합니다.');
+		var lesid = $(this).data("lesid");
+		var check = $(this).data("check");
+		console.log(lesid);
+		$.ajax({
+				method:'get',
+				url:'/teacherL/deleteLesson',
+				data:{'lesId':lesid,
+					 'check':check},
+				dataType:'html',
+				success:function(data){
+					console.log(data);
+					alert('요청되었습니다.')
+					document.location="/teacherL/selectSubject";
+// 					$('#lesTbody').load('/teacherL/selectloadSubject');
+				},
+				error:function(data){
+					alert('요청을 실패하였습니다');
+				}
+			})
+	})
+		
 })	
 
 // 과목선택하고 강의조회버튼
@@ -204,28 +200,34 @@ var selLes = function(){
 	var subVal = $("#subject option:selected").val();
 	console.log(subVal);
 	$.ajax({
-		url:'/teacherL/selectSubject',
+		url:'/teacherL/selectLesson',
 		data:{'subId':subVal},
-		method:'post',
+		method:'get',
 		dataType:'json',
 		success:function(data){
 			var html="";
-			console.log(data);
 			for(var i=0; i<data.length; i++){
 				var lessonList =  data[i];
 				html += "<tr data-lesid='"+lessonList.lesId+"' data-toggle=modal data-target=#exampleModalCenter>";
 				html += "<td>" + '' + "</td>";
 				html += "<td>" + lessonList.lesNm+ "</td>";
 				html += "<td>" + lessonList.lesCont+ "</td>";
-				html += "<td>" + lessonList.lesCash + "</td>";
+				var sdate = new Date(lessonList.lesSdate);
+				console.log(moment(sdate).format('YYYY-MM-DD'));
+				html += "<td>" + moment(sdate).format('YYYY-MM-DD') + "</td>";
+				var edate = new Date(lessonList.lesEdate);
+				console.log(moment(edate).format('YYYY-MM-DD'));
+				html += "<td>" + moment(edate).format('YYYY-MM-DD') + "</td>";
 				html += "<td>" + lessonList.lesTerm + "</td>";
+				var lescash = lessonList.lesCash;
+				html += "<td>" + lescash.toLocaleString()+ "</td>";
 				html += "</tr>";
 			}
 			$('.lesIdxTbody').html(html);
 		},
 		error:function(data){
-			alert('안됨');
 			console.log(data);
+			alert('안됨');
 		}
 	})
 }
@@ -236,9 +238,6 @@ var addLes = function(){
 
 
 </script>
-
-
-
 
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
@@ -252,30 +251,27 @@ var addLes = function(){
 				<div id="right">
 					<select class="form-control" id="subject" name="subId">
 						<option value="0">과목</option>
-						<option value="SUB0001">DB</option>
-						<option value="SUB0002">Spring</option>
-						<option value="SUB0003">Java</option>
-						<option value="SUB0004">Python</option>
-						<option value="SUB0005">Jsp</option>
+						<c:forEach items="${subjectList}" var="sub">
+							<c:choose>
+								<c:when test="${sub.subOut == 'N'}">
+									<option value="${sub.subId}">${sub.subNm}</option>
+								</c:when>
+							</c:choose>
+						</c:forEach>
 					</select> 
-<!-- 					<select class="form-control" id="lesson"> -->
-<!-- 						<option value="99">강의</option> -->
-<!-- 						<option value="LESSON0001">Why Java?</option> -->
-<!-- 						<option value="0">Spring</option> -->
-<!-- 						<option value="1">Java</option> -->
-<!-- 						<option value="1">Python</option> -->
-<!-- 						<option value="1">Jsp</option> -->
-<!-- 					</select>  -->
 					<input id="selBtn" type="button" value="조회" onclick="selLes()">
 				</div>
 				<br>
 				<div class="table-responsive">
 					<table class="table">
+				
 						<thead class="thead-light">
 							<tr>
 								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></th>
 								<th scope="col">강의명</th>
 								<th scope="col">강의소개</th>
+								<th scope="col">강의 개설날짜</th>
+								<th scope="col">강의 마감날짜</th>
 								<th scope="col">강의기간</th>
 								<th scope="col">수강료</th>
 							</tr>
@@ -285,6 +281,8 @@ var addLes = function(){
 						</tbody>
 					</table>
 				</div>
+				
+			
 				
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -299,8 +297,8 @@ var addLes = function(){
 				      <div class="modal-body">
 				        <table>
 							<tr>
-								<th>강의 차순</th>
-								<th>강의 목차내용</th>
+								<th>차순</th>
+								<th>목차내용</th>
 							</tr>
 							<tbody class="lesTbody">
 							
@@ -329,47 +327,27 @@ var addLes = function(){
 							<tbody id="lesTbody">
 								<c:forEach items="${noLessonList}" var="no">
 									<tr>
-										<td ></td>
+										<td></td>
 										<td class="ls">${no.lesId}</td>
 										<td>${no.lesNm}</td>
-										<c:choose>
-											<c:when test="${no.lesState=='1' }">
-												<td>
-													<div>
-														<div style="float: left; width:50%;">임시저장</div>
-														 <div style="float: left;width:50%;">
-															 <input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}"> 
-															 <input id="upBtn" class="upClass"  type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}" >
-															 <input id="reqBtn" class="reqClass"  type="button" value="요청" >
-														 </div>   
-													</div>
-												</td>
-											</c:when>
-											<c:when test="${no.lesState=='2' }">
-												<td>
-													<div>
-														<div style="float: left;width:50%;">승인중</div>
-														<div style="float: left;width:50%;">
-															<input id="delBtn2" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" >
-															<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
-															<input id="reqBtn" class="reqClass"  type="button" value="요청" >
-														</div> 
-													</div>
-												</td>
-											</c:when>
-											<c:when test="${no.lesState=='4' }">
-												<td>
-													<div>
-														<div style="float: left;width:50%;">승인반환 </div>
-														<div style="float: left;width:50%;">
-															<input id="delBtn3" class="delClass" type="button" value="삭제" data-lesid="${no.lesId}" >
-															<input id="upBtn" class="upClass"  type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
-															<input id="reqBtn" class="reqClass"  type="button" value="요청" >
-														</div>
-													</div>
-												</td>
-											</c:when>
-										</c:choose>
+										<td>
+											<div>
+												<c:choose>
+													<c:when test="${no.lesState=='1'}">
+														<div style="float: left; width: 50%;">임시저장</div>
+													</c:when>
+													<c:when test="${no.lesState=='2'}">
+														<div style="float: left; width: 50%;">승인중</div>
+													</c:when>
+													<c:when test="${no.lesState=='4'}">
+														<div style="float: left; width: 50%;">승인반환</div>
+													</c:when>
+												</c:choose>
+												<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
+												<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
+												<input id="reqBtn" class="reqClass" type="button" value="요청" data-lesid="${no.lesId}" data-check="2">
+											</div>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

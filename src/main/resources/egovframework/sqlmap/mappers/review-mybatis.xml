@@ -38,4 +38,7 @@
 	       FROM review A, pay B
 	where a.pay_id=b.pay_id and b.lES_ID=#{lesId}
 </select>
+<select id="checkPayId" parameterType="kr.co.codemaker.user.lessoninfo.vo.PayVO" resultType="java.lang.String">
+SELECT PAY_ID FROM pay WHERE user_id=#{userId} and les_id=#{lesId}
+</select>
 </mapper>

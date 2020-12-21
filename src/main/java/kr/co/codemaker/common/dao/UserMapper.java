@@ -6,8 +6,10 @@ import kr.co.codemaker.common.vo.UserVO;
 @Mapper("userMapper")
 public interface UserMapper {
 
-	int insertUser(UserVO userVo);
+	int insertUser(UserVO userVo)throws Exception;
 
-	int idchk(UserVO userVo);
+	int idchk(UserVO userVo)throws Exception;
+
+	int joinPoint(String userId)throws Exception;
 
 }

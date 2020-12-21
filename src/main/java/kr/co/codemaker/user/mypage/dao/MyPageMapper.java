@@ -12,7 +12,7 @@ public interface MyPageMapper{
 
 	UserVO myinfoSelect(String userId) throws Exception;
 
-	int deleteUser(String userId)throws Exception;
+	int deleteUser(UserVO userVo)throws Exception;
 
 	int updateUser(UserVO userId)throws Exception;
 

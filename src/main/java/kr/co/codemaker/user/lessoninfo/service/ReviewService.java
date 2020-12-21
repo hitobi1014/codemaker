@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.user.lessoninfo.dao.ReviewMapper;
+import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewStarVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewVO;
 
@@ -34,6 +35,10 @@ public class ReviewService {
 
 	public ReviewStarVO selectReviewStar(String lesId) throws Exception {
 		return reviewMapper.selectReviewStar(lesId);
+	}
+
+	public String checkPayId(PayVO payVo) throws Exception {
+		return reviewMapper.checkPayId(payVo);
 	}
 
 }

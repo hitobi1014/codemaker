@@ -85,7 +85,7 @@ public interface ExamMapper {
 	 * @param examVO
 	 * @return 
 	 */
-	public String insertExam(ExamVO examVO) throws Exception;
+	public int insertExam(ExamVO examVO) throws Exception;
 	
 	/**
 	 * 시험을 삭제하는 메서드

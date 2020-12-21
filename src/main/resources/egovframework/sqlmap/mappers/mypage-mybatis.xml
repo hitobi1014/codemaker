@@ -8,8 +8,8 @@
   	SELECT * FROM users where user_id = #{userId}
   </select>
   
-  <update id="deleteUser" parameterType="java.lang.String">
-  	UPDATE users SET user_out = 'Y' WHERE user_id = #{userId}
+  <update id="deleteUser" parameterType="kr.co.codemaker.common.vo.UserVO">
+  	UPDATE users SET user_out = 'Y' WHERE user_id = #{userId} and user_pass = #{userPass}
   </update>
   
   <update id="updateUser" parameterType="kr.co.codemaker.common.vo.UserVO">
@@ -21,7 +21,6 @@
   </update>
   
   <select id="selectPoint" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.user.mypage.vo.PointVO">
-<!-- 	SELECT * FROM point WHERE user_id=#{userId} ORDER BY point_date DESC -->
 		SELECT *
 		FROM
 		(SELECT ROWNUM AS rn, a.*
@@ -47,7 +46,7 @@
                                 SELECT point_sum FROM POINT
                                 WHERE user_id=#{userId}
                                 order by point_date desc) a
-                                WHERE ROWNUM=1) + #{pointSum}, #{userId})
+                                WHERE ROWNUM=1) + #{pointUpdate}, #{userId})
 </insert>
 
 <select id="deletePointCompare" parameterType="java.lang.String" resultType="int" >
@@ -67,7 +66,7 @@
                                 SELECT point_sum FROM POINT
                                 WHERE user_id=#{userId}
                                 order by point_date desc) a
-                                WHERE ROWNUM=1) - #{pointSum}, #{userId})
+                                WHERE ROWNUM=1) - #{pointUpdate}, #{userId})
 </insert>
 
 </mapper>

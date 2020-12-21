@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,15 +13,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.admin.user.vo.UserVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
 import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
+import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 
 
+/**
+ * UserLessonController.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8. ???????언제지?
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Controller
 public class UserLessonController {
 
@@ -46,38 +63,107 @@ public class UserLessonController {
 		return "mainT/user/lesson/subjectSelect";
 	}
 	
-	
+	/**
+	 * 회원 - 강의목차 조회페이지
+	 * @param model
+	 * @param lessonIndexVO
+	 * @return
+	 */
 	@RequestMapping(path="/user/selectLessonPage")
-	public String selectLessonPage(Model model,String lesId) {
+	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session ) {
+		// 1. 파라미터 lesId -> VO객체로 받기
+		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
+		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		IndexTimeVO indexTimeVO = new IndexTimeVO();
 		
-		List<LessonIndexVO> lesIdxList;
+		// 로그인세션 가져오기
+		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
+		indexTimeVO.setUserId(userVO.getUserId());
+		
+		
+		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
 		try {
-			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-			logger.debug("강의번호:{}",lesId);
-			logger.debug("강의목차:{}",lesIdxList);
-			model.addAttribute("lesIdxList", lesIdxList);
-			model.addAttribute("lesId", lesId);
-			
-			
-			return "mainT/user/lesson/lessonSelect";
+			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
+		logger.debug("강의목차:{}",lesIdxList);
+		model.addAttribute("lesIdxList", lesIdxList);
+		model.addAttribute("lesId", lessonIndexVO.getLesId());
+		return "mainT/user/lesson/lessonSelect";
 		
 	}
 	
-	// 강의 동영상
-	@RequestMapping(path="/user/selectYou")
-	public String selectYou(String lidxPath, Model model) {
+	/**
+	 * 회원 - 강의목차 진행률 수정
+	 * @param model
+	 * @param lidxId
+	 * @param curTime
+	 */
+	@ResponseBody
+	@RequestMapping(path="/user/updateLessonPage")
+	public void updateLessonPage(Model model,String lidxId,@RequestParam(required=false)String curTime,HttpSession session ) {
+		LessonIndexVO lesIdxVO = new LessonIndexVO();
+		// 1. 파라미터 lesId -> VO객체로 받기
+		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
+		// 3. 진행률 업데이트
+		
+		// 로그인세션 가져오기
+		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
+		
+		
+		logger.debug("lidxId : {}", lidxId);
+		logger.debug("재생시간 : {}", curTime);
+		
+		int time = ((int)Double.parseDouble(curTime)/60);
+		
+		logger.debug("curArray: {}", time);
+		lesIdxVO.setLidxId(lidxId);
+		lesIdxVO.setLidxCurtime(time);
+		logger.debug("lesIdxVO: {}", lesIdxVO);
+		
+		IndexTimeVO indexTimeVO = new IndexTimeVO();
+		indexTimeVO.setUserId(userVO.getUserId());
+		indexTimeVO.setLidxId(lidxId);
+		indexTimeVO.setLidxCurtime(time);
+		
+		try {
+			lessonIndexService.updateLessonIndex(lesIdxVO);
+			lessonIndexService.insertIndexTime(indexTimeVO);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		return null;
+		
+	}
+	
+	/**
+	 * 회원 - 강의 동영상 보기
+	 * @param lidxPath
+	 * @param model
+	 * @param lidxId
+	 * @return
+	 */
+	@RequestMapping(path="/user/selectYoutube")
+	public String selectYou(String lidxPath, Model model,String lidxId) {
 		model.addAttribute("lidxPath",lidxPath);
-		return "user/lesson/you";
+		model.addAttribute("lidxId", lidxId);
+		return "user/lesson/lessonYoutube";
 	}
-
-	// 강의 동영상 테스트
-	@RequestMapping(path="/user/testYou")
-	public String testYou() {
-		return "user/lesson/youtubeTest";
+	
+	// 강의 동영상 값 넘겨오는지 
+	@RequestMapping(path="/user/time")
+	public String timeTest(String curTime,String durTime) {
+		logger.debug("재생시간, 전체시간 :{},{}",curTime, durTime);
+		return "";
 	}
+	
+	
+	
+	
 }

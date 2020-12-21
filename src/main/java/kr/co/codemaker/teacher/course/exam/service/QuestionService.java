@@ -29,7 +29,7 @@ public class QuestionService {
 	@Resource(name = "questionMapper")
 	private QuestionMapper questionMapper;
 
-	public String insertQuestion(QuestionVO questionVO) throws Exception {
+	public int insertQuestion(QuestionVO questionVO) throws Exception {
 		return questionMapper.insertQuestion(questionVO);
 	}
 
@@ -45,11 +45,11 @@ public class QuestionService {
 	 * 시험문제를 삭제하는 메서드
 	 * 
 	 * @author 김미연
-	 * @param examVo
+	 * @param questionVO
 	 * @return 
 	 */
-	public int deleteQuestion(ExamVO examVo) throws Exception {
-		return questionMapper.deleteQuestion(examVo);
+	public int deleteQuestion(QuestionVO questionVO) throws Exception {
+		return questionMapper.deleteQuestion(questionVO);
 	}
 
 }

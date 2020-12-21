@@ -21,14 +21,28 @@
 $(function() {
 	
 	// 처음 요청했을 화면
+    $('#subf').attr("action", "/exam/selectAllExam");
+    $('#subf').attr("target", "");
 	selectLesson('${examVO.searchSubId}');
 	
 	// 시험 등록 폼 제공
 	$('.regBtn').on('click', function(){
-		// data-lesid
-		console.log($(this).data('lesid'));
+		// data-lesinfo="${exam.lesId }/${exam.lidxId}/${exam.lidxCont }"
+		var lesId = $(this).data('lesinfo').split("/")[0];
+		var lidxId = $(this).data('lesinfo').split("/")[1];
+		var lidxCont = $(this).data('lesinfo').split("/")[2] + '_테스트';
 		
-		//var windowObj = window.open('/exam/insertExamView','examInsert', 'width=1100,height=900,resizable=no,scrollbars=yes,left=500,top=50');
+		
+		str = '<input type="hidden" name="lesId" value="'+ lesId +'">';
+		str += '<input type="hidden" name="lidxId" value="'+ lidxId +'">';
+		str += '<input type="hidden" name="examNm" value="'+ lidxCont +'">';
+		
+		$('#subf').append(str);
+        window.open('', "examInsert", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50') ;
+         
+        $('#subf').attr("action", "/exam/insertExamView");
+        $('#subf').attr("target", "examInsert");
+        $('#subf').submit();
 	});
 
 	// 강의 조회 - 과목을 변경했을 경우에 조회
@@ -54,8 +68,13 @@ $(function() {
 		
 		if ($(this).attr('class') == 'm') {
 			var examId = $(this).parent('tr').data("examid");
+			
 			if(examId != ''){
-				document.location = "/exam/selectExam?examId=" + examId + '&searchSubId=' + searchSubId + '&searchLesId=' + searchLesId + '&searchExamState=' + searchExamState;
+				var str = '<input type="hidden" name="examId" value="'+ examId +'">';
+				$('#subf').append(str);
+				
+				$('#subf').attr('action', '/exam/selectExam');
+				$('#subf').submit();
 			}
 		}
 	});
@@ -81,7 +100,6 @@ var selectLesson = function(subId){
 			subId : subId
 		},
 		success : function(res){
-			console.log(res);
 			str = '<select name="searchLesId" class="form-control" id="lesson">';
 			str += '<option value="">강의</option>';
 			$.each(res.lessonList, function(index, data){
@@ -164,6 +182,7 @@ table{
 					<form:option value="1">수정중</form:option>
 					<form:option value="2">등록완료</form:option>
 					<form:option value="3">시험 배포</form:option>
+					<form:option value="4">반려</form:option>
 				</form:select>
 		</div>
 		
@@ -175,7 +194,6 @@ table{
 					<th style="vertical-align : text-bottom; width: 500px;">시험명</th>
 					<th style="vertical-align : text-bottom; width: 220px;">작성일</th>
 					<th style="vertical-align : text-bottom; width: 220px;">등록 상태</th>
-					<th style="vertical-align : text-bottom;">-</th>
 				</tr>
 			</thead>
 			<tbody id="examList">
@@ -204,11 +222,9 @@ table{
 									수정중
 								</c:when>
 								<c:otherwise>
-									<input type="button" class="btn btn-default regBtn" data-lesid="${exam.lesId }/${exam.lidxId}" value="시험 등록"> 
+									<input type="button" class="btn btn-default regBtn" data-lesinfo="${exam.lesId }/${exam.lidxId}/${exam.lidxCont }" value="시험 등록"> 
 								</c:otherwise>
 							</c:choose>
-						</td>
-						<td><input type="checkbox" value='${exam.examId }' class='echk'>
 						</td>
 					</tr>
 				</c:forEach>

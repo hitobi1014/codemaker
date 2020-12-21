@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -21,7 +22,7 @@
             <div class="card-header border-0">
               <a href="${cp}/mypage/deletePoint" class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#pointminus">포인트 환불</a>
               <a href="${cp}/mypage/insertPoint" class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#pointadd">포인트 충전</a>
-              <h3 class="mb-0">💰 포인트 내역</h3>
+              <h3 class="mb-0">포인트 내역</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -42,9 +43,9 @@
                   <tr>
                     <th scope="row">
                       <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
+                        <span class="avatar rounded-circle mr-3">
                           <img alt="Image placeholder" src="${cp}/images/user/icons/dollar.png">
-                        </a>
+                        </span>
                         <div class="media-body">
                           <span class="mb-0 text-sm"></span>
                         </div>
@@ -55,7 +56,7 @@
                     </td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                        ${point.pointUpdate } Point
+                      <fmt:formatNumber value="${point.pointUpdate }"></fmt:formatNumber>&nbsp;Point
                       </span>
                     </td>
                     <td>
@@ -80,7 +81,9 @@
                     </td>
                     <td>
                           <span class="badge badge-dot mr-4">
-                          <i class="bg-info"></i>${point.pointSum } Point</span>
+                          <i class="bg-info"></i>
+                          <fmt:formatNumber value="${point.pointSum}"></fmt:formatNumber>&nbsp;Point
+                          </span>
                     </td>
                   </tr>
              	</c:forEach>
@@ -182,9 +185,9 @@
 	        <form action="${cp}/mypage/insertPoint" method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸충전할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="text" class="form-control" name="pointUpdate" placeholder="POINT">
-	       <input type="hidden" class="form-control" name="pointSum" >
-	       <input type="hidden" class="form-control" name="userId" >
+	       <input type="number" class="form-control" name="pointUpdate" placeholder="충전할 금액">
+<!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
+	       <input type="hidden" class="form-control" name="userId" id="userId">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-primary" id="pointin">충전하기</button>
@@ -223,11 +226,11 @@
 	       
 	        <h4 class="modal-title" id="myModalLabel">💰 POINT 환불</h4>
 	      </div>
-	        <form action="${cp}/mypage/deletePoint" method="post">
+	        <form  method="post">
 	      <div class="modal-body">
 	        <h5 class="modal-title">💸환불할 POINT 금액을 입력해주세요.</h5><br>
-	       <input type="text" class="form-control" name="pointUpdate" placeholder="POINT">
-	       <input type="hidden" class="form-control" name="pointSum" >
+	       <input type="text" class="form-control" id="pointUpdate" name="pointUpdate" placeholder="환불할 금액">
+<!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" >
 	      </div>
 	      <div class="modal-footer">
@@ -254,5 +257,30 @@
 // 	$("#signin").on( "click", function() {
 // 	        $('#myModal2').modal('show');  
 // 	});
-              
+       
+	
+	$(document).ready(function(){
+	$('#out').on("click",function(){
+	
+		var flag=true;
+		$.ajax({
+			url : "/mypage/deletePoint",
+			type : "post",
+			dataType : "json",
+			data : { pointUpdate : $('#pointUpdate').val()},
+			async: false, //비동기식인 ajax를 동기식으로 설정
+			success : function(res) {
+				if (res == "1") {
+					alert("환불잔액이 부족합니다.");
+					$("#pointUpdate").val('');
+					flag=false;
+				} else {
+					alert("환불처리를 진행하겠습니다.");
+				}
+			}
+		}); // idchk
+			return flag;
+	})
+});
+	
 </script>    
