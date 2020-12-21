@@ -296,9 +296,8 @@ h2{
 /* .contdiv{max-width:200px;} */
 </style>
 <script>
-// 	var index =0;
+	// 강의영상 클릭시
 	$(function() {
-		
 		$('a[id^="videoClick_"]').on('click',function(){
 			var path = $(this).attr('value');
 			var lidxId = $(this).data('lidxid');
@@ -306,20 +305,6 @@ h2{
 		})
 
 	})
-	
-// 	var length = $('.videoA').length;
-	
-	// 강의영상 클릭
-// 	for(index=0; index<length; index++){
-// 		var videoClick_index = function(){
-// 			var path = $('.videoA').attr('value');
-// 			console.log(path);	
-// 			window.open("/user/selectYou?lidxPath="+path, "video_popup", "width=800,height=800, left=30, top=30");
-// 			index++;
-// 		}
-		
-// 	}
-	
 
 </script>
 

@@ -22,6 +22,8 @@ import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
 import kr.co.codemaker.user.cart.vo.PointVO;
+import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
+import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 
 /**
  * @author 최민준
@@ -33,6 +35,9 @@ public class UserPayController {
 	
 	@Resource(name="userPayService")
 	private UserPayService userPayService;
+	
+	@Resource(name="userLessonIndexService")
+	private LessonIndexService lessonIndexService;
 	
 	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")//@RequestBody List<LessonVO> jsonData
 	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo){
@@ -59,6 +64,7 @@ public class UserPayController {
 		logger.debug("정보 : {}",lessonList.getLessonList());
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		PointVO pointVo = null;
+		
 		try {
 			pointVo = userPayService.selectPoint(new PointVO(userVo.getUserId()));
 		} catch (Exception e) {e.printStackTrace();}
@@ -81,10 +87,21 @@ public class UserPayController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		Calendar cal = Calendar.getInstance();
 		LessonVO lvo = null;
+		List<IndexTimeVO> lidxIds = new ArrayList<>();
+		IndexTimeVO indexTimeVO = new IndexTimeVO(); 
 		
 		String payGroup = UUID.randomUUID().toString();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		pointVo.setUserId(userVo.getUserId());
+		
+		try {
+			lidxIds = lessonIndexService.selectLidxId(userVo.getUserId());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
 		if(pointVo.getPointUpdate() !=null) {
 			try {
 				userPayService.usePoint(pointVo);
@@ -105,6 +122,14 @@ public class UserPayController {
 					userPayService.insertPay(payVo.getPayList().get(i));
 					userPayService.deleteCart(cartVo);
 					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
+					
+					for(int j=0; j<lidxIds.size(); j++) {
+						  String lidxId = lidxIds.get(j).getLidxId();
+						  indexTimeVO.setLidxId(lidxId);
+						  indexTimeVO.setUserId(userVo.getUserId());
+						  lessonIndexService.insertIndexTime(indexTimeVO);
+					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,6 +148,12 @@ public class UserPayController {
 				payVo.setPayGroup(payGroup);
 				userPayService.insertPay(payVo);
 				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
+				for(int i=0; i<lidxIds.size(); i++) {
+					  String lidxId = lidxIds.get(i).getLidxId();
+					  indexTimeVO.setLidxId(lidxId);
+					  indexTimeVO.setUserId(userVo.getUserId());
+					  lessonIndexService.insertIndexTime(indexTimeVO);
+				}
 				logger.debug("가져온 lvo : {}",lvo);
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -194,7 +194,7 @@ FROM scholarship
 GROUP BY les_id, TO_DATE(TO_CHAR(schl_date, 'YYYY-MM-DD'),'YYYY-MM-DD')) a
 WHERE l.les_id = a.les_id
 <if test="searchASubject != null and !searchASubject.equals('')">
-WHERE 
+AND
 	l.sub_id = #{searchASubject}
 </if>
 </select>

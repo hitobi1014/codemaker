@@ -13,7 +13,17 @@
 <div class="text-center">
 	<img class="img-fluid" style="width: 130rem;" src="/images/main_mid.jpg" alt="">
 </div>
-
+<style>
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+.container-fluid, .container-fluid a{
+	font-family: 'LotteMartDream' !important;
+}
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Content Row -->
@@ -44,7 +54,8 @@
 							<img class="imgMain" src="/images/user/main/drawkit-grape-pack-illustration-2.svg"> <br>
 							<div class="text-xm font-weight-bold text-primary text-uppercase mb-1"> 코드메이커와 준비하는</div>
 							<div class="h1 mb-0 font-weight-bold text-gray-900">
-								<a id="at" href="" style="font-size: 1.1em;">코딩테스트</a> <br>
+								<c:url value="/user/codingtest" var="codingtest"/>
+								<a id="at" href="${codingtest}" style="font-size: 1.1em;">코딩테스트</a> <br>
 							</div>
 						</div>
 					</div>
