@@ -10,7 +10,14 @@
 	.table-responsive{
 		background-color: #C1C6C8;
 	}
-	
+	.form-control-text{
+		font-size: 10px;
+		border: solid 1px #fff
+	}
+	.form-control-label{
+		font-weight: normal;
+		font-size: large;
+	}
 </style>
 <script>
 	$(document).ready(function(){
@@ -30,17 +37,21 @@
 	<div class="row">
 		<div class="col-xl-8 m-auto order-xl-1">
 			<div class="card bg-secondary shadow">
-				<div class="card-header bg-white border-0">
-					<div class="row align-items-center">
-						<div class="col-8">
-							<h3 class="mb-0">이력서</h3>
-						</div>
-					</div>
-				</div>
 				<div class="table-responsive">
 					<form class="form-horiaontal" action="${cp }/admin/resume" method="post">
+						<div class="card-header bg-white border-0">
+							<div class="row align-items-center">
+								<div class="col-8">
+									<h3 class="mb-0">이력서</h3>
+								</div>
+								<div class="col-4 text-right">
+									<button type="button" id="resState1" value="Y">승인</button>&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" id="resState2" value="N">미승인</button>&nbsp;&nbsp;&nbsp;
+								</div>
+							</div>
+						</div>
 						<br>
-						<h6 class="heading-small text-muted mb-4">정보</h6>
+						<h5 class="heading-small text-muted mb-4">&nbsp;&nbsp;&nbsp;정보</h5>
 						<div class="pl-lg-4">
 							<div class="row">
 								<div class="col-lg-6">
@@ -56,86 +67,83 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="form-control-label" for="input-email">아이디</label>
-										<label class="form-control-label" id="resId">${resume.resId }</label>
+										ID : 
+										<input id="resId" value="${resume.resId }">
+										<label class="form-control-text" id="resId">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resId }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group focused">
-										<label class="form-control-label" for="input-first-name">승인코드</label>
-										<label class="form-control-label" id="resCode">${resume.resCode }</label>
+										<label class="form-control-label" for="input-first-name">승인코드</label><br>
+										<label class="form-control-text" id="resCode">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resCode }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group focused">
-										<label class="form-control-label" for="input-last-name">이름</label>
-										<label class="form-control-label" id="resNm">${resume.resNm }</label>
+										<label class="form-control-label" for="input-last-name">이름</label><br>
+										<label class="form-control-text" id="resNm">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resNm }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group focused">
-										<label class="form-control-label" for="input-address">전화번호</label>
-										<label class="form-control-label" id="resTel">${resume.resTel }</label>
+										<label class="form-control-label" for="input-address">전화번호</label><br>
+										<label class="form-control-text" id="resTel">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resTel }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group focused">
-										<label class="form-control-label" for="input-city">이메일</label>
-										<label class="form-control-label" id="resMail">${resume.resMail }</label>
+										<label class="form-control-label" for="input-city">이메일</label><br>
+										<label class="form-control-text" id="resMail">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resMail }</label>
 									</div>
 								</div>
 							</div>
 						</div>
 						<hr class="my-4">
-						<h6 class="heading-small text-muted mb-4">자기소개</h6>
+						<h5 class="heading-small text-muted mb-4">&nbsp;&nbsp;&nbsp;자기소개</h5>
 						<div class="pl-lg-4">
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group focused">
-										<label class="form-control-label" for="input-country">지원동기</label>
-										<label class="form-control-label" id="resMotive">${resume.resMotive }</label>
+										<label class="form-control-label" for="input-country">지원동기</label><br>
+										<label class="form-control-text" id="resMotive">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resMotive }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-country">학력</label>
-										<label class="form-control-label" id="resEdu">${resume.resEdu }</label>
+										<label class="form-control-label" for="input-country">학력</label><br>
+										<label class="form-control-text" id="resEdu">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resEdu }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-country">자격증</label>
-										<label class="form-control-label" id="resLicense">${resume.resLicense }</label>
+										<label class="form-control-label" for="input-country">자격증</label><br>
+										<label class="form-control-text" id="resLicense">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resLicense }</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="form-control-label" for="input-country">경력</label>
-										<label class="form-control-label" id="resCareer">${resume.resCareer }</label>
+										<label class="form-control-label" for="input-country">경력</label><br>
+										<label class="form-control-text" id="resCareer">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resCareer }</label>
 									</div>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
-			</div>
-			<div class="col-4 text-right">
-				<button type="button" id="resState1" value="Y">승인</button>
-				<button type="button" id="resState2" value="N">미승인</button>
 			</div>
 		</div>
 	</div>
