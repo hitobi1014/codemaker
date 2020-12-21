@@ -8,6 +8,16 @@ public class IndexTimeVO extends BaseVO{
 	private String lidxId;		// 강의목차 아이디
 	private int lidxCurtime;	// 강의 재생시간
 	
+	private String lesId;		// 강의 아이디
+	
+	
+	
+	public String getLesId() {
+		return lesId;
+	}
+	public void setLesId(String lesId) {
+		this.lesId = lesId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId; 
 	}

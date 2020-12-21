@@ -118,7 +118,8 @@ public class UserPayController {
 					userPayService.deleteCart(cartVo);
 					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
 					
-					indexTimeVO.setUserId(userVo.getUserId());
+					indexTimeVO.setUserId(payVo.getPayList().get(i).getUserId());
+					indexTimeVO.setLesId(payVo.getPayList().get(i).getLesId());
 					lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
 					logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
 					

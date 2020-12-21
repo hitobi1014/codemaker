@@ -52,9 +52,10 @@
 	</update>
 
 	<select id="selectLidxId" parameterType="kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO" resultType="kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO" >
-	select c.lidx_id 
+	select c.lidx_id ,b.user_id
 	  from lesson a, pay b, lesson_index c
 	 where b.user_id = #{userId} 
+	   and c.les_id = #{lesId}
 	   and a.les_id = b.les_id 
 	   and a.les_id=c.les_id
 	</select>
