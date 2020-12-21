@@ -47,12 +47,12 @@
 						<div class="lesson-index bg-index"> 	
 							<span class="lesson-index-num">${lesIdxList.lidxNum}</span>
 							<div class="lesson_content_section">
-							<div class="">
-								<h2>${lesIdxList.lidxCont}</h2>
+							<div class="lesson-index-cont">
+								<h2 class="lidx-cont-h2">${lesIdxList.lidxCont}</h2>
 							</div>
 							<c:if test="${MEMBER_INFO.userId != null && MEMBER_INFO.userId == lesIdxList.userId}">
-								<div class="">
-									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
+								<div class="lidx-img">
+									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video-img" src="/images/user/lesson/video2.png"></a><a href=""><img class="note-img" src="/images/user/lesson/note.png"></a></span>
 									<c:choose>
 										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
 											<span id="spanText">완료</span>
@@ -70,20 +70,18 @@
 			</c:forEach>
 		</div>
 		<div class="lesson-content-right" >
-			<div class="">
-				<img id="teacher" src="/images/user/lesson/teacher.png">
+			<div class="teacher-top">
+				<img id="teacher-img" src="/images/user/lesson/teacher.png">
 			</div>
-			<div class="">
-				<div class="">
-					<h3>강사 이름</h3>
+			<div class="teacher-bottom">
+				<div class="teacher-name">
+					<h3 class="teacher-name-h3">강사 이름</h3>
 				</div>
-				<div class="">
-					<p>강사 소개, 약력</p>
+				<div class="teacher-cont">
+					<p class="teachr-cont-p">강사 소개, 약력</p>
 				</div>
 			</div>
-			
 		</div>
-		
 	</div>
 
 	<div class="">
