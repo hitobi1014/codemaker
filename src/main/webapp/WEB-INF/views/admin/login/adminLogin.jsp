@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>admin/teacher Login</title>
+<title>로그인🔑</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -44,6 +44,15 @@
 <script type="text/javascript" src="/js/admin/login/js.cookie-2.2.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.12.0.js"></script>
 
+<!-- captcha api 적용 js -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<style>
+	#apiBox{
+		margin: 0 auto;
+	}
+</style>
+
 <script>
 
 // 이미지 클릭시 이벤트
@@ -51,10 +60,10 @@ $(function(){
 	$("#teacherImg").click(function(){
 		$(this).attr("src", "/images/admin/signup/teacher.png");
 		$("#adminImg").attr("src", "/images/admin/signup/admin (3).png");
-		$("#loginForm").attr("action", "${cp}/teacher/login");
 		$("#inputEmail").attr("name", "tchId");
 		$("#inputPass").attr("name", "tchPass");
 		$(".hiddenDiv").show();
+		
 	})
 	$("#adminImg").click(function(){
 		$("#teacherImg").attr("src", "/images/admin/signup/teacher (1).png");
@@ -103,7 +112,7 @@ $(function(){
 			$('#inputEmail').val(userid);
 		}
 		
-		$('#Login').on('click', function(){
+		$('#Login').on('click', function(e){
 			if($('#ckb1').prop('checked')){
 				Cookies.set('REMEMBERME', 'Y');
 				
@@ -114,6 +123,36 @@ $(function(){
 				Cookies.remove('USERID');
 			}
 			
+			// 캡챠 체크 박스 체크 여부
+			var captcha = 1;
+			var currentUrl = $("#loginForm").attr("action");
+			$.ajax({
+				url: '/login/VerifyRecaptcha',
+				type: 'post',
+				data: {
+					recaptcha: $("#g-recaptcha-response").val()
+				},
+				success: function(data) {
+					switch (data) {
+						case 0:
+							console.log("자동 가입 방지 봇 통과");
+							captcha = 0;
+							document.location="/admin/main";
+							break;
+						case 1:
+							alert("자동 가입 방지 봇을 확인 한 뒤 진행 해 주세요.");
+		 					break;
+						default:
+							alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+							break;
+					}
+				}
+			});
+			
+			if(captcha != 0) {
+				return false;
+			}
+			
 			var currentUrl = $("#loginForm").attr("action");
 		    $.ajax({
 				type : "POST",
@@ -121,18 +160,27 @@ $(function(){
 				data : $('#loginForm').serialize(),
 				dataType : 'text',
 				success : function(data){
+					console.log(data);
 					if(currentUrl.indexOf("teacher") > 0){
 						console.log("강사 확인");
-						document.location="/teacher/main";
+						if(data == 'Y'){
+							document.location="/teacher/main";
+						}else{
+							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+						}
 					}
 					else if(currentUrl.indexOf("admin") > 0) {
 							// 음수일 때 실행되어서 -1로 실행이 안됐음,, 0보다 클때를 꼭 ,,
 						console.log("관리자 확인");
-						document.location="/admin/main";
+						if(data == 'Y'){
+							document.location="/admin/main";
+						}else{
+							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+						}
 					}
 				},
 				error : function(er){
-					alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+						alert("사용자를 선택해 주세요.");
 				}
 			});
 		})
@@ -146,19 +194,19 @@ $(function(){
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w" id="loginForm" method="post">
+				<form class="login100-form validate-form flex-sb flex-w" id="loginForm" action="${cp}/teacher/login" method="post" onsubmit="return checkrecaptachSubmit();">
 					<span class="login100-form-title p-b-51"> 로그인 </span> 
-					<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher (1).png" style="height: 120px; width: 120px;">
+					<img id="teacherImg" alt="교사" src="/images/admin/signup/teacher.png" style="height: 120px; width: 120px;" >
 					<img id="adminImg" alt="관리자" src="/images/admin/signup/admin (3).png" style="height: 120px; width: 120px;">
 
-					<div class="wrap-input100 validate-input m-b-16">
-						<input class="input100" type="text" id="inputEmail" placeholder="아이디">
+					<div class="wrap-input100 validate-input m-b-16"> 
+						<input class="input100" type="text" id="inputEmail" name="tchId" placeholder="아이디">
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="wrap-input100 validate-input m-b-16">
-						<input class="input100" type="password" id="inputPass" placeholder="비밀번호">
+						<input class="input100" type="password" id="inputPass" name="tchPass" placeholder="비밀번호">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
@@ -167,7 +215,10 @@ $(function(){
 							<label class="label-checkbox100" for="ckb1"> 아이디 저장 </label>
 						</div>
 					</div>
-
+					<div id="apiBox">
+						<div id="recaptcha" class="g-recaptcha" data-sitekey="6Le8jQgaAAAAAJTJKh0nADqggMH6WjGDpmcwtXOe"></div>
+					</div>
+					
 					<div class="container-login100-form-btn m-t-17">
 						<button type="button" id="Login" class="login100-form-btn">로그인</button>
 					</div>
