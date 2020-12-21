@@ -1,27 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+@charset "UTF-8";
 
-<style>
 #cont {
 	padding-top: 80px;
 	margin-right: -15px;
 	margin-left: -15px;
 }
-
+.container{
+	min-height: 861px;
+    height: auto;
+    max-width: 100%;
+    padding: 0 0 0 0;
+}
 #lessonInt {
-	width: 900px;
-	height: 195px;
-	border-radius: 10px;
-	padding: 20px 0 22px;
-	text-align: center;
-	font-size: 26px;
+	width: 100%;
+    height: 300px;
+    padding: 20px 0 22px;
+/*     margin: 50px 370px; */
+    text-align: center;
+    font-size: 26px;
+    background: #80008000;
+/*     border: 34px solid #800080ab; */
+    color: black;
+    font-size: 50px;
 }
 
 #lessonCont {
 	border-radius: 10px;
-	padding: 20px 0 22px;
+	padding: 60px 0 22px;
 	text-align: center;
 	font-size: 26px;
 	background-color: white
@@ -44,18 +49,76 @@
 }
 
 .btn {
-	height: 40px;
-	width: 90px;
-	margin-left: 50px;
-	margin-top: 20px;
-	background-color: rgb(0, 95, 134);
-	font-family: Ubuntu-Regular;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #fff;
-	font-style: bold;
+	width: 98px;
+    height: 30px;
+    text-align: center;
+    margin: 0px 0 8px 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    background: #750075;
 }
 
+.lesNm{
+	border:1px solid black;
+	font-size:40px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+	font-weight: 600;
+}
+
+.lesCont{
+	border:1px solid black;
+	height: 100%;
+	padding: 28px 0 0 0;
+}
+
+#lescont{
+	border:1px solid black; 
+	width: 55%; 
+	float: left;
+	font-size: 25px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+	font-weight: 600;
+}
+
+#lescontBtn{
+	border:1px solid black;
+	width: 45%;
+	float: right;
+	height: 75%;
+}
+
+#subNmDiv{
+	border:1px solid black; 
+	width: 70%; 
+	float: left;
+	font-size: 25px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+}
+#subNmBox{
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    margin: 0px 0 8px 25px;
+    border-radius: 17px;
+    display: flex;
+    justify-content: center;
+    background: #750075;
+}
+span{
+	font-size: 17px;
+    font-weight: 600;
+    color : white;
+}
+
+a{
+	font-size: 17px;
+    font-weight: 600;
+    color : white;
+}
 .teacher {
 	height: 400px;
 	width: 300px;
@@ -75,19 +138,6 @@
 	background-color: #fff;
 }
 
-li .on {
-	background-color: rgb(0, 78, 134)
-}
-
-ul {
-	width: 900px;
-	height: 70px;
-	border-radius: 10px;
-	text-align: center;
-	font-size: 26px;
-	margin-top: 30px;
-	float: left;
-}
 
 button {
 	margin-top: 15px;
@@ -123,7 +173,6 @@ button {
 .container_lesson{
 	margin-right: auto;
     margin-left: auto;
-    margin-top: 100px;
     padding-right: 15px;
     padding-left: 15px;
     width: 1140px;
@@ -160,7 +209,7 @@ button {
     border-radius: .8rem;
 }
 .bg-index{
-	background-image: linear-gradient(154deg, #005F86, #005F86) !important;
+	background-image: linear-gradient(154deg, #800080ab, #800080ab) !important;
 }
 .secion_indes{
 	width: 6.3rem;
@@ -292,118 +341,3 @@ h2{
 	color:#007bff;
 	font-weight: 900;
 }
-
-/* .contdiv{max-width:200px;} */
-</style>
-<script>
-	// 강의영상 클릭시
-	$(function() {
-		$('a[id^="videoClick_"]').on('click',function(){
-			var path = $(this).attr('value');
-			var lidxId = $(this).data('lidxid');
-			window.open("/user/selectYoutube?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
-		})
-
-	})
-
-</script>
-
-<div class="container">
-	<div id="cont"></div>
-</div>
-
-
-<div class="container" style="height: 200px;">
-	<div class="card shadow lessonHeader" id="lessonInt"
-		style="height: 220px;">강의소개4</div>
-	<div class="btn" style="border: 1px solid #69666d; margin-top: 50px;">
-		<a onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
-	</div>
-	<div class="btn" style="border: 1px solid black;">
-		<a>담기</a>
-	</div>
-	<div class="btn" style="border: 1px solid black;">
-		<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
-		<div id="payBtn" class="btn" style="border: 1px solid black;">
-			<c:url value="/user/payView" var="pay">
-				<c:param name="lesId" value="${lesId}" />
-			</c:url>
-			<a href="${pay}">결제하기</a>
-		</div>
-	</div>
-</div>
-
-<div class="container_lesson" >
-	<div class="container_left" >
-		<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
-			<div class="container_lessonIndex" >
-				<div class="container_lessonIndex_In" >
-					<div class="container_lessonIndex_section bg-index"> 	
-						<span class="lessonIndex">${lesIdxList.lidxNum}</span>
-						<div class="container_lessonCont_section">
-							<div class="lidxCont">
-								<h2>${lesIdxList.lidxCont}</h2>
-							</div>
-							<c:if test="${MEMBER_INFO.userId != null}">
-								<div class="lidxImg">
-									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
-									<c:choose>
-										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
-											<span id="spanText">완료</span>
-										</c:when>
-										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
-											<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
-										</c:when>
-									</c:choose>
-								</div>
-							</c:if>
-						</div>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
-	<div class="container_right" >
-		<div class="container_teacher_top">
-			<img id="teacher" src="/images/user/lesson/teacher.png">
-		</div>
-		<div class="container_teacher_bottom">
-			<div class="teacher_title">
-				<h3>강사 이름</h3>
-			</div>
-			<div class="teacher_cont">
-				<p>강사 소개, 약력</p>
-			</div>
-		</div>
-		
-	</div>
-	
-</div>
-
-<div class="container">
-	<div class="lessonHeader" id="lessonCont"style="border: 1px solid black; width: 900px;">
-	시험
-	</div>
-</div>
-<script>
-function addCart(lesId,userId){
-	console.log(lesId,userId);
-	$.ajax({
-		method : "post",
-		url : "/user/cart",
-		data : {lesId:lesId,userId:userId},
-		dataType : "json",
-		success : function(res){
-			if(res.code==0){
-				alert(res.msg);
-			}else{
-				var check = confirm("장바구니에 강의를 담았습니다\n장바구니로 이동하시겠습니까?");
-				if(check){
-					location.href="${pageContext.request.contextPath}/user/cartView";
-				}
-			}
-		}
-	})
-}
-</script>
-

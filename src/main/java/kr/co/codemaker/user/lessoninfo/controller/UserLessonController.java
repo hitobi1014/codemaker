@@ -56,48 +56,19 @@ public class UserLessonController {
 	@RequestMapping(path="/user/selectSubject")
 	public String selectLesson(Model model) {
 		List<SubjectVO> subjectList = subjectService.selectSubject();
-		List<LessonVO> lessonList= lessonService.selectLesson();
+		List<LessonVO> lessonList = new ArrayList<>();
+		try {
+			lessonList = lessonService.selectLesson();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		model.addAttribute("subjectList", subjectList);
 		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/lesson/subjectSelect";
 	}
 	
-	/**
-	 * 회원 - 강의목차 조회페이지(로그인했을시)
-	 * @param model
-	 * @param lessonIndexVO
-	 * @return
-	 */
-	@RequestMapping(path="/user/selectLessonPageLogin")
-	public String selectLessonPageLogin(Model model,HttpSession session,String lesId ) {
-		// 1. 파라미터 lesId -> VO객체로 받기
-		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
-		LessonIndexVO lessonIndexVO = new LessonIndexVO();
-		
-		// 로그인세션 가져오기
-		UserVO userVO = new UserVO();
-		userVO = (UserVO) session.getAttribute("MEMBER_INFO");
-		logger.debug("userVO:{}",userVO);
-		
-		
-		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
-		
-		try {
-				lessonIndexVO.setUserId(userVO.getUserId());
-				lessonIndexVO.setLesId(lesId);
-				lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
-		logger.debug("강의목차:{}",lesIdxList);
-		model.addAttribute("lesIdxList", lesIdxList);
-		model.addAttribute("lesId", lessonIndexVO.getLesId());
-		return "mainT/user/lesson/lessonSelect";
-		
-	}
 	/**
 	 * 회원 - 강의목차 조회페이지
 	 * @param model
@@ -109,7 +80,7 @@ public class UserLessonController {
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
 		LessonIndexVO lessonIndexVO = new LessonIndexVO();
-		
+		LessonVO lessonVO = new LessonVO();
 		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
 		
@@ -117,6 +88,9 @@ public class UserLessonController {
 				lessonIndexVO.setLesId(lesId);
 				logger.debug("lessonIndexVO:{}",lessonIndexVO);
 				lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
+				
+				lessonVO.setLesId(lesId);
+				lessonVO = lessonService.selectDetailLesson(lessonVO);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -126,6 +100,7 @@ public class UserLessonController {
 		logger.debug("강의목차:{}",lesIdxList);
 		model.addAttribute("lesIdxList", lesIdxList);
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
+		model.addAttribute("lessonVO",lessonVO);
 		return "mainT/user/lesson/lessonSelect";
 		
 	}

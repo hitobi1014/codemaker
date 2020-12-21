@@ -9,7 +9,18 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.user.lessoninfo.dao.LessonMapper;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 
-
+/**
+ * UserLessonController.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8. ???????언제지?
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Service("userLessonService")
 public class LessonService{
 	
@@ -18,32 +29,13 @@ public class LessonService{
 	
 	
 	
-	public List<LessonVO> selectLesson() {
-		try {
+	public List<LessonVO> selectLesson() throws Exception {
 			return lessonMapper.selectLesson();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
-
-//	@Override
-//	public LessonVO selectLesson(String les_id) {
-//		return lessonDao.selectLesson(les_id);
-//	}
-//	
-//	@Override
-//	public List<LessonVO> selectAllLesson() {
-//		return lessonDao.selectAllLesson();
-//	}
-//
-//	@Override
-//	public int insertLesson(LessonVO lessonVO) {
-//		return lessonDao.insertLesson(lessonVO);
-//	}
-
+	public LessonVO selectDetailLesson(LessonVO lessonVO) throws Exception{
+		return lessonMapper.selectDetailLesson(lessonVO);
+	}
 
 
 }

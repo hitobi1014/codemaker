@@ -61,20 +61,10 @@
 						<c:forEach items="${lessonList}" var="lesList">
 							<c:if test="${subList.subId == lesList.subId}">
 								<div class="">
-									<c:url value="/user/selectLessonPageLogin" var="userLogin">
-										<c:param name="lesId" value="${lesList.lesId}"/>
-									</c:url>
 									<c:url value="/user/selectLessonPage" var="user">
 										<c:param name="lesId" value="${lesList.lesId}"/>
 									</c:url>
-									<c:choose>
-										<c:when test="${MEMBER_INFO.userId != null}">
-											<span class="info-lesnm"><a href="${userLogin}">${lesList.lesNm}</a></span>
-										</c:when>
-										<c:otherwise>
-											<span class="info-lesnm"><a href="${user}">${lesList.lesNm}</a></span>
-										</c:otherwise>
-									</c:choose>
+										<span class="info-lesnm"><a href="${user}">${lesList.lesNm}</a></span>
 								</div>
 							</c:if>
 						</c:forEach>

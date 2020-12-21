@@ -7,51 +7,51 @@
 
 
 
-<div class="lesson-container" >
-	<div class="lesson-header"  >
-		<div class="lesson-header-left" >
-			<div class="sub-info-id">
-				<span class="fs-wf sub-id" >${lessonVO.subId}</span>
-			</div>
-			<div class="les-info-name">
-				<span>${lessonVO.lesNm}</span>
-			</div>
-			<div class="les-info-cont">
-				<span class="sub-cont">${lessonVO.lesCont}</span>
-			</div>
+<div class="container" >
+	<div class="card shadow lessonHeader" id="lessonInt" >
+		<div class="lesNm">
+			${lessonVO.lesNm}
 		</div>
-		<div class="lesson-header-right">
-			<div class="les-btn-div">
-				<div class="lesbtn" >
-					<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
+		<div class="lesCont">
+			<div id="subNmDiv">
+				<div id="subNmBox">
+					<span>${lessonVO.subId}</span>
 				</div>
-				<div class="lesbtn">
-					<a class="fa-wf" href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
+			</div>
+			<div id="lescont">
+				${lessonVO.lesCont}
+			</div>
+			<div id="lescontBtn">
+				<div class="btn" >
+					<a onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
 				</div>
-				<div class="lesbtn" >
+				<div class="btn" ">
+					<a href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
+				</div>
+				<div id="payBtn" class="btn" >
 					<c:url value="/user/payView" var="pay">
 						<c:param name="lesId" value="${lesId}" />
 					</c:url>
-					<a class="fa-wf" href="${pay}">결제하기</a>
+					<a href="${pay}">결제하기</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<div class="lesson-content" >
-		<div class="lesson-content-left" >
+	<div class="container_lesson" >
+		<div class="container_left" >
 			<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
-				<div class="lesson-content-section" >
-					<div class="lesson-content-section-in" >
-						<div class="lesson-index bg-index"> 	
-							<span class="lesson-index-num">${lesIdxList.lidxNum}</span>
-							<div class="lesson_content_section">
-							<div class="">
+				<div class="container_lessonIndex" >
+					<div class="container_lessonIndex_In" >
+						<div class="container_lessonIndex_section bg-index"> 	
+							<span class="lessonIndex">${lesIdxList.lidxNum}</span>
+							<div class="container_lessonCont_section">
+							<div class="lidxCont">
 								<h2>${lesIdxList.lidxCont}</h2>
 							</div>
 							<c:if test="${MEMBER_INFO.userId != null && MEMBER_INFO.userId == lesIdxList.userId}">
-								<div class="">
+								<div class="lidxImg">
 									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video" src="/images/user/lesson/video2.png"></a><a href=""><img class="note" src="/images/user/lesson/note.png"></a></span>
 									<c:choose>
 										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
@@ -69,15 +69,15 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div class="lesson-content-right" >
-			<div class="">
+		<div class="container_right" >
+			<div class="container_teacher_top">
 				<img id="teacher" src="/images/user/lesson/teacher.png">
 			</div>
-			<div class="">
-				<div class="">
+			<div class="container_teacher_bottom">
+				<div class="teacher_title">
 					<h3>강사 이름</h3>
 				</div>
-				<div class="">
+				<div class="teacher_cont">
 					<p>강사 소개, 약력</p>
 				</div>
 			</div>
@@ -86,8 +86,8 @@
 		
 	</div>
 
-	<div class="">
-		<div class="" id="">
+	<div class="container">
+		<div class="lessonHeader" id="lessonCont"style="border: 1px solid black; width: 900px;">
 		시험
 		</div>
 	</div>
