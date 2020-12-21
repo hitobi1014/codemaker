@@ -53,8 +53,7 @@ $(function() {
 			var searchEsScore = $(this).parent('tr').data("examid").split("/")[1];
 			
 			if(searchEsScore != '999'){
-				var str = '<input type="hidden" name="examId" value="'+ examId +'">';
-				$('#subf').append(str);
+				$('#examId').val(examId);
 				
 				$('#subf').attr('action', '/examUser/selectExamScore');
 				$('#subf').submit();

@@ -5,18 +5,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.codemaker.admin.user.vo.UserVO;
+import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
 import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
@@ -52,6 +52,9 @@ public class UserLessonController {
 	@Resource(name="userLessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
+	// 시험
+	@Resource(name = "examUserService")
+	private ExamUserService examUserService;
 	
 	@RequestMapping(path="/user/selectSubject")
 	public String selectLesson(Model model) {
@@ -70,28 +73,36 @@ public class UserLessonController {
 	 * @return
 	 */
 	@RequestMapping(path="/user/selectLessonPage")
-	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session ) {
+	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session) {
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		IndexTimeVO indexTimeVO = new IndexTimeVO();
 		
 		// 로그인세션 가져오기
-		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
+		UserVO userVO = (UserVO)session.getAttribute("MEMBER_INFO");
 		indexTimeVO.setUserId(userVO.getUserId());
 		
+		// 시험 정보 가져오기
+		ExamVO examVO = new ExamVO();
+		examVO.setUserId(userVO.getUserId());
+		List<ExamVO> examList = new ArrayList<ExamVO>();
 		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
+			examList = examUserService.selectAllExam(examVO);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
 		logger.debug("강의목차:{}",lesIdxList);
+		
 		model.addAttribute("lesIdxList", lesIdxList);
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
+		
+		model.addAttribute("examList", examList);
+		
 		return "mainT/user/lesson/lessonSelect";
 		
 	}
@@ -111,7 +122,7 @@ public class UserLessonController {
 		// 3. 진행률 업데이트
 		
 		// 로그인세션 가져오기
-		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
+		UserVO userVO = (UserVO)session.getAttribute("MEMBER_INFO");
 		
 		
 		logger.debug("lidxId : {}", lidxId);

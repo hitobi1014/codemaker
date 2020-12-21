@@ -6,6 +6,7 @@
 SELECT a.*, b.lidx_curtime
     FROM lesson_index a, index_time b
     where a.les_id = #{lesId}
+    and b.user_id = #{userId}
     and a.lidx_id = b.lidx_id
     ORDER BY lidx_num ASC
 </select>
