@@ -142,7 +142,6 @@ public class ScholarshipController {
 		// 받은 데이터를 맵에 담는다.
 		Map<String, Object> beans = new HashMap<String, Object>();
 
-//		ExcelUtil excelUtil = new ExcelUtil();
 		try {
 			// 수강중인 회원 목록
 			if (scholarshipVO.getExcelGn().equals("1")) {

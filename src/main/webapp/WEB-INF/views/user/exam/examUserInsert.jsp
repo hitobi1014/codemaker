@@ -116,6 +116,7 @@ var scoring = function(){
 				studentAnswers.push('0');
 			}
 		}
+		$('#studentAnswers').val(studentAnswers);
 		
 		// 채점
 		for(var i=0; i < answers.length; i++){
@@ -126,6 +127,7 @@ var scoring = function(){
 				erChecks.push(0);
 			}
 		}
+		$('#erCheckList').val(erChecks);
 		
 		// 총점
 		var sum = 0;
@@ -171,8 +173,8 @@ var scoring = function(){
 		<input type="hidden" name="esFscore" class="form-control" id="esFscore" value="${ev.esFscore }"/>
 		<input type="hidden" name="esLscore" class="form-control" id="esLscore" value="${ev.esLscore }"/>
 		<form:input type="hidden" path="searchEsScore" class="form-control" id="searchEsScore" value="${searchEsScore }"/>
-		<input type="hidden" name="erCheckList" value=""/>
-		<input type="hidden" name="studentAnswers" value=""/>
+		<input type="hidden" name="erCheckList" value="" id="erCheckList"/>
+		<input type="hidden" name="studentAnswers" value="" id="studentAnswers"/>
 		<div id="d2">
 			<div id="d1"></div>
 			<div id="d3">
