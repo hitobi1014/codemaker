@@ -3,15 +3,14 @@
 <mapper namespace="kr.co.codemaker.user.lessoninfo.dao.LessonIndexMapper">
 
 	<select id="selectLessonIndex_login" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
-	SELECT a.*, b.lidx_curtime
+SELECT a.*, b.lidx_curtime
     	FROM lesson_index a, index_time b
     	<where>
 	   		 AND a.les_id = #{lesId}
-	   		 AND user_id=#{userId}
 	    	 AND a.lidx_id = b.lidx_id
     	</where>
    		 ORDER BY lidx_num ASC
-	</select>
+</select>
 	
 	<select id="selectLessonIndex" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO">
 	SELECT *
