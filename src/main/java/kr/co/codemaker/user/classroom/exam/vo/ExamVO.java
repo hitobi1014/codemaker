@@ -33,9 +33,9 @@ public class ExamVO extends ExamScoreVO {
 	private String searchEsFscore;	// 시험 점수 유무
 	private float avgScore;			// 평균 점수
 	
-	private List<String> queIdList;		// 문제 아이디 리스트
+	private List<String> queIdList;			// 문제 아이디 리스트
 	private List<String> studentAnswers;	// 학생 정답 리스트
-	private List<Integer> erCheckList;	// 학생 오답 여부
+	private List<Integer> erCheckList;		// 학생 오답 여부
 	
 	private String searchEsScore;	// 시험 점수 유무
 	private int queTotal;			// 총점

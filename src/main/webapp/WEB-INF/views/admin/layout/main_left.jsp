@@ -43,7 +43,7 @@
 											</li>
 											
 											<li >
-												<a href="#">장학제도</a>
+												<a href="/scholarship/selectAllScholarship">장학제도</a>
 											</li>
 										
 										</div>

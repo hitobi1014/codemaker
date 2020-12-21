@@ -14,11 +14,11 @@ SELECT
     NVL(es.es_fscore, 0) es_fscore,
     NVL(es.es_lscore, 0) es_lscore
 FROM
-    exam e, examscore es
+    exam e
+    LEFT OUTER JOIN
+    examscore es ON(e.exam_id = es.exam_id)
 WHERE
 	e.exam_id = #{examId}
-AND
-	e.exam_id = es.exam_id
 </select>
 <select id="selectAllExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
 SELECT b.*, c.avgScore
@@ -72,7 +72,7 @@ SELECT b.*, c.avgScore
 		</if>
 		ORDER BY SUBSTR(li.lidx_id, 5)) a) b, 
 		(SELECT ROUND(AVG(es_fscore), 2) avgScore FROM examscore) c
- WHERE rn BETWEEN 1 * (#{page} - 1) + 1 AND #{page} * 1
+ WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
 
 <select id="selectTotalCntExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="java.lang.Integer">
