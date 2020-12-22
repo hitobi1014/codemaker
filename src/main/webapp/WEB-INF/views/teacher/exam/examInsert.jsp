@@ -59,7 +59,7 @@ $(function() {
 			});
 		}
 		if(state == 0){
-			if($('.chk:checked').length != $('.d5').length){
+			if($('.chk:checked').length => $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
 				state = 1;
 				return false;

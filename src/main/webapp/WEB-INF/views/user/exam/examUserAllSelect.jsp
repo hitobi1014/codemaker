@@ -95,6 +95,7 @@ $(function() {
 		<form:form name="examVO" commandName="examVO" id="subf" action="/examUser/selectAllExam" method="post">
 			<input type="hidden" name="examId" id="examId" value="">
 			<input type="hidden" name="searchEsScore" id="searchEsScore" value="">
+			<input type="hidden" name="resultState" id="resultState" value="0">
 			<div id="rldiv">
 				<div id="left">
 					<input type="button" id="cancel" class="btn btn-sm btn-primary" value="목록으로 가기"/>

@@ -63,7 +63,6 @@ input{
 	margin-top: 5px;
 }
 .btn {
-	margin-right: 67px;
     background-color: cadetblue;
     color: black;
 }
@@ -73,10 +72,11 @@ input{
 	font-weight: bold;
 }
 .btns {
-	text-align: right;
     margin-top: 10px;
-    margin-right: 259px;
     margin-bottom: 10px;
+    padding-right: 255px;
+    width: 100%;
+    text-align: right;
 }
 .comment {
 	resize: none;
@@ -104,5 +104,8 @@ input{
 }
 .exam-select-item{
 	margin-top: 14px;
+}
+#cancle{
+	margin-right: 68px;
 }
 

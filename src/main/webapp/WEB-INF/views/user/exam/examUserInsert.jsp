@@ -47,6 +47,9 @@ $(function() {
 	// 시험 시작
 	$('#st').on('click', function(){
 		$('#start').attr('style', 'display: block;');
+		$(this).attr('style', 'display: none');
+		$('#examStrat').attr('style', 'display: none');
+		
 		// 시험 타이머
 		var time = 10;	// 기준 시간
 		var min = "";
@@ -88,6 +91,8 @@ var scoring = function(){
 		state = 1;
 	}
 	
+	console.log(jumsu);
+	
 	// examf
 	if(state == 1){
 		var answers = [];			// 정답
@@ -118,6 +123,8 @@ var scoring = function(){
 		}
 		$('#studentAnswers').val(studentAnswers);
 		
+		console.log(studentAnswers);
+		
 		// 채점
 		for(var i=0; i < answers.length; i++){
 			if(answers[i] == studentAnswers[i]){
@@ -135,38 +142,45 @@ var scoring = function(){
 			sum += erChecks[i];
 		}
 		
-		// 시험 첫 점수가 없다면 첫점수에 그게 아니라면 다시풀기 점수에...
 		if($('#searchEsScore').val() == '0'){
 			$('#esFscore').val(sum);
 		}else{
 			$('#esLscore').val(sum);
 		}
 		
-		$.ajax({
-			url : '/examUser/insertExamResult',
-			method : 'post',
-			data : 
-				$("#examf").serialize()
-			,
-			success : function(res){
-				alert("채점 완료");
-				opener.parent.location.reload(); // 부모창 리로드
-				// 초기화
-				$('#examf')[0].reset();
-				self.close();
-			},
-			error: function(xhr){
-				alert("상태"+xhr.status);
-			}
-		});
+// 		$.ajax({
+// 			url : '/examUser/insertExamResult',
+// 			method : 'post',
+// 			data : 
+// 				$("#examf").serialize()
+// 			,
+// 			success : function(res){
+// 				alert("채점을 완료하였습니다.");
+// 				opener.parent.location.reload(); // 부모창 리로드
+				
+// 				// 초기화
+// 				$('#examf')[0].reset();
+				
+// 				$('#examf').attr('action', '/examUser/selectExamScore');
+// 				$('#examf').submit();
+				
+// 				//self.close();
+// 			},
+// 			error: function(xhr){
+// 				alert("상태"+xhr.status);
+// 			}
+// 		});
 	}
 }
 
 </script>
 <title>examInsert</title>
 </head>
+<!-- <body oncontextmenu='return false' ondragstart='return false' onselectstart='return false'> -->
 <body>
-<button type="button" class="btn btn-secondary" id="st">시험 시작</button>
+<div id="examStrat">
+	<button type="button" class="btn btn-secondary" id="st">시험 시작</button>
+</div>
 <div id="start">
 	<form:form name="examVO" commandName="examVO" id="examf" action="/examUser/insertExamResult">
 		<form:input type="hidden" path="examId" class="form-control" value="${examId }"/>
@@ -190,7 +204,7 @@ var scoring = function(){
 				<div class="d5">
 					<div class="d4"></div>
 					<div class="d6">
-						<label for="sel2" class="sel2"><h5>${status.count }. ${question.queCont }</h5></label><br>
+						<label for="sel2" class="sel2"><h4>${status.count }. ${question.queCont }</h4></label><br>
 						<input type="hidden" name="queIdList" class="form-control" value="${question.queId }"/>
 						<input type="hidden" name="queAnswer" class="form-control" value="${question.queAnswer }"/>
 						<label for="sel4" class="sel4">배점 : </label>

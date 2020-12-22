@@ -43,7 +43,15 @@ public class ExamVO extends ExamScoreVO {
 	// 페이징 작업 추가
 	private int page; 			// 현재 보여주는 페이지 번호
 	
+	private String resultState;		// 시험 결과 보여주는 유무
 	
+	
+	public String getResultState() {
+		return resultState;
+	}
+	public void setResultState(String resultState) {
+		this.resultState = resultState;
+	}
 	public List<String> getStudentAnswers() {
 		return studentAnswers;
 	}

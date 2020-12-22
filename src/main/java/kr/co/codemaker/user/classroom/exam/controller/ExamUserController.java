@@ -122,7 +122,7 @@ public class ExamUserController {
 	}
 	
 	/**
-	 * 시험점수와 시험결과를 등록하는 메서드 - 처음 시험을 풀때만
+	 * 시험점수와 시험결과를 등록하는 메서드
 	 * 
 	 * @author 김미연
 	 * @param examScoreVO
@@ -201,7 +201,11 @@ public class ExamUserController {
 		model.addAttribute("examResultList", examResultList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "mypageT/user/exam/examUserSelect";
+		if(examVO.getResultState() != null && examVO.getResultState().equals("0")) {
+			return "mypageT/user/exam/examUserSelect";
+		}
+		
+		return "user/exam/examUserResult";
 	}
 	
 
