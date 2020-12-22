@@ -28,6 +28,7 @@ public class LessonIndexService {
 	@Resource(name="userLessonIndexMapper")
 	private LessonIndexMapper lessonIndexMapper;
 	
+	
 	public List<LessonIndexVO> selectLessonIndex(LessonIndexVO lessonIndexVO) throws Exception{
 		return lessonIndexMapper.selectLessonIndex(lessonIndexVO);
 	}

@@ -1,0 +1,41 @@
+diff a/src/main/java/kr/co/codemaker/user/lessoninfo/controller/UserLessonController.java b/src/main/java/kr/co/codemaker/user/lessoninfo/controller/UserLessonController.java	(rejected hunks)
+@@ -73,28 +73,36 @@
+ 	 * @return
+ 	 */
+ 	@RequestMapping(path="/user/selectLessonPage")
+-	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session ) {
++	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO,HttpSession session) {
+ 		// 1. 파라미터 lesId -> VO객체로 받기
+ 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
+ 		LessonIndexVO lesIdxVO = new LessonIndexVO();
+ 		IndexTimeVO indexTimeVO = new IndexTimeVO();
+ 		
+ 		// 로그인세션 가져오기
+-		UserVO userVO = (UserVO)session.getAttribute("USER_INFO");
++		UserVO userVO = (UserVO)session.getAttribute("MEMBER_INFO");
+ 		indexTimeVO.setUserId(userVO.getUserId());
+ 		
++		// 시험 정보 가져오기
++		ExamVO examVO = new ExamVO();
++		examVO.setUserId(userVO.getUserId());
++		List<ExamVO> examList = new ArrayList<ExamVO>();
+ 		
+ 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+ 		try {
+ 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
++			examList = examUserService.selectAllExam(examVO);
+ 		} catch (Exception e) {
+-			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
+ 		logger.debug("강의목차:{}",lesIdxList);
++		
+ 		model.addAttribute("lesIdxList", lesIdxList);
+ 		model.addAttribute("lesId", lessonIndexVO.getLesId());
++		
++		model.addAttribute("examList", examList);
++		
+ 		return "mainT/user/lesson/lessonSelect";
+ 		
+ 	}

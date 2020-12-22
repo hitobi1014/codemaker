@@ -82,19 +82,23 @@ public class UserLessonController {
 		LessonIndexVO lessonIndexVO = new LessonIndexVO();
 		LessonVO lessonVO = new LessonVO();
 		
-		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+        UserVO userVO = new UserVO();
+        userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+        logger.debug("유저VO!!:{}",userVO);
 		
-			try {
-				lessonIndexVO.setLesId(lesId);
-				logger.debug("lessonIndexVO:{}",lessonIndexVO);
-				lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
-				
-				lessonVO.setLesId(lesId);
-				lessonVO = lessonService.selectDetailLesson(lessonVO);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+		lessonIndexVO.setLesId(lesId);
+		if(userVO!=null) {
+			lessonIndexVO.setUserId(userVO.getUserId());
+		}
+		
+		lessonVO.setLesId(lesId);
+		try {
+			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
+			lessonVO = lessonService.selectDetailLesson(lessonVO);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
 		logger.debug("강의목차:{}",lesIdxList);
