@@ -22,25 +22,61 @@
 		</div>
 		<div class="lesson-header-right">
 			<div class="les-btn-div">
-				<div class="lesbtn" >
-					<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br>
-				</div>
 				<div class="lesbtn">
 					<a class="fa-wf" href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
-				</div>
-				<div class="lesbtn" >
-					<c:url value="/user/payView" var="pay">
-						<c:param name="lesId" value="${lesId}" />
-					</c:url>
-					<a class="fa-wf" href="${pay}">결제하기</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	<div class="lesson-content" >
+	<div class="lesson-content-top" >
 		<div class="lesson-content-left" >
+			<div class="lesson-content card shadow">
+				<div class="lesson-content-detail-top">
+				<c:set var="price" value="${lessonVO.lesCash}"/>
+					<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+				</div>
+				<div class="lesson-content-detail-middle">
+					<div class="detail-middle-term">수강기간</div>
+					<div class="detail-middle-video">강의영상</div>
+					<div class="detail-middle-exam">퀴즈</div>
+				</div>
+				<div class="lesson-content-detail-middle2nd">
+					<div class="detail-middle2nd-term">${lessonVO.lesTerm}<span class="wons">일</span></div>
+					<div class="detail-middle2nd-video">${lesIdxList.size()}</div>
+					<div class="detail-middle2nd-exam">퀴즈갯수</div>
+				</div>
+				<div class="lesson-content-detail-bottom">
+<!-- 					<div class="lesbtn" > -->
+<%-- 						<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br> --%>
+<!-- 					</div> -->
+					<div class="" >
+						<c:url value="/user/payView" var="pay">
+							<c:param name="lesId" value="${lesId}" />
+						</c:url>
+						<a class="fa-black" href="${pay}">결제하기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="lesson-content-right" >
+			<div class="teacher-top">
+				<img id="teacher-img" src="/images/user/lesson/teacher.png">
+			</div>
+			<div class="teacher-bottom">
+				<div class="teacher-name">
+					<h3 class="teacher-name-h3">강사 이름z</h3>
+				</div>
+				<div class="teacher-cont">
+					<p class="teachr-cont-p">강사 소개, 약력</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="lesson-content-bottom">
+		<div class="lesson-content-bottom-in" >
 			<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
 				<div class="lesson-content-section" >
 					<div class="lesson-content-section-in" >
@@ -52,7 +88,9 @@
 							</div>
 							<c:if test="${MEMBER_INFO.userId != null && MEMBER_INFO.userId == lesIdxList.userId}">
 								<div class="lidx-img">
-									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" ><img class="video-img" src="/images/user/lesson/video2.png"></a><a href=""><img class="note-img" src="/images/user/lesson/note.png"></a></span>
+									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" >
+									<img class="video-img" src="/images/user/lesson/video2.png"></a>
+									</span>
 									<c:choose>
 										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
 											<span id="spanText">완료</span>
@@ -61,6 +99,7 @@
 											<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
 										</c:when>
 									</c:choose>
+									<span><a href=""><img class="note-img" src="/images/user/lesson/note.png"></a></span>
 								</div>
 							</c:if>
 							</div>
@@ -69,20 +108,8 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div class="lesson-content-right" >
-			<div class="teacher-top">
-				<img id="teacher-img" src="/images/user/lesson/teacher.png">
-			</div>
-			<div class="teacher-bottom">
-				<div class="teacher-name">
-					<h3 class="teacher-name-h3">강사 이름</h3>
-				</div>
-				<div class="teacher-cont">
-					<p class="teachr-cont-p">강사 소개, 약력</p>
-				</div>
-			</div>
-		</div>
 	</div>
+		
 
 	<div class="">
 		<div class="" id="">

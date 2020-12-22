@@ -11,6 +11,10 @@
 }
 
 .lesson-header-left, .lesson-header-right{
+/* 	border: 1px solid black; */
+	
+}
+.lesson-content-left, .lesson-content-right, .lesson-content-bottom{
 	border: 1px solid black;
 	
 }
@@ -86,9 +90,9 @@ span{
     line-height: 35px;
 }
 
-.lesson-content{
+.lesson-content-top{
 	display: flex;	
-	height: 700px;
+	height: 400px;
 	margin: 35px 0 0 0;	
 }
 .lesson-content-left{
@@ -98,7 +102,7 @@ span{
 	
 }
 .lesson-content-right{
-	width: 37%;
+	width: 34%;
 	height : auto;
 	display: inline-block;
 	margin-left: 50px;
@@ -177,23 +181,23 @@ span{
 }
 .teacher-top{
 	position: relative;
-	width: 240px;
-	height: 240px;
-	margin-left: 100px;
+	width: 150px;
+	margin: 0 auto;
 	border-radius: 50%;
 	background-color: white;
 }
 #teacher-img{
 	border-radius: 50%;
-	width: 240px;
-    height: 240px;
+	width: 150px;
 }
 .teacher-bottom{
 	padding: 45px;
     border-radius: .5rem;
     box-shadow: 10px 9px 27px 0 rgba(27, 16, 93, 0.06);
     background-color: #ffffff;
-    height: 300px;
+    height: 240px;
+    width: 80%;
+    margin: 0 auto;
 }
 .teacher-name{
 	display: inline-block;
@@ -220,3 +224,72 @@ span{
     letter-spacing: -0.35px;
     color: #050505;
 }
+.lesson-content{
+	border:2px solid #656565;
+	width: 80%;
+    height: 300px;
+    display: inline-block;
+    margin: 0 0 0 66px;
+}
+.lesson-content-detail-top, .lesson-content-detail-middle,.lesson-content-detail-middle2nd, .lesson-content-detail-bottom,
+.detail-middle-term, .detail-middle-video, .detail-middle-exam{
+/* 	border: 1px solid black; */
+}
+.lesson-content-detail-top{
+	height: 23%;
+	padding: 8px 0 0 200px;
+	border-bottom: 2px solid #656565;
+}
+.lesson-content-detail-middle{
+	height: 23%;
+	display: flex;
+    width: 100%;
+    border-bottom: 2px solid #656565
+}
+.lesson-content-detail-middle2nd{
+	height: 28%;
+	display: flex;
+    width: 100%;
+    border-bottom: 2px solid #656565
+}
+.lesson-content-detail-bottom{
+	height: 26%;
+	display: flex;
+	background: #750075;
+    padding: 9px 0 0 230px;
+}
+.prices{
+	font-size:35px;
+	font-weight: 600;
+	vertical-align: middle;
+	color: #1055f1;
+}
+.wons{
+	font-size:20px;
+	font-weight: 600;
+	vertical-align: middle;
+	margin: 0 0 0 3px;
+}
+.detail-middle-term, .detail-middle-video,.detail-middle-exam{
+	width: 33.4%;
+    height: 100%;
+    text-align: center;
+  	padding: 19px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.detail-middle2nd-term, .detail-middle2nd-video,.detail-middle2nd-exam{
+	width: 33.4%;
+    height: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 30px;
+    font-weight: 600;
+}
+.fa-black{
+	font-size: 21px;
+    color: white;
+    font-weight: 600;
+    line-height: 35px;
+}
+
