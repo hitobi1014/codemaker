@@ -82,6 +82,7 @@ public class UserLessonController {
 		// 로그인세션 가져오기
 		UserVO userVO = (UserVO)session.getAttribute("MEMBER_INFO");
 		indexTimeVO.setUserId(userVO.getUserId());
+		lessonIndexVO.setUserId(userVO.getUserId());
 		
 		// 시험 정보 가져오기
 		ExamVO examVO = new ExamVO();
