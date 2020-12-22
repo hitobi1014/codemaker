@@ -54,7 +54,7 @@ public class AdminLoginController {
 		}
 		
 		NotificationVO notificationVo = new NotificationVO();
-		notificationVo.setRecipientId(dbAdminVO.getAdminId());
+		notificationVo.setRecipientId(adminVO.getAdminId());
 		
 		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
 		int notifyCnt = 0;
@@ -98,7 +98,7 @@ public class AdminLoginController {
 		}
 		
 		NotificationVO notificationVo = new NotificationVO();
-		notificationVo.setRecipientId(dbTeacherVO.getTchId());
+		notificationVo.setRecipientId(teacherVO.getTchId());
 		
 		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
 		int notifyCnt = 0;

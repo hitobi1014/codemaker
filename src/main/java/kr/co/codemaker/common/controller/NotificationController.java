@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.vo.NotificationVO;
-import kr.co.codemaker.common.vo.TeacherVO;
+
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
 public class NotificationController {
