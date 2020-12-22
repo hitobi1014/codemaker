@@ -25,14 +25,27 @@ public class AdminLoginController {
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
-	//로그인 화면
+	/**
+	 * 로그인 화면
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/loginView", method = RequestMethod.GET)
 	public String getView() {
 		logger.debug("AdminLoginController.getView()");
 		return "admin/login/adminLogin";
 	}
 	
-	// 관리자 로그인
+	/**
+	 * 관리자가 로그인하는 메서드
+	 * @author 이은지
+	 * @param dbAdminVO
+	 * @param request
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/admin/login", method=RequestMethod.POST)
 	@ResponseBody
 	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request, HttpSession session, Model model) throws Exception{
@@ -52,7 +65,12 @@ public class AdminLoginController {
 		return "N";
 	}
 	
-	// 로그아웃
+	/**
+	 * 로그아웃 하는 메서드
+	 * @param session
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -60,7 +78,15 @@ public class AdminLoginController {
 		return "redirect:/loginView";
 	}
 	
-	
+	/**
+	 * 강사가 로그인하는 메서드
+	 * @param dbTeacherVO
+	 * @param response
+	 * @param session
+	 * @author 이은지
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/teacher/login", method=RequestMethod.POST)
 	@ResponseBody
 	public String getTeacher(TeacherVO dbTeacherVO, HttpServletResponse response,
@@ -82,6 +108,12 @@ public class AdminLoginController {
 		return "N";
 	}
 	
+	/**
+	 * 구글 reCaptcha API
+	 * @param request
+	 * @author 이은지
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(path="/login/VerifyRecaptcha", method=RequestMethod.POST)
 	public int VerifyRecaptcha(HttpServletRequest request) {
@@ -99,10 +131,21 @@ public class AdminLoginController {
 		}
 	}
 	
+	/**
+	 * 로그인 성공 시 관리자 메인화면
+	 * @return
+	 * @author 이은지
+	 */
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
 		return "adminPage/admin/main/adminMain";
 	}
+	
+	/**
+	 * 로그인 성공 시 강사 메인화면
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {
 		
