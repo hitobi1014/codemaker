@@ -17,7 +17,7 @@ public class ComplainService {
 	@Resource(name="complainMapper")
 	private ComplainMapper complainMapper;
 	
-	public Map<String, Object> selectAllComplain(Map<String, Object> map){
+	public Map<String, Object> selectAllComplain(Map<String, Object> map) throws Exception{
 		
 		map.put("complainList", complainMapper.selectAllComplain(map));
 		
@@ -30,27 +30,27 @@ public class ComplainService {
 		return map;
 	}
 	
-	public int insertComplain(ComplainVO complainVo) {
+	public int insertComplain(ComplainVO complainVo) throws Exception{
 		return complainMapper.insertComplain(complainVo);
 	}
 	
-	public ComplainVO selectComplain(ComplainVO complainVo) {
+	public ComplainVO selectComplain(ComplainVO complainVo) throws Exception {
 		return complainMapper.selectComplain(complainVo);
 	}
 	
-	public int checkComplain(ComplainVO complainVo) {
+	public int checkComplain(ComplainVO complainVo) throws Exception {
 		return complainMapper.checkComplain(complainVo);
 	}
 	
-	public String selectReplyQna(ComplainVO complainVo) {
+	public String selectReplyQna(ComplainVO complainVo) throws Exception {
 		return complainMapper.selectReplyQna(complainVo);
 	}
 	
-	public List<UserVO> selectBlackList(){
+	public List<UserVO> selectBlackList() throws Exception{
 		return complainMapper.selectBlackList();
 	}
 	
-	public int insertBlackList(UserVO userVo) {
+	public int insertBlackList(UserVO userVo) throws Exception {
 		return complainMapper.insertBlackList(userVo);
 	}
 }

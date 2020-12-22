@@ -1,5 +1,6 @@
 package kr.co.codemaker.admin.complain.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.ComplainService;
+import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.vo.ComplainVO;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.UserVO;
 
 @Controller
@@ -25,6 +28,9 @@ public class AdminComplainController {
 	@Resource(name="complainService")
 	private ComplainService complainService;
 	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
 	@RequestMapping(path="/admin/selectAllComplain")
 	public String selectAllComplain(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
 			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, Model model) {
@@ -34,7 +40,11 @@ public class AdminComplainController {
 		map.put("page", page);
 		map.put("pageSize", pageSize);
 		
-		map = complainService.selectAllComplain(map);
+		try {
+			map = complainService.selectAllComplain(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("complainList",map.get("complainList"));
 		model.addAttribute("page", page);
@@ -46,10 +56,20 @@ public class AdminComplainController {
 	
 	@RequestMapping(path="/admin/selectComplain")
 	public String selectComplain(ComplainVO complainVo, Model model) {
-		ComplainVO cpVo = complainService.selectComplain(complainVo);
+		ComplainVO cpVo = new ComplainVO();
+		try {
+			cpVo = complainService.selectComplain(complainVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		if(cpVo.getReplyId() != null) {
-			String reId = complainService.selectReplyQna(cpVo);
+			String reId = "";
+			try {
+				reId = complainService.selectReplyQna(cpVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			model.addAttribute("reId", reId);
 		}
 		
@@ -61,9 +81,11 @@ public class AdminComplainController {
 	@RequestMapping(path="/admin/checkComplain")
 	public String checkComplain(ComplainVO complainVo) {
 		
-		logger.debug("complainVO : {}", complainVo);
-		
-		complainService.checkComplain(complainVo);
+		try {
+			complainService.checkComplain(complainVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "jsonView";
 	}
@@ -71,7 +93,12 @@ public class AdminComplainController {
 	@RequestMapping(path="/admin/selectBlackList")
 	public String selectBlackList(Model model) {
 		
-		List<UserVO> blacklist = complainService.selectBlackList();
+		List<UserVO> blacklist = new ArrayList<UserVO>();
+		try {
+			blacklist = complainService.selectBlackList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("blacklist", blacklist);
 		
@@ -81,7 +108,11 @@ public class AdminComplainController {
 	@RequestMapping(path="/admin/insertBlackList")
 	public String insertBlackList(UserVO userVo) {
 		
-		complainService.insertBlackList(userVo);
+		try {
+			complainService.insertBlackList(userVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:/admin/selectBlackList";
 	}

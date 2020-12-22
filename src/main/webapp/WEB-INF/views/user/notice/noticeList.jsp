@@ -13,12 +13,13 @@
 $(document).ready(function(){
 	
 	
-	$("#keywords").keydown(function(key) {
+	$("#keywords").keypress(function(key) {
 		if (key.keyCode == 13) {
 			var searchOption = $("select[name='searchOption']").val();
 			var keyWord = $("input[name='keyWord']").val();
 		
 			document.location="/user/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
+			return false;
 		}
 	});
 	

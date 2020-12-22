@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 	@font-face {
 		font-family: 'LotteMartDream';
@@ -9,6 +10,9 @@
 	}
 	header{
 		font-family: 'LotteMartDream';
+	}
+	.dropdown-list{
+		width: 400px !important;
 	}
 </style>
 <header class="main-header " id="header">
@@ -23,13 +27,32 @@
 			<ul class="nav navbar-nav">
 				<!-- Github Link Button -->
 				<li class="dropdown notifications-menu">
-					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="border: none; outline:none; background-color: #212a39; border-color: #212a39; height: 50px; margin-bottom: 35px;">
-						<i class="mdi mdi-bell-outline"></i>
-					</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Link 1</a>
-						<a class="dropdown-item" href="#">Link 2</a>
-						<a class="dropdown-item" href="#">Link 3</a>
+					<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+						<i class="fas fa-bell fa-fw"></i> 
+						<span class="badge badge-danger badge-counter">${notifyCnt}</span>
+					</a>
+					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+					<h6 class="dropdown-header"></h6>
+						<c:forEach items="${notifyList}" var="notify">
+							<c:choose>
+								<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
+									<span class="font-weight-bold">새로운 알림이 없습니다</span>
+								</c:when>
+								<c:otherwise>
+									<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
+										<div class="mr-3">
+											<div class="icon-circle bg-primary">
+												<i class="fas fa-file-alt text-white"></i>
+											</div>
+										</div>
+										<div>
+											<div class="small text-gray-500">${notify.notifyDate}</div>
+											<span class="font-weight-bold">${notify.notifyCont}</span>
+										</div>
+									</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach> 
 					</div>
 				</li>
 				<!-- User Account -->
@@ -41,4 +64,23 @@
 			</ul>
 		</div>
 	</nav>
+	
+<script>
+	$(function(){
+		$('a[id^=url]').on("click", function(){
+			var notifyId = $(this).attr('notify');
+			var notificationVo = {notifyId : notifyId};
+			$.ajax({
+				url : "/readNotification",
+				data : notificationVo,
+				dataType : 'json',
+				success : function(){
+					
+				}
+			})
+		})
+	})
+</script>
+	
+	
 </header>

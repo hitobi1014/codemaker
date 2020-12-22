@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.service.QnaService;
 import kr.co.codemaker.common.service.ReplyService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.ReplyVO;
 
 @Controller
@@ -26,9 +29,33 @@ public class UserReplyController {
 	@Resource(name="replyService")
 	private ReplyService replyService;
 	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
+	@Resource(name="qnaService")
+	private QnaService qnaService;
+	
 	@RequestMapping(path="/user/insertReply")
-	public String insertReply(ReplyVO replyVo, String userId, Model model) {
-replyService.insertReply(replyVo);
+	public String insertReply(ReplyVO replyVo, String lesId, Model model) {
+		
+		String tchId = "";
+		try {
+			tchId = qnaService.selectQnaTeacher(lesId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 님이 댓글을 남겼습니다.");
+		notificationVo.setRecipientId(tchId);
+		notificationVo.setSenderId(replyVo.getReplyWriter());
+		
+		try {
+			replyService.insertReply(replyVo);
+			notificationService.insertNotification(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("replyVo", replyVo);
 		
@@ -36,12 +63,33 @@ replyService.insertReply(replyVo);
 	}
 	
 	@RequestMapping(path="/user/insertrReply")
-	public String updateReply(ReplyVO replyVo, @RequestParam("rreplyCont") String replyCont, @RequestParam("root") String replyRoot, Model model) {
+	public String updateReply(ReplyVO replyVo, String lesId, @RequestParam("rreplyCont") String replyCont, @RequestParam("root") String replyRoot, Model model) {
 		
 		replyVo.setReplyCont(replyCont);
 		replyVo.setReplyRoot(replyRoot);
 		
-		replyService.insertReply(replyVo);
+		logger.debug("--------------{}=====",replyVo.getReplyWriter());
+		
+		ReplyVO reVo = new ReplyVO();
+		
+		try {
+			reVo = replyService.selectReply(replyRoot);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(reVo.getReplyWriter());
+		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 님이 댓글을 남겼습니다.");
+		notificationVo.setSenderId(replyVo.getReplyWriter());
+		
+		try {
+			replyService.insertReply(replyVo);
+			notificationService.insertNotification(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		model.addAttribute("replyVo", replyVo);
 		
@@ -50,7 +98,11 @@ replyService.insertReply(replyVo);
 	
 	@RequestMapping(path="/user/deleteReply")
 	public String deleteReply(ReplyVO replyVo, String qnaId) {
-replyService.deleteReply(replyVo.getReplyId());
+		try {
+			replyService.deleteReply(replyVo.getReplyId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:/user/selectQna?qnaId="+replyVo.getQnaId();
 	}

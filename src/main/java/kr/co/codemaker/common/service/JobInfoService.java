@@ -32,7 +32,7 @@ public class JobInfoService{
 	@Resource(name="jobInfoMapper")
 	private JobInfoMapper jobInfoMapper;
 
-	public Map<String, Object> selectAllJobInfo(Map<String, Object> map) {
+	public Map<String, Object> selectAllJobInfo(Map<String, Object> map) throws Exception {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("jobInfoList", jobInfoMapper.selectAllJobInfo(map));
@@ -49,7 +49,7 @@ public class JobInfoService{
 		return map2;
 	}
 	
-	public Map<String, Object> selectAllJobInfoU(Map<String, Object> map) {
+	public Map<String, Object> selectAllJobInfoU(Map<String, Object> map) throws Exception {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("jobInfoList", jobInfoMapper.selectAllJobInfoU(map));
@@ -66,19 +66,19 @@ public class JobInfoService{
 		return map2;
 	}
 
-	public JobInfoVO selectJobInfo(String jobInfoId) {
+	public JobInfoVO selectJobInfo(String jobInfoId) throws Exception {
 		return jobInfoMapper.selectJobInfo(jobInfoId);
 	}
 
-	public int insertJobInfo(JobInfoVO jobInfoVo) {
+	public int insertJobInfo(JobInfoVO jobInfoVo) throws Exception {
 		return jobInfoMapper.insertJobInfo(jobInfoVo);
 	}
 
-	public int updateJobInfo(JobInfoVO jobInfoVo) {
+	public int updateJobInfo(JobInfoVO jobInfoVo) throws Exception {
 		return jobInfoMapper.updateJobInfo(jobInfoVo);
 	}
 
-	public int deleteJobInfo(String jobInfoId) {
+	public int deleteJobInfo(String jobInfoId) throws Exception {
 		return jobInfoMapper.deleteJobInfo(jobInfoId);
 	}
 

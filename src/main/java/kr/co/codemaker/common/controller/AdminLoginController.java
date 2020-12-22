@@ -1,6 +1,9 @@
 package kr.co.codemaker.common.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.LoginService;
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
@@ -24,6 +29,9 @@ public class AdminLoginController {
 	
 	@Resource(name="loginService")
 	private LoginService loginService;
+	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
 	
 	//로그인 화면
 	@RequestMapping(path="/loginView", method = RequestMethod.GET)
@@ -45,8 +53,23 @@ public class AdminLoginController {
 			e.printStackTrace();
 		}
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(dbAdminVO.getAdminId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
 			session.setAttribute("S_ADMIN", adminVO);
+			session.setAttribute("notifyList", notifyList);
+			session.setAttribute("notifyCnt", notifyCnt);
 			return "Y";
 		}
 		return "N";
@@ -74,8 +97,22 @@ public class AdminLoginController {
 			e.printStackTrace();
 		}
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(dbTeacherVO.getTchId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		if(teacherVO != null && dbTeacherVO.getTchPass().equals(teacherVO.getTchPass())) {
 			session.setAttribute("S_TEACHER", teacherVO);
+			session.setAttribute("notifyList", notifyList);
+			session.setAttribute("notifyCnt", notifyCnt);
 			
 			return "Y";
 		}

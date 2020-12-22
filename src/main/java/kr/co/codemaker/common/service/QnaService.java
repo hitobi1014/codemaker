@@ -80,4 +80,8 @@ public class QnaService {
 	public int deleteQna(String qnaId) throws Exception {
 		return qnaMapper.deleteQna(qnaId);
 	}
+	
+	public String selectQnaTeacher(String qnaId) throws Exception {
+		return qnaMapper.selectQnaTeacher(qnaId);
+	}
 }

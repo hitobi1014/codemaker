@@ -30,13 +30,33 @@ $(document).ready(function(){
 	
 	$("button[id^=rreply]").on('click', function(){
 		var root = $(this).val();
+		var str = "";
 		count++
-		if(count < 2){
-			$('#treply').append("<input type='text' style='border:1px black solid; resize:none; width:400px; margin-left:500px;' name='rreplyCont'>");
-			$('#treply').append("<button type='button' id='rreplybutton' onclick='rreinsert()'>댓글작성</button>");
-			$('#treply').append("<input type='hidden' name='root' value='"+ root +"'>");
-			$('#treply').append("<input type='hidden' name='qnaId' value='${qnaVo.qnaId}'>");
-			$('#treply').append("<input type='hidden' name='replyWriter' value='${S_TEACHER.tchId}'>");
+		if(count == 1){
+			str += "<form id='rreplyInsert' method='POST' action='/teacher/insertrReply'>"
+			str += "<li>";
+			str += "<hr>";
+			str += "	<div class='CommentWriter'>";
+			str += "		<div class='comment_inbox'>";
+			str += "			<span>작성자 : ${S_TEACHER.tchId}</span>";
+			str += "			<textarea class='comment_inbox_text' id='replyCont' name='rreplyCont' placeholder='댓글을 입력해주세요'></textarea>";
+			str += "		</div>";
+			str += "		<div class='comment_attach'>";
+			str += "			<div>";
+			str += "				<button style='float:right; color:#b7b7b7;' id='rreplybutton' class='button btn_register'>등록</button>";
+			str += "			</div>";
+			str += "		</div>";
+			str += "	</div>";
+			str += "</li>";
+			str += "<input type='hidden' name='root' value='"+ root +"'>";
+			str += "<input type='hidden' name='qnaId' value='${qnaVo.qnaId}'>";
+			str += "<input type='hidden' name='replyWriter' value='${S_TEACHER.tchId}'>";
+			str += "</form>";
+			
+			$(this).closest('li').after(str);
+			
+		}else if(count == 2){
+			count = 0;
 		}
 	});
 	
@@ -50,18 +70,15 @@ $(document).ready(function(){
 		}
 	})
 	
-	$("button[id^=report]").on('click', function(){	
-		if(confirm("신고하시겠습니까?")){
+	
+	$("button[id='rreplybutton']").on('click', function(){
+		if(confirm("등록하시겠습니까?")){
+			$("#rreplyInsert").submit();
 			return;
 		}else{
 			return;
 		}
-	
 	})
-	
-	rreinsert = function(){
-		$('#rrein').submit();
-	}
 	
 });
 
@@ -82,7 +99,7 @@ $(document).ready(function(){
 		color : #1d25af;
 		font-weight: 600;
 		font-family: 'LotteMartDream';
-		font-size: 35px
+		font-size: 35px;
 	}
 	.row{
 		margin: 50px 130px 0;
@@ -172,7 +189,13 @@ $(document).ready(function(){
 	    text-align: center;
 	    vertical-align: top;
 	}
-	
+	label{
+		text-transform: none;
+	}
+	p{
+		line-height: 2.5;
+		margin-bottom: 0;
+	}
 </style>
 	<div class="card">
 			
@@ -189,34 +212,27 @@ $(document).ready(function(){
 			</div>
 
 			<br>
-			<div style="margin:30px;">
-				<label class="control-label">${qnaVo.qnaCont}</label>
+			<div style="margin:30px; text-align:center;">
+				<label class="control-label" style="font-size:20px; width:800px; text-align:left;">${qnaVo.qnaCont}</label>
 			</div>
 			<hr>
 			<div>
-			<h3 style="color:rgb(0,95,134);">댓글</h3>
+			
+			<div>
+				<h3 style="color:rgb(0,95,134);">댓글</h3>
+				<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
+			</div>
 			<br>
 				<div>
-					<ul>
+					<ul id="ultag">
 						<c:forEach var="reply" items="${replyList}">
 							<li class="contents">
 							<hr>
-								<c:choose>
-									<c:when test="${reply.replyRoot != null}">
-										<div style="margin-left:60px;" class="condiv">	
-											<div class="condiv" style="margin-bottom:10px;">
-												<span style="font-size:1.3em; font-weight:800">${reply.replyWriter}</span>
-												<span style="font-size:0.9em; font-weight:300; color:gray;"><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd HH:mm"/></span>
-											</div>
-									</c:when>
-									<c:otherwise>
-										<div style="margin-left:20px;" class="condiv">	
-											<div class="condiv" style="margin-bottom:10px;">
-												<span style="font-size:1.3em; font-weight:800">${reply.replyWriter}</span>
-												<span style="font-size:0.9em; font-weight:300; color:gray;"><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd HH:mm"/></span>
-											</div>
-									</c:otherwise>
-								</c:choose>
+								<div style="margin-left:${60*reply.replylevel}px;" class="condiv">
+									<div class="condiv" style="margin-bottom:10px;">
+										<span style="font-size:1.3em; font-weight:800">${reply.replyWriter}</span>
+										<span style="font-size:0.9em; font-weight:300; color:gray;"><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd HH:mm"/></span>
+									</div>
 									<div class="condiv">
 										<div class="condiv">
 											<p style="float:left; margin-left:30px;">${reply.replyCont}</p>
@@ -228,7 +244,6 @@ $(document).ready(function(){
 											<c:choose>
 												<c:when test="${reply.replyWriter != S_TEACHER.tchId}">
 													<button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button>
-													<button id="report" type="button" name="report" value="${reply.replyId}">신고</button>
 												</c:when>
 												<c:otherwise>
 													<form id="delre" action="/teacher/deleteReply">
@@ -237,23 +252,15 @@ $(document).ready(function(){
 													</form>
 												</c:otherwise>
 											</c:choose>
-											
 										</c:if>	
-										
 									</div>
 								</div>
-								
 							</li>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 			
-			<form id="rrein" action="/teacher/insertrReply" method="post">
-				<div id="treply">
-					
-				</div>
-			</form>
 			
 			<hr>
 			<form id="inre" action="/teacher/insertReply" method="POST">	
@@ -267,15 +274,13 @@ $(document).ready(function(){
 					</div>
 					<div class="comment_attach">
 						<div>
-							<button style="float:right; color:#b7b7b7;" class="button btn_register">등록</button>
+							<button style="float:right; color:#b7b7b7;" type="button" id="insertbutton" class="button btn_register">등록</button>
 						</div>
 					</div>
 				</div>
 			</form>
 			<hr>
-			<div>
-				<button type="button" id="listbutton" class="btn btn-primary">목록</button>
-			</div>
+			
 		</div>
 	</div>
 </div>

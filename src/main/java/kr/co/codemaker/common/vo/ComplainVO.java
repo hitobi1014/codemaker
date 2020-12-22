@@ -12,9 +12,27 @@ public class ComplainVO extends BaseVO {
 	private String cpGn;
 	private Date cpDate;
 	private String cpCount;
+	private String plaintiff;  // 신고자
+	private String defendant;  // 피신고자
 	
 	private String userId;
 	
+	public String getPlaintiff() {
+		return plaintiff;
+	}
+
+	public void setPlaintiff(String plaintiff) {
+		this.plaintiff = plaintiff;
+	}
+
+	public String getDefendant() {
+		return defendant;
+	}
+
+	public void setDefendant(String defendant) {
+		this.defendant = defendant;
+	}
+
 	public Date getCpDate() {
 		return cpDate;
 	}

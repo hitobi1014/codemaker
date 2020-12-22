@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.service.QnaService;
 import kr.co.codemaker.common.service.ReplyService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.QnaVO;
 import kr.co.codemaker.common.vo.ReplyVO;
 
@@ -29,6 +31,9 @@ public class UserQnaController {
 	
 	@Resource(name="replyService")
 	private ReplyService replyService;
+	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
 	
 	@RequestMapping(path="/user/selectAllQna")
 	public String selectAllQna(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
@@ -78,8 +83,20 @@ public class UserQnaController {
 	@RequestMapping(path="/user/insertQna", method=RequestMethod.POST)
 	public String insertReply(QnaVO qnaVo) {
 		
+		String tchId = "";
+		try {
+			tchId = qnaService.selectQnaTeacher(qnaVo.getLesId());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setNotifyCont(qnaVo.getUserId()+" 님이 질문을 작성하였습니다.");
+		notificationVo.setRecipientId(tchId);
+		notificationVo.setSenderId(qnaVo.getUserId());
 		try {
 			qnaService.insertQna(qnaVo);
+			notificationService.insertNotification(notificationVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

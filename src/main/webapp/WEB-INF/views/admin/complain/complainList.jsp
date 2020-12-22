@@ -14,16 +14,16 @@
 			var cpId = $(this).parents('tr').data("cpid");
 			
 			var url = "${cp}/admin/selectComplain?cpId="+cpId;
-			var option = "width = 500, height = 448, top = 200, left = 400, location = no"
+			var option = "width = 500, height = 592, top = 200, left = 400, location = no"
 			window.open(url, "신고내역", option);
 		})
 		
 		$("#complains").on('click', function(){
-			document.location="${cp}/admin/selectAllComplain";
+			document.location="/admin/selectAllComplain";
 		})
 		
 		$("#blacklist").on('click', function(){
-			document.location="${cp}/admin/selectBlackList";
+			document.location="/admin/selectBlackList";
 		})
 			
 	})
@@ -105,6 +105,8 @@ font-family: 'LotteMartDream';
 				<th>신고 내용</th>
 				<th>신고일</th>
 				<th>신고확인</th>
+				<th>신고자</th>
+				<th>신고대상</th>
 				<th></th>
 			</tr>
 			<tbody id="complainList">
@@ -114,6 +116,8 @@ font-family: 'LotteMartDream';
 						<td style="text-align:left;">${complain.cpCont}</td>
 						<td><fmt:formatDate value="${complain.cpDate}" pattern="yyyy-MM-dd" /></td>
 						<td>${complain.cpState}</td>
+						<td>${complain.plaintiff}</td>
+						<td>${complain.defendant}</td>
 						<td><button type="button" name="detail" id="detail">상세보기</button></td>
 					</tr>
 				</c:forEach>

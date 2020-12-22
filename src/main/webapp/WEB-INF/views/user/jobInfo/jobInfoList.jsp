@@ -14,12 +14,13 @@
 <script>
 $(document).ready(function(){
 		
-	$("#keywords").keydown(function(key) {
+	$("#keywords").keypress(function(key) {
 		if (key.keyCode == 13) {
 			var searchOption = $("select[name='searchOption']").val();
 			var keyWord = $("input[name='keyWord']").val();
 				
-			document.location="${cp}/user/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
+			document.location="/user/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
+			return false;
 		}
 	});
 	
@@ -27,7 +28,7 @@ $(document).ready(function(){
 		
 		var keyWord = $("input[name='keyWord']").val();
 	
-		document.location="${cp}/user/selectAllJobInfo?keyWord="+keyWord+"&page=1";
+		document.location="/user/selectAllJobInfo?keyWord="+keyWord+"&page=1";
 	});
 })
 </script>

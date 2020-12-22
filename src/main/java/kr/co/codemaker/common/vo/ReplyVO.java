@@ -23,7 +23,15 @@ public class ReplyVO {
 	private String replyWriter;
 	private String replyOut;
 	private String replyCont;
+	private int replylevel;
 	
+	
+	public int getReplylevel() {
+		return replylevel;
+	}
+	public void setReplylevel(int replylevel) {
+		this.replylevel = replylevel;
+	}
 	public void setQnaId(String qnaId) {
 		this.qnaId = qnaId; 
 	}
@@ -67,11 +75,12 @@ public class ReplyVO {
 	public String getReplyCont() {
 		return replyCont; 
 	}
-
 	@Override
 	public String toString() {
 		return "ReplyVO [qnaId=" + qnaId + ", replyRoot=" + replyRoot + ", replyId=" + replyId + ", replyDate="
 				+ replyDate + ", replyWriter=" + replyWriter + ", replyOut=" + replyOut + ", replyCont=" + replyCont
-				+ "]";
+				+ ", replyLevel=" + replylevel + "]";
 	}
+
+
 }
