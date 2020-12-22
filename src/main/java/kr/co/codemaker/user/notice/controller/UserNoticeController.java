@@ -47,7 +47,7 @@ public class UserNoticeController {
 	
 	@RequestMapping(path="/user/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
