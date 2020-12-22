@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <link href="/css/user/lesson/lesson-select.css" rel="stylesheet" type="text/css">
 
 
@@ -24,6 +25,9 @@
 			<div class="les-btn-div">
 				<div class="lesbtn">
 					<a class="fa-wf" href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
+				</div>
+				<div class="lesbtn">
+					<button class="fa-wf" id="qnabtn">QnA</button>
 				</div>
 			</div>
 		</div>
@@ -48,15 +52,16 @@
 					<div class="detail-middle2nd-exam">퀴즈갯수</div>
 				</div>
 				<div class="lesson-content-detail-bottom">
-<!-- 					<div class="lesbtn" > -->
-<%-- 						<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">강의담기</a><br> --%>
-<!-- 					</div> -->
-					<div class="" >
+
 						<c:url value="/user/payView" var="pay">
 							<c:param name="lesId" value="${lesId}" />
 						</c:url>
 						<a class="fa-black" href="${pay}">결제하기</a>
-					</div>
+				</div>
+			</div>
+			<div class="lesson-content-button">
+				<div class="cartbtn" >
+					<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">담기</a><br>
 				</div>
 			</div>
 		</div>
@@ -78,7 +83,7 @@
 	<div class="lesson-content-bottom">
 		<div class="lesson-content-bottom-in" >
 			<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
-				<div class="lesson-content-section" >
+				<div class="lesson-content-section-out" >
 					<div class="lesson-content-section-in" >
 						<div class="lesson-index bg-index"> 	
 							<span class="lesson-index-num">${lesIdxList.lidxNum}</span>
@@ -88,18 +93,23 @@
 							</div>
 							<c:if test="${MEMBER_INFO.userId != null && MEMBER_INFO.userId == lesIdxList.userId}">
 								<div class="lidx-img">
-									<span><a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" >
-									<img class="video-img" src="/images/user/lesson/video2.png"></a>
-									</span>
-									<c:choose>
-										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
-											<span id="spanText">완료</span>
-										</c:when>
-										<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
-											<span>미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)</span>
-										</c:when>
-									</c:choose>
-									<span><a href=""><img class="note-img" src="/images/user/lesson/note.png"></a></span>
+									<div class="lidx-img-1st">
+										<a href="#" id="videoClick_${status.index}" value="${lesIdxList.lidxPath}" class="videoA" data-lidxid="${lesIdxList.lidxId}" >
+										<img class="video-img" src="/images/user/lesson/video2.png"></a>
+									</div>
+									<div class="lidx-img-2nd">
+										<c:choose>
+											<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
+												완료
+											</c:when>
+											<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
+												미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)
+											</c:when>
+										</c:choose>
+									</div>
+									<div class="lidx-img-3rd">
+										<a href=""><img class="note-img" src="/images/user/lesson/note.png"></a>
+									</div>
 								</div>
 							</c:if>
 							</div>
@@ -111,9 +121,9 @@
 	</div>
 		
 
-	<div class="">
-		<div class="" id="">
-		시험
+	<div class="qna-content">
+		<div id="qna">
+		QnA
 		</div>
 	</div>
 </div>
@@ -137,13 +147,25 @@ function addCart(lesId,userId){
 		}
 	})
 }
-// 강의영상 클릭시
+
 $(function() {
+	// qna클릭시 스크롤 이동
+	$('#qnabtn').on('click',function(){
+		var location = document.querySelector('#qna').offsetTop;
+		window.scrollTo({top:location, behavior:'smooth'});
+	})
+	// 강의영상 클릭시
 	$('a[id^="videoClick_"]').on('click',function(){
 		var path = $(this).attr('value');
 		var lidxId = $(this).data('lidxid');
 		window.open("/user/selectYoutube?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
 	})
-
+	
 })
+
+// var qnabtn = function(){
+// 	var offset = $('#qna').offset();
+// 	$('body').animate({scrollTop:offset.top},400);
+// }
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

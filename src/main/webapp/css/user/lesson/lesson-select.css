@@ -15,7 +15,7 @@
 	
 }
 .lesson-content-left, .lesson-content-right, .lesson-content-bottom{
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	
 }
 .lesson-header{
@@ -81,7 +81,7 @@ span{
     background: #750075;
 }
 .les-btn-div{
-	margin: 90px 0 0 0;
+	margin: 90px 0 0 70px;
 }
 .fa-wf {
 	font-size: 17px;
@@ -107,8 +107,9 @@ span{
 	display: inline-block;
 	margin-left: 50px;
 }
-.lesson-content-section{
-	margin-bottom: 1.5rem;
+.lesson-content-section-out{
+	margin: 0 0 20px 0;
+    width: 55%;
 }
 .lesson-content-section-in{
 	display: block;
@@ -167,6 +168,7 @@ span{
 }
 .lidx-img{
 	width: 40%;
+    display: flex;
 }
 .video-img{
 	width: 1.9rem;
@@ -227,7 +229,7 @@ span{
 .lesson-content{
 	border:2px solid #656565;
 	width: 80%;
-    height: 300px;
+    height: 280px;
     display: inline-block;
     margin: 0 0 0 66px;
 }
@@ -239,6 +241,9 @@ span{
 	height: 23%;
 	padding: 8px 0 0 200px;
 	border-bottom: 2px solid #656565;
+}
+.lesson-content-bottom{
+	height: auto;
 }
 .lesson-content-detail-middle{
 	height: 23%;
@@ -255,8 +260,10 @@ span{
 .lesson-content-detail-bottom{
 	height: 26%;
 	display: flex;
-	background: #750075;
-    padding: 9px 0 0 230px;
+}
+.fa-black:hover{
+    color: white;
+    background: #750075;
 }
 .prices{
 	font-size:35px;
@@ -288,8 +295,37 @@ span{
 }
 .fa-black{
 	font-size: 21px;
-    color: white;
+    color: black;
     font-weight: 600;
     line-height: 35px;
+    width: 100%;
+    padding: 15px 0 0 220px;
+}
+.lesson-content-button{
+	margin: 8px 0 0 508px;
 }
 
+.cartbtn{
+	width: 75px;
+	height: 35px;
+	text-align: center;
+	margin: 0px 0 13px 25px;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	background: #750075;
+}
+.lesson-content-bottom-in{
+    margin: 40px 0 40px 64px;
+}
+.lidx-img-1st{
+	width: 40px;
+}
+.lidx-img-2nd{
+	margin: 3px 0 0 0px;
+    width: 87px;
+}
+.qna-content{
+	border: 1px solid black;
+	height: 300px;
+}
