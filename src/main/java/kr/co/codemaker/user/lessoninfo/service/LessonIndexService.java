@@ -10,6 +10,18 @@ import kr.co.codemaker.user.lessoninfo.dao.LessonIndexMapper;
 import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 
+/**
+ * UserLessonController.java
+*
+* @author 박다미
+* @version 1.0
+* @since 2020. 12. 8. ???????언제지?
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 박다미 최초 생성
+*
+ */
 @Service("userLessonIndexService")
 public class LessonIndexService {
 	
