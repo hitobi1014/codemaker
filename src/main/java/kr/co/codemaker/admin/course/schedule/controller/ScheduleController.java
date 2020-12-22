@@ -7,15 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.admin.course.schedule.service.ScheduleService;
 import kr.co.codemaker.admin.course.schedule.vo.ScheduleVO;
+import kr.co.codemaker.admin.vo.AdminVO;
 
 /**
  * 
@@ -36,11 +34,6 @@ public class ScheduleController {
 	@Resource(name = "scheduleService")
 	private ScheduleService scheduleService;
 	
-	@RequestMapping("/admin/schtest")
-	public String test() {
-		return "admin/calendar/testSch";
-	}
-	
 	/**
 	 * 스케줄 정보 하나만 가져오는 메서드
 	 * 
@@ -48,11 +41,11 @@ public class ScheduleController {
 	 * @param scheduleVO
 	 * @return
 	 */
-	@RequestMapping("/admin/schTest")
-	public String selectScheduleTest() {
-	
-		return "admin/calendar/testSch";
-	}
+//	@RequestMapping("/admin/schTest")
+//	public String selectScheduleTest() {
+//	
+//		return "admin/calendar/testSch";
+//	}
 	
 	
 	/**
@@ -114,9 +107,9 @@ public class ScheduleController {
 	 */
 	@RequestMapping("/admin/insertSchedule")
 	public String insertSchedule(ScheduleVO scheduleVO, HttpSession session) {
-//		String adminId = (String)session.getAttribute("");
-//		scheduleVO.setAdminId(adminId);
-		scheduleVO.setAdminId("admin");
+		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
+		scheduleVO.setAdminId(adminId);
+//		scheduleVO.setAdminId("admin");
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");
@@ -138,10 +131,10 @@ public class ScheduleController {
 	 * @return
 	 */
 	@RequestMapping("/admin/updateSchedule")
-	public String updateSchedule(ScheduleVO scheduleVO) {
-//		String adminId = (String)session.getAttribute("");
-//		scheduleVO.setAdminId(adminId);
-		scheduleVO.setAdminId("admin");
+	public String updateSchedule(ScheduleVO scheduleVO, HttpSession session) {
+		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
+		scheduleVO.setAdminId(adminId);
+//		scheduleVO.setAdminId("admin");
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");

@@ -1,21 +1,14 @@
 package kr.co.codemaker.teacher.signup.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.codemaker.teacher.signup.service.TeacherSignUpService;
@@ -42,24 +35,26 @@ public class TeacherSignUpController {
 			getInfo = tService.selectResume(rVo);
 		} catch (Exception e) {e.printStackTrace();}
 		logger.debug("가져온 이력서 정보 :{}",getInfo);
-		String filename = UUID.randomUUID().toString();
-		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
-		String filepath = "d:\\upload\\"+filename+"."+extension;
-		File uploadFile = new File(filepath);
-		if(picture.getSize() > 0) {
-			try {
-				picture.transferTo(uploadFile);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		String filename = UUID.randomUUID().toString();
+//		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
+//		String filepath = "d:\\upload\\"+filename+"."+extension;
+//		File uploadFile = new File(filepath);
+//		if(picture.getSize() > 0) {
+//			try {
+//				picture.transferTo(uploadFile);
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		teacherVO.setTchNm(getInfo.getResNm());
 		teacherVO.setTchTel(getInfo.getResTel());
 		teacherVO.setTchCode(getInfo.getResCode());
 		teacherVO.setTchGn("N");
 		teacherVO.setResId(getInfo.getResId());
-		teacherVO.setTchProfile(filepath);
+		teacherVO.setTchProfile(getInfo.getResProfile());
+		
+		logger.debug("선생님정보 : {}",teacherVO);
 		try {
 			tService.insertTeacher(teacherVO);
 		} catch (Exception e) {
