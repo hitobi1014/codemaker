@@ -34,7 +34,7 @@ public class UserJobInfoController {
 	
 	@RequestMapping(path="/user/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
