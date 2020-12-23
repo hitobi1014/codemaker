@@ -71,10 +71,10 @@
 			</div>
 			<div class="teacher-bottom">
 				<div class="teacher-name">
-					<h3 class="teacher-name-h3">강사 이름z</h3>
+					<h3 class="teacher-name-h3">${lessonVO.tchNm }</h3>
 				</div>
 				<div class="teacher-cont">
-					<p class="teachr-cont-p">강사 소개, 약력</p>
+					<p class="teachr-cont-p">${lessonVO.tchIntro}</p>
 				</div>
 			</div>
 		</div>

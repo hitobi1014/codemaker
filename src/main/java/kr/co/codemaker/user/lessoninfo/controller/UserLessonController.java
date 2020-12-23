@@ -33,7 +33,7 @@ import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 *
 * @author 박다미
 * @version 1.0
-* @since 2020. 12. 8. ???????언제지?
+* @since 2020. 12. 19.
 *
 * 수정자 수정내용
 * ------ ------------------------
@@ -104,6 +104,8 @@ public class UserLessonController {
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			lessonVO = lessonService.selectDetailLesson(lessonVO);
+			
+			logger.debug("lessonVO:{}",lessonVO);
 			
 			examList = examUserService.selectExamLesson(examVO);
 		} catch (Exception e1) {

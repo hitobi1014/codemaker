@@ -10,11 +10,12 @@
 	</select>
 	
 	<select id="selectDetailLesson" parameterType="kr.co.codemaker.user.lessoninfo.vo.LessonVO" resultType="kr.co.codemaker.user.lessoninfo.vo.LessonVO">
-		SELECT *
-		  FROM lesson
-		  <where>
-		  	AND les_id=#{lesId}
-		  </where>
-		
+		 SELECT a.*, b.*
+		   FROM lesson a, teacher b
+		   <where>
+			  AND a.tch_id = b.tch_id
+			  AND les_id=#{lesId}
+		   </where> 
 	</select>
+	
 </mapper>

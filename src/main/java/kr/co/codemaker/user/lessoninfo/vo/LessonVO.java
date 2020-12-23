@@ -17,8 +17,30 @@ public class LessonVO extends BaseVO{
 	private int lidxDurtime;	// 강의 전체시간
 	private int lidxCurtime;	// 강의 재생시간
 	
+	private String tchNm;		// 선생님 이름
+	private String tchProfile;	// 선생님 사진
+	private String tchIntro; 	// 선생님 소개말
 	
 	
+	
+	public String getTchNm() {
+		return tchNm;
+	}
+	public void setTchNm(String tchNm) {
+		this.tchNm = tchNm;
+	}
+	public String getTchProfile() {
+		return tchProfile;
+	}
+	public void setTchProfile(String tchProfile) {
+		this.tchProfile = tchProfile;
+	}
+	public String getTchIntro() {
+		return tchIntro;
+	}
+	public void setTchIntro(String tchIntro) {
+		this.tchIntro = tchIntro;
+	}
 	public String getLidxId() {
 		return lidxId;
 	}
