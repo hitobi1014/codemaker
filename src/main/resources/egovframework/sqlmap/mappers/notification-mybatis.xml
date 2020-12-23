@@ -3,6 +3,7 @@
 <mapper namespace="kr.co.codemaker.common.dao.NotificationMapper"><select id="selectAllNotification" parameterType="kr.co.codemaker.common.vo.NotificationVO" resultType="kr.co.codemaker.common.vo.NotificationVO">
 SELECT * 
   FROM notification where RECIPIENT_ID = #{recipientId} and read_check = 'N'
+  ORDER BY NOTIFY_ID DESC
 </select>
 
 
@@ -14,7 +15,8 @@ values ( 'NOTIFY'||LPAD(NOTIFICATION_SEQ.NEXTVAL,4,'0'),
     #{recipientId},
     #{senderId},
     sysdate,
-    'N')
+    'N',
+    #{url})
 </insert>
 <update id="readNotification" parameterType="kr.co.codemaker.common.vo.NotificationVO">
 UPDATE notification set read_check = 'Y' where notify_id = #{notifyId}

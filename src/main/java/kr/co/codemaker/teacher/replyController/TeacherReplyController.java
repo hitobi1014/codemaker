@@ -62,6 +62,7 @@ public class TeacherReplyController {
 		notificationVo.setRecipientId(reVo.getReplyWriter());
 		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 선생님이 댓글을 남겼습니다.");
 		notificationVo.setSenderId(replyVo.getReplyWriter());
+		notificationVo.setUrl("/user/selectQna?qnaId="+replyVo.getQnaId());
 		
 		replyVo.setReplyCont(replyCont);
 		replyVo.setReplyRoot(replyRoot);

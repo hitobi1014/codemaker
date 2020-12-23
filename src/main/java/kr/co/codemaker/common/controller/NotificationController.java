@@ -29,6 +29,42 @@ public class NotificationController {
 	@Resource(name="notificationService")
 	private NotificationService notificationService;
 	
+	@RequestMapping(path="/selectAllNotification")
+	public String selectAllNotification(HttpSession session) {
+		String recipientId = "";
+		NotificationVO notificationVo = new NotificationVO();
+		
+		if(session.getAttribute("MEMBER_INFO") != null) {
+			UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+			recipientId = userVo.getUserId();
+			
+		}else if(session.getAttribute("S_TEACHER") != null) {
+			TeacherVO teacherVo = (TeacherVO) session.getAttribute("S_TEACHER");
+			recipientId = teacherVo.getTchId();
+			
+		}else if(session.getAttribute("S_ADMIN") != null) {
+			AdminVO adminVo = (AdminVO) session.getAttribute("S_ADMIN");
+			recipientId = adminVo.getAdminId();
+		}
+		
+		notificationVo.setRecipientId(recipientId);
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		session.setAttribute("notifyList", notifyList);
+		session.setAttribute("notifyCnt", notifyCnt);
+		
+		return "jsonView";
+	}
+	
 	@RequestMapping(path="/readNotification")
 	public String readNotification(NotificationVO notificationVo, HttpSession session) {
 	

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.teacher.resume.service.ResumeService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 
@@ -27,6 +29,10 @@ public class ResumeController {
 	
 	@Resource(name="resumeService")
 	private ResumeService resumeService;
+	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
 	
 	@RequestMapping(path="/resume/view", method = RequestMethod.GET)
 	public String resumeView() {
@@ -51,10 +57,16 @@ public class ResumeController {
 		
 		resumeVO.setResProfile_path("d:/file/" + file.getOriginalFilename());
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId("admin");
+		notificationVo.setSenderId(resumeVO.getResNm());
+		notificationVo.setNotifyCont(resumeVO.getResNm() + " 님이 이력서를 제출하였습니다.");
+		
 		int insertCnt = 0;
 		
 		try {
 			insertCnt = resumeService.insertResume(resumeVO);
+			notificationService.insertNotification(notificationVo);
 			
 			logger.debug("insertCnt 뭐가 들었냐~!~!~! : {}", insertCnt );
 			

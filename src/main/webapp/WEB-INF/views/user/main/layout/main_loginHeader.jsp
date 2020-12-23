@@ -123,6 +123,18 @@
 			})
 		})
 	})
+	
+	$(function(){
+		window.onbeforeunload = function(){
+			$.ajax({
+				url : "/selectAllNotification",
+				dataType : 'json',
+				success : function(){
+					
+				}
+			})
+		}
+	})
 </script>
 
 

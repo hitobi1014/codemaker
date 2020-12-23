@@ -33,12 +33,15 @@
 				</a>
 				<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header"></h6>
-					<c:forEach items="${notifyList}" var="notify">
-						<c:choose>
-							<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
+					<c:choose>
+						<c:when test="${notifyCnt == 0}">
+							<div style="text-align:center;">
 								<span class="font-weight-bold">새로운 알림이 없습니다</span>
-							</c:when>
-							<c:otherwise>
+							</div>
+							<h6 class="dropdown-header"></h6>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${notifyList}" var="notify">
 								<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
 									<div class="mr-3">
 										<div class="icon-circle bg-primary">
@@ -50,9 +53,9 @@
 										<span class="font-weight-bold">${notify.notifyCont}</span>
 									</div>
 								</a>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach> 
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				</li>
 				<!-- User Account -->
@@ -79,6 +82,19 @@ $(function(){
 			}
 		})
 	})
+	
+})
+
+$(function(){
+	window.onbeforeunload = function(){
+		$.ajax({
+			url : "/selectAllNotification",
+			dataType : 'json',
+			success : function(){
+				
+			}
+		})
+	}
 })
 </script>
 </header>

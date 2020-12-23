@@ -94,6 +94,8 @@ public class UserQnaController {
 		notificationVo.setNotifyCont(qnaVo.getUserId()+" 님이 질문을 작성하였습니다.");
 		notificationVo.setRecipientId(tchId);
 		notificationVo.setSenderId(qnaVo.getUserId());
+		notificationVo.setUrl("/teacher/selectAllQna");
+		
 		try {
 			qnaService.insertQna(qnaVo);
 			notificationService.insertNotification(notificationVo);
