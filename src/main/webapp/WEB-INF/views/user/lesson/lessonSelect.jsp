@@ -100,7 +100,7 @@
 									<div class="lidx-img-2nd">
 										<c:choose>
 											<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime == 1}">
-												완료
+												<span class="video-end">완료</span>
 											</c:when>
 											<c:when test="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime != 1}">
 												미완료(<fmt:formatNumber value="${lesIdxList.lidxCurtime /lesIdxList.lidxDurtime}" type="percent"/>)
