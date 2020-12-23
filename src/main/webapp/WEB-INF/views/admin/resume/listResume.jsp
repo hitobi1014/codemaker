@@ -23,7 +23,8 @@
    $(document).ready(function(){
       $('#listResume tr').on('click', function(){
          var resId = $(this).data("resid");
-         document.location = "/admin/resume?resId=" + resId;
+         var resState = $(this).data("resstate");
+         document.location = "/admin/resume?resId="+resId+"&resState="+resState;
       });
       
       $('#selectState').on('change', function(){
@@ -41,7 +42,7 @@
 			<div class="card shadow">
 				<div class="card-header border-0">
 					<div>
-						<select id="selectState" name="selectState">
+						<select id="selectState" name="selectState" style="height: 28px;">
 							<option value=""
 								<c:if test="${resState eq ''}">selected="selected"</c:if>>전체</option>
 							<option value="Y"
@@ -67,7 +68,7 @@
 							<c:forEach items="${resumeList }" var="resume">
 								<c:url value="/admin/resumeList" var="resumeList"/>
 								<form action="${resumeList }" method="post" id="resumeForm">
-									<tr data-resid=${resume.resId } style="cursor:pointer;">
+									<tr data-resid="${resume.resId}" data-resstate="${resume.resState}"  style="cursor:pointer;">
 										<td><a class="textColor">${resume.resId }</a></td>
 										<td><a class="textColor">${resume.resCode }</a></td>
 										<td><a class="textColor">${resume.resNm }</a></td>

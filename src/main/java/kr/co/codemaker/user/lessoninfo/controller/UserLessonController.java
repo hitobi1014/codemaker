@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
 import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
@@ -31,7 +33,7 @@ import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 *
 * @author 박다미
 * @version 1.0
-* @since 2020. 12. 8. ???????언제지?
+* @since 2020. 12. 19.
 *
 * 수정자 수정내용
 * ------ ------------------------
@@ -52,6 +54,8 @@ public class UserLessonController {
 	@Resource(name="userLessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
+	@Resource(name = "examUserService")
+	private ExamUserService examUserService;
 	
 	@RequestMapping(path="/user/selectSubject")
 	public String selectLesson(Model model) {
@@ -60,7 +64,6 @@ public class UserLessonController {
 		try {
 			lessonList = lessonService.selectLesson();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		model.addAttribute("subjectList", subjectList);
@@ -87,15 +90,24 @@ public class UserLessonController {
         logger.debug("유저VO!!:{}",userVO);
 		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+		
+		// 시험
+		List<ExamVO> examList = new ArrayList<ExamVO>();
+		ExamVO examVO = new ExamVO();
+		examVO.setLesId(lesId);
+		
 		lessonIndexVO.setLesId(lesId);
 		if(userVO!=null) {
 			lessonIndexVO.setUserId(userVO.getUserId());
 		}
-		
 		lessonVO.setLesId(lesId);
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			lessonVO = lessonService.selectDetailLesson(lessonVO);
+			
+			logger.debug("lessonVO:{}",lessonVO);
+			
+			examList = examUserService.selectExamLesson(examVO);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -105,8 +117,10 @@ public class UserLessonController {
 		model.addAttribute("lesIdxList", lesIdxList);
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
 		model.addAttribute("lessonVO",lessonVO);
-		return "mainT/user/lesson/lessonSelect";
 		
+		model.addAttribute("examList",examList);
+		
+		return "mainT/user/lesson/lessonSelect";
 	}
 	
 	/**
@@ -145,11 +159,8 @@ public class UserLessonController {
 		try {
 			cnt = lessonIndexService.updateIndexTime(indexTimeVO);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		return null;
 		
 	}
 	

@@ -10,7 +10,7 @@ import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 *
 * @author 박다미
 * @version 1.0
-* @since 2020. 12. 8. ???????언제지?
+* @since 2020. 12. 19.
 *
 * 수정자 수정내용
 * ------ ------------------------

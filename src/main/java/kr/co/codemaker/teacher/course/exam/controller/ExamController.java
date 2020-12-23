@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.codemaker.common.vo.TeacherVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
@@ -234,6 +234,8 @@ public class ExamController {
 	@ResponseBody
 	public void insertExam(ExamVO examVO) {
 		int index = 0;
+		index = index + 1;
+		
 		try {
 				examService.insertExam(examVO);
 				for (int i=0; i < examVO.getQueContList().size(); i++) {

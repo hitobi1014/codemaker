@@ -105,10 +105,12 @@ public class UserNoticeController {
 		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		
 		ServletOutputStream sos = response.getOutputStream();
 		

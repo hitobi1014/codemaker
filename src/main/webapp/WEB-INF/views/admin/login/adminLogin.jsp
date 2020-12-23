@@ -102,7 +102,7 @@ $(function(){
 		setCookie(cookieName, "", -1);
 	}
 	
-	$(function() { 
+	$(function() {
 		var rememberme = Cookies.get('REMEMBERME');
 		console.log(rememberme);
 		if(rememberme == "Y"){
@@ -115,7 +115,6 @@ $(function(){
 		$('#Login').on('click', function(e){
 			if($('#ckb1').prop('checked')){
 				Cookies.set('REMEMBERME', 'Y');
-				
 				Cookies.set('USERID', $('#inputEmail').val());
 				
 			}else{ 

@@ -31,6 +31,15 @@ public interface ExamUserMapper {
 	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception;
 	
 	/**
+	 * 시험 문제를 전체 조회하는 메서드 - 강의 조회
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public List<ExamVO> selectExamLesson(ExamVO examVO) throws Exception;
+	
+	/**
 	 * 페이징 처리를 위해 출제한 문제의 전체 수를 조회하는 메서드
 	 * 
 	 * @author 김미연

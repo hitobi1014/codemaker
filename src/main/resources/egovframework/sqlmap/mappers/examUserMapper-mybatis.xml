@@ -103,4 +103,13 @@ AND
 </if>
 </select>
 
+<select id="selectExamLesson" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
+SELECT e.*, 
+      NVL(es.es_fscore, 999) es_fscore,
+      NVL(es.es_lscore, 999) es_lscore,
+      NVL(es.es_fscore, 999) search_EsScore
+FROM exam e
+LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id)
+WHERE e.les_id = #{lesId}
+</select>
 </mapper>

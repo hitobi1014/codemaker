@@ -47,7 +47,8 @@
 		WHERE
 			res_id = #{resId}
 	</select>
-	<update id="updateState" parameterType="kr.co.codemaker.teacher.signup.vo.ResumeVO">
+	
+	<update id="updateResume" parameterType="kr.co.codemaker.teacher.signup.vo.ResumeVO">
 		UPDATE 
 			resume
 		SET

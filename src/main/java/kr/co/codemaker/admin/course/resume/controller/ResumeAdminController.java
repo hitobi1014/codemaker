@@ -23,7 +23,14 @@ public class ResumeAdminController {
 
 	@Resource(name="resumeAdminService")
 	private ResumeAdminService resumeAdminService;
-
+	
+	/**
+	 * 이력서 전체를 조회하는 메서드
+	 * @param resumeVO
+	 * @author 이은지
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/admin/resumeList")
 	public String selectAllResume(Model model, ResumeVO resumeVO) throws Exception {
 		logger.debug("resumeVO에 모가 들어이쓰까리~~ : {}", resumeVO);
@@ -34,7 +41,14 @@ public class ResumeAdminController {
 		// ajax 이용해서 이력서 정보 불러오기
 		return "adminPage/admin/resume/listResume";
 	}
-   
+	
+	/**
+	 * 하나의 이력서를 조회하는 메서드
+	 * @param resumeVO
+	 * @author 이은지
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/admin/resume")
 	public String getAllResume(ResumeVO resumeVO, Model model) throws Exception {
 		ResumeVO resume = resumeAdminService.getAllResume(resumeVO);
@@ -45,25 +59,44 @@ public class ResumeAdminController {
 		return "adminPage/admin/resume/selectResume";
 	}
 	
-	//상세조회에서 이미지 처리
-		@RequestMapping(path="/resume/teacherImg")
-		public void imgView(String resProfile, HttpServletResponse response) throws IOException {
-			response.setContentType("image");
-			FileInputStream fis = new FileInputStream(resProfile);
-			ServletOutputStream sos = response.getOutputStream();
-			byte[] buffer = new byte[512];
-			while(fis.read(buffer) != -1) {
-				sos.write(buffer);
-			}
-			fis.close();
-			sos.flush();
-			sos.close();
+	/**
+	 * 강사가 작성한 이력서 사진을 가져오는 메서드
+	 * @param resProfile
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(path="/resume/teacherImg")
+	public void imgView(String resProfile, HttpServletResponse response) throws IOException {
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(resProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
 		}
+		fis.close();
+		sos.flush();
+		sos.close();
+	}
 	
+	/**
+	 * 이력서의 상태값을 업데이트 하는 메서드
+	 * @param resumeVO
+	 * @author 이은지
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/admin/resume/state")
-	public String updateState()throws Exception {
+	public String updateState(ResumeVO resumeVO, Model model)throws Exception {
+		try {
+			resumeAdminService.updateResume(resumeVO);
+			logger.debug("resumeVO안에 뭐가 들어있을까나? : {}", resumeVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return "adminPage/admin/resume/listResume";
+		model.addAttribute("resumeVO", resumeVO);
+		return "redirect:/admin/resumeList";
 	}
 
 }
