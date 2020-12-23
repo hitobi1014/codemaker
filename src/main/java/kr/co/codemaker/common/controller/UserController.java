@@ -29,14 +29,13 @@ public class UserController {
 	@RequestMapping("/join/insertUserView")
 	public String insertUserView() {
 		
-		return "user/signup/signup";
+		return "mainT/user/signup/signtest";
 	}
 	
 	
 	@RequestMapping("/join/insertUser")
 	public String insertUser(UserVO userVo, MultipartFile file) {
 		
-		logger.debug("로거로거로거");
 		
 		String fileName = UUID.randomUUID().toString();
 
@@ -54,11 +53,8 @@ public class UserController {
 		// 사용자정보등록
 		userVo.setUserProfile("d:\\upload\\" + file.getOriginalFilename());
 		
-		
 		int insertCnt = 0;
 		int poinsertCnt = 0;
-		
-		
 		
 		try {
 			insertCnt = userService.insertUser(userVo);
@@ -66,20 +62,18 @@ public class UserController {
 			// 1건이 입력되었을때 :정상 ->memberList 페이지로 이동
 			// 1건이 아닐때: 비정상
 			if (insertCnt == 1) {
-				logger.debug("222222");
 				String userId = userVo.getUserId();
 				poinsertCnt = userService.joinPoint(userId);
-				logger.debug("kkkkk");
 				// 서버의 상태가 바뀔때는 중복이 되지 않게 redirect요청을 해준다.
 				// redirect한다는것은 메소드 인자를 웹 브라우저 주소창에 넣으라는 것이기 떄문에 정상동작이 안될수 있으므로 contextpath넣어주기
-				return "redirect:/user/login";
+				return "mainT/user/signup/success"; 
 			}
 
 		} catch (Exception e) {
 		}
 
 		
-		return "signup/signup";
+		return "mainT/user/signup/signtest";
 	}
 	
     @ResponseBody
@@ -99,7 +93,9 @@ public class UserController {
         }
     }
     
-   
-    
+   @RequestMapping("join/test")
+   public String test() {
+	   return "mainT/user/signup/success"; 
+   }
     
 }

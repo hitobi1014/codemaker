@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <script>
 $(function(){
@@ -18,8 +19,8 @@ $(function(){
 		}
 		
 		var payId= $("#payId").text();
-		var paySum = $("#paySum").text();
-		
+		var paySum = $("#paySum").text().replace("," , "");
+
 
 			$.ajax({
 				url : "/mypage/payRefund",
@@ -34,7 +35,7 @@ $(function(){
 						window.close();
 					}		
 				}
-			}); //
+			}); 
 		})
 
 });
@@ -59,7 +60,7 @@ p {
 .listbox{
 	background-color: #e1e4e833;
     border: 1px solid #cbcdd2;
-    height: 513px;
+    height: 540px;
     margin: 28px 15px 0px 15px;
 }
 .title {
@@ -69,22 +70,53 @@ p {
     color: white;
     width: 130px;
     height: 28px;
-    margin: 12px 0px 1px 32px;
+    font-weight: 600;
 }
 .refundCheck {
-    margin: 20px 0px 18px 22px;
+    margin: 20px 0px 18px 18px;
+    line-height: 1.6;
+    padding-right: 19px;
 }
 input#refundBtn {
-    margin: 1px 0 11px 351px;
+    margin: 10px 0 11px 42px;
+    background-color: #5e72e4;
+    color: white;
+    font-weight: 600;
+    width: 338px;
+    height: 36px;
+    border-radius: 1em;
+    border: 0;
+    outline: 0;
 }
+.usertitle {
+    margin: 17px 0px -19px 14px;
+    color: black;
+}
+table#ttable {
+    border-collapse: separate;
+    border-spacing: 35px 11px;
+    margin: 12px 0px 1px 12px;
+}
+body *{
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+}
+
 </style>
 <body>
 <div class="paycontainer">
 <div class="paybox">
 	<p>강의 환불</p>
 	</div>
+	<div class="usertitle">
+	<span><i class="fa fa-user"></i>&nbsp;${MEMBER_INFO.userNm}님의 결제내역입니다.</span>
+	</div>
 	<div class="listbox">
-	<table>
+	<table id="ttable">
 		<tbody id="mypayVo">
 				<tr>
 					<td><span class="title">결제ID</span></td>
@@ -92,28 +124,37 @@ input#refundBtn {
 				</tr>
 				<tr>
 					<td><span class="title">강의명</span></td>
-					<td>${mypayVo.lesNm}</td>
+					<td><span>${mypayVo.lesNm}</span></td>
 				</tr>
 				<tr>
 					<td><span class="title">결제일</span></td>
-					<td><fmt:formatNumber value="${mypayVo.paySum }"></fmt:formatNumber></td>
+					<td><span><fmt:formatDate value="${mypayVo.payDate }" pattern="yyyy-MM-dd"/></span></td>
 				</tr>
 				<tr>
 					<td><span class="title">결제방식</span></td>
-					<td>${mypayVo.payWay }</td>
+					<td>
+					<c:choose>
+						<c:when test="${mypayVo.payWay=='1'}">
+							<span>카카오페이</span>
+						</c:when>
+						<c:otherwise>
+							<span>신용카드</span>
+						</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 				<tr>
 						<td><span class="title">결제금액</span></td>
-					<td><span id="paySum">${mypayVo.paySum }</span></td>
+						<td><span id="paySum"><fmt:formatNumber value="${mypayVo.paySum }"/></span>원</td>
 				</tr>
 		</tbody>
 	</table>
 		<div class="refundCheck">
-			<input type="checkbox" name="checkcheck" id="checkcheck">&nbsp;<b>약관동의</b><br>
 			<span><b>환불 안내</b></span><br>
-			<span>CODEMAKER의 모든 강의는 환불 시 포인트 적립으로 환불됩니다.</span><br>
-			<span>강의 결제 후 수강진행을 시작한 강의는 환불할 수 없습니다.</span><br>
-			<span>강의 결제 후 수강진행을 시작하지 않은 강의는 위약금 없이 100% 환불 가능합니다.</span>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;CODEMAKER의 모든 강의는 환불 시 포인트 적립으로 환불됩니다.</span><br>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;강의 결제 후 수강진행을 시작한 강의는 환불할 수 없습니다.</span><br>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;강의 결제 후 수강진행을 시작하지 않은 강의는 위약금 없이 100% 환불 가능합니다.</span><br>
+			<input type="checkbox" name="checkcheck" id="checkcheck">&nbsp;<b>약관에 동의합니다.</b><br>
 		</div>
 			<input type="button" id="refundBtn" value="환불">
 	</div>
