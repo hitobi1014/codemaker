@@ -8,6 +8,8 @@
     width: 65%;
     margin: 0 auto;
     padding-top: 50px;
+    min-height: 791px;
+    max-height: 791px;
 }
 h3{
 	margin-bottom: 15px;
@@ -73,9 +75,11 @@ table th{
 }
 .txt{
 	font-style: normal;
+	font-size: 18px;
+    font-weight: 600;
 }
 .tdinDiv{
-	padding: 15px;
+	padding: 5px;
 }
 .won{
 	vertical-align: 0.3px;
@@ -169,4 +173,32 @@ table th{
 }
 #allChk:checked + label{
 	background: url('/img/icon/onChk.png');
+}
+.empty-cart{
+	height: 741px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.empty-cart > div{
+	width: 70%;
+	height: 72%;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.empty-cart div span{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+}
+.les-list{
+    width: 144px;
+    height: 44px;
+    background: rgb(0,95,134);
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 8px;
+    text-decoration: none;
 }

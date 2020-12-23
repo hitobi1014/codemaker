@@ -24,6 +24,7 @@ import kr.co.codemaker.user.cart.vo.PayVO;
 import kr.co.codemaker.user.cart.vo.PointVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
+import net.sf.json.JSONArray;
 
 /**
  * @author 최민준
@@ -240,8 +241,8 @@ public class UserPayController {
 	}
 	
 	//장바구니로 이동, 담은강의 리스트 조회
-	@RequestMapping(path="user/cartView")
-	public String cartView(HttpSession session,Model model,LessonVO lessonVo) {
+	@RequestMapping(path="/user/cartView")
+	public String cartView(HttpSession session,Model model) {
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		List<CartVO> cartList = null;
 		try {
@@ -249,7 +250,6 @@ public class UserPayController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		logger.debug("카트 리스트 확인:{}",cartList);
 		
 		List<LessonVO> lessonList = new ArrayList<>();
 		for(int i=0; i<cartList.size(); i++) {
@@ -262,17 +262,26 @@ public class UserPayController {
 			lessonList.add(lesson);
 		}
 		model.addAttribute("lessonList", lessonList);
-		
+		logger.debug("리스트확인 :{}",lessonList);
 		return "mainT/user/payment/cart";
 	}
 	
+	//장바구니에서 강의 삭제
 	@RequestMapping(path="/user/cartDelete")
-	public String cartDelete(String data) {
-		logger.debug("카트 : {}",data);
-		for(int i=0; i<data.length(); i++) {
-//			logger.debug("값 : {}",data.);
+	public String cartDelete(String[] data,HttpSession session,Model model) {
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		for(int i=0; i<data.length; i++) {
+			CartVO cartVo = new CartVO();
+			cartVo.setUserId(userVo.getUserId());
+			cartVo.setLesId(data[i]);
+			try {
+				userPayService.deleteCart(cartVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("code", 1);
 		}
-		return "";
+		return "jsonView";
 	}
 
 }
