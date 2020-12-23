@@ -11,6 +11,7 @@
 	.textColor{
 		color: black;
 	}
+
 	#selectState{
 		position: relative;
 		left: 1300px;
@@ -20,18 +21,18 @@
 	}
 </style>
 <script>
-   $(document).ready(function(){
-      $('#listResume tr').on('click', function(){
-         var resId = $(this).data("resid");
-         var resState = $(this).data("resstate");
-         document.location = "/admin/resume?resId="+resId+"&resState="+resState;
-      });
-      
-      $('#selectState').on('change', function(){
-         $('#hiddenState').val($('#selectState').val());
-         $('#resumeForm').submit();
-      });
-   });
+	$(document).ready(function(){
+		$('#listResume tr').on('click', function(){
+			var resId = $(this).data("resid");
+			var resState = $(this).data("resstate");
+			document.location = "/admin/resume?resId="+resId+"&resState="+resState;
+		});
+
+		$('#selectState').on('change', function(){
+			$('#hiddenState').val($('#selectState').val());
+			$('#resumeForm').submit();
+		});
+	});
 </script>
 </head>
 <body>
@@ -53,7 +54,7 @@
 								<c:if test="${resState eq 'N'}">selected="selected"</c:if>>미승인</option>
 						</select>
 					</div>
-					<h2 class="mb-0">이력서 조회</h2>
+					<h1 class="mb-0">이력서 조회</h1>
 				</div>
 				<div class="table-responsive">
 					<table class="table align-items-center table-flush">
@@ -62,7 +63,6 @@
 							<th>승인코드</th>
 							<th>이름</th>
 							<th>승인상태</th>
-							<th></th>
 						</tr>
 						<tbody id="listResume">
 							<c:forEach items="${resumeList }" var="resume">
@@ -72,7 +72,17 @@
 										<td><a class="textColor">${resume.resId }</a></td>
 										<td><a class="textColor">${resume.resCode }</a></td>
 										<td><a class="textColor">${resume.resNm }</a></td>
-										<td><a class="textColor">${resume.resState }</a></td>
+										<c:choose>
+											<c:when test="${resume.resState == 'Y'}">
+												<td><a style="color: #3A913F;" id="stateName">승인완료</a></td>
+											</c:when>
+											<c:when test="${resume.resState == 'N'}">
+												<td><a style="color: #EF3340;" id="stateName">미승인</a></td>
+											</c:when>
+											<c:when test="${resume.resState == null}">
+												<td><a style="color: #505759;" id="stateName">승인대기</a></td>
+											</c:when>
+										</c:choose>
 									</tr>
 									<input type="hidden" id="hiddenState" name="resState">
 								</form>

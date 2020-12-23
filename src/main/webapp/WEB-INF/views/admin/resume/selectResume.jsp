@@ -31,11 +31,15 @@
 		height: 30px;
 		color: white;
 	}
+	label{
+		text-transform: initial;
+		width: 300px;
+	}
 </style>
 <script>
 $(function(){
-	var resState = $(this).val();
 	$('.resBtn').on('click', function(){
+		var resState = $(this).val();
 		$('#resState').val(resState);
 		$('#ff').submit();
 	});
@@ -132,7 +136,7 @@ $(function(){
 							<div class="col-lg-4">
 								<div class="form-group focused">
 									<label class="form-control-label" for="input-country">지원동기 :</label><br>
-									<label class="form-control-text" id="resMotive">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resMotive }</label>
+									<label class="form-control-text" id="resMotive" style="width: 900px;">&nbsp;&nbsp;&nbsp;&nbsp;${resume.resMotive }</label>
 								</div>
 							</div>
 						</div>
