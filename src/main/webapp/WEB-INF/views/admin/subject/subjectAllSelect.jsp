@@ -11,21 +11,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-.card {
-    width: 92%;
-    min-height: 700px;
-    height: auto;
-    margin: 0 auto;
-    border: none;
+.card{
+	width:1500px;
+	height:700px;
+	margin:auto;
+	border: none;
 }
 #subTable{
 /* 	margin-left: 100px; */
     width: 1000px;
 }
-.row{
-	width: 1200px;
-	margin-left: 200px;
-}
+/* .row{ */
+/* 	width: 1200px; */
+/* 	margin-left: 200px; */
+/* } */
 .table .thead-light th{
  	background-color: #0b2d61;
     color:white;
@@ -66,7 +65,7 @@ h2{
 
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
-		<div class="col-12" style="margin:50px;">
+		<div class="col-12">
 			<div class="card">
 				<h2 class="card-title m-b-0">📢 과목조회</h2>
 				<div id="addLesId">

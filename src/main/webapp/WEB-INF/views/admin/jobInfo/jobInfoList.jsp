@@ -104,7 +104,9 @@ font-family: 'LotteMartDream';
 #banner{
 	margin: 20px;
 }
-
+.checkImg{
+	width: 40px;
+}
 </style>
 
 <div id="containerId">

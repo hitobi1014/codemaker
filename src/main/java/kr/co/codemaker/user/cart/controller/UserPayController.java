@@ -142,6 +142,19 @@ public class UserPayController {
 				userPayService.insertPay(payVo);
 				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
 				logger.debug("가져온 lvo : {}",lvo);
+				
+				indexTimeVO.setUserId(payVo.getUserId());
+				indexTimeVO.setLesId(payVo.getLesId());
+				lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
+				logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
+				
+				for(int j=0; j<lidxIds.size(); j++) {
+					  String lidxId = lidxIds.get(j).getLidxId();
+					  indexTimeVO.setLidxId(lidxId);
+					  indexTimeVO.setUserId(userVo.getUserId());
+					  lessonIndexService.insertIndexTime(indexTimeVO);
+				}
+				
 			} catch (Exception e) {e.printStackTrace();}
 			cal.setTime(now);
 			cal.add(Calendar.DATE, lvo.getLesTerm());

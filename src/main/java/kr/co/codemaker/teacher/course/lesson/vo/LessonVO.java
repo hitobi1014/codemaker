@@ -18,6 +18,7 @@ public class LessonVO extends BaseVO{
 	private String tchId;		// 선생님 아이디
 	private int lesTerm;		// 강의 기간
 	private int lesCash;		// 강의 수강료
+	private String lesDetail; 	// 강의 상세내용
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date lesSdate;		// 강의 개설날짜
@@ -33,6 +34,12 @@ public class LessonVO extends BaseVO{
 	
 	
 
+	public String getLesDetail() {
+		return lesDetail;
+	}
+	public void setLesDetail(String lesDetail) {
+		this.lesDetail = lesDetail;
+	}
 	public Date getLesSdate() {
 		return lesSdate;
 	}
