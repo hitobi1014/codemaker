@@ -10,9 +10,9 @@
 <script src="/js/json/jquery.serialize-object.js"></script>
 <link href="/css/user/cart/user-cart.css" rel="stylesheet" />
 <% int sum =0; %>
-<main>
+<div class="cart-box">
 	<div class="cartBoxArea">
-	<h3>강의 장바구니</h3>
+		<h3>강의 장바구니</h3>
 		<table>
 			<thead id="thead">
 				<tr>
@@ -29,8 +29,8 @@
 				</tr>
 			</thead>
 			<c:url value="/user/payViewList" var="payViewList"/>
-				<form id="frm" method="post" action="${payViewList}" name="frm">
-					<input type="hidden" value="0" id="chkNum"/>
+			<form id="frm" method="post" action="${payViewList}" name="frm">
+				<input type="hidden" value="0" id="chkNum"/>
 				<tbody id="tbody">
 					<c:forEach items="${lessonList}" var="lesson" varStatus="stat">
 						<input type="hidden" value="${lesson.lesTerm}" id="lesTerm[${stat.index}]" name="lessonList[${stat.index}].lesTerm" readonly="readonly" disabled="disabled"/>
@@ -50,7 +50,7 @@
 						<tr class="lessonTr">
 							<td class="chk">
 								<div>
-									<input type="checkbox" class="lesChk" id="chk[${stat.index}]" name="chk[${stat.index}]" data-cash="${lesson.lesCash}">
+									<input type="checkbox" class="lesChk" id="chk[${stat.index}]" name="chk[${stat.index}]" data-cash="${lesson.lesCash}" data-lesId="${lesson.lesId}">
 									<label class="chklbl" for="chk[${stat.index}]"></label>
 								</div>
 							</td>
@@ -80,15 +80,13 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				</form>
+			</form>
 		</table>
+		<div class="les-delete"><span onclick="deleteLes()">선택강의 삭제</span></div>
 		<div id="price">
 			<span class="total">총 상품금액</span>
 			<span class="total">
-				<em class="txt" id="cash">
-				0
-				</em>
-				원
+				<em class="txt" id="cash">0</em>원
 			</span>
 		</div>
 		<div id="btnDiv">
@@ -97,8 +95,27 @@
 			<button id="sub">결제하기</button>
 		</div>
 	</div>
-</main>
+</div>
 <script>
+function deleteLes(){
+	var len = $(".lesChk").length;
+	console.log("길이"+len);
+	var param = [];
+	for(i=0; i<len; i++){
+		param.push($("#chk\\["+i+"\\]:checked").attr("data-lesId"));
+	}
+	console.log("데이터확인"+param);
+	$.ajax({
+		url : "/user/cartDelete",
+		data : {"data" : JSON.stringify(param)},
+		traditional : true,
+		success : function(res){
+			
+		},error : function(xhr){
+			console.log("실패" + xhr);
+		}
+	})
+}
 $(function(){
 	var length = $(".lesChk").length;
 	$("#sub").on('click',function(){

@@ -61,4 +61,8 @@ public class UserPayService {
 	public int usePoint(PointVO pointVo) throws Exception{
 		return userPayMapper.usePoint(pointVo);
 	}
+	
+	public List<PayVO> selectCheckPay(PayVO payVo) throws Exception{
+		return userPayMapper.selectCheckPay(payVo);
+	}
 }

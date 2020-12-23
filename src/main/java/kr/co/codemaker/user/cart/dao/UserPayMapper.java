@@ -20,6 +20,7 @@ import kr.co.codemaker.user.cart.vo.PointVO;
 * 최민준  결제 최초 작성
 * 		  결제페이지에서 보여질 강의 정보 작성
 *		  포인트 조회 및 사용(12.09)
+*		  강의결제 / 장바구니에 담을때 결제내역에 있는지, 있다면 수강기간이 안끝났는지 확인(12.23)
  */
 @Mapper("userPayMapper")
 public interface UserPayMapper {
@@ -72,4 +73,11 @@ public interface UserPayMapper {
 	 * @param 포인트합계, 사용포인트, 회원아이디가 담긴 vo
 	 */
 	public int usePoint(PointVO pointVo) throws Exception;
+	
+	/**
+	 * 바로결제 또는 장바구니에 담을때 결제내역확인 => 결제내역이없거나, 수강기간이 끝났을때만 가능
+	 * @param payVo
+	 * @return 결제가가능하면 null ,아니면 결제정보가 나옴
+	 */
+	public List<PayVO> selectCheckPay(PayVO payVo) throws Exception;
 }

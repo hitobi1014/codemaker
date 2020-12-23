@@ -10,12 +10,19 @@ private String payId;			//결제아이디
 	private String payWay;     	//결제수단
 	private int paySum;     	//결제금액
 	private Date payDate;    	//결제일
-	private int cosTerm;    	//수강기간
+	private Date cosTerm;    	//수강기간
 	private int cosProcess; 	//수강진행도
 	private String userId;     	//회원아이디
 	private String lesId;      	//강의아이디
 	private List<PayVO> payList;	// 여러건 결제시
+	private int lesTerm;		//수강일수
 	
+	public int getLesTerm() {
+		return lesTerm;
+	}
+	public void setLesTerm(int lesTerm) {
+		this.lesTerm = lesTerm;
+	}
 	public List<PayVO> getPayList() {
 		return payList;
 	}
@@ -24,7 +31,7 @@ private String payId;			//결제아이디
 	}
 	
 	public PayVO() {}
-	public PayVO(String payId, String payGroup, String payRefund, String payWay, int paySum, Date payDate, int cosTerm,
+	public PayVO(String payId, String payGroup, String payRefund, String payWay, int paySum, Date payDate, Date cosTerm,
 			int cosProcess, String userId, String lesId) {
 		super();
 		this.payId = payId;
@@ -75,10 +82,10 @@ private String payId;			//결제아이디
 	public void setPayDate(Date payDate) {
 		this.payDate = payDate;
 	}
-	public int getCosTerm() {
+	public Date getCosTerm() {
 		return cosTerm;
 	}
-	public void setCosTerm(int cosTerm) {
+	public void setCosTerm(Date cosTerm) {
 		this.cosTerm = cosTerm;
 	}
 	public int getCosProcess() {
