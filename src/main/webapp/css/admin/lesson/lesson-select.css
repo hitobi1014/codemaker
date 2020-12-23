@@ -1,0 +1,13 @@
+@charset "UTF-8";
+#cont{
+	margin: 5px;
+}
+.mb-3{
+	margin: 5px;
+}
+.nfn{
+	margin-left : 5px;
+}
+.form-control{
+	width: 500px;
+}
