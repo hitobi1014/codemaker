@@ -115,7 +115,7 @@
 									<div class="pay-divide"></div>
 									<div class="col">결제금액</div>
 									<div class="cash-info-text">
-										<span id="totalCash">${total}<i>원</i></span>
+										<span id="totalCash">${sum}<i>원</i></span>
 									</div>
 								</div>
 								<div class="pay-check">
@@ -239,6 +239,8 @@ $(function(){
 	$(".pay-way").on('click',function(){
 		console.log($(this).val());
 	})
+	
+	//결제버튼 클릭시 발생
 	$("#payBtn").on('click',function(){
 		var payWay = $("input[type=radio]:checked").val();
 		var pointUpdate = parseInt($("#pay-info-point").text().replace(',',''));
@@ -247,6 +249,7 @@ $(function(){
 		$("#pointSum").val(pointSum);
 		if(payWay == "kakaopay"){
 			var total = parseInt($("#totalCash").text().replace(',',''));
+			console.log("가격"+total);
 			$.ajax({
 				url : '/kakaoPay',
 				data : {"total" : total},

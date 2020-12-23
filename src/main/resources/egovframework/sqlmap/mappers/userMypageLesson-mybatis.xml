@@ -6,5 +6,6 @@
 		FROM pay a, lesson b, teacher c, subject d
 		WHERE a.les_id = b.les_id AND b.tch_id = c.tch_id AND b.sub_id = d.sub_id
 		AND a.user_id =#{userId}
+		ORDER BY a.pay_date DESC
 	</select>
 </mapper>
