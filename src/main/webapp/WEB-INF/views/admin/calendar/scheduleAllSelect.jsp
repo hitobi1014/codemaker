@@ -15,9 +15,8 @@
 <script src='/fullcalendar/packages/list/main.js'></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -100,9 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					$("#ff").append(str);
 					$(".contextmenu").hide();
 					$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
+					$('#ff').attr('action','/admin/updateSchedule');
 					$('.modal-title').text('일정 수정');
 					$('#save-event').val('수정하기');
-					$('#ff').attr('action','/admin/updateSchedule');
 		 		    $('.modal').find('#schCont').val(info.event.title);
 		 		    
 		 			// 종료 날짜 하루 빼준다.
@@ -121,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					console.log('삭제');
 		 		    flag = true;
 					$(".contextmenu").hide();
-					document.location = "/admin/deleteSchedule?schId="+ info.event.id;
+					document.location = "/admin/selectAdminAllSchedule?schId="+ info.event.id;
 				});
 				
 		   	}else{

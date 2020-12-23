@@ -67,38 +67,6 @@ public class ScheduleController {
 	}
 	
 	/**
-	 * 전체 스케줄 정보를 가져오는 메서드 - 선생님
-	 * 
-	 * @author 김미연
-	 * @return
-	 */
-	@RequestMapping("/admin/selectTeacherAllSchedule")
-	public String selectTeacherAllSchedule(Model model) {
-		List<ScheduleVO> scheduleList = null;
-		try {
-			scheduleList = scheduleService.selectAllSchedule();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("scheduleList", scheduleList);
-		
-		JSONArray jarray = new JSONArray();
-		for(ScheduleVO scheduleVO : scheduleList) {
-			JSONObject sobj = new JSONObject();
-			sobj.put("title", scheduleVO.getSchCont());
-			sobj.put("start", scheduleVO.getSchSfdate());
-			sobj.put("end", scheduleVO.getSchEfdate());
-			sobj.put("id", scheduleVO.getSchId());
-			
-			jarray.add(sobj);
-		}
-		model.addAttribute("jarray", jarray);
-		
-		return "teacherPage/teacher/main/teacherMain";
-	}
-	
-	/**
 	 * 스케줄 정보 하나만 가져오는 메서드
 	 * 
 	 * @author 김미연
@@ -125,7 +93,7 @@ public class ScheduleController {
 	public String insertSchedule(ScheduleVO scheduleVO, HttpSession session) {
 		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
 		scheduleVO.setAdminId(adminId);
-//		scheduleVO.setAdminId("admin");
+		
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");
@@ -136,7 +104,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 	
 	/**
@@ -150,7 +118,7 @@ public class ScheduleController {
 	public String updateSchedule(ScheduleVO scheduleVO, HttpSession session) {
 		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
 		scheduleVO.setAdminId(adminId);
-//		scheduleVO.setAdminId("admin");
+		
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");
@@ -161,7 +129,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 	
 	/**
@@ -178,7 +146,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 
 }

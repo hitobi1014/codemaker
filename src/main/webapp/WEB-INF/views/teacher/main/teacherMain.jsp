@@ -4,4 +4,4 @@
 
 <title>teacherMain</title>
 
-<%@ include file="/WEB-INF/views/admin/calendar/scheduleAllSelect.jsp" %>
+<%@ include file="/WEB-INF/views/teacher/calendar/scheduleAllSelect.jsp" %>
