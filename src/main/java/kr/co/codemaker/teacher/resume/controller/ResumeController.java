@@ -4,6 +4,8 @@ package kr.co.codemaker.teacher.resume.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.vo.NotificationVO;
+import kr.co.codemaker.common.util.MkDir;
 import kr.co.codemaker.teacher.resume.service.ResumeService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 
@@ -41,12 +44,11 @@ public class ResumeController {
 	}
 	
 	@RequestMapping(path="/resume/insert", method = RequestMethod.POST)
-	public String insertResume(ResumeVO resumeVO, @RequestParam(name="resProfile")MultipartFile file) throws Exception {
-		
-		String fileName = UUID.randomUUID().toString();
-		logger.debug("fileName 안에 들은게 뭐냐~~~~~~~~~~~ : {}", fileName);
-		
-		File fileUpload = new File("d:/file/" + file.getOriginalFilename());
+	public String insertResume(ResumeVO resumeVO, @RequestParam(name="profile")MultipartFile file) throws Exception {
+		MkDir dir = new MkDir();
+		dir.mkdirTeacher();	//아래 해당하는 경로에 폴더가 없을시 폴더 생성 하는 클래스
+		Path path = Paths.get("C:","file","teacher","profile",file.getOriginalFilename());	//파일구분자를 운영체제에 맞게 잡아줌
+		File fileUpload = path.toFile();
 		if(file.getSize() > 0) {
 			try {
 				file.transferTo(fileUpload);
@@ -55,15 +57,15 @@ public class ResumeController {
 			}
 		}
 		
-		resumeVO.setResProfile_path("d:/file/" + file.getOriginalFilename());
+		resumeVO.setResProfile("d:/file/" + file.getOriginalFilename());
 		
 		NotificationVO notificationVo = new NotificationVO();
 		notificationVo.setRecipientId("admin");
 		notificationVo.setSenderId(resumeVO.getResNm());
 		notificationVo.setNotifyCont(resumeVO.getResNm() + " 님이 이력서를 제출하였습니다.");
 		
+		resumeVO.setResProfile(path.toString());	//파일 경로 지정
 		int insertCnt = 0;
-		
 		try {
 			insertCnt = resumeService.insertResume(resumeVO);
 			notificationService.insertNotification(notificationVo);
@@ -73,16 +75,13 @@ public class ResumeController {
 			if(insertCnt == 1) {
 				return "mainT/teacher/resume/success";
 			}
-		} catch (Exception e) {
-			
-		}
+		} catch (Exception e) {}
 		return "mainT/teacher/resume/resumeInsert";
 	}
 	
 	// 메인 강사 이미지 처리
 	@RequestMapping(path="/teacher/teacherImg")
 	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
-		logger.debug("tchProfile!!!!!!!!!!!!!!!!!!!!!!!!!!! : {}", tchProfile);
 		response.setContentType("image");
 		FileInputStream fis = new FileInputStream(tchProfile);
 		ServletOutputStream sos = response.getOutputStream();

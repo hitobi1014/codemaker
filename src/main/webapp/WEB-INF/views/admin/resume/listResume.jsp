@@ -11,17 +11,24 @@
 	.textColor{
 		color: black;
 	}
+	#selectState{
+		position: relative;
+		left: 1300px;
+		width: 200px;
+		border: 1px solid #999;
+		z-index: 1;
+	}
 </style>
 <script>
    $(document).ready(function(){
       $('#listResume tr').on('click', function(){
          var resId = $(this).data("resid");
-         document.location = "/admin/resume?resId=" + resId;
+         var resState = $(this).data("resstate");
+         document.location = "/admin/resume?resId="+resId+"&resState="+resState;
       });
       
       $('#selectState').on('change', function(){
          $('#hiddenState').val($('#selectState').val());
-         
          $('#resumeForm').submit();
       });
    });
@@ -34,6 +41,18 @@
 		<div class="col">
 			<div class="card shadow">
 				<div class="card-header border-0">
+					<div>
+						<select id="selectState" name="selectState" style="height: 28px;">
+							<option value=""
+								<c:if test="${resState eq ''}">selected="selected"</c:if>>전체</option>
+							<option value="Y"
+								<c:if test="${resState eq 'Y'}">selected="selected"</c:if>>승인완료</option>
+							<option value="B"
+								<c:if test="${resState eq 'B'}">selected="selected"</c:if>>승인대기</option>
+							<option value="N"
+								<c:if test="${resState eq 'N'}">selected="selected"</c:if>>미승인</option>
+						</select>
+					</div>
 					<h2 class="mb-0">이력서 조회</h2>
 				</div>
 				<div class="table-responsive">
@@ -49,7 +68,7 @@
 							<c:forEach items="${resumeList }" var="resume">
 								<c:url value="/admin/resumeList" var="resumeList"/>
 								<form action="${resumeList }" method="post" id="resumeForm">
-									<tr data-resid=${resume.resId } style="cursor:pointer;">
+									<tr data-resid="${resume.resId}" data-resstate="${resume.resState}"  style="cursor:pointer;">
 										<td><a class="textColor">${resume.resId }</a></td>
 										<td><a class="textColor">${resume.resCode }</a></td>
 										<td><a class="textColor">${resume.resNm }</a></td>
@@ -61,18 +80,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div>
-					<select id="selectState" name="selectState">
-						<option value=""
-							<c:if test="${resState eq ''}">selected="selected"</c:if>>전체</option>
-						<option value="Y"
-							<c:if test="${resState eq 'Y'}">selected="selected"</c:if>>승인완료</option>
-						<option value="B"
-							<c:if test="${resState eq 'B'}">selected="selected"</c:if>>승인대기</option>
-						<option value="N"
-							<c:if test="${resState eq 'N'}">selected="selected"</c:if>>미승인</option>
-					</select>
-				</div>
+				
 				<!--          <div class="card-footer py-4"> -->
 				<!--             <nav aria-label="..."> -->
 				<!--                <ul class="pagination justify-content-end mb-0"> -->

@@ -1,0 +1,343 @@
+@charset "UTF-8";
+
+#cont {
+	padding-top: 80px;
+	margin-right: -15px;
+	margin-left: -15px;
+}
+.container{
+	min-height: 861px;
+    height: auto;
+    max-width: 100%;
+    padding: 0 0 0 0;
+}
+#lessonInt {
+	width: 100%;
+    height: 300px;
+    padding: 20px 0 22px;
+/*     margin: 50px 370px; */
+    text-align: center;
+    font-size: 26px;
+    background: #80008000;
+/*     border: 34px solid #800080ab; */
+    color: black;
+    font-size: 50px;
+}
+
+#lessonCont {
+	border-radius: 10px;
+	padding: 60px 0 22px;
+	text-align: center;
+	font-size: 26px;
+	background-color: white
+}
+
+#lessonCont2 {
+	border-radius: 10px;
+	text-align: center;
+	font-size: 26px;
+	background-color: white
+}
+
+.lessonHeader {
+	float: left;
+}
+
+.lessonMid {
+	width: 900px;
+	float: left;
+}
+
+.btn {
+	width: 98px;
+    height: 30px;
+    text-align: center;
+    margin: 0px 0 8px 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    background: #750075;
+}
+
+.lesNm{
+	border:1px solid black;
+	font-size:40px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+	font-weight: 600;
+}
+
+.lesCont{
+	border:1px solid black;
+	height: 100%;
+	padding: 28px 0 0 0;
+}
+
+#lescont{
+	border:1px solid black; 
+	width: 55%; 
+	float: left;
+	font-size: 25px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+	font-weight: 600;
+}
+
+#lescontBtn{
+	border:1px solid black;
+	width: 45%;
+	float: right;
+	height: 75%;
+}
+
+#subNmDiv{
+	border:1px solid black; 
+	width: 70%; 
+	float: left;
+	font-size: 25px;
+	text-align:left;
+	padding: 0px 0 0 400px;
+}
+#subNmBox{
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    margin: 0px 0 8px 25px;
+    border-radius: 17px;
+    display: flex;
+    justify-content: center;
+    background: #750075;
+}
+span{
+	font-size: 17px;
+    font-weight: 600;
+    color : white;
+}
+
+a{
+	font-size: 17px;
+    font-weight: 600;
+    color : white;
+}
+.teacher {
+	height: 400px;
+	width: 300px;
+	margin-left: 900px;
+	margin-top: 20px;
+	margin-left: 920px
+}
+
+.liDiv {
+	list-style-type: none;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #d2d2d2;
+	width: 450px;
+	height: 70px;
+	margin-right: -10px;
+	background-color: #fff;
+}
+
+
+button {
+	margin-top: 15px;
+	font-weight: 400;
+	color: #69666d;
+	display: inline-block;
+	width: 100%;
+}
+
+.lidxnum {
+	font-size: 16px;
+	width: 80px;
+    padding-right: 100px;
+    margin-left: 60px;
+    float: left
+}
+
+.lidxcont {
+	padding: 10px 0 22px 36px;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.11;
+	text-align: left;
+}
+
+.lidxBtn {
+	border-bottom: 1px solid #69666d;
+}
+ #videoImg{
+ 	width: 40px;
+ 	height: 40px;
+ }
+.container_lesson{
+	margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 1140px;
+    min-height: 830.438px;
+}
+.container_left{
+	width: 55%;
+	height : auto;
+	display: inline-block;
+}
+.container_right{
+	width: 37%;
+	height : auto;
+	display: inline-block;
+	margin-left: 50px;
+}
+.container_lessonIndex{
+	margin-bottom: 1.5rem;
+}
+.container_lessonIndex_In{
+	display: block;
+    position: relative;
+    height: 3.5rem
+}
+.container_lessonIndex_section{
+	position: absolute;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.0rem;
+    background-color: #dde0ea;
+    border-radius: .8rem;
+}
+.bg-index{
+	background-image: linear-gradient(154deg, #800080ab, #800080ab) !important;
+}
+.secion_indes{
+	width: 6.3rem;
+    flex-shrink: 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: -0.39px;
+    
+}
+.lessonIndex{
+	width: 5.0rem;
+    flex-shrink: 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: -0.39px;
+    color : white;
+}
+.container_lessonCont_section{
+color: #333236;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    height: 100%;
+    padding-left: 2.0rem;
+    padding-right: 2rem;
+    background-color: #ffffff;
+    border-radius: .8rem;
+    font-weight: 600;
+}
+h2{
+	display: block;
+    font-size: 1.1em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: 600;
+    color: #333236;
+}
+.video{
+	width: 1.9rem;
+    height: 1.9rem;
+    background-size: cover;
+}
+.note{
+	width: 1.9rem;
+    height: 1.9rem;
+    background-size: cover;
+    margin-left: 20px;
+}
+
+.container_teacher_top{
+	position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   	padding-bottom: 20%;
+    padding-top: 10rem;
+    height: 0;
+    margin-bottom: 1.5rem;
+    border-radius: .6rem;
+    background-color: #d8d8d8;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.container_teacher_top{
+	position: relative;
+	width: 240px;
+	height: 240px;
+	margin-left: 100px;
+	border-radius: 50%;
+	background-color: white;
+}
+#teacher{
+	border-radius: 50%;
+	width: 240px;
+    height: 240px;
+}
+.container_teacher_bottom{
+	padding: 3.5rem 3rem;
+	display: flex;
+    border-radius: .5rem;
+    box-shadow: 10px 9px 27px 0 rgba(27, 16, 93, 0.06);
+    background-color: #ffffff;
+    height: 300px;
+}
+ .teacher_title{ 
+ 	display: flex; 
+     align-items: center; 
+     position: relative; 
+     margin-bottom: 1.1rem; 
+     font-size: 1.4rem; 
+     font-weight: 600; 
+     letter-spacing: -0.32px; 
+     color: #736f79; 
+     height: 40px;
+ } 
+/* h3{ */
+/* 	display: block; */
+/*     font-size: 1.17em; */
+/*     margin-block-start: 1em; */
+/*     margin-block-end: 1em; */
+/*     margin-inline-start: 0px; */
+/*     margin-inline-end: 0px; */
+/*     font-weight: bold; */
+/* } */
+
+.teacher_cont{
+	font-size: 1.5rem;
+    line-height: 1.73;
+    letter-spacing: -0.35px;
+    color: #050505;
+    display: inline-block;
+    margin-top: 70px;
+    margin-left: -120px;
+}
+.lidxCont{
+	width: 60%;
+}
+.lidxImg{
+	width: 40%;
+}
+#spanText{
+	color:#007bff;
+	font-weight: 900;
+}
