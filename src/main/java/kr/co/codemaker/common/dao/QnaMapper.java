@@ -81,4 +81,14 @@ public interface QnaMapper {
 	 * @throws Exception
 	 */
 	public int deleteQna(String qnaId) throws Exception;
+	
+	/**
+	 * qna게시판에 해당하는 담당선생님을 조회하는 메서드
+	 * @author 박경호
+	 * @param qnaId qna아이디
+	 * @return 선생님 아이디
+	 * @throws Exception
+	 */
+	public String selectQnaTeacher(String qnaId) throws Exception;
+	
 }

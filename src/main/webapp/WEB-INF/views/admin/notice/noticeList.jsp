@@ -12,26 +12,22 @@
 <script>
 $(document).ready(function(){
 	
-	$("#keywords").keydown(function(key) {
-		if (key.keyCode == 13) {
-			var searchOption = $("select[name='searchOption']").val();
-			var keyWord = $("input[name='keyWord']").val();
-				
-			document.location="${cp}/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
+	$("#keywords").keypress(function(event) {
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if (keycode == '13') {
+			ins();
+			return false;
 		}
+		event.stopPropagation();
 	});
 		
 	$("#btnWrite").on("click", function(){
-		document.location="${cp}/admin/insertNotice";
+		document.location="/admin/insertNotice";
 	});
 	
 	
 	$("#searchBtn").on("click", function(){
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-	
-		document.location="/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
-		
+		ins();
 	});
 	
 	$("#notice1").on("click", function(){
@@ -46,6 +42,15 @@ $(document).ready(function(){
 		document.location="/admin/selectAllNotice?searchOption=2&keyWord="+keyWord+"&page=1";
 	});
 })
+
+
+function ins(){
+	var searchOption = $("select[name='searchOption']").val();
+	var keyWord = $("input[name='keyWord']").val();
+	
+	alert(keyWord);
+	document.location="/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
+}
 </script>
 
 <style>
@@ -232,7 +237,7 @@ font-family: 'LotteMartDream';
 							<option value="2" selected>자주묻는질문</option>
 						</c:if>
 					</select> 
-					<input type="text" id="keywords" name="keyWord" value="${param.keyWord}">
+					<input type="text" id="keywords" name="keyWord" value="${param.keyWord}" >
 					<button id="searchBtn" type="button" class="btn btn-warning btn-sm">조회</button>
 				</form>
 			</div>

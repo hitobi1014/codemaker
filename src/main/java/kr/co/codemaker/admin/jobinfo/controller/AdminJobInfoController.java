@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.jobInfo.controller;
+package kr.co.codemaker.admin.jobinfo.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -141,13 +141,13 @@ public class AdminJobInfoController {
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(filesNm);
-				String fileName = UUID.randomUUID().toString();
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
 				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + filesNm);
+					filesPath = "C:\\profile\\" + fileName;
+					File file = new File("C:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -221,13 +221,13 @@ public class AdminJobInfoController {
 			
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
-			
-			String ext = FileUploadUtil.getExtenstion(filesNm);
-			String fileName = UUID.randomUUID().toString();
-			String filesPath = "";
-			
+				
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
+				String filesPath = "";
+				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					filesPath = "C:\\profile\\" + fileName;
 					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
@@ -268,14 +268,14 @@ public class AdminJobInfoController {
 	
 	@RequestMapping(path="admin/downloadJobInfo")
 	public void downloadJobInfo(String filesId, HttpServletResponse response) throws Exception {
-		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
-		
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		ServletOutputStream sos = response.getOutputStream();
 		
 		byte[] buffer = new byte[512];

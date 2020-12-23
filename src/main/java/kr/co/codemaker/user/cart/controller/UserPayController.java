@@ -22,6 +22,8 @@ import kr.co.codemaker.user.cart.vo.CartVO;
 import kr.co.codemaker.user.cart.vo.LessonVO;
 import kr.co.codemaker.user.cart.vo.PayVO;
 import kr.co.codemaker.user.cart.vo.PointVO;
+import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
+import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 
 /**
  * @author 최민준
@@ -33,6 +35,9 @@ public class UserPayController {
 	
 	@Resource(name="userPayService")
 	private UserPayService userPayService;
+	
+	@Resource(name="userLessonIndexService")
+	private LessonIndexService lessonIndexService;
 	
 	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")//@RequestBody List<LessonVO> jsonData
 	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo){
@@ -59,6 +64,7 @@ public class UserPayController {
 		logger.debug("정보 : {}",lessonList.getLessonList());
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		PointVO pointVo = null;
+		
 		try {
 			pointVo = userPayService.selectPoint(new PointVO(userVo.getUserId()));
 		} catch (Exception e) {e.printStackTrace();}
@@ -81,6 +87,8 @@ public class UserPayController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		Calendar cal = Calendar.getInstance();
 		LessonVO lvo = null;
+		List<IndexTimeVO> lidxIds = new ArrayList<>();
+		IndexTimeVO indexTimeVO = new IndexTimeVO(); 
 		
 		String payGroup = UUID.randomUUID().toString();
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
@@ -90,9 +98,6 @@ public class UserPayController {
 				userPayService.usePoint(pointVo);
 			} catch (Exception e) {e.printStackTrace();}
 		}
-		logger.debug("포인트 : {}",pointVo);
-		logger.debug("결제정보 : {}",payVo.getPayList());
-		logger.debug("결제 단건 :{}",payVo);
 		//장바구니에서 결제할때
 		if(payVo.getPayList() != null) {
 			List<LessonVO> lessonList = new ArrayList<>();
@@ -105,6 +110,19 @@ public class UserPayController {
 					userPayService.insertPay(payVo.getPayList().get(i));
 					userPayService.deleteCart(cartVo);
 					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
+					
+					indexTimeVO.setUserId(payVo.getPayList().get(i).getUserId());
+					indexTimeVO.setLesId(payVo.getPayList().get(i).getLesId());
+					lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
+					logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
+					
+					for(int j=0; j<lidxIds.size(); j++) {
+						  String lidxId = lidxIds.get(j).getLidxId();
+						  indexTimeVO.setLidxId(lidxId);
+						  indexTimeVO.setUserId(userVo.getUserId());
+						  lessonIndexService.insertIndexTime(indexTimeVO);
+					}
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -124,9 +142,7 @@ public class UserPayController {
 				userPayService.insertPay(payVo);
 				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
 				logger.debug("가져온 lvo : {}",lvo);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			} catch (Exception e) {e.printStackTrace();}
 			cal.setTime(now);
 			cal.add(Calendar.DATE, lvo.getLesTerm());
 			lvo.setLesDate(cal.getTime());
@@ -135,16 +151,62 @@ public class UserPayController {
 			model.addAttribute("lessonVo", lvo);
 			return "mainT/user/payment/paymentOne-complete";
 		}
-		
 		return "redirect:/user/main";
 	}
 	
+	//강의 결제시 수강중인지 확인
+	@RequestMapping(path="/user/payCheck")
+	public String payCheck(Model model, HttpSession session,PayVO payVo) {
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		String code="";
+		String msg="";
+		//이미 결제한 강의가 있고 수강이 안끝났을때
+		PayVO pvo = new PayVO();
+		pvo.setLesId(payVo.getLesId());
+		pvo.setUserId(userVo.getUserId());
+		//결제내역에 있는지, 수강중인지 확인
+		List<PayVO> getPay = new ArrayList<>();
+		try {
+			getPay = userPayService.selectCheckPay(pvo);
+		} catch (Exception e2) {e2.printStackTrace();}
+		if(!getPay.isEmpty() && getPay.get(0).getPayId() !=null) {
+			code="0";
+			msg="이미 수강중인 강의내역이 있습니다";
+			model.addAttribute("msg", msg);
+			model.addAttribute("code", code);
+			return "jsonView";
+		}else {
+			code="1";
+			model.addAttribute("code", code);
+			return "jsonView";
+		}
+	}
+	
 	//강의담기 (장바구니 기능)
-	@RequestMapping(path="user/cart")
+	@RequestMapping(path="/user/cart")
 	public String addCart(CartVO cartVo, Model model) {
 		CartVO getCartVo = null;
 		String msg = "";
 		String code="";
+		//이미 결제한 강의가 있고 수강이 안끝났을때
+		PayVO payVo = new PayVO();
+		payVo.setLesId(cartVo.getLesId());
+		payVo.setUserId(cartVo.getUserId());
+		
+		//결제내역에 있는지, 수강중인지 확인
+		List<PayVO> getPay = new ArrayList<>();
+		try {
+			getPay = userPayService.selectCheckPay(payVo);
+		} catch (Exception e2) {e2.printStackTrace();}
+		
+		if(!getPay.isEmpty() && getPay.get(0).getPayId() !=null) {
+			code="0";
+			msg="이미 수강중인 강의내역이 있습니다";
+			model.addAttribute("msg", msg);
+			model.addAttribute("code", code);
+			return "jsonView";
+		}
+		
 		//똑같은 강의를 담았을때 메세지 출력
 		try {
 			getCartVo = userPayService.selectCart(cartVo);
@@ -174,7 +236,6 @@ public class UserPayController {
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("msg", code);
-		
 		return "jsonView";
 	}
 	
@@ -203,6 +264,15 @@ public class UserPayController {
 		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/payment/cart";
+	}
+	
+	@RequestMapping(path="/user/cartDelete")
+	public String cartDelete(String data) {
+		logger.debug("카트 : {}",data);
+		for(int i=0; i<data.length(); i++) {
+//			logger.debug("값 : {}",data.);
+		}
+		return "";
 	}
 
 }

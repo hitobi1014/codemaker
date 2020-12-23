@@ -47,4 +47,7 @@ SELECT *
 <select id="qnaTotalCntT" resultType="int" parameterType="java.lang.String">
 select count(*) from qna a, lesson b where a.les_id = b.les_id and b.tch_id = #{tchId}
 </select>
+<select id="selectQnaTeacher" resultType="java.lang.String" parameterType="java.lang.String">
+select a.tch_id from teacher a, qna b, lesson c where c.tch_id = a.tch_id and b.les_id = c.les_id and b.les_id = #{lesId} group by a.tch_id
+</select>
 </mapper>

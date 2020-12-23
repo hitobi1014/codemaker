@@ -15,6 +15,19 @@ public class CompanyVO extends BaseVO{
 	private String comImg;		// 기업 서명이미지
 	
 	
+	
+	public String getFilesId() {
+		return filesId;
+	}
+	public void setFilesId(String filesId) {
+		this.filesId = filesId;
+	}
+	public String getComImg() {
+		return comImg;
+	}
+	public void setComImg(String comImg) {
+		this.comImg = comImg;
+	}
 	public String getComState() {
 		return comState;
 	}

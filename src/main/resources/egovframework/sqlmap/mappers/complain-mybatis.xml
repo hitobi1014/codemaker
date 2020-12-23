@@ -14,7 +14,7 @@ SELECT *
   FROM COMPLAIN WHERE CP_ID =#{cpId}
 </select>
 <insert id="insertComplain" parameterType="kr.co.codemaker.common.vo.ComplainVO">
-INSERT INTO COMPLAIN VALUES ('CP'||LPAD(CP_SEQ.NEXTVAL,4,'0'), sysdate, #{cpCont}, 'N', '1',#{cpGn}, #{replyId,jdbcType=VARCHAR}, #{qnaId,jdbcType=VARCHAR})
+INSERT INTO COMPLAIN VALUES ('CP'||LPAD(CP_SEQ.NEXTVAL,4,'0'), sysdate, #{cpCont}, 'N', '1',#{cpGn}, #{replyId,jdbcType=VARCHAR}, #{qnaId,jdbcType=VARCHAR},#{plaintiff}, #{defendant})
 </insert>
 <update id="checkComplain" parameterType="kr.co.codemaker.common.vo.ComplainVO">
 UPDATE complain set cp_state = 'Y' where cp_ID = #{cpId}
@@ -44,5 +44,19 @@ UPDATE users set USER_BLACK = 'Y' WHERE USER_ID = #{userId}
 <select id="complainTotalCnt" resultType="int">
 SELECT count(*) 
   FROM COMPLAIN
+</select>
+<select id="selectComplainU">
+select a.user_id 
+  from users a, complain b, reply c, qna d 
+ where a.user_id = C.REPLY_WRITER
+ <if test="replyId.indexOf('REPLY') == -1">
+   and c.reply_Id = b.reply_id
+   and b.REPLY_ID = #{replyId}
+  </if> 
+   <if test="b.reply_gn = '2'">
+   and d.QNA_ID = b.QNA_ID
+   and b.QNA_ID = #{replyId}
+   </if>
+   group by a.user_id
 </select>
 </mapper>

@@ -32,4 +32,8 @@ UPDATE reply set reply_out = 'Y' where reply_id = #{replyId}
 
 
 
+<select id="selectReply" parameterType="java.lang.String" resultType="kr.co.codemaker.common.vo.ReplyVO">
+SELECT * 
+  FROM reply where reply_id = #{replyId}
+</select>
 </mapper>

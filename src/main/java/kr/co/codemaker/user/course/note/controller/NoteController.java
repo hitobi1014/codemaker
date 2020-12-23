@@ -15,13 +15,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,8 +64,6 @@ public class NoteController {
 	@Resource(name = "noteService")
 	private NoteService noteService;
 
-	private static final Logger logger = LoggerFactory.getLogger(NoteController.class);
-
 	/**
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
 	 * 
@@ -78,12 +73,10 @@ public class NoteController {
 	 */
 	@RequestMapping(path = "/note/selectPageNote")
 	public String selectPageFNote(NoteVO noteVO, HttpSession session, Model model) {
-//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
-		String userId = "a001@naver.com";
-//		userVO.setUserId(userId);
+//		String userId = "a001@naver.com";
 
-//		noteRequestVo.setUserId(userVO.getUserId());
 		noteVO.setUserId(userId);
 		if (noteVO.getPage() == 0) {
 			noteVO.setPage(1);
@@ -153,9 +146,10 @@ public class NoteController {
 	@RequestMapping(path = "/note/insertNote")
 	@ResponseBody
 	public void insertNote(NoteVO noteVO, HttpSession session) {
-//		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
-		// noteVO.setUserId(userVo.getUserId());
-		noteVO.setUserId("a001@naver.com");
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		
+//		noteVO.setUserId("a001@naver.com");
+		noteVO.setUserId(userId);
 
 		try {
 			noteService.insertNote(noteVO);
@@ -229,8 +223,6 @@ public class NoteController {
 	public void downloadPdf(@RequestParam(value="noteIds")List<String> noteIds, HttpServletResponse response, HttpServletRequest request) {
 		List<NoteVO> noteLists = new ArrayList<NoteVO>();
 		
-		
-
 		// DB에서 정보 가져오기
 		for (String noteId : noteIds) {
 			NoteVO noteVO = null;

@@ -45,7 +45,7 @@
 </update>
 <insert id="insertRefund" parameterType="kr.co.codemaker.user.mypage.vo.PointVO">
 	INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
-		VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '3', 
+		VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '1', 
 							(SELECT point_sum FROM(
                                 SELECT point_sum FROM POINT
                                 WHERE user_id=#{userId}

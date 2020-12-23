@@ -57,6 +57,9 @@ td{
     vertical-align: middle;
     padding-left: 100px;
 }
+h2{
+	font-family: 'LotteMartDream';
+}
 
 </style>
 
@@ -65,7 +68,6 @@ td{
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin:50px;">
 			<div class="card">
-				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢 과목조회</h2>
 				<div id="addLesId">
 				</div>

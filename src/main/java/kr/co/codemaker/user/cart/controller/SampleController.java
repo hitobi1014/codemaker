@@ -35,11 +35,4 @@ public class SampleController {
 		return "user/payment/temp";
 		
 	}
-	
-//	@RequestMapping("/kakaoPaySuccess")
-//	public void kakaoPaySuccess(@RequestParam("pg_token")String pg_token, Model model) {
-//		logger.debug("토큰 : {}",pg_token);
-//		
-//		model.addAttribute("info", kakaoPay.kakaoPayInfo(pg_token));
-//	}
 }

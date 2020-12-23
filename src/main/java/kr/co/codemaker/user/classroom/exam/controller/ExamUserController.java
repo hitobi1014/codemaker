@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.classroom.exam.service.AnswersheetUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamResultUserService;
 import kr.co.codemaker.user.classroom.exam.service.ExamScoreUserService;
@@ -63,9 +64,8 @@ public class ExamUserController {
 	 */
 	@RequestMapping(path = "/examUser/selectAllExam")
 	public String selectAllExam(ExamVO examVO, Model model, HttpSession session) {
-//		String userId = (String)session.getAttribute("");
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
-		String userId = "b001@naver.com";
 		examVO.setUserId(userId);
 		
 		List<ExamVO> examList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class ExamUserController {
 			e.printStackTrace();
 		}
 		
-		int pages = (int) Math.ceil((double) totalCnt / 1);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 		
 		model.addAttribute("examList", examList);      
 		model.addAttribute("pages", pages);
@@ -118,11 +118,11 @@ public class ExamUserController {
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "/user/exam/examUserSelect";
+		return "/user/exam/examUserInsert";
 	}
 	
 	/**
-	 * 시험점수와 시험결과를 등록하는 메서드 - 처음 시험을 풀때만
+	 * 시험점수와 시험결과를 등록하는 메서드
 	 * 
 	 * @author 김미연
 	 * @param examScoreVO
@@ -132,9 +132,7 @@ public class ExamUserController {
 	@ResponseBody
 	@RequestMapping(path = "/examUser/insertExamResult")
 	public void insertExamResult(ExamVO examVO, HttpSession session) {
-		
-//		String userId = (String)session.getAttribute("");
-		String userId = "b001@naver.com";
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
 		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
 		examScoreVO.setExamId(examVO.getExamId());
@@ -203,39 +201,12 @@ public class ExamUserController {
 		model.addAttribute("examResultList", examResultList);
 		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "mypageT/user/exam/examUserUpdate";
+		if(examVO.getResultState() != null && examVO.getResultState().equals("0")) {
+			return "mypageT/user/exam/examUserSelect";
+		}
+		
+		return "user/exam/examUserResult";
 	}
 	
-//	
-//	
-//	/**
-//	 * 회원의 모든 성적을 조회하는 메서드 - 점수 조회
-//	 * 
-//	 * @author 김미연
-//	 * @param examScoreVO
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public String selectAllExamScore(ExamScoreVO examScoreVO, Model model, HttpSession session) {
-////		String userId = (String)session.getAttribute("");
-//		
-//		String userId = "b001@naver.com";
-//		examScoreVO.setUserId(userId);
-//		
-//		List<ExamScoreVO> examScoreList = new ArrayList<>();
-//		
-//		try {
-////			examScoreList = examScoreUserService.selectAllExamScore(examScoreVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		model.addAttribute("examScoreList", examScoreList);
-//		
-//		return "";
-//	}
-//	
-
-
 
 }

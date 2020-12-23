@@ -24,7 +24,7 @@ $(document).ready(function(){
 	})
 	
 	$("#qnaComplain").on("click", function(){
-		var url = "/user/insertComplain?qnaId=${qnaVo.qnaId}";
+		var url = "/user/insertComplain?qnaId=${qnaVo.qnaId}&defendant=${qnaVo.userId}";
 		var option = "width = 600, height = 300, top = 300, left = 200, location = no";
 		window.open(url, "신고내역", option);
 	})
@@ -32,7 +32,8 @@ $(document).ready(function(){
 	
 	$("button[id^=replyComplain]").on("click", function(){
 		var replyId = $(this).val();
-		var url = "/user/insertComplain?replyId="+replyId;
+		var writer = $(this).parents('tr').children('td:eq(3)').text();
+		var url = "/user/insertComplain?replyId="+replyId+"&defendant="+writer;
 		var option = "width = 600, height = 300, top = 300, left = 200, location = no";
 		window.open(url, "신고내역", option);
 	})
@@ -45,7 +46,7 @@ $(document).ready(function(){
 			$('#treply').append("<button type='button' id='rreplybutton' onclick='rreinsert()'>댓글작성</button>");
 			$('#treply').append("<input type='hidden' name='root' value='"+ root +"'>");
 			$('#treply').append("<input type='hidden' name='qnaId' value='${qnaVo.qnaId}'>");
-			$('#treply').append("<input type='hidden' name='replyWriter' value='${USERID}'>");
+			$('#treply').append("<input type='hidden' name='replyWriter' value='${MEMBER_INFO.userId}'>");
 		}
 	});
 	
@@ -104,7 +105,7 @@ $(document).ready(function(){
 				<label class="control-label">${qnaVo.qnaCont}</label>
 			</div>
 			<div>
-				<c:if test="${qnaVo.userId == USERID}">
+				<c:if test="${qnaVo.userId == MEMBER_INFO.userId}">
 					<button type=button id="delbutton">삭제</button>				
 				</c:if>
 			</div>
@@ -148,17 +149,18 @@ $(document).ready(function(){
 				</table>	
 			</div>
 			
-			<form id="rrein" action="${cp}/user/insertrReply" method="post">
+			<form id="rrein" action="/user/insertrReply" method="post">
 				<div id="treply">
 					
 				</div>
 			</form>
 			
 			<br>
-			<form id="inre" action="${cp}/user/insertReply" method="POST">	
-				<input type="hidden" name="replyWriter" value="${USERID}">
+			<form id="inre" action="/user/insertReply" method="POST">	
+				<input type="hidden" name="replyWriter" value="${MEMBER_INFO.userId}">
 				<input type="hidden" name="qnaId" value="${qnaVo.qnaId}">
 				<input type="hidden" name="replyRoot" value="">
+				<input type="hidden" name="lesId" value="${qnaVo.lesId}">
 				<div>
 					<textarea style="border:1px black solid; resize:none; width:400px; margin-left:500px;" name="replyCont"></textarea>
 				</div>

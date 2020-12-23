@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -15,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
+import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
 import kr.co.codemaker.user.lessoninfo.service.LessonService;
 import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
+import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
@@ -28,7 +33,7 @@ import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 *
 * @author 박다미
 * @version 1.0
-* @since 2020. 12. 8. ???????언제지?
+* @since 2020. 12. 19.
 *
 * 수정자 수정내용
 * ------ ------------------------
@@ -49,82 +54,127 @@ public class UserLessonController {
 	@Resource(name="userLessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
+	@Resource(name = "examUserService")
+	private ExamUserService examUserService;
 	
 	@RequestMapping(path="/user/selectSubject")
 	public String selectLesson(Model model) {
 		List<SubjectVO> subjectList = subjectService.selectSubject();
-		List<LessonVO> lessonList= lessonService.selectLesson();
+		List<LessonVO> lessonList = new ArrayList<>();
+		try {
+			lessonList = lessonService.selectLesson();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("subjectList", subjectList);
 		model.addAttribute("lessonList", lessonList);
 		
 		return "mainT/user/lesson/subjectSelect";
 	}
 	
-	// 강의목차 조회페이지
+	/**
+	 * 회원 - 강의목차 조회페이지
+	 * @param model
+	 * @param lessonIndexVO
+	 * @return
+	 */
 	@RequestMapping(path="/user/selectLessonPage")
-	public String selectLessonPage(Model model,LessonIndexVO lessonIndexVO ) {
-		LessonIndexVO lesIdxVO = new LessonIndexVO();
-		
+	public String selectLessonPage(Model model,HttpSession session,String lesId ) {
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
+		LessonIndexVO lessonIndexVO = new LessonIndexVO();
+		LessonVO lessonVO = new LessonVO();
 		
-		List<LessonIndexVO> lesIdxList;
+        UserVO userVO = new UserVO();
+        userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+        logger.debug("유저VO!!:{}",userVO);
+		
+		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
+		
+		// 시험
+		List<ExamVO> examList = new ArrayList<ExamVO>();
+		ExamVO examVO = new ExamVO();
+		examVO.setLesId(lesId);
+		
+		lessonIndexVO.setLesId(lesId);
+		if(userVO!=null) {
+			lessonIndexVO.setUserId(userVO.getUserId());
+		}
+		lessonVO.setLesId(lesId);
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
-			logger.debug("강의번호:{}",lessonIndexVO.getLesId());
-			logger.debug("강의목차:{}",lesIdxList);
-			model.addAttribute("lesIdxList", lesIdxList);
-			model.addAttribute("lesId", lessonIndexVO.getLesId());
-			return "mainT/user/lesson/lessonSelect";
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			lessonVO = lessonService.selectDetailLesson(lessonVO);
+			
+			logger.debug("lessonVO:{}",lessonVO);
+			
+			examList = examUserService.selectExamLesson(examVO);
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
-		return null;
 		
+		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
+		logger.debug("강의목차:{}",lesIdxList);
+		model.addAttribute("lesIdxList", lesIdxList);
+		model.addAttribute("lesId", lessonIndexVO.getLesId());
+		model.addAttribute("lessonVO",lessonVO);
+		
+		model.addAttribute("examList",examList);
+		
+		return "mainT/user/lesson/lessonSelect";
 	}
 	
-	// 강의목차 진행률 수정
+	/**
+	 * 회원 - 강의목차 진행률 수정
+	 * @param model
+	 * @param lidxId
+	 * @param curTime
+	 */
 	@ResponseBody
 	@RequestMapping(path="/user/updateLessonPage")
-	public void updateLessonPage(Model model,String lidxId,@RequestParam(required=false)String curTime ) {
+	public void updateLessonPage(Model model,String lidxId,@RequestParam(required=false)String curTime,HttpSession session ) {
 		LessonIndexVO lesIdxVO = new LessonIndexVO();
 		// 1. 파라미터 lesId -> VO객체로 받기
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
 		// 3. 진행률 업데이트
 		
-		logger.debug("lidxId : {}", lidxId);
+		// 로그인세션 가져오기
+		UserVO userVO = new UserVO();
+		userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		int cnt=0;
+		
+		
+		logger.debug("userVO : {}", userVO);
 		logger.debug("재생시간 : {}", curTime);
 		
 		int time = ((int)Double.parseDouble(curTime)/60);
 		
 		logger.debug("curArray: {}", time);
-		lesIdxVO.setLidxId(lidxId);
-		lesIdxVO.setLidxCurtime(time);
-		logger.debug("lesIdxVO: {}", lesIdxVO);
 		
+		IndexTimeVO indexTimeVO = new IndexTimeVO();
+		indexTimeVO.setUserId(userVO.getUserId());
+		indexTimeVO.setLidxId(lidxId);
+		indexTimeVO.setLidxCurtime(time);
+		
+		logger.debug("indexTimeVO: {}", indexTimeVO);
 		try {
-			lessonIndexService.updateLessonIndex(lesIdxVO);
+			cnt = lessonIndexService.updateIndexTime(indexTimeVO);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-//		return null;
-		
 	}
 	
-	// 강의 동영상
+	/**
+	 * 회원 - 강의 동영상 보기
+	 * @param lidxPath
+	 * @param model
+	 * @param lidxId
+	 * @return
+	 */
 	@RequestMapping(path="/user/selectYoutube")
 	public String selectYou(String lidxPath, Model model,String lidxId) {
 		model.addAttribute("lidxPath",lidxPath);
 		model.addAttribute("lidxId", lidxId);
-		return "user/lesson/lessonYoutube";
-	}
-
-	// 강의 동영상 테스트
-	@RequestMapping(path="/user/testYou")
-	public String testYou() {
 		return "user/lesson/lessonYoutube";
 	}
 	
@@ -135,17 +185,6 @@ public class UserLessonController {
 		return "";
 	}
 	
-	// 컨버스 테스트
-	@RequestMapping(path="/canvas")
-	public String canvasTest() {
-		return "user/lesson/canvas";
-	}
-	
-	// 컨버스 테스트
-	@RequestMapping(path="/canvas2")
-	public String canvas2Test() {
-		return "user/lesson/canvas4";
-	}
 	
 	
 	

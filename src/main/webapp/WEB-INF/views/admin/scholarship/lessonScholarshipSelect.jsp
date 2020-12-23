@@ -26,6 +26,7 @@ $(function(){
 	
 	// 장학금 지급
 	$('#agree').on('click', function(){
+		$('#schof').attr('action', '/scholarship/insertScholarship');
 		$('#schof').submit();
 	});
 })
@@ -95,6 +96,7 @@ button:focus{
 	<form:input type="hidden" path="searchSubject" value="${searchSubject }" />
 	<form:input type="hidden" path="searchGn" value="${searchGn }" />
 	<form:input type="hidden" path="lesId" value="${lesId }" />
+	<form:input type="hidden" path="totalPay" value="${totalPay }" />
 	<input type="hidden" name="schlState" value="1"/>
 	
 	<c:choose>
@@ -150,7 +152,7 @@ button:focus{
 							<tr>
 								<th scope="col" style="width: 5%;">순</th>
 								<th scope="col" style="width: 30%;">강의명</th>
-								<c:if test='${scholarshipVO.curGn == "5" }'>
+								<c:if test='${scholarshipVO.curGn == "6" }'>
 									<th scope="col" style="width: 10%;">지급 구분</th>
 								</c:if>
 								<th scope="col" style="width: 10%;">회원 아이디</th>
@@ -165,7 +167,7 @@ button:focus{
 										<tr data-lesid='${scholarship.lesId }'>
 											<td class="tdc">${status.count }</td>
 											<td>${scholarship.lesNm }</td>
-											<c:if test='${scholarshipVO.curGn == "5" }'>
+											<c:if test='${scholarshipVO.curGn == "6" }'>
 												<td class="tdc">
 													<c:choose>
 														<c:when test="${scholarship.schlState == '1' }">

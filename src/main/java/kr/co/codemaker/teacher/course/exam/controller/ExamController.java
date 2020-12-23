@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
@@ -54,9 +55,11 @@ public class ExamController {
 	 */
 	@RequestMapping(path = "/exam/selectAllExam")
 	public String selectAllExam(Model model, HttpSession session, ExamVO examVO) {
-//		String tchId = (String)session.getAttribute("");
-//		subjectVO.setTchId(tchId);
-		examVO.setTchId("200ser@maker.com");
+		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
+		
+		examVO.setTchId(tchId);
+		
+//		examVO.setTchId("200ser@maker.com");
 		
 		List<SubjectVO> subjectList = new ArrayList<>();
 		List<LessonVO> lessonList = new ArrayList<>();
@@ -91,10 +94,9 @@ public class ExamController {
 	 */
 	@RequestMapping(path = "/exam/selectAllLesson")
 	public String selectAllLesson(Model model, LessonVO lessonVO, HttpSession session) {
-//		String tchId = (String)session.getAttribute("");
-//		subjectVO.setTchId(tchId);
+		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
 		
-		lessonVO.setTchId("200ser@maker.com");
+		lessonVO.setTchId(tchId);
 		
 		List<LessonVO> lessonList = new ArrayList<>();
 		try {
@@ -232,6 +234,8 @@ public class ExamController {
 	@ResponseBody
 	public void insertExam(ExamVO examVO) {
 		int index = 0;
+		index = index + 1;
+		
 		try {
 				examService.insertExam(examVO);
 				for (int i=0; i < examVO.getQueContList().size(); i++) {
