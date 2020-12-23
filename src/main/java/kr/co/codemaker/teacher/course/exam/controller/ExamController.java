@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,8 @@ public class ExamController {
 
 	@Resource(name = "answersheetService")
 	private AnswersheetService answersheetService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ExamController.class);
 
 	/**
 	 * 시험 리스트 조회 - 과목 조회, 강의 조회, 시험 조회

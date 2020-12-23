@@ -138,7 +138,7 @@ public class AdminLoginController {
 	 */
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
-		return "adminPage/admin/main/adminMain";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class AdminLoginController {
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {
 		
-		return "teacherPage/teacher/main/teacherMain";
+		return "redirect:/admin/selectTeacherAllSchedule";
 	}
 	
 }
