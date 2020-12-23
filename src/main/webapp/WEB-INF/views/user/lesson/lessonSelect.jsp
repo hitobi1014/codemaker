@@ -2,12 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="/css/user/lesson/lesson-select.css" rel="stylesheet" type="text/css">
-
-
-
 <div class="lesson-container" >
 	<div class="lesson-header"  >
 		<div class="lesson-header-left" >
@@ -24,7 +20,10 @@
 		<div class="lesson-header-right">
 			<div class="les-btn-div">
 				<div class="lesbtn">
-					<a class="fa-wf" href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
+					<c:url value="/user/selectReview" var="selectReview">
+						<c:param name="lesId" value="${lesId}"></c:param>
+					</c:url>
+					<a class="fa-wf" href="${selectReview}">강의후기</a>
 				</div>
 				<div class="lesbtn">
 					<button class="fa-wf" id="qnabtn">QnA</button>
@@ -32,7 +31,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div class="lesson-content-top" >
 		<div class="lesson-content-left" >
@@ -52,11 +50,10 @@
 					<div class="detail-middle2nd-exam">퀴즈갯수</div>
 				</div>
 				<div class="lesson-content-detail-bottom">
-
-						<c:url value="/user/payView" var="pay">
-							<c:param name="lesId" value="${lesId}" />
-						</c:url>
-						<a class="fa-black" href="${pay}">결제하기</a>
+					<c:url value="/user/payView" var="pay">
+						<c:param name="lesId" value="${lesId}" />
+					</c:url>
+					<a class="fa-black" onclick="pay('${lesId}')">결제하기</a>
 				</div>
 			</div>
 			<div class="lesson-content-button">
@@ -119,7 +116,6 @@
 			</c:forEach>
 		</div>
 	</div>
-		
 
 	<div class="qna-content">
 		<div id="qna">
@@ -148,6 +144,24 @@ function addCart(lesId,userId){
 	})
 }
 
+function pay(lesId){
+	console.log("유저아이디"+lesId);
+	$.ajax({
+		method : "post",
+		url : "/user/payCheck",
+		data : {lesId:lesId},
+		dataType : "json",
+		success : function(res){
+			if(res.code==0){
+				alert(res.msg);
+			}else{
+				console.log("여기?");
+				location.href="${pageContext.request.contextPath}/user/payView?lesId="+lesId;
+			}
+		}
+	})
+}
+
 $(function() {
 	// qna클릭시 스크롤 이동
 	$('#qnabtn').on('click',function(){
@@ -162,10 +176,4 @@ $(function() {
 	})
 	
 })
-
-// var qnabtn = function(){
-// 	var offset = $('#qna').offset();
-// 	$('body').animate({scrollTop:offset.top},400);
-// }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

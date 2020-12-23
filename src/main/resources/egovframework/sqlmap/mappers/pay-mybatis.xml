@@ -10,7 +10,7 @@
 				#{payWay},
 				#{paySum},
 				SYSDATE,
-				SYSDATE+#{cosTerm},
+				SYSDATE+#{lesTerm},
 				0,
 				#{userId},
 				#{lesId})
