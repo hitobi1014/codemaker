@@ -228,10 +228,10 @@ span{
 }
 .lesson-content{
 	border:2px solid #656565;
-	width: 80%;
+	width: 90%;
     height: 280px;
     display: inline-block;
-    margin: 0 0 0 66px;
+    margin: 0 0 0 0;
 }
 .lesson-content-detail-top, .lesson-content-detail-middle,.lesson-content-detail-middle2nd, .lesson-content-detail-bottom,
 .detail-middle-term, .detail-middle-video, .detail-middle-exam{

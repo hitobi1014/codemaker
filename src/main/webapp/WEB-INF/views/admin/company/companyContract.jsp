@@ -5,7 +5,6 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>title</title>
-<link rel="stylesheet" href="/css/teacher/lesson/button.css">
 <script src="/js/admin/company/html2canvas.js"></script>
 <script src="/js/admin/company/jspdf.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -31,7 +30,7 @@
 }
 .frame{
 	width: 900px;
-    margin: 22px auto 0;
+    margin: 0px auto 0;
    font-family: 'NotoSerifKR';
 }
 .text1st{
@@ -39,15 +38,16 @@
     margin: 70px 0 40px 41px;
 }
 .text2nd{
-    margin: 36px 65px 10px;
+    margin: 20px 65px 10px;
     line-height: 5px;
 }
 .date{
-	margin: 42px 0 3px 400px;
+	margin: 30px 0 3px 400px;
 }
 .sign{
 	padding: 38px;
     height: 300px;
+    margin: -25px 0 0px 0px;
 }
 .signdiv{
 	width: 49%;
@@ -73,6 +73,57 @@
 #submitBtn{
 	margin-left: 427px;
 }
+.btn-sm {
+  	font-size: .875rem;
+  	line-height: 1.5;
+  	padding: .25rem .5rem;
+  	border-radius: .375rem;
+}
+.btn {
+  	font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    display: inline-block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: .375rem;
+    width: 63px;
+    height: 30px;
+    margin: 10px 0 0 0;
+}
+.btn-info {
+  	color: #fff;
+  	border-color: #888888;
+  	background-color: #888888;
+  	box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+.btn-info:hover {
+  	color: #fff;
+  	border-color: #888888;
+  	background-color: #888888;
+}
+.btn-success{
+	border: 2px solid #005F86;
+    background-color: #005F86;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    width: 120px;
+    height: 40px;
+    border-radius: 36px;
+    margin: 40px 0 0 400px;
+    font-size: 17px;
+    color: white;
+    font-weight: 600;
+}
+
 </style>
 </head>
 <body>
@@ -119,29 +170,27 @@
 			
 			<div class="sign" >
 				<div class="signdiv codeSign" >
-						<div>
-							<p>[갑] 학원명 :  codemaker</p>
-						</div>
-						서명 공간
-						<div style="width:400px; height:200px;">
-						<canvas id="canvas" style="border:1px solid black"></canvas>
-						</div>
-						<div id="erase-div">
-						지우기 버튼
-						<button id="erase">Erase</button>
-						</div>
+					<div>
+						<p>[갑] 학원명 :  codemaker</p>
+					</div>
+					서명 공간
+					<div style="width:400px; height:200px;">
+					<canvas id="canvas" style="border:1px solid black"></canvas>
+					</div>
+					<div id="erase-div">
+					<button type="button" class="btn btn-sm btn-info" id="erase">지우기</button>
+					</div>
 				</div>
 				
 				<div class="signdiv companySign" >
-						<div class="stamp 1st">
-						  <p>[을]  회사명 : ${companyVO.comNm}</p>
-						  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주 소 : ${companyVO.comAdd}</p>
-						  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대 표 : ${companyVO.comOwner}</p>
-						</div>
-						<div class="stamp 2nd" id="stamp2Id">
-<!-- 							<canvas id="canvas" width="90px" height="90px"></canvas> -->
-						    <img id="stampId" src="/images/admin/company/stamp.png" alt="직인">
-						</div>
+					<div class="stamp 1st">
+					  <p>[을]  회사명 : ${companyVO.comNm}</p>
+					  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주 소 : ${companyVO.comAdd}</p>
+					  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대 표 : ${companyVO.comOwner}</p>
+					</div>
+					<div class="stamp 2nd" id="stamp2Id">
+					    <img id="stampId" src="/images/admin/company/stamp.png" alt="직인">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -149,7 +198,7 @@
 </div>
 
 <div>
-	<button type="button" id="savePdf" class="button button-primary button-small form-control-label" data-comnm="${companyVO.comNm}" data-comid="${companyVO.comId}">제출</button>
+	<button type="button" id="savePdf" class="btn btn-sm btn-success form-control-label" data-comnm="${companyVO.comNm}" data-comid="${companyVO.comId}">제출</button>
 </div>
 
 
@@ -292,7 +341,6 @@ $(document).ready(function() {
 	    console.log(imgData);
 // 	    window.open("data:application/pdf;base64, " +imgData.base64EncodedPDF);
 
-	    
 	    $.ajax({
 	 		url:"/admin/company/companyPdf",
 	 		type:"post",
@@ -307,32 +355,8 @@ $(document).ready(function() {
 // 	 				alert('안됨');
 	 				opener.parent.location.reload();
 	 				self.close();
-	 				
 	 			}
 	 	})
-	    
-// 	    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
-// 	    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
-// 	    var imgHeight = canvas.height * imgWidth / canvas.width;
-// 	    var heightLeft = imgHeight;
-// 	    var margin = 10; // 출력 페이지 여백설정
-// 	    var doc = new jsPDF('p', 'mm');
-// 	    var position = 0;
-	       
-// 	    // 첫 페이지 출력
-// 	    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
-// 	    heightLeft -= pageHeight;
-	         
-// 	    // 한 페이지 이상일 경우 루프 돌면서 출력
-// 	    while (heightLeft >= 20) {
-// 	        position = heightLeft - imgHeight;
-// 	        doc.addPage();
-// 	        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-// 	        heightLeft -= pageHeight;
-// 	    }
-	   
-// 	    // 파일 저장
-// 	    doc.save(comNm+'.pdf');
 	});
   });
 })
