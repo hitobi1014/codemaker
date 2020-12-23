@@ -215,13 +215,13 @@ public class AdminNoticeController {
 			
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
-			
-			String ext = FileUploadUtil.getExtenstion(filesNm);
-			String fileName = UUID.randomUUID().toString();
-			String filesPath = "";
-			
+				
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
+				String filesPath = "";
+				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					filesPath = "C:\\profile\\" + fileName;
 					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
