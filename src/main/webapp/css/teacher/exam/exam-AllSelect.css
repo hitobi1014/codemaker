@@ -14,16 +14,6 @@ body {
 table{
 	table-layout: fixed;
 }
-/* #wul { */
-/* 	width: calc(100% - 1px); */
-/* } */
-/* #hd { */
-/* 	margin-left: 15px; */
-/* } */
-/* #tthe{ */
-/* 	text-align: center; */
-/* 	font-size: 25px; */
-/* } */
 #search {
 	width: 115px;
 	display: inline-block;
@@ -33,24 +23,13 @@ table{
 #right {
 	text-align: right;
 }
-/* #regBtn { */
-/* 	height: 36px; */
-/* } */
 #subject{
 	width: 120px;
     display: inline-block;
 }
-/* #lesson{ */
-/* 	display: inline-block; */
-/*     width: 400px; */
-/* } */
 #les{
 	display: inline-block;
 }
-/* .py-4{ */
-/* 	float: right; */
-/* } */
-
 .exam-box{
 	width: 92%;
     margin: 30px auto;
@@ -94,4 +73,8 @@ table{
     width: 1500px;
     border: none;
     margin: auto;
+}
+.regBtn{
+	background: #5bb75b;
+    color: #fafafa;
 }

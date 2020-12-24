@@ -80,7 +80,7 @@ public class ExamController {
 			e.printStackTrace();
 		}
 		
-		int pages = (int) Math.ceil((double) totalCnt / 1);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 		
 		model.addAttribute("pages", pages);
 		model.addAttribute("subjectList", subjectList);

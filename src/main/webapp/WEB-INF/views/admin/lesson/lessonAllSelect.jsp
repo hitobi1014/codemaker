@@ -161,7 +161,6 @@ table{
 <div id="containerId">
 	<div class="row shadow" style="background-color: white;">
 		<div class="col-12" style="margin: 50px;">
-		
 			<div class="card" style="width: 1200px;">
 				<div class="card-body text-center"></div>
 				<h2 class="card-title m-b-0">📢강의 개설 요청</h2>
