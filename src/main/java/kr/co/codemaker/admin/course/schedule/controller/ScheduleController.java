@@ -35,27 +35,13 @@ public class ScheduleController {
 	private ScheduleService scheduleService;
 	
 	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-//	@RequestMapping("/admin/schTest")
-//	public String selectScheduleTest() {
-//	
-//		return "admin/calendar/testSch";
-//	}
-	
-	
-	/**
-	 * 전체 스케줄 정보를 가져오는 메서드
+	 * 전체 스케줄 정보를 가져오는 메서드 - 관리자
 	 * 
 	 * @author 김미연
 	 * @return
 	 */
-	@RequestMapping("/admin/selectAllSchdule")
-	public String selectAllSchedule(Model model) {
+	@RequestMapping("/admin/selectAdminAllSchedule")
+	public String selectAdminAllSchedule(Model model) {
 		List<ScheduleVO> scheduleList = null;
 		try {
 			scheduleList = scheduleService.selectAllSchedule();
@@ -63,7 +49,6 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		model.addAttribute("scheduleList", scheduleList);
 		
 		JSONArray jarray = new JSONArray();
@@ -78,24 +63,7 @@ public class ScheduleController {
 		}
 		model.addAttribute("jarray", jarray);
 		
-//		return "admin/calendar/scheduleAllSelect";
 		return "adminPage/admin/main/adminMain";
-	}
-	
-	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-	public String selectSchedule(ScheduleVO scheduleVO) {
-		try {
-			scheduleService.selectSchedule(scheduleVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
 	}
 	
 	/**
@@ -109,7 +77,7 @@ public class ScheduleController {
 	public String insertSchedule(ScheduleVO scheduleVO, HttpSession session) {
 		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
 		scheduleVO.setAdminId(adminId);
-//		scheduleVO.setAdminId("admin");
+		
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");
@@ -120,7 +88,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 	
 	/**
@@ -134,7 +102,7 @@ public class ScheduleController {
 	public String updateSchedule(ScheduleVO scheduleVO, HttpSession session) {
 		String adminId = ((AdminVO)session.getAttribute("S_ADMIN")).getAdminId();
 		scheduleVO.setAdminId(adminId);
-//		scheduleVO.setAdminId("admin");
+		
 		String schAllday = scheduleVO.getSchAllday();
 		if(schAllday == null) {
 			scheduleVO.setSchAllday("false");
@@ -145,7 +113,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 	
 	/**
@@ -162,7 +130,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllSchdule";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
 
 }

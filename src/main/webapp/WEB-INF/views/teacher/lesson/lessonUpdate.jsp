@@ -300,6 +300,12 @@ $(function(){
                         <input type="text"  class="form-control form-control-alternative" placeholder="기간"  name="lesTerm" id="lesTerm"  value="${lessonVO.lesTerm}">
                       </div>
                     </div>
+                    <div class="col-lg-7">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 상세내용</label>
+                         <textarea rows="6" cols="6" class="form-control form-control-alternative" placeholder="상세설명" name="lesDetail" id="lesDetail"  >${lessonVO.lesDetail}</textarea>
+                      </div>
+                    </div>
                   </div>
                 </div>
                </div> 

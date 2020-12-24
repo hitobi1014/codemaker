@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -54,10 +55,33 @@ $(function() {
 							
 							<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 								<div class="anw">
-									<label for="sel4" class="sel4"
-										<c:if test="${vs.count eq examResult.queAnswer }">
-											style="background-color: rgba(230, 244, 234);"
-										</c:if>>${vs.count }. ${answersheet.ansCont }</label>
+									<c:choose>
+										<c:when test="${vs.count eq fn:split(examResult.queAnswer, ',')[0] }">
+											<label for="sel4" class="sel4" style="background-color: rgba(182, 244, 234);">
+												${vs.count }. ${answersheet.ansCont }
+											</label>
+										</c:when>
+										<c:when test="${vs.count eq fn:split(examResult.queAnswer, ',')[1] }">
+											<label for="sel4" class="sel4" style="background-color: rgba(182, 244, 234);">
+												${vs.count }. ${answersheet.ansCont }
+											</label>
+										</c:when>
+										<c:when test="${vs.count eq fn:split(examResult.queAnswer, ',')[2] }">
+											<label for="sel4" class="sel4" style="background-color: rgba(182, 244, 234);">
+												${vs.count }. ${answersheet.ansCont }
+											</label>
+										</c:when>
+										<c:when test="${vs.count eq fn:split(examResult.queAnswer, ',')[3] }">
+											<label for="sel4" class="sel4" style="background-color: rgba(182, 244, 234);">
+												${vs.count }. ${answersheet.ansCont }
+											</label>
+										</c:when>
+										<c:otherwise>
+											<label for="sel4" class="sel4">
+												${vs.count }. ${answersheet.ansCont }
+											</label>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</c:forEach>
 							<hr>
