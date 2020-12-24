@@ -39,17 +39,6 @@ public class ScheduleService {
 	}
 	
 	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-	public ScheduleVO selectSchedule(ScheduleVO scheduleVO) throws Exception{
-		return scheduleMapper.selectSchedule(scheduleVO);
-	}
-	
-	/**
 	 * 스케줄을 등록하는 메서드
 	 * 
 	 * @author 김미연

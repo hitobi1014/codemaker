@@ -20,17 +20,17 @@
 }
 .lesson-header{
 	display: flex;	
-	height: 250px;
+	height: 800px;
 	}
 .lesson-header-left{
 	width: 55%;
-	padding: 40px 0 0 0;
+	padding: 40px 0 0 40px;
 }
 .lesson-header-right{
 	width: 45%;
 }
 .les-info-name{
-	font-size: 45px;
+	font-size: 36px;
 }
 .les-info-cont{
 	margin: 10px 0 0 0;
@@ -68,26 +68,133 @@ span{
 	font-weight: 600;
 }
 .sub-cont{
-	font-size: 25px;
+	font-size: 19px;
 }
 .lesbtn{
-	width: 98px;
-  	height: 35px;
+	width: 66px;
+    height: 35px;
     text-align: center;
-    margin: 0px 0 13px 25px;
+    margin: 0px 0 13px 9px;
     border-radius: 5px;
-    display: flex;
+    display: inline-block;
     justify-content: center;
-    background: #750075;
+    background: #616161;
+    float: right;
 }
 .les-btn-div{
-	margin: 90px 0 0 70px;
+/*     border: 1px solid; */
+    width: 100%;
+	height: 7%;
 }
+.les-info-div{
+/* 	border: 1px solid; */
+	width: 500px;
+    height: 600px;	
+    margin: 40px 0 0 50px;
+}
+.les-info-div::after{
+	position: absolute;
+    right: -2%;
+    top: 2%;
+    display: inline-block;
+    width: 10px;
+    height: 96%;
+    background-color: #333236;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    opacity: 0.79;
+    box-shadow: 1rem 0.9rem 2.7rem s0 rgba(54, 16, 93, 0.1);
+    background-color: #b5b4b4;
+    content: '';
+}
+.les-info-top, .les-info-middle,.les-info-bottom{
+/* 	border: 1px solid; */
+}
+.les-info-top{
+	margin: 68px 0 0 0;
+    padding: 10px 40px 20px 40px;
+}
+.les-ds{
+	font-size: 14px;
+    font-weight: bold;
+    color: #545454;
+}
+.les-dp{
+	font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+.les-detail-cont{
+	margin: 9px 0 0px 0px;
+	height: 100px;
+}
+.course-img-div{
+	display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    background-color: #f1f1f1;
+    padding: .7rem;
+    border-radius: .8rem;
+    margin: 0 10px 0 0;
+}
+.course-img{
+	width: 20px;
+}
+.les-info-middle{
+	margin: 90px 0 0 0;
+    padding: 10px 40px 10px 40px;
+    height: 20%;
+}
+.detail-s{
+	margin: 0 15px 0 0;
+}
+.les-detail-price{
+	margin: 20px 0 0 146px;
+}
+
+
+
+
+
+
+.sub-info-div{
+	width: 450px;
+   	height: 80%;
+    margin: 67px 0 0 50px;
+}
+
+.sub-info-top, .sub-info-bottom{
+	
+/* 	border: 1px solid; */
+}
+.sub-info-bottom{
+	margin: 50px 0 0 0;
+}
+.les-info-sub-name{
+	position: absolute;
+    left: -1.2rem;
+    top: 2.8rem;
+    position: relative;
+   	padding: 8px 0 0 0px;
+    font-size: 17px;
+    font-weight: 800;
+    font-weight: 600;
+    letter-spacing: -0.39px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: .2rem;
+    box-shadow: 0 0.6rem 1rem 0 rgba(70, 70, 70, 0.2);
+    width: 90px;
+    height: 40px;
+    background: #750075;
+}
+
 .fa-wf {
-	font-size: 17px;
+	font-size: 14px;
     color : white;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 31px;
 }
 
 .lesson-content-top{
@@ -228,10 +335,10 @@ span{
 }
 .lesson-content{
 	border:2px solid #656565;
-	width: 80%;
+	width: 90%;
     height: 280px;
     display: inline-block;
-    margin: 0 0 0 66px;
+    margin: 0 0 0 0;
 }
 .lesson-content-detail-top, .lesson-content-detail-middle,.lesson-content-detail-middle2nd, .lesson-content-detail-bottom,
 .detail-middle-term, .detail-middle-video, .detail-middle-exam{
@@ -258,13 +365,18 @@ span{
     border-bottom: 2px solid #656565
 }
 .lesson-content-detail-bottom{
-	height: 26%;
-	display: flex;
-}
-.fa-black:hover{
-    color: white;
+	height: 40px;
+    border-radius: 41px;
+    border: 1px solid;
+    width: 400px;
+    margin: 0 0 0 50px;
     background: #750075;
+    
 }
+/* .fa-black:hover{ */
+/*     color: white; */
+/*     background: #750075; */
+/* } */
 .prices{
 	font-size:35px;
 	font-weight: 600;
@@ -293,30 +405,29 @@ span{
     font-size: 30px;
     font-weight: 600;
 }
-.fa-black{
+.fa-white{
 	font-size: 21px;
-    color: black;
+    color: white;
     font-weight: 600;
     line-height: 35px;
     width: 100%;
-    padding: 15px 0 0 220px;
+   	padding: 15px 0 0 150px;
 }
 .lesson-content-button{
-	margin: 8px 0 0 508px;
+	margin: 8px 0 0 332px;
 }
 
 .cartbtn{
 	width: 75px;
 	height: 35px;
 	text-align: center;
-	margin: 0px 0 13px 25px;
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
 	background: #750075;
 }
 .lesson-content-bottom-in{
-    margin: 40px 0 40px 64px;
+    margin: 10px 0 40px 64px;
 }
 .lidx-img-1st{
 	width: 40px;

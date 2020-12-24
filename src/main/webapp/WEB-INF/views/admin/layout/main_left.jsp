@@ -4,7 +4,7 @@
 <aside class="left-sidebar bg-sidebar">
 	<div id="sidebar" class="sidebar sidebar-with-footer">
 		<div class="app-brand">
-			<a href="#"><img src="/images/codemaker_name3.png"><span class="brand-name">관리자</span></a>
+			<a href="${cp }/admin/main"><img src="/images/codemaker_name3.png"><span class="brand-name">관리자</span></a>
 		</div>
 		<div class="sidebar-scrollbar">
 			<ul class="nav sidebar-inner" id="sidebar-menu">
@@ -16,13 +16,13 @@
 					<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 						<div class="sub-menu">
 							<!-- 학생관리 -->
-							<li  class="has-sub" >
+							<li class="has-sub" >
 								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#student" aria-expanded="false" aria-controls="components">
 									<span class="nav-text">학생 관리</span> <b class="caret"></b>
 								</a>
 								<ul  class="collapse"  id="student">
 									<div class="sub-menu">
-										<li >
+										<li>
 											<c:url value="/admin/selectUserInfo" var="selectUserInfo"/>
 											<a href="${selectUserInfo}">정보조회</a>
 										</li>
@@ -38,7 +38,7 @@
 								</ul>
 							</li>
 							<!-- 직원관리 -->
-							<li class="has-sub" >
+							<li class="has-sub">
 								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#employee" aria-expanded="false" aria-controls="icons">
 									<span class="nav-text">직원 관리</span> <b class="caret"></b>
 								</a>
@@ -56,7 +56,7 @@
 								</ul>
 							</li>
 							<!-- 기업관리 -->
-							<li class="has-sub" >
+							<li class="has-sub">
 								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#company" aria-expanded="false" aria-controls="forms">
 									<span class="nav-text">기업 관리</span> <b class="caret"></b>
 								</a>
@@ -71,7 +71,7 @@
 								</ul>
 							</li>
 							<!-- 게시판관리 -->
-							<li class="has-sub" >
+							<li class="has-sub">
 								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#notice" aria-expanded="false" aria-controls="icons">
 									<span class="nav-text">게시판 관리</span> <b class="caret"></b>
 								</a>
@@ -168,7 +168,8 @@
 								</a>
 							</li>
 							<li>
-								<a class="sidenav-item-link" href="#">
+								<c:url value="/admin/selectAllAgree" var="selectAllAgree"></c:url>
+								<a class="sidenav-item-link" href="${selectAllAgree}">
 									<span class="nav-text">강의 조회</span>
 								</a>
 							</li>

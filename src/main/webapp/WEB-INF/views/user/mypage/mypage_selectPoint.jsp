@@ -29,11 +29,11 @@
                 <thead class="thead-light">
                   <tr>
                     <th scope="col"></th>
-                    <th scope="col">POINT DATE</th>
-                    <th scope="col">POINT</th>
-                    <th scope="col">STATUS</th>
-                    <th scope="col">USER</th>
-                    <th scope="col">TOTAL POINT</th>
+                    <th scope="col">일시</th>
+                    <th scope="col">이용내역</th>
+                    <th scope="col">포인트 구분</th>
+                    <th scope="col">회원</th>
+                    <th scope="col">잔여 포인트</th>
 <!--                     <th scope="col"></th> -->
                   </tr>
                 </thead>
@@ -65,8 +65,11 @@
 							<c:when test="${point.pointGn=='1'}">
 								<i class="bg-success"></i>적립
                         	</c:when>
+                        	<c:when test="${point.pointGn=='2'}">
+	                        	<i class="bg-warning"></i>차감
+                        	</c:when>
                         <c:otherwise>
-                        	<i class="bg-warning"></i>차감
+                        	<i class="bg-success"></i>강의 환불
                         </c:otherwise>
                         </c:choose>
                       </span>
@@ -184,7 +187,7 @@
 	      </div>
 	        <form action="${cp}/mypage/insertPoint" method="post">
 	      <div class="modal-body">
-	        <h5 class="modal-title">💸충전할 POINT 금액을 입력해주세요.</h5><br>
+	        <h5 class="modal-title">충전할 POINT 금액을 입력해주세요.</h5><br>
 	       <input type="number" class="form-control" name="pointUpdate" placeholder="충전할 금액">
 <!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" id="userId">
@@ -228,7 +231,7 @@
 	      </div>
 	        <form  method="post">
 	      <div class="modal-body">
-	        <h5 class="modal-title">💸환불할 POINT 금액을 입력해주세요.</h5><br>
+	        <h5 class="modal-title">환불할 POINT 금액을 입력해주세요.</h5><br>
 	       <input type="text" class="form-control" id="pointUpdate" name="pointUpdate" placeholder="환불할 금액">
 <!-- 	       <input type="hidden" class="form-control" name="pointSum" > -->
 	       <input type="hidden" class="form-control" name="userId" >

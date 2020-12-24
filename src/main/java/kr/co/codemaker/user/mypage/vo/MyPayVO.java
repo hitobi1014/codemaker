@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class MyPayVO {
 
-	private String payId;
-	private String lesId;
-	private int paySum;
-	private String lesNm;
-	private int lesTotal;
-	private String lesId2;
-	private Date payDate;
-	private String payWay;
-	private String payRefund;
-	private Date cosTerm;
+	private String payId;  		//결제ID
+	private String lesId; 	 	//강의ID
+	private int paySum;   	 	//결제금액
+	private String lesNm; 		//강의명
+	private int lesTotal; 		//회원수강진행도
+	private String lesId2; 		//강의명2
+	private Date payDate;  		//결제일
+	private String payWay; 		//결제방식
+	private String payRefund; 	//환불여부
+	private Date cosTerm;	 	//수강기간
 	private String rn;
 	
 	

@@ -1,9 +1,20 @@
 package kr.co.codemaker.user.cart.vo;
 
+import java.util.List;
+
 public class CartVO {
 	private String lesId;
 	private String userId;
+	private List<CartVO> cartList;
 	
+	public List<CartVO> getCartList() {
+		return cartList;
+	}
+
+	public void setCartList(List<CartVO> cartList) {
+		this.cartList = cartList;
+	}
+
 	public CartVO() {
 	}
 

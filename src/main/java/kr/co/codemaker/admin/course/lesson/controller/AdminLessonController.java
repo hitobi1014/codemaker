@@ -122,6 +122,14 @@ public class AdminLessonController {
 				lessonVO.setLesId(lesId);
 				adminLessonService.updateLesson(lessonVO);
 				
+				// 강의 승인
+				if(lesState.equals("3")) {
+					examVO.setExamState("3");
+				}
+				// 반려
+				else if(lesState.equals("4")) {
+					examVO.setExamState("4");
+				}
 				examVO.setLesId(lesId);
 				adminLessonService.updateExam(examVO);
 			} catch (Exception e) {

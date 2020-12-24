@@ -10,7 +10,7 @@
 				#{payWay},
 				#{paySum},
 				SYSDATE,
-				SYSDATE+#{cosTerm},
+				SYSDATE+#{lesTerm},
 				0,
 				#{userId},
 				#{lesId})
@@ -64,4 +64,11 @@
 		                                order by point_date desc) a
 		                                WHERE ROWNUM=1) - #{pointUpdate}, #{userId})
 	</insert>
+	
+	<!-- 결제시 이미 결제내역에 있는지, 강의 결제가 가능한 상태인지 확인 -->
+	<select id="selectCheckPay" resultType="kr.co.codemaker.user.cart.vo.PayVO" parameterType="kr.co.codemaker.user.cart.vo.PayVO">
+		SELECT * FROM PAY
+		WHERE USER_ID=#{userId} AND LES_ID = #{lesId}
+		AND COS_TERM > SYSDATE
+	</select>
 </mapper>

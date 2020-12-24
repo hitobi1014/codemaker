@@ -273,6 +273,12 @@ function lessonChk(){
                       </div>
                     </div>
                     <div class="col-lg-7">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">강의 상세내용</label>
+                         <textarea rows="6" cols="6" class="form-control form-control-alternative" placeholder="상세설명" name="lesDetail" id="lesDetail"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-7">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name" class="form-control form-control-alternative" >강의과목&nbsp;&nbsp;</label>
     					<select name="subId" id="subId">

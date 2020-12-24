@@ -2,84 +2,90 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="/css/user/lesson/lesson-select.css" rel="stylesheet" type="text/css">
-
-
-
 <div class="lesson-container" >
 	<div class="lesson-header"  >
 		<div class="lesson-header-left" >
-			<div class="sub-info-id">
-				<span class="fs-wf sub-id" >${lessonVO.subId}</span>
-			</div>
-			<div class="les-info-name">
-				<span>${lessonVO.lesNm}</span>
-			</div>
-			<div class="les-info-cont">
-				<span class="sub-cont">${lessonVO.lesCont}</span>
+			<div class="les-info-div card shadow">
+				<div class="les-info-sub-name">
+					Phyton
+				</div>
+				<div class="les-info-top">
+					<div class="les-detail-title">
+						<span class="les-ds">ο 수업상세</span>
+					</div>
+					<div class="les-detail-cont">
+						<p class="les-dp">${lessonVO.lesDetail}</p>
+					</div>
+				</div>
+				<div class="les-info-middle">
+					<div class="les-course-title">
+						<span class="les-ds">ο 코스</span>
+					</div>
+					<div class="les-detail-cont">
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/date.png"></div>기간 ${lessonVO.lesTerm}일</span>
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/play.png"></div>영상 ${lesIdxList.size()}</span>
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험</span>
+					</div>
+					<div class="les-detail-price">
+						<c:set var="price" value="${lessonVO.lesCash}"/>
+						<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+					</div>
+				</div>
+				<div class="les-info-bottom">
+					<div class="lesson-content-detail-bottom">
+						<c:url value="/user/payView" var="pay">
+						<c:param name="lesId" value="${lesId}" />
+						</c:url>
+					<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="lesson-header-right">
-			<div class="les-btn-div">
-				<div class="lesbtn">
-					<a class="fa-wf" href="${cp}/user/selectReview?lesId=${lesId}">강의후기</a>
-				</div>
-				<div class="lesbtn">
-					<button class="fa-wf" id="qnabtn">QnA</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="lesson-content-top" >
-		<div class="lesson-content-left" >
-			<div class="lesson-content card shadow">
-				<div class="lesson-content-detail-top">
-				<c:set var="price" value="${lessonVO.lesCash}"/>
-					<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
-				</div>
-				<div class="lesson-content-detail-middle">
-					<div class="detail-middle-term">수강기간</div>
-					<div class="detail-middle-video">강의영상</div>
-					<div class="detail-middle-exam">퀴즈</div>
-				</div>
-				<div class="lesson-content-detail-middle2nd">
-					<div class="detail-middle2nd-term">${lessonVO.lesTerm}<span class="wons">일</span></div>
-					<div class="detail-middle2nd-video">${lesIdxList.size()}</div>
-					<div class="detail-middle2nd-exam">퀴즈갯수</div>
-				</div>
-				<div class="lesson-content-detail-bottom">
-
-						<c:url value="/user/payView" var="pay">
-							<c:param name="lesId" value="${lesId}" />
+			<div class="sub-info-div">
+				<div class="les-btn-div">
+					<div class="lesbtn">
+						<c:url value="/user/selectReview" var="selectReview">
+							<c:param name="lesId" value="${lesId}"></c:param>
 						</c:url>
-						<a class="fa-black" href="${pay}">결제하기</a>
+						<a class="fa-wf" href="${selectReview}">강의후기</a>
+					</div>
+					<div class="lesbtn">
+						<button class="fa-wf" id="qnabtn">QnA</button>
+					</div>
 				</div>
-			</div>
-			<div class="lesson-content-button">
-				<div class="cartbtn" >
-					<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">담기</a><br>
+				<div class="sub-info-top">
+					<div class="les-info-name">
+						<span>${lessonVO.lesNm}</span>
+					</div>
+					<div class="les-info-cont">
+						<span class="sub-cont">${lessonVO.lesCont}</span>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="lesson-content-right" >
-			<div class="teacher-top">
-				<img id="teacher-img" src="/images/user/lesson/teacher.png">
-			</div>
-			<div class="teacher-bottom">
-				<div class="teacher-name">
-					<h3 class="teacher-name-h3">${lessonVO.tchNm }</h3>
+				<div class="sub-info-bottom">
+					<div class="teacher-top">
+					<img id="teacher-img" src="/images/user/lesson/teacher.png">
+					</div>
+					<div class="teacher-bottom">
+						<div class="teacher-name">
+							<h3 class="teacher-name-h3">${lessonVO.tchNm }</h3>
+						</div>
+						<div class="teacher-cont">
+							<p class="teachr-cont-p">${lessonVO.tchIntro}</p>
+						</div>
+					</div>
 				</div>
-				<div class="teacher-cont">
-					<p class="teachr-cont-p">${lessonVO.tchIntro}</p>
+				<div class="lesson-content-button">
+					<div class="cartbtn" >
+						<a class="fa-wf" onclick="addCart('${lesId}','${MEMBER_INFO.userId}')">담기</a><br>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="lesson-content-bottom">
 		<div class="lesson-content-bottom-in" >
 			<c:forEach items="${lesIdxList}" var="lesIdxList" varStatus="status">
@@ -119,7 +125,6 @@
 			</c:forEach>
 		</div>
 	</div>
-		
 
 	<div class="qna-content">
 		<div id="qna">
@@ -148,6 +153,24 @@ function addCart(lesId,userId){
 	})
 }
 
+function pay(lesId){
+	console.log("유저아이디"+lesId);
+	$.ajax({
+		method : "post",
+		url : "/user/payCheck",
+		data : {lesId:lesId},
+		dataType : "json",
+		success : function(res){
+			if(res.code==0){
+				alert(res.msg);
+			}else{
+				console.log("여기?");
+				location.href="${pageContext.request.contextPath}/user/payView?lesId="+lesId;
+			}
+		}
+	})
+}
+
 $(function() {
 	// qna클릭시 스크롤 이동
 	$('#qnabtn').on('click',function(){
@@ -162,10 +185,4 @@ $(function() {
 	})
 	
 })
-
-// var qnabtn = function(){
-// 	var offset = $('#qna').offset();
-// 	$('body').animate({scrollTop:offset.top},400);
-// }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

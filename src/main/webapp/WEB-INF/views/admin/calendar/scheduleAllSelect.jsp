@@ -15,11 +15,8 @@
 <script src='/fullcalendar/packages/list/main.js'></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
@@ -42,9 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
     	$('.modal').find('#schTSdate').val(moment(arg.start).format('HH:mm'));
 		$('.modal').find('#eDate').val(moment(arg.end).format('YYYY-MM-DD'));
 		$('.modal').find('#schTEdate').val(moment(arg.end).format('HH:mm'));
-    	$('.modal').modal('show');
-    	
-        calendar.unselect()
+		
+		$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
+		
+        calendar.unselect();
       },
       editable: false,
    	  eventLimit: true,
@@ -85,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				else {
 				  //Case 4: default values:
 				  posLeft = posX + secMargin + "px";
-				  posTop = posY + secMargin + "px";
+				  posTop = (posY-47) + secMargin + "px";
 				};
 				
 				//Display contextmenu:
@@ -97,22 +95,27 @@ document.addEventListener('DOMContentLoaded', function() {
 				
 				// 일정 수정하기
 				$('#ua').on('click', function(){
-					str = '<input type="hidden" name="schId" id="schId" value="'+ info.event.id +'"/>';
-					$("#ff").append(str);
+					$('#schId').val(info.event.id);
 					$(".contextmenu").hide();
-					$('.modal').modal('show');
+					
+					$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
+					$('#ff').attr('action','/admin/updateSchedule');
 					$('.modal-title').text('일정 수정');
 					$('#save-event').val('수정하기');
-					$('#ff').attr('action','/admin/updateSchedule');
 		 		    $('.modal').find('#schCont').val(info.event.title);
 		 		    
 		 			// 종료 날짜 하루 빼준다.
-		 	    	moment(info.event.end.setDate(info.event.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
-		 		    
+		 			if(info.event.end != null){
+			 	    	moment(info.event.end.setDate(info.event.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
+			 			$('.modal').find('#eDate').val(moment(info.event.end).format('YYYY-MM-DD'));
+			 			$('.modal').find('#schTEdate').val(moment(info.event.end).format('HH:mm'));
+		 			}else{
+			 			$('.modal').find('#eDate').val(moment(info.event.start).format('YYYY-MM-DD'));
+			 			$('.modal').find('#schTEdate').val(moment(info.event.start).format('HH:mm'));
+		 			}
+		 			
 		 		    $('.modal').find('#sDate').val(moment(info.event.start).format('YYYY-MM-DD'));
 		 	    	$('.modal').find('#schTSdate').val(moment(info.event.start).format('HH:mm'));
-		 			$('.modal').find('#eDate').val(moment(info.event.end).format('YYYY-MM-DD'));
-		 			$('.modal').find('#schTEdate').val(moment(info.event.end).format('HH:mm'));
 		 			
 		 		    flag = true;
 				});
@@ -120,9 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				// 일정 삭제하기
 				$('#da').on('click', function(){
 					console.log('삭제');
+					$('#schId').val(info.event.id);
 		 		    flag = true;
 					$(".contextmenu").hide();
-					document.location = "/admin/deleteSchedule?schId="+ info.event.id;
+					$('#ff').attr('action','/admin/deleteSchedule');
+					$('#ff').submit();
 				});
 				
 		   	}else{
@@ -147,21 +152,35 @@ document.addEventListener('DOMContentLoaded', function() {
 			  //schSdate,schEdate
 			  var sDate = $('#sDate').val() + ' ' + $('#schTSdate').val();
 			  var eDate = $('#eDate').val() + ' ' + $('#schTEdate').val();
-			  str = '<input type="hidden" id="schSdate" name="schSdate" value="'+ sDate +'">';
-			  str += '<input type="hidden" id="schEdate" name="schEdate" value="'+ eDate +'">';
-			  $('#ff').append(str);
+			  $('#schSdate').val(sDate);
+			  $('#schEdate').val(eDate);
 			  
 			  $('#ff').submit();
 		  }
 	  });
 	  
+	  
 	  // 입력된 값 초기화
-	  $('.modal').on('hidden.bs.modal', function (e) {
-		    $(this).find('form')[0].reset();
-		    $('.modal-title').text('일정 등록');
-		    $('#save-event').val('등록하기');
-		    $('#ff').attr('action','/admin/insertSchedule');
+	  $(document).on('click', '.clo', function(){
+		  $('.modal').find('form')[0].reset();
+		  $('.modal-title').text('일정 등록');
+		  $('#save-event').val('등록하기');
+		  $('#ff').attr('action','/admin/insertSchedule');
+		  $('.modal').attr('style', 'display : none;');
 	  });
+	  
+	  var modal = document.getElementById('myModal');
+	  
+      window.onclick = function(event) {
+          if (event.target == modal) {
+			  $('.modal').find('form')[0].reset();
+			  $('.modal-title').text('일정 등록');
+			  $('#save-event').val('등록하기');
+			  $('#ff').attr('action','/admin/insertSchedule');
+			  $('.modal').attr('style', 'display : none;');
+          }
+      }
+
 	  
 		
   })
@@ -174,12 +193,10 @@ body {
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }
-
 #calendar {
 	max-width: 900px;
 	margin: 0 auto;
 }
-
 .contextmenu {
 	display: none;
 	position: absolute;
@@ -194,12 +211,10 @@ body {
 	overflow: hidden;
 	z-index: 999999;
 }
-
 .contextmenu li {
 	border-left: 3px solid transparent;
 	transition: ease .2s;
 }
-
 .contextmenu li a {
 	display: block;
 	padding: 10px;
@@ -207,14 +222,127 @@ body {
 	text-decoration: none;
 	transition: ease .2s;
 }
-
 .contextmenu li:hover {
 	background: #CE93D8;
 	border-left: 3px solid #9C27B0;
 }
-
 .contextmenu li:hover a {
 	color: #FFFFFF;
+}
+
+.modal-open .modal{
+	overflow-x : hidden;
+	overflow-y : auto;
+}
+.modal {
+	display: none; 
+	position: fixed;
+	padding-top: 130px;
+	left: 120px;
+	z-index: 1;
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4);
+	opacity: 0;
+}
+.modal-content {
+	box-shadow : 0 5px 15px rgba(0,0,0,0.5);
+	position : relative;
+    background-color: #fff;
+	background-clip : padding-box;
+	padding-left: 15px;
+	border : 1px solid rgba(0,0,0,0.2);
+	border-radius : 6px;
+	outline: 0;
+}
+.modal-header{
+	padding-top: 9px;
+    padding-left: 5px;
+    padding-bottom: 0px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .close{
+	margin-top: -2px;
+}
+button.clsoe{
+	padding: 0;
+	cursor: porinter;
+	background: 0 0;
+	border: 0;
+	font-family: inherit;
+}
+.close{
+	float: right;
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	opacity: 0.8;
+}
+.modal-title{
+	margin: 0;
+	line-height: 1.42857143;
+	font-size: 20px;
+}
+.modal-body{
+	position: relative;
+	padding: 15px;
+}
+.modal-footer{
+	padding: 5px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5;
+	margin-bottom: 0;
+	margin-left: 5px;
+}
+.btn-primary{
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+.btn{
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	background-image: none;
+	border: 1px solid transparent;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.btn-default{
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+.modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+    position: relative;
+}
+#save-event{
+	margin-right: 5px;
+}
+.row{
+	margin-bottom: 5px;
+}
+.col-xs-4{
+	margin-right: 5px;
+	font-weight: bold;
+}
+.title{
+	margin-left: 12px;
+}
+#clo{
+	height: 34px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    width: 70px;
 }
 </style>
 </head>
@@ -225,15 +353,18 @@ body {
 		<li><a id="ua" data-toggle="modal">일정 수정하기</a></li>
 		<li><a id="da" href="#">일정 삭제하기</a></li>
 	</ul>
-
+	
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
-			<!-- Modal content-->
+			<!-- Modal content -->
 			<div class="modal-content">
 				<form action="/admin/insertSchedule" method="post" id="ff">
+					<input type="hidden" name="schId" id="schId" value=""/>
+					<input type="hidden" id="schSdate" name="schSdate" value="">
+			  		<input type="hidden" id="schEdate" name="schEdate" value="">
+			  		
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">일정 등록</h4>
 					</div>
 					<div class="modal-body">
@@ -247,21 +378,20 @@ body {
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="ends-at">스케줄 종료일</label> 
-<!-- 								<input type="datetime-local" name="schEdate" id="schEdate" /> -->
 								<input type="date" name="eDate" id="eDate" />
 								<input type="time" name="schTEdate" id="schTEdate" />
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<label class="col-xs-4" for="title">스케줄 내용</label> 
+								<label class="col-xs-4 title" for="title">스케줄 내용</label> 
 								<input type="text" name="schCont" id="schCont" />
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						 <input type="button" class="btn btn-primary" id="save-event" value="등록하기">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="clo">Close</button>
+						<input type="button" class="btn btn-primary" id="save-event" value="등록하기">
+						<input type="button" class="btn btn-primary clo" value="닫기">
 					</div>
 				</form>
 			</div>

@@ -1,29 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta charset="UTF-8">
-<!-- bootstrap 사용 설정 -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <script src="/js/teacher/exam/exam.js"></script>
+
+<!-- 시험 상세& 수정 page css -->
+<link href="/css/teacher/exam/exam-update.css" rel="stylesheet"/>
+
 <script>
 $(function() {
 
 	// #e6f4ea, queAnswer, anw
 	// 정답 체크시 오버레이
-	$(document).on('change', 'input[type=checkbox]',function() {
-		console.log('aa');
-		var ol = $(this).prevAll("div[class=overlay]");
+	$(document).on('change', 'input[type=checkbox]' ,function() {
+		var ol = $(this).prevAll("input[type=text]");
 		
 		if($(this).is(":checked") == true){
-			//console.log('ddfd');
-			ol.attr('style','display: block');
+			ol.attr('style','background-color: rgba(230, 244, 234);');
 		}else{
-			//console.log('dadfad');
-			ol.attr('style','display: none');
+			ol.attr('style','background-color: #fff;');
 		}
 	});
 	
@@ -103,7 +100,7 @@ $(function() {
 			});
 		}
 		if(state == 0){
-			if($('.chk:checked').length != $('.d5').length){
+			if($('.chk:checked').length < $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
 				state = 1;
 				return false;
@@ -162,152 +159,7 @@ $(function() {
 
 </script>
 <title>examUpdate</title>
-<style>
-.modal{
-	color: black;
-}
-#exampleModalLongTitle{
-	color : red;
-}
-input{
-	margin-top: 5px;
-}
-.rig{
-	float: right;
-}
-.hide{
-	display: none;
-}
-#examf {
-	color: black;
-}
-#d2 {
-	text-align: center;
-}
-#d1 {
-	background: rgb(103, 58, 183);
-	display: inline-block;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	height: 10px;
-	width: 900px;
-}
-#d3 {
-	padding-left: 20px;
-	display: inline-block;
-	margin-top: -4px;
-	background-color: white;
-	width: 900px;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
-	height: 150px;
-	text-align: left;
-}
-.d4 {
-	background-color: #4285f4;
-	display: inline-block;
-	height: 445px;
-	width: calc(1% + 2px);
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	float: left;
-}
-.d5 {
-	display: inline-block;
-	margin-left: -6px;
-	background-color: white;
-	width: 900px;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	height: 445px;
-	text-align: left;
-	margin-top: 10px;
-}
-.d6 {
-	padding-left: 20px;
-	padding-top: 5px;
-}
-#sel1 {
-	width: 500px;
-}
-.form-control {
-	width: 800px;
-}
-.radi {
-	display: inline-block;
-	margin-right: 5px;
-}
-.anw {
-	margin-top: 5px;
-}
-.btnd {
-	text-align: right;
-	margin-top: 10px;
-	padding-right: 20px;
-}
-.btn {
-	background-color: white;
-}
-.btn:hover {
-	background-color: lightsteelblue;
-	font-weight: bold;
-}
-.btns {
-	text-align: right;
-	margin-top: 10px;
-	padding-right: 20px;
-	margin-right: 298px;
-}
-.comment {
-	resize: none;
-	text-align: left;
-}
-.overlay {
-	z-index: 1;
-	position: absolute;
-	display: none;
-	background-color: rgba(230, 244, 234, 0.5);
-	width: 840px;
-	height: 52px;
-}
-.chk {
-	z-index: 2;
-	margin-left: 4px;
-	margin-top: 10px;
-	position: relative;
-}
 
-#sel1{
-	margin-top: 10px;
-}
-
-#hh2{
-	margin-top: 10px;
-}
-.sel2{
-	padding-top: 5px;
-}
-.queS{
-	display: inline-block;
-	width: 200px;
-}
-.delIdBtn{
-	margin-right: 77px;
-    background-color: cadetblue;
-}
-.delBtn{
-	margin-right: 77px;
-    background-color: cadetblue;
-}
-#del{
-	background-color: #007bff;
-}
-#close{
-	background-color: #6c757d;
-}
-</style>
 <form:form action="/exam/updateExam" id="examf" method="post" commandName="examVO" name="examVO">
 	<input type="hidden" name="searchSubId" value="${examVO.searchSubId}">
 	<input type="hidden" name="searchLesId" value="${examVO.searchLesId}">
@@ -345,16 +197,33 @@ input{
 					<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
 						<input type="hidden" name="answersheetLists[${vs.index }].ansId" class="form-control" value="${answersheet.ansId }"/>
 						<div class="anw">
-							<div class="overlay"
-								<c:if test="${vs.count eq question.queAnswer }">
-									style="display:block"
-								</c:if>></div>
-							<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" value="${answersheet.ansCont }" readonly="readonly" />
-							<!-- 보기와 정답이 같다면 체크 -->
-							<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;"
-								<c:if test="${vs.count eq question.queAnswer }">
-									checked="checked"								
-								</c:if> />
+							<c:choose>
+								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[0] }">
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
+									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
+								</c:when>
+								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[1] }">
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
+									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
+								</c:when>
+								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[2] }">
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
+									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
+								</c:when>
+								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[3] }">
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
+									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
+								</c:when>
+								<c:otherwise>
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+											value="${answersheet.ansCont }" readonly="readonly" />
+									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" />						
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</c:forEach>
 					<div class="anw">
@@ -374,11 +243,11 @@ input{
 	<input type="button" class="btn btn-default hide" id="temps" value="임시저장">
 	<c:if test="${ev.examState != '3'}">
 		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
+		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 		<c:if test="${ev.examState != '2' }">
 			<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
 		</c:if>
 	</c:if>
-	<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 	<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
 </div>
 
@@ -399,7 +268,7 @@ input{
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="del">삭제하기</button>
         &nbsp;&nbsp;&nbsp;
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">취소하기</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="clo">취소하기</button>
       </div>
     </div>
   </div>
