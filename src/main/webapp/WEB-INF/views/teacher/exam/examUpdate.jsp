@@ -243,11 +243,11 @@ $(function() {
 	<input type="button" class="btn btn-default hide" id="temps" value="임시저장">
 	<c:if test="${ev.examState != '3'}">
 		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
+		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 		<c:if test="${ev.examState != '2' }">
 			<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
 		</c:if>
 	</c:if>
-	<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 	<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
 </div>
 

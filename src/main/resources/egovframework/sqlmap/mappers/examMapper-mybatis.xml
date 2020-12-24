@@ -119,7 +119,7 @@ SELECT *
 				</when>
 			</choose>
 		ORDER BY e.exam_date DESC) a)
- WHERE rn BETWEEN 1 * (#{page} - 1) + 1 AND #{page} * 1
+ WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
 
 <select id="selectTotalCntExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="java.lang.Integer">

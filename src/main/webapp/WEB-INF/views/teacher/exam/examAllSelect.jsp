@@ -167,10 +167,31 @@ var selectLesson = function(subId){
 								<!-- 시험 문제를 볼때 -->
 								<td class='m'>${status.count }</td>
 								<td class='m'>${exam.lidxCont }</td>
-								<td class='m'>${exam.examNm }</td>
-								<td class='m'><fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" /></td>
+								<td class='m'>
+									<c:choose>
+										<c:when test="${exam.examNm != null }">
+											${exam.examNm }
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class='m'>
+									<c:choose>
+										<c:when test="${exam.examDate != null }">
+											<fmt:formatDate value="${exam.examDate }" pattern="yyyy-MM-dd" />
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td data-examstate='${exam.examState }' class='m'>
 									<c:choose>
+										<c:when test="${exam.examState == '4' }">
+											시험반려
+										</c:when>
 										<c:when test="${exam.examState == '3' }">
 											배포완료
 										</c:when>
