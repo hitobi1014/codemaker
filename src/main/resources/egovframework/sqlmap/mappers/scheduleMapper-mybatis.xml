@@ -14,19 +14,7 @@ SELECT
 FROM
     schedule
 </select>
-<select id="selectSchedule" parameterType="kr.co.codemaker.admin.course.schedule.vo.ScheduleVO" resultType="kr.co.codemaker.admin.course.schedule.vo.ScheduleVO">
-SELECT
-    sch_id,
-    TO_CHAR(sch_sdate,'YYYY-MM-DD')||'T'||TO_CHAR(sch_sdate,'HH24:mi:SS') sch_sfdate,
-    sch_allday,
-    sch_cont,
-    admin_id,
-    TO_CHAR(sch_edate,'YYYY-MM-DD')||'T'||TO_CHAR(sch_edate,'HH24:mi:SS') sch_efdate
-FROM
-    schedule
-WHERE
-	sch_id = #{schId}
-</select>
+
 <insert id="insertSchedule" parameterType="kr.co.codemaker.admin.course.schedule.vo.ScheduleVO">
 INSERT INTO schedule (
 	sch_id,

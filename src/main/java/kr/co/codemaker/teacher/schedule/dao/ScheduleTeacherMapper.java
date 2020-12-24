@@ -29,14 +29,5 @@ public interface ScheduleTeacherMapper {
 	 */
 	public List<ScheduleVO> selectAllSchedule() throws Exception;
 	
-	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-	public ScheduleVO selectSchedule(ScheduleVO scheduleVO) throws Exception;
-	
 	
 }

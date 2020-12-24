@@ -67,22 +67,6 @@ public class ScheduleController {
 	}
 	
 	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-	public String selectSchedule(ScheduleVO scheduleVO) {
-		try {
-			scheduleService.selectSchedule(scheduleVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
-	/**
 	 * 스케줄을 등록하는 메서드
 	 * 
 	 * @author 김미연

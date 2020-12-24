@@ -65,20 +65,4 @@ public class ScheduleTeacherController {
 		return "teacherPage/teacher/main/teacherMain";
 	}
 	
-	/**
-	 * 스케줄 정보 하나만 가져오는 메서드
-	 * 
-	 * @author 김미연
-	 * @param scheduleVO
-	 * @return
-	 */
-	public String selectSchedule(ScheduleVO scheduleVO) {
-		try {
-			scheduleTeacherService.selectSchedule(scheduleVO);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
 }
