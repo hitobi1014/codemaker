@@ -1,13 +1,49 @@
 @charset "UTF-8";
-#cont{
-	margin: 5px;
+@font-face {
+  font-family: 'LotteMartDream';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
-.mb-3{
-	margin: 5px;
+
+.lesson-detail-box{
+	font-family: 'LotteMartDream';
+	padding-top: 2px;
 }
-.nfn{
-	margin-left : 5px;
+h2{
+	font-size: 35px;
 }
-.form-control{
-	width: 500px;
+.lesson-detail-item{
+	height: 27px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.lesson-info{
+    display: inline-block;
+    width: 100px;
+    height: 100%;
+    line-height: 27px;
+    text-align: center;
+    background: rgb(0,94,135);
+    color: white;
+    font-weight: 600;
+    border-radius: 7px;
+    margin-right: 10px;
+}
+h3{
+	font-size: 30px;
+	margin-bottom: 12px;
+}
+.lesson-index-tb{
+	width: 100%;
+	text-align: center;
+	border-top: 3px solid #616060e0;
+	border-bottom: 3px solid #616060e0;
+}
+.lesson-index-tb th{
+	font-size: 19px;
+}
+.lesson-index-tb td{
+	border-top: 2px solid #8080809c;
 }
