@@ -95,9 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				
 				// 일정 수정하기
 				$('#ua').on('click', function(){
-					str = '<input type="hidden" name="schId" id="schId" value="'+ info.event.id +'"/>';
-					$("#ff").append(str);
+					$('#schId').val(info.event.id);
 					$(".contextmenu").hide();
+					
 					$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
 					$('#ff').attr('action','/admin/updateSchedule');
 					$('.modal-title').text('일정 수정');
@@ -105,12 +105,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		 		    $('.modal').find('#schCont').val(info.event.title);
 		 		    
 		 			// 종료 날짜 하루 빼준다.
-		 	    	moment(info.event.end.setDate(info.event.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
-		 		    
+		 			if(info.event.end != null){
+			 	    	moment(info.event.end.setDate(info.event.end.getDate() - 1)).format('YYYY-MM-DD HH:mm');
+			 			$('.modal').find('#eDate').val(moment(info.event.end).format('YYYY-MM-DD'));
+			 			$('.modal').find('#schTEdate').val(moment(info.event.end).format('HH:mm'));
+		 			}else{
+			 			$('.modal').find('#eDate').val(moment(info.event.start).format('YYYY-MM-DD'));
+			 			$('.modal').find('#schTEdate').val(moment(info.event.start).format('HH:mm'));
+		 			}
+		 			
 		 		    $('.modal').find('#sDate').val(moment(info.event.start).format('YYYY-MM-DD'));
 		 	    	$('.modal').find('#schTSdate').val(moment(info.event.start).format('HH:mm'));
-		 			$('.modal').find('#eDate').val(moment(info.event.end).format('YYYY-MM-DD'));
-		 			$('.modal').find('#schTEdate').val(moment(info.event.end).format('HH:mm'));
 		 			
 		 		    flag = true;
 				});
@@ -118,9 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				// 일정 삭제하기
 				$('#da').on('click', function(){
 					console.log('삭제');
+					$('#schId').val(info.event.id);
 		 		    flag = true;
 					$(".contextmenu").hide();
-					document.location = "/admin/selectAdminAllSchedule?schId="+ info.event.id;
+					$('#ff').attr('action','/admin/deleteSchedule');
+					$('#ff').submit();
 				});
 				
 		   	}else{
@@ -145,9 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			  //schSdate,schEdate
 			  var sDate = $('#sDate').val() + ' ' + $('#schTSdate').val();
 			  var eDate = $('#eDate').val() + ' ' + $('#schTEdate').val();
-			  str = '<input type="hidden" id="schSdate" name="schSdate" value="'+ sDate +'">';
-			  str += '<input type="hidden" id="schEdate" name="schEdate" value="'+ eDate +'">';
-			  $('#ff').append(str);
+			  $('#schSdate').val(sDate);
+			  $('#schEdate').val(eDate);
 			  
 			  $('#ff').submit();
 		  }
@@ -354,6 +360,10 @@ button.clsoe{
 			<!-- Modal content -->
 			<div class="modal-content">
 				<form action="/admin/insertSchedule" method="post" id="ff">
+					<input type="hidden" name="schId" id="schId" value=""/>
+					<input type="hidden" id="schSdate" name="schSdate" value="">
+			  		<input type="hidden" id="schEdate" name="schEdate" value="">
+			  		
 					<div class="modal-header">
 						<h4 class="modal-title">일정 등록</h4>
 					</div>
@@ -368,7 +378,6 @@ button.clsoe{
 						<div class="row">
 							<div class="col-xs-12">
 								<label class="col-xs-4" for="ends-at">스케줄 종료일</label> 
-<!-- 								<input type="datetime-local" name="schEdate" id="schEdate" /> -->
 								<input type="date" name="eDate" id="eDate" />
 								<input type="time" name="schTEdate" id="schTEdate" />
 							</div>
