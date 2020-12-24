@@ -25,6 +25,13 @@
 
 		<div class="navbar-right" style="margin-right: 20px;" >
 			<ul class="nav navbar-nav">
+				<li>
+					<a href="/teacher/selectTeacher?tchId=${S_TEACHER.tchId}" style="color: #b7c0cd;"> 
+						<i class="mdi mdi-logout" style="color: #005F86;"></i> 마이페이지
+					</a>				
+				</li>
+				
+			
 				<!-- Github Link Button -->
 				<li class="dropdown notifications-menu">
 				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
