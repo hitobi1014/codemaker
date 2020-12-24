@@ -267,7 +267,7 @@ function readURL(input) {
     margin-top: 32px;
     color: #333;
     line-height: 2.8rem;
-    font-size: 1.0rem;
+    font-size: 0.6rem;
 }
 .middlebox{
     display: table;

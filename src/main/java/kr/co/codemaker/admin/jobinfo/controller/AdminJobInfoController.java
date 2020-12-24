@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.jobinfo.controller;
+package kr.co.codemaker.admin.jobInfo.controller;
 
 import java.io.File;
 import java.io.FileInputStream;

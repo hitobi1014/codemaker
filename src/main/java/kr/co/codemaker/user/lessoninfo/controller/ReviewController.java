@@ -122,4 +122,9 @@ public class ReviewController {
 		
 		return "redirect:/user/selectReview?lesId="+lesId;
 	}
+	
+	@RequestMapping("review/test")
+	public String test() {
+		return "mainT/user/lesson/reviewTest";
+	}
 }
