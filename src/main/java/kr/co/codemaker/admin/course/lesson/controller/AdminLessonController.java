@@ -18,6 +18,8 @@ import kr.co.codemaker.admin.course.lesson.vo.ExamVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonIndexVO;
 import kr.co.codemaker.admin.course.lesson.vo.LessonVO;
 import kr.co.codemaker.admin.course.lesson.vo.SubjectVO;
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 
 /**
  * 
@@ -37,6 +39,9 @@ public class AdminLessonController {
 
 	@Resource(name = "adminLessonService")
 	private AdminLessonService adminLessonService;
+	
+	@Resource(name = "notificationService")
+	private NotificationService notificationService;
 	
 	/**
 	 * 등록된 요청을 전체조회하는 메서드
@@ -114,24 +119,38 @@ public class AdminLessonController {
 	@RequestMapping("/admin/updateLesson")
 	public String updateLesson(@RequestParam(value="lesIds")List<String> lesIds, String lesState) {
 		
+		
+		
 		for(String lesId : lesIds) {
+			NotificationVO notificationVo = new NotificationVO();
 			LessonVO lessonVO = new LessonVO();
 			ExamVO examVO = new ExamVO();
+			String tchId = "";
+			
 			try {
+				tchId = adminLessonService.selectTeacher(lesId);
 				lessonVO.setLesState(lesState);
 				lessonVO.setLesId(lesId);
 				adminLessonService.updateLesson(lessonVO);
 				
+				notificationVo.setRecipientId(tchId);
+				notificationVo.setSenderId("admin");
+				
 				// 강의 승인
 				if(lesState.equals("3")) {
 					examVO.setExamState("3");
+					notificationVo.setNotifyCont("등록신청한 강의가 등록 되었습니다");
 				}
 				// 반려
 				else if(lesState.equals("4")) {
 					examVO.setExamState("4");
+					notificationVo.setNotifyCont("등록신청한 강의가 반려 되었습니다");
 				}
 				examVO.setLesId(lesId);
+				notificationVo.setUrl("/teacherL/selectSubject");
 				adminLessonService.updateExam(examVO);
+				notificationService.insertNotification(notificationVo);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

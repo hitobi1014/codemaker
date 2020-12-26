@@ -1,9 +1,13 @@
 package kr.co.codemaker.user.lessoninfo.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.user.classroom.exam.service.ExamUserService;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
 import kr.co.codemaker.user.lessoninfo.service.LessonIndexService;
@@ -91,6 +96,8 @@ public class UserLessonController {
 		
 		List<LessonIndexVO> lesIdxList =  new ArrayList<LessonIndexVO>();
 		
+		TeacherVO teacherVo = new TeacherVO();
+		
 		// 시험
 		List<ExamVO> examList = new ArrayList<ExamVO>();
 		ExamVO examVO = new ExamVO();
@@ -104,6 +111,7 @@ public class UserLessonController {
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			lessonVO = lessonService.selectDetailLesson(lessonVO);
+			teacherVo = lessonService.selectTeacher(lesId);
 			
 			logger.debug("lessonVO:{}",lessonVO);
 			
@@ -117,6 +125,7 @@ public class UserLessonController {
 		model.addAttribute("lesIdxList", lesIdxList);
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
 		model.addAttribute("lessonVO",lessonVO);
+		model.addAttribute("teacherVo", teacherVo);
 		
 		model.addAttribute("examList",examList);
 		
@@ -185,7 +194,19 @@ public class UserLessonController {
 		return "";
 	}
 	
-	
+	@RequestMapping(path="/user/teacherImg")
+	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {
+		response.setContentType("image");
+		FileInputStream fis = new FileInputStream(tchProfile);
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] buffer = new byte[512];
+		while(fis.read(buffer) != -1) {
+			sos.write(buffer);
+		}
+		fis.close();
+		sos.flush();
+		sos.close();
+	}
 	
 	
 }

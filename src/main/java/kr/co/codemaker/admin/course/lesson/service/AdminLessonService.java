@@ -94,6 +94,10 @@ public class AdminLessonService {
 		return adminLessonMapper.updateExam(examVO);
 		
 	}
+	
+	public String selectTeacher(String lesId) throws Exception {
+		return adminLessonMapper.selectTeacher(lesId);
+	}
 
 
 }

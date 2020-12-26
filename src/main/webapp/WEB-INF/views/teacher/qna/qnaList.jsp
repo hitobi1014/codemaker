@@ -10,37 +10,6 @@
 <script>
 $(document).ready(function(){
 		
-	
-	document.addEventListener('keydown', function(event) {
-		  if (event.keyCode === 13) {
-		    event.preventDefault();
-		  };
-	}, true);
-	
-	
-	$("#searchBtn").on("click", function(){
-		
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-	
-		document.location="/teacher/selectAllQna";
-		
-	});
-	
-	$("#notice1").on("click", function(){
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-		document.location="/teacher/selectAllQna?searchOption=1&keyWord="+keyWord;
-	});
-	
-	$("#notice2").on("click", function(){
-		var searchOption = $("select[name='searchOption']").val();
-		var keyWord = $("input[name='keyWord']").val();
-		document.location="/teacher/selectAllQna?searchOption=2&keyWord="+keyWord;
-	});
-	
-	
-	
 	$('#qnaBtn').on('click', function() {
 		$.ajax({url : "/user/selectAllQna",
 			data : {page : page,

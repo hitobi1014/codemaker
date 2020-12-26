@@ -3,6 +3,7 @@ package kr.co.codemaker.user.lessoninfo.dao;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 
 /**
@@ -33,5 +34,13 @@ public interface LessonMapper {
 	 * @throws Exception
 	 */
 	LessonVO selectDetailLesson(LessonVO lessonVO) throws Exception;	
-
+	
+	/**
+	 * 선생님을 찾는 메서드
+	 * @author 박경호
+	 * @param lesId
+	 * @return 선생님 아이디
+	 * @throws Exception
+	 */
+	TeacherVO selectTeacher(String lesId) throws Exception; 
 }

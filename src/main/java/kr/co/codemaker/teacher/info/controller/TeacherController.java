@@ -129,7 +129,12 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		
-		TeacherVO tv = (TeacherVO) session.getAttribute("S_TEACHER");
+		TeacherVO tv = new TeacherVO();
+		try {
+			tv = teacherService.selectTeacher(teacherVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		session.setAttribute("S_TEACHER", tv);
 		
 		return "redirect:/teacher/selectTeacher?tchId="+teacherVo.getTchId();

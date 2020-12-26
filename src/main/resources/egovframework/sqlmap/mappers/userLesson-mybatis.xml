@@ -18,4 +18,19 @@
 		   </where> 
 	</select>
 	
+<select id="selectTeacher" parameterType="java.lang.String" resultType="kr.co.codemaker.common.vo.TeacherVO">
+SELECT a.tch_id,
+a.TCH_PASS,
+a.TCH_NM,
+a.TCH_TEL,
+a.TCH_PROFILE,
+a.TCH_JOIN,
+a.TCH_RETIRE,
+a.TCH_INTRO,
+a.TCH_CODE,
+a.TCH_GN,
+a.RES_ID,
+a.COM_ID
+  FROM teacher a, lesson b where a.tch_Id = b.tch_Id and b.les_Id= #{lesId}
+</select>
 </mapper>
