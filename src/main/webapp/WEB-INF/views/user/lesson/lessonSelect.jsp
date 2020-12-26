@@ -66,11 +66,14 @@
 				</div>
 				<div class="sub-info-bottom">
 					<div class="teacher-top">
-					<img id="teacher-img" src="/images/user/lesson/teacher.png">
+					<c:url value="/user/teacherImg" var="userTImg">
+						<c:param name="tchProfile" value="${teacherVo.tchProfile}"/>
+					</c:url>
+					<img id="teacher-img" src="${userTImg}">
 					</div>
 					<div class="teacher-bottom">
 						<div class="teacher-name">
-							<h3 class="teacher-name-h3">${lessonVO.tchNm }</h3>
+							<h3 class="teacher-name-h3">${lessonVO.tchNm}</h3>
 						</div>
 						<div class="teacher-cont">
 							<p class="teachr-cont-p">${lessonVO.tchIntro}</p>
@@ -125,12 +128,6 @@
 			</c:forEach>
 		</div>
 	</div>
-
-	<div class="qna-content">
-		<div id="qna">
-		QnA
-		</div>
-	</div>
 </div>
 <script>
 function addCart(lesId,userId){
@@ -174,8 +171,7 @@ function pay(lesId){
 $(function() {
 	// qna클릭시 스크롤 이동
 	$('#qnabtn').on('click',function(){
-		var location = document.querySelector('#qna').offsetTop;
-		window.scrollTo({top:location, behavior:'smooth'});
+		document.location="/user/selectAllQna?lesId=${lesId}";
 	})
 	// 강의영상 클릭시
 	$('a[id^="videoClick_"]').on('click',function(){

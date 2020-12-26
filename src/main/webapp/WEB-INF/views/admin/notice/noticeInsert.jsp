@@ -122,13 +122,10 @@ font-family: 'LotteMartDream';
 	margin-left : auto;
 	margin-right : auto;
 }
-.note-editable p{
-		text-align:left;
-		font-size: 1.0em;
-	}
 	th{
 		padding : 10px;
 	}
+	
 </style>
 <div class="card shadow">
 		<div id="banner">	

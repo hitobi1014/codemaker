@@ -64,4 +64,8 @@ UPDATE exam
 WHERE
        les_id = #{lesId}
 </update>
+<select id="selectTeacher" resultType="java.lang.String" parameterType="java.lang.String">
+SELECT a.tch_id 
+  FROM teacher a, lesson b where a.tch_Id = b.tch_Id and b.les_Id= #{lesId}
+</select>
 </mapper>

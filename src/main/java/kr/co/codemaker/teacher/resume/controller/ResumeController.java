@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -94,7 +93,7 @@ public class ResumeController {
 		sos.close();
 	}	
 
-	@RequestMapping(path="success")
+	@RequestMapping(path="/success")
 	public String success() {
 		return "mainT/teacher/resume/success";
 	}

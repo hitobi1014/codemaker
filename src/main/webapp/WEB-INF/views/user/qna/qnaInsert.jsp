@@ -36,6 +36,14 @@ $(document).ready(function() {
     		$("#insertQna").submit();
     	}
     })
+    
+    $("#listBtn").on("click", function(){
+    	if(confirm("작성을 취소하시겠습니까?")){
+    		document.location="/user/selectAllQna?lesId=${param.lesId}";
+    	}else{
+    		return;
+    	}
+    })
 })	
 </script>
 <style>

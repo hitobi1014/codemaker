@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.user.lessoninfo.dao.LessonMapper;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
 
@@ -36,5 +37,8 @@ public class LessonService{
 	public LessonVO selectDetailLesson(LessonVO lessonVO) throws Exception{
 		return lessonMapper.selectDetailLesson(lessonVO);
 	}
-
+	
+	public TeacherVO selectTeacher(String lesId) throws Exception{
+		return lessonMapper.selectTeacher(lesId);
+	}
 }

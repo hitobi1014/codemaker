@@ -201,6 +201,7 @@ $(document).ready(function(){
 			
 			<div class="titleDiv">
 				<h2 id="title">${qnaVo.qnaTitle}</h2>
+				<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
 			</div>
 			
 			<div>
@@ -220,7 +221,6 @@ $(document).ready(function(){
 			
 			<div>
 				<h3 style="color:rgb(0,95,134);">댓글</h3>
-				<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
 			</div>
 			<br>
 				<div>
@@ -266,7 +266,9 @@ $(document).ready(function(){
 			<form id="inre" action="/teacher/insertReply" method="POST">	
 				<input type="hidden" name="replyWriter" value="${S_TEACHER.tchId}">
 				<input type="hidden" name="qnaId" value="${qnaVo.qnaId}">
+				<input type="hidden" name="quserId" value="${qnaVo.userId}">
 				<input type="hidden" name="replyRoot" value="">
+				<input type="hidden" name="quserId" value="${qnaVo.userId}">
 				<div class="CommentWriter">
 					<div class="comment_inbox">
 						<span>작성자 : ${S_TEACHER.tchId}</span>

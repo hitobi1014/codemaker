@@ -79,5 +79,12 @@ public interface AdminLessonMapper {
 	public int updateExam(ExamVO examVO) throws Exception;
 	
 	
-
+	/**
+	 * 선생님 아이디를 가져오는 메서드
+	 * @author 박경호
+	 * @param lesId 강의 아이디
+	 * @return 선생님 아이디
+	 * @throws Exception
+	 */
+	public String selectTeacher(String lesId) throws Exception;
 }

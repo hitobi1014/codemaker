@@ -11,7 +11,7 @@
 $(document).ready(function(){
 	
 	$("#insertqna").on("click", function(){
-		document.location="${cp}/user/insertQna?lesId=${param.lesId}";
+		document.location="/user/insertQna?lesId=${param.lesId}";
 	});
 	
 })

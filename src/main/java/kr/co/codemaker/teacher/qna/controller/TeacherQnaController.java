@@ -71,6 +71,8 @@ private static final Logger logger = LoggerFactory.getLogger(UserQnaController.c
 		QnaVO qnaVo = qnaService.selectQna(qnaId);
 		List<ReplyVO> replyList = replyService.selectAllReply(qnaId);
 		
+		logger.debug("-----------------------{}----------------------",replyList);
+		
 		model.addAttribute("qnaVo", qnaVo);
 		model.addAttribute("replyList", replyList);
 		

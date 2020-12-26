@@ -14,6 +14,7 @@ $(function(){
 //		method="post"
 		$('#modal-title').text("과목 등록");
 		$('#myModal').modal();
+		$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
 	})
 	
 	// 수정 버튼 클릭
@@ -33,6 +34,7 @@ $(function(){
 		$('#subId').val(subId);
 		$('#subNm').val(subNm);
 		$('#myModal').modal();
+		$('.modal').attr('style', 'padding-right : 17px; opacity : 1; display : block;');
 	})
 	
 	
