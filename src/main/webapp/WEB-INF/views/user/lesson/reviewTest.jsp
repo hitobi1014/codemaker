@@ -7,6 +7,7 @@
 <html>
 <!-- Main css -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/user/review/review-style3.css">
 
 <script>
 var startCount = 0;
@@ -70,146 +71,6 @@ $(function() {
 })
 </script>
 
-<style>
-.reviewBox{
-    max-width: 1000px;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-.reviewHeader {
-    border-bottom: 1px solid #e7e8ea;
-    line-height: normal;
-    width: 65%;
-}
-.divide {
-    width: 100%;
-    height: 1px;
-    background: #0000001f;
-    margin-bottom: 10px;
-}
-h1 {
-    font-weight: 600;
-    margin-bottom: 1.2em;
-    font-size: 3.5rem;
-}
-.rating-block {
-    margin: 15px 52% 0 19%;
-}
-img#starimg {
-    width: 30px;
-}
-.ReviewTemplate{
-	background-color: #005F86;
-	border-radius: 2em;
-	height: 220px;
-}
-.Review_rating{
-	background-color: white;
-	height: 200px;
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 23px;
-}
-.ReviewRatingAvg{
-/* 	background-color: black; */
-	display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.ReviewRatingAvg__avg {
-    font-size: 6.3em;
-    text-align: center;
-}
-.review_rating_rowbar1{
-	display: inline-block;
-}
-.review_rating_rowbar2 {
-	width: 22rem;
-    margin-left: 1.6rem;
-    min-height: 1.7rem;
-    display: inherit;
-    flex: 1;
-    border-top-left-radius: .2rem;
-    border-bottom-left-radius: .2rem;
-    background-color: #f5f1eb;
-    display: inline-block;
-}
-.ReviewRatingRow__bar__inner {
-/*     display: list-item; */
-     border-radius: .2rem; 
-    background-color: #ffd653;
-}
-.rating_bar_header {
-/*     background-color: black; */
-    display: inline-block;
-    width: 95%;
-    padding: 35px;
-}
-.Review_middle{
-	display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.message{
-	color: white;
-}
-.textbox {
-    display: table-row;
-    box-sizing: border-box;
-    transition: all .3s ease;
-}
-.imgbox{
-	display: table-cell;
-    padding: 21px 30px;
-    vertical-align: middle;
-    width: 210px;
-    background-color: white;
-    color: #323232;
-    text-align: left;
-    font-weight: bold;
-    word-break: break-all;
-    border-bottom: 1px solid #e7e8ea;
-
-}
-.textboxbox{
-/* 	background-color:black; */
-    display: flex;
-    padding: 21px 30px;
-    vertical-align: middle;
-    border-bottom: 1px solid #e7e8ea;
-    color: #323232;
-}
-.textbox{
-   display: table;
-    border-top: 1px solid #e7e8ea;
-    width: 96%
-}
-textarea {
-    width: 641px;
-    height: 108px;
-}
-button.reviewBtn {
-    background-color: grey;
-    width: 14%;
-}
-.starbox {
-    width: 100%;
-    text-align: center;
-    margin: 30px 21px 54px 0px;
-}
-.starbtn-img{
- 	height: 40px;
-}
-.reviewbox {
-    width: 100%;
-    background-color: white;
-    height: 160px;
-    margin: 26px 0 15px 0px;
-    border-radius: 1.3rem;
-}
-
-</style>
 
 <body>
 <div class="reviewBox">
@@ -219,11 +80,16 @@ button.reviewBtn {
 
 	<div class="ReviewTemplate">
 		<div class="Review_header">
-			<p class="message">수강생이 직접 작성한<br>생생한 후기를 읽어보세요</p>
-				<p class="message">단 한 글자의 편집없이 코드잇 강의를 직접 들은 사람들만<br>
-					<span class="message">작성할 수 있는 생생한 후기! <span>5만명 이상의 코드잇 유저</span>들이</span><br>
-					코드잇에서 느낀 특별한 경험을 함께 해요.
+			<div class="msgbox">
+				<p class="message_title">수강생이 직접 작성한<br>생생한 후기를 읽어보세요</p>
+				<p class="message">단 한 글자의 편집없이 코드메이커 강의를 직접 들은 사람들만<br>
+					<span class="message">작성할 수 있는 생생한 후기! <span class="pointmsg">교육을 마친 수료생</span>들이</span><br>
+						코드메이커에서 느낀 특별한 경험을 함께 해요.
 				</p>
+			</div>
+			<div class="mainimgbox">
+				<img class="review_mainimg" src="/images/user/icons/pngegg.png">
+			</div>
 		</div>
 	</div>
 
@@ -231,10 +97,12 @@ button.reviewBtn {
 	<div class="Review_rating">
 	<div class="Review_middle"> 
 	<div class="ReviewRatingAvg">
-		<span class="ReviewRatingAvg__avg">4.8</span>
-		<c:forEach var="i" begin="1" end="${reviewAvg}">
-			<img src="${cp}/images/user/icons/review-star.svg" id="starimg">
-		</c:forEach>
+		<span class="ReviewRatingAvg__avg">${reviewAvg}<span class="avgpoint">/ 5</span></span>
+		<div class="staravg">
+			<c:forEach var="i" begin="1" end="${reviewAvg}">
+				<img src="${cp}/images/user/icons/review-star.svg" id="starimg">
+			</c:forEach>
+		</div>	
 	</div>
 
 	<div class="rating_bar_header">
@@ -243,8 +111,9 @@ button.reviewBtn {
 		<span><b>5</b><img src="${cp}/images/user/icons/review-star.svg"></span>
 		</div>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner" style="width: 100%;"></span>
+			<span class="ReviewRatingRow__bar__inner"  style="width: 100%;"></span>
 		</div>
+		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.five}</b></div>
 	</div>
 	<div class="review_rating_bar">
 		<div class="review_rating_rowbar1">
@@ -253,6 +122,7 @@ button.reviewBtn {
 		<div class="review_rating_rowbar2">
 			<span class="ReviewRatingRow__bar__inner" style="width: 80%;"></span>
 		</div>
+		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.four}</b></div>
 	</div>
 	<div class="review_rating_bar">
 		<div class="review_rating_rowbar1">
@@ -261,6 +131,7 @@ button.reviewBtn {
 		<div class="review_rating_rowbar2">
 			<span class="ReviewRatingRow__bar__inner" style="width: 60%;"></span>
 		</div>
+		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.three}</b></div>
 	</div>
 	<div class="review_rating_bar">
 		<div class="review_rating_rowbar1">
@@ -269,6 +140,7 @@ button.reviewBtn {
 		<div class="review_rating_rowbar2">
 			<span class="ReviewRatingRow__bar__inner" style="width: 40%;"></span>
 		</div>
+		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.two}</b></div>
 	</div>
 	<div class="review_rating_bar">
 		<div class="review_rating_rowbar1">
@@ -277,14 +149,18 @@ button.reviewBtn {
 		<div class="review_rating_rowbar2">
 			<span class="ReviewRatingRow__bar__inner" style="width: 20%;"></span>
 		</div>
+		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.one}</b></div>
 	</div>
 	</div>	
 	</div>
 	</div>
 	
+	<form id="reviewform" action="${cp}/user/insertReview?lesId=${lesId}" method="POST">
+	<input type="hidden" value="${lesId}" id="lesId" name="lesId">
 	<div class="starbox">
 		<span><b>강의 내용은 어떠셨나요?</b></span><br>
 		<span><b>평점과 함께 후기를 남겨주세요.</b></span><br><br>
+		<input type="hidden" name="reviewStar" value="">
 		<c:forEach var="i" begin="1" end="5">
 			<button type="button" name="star" id="reviewstar"><img class="starbtn-img" src="/images/user/icons/staroff.png"></button>
 		</c:forEach>
@@ -292,22 +168,60 @@ button.reviewBtn {
 
 	<div class="textbox">
 		<div class="textboxbox">
-			<div class="imgbox">
-				<img>회원사진
-			</div>
+<!-- 			<div class="imgbox"> -->
+<!-- 					<img src="/images/user/icons/reviewimage2.png" class="imgboximg"> -->
+<!-- 			</div> -->
 			<div class="textbox">
-				<textarea style="resize: none;"></textarea>
+				<textarea class="textareabox" id="new-review" name="reviewCont" placeholder="수강후기를 작성해주세요." style="resize: none;"></textarea>
 			</div>
-			<button type="button" class="reviewBtn">후기등록</button>
+			<button type="button" id="reviewb" class="reviewBtn">후기등록</button>
 		</div>
 	</div>
+	</form>
 	
 	
 	<div class="reviewTemplate">
+		<c:forEach items="${reviewList }" var="reviewList">
 		<div class="reviewbox">
-		
-		
+			<div class="reviewbox_probox">
+				<div class="reviewbox_profile">
+					<div class="reviewbox_profile_user">
+						<div class="reviewbox_profile_img">
+							<img src="/user/reviewprofile?lesId=${lesId}" class="userimg">
+							<span class="username">‍${reviewList.userId}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="reviewbox_contbox">
+				<div class="reviewbox_cont">
+				
+						<div class="reviewbox_contstar">
+							<c:forEach var="i" begin="1" end="${reviewList.reviewStar}">
+								<img src="${cp}/images/user/icons/review-star.svg">
+							</c:forEach>
+							<fmt:formatDate value="${reviewList.reviewDate}" pattern="yyyy-MM-dd"/>
+							
+							<c:choose>
+								<c:when test="${reviewList.userId == MEMBER_INFO.userId}">
+									<button id="reviewDel" class="btn btn-sm btn-default float-right" onclick="location.href='${cp}/user/deleteReview?lesId=${lesId}&reviewId=${reviewList.reviewId}'">삭제</button>
+								</c:when>
+							</c:choose>
+								<input type="hidden" value="${reviewList.reviewId}">
+						</div>
+						
+						<div class="reviewbox_conttext">
+							<div class="reviewbox_review">
+								<strong>${reviewList.reviewCont}</strong>
+							</div>
+						</div>
+						
+				</div>
+			</div>
 		</div>
+		</c:forEach>				
 	</div>
 			
 	

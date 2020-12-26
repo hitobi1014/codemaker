@@ -1,10 +1,15 @@
 package kr.co.codemaker.user.lessoninfo.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -29,10 +34,9 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@RequestMapping("/user/selectReview")
-	public String selectReview(Model model, String lesId){
+	public String selectReview(Model model, String lesId) throws IOException{
 
 		List<ReviewVO> reviewList=new ArrayList<ReviewVO>();
-		
 		//수강후기 조회
 		try {
 			reviewList = reviewService.selectReview(lesId);
@@ -62,9 +66,36 @@ public class ReviewController {
 		model.addAttribute("reviewAvg", reviewAvg);
 		model.addAttribute("reviewStarVo", reviewStarVo);
 		
-		return "mainT/user/lesson/selectReview";
+		return "mainT/user/lesson/reviewTest";
 	}
 	
+	@RequestMapping("/user/reviewprofile")
+	public void profileImg(String lesId, HttpServletResponse response,HttpServletRequest request) throws Exception {
+
+
+		List<ReviewVO> reviewList=new ArrayList<ReviewVO>();
+		reviewList =  reviewService.selectReview(lesId);
+		
+		//경로확인 후 파일 입출력을 통해 응답생성
+		//파일을 읽고 응답생성
+
+		for(int i=0; i<reviewList.size(); i++) {
+			
+			FileInputStream fis = new FileInputStream(reviewList.get(i).getUserProfile());
+			ServletOutputStream sos =  response.getOutputStream();
+			
+			byte[] buffer = new byte[512];
+			
+			while (fis.read(buffer) != -1) {
+				sos.write(buffer);
+			}
+			
+			fis.close();
+			sos.flush(); 
+			sos.close();
+			
+		}
+	}
 
 	@ResponseBody
 	@RequestMapping("/user/insertReview")

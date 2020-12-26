@@ -9,7 +9,12 @@ public class ReviewVO extends PayVO {
 	private String reviewId;
 	private Date reviewDate;
 	private String reviewStar;
+	private String userNm;
+	private String userProfile;
 	
+
+	
+
 
 	public String getPayId() {
 		return payId;
@@ -41,14 +46,27 @@ public class ReviewVO extends PayVO {
 	public void setReviewStar(String reviewStar) {
 		this.reviewStar = reviewStar;
 	}
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+	public String getUserProfile() {
+		return userProfile;
+	}
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
 
 
 	@Override
 	public String toString() {
 		return "ReviewVO [payId=" + payId + ", reviewCont=" + reviewCont + ", reviewId=" + reviewId + ", reviewDate="
-				+ reviewDate + ", reviewStar=" + reviewStar + "]";
+				+ reviewDate + ", reviewStar=" + reviewStar + ", userNm=" + userNm + ", userProfile=" + userProfile
+				+ "]";
 	}
-	
 
 	
 }

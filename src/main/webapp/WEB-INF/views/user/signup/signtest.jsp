@@ -267,7 +267,7 @@ function readURL(input) {
     margin-top: 32px;
     color: #333;
     line-height: 2.8rem;
-    font-size: 0.6rem;
+    font-size: 1.2rem;
 }
 .middlebox{
     display: table;
@@ -437,7 +437,7 @@ img{
 					</div>
 					<div class="smallbox_2">
 						<div>
-						<input class="field-input" name="userPass" id="user_pass" placeholder="비밀번호를 입력해주세요">
+						<input type="password" class="field-input" name="userPass" id="user_pass" placeholder="비밀번호를 입력해주세요">
 							<span id="regex2" class="check"><i id="passcheck"></i></span>
 							<div class="id-label">
 								<ul>

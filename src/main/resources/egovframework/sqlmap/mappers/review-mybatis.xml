@@ -6,9 +6,9 @@
 
 <select id="selectReview" parameterType="java.lang.String" resultType="kr.co.codemaker.user.lessoninfo.vo.ReviewVO">
 	SELECT A.REVIEW_CONT, A.REVIEW_DATE, A.REVIEW_STAR, A.REVIEW_ID,
-	        B.USER_ID, B.LES_ID
-	FROM REVIEW A, PAY B
-	WHERE a.pay_id=b.pay_id and b.lES_ID=#{lesId}
+	        B.USER_ID, B.LES_ID, C.USER_NM, c.USER_PROFILE
+	FROM REVIEW A, PAY B, USERS C
+	WHERE a.pay_id=b.pay_id and b.lES_ID=#{lesId} and b.user_id=c.user_id
 	order by review_date desc
 </select>
 
