@@ -223,7 +223,7 @@ var addLes = function(){
 		<!-- /Modal -->
 		
 		<div class="lesson-down">
-			<h2>임시 저장된 강의s</h2>
+			<h2>임시 저장된 강의</h2>
 			<div class="lesson-table-2nd-div">
 				<div class="table-responsive">
 					<table class="lesson-table">
@@ -240,16 +240,16 @@ var addLes = function(){
 										<td class="th2-1st">${no.lesId}</td>
 										<td class="th2-2nd">${no.lesNm}</td>
 										<td class="th2-3rd-td"  >
-											<div class="3rd-td-div" style="display: inline-block;">
+											<div class="3rd-td-div" style="display:inline-block;">
 												<c:choose>
 													<c:when test="${no.lesState=='1'}">
-														<div class="3rd-td-div2">임시저장</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">임시저장</div>
 													</c:when>
 													<c:when test="${no.lesState=='2'}">
-														<div class="3rd-td-div2">승인중</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">승인중</div>
 													</c:when>
 													<c:when test="${no.lesState=='4'}">
-														<div class="3rd-td-div2" style="float: left;">승인반환</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">승인반환</div>
 													</c:when>
 												</c:choose>
 												<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
