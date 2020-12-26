@@ -100,12 +100,19 @@ var selectLesson = function(subId){
 		success : function(res){
 			str = '<select name="searchLesId" class="form-control" id="lesson">';
 			str += '<option value="">강의</option>';
-			$.each(res.lessonList, function(index, data){
-				if(data.lesId == '${examVO.searchLesId}'){
-					str += '<option selected="selected" value="'+ data.lesId +'">'+ data.lesCont +'</option>';
-				}
-				str += '<option value="'+ data.lesId +'">'+ data.lesCont +'</option>';
-			})
+			
+			console.log(res.lessonList);
+			console.log(res.lessonList.length);
+			
+// 			if(res.lessonList.length != 0){
+				$.each(res.lessonList, function(index, data){
+					if(data.lesId == '${examVO.searchLesId}'){
+						str += '<option selected="selected" value="'+ data.lesId +'">'+ data.lesNm +'</option>';
+					}else{
+						str += '<option value="'+ data.lesId +'">'+ data.Nm +'</option>';
+					}
+				})
+// 			}
 			str += '</select>';
 			
 			$('#les').html(str);

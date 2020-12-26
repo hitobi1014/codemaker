@@ -2,6 +2,7 @@ package kr.co.codemaker.teacher.course.lesson.vo;
 
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -31,9 +32,31 @@ public class LessonVO extends BaseVO{
 	private int lidxDurtime;	// 강의 전체시간
 	private int lidxCurtime;	// 강의 재생시간
 	
+	private List<LessonIndexVO> lesIdxList;	// 강의 목차 리스트(수정)
+	private List<LessonIndexVO> lesIdxListInsert;	// 강의 목차 리스트(추가)
+	private List<String> lesIdxListDelete;		// 강의 목차 리스트(삭제)
 	
 	
-
+	
+	
+	public List<String> getLesIdxListDelete() {
+		return lesIdxListDelete;
+	}
+	public void setLesIdxListDelete(List<String> lesIdxListDelete) {
+		this.lesIdxListDelete = lesIdxListDelete;
+	}
+	public List<LessonIndexVO> getLesIdxList() {
+		return lesIdxList;
+	}
+	public void setLesIdxList(List<LessonIndexVO> lesIdxList) {
+		this.lesIdxList = lesIdxList;
+	}
+	public List<LessonIndexVO> getLesIdxListInsert() {
+		return lesIdxListInsert;
+	}
+	public void setLesIdxListInsert(List<LessonIndexVO> lesIdxListInsert) {
+		this.lesIdxListInsert = lesIdxListInsert;
+	}
 	public String getLesDetail() {
 		return lesDetail;
 	}

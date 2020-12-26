@@ -83,7 +83,7 @@ $(function(){
 	$('#lesidx tr td').on('click', function(){
 		if($(this).attr('class') != 'chb'){
 			var lesId = $(this).parent('tr').data('lesid');
-			var windowObj = window.open('/admin/lessonSelect?lesId='+lesId,'lessonSelect', 'width=800,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
+			var windowObj = window.open('/admin/lessonSelect?lesId='+lesId,'lessonSelect', 'width=800,height=800,resizable=no,scrollbars=yes,left=500,top=50');
 		}
 	});
 	

@@ -151,20 +151,19 @@ public class TeacherLessonController {
 				// 1 : 삭제 
 				lesIdxCnt = lessonService.deleteLesson(lesId);
 				if (lesIdxCnt == 1) {
-					List<LessonVO> noLessonList = lessonService.selectNoLesson(tchId);
-					model.addAttribute("noLessonList", noLessonList);
-					return "jsonView";
+					return "redirect:/teacherL/selectSubject";
 				}
 			}
 			else {
+				// 2 : 승인요청
+				
+				// 시험이 수정중인 갯수
 				examCnt = lessonService.selectExamCnt(lessonVO);
 				logger.debug("시험cnt:{}",examCnt);
-				lesIdxCnt = lessonService.updatePermissionLesson(lessonVO);
-				// 2 : 승인요청
-				if (examCnt == 0 && lesIdxCnt == 1) {
-					List<LessonVO> noLessonList = lessonService.selectNoLesson(tchId);
-					model.addAttribute("noLessonList", noLessonList);
-					return "jsonView";
+				
+				if (examCnt == 0) {
+					lessonService.updatePermissionLesson(lessonVO);
+					return "redirect:/teacherL/selectSubject";
 				}
 			}
 		} catch (Exception e) {
@@ -195,7 +194,7 @@ public class TeacherLessonController {
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
 	@RequestMapping(path = "/teacherL/insertLesson", method = RequestMethod.POST)
-	public String insertLesson(LessonIndexVO lessonIndexVO, LessonVO lessonVO, HttpSession session) throws ParseException {
+	public String insertLesson(LessonVO lessonVO, HttpSession session) throws ParseException {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		String tchId = teacherVO.getTchId();
 
@@ -213,7 +212,7 @@ public class TeacherLessonController {
 			lesCnt = lessonService.insertLesson(lessonVO);
 			logger.debug("강의 추가됐니?:{}", lessonVO);
 			String lesId = lessonVO.getLesId();
-			List<LessonIndexVO> lesIdxList = lessonIndexVO.getLesIdxList();
+			List<LessonIndexVO> lesIdxList = lessonVO.getLesIdxList();
 			for (LessonIndexVO lesIdxVO : lesIdxList) {
 				lesIdxVO.setLesId(lesId);
 				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
@@ -316,33 +315,49 @@ public class TeacherLessonController {
 	}
 
 	/**
-	 * 선생님 - 강의 수정 & 강의목차 추가
+	 * 선생님 - 강의 수정(강의목차 추가,삭제,수정)
 	 */
 	@RequestMapping(path = "/teacherL/updateLesson", method = RequestMethod.POST)
-	public String updateLesson(LessonIndexVO lessonIndexVO, LessonVO lessonVO, String lesId) {
-		logger.debug("강의아이디:{}", lesId);
+	public String updateLesson(LessonVO lessonVO) {
 		logger.debug("강의VO:{}", lessonVO);
-		logger.debug("강의인덱스VO:{}", lessonIndexVO);
 		int upCnt = 0;
 		int upTempoCnt = 0;
-		int lesIdxCnt = 0;
+		int lesIdxUpCnt = 0;
+		int lesIdxInsertCnt = 0;
 		try {
 			upTempoCnt = lessonService.updateTempoLesson(lessonVO);
-			List<LessonIndexVO> List = lessonIndexVO.getLesIdxList();
-			logger.debug("강의 리스트 수:{}", List.size());
+			logger.debug("강의목차 리스트 :{}", lessonVO.getLesIdxList());
 
-			for (LessonIndexVO lesIdxVO : List) {
-				if (lesIdxVO != null) {
-					lesIdxVO.setLesId(lesId);
-					lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
-					logger.debug("강의목차!!!!:{}", lesIdxVO);
+			// 강의목차 수정
+			
+			for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxList()) {
+				if (lesIdxVO.getLidxId() != null) {
+					lesIdxVO.setLesId(lessonVO.getLesId());
+					lesIdxUpCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
+					logger.debug("수정된 강의목차!!!!:{}", lesIdxVO);
+				}
+			}
+			// 강의목차 추가
+			if(lessonVO.getLesIdxListInsert() != null) {
+				for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxListInsert()) {
+					if (lesIdxVO != null) {
+						lesIdxVO.setLesId(lessonVO.getLesId());
+						lesIdxInsertCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+						logger.debug("추가된 강의목차!!!!:{}", lesIdxVO);
+					}
+				}
+			}
+			// 강의목차 삭제
+			if(lessonVO.getLesIdxListDelete() != null) {
+				for(String lidxId : lessonVO.getLesIdxListDelete()) {
+					lessonIndexService.deleteLessonIndex(lidxId);
 				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (upCnt == 1 || lesIdxCnt == 1 || upTempoCnt == 1) {
+		if (upCnt == 1 || lesIdxUpCnt == 1 || lesIdxInsertCnt == 1) {
 			return "redirect:/teacherL/selectSubject";
 		}
 		return "";
