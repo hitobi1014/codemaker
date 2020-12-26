@@ -3,107 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- bootstrap 사용 설정 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
+<link rel="stylesheet" href="/css/teacher/lesson/selectAllLesson.css">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
-<title>examAllSelect</title>
+<title>강의조회</title>
 
 <style>
-#wul {
-	width: 1100px;
-	margin-left: 200px;
-}
-
-#hd {
-	margin-left: 15px;
-}
-
-#subject {
-	width: 100px;
-	display: inline-block;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-#lesson {
-	width: 400px;
-	display: inline-block;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-#right {
-	text-align: right;
-}
-
-#regBtn {
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-top: 8px;
-}
-
-#selectTab{
-	padding-left: 30px;
-	
-}
-#containerId{
-    width: 1300px;
-   	margin-left: 140px;
-}
-
-
-.delClass{
-    width: 40px;
-    height: 27px;
-    font-size: 12px;
-    float: left;
-    margin-left: 30px;
-    padding: 0px 0px 0px 0px;
-}
-.upClass{
-	width: 40px;
-    height: 27px;
-    font-size: 12px;
-    float: left;
-    padding: 0px 0px 0px 0px;
-}
-.reqClass{
-	width: 40px;
-    height: 27px;
-    font-size: 12px;
-    float: left;
-    padding: 0px 0px 0px 0px;
-}
-#addBtn{
-	   margin-bottom: 20px;
-}
-.form-control-label {
-  font-size: .875rem;
-  font-weight: 400;
-  color: #525f7f;
-}
-
-
-#test{border: 3px solid #1447b9;
-    background: #f5f5f5;
-    font-weight: 500;
-    border-radius: 5px;
-    color: #1447b9;
-}
-
-.lesIdxTbody:hover{
-	cursor: pointer;
-}
-h2{
-	font-family: 'LotteMartDream';
-}
-
 
 </style>
 <script>
@@ -208,19 +120,18 @@ var selLes = function(){
 			var html="";
 			for(var i=0; i<data.length; i++){
 				var lessonList =  data[i];
-				html += "<tr data-lesid='"+lessonList.lesId+"' data-toggle=modal data-target=#exampleModalCenter>";
-				html += "<td>" + '' + "</td>";
-				html += "<td>" + lessonList.lesNm+ "</td>";
-				html += "<td>" + lessonList.lesCont+ "</td>";
+				html += "<tr class=lesson-tr data-lesid='"+lessonList.lesId+"' data-toggle=modal data-target=#exampleModalCenter>";
+				html += "<td class=th-1st>" + lessonList.lesNm+ "</td>";
+				html += "<td class=th-2nd>" + lessonList.lesCont+ "</td>";
 				var sdate = new Date(lessonList.lesSdate);
 				console.log(moment(sdate).format('YYYY-MM-DD'));
-				html += "<td>" + moment(sdate).format('YYYY-MM-DD') + "</td>";
+				html += "<td class=th-3rd>" + moment(sdate).format('YYYY-MM-DD') + "</td>";
 				var edate = new Date(lessonList.lesEdate);
 				console.log(moment(edate).format('YYYY-MM-DD'));
-				html += "<td>" + moment(edate).format('YYYY-MM-DD') + "</td>";
-				html += "<td>" + lessonList.lesTerm + "</td>";
+				html += "<td class=th-4th>" + moment(edate).format('YYYY-MM-DD') + "</td>";
+				html += "<td class=th-5th>" + lessonList.lesTerm + "</td>";
 				var lescash = lessonList.lesCash;
-				html += "<td>" + lescash.toLocaleString()+ "</td>";
+				html += "<td class=th-6th>" + lescash.toLocaleString()+ "</td>";
 				html += "</tr>";
 			}
 			$('.lesIdxTbody').html(html);
@@ -239,108 +150,106 @@ var addLes = function(){
 
 </script>
 
-<div id="containerId">
-	<div class="row shadow" style="background-color: white;">
-		<div class="col-12" style="margin:50px;">
-			<div class="card" style="width:1200px;">
-				<div class="card-body text-center"></div>
-				<h2 class="card-title m-b-0">📢강의 조회 및 개설</h2>
-				<div id="addLesId">
-					<button class="button button-inline button-small button-success form-control-label" id="addBtn" style="float: right;" onclick="addLes()">강의 등록</button>
-				</div>
-				<div id="right">
-					<select class="form-control" id="subject" name="subId">
-						<option value="0">과목</option>
-						<c:forEach items="${subjectList}" var="sub">
-							<c:choose>
-								<c:when test="${sub.subOut == 'N'}">
-									<option value="${sub.subId}">${sub.subNm}</option>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</select> 
-					<input id="selBtn" type="button" value="조회" onclick="selLes()">
-				</div>
-				<br>
+<div class="card">
+	<div class="select-container-area">
+		<div class="card-body text-center">
+			<div>
+				<button class="button button-inline button-small button-success form-control-label" id="addBtn" style="float: right;" onclick="addLes()">강의 등록</button>
+			</div>
+		</div>
+		<div class="lesson-top">
+		<h2>강의 조회 및 개설</h2>
+			<div id="right">
+				<select class="form-control" id="subject" name="subId">
+					<option value="0">과목</option>
+					<c:forEach items="${subjectList}" var="sub">
+						<c:choose>
+							<c:when test="${sub.subOut == 'N'}">
+								<option value="${sub.subId}">${sub.subNm}</option>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</select> 
+				<input id="selBtn" type="button" value="조회" onclick="selLes()">
+			</div>
+			<div class="lesson-table-div">
+				<table class="lesson-table">
+					<thead class="lesson-thead-light">
+						<tr class="lesson-thread-tr">
+							<th class="th-1st" scope="col">강의명</th>
+							<th class="th-2nd" scope="col">소개</th>
+							<th class="th-3rd" scope="col">개설날짜</th>
+							<th class="th-4th" scope="col">마감날짜</th>
+							<th class="th-5th" scope="col">기간</th>
+							<th class="th-6th" scope="col">수강료</th>
+						</tr>
+					</thead>
+					<tbody class="lesIdxTbody">
+		
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalCenterTitle">강의목차 조회</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <table>
+					<tr>
+						<th>차순</th>
+						<th>목차내용</th>
+					</tr>
+					<tbody class="lesTbody">
+					
+					</tbody>
+				</table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- /Modal -->
+		
+		<div class="lesson-down">
+			<h2>임시 저장된 강의</h2>
+			<div class="lesson-table-2nd-div">
 				<div class="table-responsive">
-					<table class="table">
-				
-						<thead class="thead-light">
-							<tr>
-								<th><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span></label></th>
-								<th scope="col">강의명</th>
-								<th scope="col">강의소개</th>
-								<th scope="col">강의 개설날짜</th>
-								<th scope="col">강의 마감날짜</th>
-								<th scope="col">강의기간</th>
-								<th scope="col">수강료</th>
-							</tr>
-						</thead>
-						<tbody class="lesIdxTbody">
-
-						</tbody>
-					</table>
-				</div>
-				
-			
-				
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				  <div class="modal-dialog modal-dialog-centered" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalCenterTitle">강의목차 조회</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-				        <table>
-							<tr>
-								<th>차순</th>
-								<th>목차내용</th>
-							</tr>
-							<tbody class="lesTbody">
-							
-							</tbody>
-						</table>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				
-				<h2 class="card-title m-b-0">📢임시 저장된 강의</h2>
-				<div class="table-responsive">
-					<table class="table">
-							<thead class="thead-light">
-								<tr>
-									<th style="width:170px;"><label class="customcheckbox m-b-20"> <input type="checkbox" id="mainCheckbox"> <span class="checkmark"></span>
-									</label></th>
-									<th scope="col" style="width: 290px;">강의No.</th>
-									<th scope="col" style="width: 389px;">강의명</th>
-									<th scope="col">강의승인상태</th>
+					<table class="lesson-table">
+							<thead class="lesson-thead-light" >
+								<tr class="lesson-thread-tr" >
+									<th class="th2-1st" scope="col">강의No.</th>
+									<th class="th2-2nd" scope="col">강의명</th>
+									<th class="th2-3rd" scope="col">강의승인상태</th>
 								</tr>
 							</thead>
 							<tbody id="lesTbody">
 								<c:forEach items="${noLessonList}" var="no">
-									<tr>
-										<td></td>
-										<td class="ls">${no.lesId}</td>
-										<td>${no.lesNm}</td>
-										<td>
-											<div>
+									<tr class="lesson-tr">
+										<td class="th2-1st">${no.lesId}</td>
+										<td class="th2-2nd">${no.lesNm}</td>
+										<td class="th2-3rd-td"  >
+											<div class="3rd-td-div" style="display:inline-block;">
 												<c:choose>
 													<c:when test="${no.lesState=='1'}">
-														<div style="float: left; width: 50%;">임시저장</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">임시저장</div>
 													</c:when>
 													<c:when test="${no.lesState=='2'}">
-														<div style="float: left; width: 50%;">승인중</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">승인중</div>
 													</c:when>
 													<c:when test="${no.lesState=='4'}">
-														<div style="float: left; width: 50%;">승인반환</div>
+														<div class="3rd-td-div2" style="float: left; width: 70px;">승인반환</div>
 													</c:when>
 												</c:choose>
 												<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
