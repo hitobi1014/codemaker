@@ -38,8 +38,6 @@ public class LessonIndexVO extends BaseVO{
 	}
 	
 								
-	private List<LessonIndexVO> lesIdxList;
-
 
 	public String getLidxCont() {
 		return lidxCont;
@@ -79,16 +77,6 @@ public class LessonIndexVO extends BaseVO{
 
 	public void setLidxId(String lidxId) {
 		this.lidxId = lidxId;
-	}
-
-
-	public List<LessonIndexVO> getLesIdxList() {
-		return lesIdxList;
-	}
-
-
-	public void setLesIdxList(List<LessonIndexVO> lesIdxList) {
-		this.lesIdxList = lesIdxList;
 	}
 
 

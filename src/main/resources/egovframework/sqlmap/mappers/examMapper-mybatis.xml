@@ -82,6 +82,14 @@ WHERE
 AND
 	sub_id = #{subId}
 </if>
+AND les_state = '1' 
+OR 
+tch_id = #{tchId}
+<if test="subId != null and !subId.equals('')">
+AND
+	sub_id = #{subId}
+</if>
+AND les_state = '2'
 </select>
 <select id="selectAllExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
 SELECT *
