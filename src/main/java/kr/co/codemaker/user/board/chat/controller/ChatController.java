@@ -70,7 +70,9 @@ public class ChatController {
 	@RequestMapping(path="/chat/insertChat", method=RequestMethod.POST)
 	public String insertChat(ChatVO chatVo, Model model) {
 		
-		chatService.insertChat(chatVo);
+		if(chatVo.getChatCont() != "") {
+			chatService.insertChat(chatVo);
+		}
 		
 		return "user/chat/chat";
 	}

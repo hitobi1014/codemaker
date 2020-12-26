@@ -21,7 +21,7 @@
 						<input type="hidden" name="payList[${stat.index}].userId" value="${userVo.userId}"/>
 						<input type="hidden" name="payList[${stat.index}].payWay" value="1" class="paywayCl"/>
 						<input type="hidden" id="paySum[${stat.index}]" name="payList[${stat.index}].paySum" value="${lesson.lesCash}"/>
-						<input type="hidden" name="payList[${stat.index}].cosTerm" value="${lesson.lesTerm}"/>
+						<input type="hidden" name="payList[${stat.index}].lesTerm" value="${lesson.lesTerm}"/>
 						<input type="hidden" name="payList[${stat.index}].lesId" value="${lesson.lesId}" class="lesson"/>
 							<c:set value="${lesson.lesTerm}" var="lesTerm"/>
 							<c:set value="${lesson.lesCash}" var="lesCash"/>

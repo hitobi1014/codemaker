@@ -156,7 +156,9 @@ public class CompanyController {
             // pdf 사이즈 설정
             float imageWidth = 595;
             float pageHeight = (float) (imageWidth * 1.414);
+            logger.debug("길이!!!:{},{}",image.getHeight(),image.getWidth());
             float imageHeight = image.getHeight() * imageWidth / image.getWidth();
+//            float imageHeight = 300;
             float heightLeft = imageHeight;
             
             // pdf형식의 document를 생성
@@ -164,7 +166,7 @@ public class CompanyController {
             
             // PdfWriter를 취득하고, 파일IO 스트림을 취득
             PdfWriter.getInstance(document, new FileOutputStream(new File(root,filename)));
-            float position = 0;
+            float position = 300;
             image.scaleAbsolute(imageWidth, imageHeight);
             image.setAbsolutePosition(0, position);
             // document open

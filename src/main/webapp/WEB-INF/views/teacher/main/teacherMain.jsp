@@ -4,9 +4,4 @@
 
 <title>teacherMain</title>
 
-</head>
-<body class="sidebar-fixed sidebar-dark header-light header-fixed"
-	id="body">
-
-	<h3>강사의 첫 페이지는 마이페이지 입니당~~!!</h3>
-</body>
+<%@ include file="/WEB-INF/views/teacher/calendar/scheduleAllSelect.jsp" %>

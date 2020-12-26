@@ -11,16 +11,12 @@
 <script>
 	$(function(){
 		
-		
-		
 		$("#cancle").on("click", function(){
 			self.close();
 		})
 		
 		$("#check").on("click", function(){
 			var cont = $("#cpCont").val();
-			
-			
 			
 			if(cont != ''){
 				var sub = confirm("접수하시겠습니까?")
@@ -42,18 +38,23 @@
 		var cpGn = $("input[name='cpGn']").val();
 		var replyId = $("#replyId").val();
 		var qnaId = $("#qnaId").val();
-
+		var plaintiff = $('#plaintiff').val();
+		var defendant = $('#defendant').val();
 		var complainVo = {};
 		
 		
 		if(cpGn == 1){
 			complainVo = {cpCont : cont,
 						replyId : replyId,
-						cpGn : cpGn}
+						cpGn : cpGn,
+						plaintiff : plaintiff,	
+						defendant : defendant}
 		}else{
 			complainVo = {cpCont : cont,
 					qnaId : qnaId,
-					cpGn : cpGn}
+					cpGn : cpGn,
+					plaintiff : plaintiff,	
+					defendant : defendant}
 		}
 		
 		$.ajax({
@@ -72,7 +73,6 @@
 </script>
 </head>
 <body>
-<div>신고하기</div>
 <br>
 	<table>
 		<tr>
@@ -91,6 +91,14 @@
 		<tr>
 			<td>내용</td>
 			<td><textarea rows="10" cols="30" name="cpCont" id="cpCont"></textarea></td>
+		</tr>
+		<tr>
+			<td>신고자</td>
+			<td><input type="text" name="plaintiff" id="plaintiff" value="${MEMBER_INFO.userId}" readonly></td>
+		</tr>	
+		<tr>	
+			<td>신고대상</td>
+			<td><input type="text" name="defendant" id="defendant" value="${defendant}" readonly></td>
 		</tr>
 	</table>
 <input type="button" id="cancle" name="cancle" value="닫기">

@@ -16,6 +16,9 @@
 <!-- js 추가 -->
 <script src="/js/teacher/exam/exam.js"></script>
 
+<!-- 시험 등록 page css -->
+<link href="/css/teacher/exam/exam-insert.css" rel="stylesheet"/>
+
 <script>
 $(function() {
 	
@@ -26,13 +29,13 @@ $(function() {
 
 	// #e6f4ea, que_answer, anw
 	// 정답 체크시 오버레이
-	$(document).on('click', 'input[name=queAnswerList]',function() {
-		var ol = $(this).prevAll("div[class=overlay]");
+	$(document).on('change', 'input[type=checkbox]' ,function() {
+		var ol = $(this).prevAll("input[type=text]");
 		
 		if($(this).is(":checked") == true){
-			ol.attr('style','display: block');
+			ol.attr('style','background-color: rgba(230, 244, 234);');
 		}else{
-			ol.attr('style','display: none');
+			ol.attr('style','background-color: #fff;');
 		}
 	});
 	
@@ -59,7 +62,7 @@ $(function() {
 			});
 		}
 		if(state == 0){
-			if($('.chk:checked').length != $('.d5').length){
+			if($('.chk:checked').length == $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
 				state = 1;
 				return false;
@@ -115,106 +118,7 @@ $(function() {
 })
 </script>
 <title>examInsert</title>
-<style>
-body {
-	background-color: rgb(240, 235, 248);
-}
-input{
-	margin-top: 5px;
-}
-#d2 {
-	text-align: center;
-}
-#d1 {
-	background: rgb(103, 58, 183);
-	display: inline-block;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	height: 10px;
-	width: calc(80% + 2px);
-	margin-top: 30px;
-}
-#d3 {
-	padding-left: 20px;
-	display: inline-block;
-	margin-top: -4px;
-	background-color: white;
-	width: calc(80% + 2px);
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
-	height: 150px;
-	text-align: left;
-}
-.d4 {
-	background-color: #4285f4;
-	display: inline-block;
-	height: 515px;
-	width: calc(1% + 2px);
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	float: left;
-}
-.d5 {
-	display: inline-block;
-	margin-left: -6px;
-	background-color: white;
-	width: calc(80% + 2px);
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	border-top-left-radius: 8px;
-	height: 515px;
-	text-align: left;
-	margin-top: 10px;
-}
-.d6 {
-	padding-left: 20px;
-	padding-top: 5px;
-}
-.sel1 {
-	margin-top : 5px;
-}
-.form-control {
-	width: 800px;
-}
-.radi {
-	display: inline-block;
-	margin-right: 5px;
-}
-.anw {
-	margin-top: 5px;
-}
-.btnd {
-	text-align: right;
-	margin-top: 10px;
-	padding-right: 20px;
-}
-.btns {
-	text-align: right;
-	margin-top: 10px;
-	padding-right: 20px;
-	margin-right: 90px;
-}
-.comment {
-	resize: none;
-	text-align: left;
-}
-.chk {
-	margin-left: 4px;
-	margin-top: 10px;
-	position: relative;
-}
-.rig{
-	float: right;
-}
-.delBtn{
-	margin-right: 60px;
-    background-color: cadetblue;
-}
-.queS{
-	display: inline-block;
-	width: 200px;
-}
-</style>
+
 </head>
 <body>
 	<form:form name="examVO" commandName="examVO" id="examf" action="/exam/insertExam">

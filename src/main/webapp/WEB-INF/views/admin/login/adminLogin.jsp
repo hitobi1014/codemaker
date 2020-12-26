@@ -64,7 +64,7 @@ $(function(){
 		$("#inputPass").attr("name", "tchPass");
 		$(".hiddenDiv").show();
 		
-	})
+	});
 	$("#adminImg").click(function(){
 		$("#teacherImg").attr("src", "/images/admin/signup/teacher (1).png");
 		$(this).attr("src", "/images/admin/signup/admin (2).png");
@@ -72,8 +72,8 @@ $(function(){
 		$("#inputEmail").attr("name", "adminId");
 		$("#inputPass").attr("name", "adminPass");
 		$(".hiddenDiv").hide();
-	})
-})
+	});
+});
 
 // 쿠키 조회 메소드
 	function getCookieValue(cookieName){
@@ -102,7 +102,7 @@ $(function(){
 		setCookie(cookieName, "", -1);
 	}
 	
-	$(function() { 
+	$(function() {
 		var rememberme = Cookies.get('REMEMBERME');
 		console.log(rememberme);
 		if(rememberme == "Y"){
@@ -115,7 +115,6 @@ $(function(){
 		$('#Login').on('click', function(e){
 			if($('#ckb1').prop('checked')){
 				Cookies.set('REMEMBERME', 'Y');
-				
 				Cookies.set('USERID', $('#inputEmail').val());
 				
 			}else{ 
@@ -135,9 +134,36 @@ $(function(){
 				success: function(data) {
 					switch (data) {
 						case 0:
-							console.log("자동 가입 방지 봇 통과");
-							captcha = 0;
-							document.location="/admin/main";
+							var currentUrl = $("#loginForm").attr("action");
+						    $.ajax({
+								type : "POST",
+								url : currentUrl,
+								data : $('#loginForm').serialize(),
+								dataType : 'text',
+								success : function(data){
+									console.log(data);
+									if(currentUrl.indexOf("teacher") > 0){
+										console.log("강사 확인");
+										if(data == 'Y'){
+											document.location="/teacher/main";
+										}else{
+											alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+										}
+									}
+									else if(currentUrl.indexOf("admin") > 0) {
+											// 음수일 때 실행되어서 -1로 실행이 안됐음,, 0보다 클때를 꼭 ,,
+										console.log("관리자 확인");
+										if(data == 'Y'){
+											document.location="/admin/main";
+										}else{
+											alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+										}
+									}
+								},
+								error : function(er){
+										alert("사용자를 선택해 주세요.");
+								}
+							});
 							break;
 						case 1:
 							alert("자동 가입 방지 봇을 확인 한 뒤 진행 해 주세요.");
@@ -152,39 +178,8 @@ $(function(){
 			if(captcha != 0) {
 				return false;
 			}
-			
-			var currentUrl = $("#loginForm").attr("action");
-		    $.ajax({
-				type : "POST",
-				url : currentUrl,
-				data : $('#loginForm').serialize(),
-				dataType : 'text',
-				success : function(data){
-					console.log(data);
-					if(currentUrl.indexOf("teacher") > 0){
-						console.log("강사 확인");
-						if(data == 'Y'){
-							document.location="/teacher/main";
-						}else{
-							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-						}
-					}
-					else if(currentUrl.indexOf("admin") > 0) {
-							// 음수일 때 실행되어서 -1로 실행이 안됐음,, 0보다 클때를 꼭 ,,
-						console.log("관리자 확인");
-						if(data == 'Y'){
-							document.location="/admin/main";
-						}else{
-							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-						}
-					}
-				},
-				error : function(er){
-						alert("사용자를 선택해 주세요.");
-				}
-			});
-		})
-	})
+		});
+	});
 	
 
 </script>
@@ -234,11 +229,6 @@ $(function(){
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 
 	<!--===============================================================================================-->
 	<script src="/js/admin/login/animsition.min.js"></script>

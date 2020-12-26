@@ -15,13 +15,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,8 +63,6 @@ public class NoteController {
 
 	@Resource(name = "noteService")
 	private NoteService noteService;
-
-	private static final Logger logger = LoggerFactory.getLogger(NoteController.class);
 
 	/**
 	 * 회원의 노트 목록을 페이징 처리하여 가져오는 메서드
@@ -228,8 +223,6 @@ public class NoteController {
 	public void downloadPdf(@RequestParam(value="noteIds")List<String> noteIds, HttpServletResponse response, HttpServletRequest request) {
 		List<NoteVO> noteLists = new ArrayList<NoteVO>();
 		
-		
-
 		// DB에서 정보 가져오기
 		for (String noteId : noteIds) {
 			NoteVO noteVO = null;

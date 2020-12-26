@@ -1,6 +1,9 @@
 package kr.co.codemaker.common.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.service.LoginService;
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
@@ -25,7 +30,15 @@ public class AdminLoginController {
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
 	//로그인 화면
+	/**
+	 * 로그인 화면
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/loginView", method = RequestMethod.GET)
 	public String getView() {
 		logger.debug("AdminLoginController.getView()");
@@ -33,6 +46,16 @@ public class AdminLoginController {
 	}
 	
 	// 관리자 로그인
+	/**
+	 * 관리자가 로그인하는 메서드
+	 * @author 이은지
+	 * @param dbAdminVO
+	 * @param request
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/admin/login", method=RequestMethod.POST)
 	@ResponseBody
 	public String getAdmin(AdminVO dbAdminVO, HttpServletRequest request, HttpSession session, Model model) throws Exception{
@@ -45,14 +68,35 @@ public class AdminLoginController {
 			e.printStackTrace();
 		}
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(adminVO.getAdminId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		if(adminVO != null && dbAdminVO.getAdminPass().equals(adminVO.getAdminPass())) {
 			session.setAttribute("S_ADMIN", adminVO);
+			session.setAttribute("notifyList", notifyList);
+			session.setAttribute("notifyCnt", notifyCnt);
 			return "Y";
 		}
 		return "N";
 	}
 	
 	// 로그아웃
+	/**
+	 * 로그아웃 하는 메서드
+	 * @param session
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -61,6 +105,15 @@ public class AdminLoginController {
 	}
 	
 	
+	/**
+	 * 강사가 로그인하는 메서드
+	 * @param dbTeacherVO
+	 * @param response
+	 * @param session
+	 * @author 이은지
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(path="/teacher/login", method=RequestMethod.POST)
 	@ResponseBody
 	public String getTeacher(TeacherVO dbTeacherVO, HttpServletResponse response,
@@ -74,14 +127,34 @@ public class AdminLoginController {
 			e.printStackTrace();
 		}
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(teacherVO.getTchId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		if(teacherVO != null && dbTeacherVO.getTchPass().equals(teacherVO.getTchPass())) {
 			session.setAttribute("S_TEACHER", teacherVO);
+			session.setAttribute("notifyList", notifyList);
+			session.setAttribute("notifyCnt", notifyCnt);
 			
 			return "Y";
 		}
 		return "N";
 	}
 	
+	/**
+	 * 구글 reCaptcha API
+	 * @param request
+	 * @author 이은지
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(path="/login/VerifyRecaptcha", method=RequestMethod.POST)
 	public int VerifyRecaptcha(HttpServletRequest request) {
@@ -99,14 +172,25 @@ public class AdminLoginController {
 		}
 	}
 	
+	/**
+	 * 로그인 성공 시 관리자 메인화면
+	 * @return
+	 * @author 이은지
+	 */
 	@RequestMapping(path="/admin/main")
 	public String adminMain() {
-		return "adminPage/admin/main/adminMain";
+		return "redirect:/admin/selectAdminAllSchedule";
 	}
+	
+	/**
+	 * 로그인 성공 시 강사 메인화면
+	 * @author 이은지
+	 * @return
+	 */
 	@RequestMapping(path="/teacher/main")
 	public String teacherMain() {
 		
-		return "teacherPage/teacher/main/teacherMain";
+		return "redirect:/admin/selectTeacherAllSchedule";
 	}
 	
 }

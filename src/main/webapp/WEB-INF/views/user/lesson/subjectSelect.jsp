@@ -59,16 +59,14 @@
 					<!-- 과목정보 -->
 					<div class="sub-coment-item">
 						<c:forEach items="${lessonList}" var="lesList">
-							<c:choose>
-								<c:when test="${subList.subId == lesList.subId}">
-									<div class="">
-										<c:url value="/user/selectLessonPage" var="selectLessonPage">
-											<c:param name="lesId" value="${lesList.lesId}"/>
-										</c:url>
-										<span class="info-lesnm"><a href="${selectLessonPage}">${lesList.lesNm}</a></span>
-									</div>
-								</c:when>
-							</c:choose>
+							<c:if test="${subList.subId == lesList.subId}">
+								<div class="">
+									<c:url value="/user/selectLessonPage" var="user">
+										<c:param name="lesId" value="${lesList.lesId}"/>
+									</c:url>
+										<span class="info-lesnm"><a href="${user}">${lesList.lesNm}</a></span>
+								</div>
+							</c:if>
 						</c:forEach>
 					</div>
 					<!-- 과목 상자 안에 hr -->

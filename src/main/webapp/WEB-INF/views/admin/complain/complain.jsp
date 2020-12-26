@@ -52,8 +52,12 @@ div, li{
 		
 		$("#check").on("click", function(){
 			var cpId = $("#cpId").val();
+			var plaintiff = $("#plaintiff").val();
+			var defendant = $("#defendant").val();
 			var select = confirm("처리하시겠습니까?");
-			var complainVo = {cpId : cpId};
+			var complainVo = {cpId : cpId,
+					defendant:defendant,
+					plaintiff:plaintiff};
 			
 			if(select){
 				$.ajax({
@@ -89,6 +93,8 @@ div, li{
 </head>
 <body>
 <input type="hidden" name="cpId" id="cpId" value="${cpVo.cpId}">
+<input type="hidden" name="plaintiff" id="plaintiff" value="${cpVo.plaintiff}">
+<input type="hidden" name="defendant" id="defendant" value="${cpVo.defendant}">
 <div id="contains" style="text-align:center; border:3px solid gray;">
 <table style="border:3px solid gray; margin-left:auto; margin-right:auto;">
 	<tr>
@@ -118,6 +124,18 @@ div, li{
 					<div>${cpVo.qnaId}</div>
 				</c:otherwise>
 			</c:choose>
+		</td>
+	</tr>
+	<tr>
+		<td>신고자</td>
+		<td>
+			<label>${cpVo.plaintiff}</label>
+		</td>
+	</tr>
+	<tr>
+		<td>신고 대상</td>
+		<td>
+			<label>${cpVo.defendant}</label>
 		</td>
 	</tr>
 </table>

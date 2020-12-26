@@ -45,17 +45,17 @@
 	
 	<!-- 	강의등록 : les_state = '1'(임시저장) -->
 	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-INSERT INTO lesson
-     	VALUES ('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId}, #{lesSdate}, #{lesEdate})
+	INSERT INTO lesson
+     	VALUES ('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId}, #{lesSdate}, #{lesEdate},#{lesDetail})
 	     <selectKey keyProperty="lesId" resultType="String">
 			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
 		</selectKey>
-</insert>
+	</insert>
 	
 	<!-- 	강의 수정 : les_state = '1'(임시저장) -->
 	<update id="updateTempoLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		UPDATE lesson
-   		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}, les_state='1'
+   		   SET les_nm=#{lesNm}, les_cont=#{lesCont},les_cash=#{lesCash}, les_term=#{lesTerm}, les_state='1', les_detail=#{lesDetail}
    		   <where>
 		      AND les_id=#{lesId}
    		   </where>
@@ -64,7 +64,7 @@ INSERT INTO lesson
 	<!-- 	강의 요청 : les_state = '2'(승인요청) -->
 	<update id="updatePermissionLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
 		UPDATE lesson
-   		   SET 	les_state='2'
+   		   SET les_state='2'
    		   <where>
 		      AND les_id=#{lesId}
    		   </where>

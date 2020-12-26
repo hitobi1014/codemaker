@@ -36,6 +36,6 @@ public class MyPayLessonController {
 			e.printStackTrace();
 		}
 		model.addAttribute("plList", plList);
-		return "mypageT/user/mypage/mypage-lesson";
+		return "mypageT/user/mypage/mypage_lesson";
 	}
 }

@@ -33,9 +33,9 @@ public class ExamVO extends ExamScoreVO {
 	private String searchEsFscore;	// 시험 점수 유무
 	private float avgScore;			// 평균 점수
 	
-	private List<String> queIdList;		// 문제 아이디 리스트
+	private List<String> queIdList;			// 문제 아이디 리스트
 	private List<String> studentAnswers;	// 학생 정답 리스트
-	private List<Integer> erCheckList;	// 학생 오답 여부
+	private List<Integer> erCheckList;		// 학생 오답 여부
 	
 	private String searchEsScore;	// 시험 점수 유무
 	private int queTotal;			// 총점
@@ -43,7 +43,15 @@ public class ExamVO extends ExamScoreVO {
 	// 페이징 작업 추가
 	private int page; 			// 현재 보여주는 페이지 번호
 	
+	private String resultState;		// 시험 결과 보여주는 유무
 	
+	
+	public String getResultState() {
+		return resultState;
+	}
+	public void setResultState(String resultState) {
+		this.resultState = resultState;
+	}
 	public List<String> getStudentAnswers() {
 		return studentAnswers;
 	}

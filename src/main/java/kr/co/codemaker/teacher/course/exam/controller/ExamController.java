@@ -6,13 +6,15 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.codemaker.common.vo.TeacherVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
@@ -46,6 +48,8 @@ public class ExamController {
 
 	@Resource(name = "answersheetService")
 	private AnswersheetService answersheetService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ExamController.class);
 
 	/**
 	 * 시험 리스트 조회 - 과목 조회, 강의 조회, 시험 조회
@@ -55,11 +59,11 @@ public class ExamController {
 	 */
 	@RequestMapping(path = "/exam/selectAllExam")
 	public String selectAllExam(Model model, HttpSession session, ExamVO examVO) {
-//		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
-//		
-//		examVO.setTchId(tchId);
+		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
 		
-		examVO.setTchId("200ser@maker.com");
+		examVO.setTchId(tchId);
+		
+//		examVO.setTchId("200ser@maker.com");
 		
 		List<SubjectVO> subjectList = new ArrayList<>();
 		List<LessonVO> lessonList = new ArrayList<>();
@@ -76,7 +80,7 @@ public class ExamController {
 			e.printStackTrace();
 		}
 		
-		int pages = (int) Math.ceil((double) totalCnt / 1);
+		int pages = (int) Math.ceil((double) totalCnt / 10);
 		
 		model.addAttribute("pages", pages);
 		model.addAttribute("subjectList", subjectList);
@@ -234,6 +238,8 @@ public class ExamController {
 	@ResponseBody
 	public void insertExam(ExamVO examVO) {
 		int index = 0;
+		index = index + 1;
+		
 		try {
 				examService.insertExam(examVO);
 				for (int i=0; i < examVO.getQueContList().size(); i++) {

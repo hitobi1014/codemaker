@@ -16,11 +16,12 @@
 <script>
 $(document).ready(function(){
 	
-	$("#keywords").keydown(function(key) {
+	$("#keywords").keypress(function(key) {
 		if (key.keyCode == 13) {
 			var keyWord = $("input[name='keyWord']").val();
 				
 			document.location="/admin/selectAllJobInfo?&keyWord="+keyWord+"&page=1";
+			return false;
 		}
 	});
 		
@@ -103,7 +104,9 @@ font-family: 'LotteMartDream';
 #banner{
 	margin: 20px;
 }
-
+.checkImg{
+	width: 40px;
+}
 </style>
 
 <div id="containerId">

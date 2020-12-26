@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.user.classroom.exam.dao.AnswersheetUserMapper;
+import kr.co.codemaker.user.classroom.exam.dao.ExamScoreUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.ExamUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
@@ -46,6 +47,17 @@ public class ExamUserService {
 	 */
 	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception {
 		return examUserMapper.selectAllExam(examVO);
+	}
+	
+	/**
+	 * 시험 문제를 전체 조회하는 메서드 - 강의 조회
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public List<ExamVO> selectExamLesson(ExamVO examVO) throws Exception{
+		return examUserMapper.selectExamLesson(examVO);
 	}
 	
 	/**
