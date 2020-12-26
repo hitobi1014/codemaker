@@ -161,6 +161,7 @@ $(document).ready(function(){
 				<input type="hidden" name="qnaId" value="${qnaVo.qnaId}">
 				<input type="hidden" name="replyRoot" value="">
 				<input type="hidden" name="lesId" value="${qnaVo.lesId}">
+				
 				<div>
 					<textarea style="border:1px black solid; resize:none; width:400px; margin-left:500px;" name="replyCont"></textarea>
 				</div>
