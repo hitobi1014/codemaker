@@ -18,7 +18,7 @@
 		   </where> 
 	</select>
 	
-<select id="selectTeacher" parameterType="java.lang.String" resultType="kr.co.codemaker.common.vo.TeacherVO">
+<select id="selectTeacher" parameterType="java.lang.String" resultType="kr.co.codemaker.teacher.signup.vo.TeacherVO">
 SELECT a.tch_id,
 a.TCH_PASS,
 a.TCH_NM,

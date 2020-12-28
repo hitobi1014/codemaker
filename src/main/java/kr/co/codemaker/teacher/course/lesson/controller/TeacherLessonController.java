@@ -22,10 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
-import kr.co.codemaker.common.service.NotificationService;
-import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
@@ -59,9 +58,6 @@ public class TeacherLessonController {
 
 	@Resource(name = "lessonIndexService")
 	private LessonIndexService lessonIndexService;
-	
-	@Resource(name = "notificationService")
-	private NotificationService notificationService;
 
 	/**
 	 * 선생님 - 강의조회
@@ -100,7 +96,7 @@ public class TeacherLessonController {
 
 //		String tchId = teacherVO.getTchId();
 		LessonVO lessonVO = new LessonVO();
-		lessonVO.setTchId("dammie7");
+		lessonVO.setTchId(teacherVO.getTchId());
 		lessonVO.setSubId(subId);
 		List<LessonVO> leList = new ArrayList<LessonVO>();
 		
@@ -139,17 +135,10 @@ public class TeacherLessonController {
 	 * 선생님 - 강의 삭제&요청
 	 */
 	@RequestMapping(path = "/teacherL/deleteLesson", method = RequestMethod.GET)
-	public String deleteLesson(Model model, String lesId, HttpSession session, String check) {
+	public String deleteLesson(Model model, String lesId, HttpSession session, String check, RedirectAttributes redirectAttributes) {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		LessonVO lessonVO = new LessonVO();
 		lessonVO.setLesId(lesId);
-		
-		NotificationVO notificationVo = new NotificationVO();
-		
-		notificationVo.setRecipientId("admin");
-		notificationVo.setSenderId(teacherVO.getTchId());
-		notificationVo.setNotifyCont(teacherVO.getTchId() + " 님께서 강의 등록요청을 하였습니다");
-		notificationVo.setUrl("/admin/selectAllAgree");
 		
 		String tchId = teacherVO.getTchId();
 		logger.debug("lesId값!!!:{}", lesId);
@@ -163,21 +152,23 @@ public class TeacherLessonController {
 				// 1 : 삭제 
 				lesIdxCnt = lessonService.deleteLesson(lesId);
 				if (lesIdxCnt == 1) {
-					List<LessonVO> noLessonList = lessonService.selectNoLesson(tchId);
-					model.addAttribute("noLessonList", noLessonList);
-					return "jsonView";
+					return "redirect:/teacherL/selectSubject";
 				}
 			}
 			else {
+				// 2 : 승인요청
+				
+				// 시험이 수정중인 갯수
 				examCnt = lessonService.selectExamCnt(lessonVO);
 				logger.debug("시험cnt:{}",examCnt);
-				lesIdxCnt = lessonService.updatePermissionLesson(lessonVO);
-				// 2 : 승인요청
-				if (examCnt == 0 && lesIdxCnt == 1) {
-					List<LessonVO> noLessonList = lessonService.selectNoLesson(tchId);
-					notificationService.insertNotification(notificationVo);
-					model.addAttribute("noLessonList", noLessonList);
-					return "jsonView";
+				
+				if (examCnt == 0) {
+					lessonService.updatePermissionLesson(lessonVO);
+					lessonService.updatePremissionExam(lessonVO);
+					return "redirect:/teacherL/selectSubject";
+				}else {
+					redirectAttributes.addFlashAttribute("no", "등록된 시험이 수정중입니다.");
+					return "redirect:/teacherL/selectSubject";
 				}
 			}
 		} catch (Exception e) {
@@ -208,7 +199,7 @@ public class TeacherLessonController {
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
 	@RequestMapping(path = "/teacherL/insertLesson", method = RequestMethod.POST)
-	public String insertLesson(LessonIndexVO lessonIndexVO, LessonVO lessonVO, HttpSession session) throws ParseException {
+	public String insertLesson(LessonVO lessonVO, HttpSession session) throws ParseException {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		String tchId = teacherVO.getTchId();
 
@@ -226,7 +217,7 @@ public class TeacherLessonController {
 			lesCnt = lessonService.insertLesson(lessonVO);
 			logger.debug("강의 추가됐니?:{}", lessonVO);
 			String lesId = lessonVO.getLesId();
-			List<LessonIndexVO> lesIdxList = lessonIndexVO.getLesIdxList();
+			List<LessonIndexVO> lesIdxList = lessonVO.getLesIdxList();
 			for (LessonIndexVO lesIdxVO : lesIdxList) {
 				lesIdxVO.setLesId(lesId);
 				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
@@ -329,33 +320,49 @@ public class TeacherLessonController {
 	}
 
 	/**
-	 * 선생님 - 강의 수정 & 강의목차 추가
+	 * 선생님 - 강의 수정(강의목차 추가,삭제,수정)
 	 */
 	@RequestMapping(path = "/teacherL/updateLesson", method = RequestMethod.POST)
-	public String updateLesson(LessonIndexVO lessonIndexVO, LessonVO lessonVO, String lesId) {
-		logger.debug("강의아이디:{}", lesId);
+	public String updateLesson(LessonVO lessonVO) {
 		logger.debug("강의VO:{}", lessonVO);
-		logger.debug("강의인덱스VO:{}", lessonIndexVO);
 		int upCnt = 0;
 		int upTempoCnt = 0;
-		int lesIdxCnt = 0;
+		int lesIdxUpCnt = 0;
+		int lesIdxInsertCnt = 0;
 		try {
 			upTempoCnt = lessonService.updateTempoLesson(lessonVO);
-			List<LessonIndexVO> List = lessonIndexVO.getLesIdxList();
-			logger.debug("강의 리스트 수:{}", List.size());
+			logger.debug("강의목차 리스트 :{}", lessonVO.getLesIdxList());
 
-			for (LessonIndexVO lesIdxVO : List) {
-				if (lesIdxVO != null) {
-					lesIdxVO.setLesId(lesId);
-					lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
-					logger.debug("강의목차!!!!:{}", lesIdxVO);
+			// 강의목차 수정
+			
+			for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxList()) {
+				if (lesIdxVO.getLidxId() != null) {
+					lesIdxVO.setLesId(lessonVO.getLesId());
+					lesIdxUpCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
+					logger.debug("수정된 강의목차!!!!:{}", lesIdxVO);
+				}
+			}
+			// 강의목차 추가
+			if(lessonVO.getLesIdxListInsert() != null) {
+				for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxListInsert()) {
+					if (lesIdxVO != null) {
+						lesIdxVO.setLesId(lessonVO.getLesId());
+						lesIdxInsertCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+						logger.debug("추가된 강의목차!!!!:{}", lesIdxVO);
+					}
+				}
+			}
+			// 강의목차 삭제
+			if(lessonVO.getLesIdxListDelete() != null) {
+				for(String lidxId : lessonVO.getLesIdxListDelete()) {
+					lessonIndexService.deleteLessonIndex(lidxId);
 				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (upCnt == 1 || lesIdxCnt == 1 || upTempoCnt == 1) {
+		if (upCnt == 1 || lesIdxUpCnt == 1 || lesIdxInsertCnt == 1) {
 			return "redirect:/teacherL/selectSubject";
 		}
 		return "";

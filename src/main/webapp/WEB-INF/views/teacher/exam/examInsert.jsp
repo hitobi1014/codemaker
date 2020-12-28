@@ -45,24 +45,16 @@ $(function() {
 		
 		// 빈칸 체크
 		var state = 0;
-		$('#examf').find('type="text"').each(function(index, data){
+		$('.form-control').each(function(index, data){
 			if($(this).val().trim() == ''){
-				alert('값이 입력되지 않았습니다.');
+				alert('문제 또는 해설이 입력되지 않았습니다.');
 				state = 1;
 				return false;
 			}
 		});
 		if(state == 0){
-			$('.comment').each(function(index, data){
-				if($(this).val().trim() == ''){
-					alert('해설이 입력되지 않았습니다.');
-					state = 1;
-					return false;
-				}
-			});
-		}
-		if(state == 0){
-			if($('.chk:checked').length == $('.d5').length){
+			console.log('aa');
+			if($('.chk:checked').length < $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
 				state = 1;
 				return false;
@@ -129,7 +121,7 @@ $(function() {
 			<div id="d3">
 				<h2>시험 등록</h2>
 				<br> 
-				<label for="sel0">시험 이름</label> <br>
+				<label for="sel0" id="sel0">시험 이름</label> <br>
 				<form:input type="text" path="examNm" class="form-control" value="${examNm }" />
 			</div>
 			<br><br>

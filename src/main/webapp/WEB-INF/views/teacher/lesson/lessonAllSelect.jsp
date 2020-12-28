@@ -7,7 +7,7 @@
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
-<link rel="stylesheet" href="/css/teacher/lesson/selectAllLesson.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lessonAllSelect.css">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -51,34 +51,21 @@ $(function(){
 	})
 	
 	
+	
+	// 삭제&수정버튼
+	$('#lesTbody').on('click','.upClass',function(){
+		var lesId=$(this).data("lesid");
+		var subId=$(this).data("subid");
+		document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
+	})
+	
 	// 삭제 버튼
 	$('#lesTbody').on('click', '.delClass', function(){
 		alert('삭제되었습니다.');
 		var lesid = $(this).data("lesid");
 		var check = $(this).data("check");
 		console.log(lesid);
-		$.ajax({
-				method:'get',
-				url:'/teacherL/deleteLesson',
-				data:{'lesId':lesid,
-					 'check':check},
-				success:function(data){
-					console.log(data);
-					document.location="/teacherL/selectSubject";
-// 					$('#lesTbody').load('/teacherL/selectloadSubject');
-				},
-				error:function(data){
-					alert('data');
-					console.log(data);
-				}
-			})
-	})
-	
-	// 수정버튼
-	$('#lesTbody').on('click','.upClass',function(){
-		var lesId=$(this).data("lesid");
-		var subId=$(this).data("subid");
-		document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
+		document.location="/teacherL/deleteLesson?lesId="+lesid+"&check="+check;
 	})
 	
 	// 요청버튼
@@ -87,23 +74,12 @@ $(function(){
 		var lesid = $(this).data("lesid");
 		var check = $(this).data("check");
 		console.log(lesid);
-		$.ajax({
-				method:'get',
-				url:'/teacherL/deleteLesson',
-				data:{'lesId':lesid,
-					 'check':check},
-				dataType:'html',
-				success:function(data){
-					console.log(data);
-					alert('요청되었습니다.')
-					document.location="/teacherL/selectSubject";
-// 					$('#lesTbody').load('/teacherL/selectloadSubject');
-				},
-				error:function(data){
-					alert('요청을 실패하였습니다');
-				}
-			})
+		document.location="/teacherL/deleteLesson?lesId="+lesid+"&check="+check;
 	})
+	
+	if('${no}' != null && '${no}' != ''){
+		alert('${no}');
+	}
 		
 })	
 

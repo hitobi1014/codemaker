@@ -4,8 +4,8 @@ import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.admin.teacher.vo.LessonVO;
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
 * TeacherMapper.java

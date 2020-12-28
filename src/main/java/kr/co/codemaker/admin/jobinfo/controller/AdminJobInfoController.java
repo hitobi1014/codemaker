@@ -56,7 +56,7 @@ public class AdminJobInfoController {
 	
 	@RequestMapping(path="/admin/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		
@@ -83,7 +83,7 @@ public class AdminJobInfoController {
 		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
-		model.addAttribute("page", map2.get("page"));
+		model.addAttribute("page", page);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);

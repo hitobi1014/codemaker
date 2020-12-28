@@ -45,12 +45,23 @@
 	
 	<!-- 	강의등록 : les_state = '1'(임시저장) -->
 	<insert id="insertLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-	INSERT INTO lesson
-     	VALUES ('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm}, #{tchId}, #{subId}, #{lesSdate}, #{lesEdate},#{lesDetail})
+INSERT INTO lesson(
+	les_id,
+    les_nm,
+    les_cont,
+    les_state,
+    les_cash,
+    les_term,
+    les_sdate,
+    les_edate,
+    tch_id,
+    sub_id,
+    les_detail)
+     	VALUES ('LESSON'||LPAD(LESSON_SEQ.NEXTVAL,4,'0'), #{lesNm}, #{lesCont}, '1', #{lesCash}, #{lesTerm},#{lesSdate}, #{lesEdate}, #{tchId}, #{subId} ,#{lesDetail})
 	     <selectKey keyProperty="lesId" resultType="String">
 			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
 		</selectKey>
-	</insert>
+</insert>
 	
 	<!-- 	강의 수정 : les_state = '1'(임시저장) -->
 	<update id="updateTempoLesson" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
@@ -79,4 +90,11 @@
 		  </where>
 	</select>
 
+<update id="updatePremissionExam" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+UPDATE exam
+   		   SET exam_state='3'
+   		   <where>
+		      AND les_id=#{lesId}
+   		   </where>
+</update>
 </mapper>
