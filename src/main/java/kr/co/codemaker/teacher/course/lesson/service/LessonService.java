@@ -64,6 +64,10 @@ public class LessonService{
 		return lessonMapper.updatePermissionLesson(lessonVO);
 	}
 	
+	public int updatePremissionExam(LessonVO lessonVO) throws Exception{
+		return lessonMapper.updatePremissionExam(lessonVO);
+	}
+	
 	public int selectExamCnt(LessonVO lessonVO) throws Exception{
 		return lessonMapper.selectExamCnt(lessonVO);
 	}

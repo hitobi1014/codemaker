@@ -76,6 +76,10 @@ $(function(){
 		console.log(lesid);
 		document.location="/teacherL/deleteLesson?lesId="+lesid+"&check="+check;
 	})
+	
+	if('${no}' != null && '${no}' != ''){
+		alert('${no}');
+	}
 		
 })	
 

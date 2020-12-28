@@ -26,14 +26,14 @@ input{
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	height: 10px;
-	width: 900px;
+	width: 868px;
 }
 #d3 {
 	padding-left: 20px;
 	display: inline-block;
 	margin-top: -4px;
 	background-color: white;
-	width: 900px;
+	width: 868px;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 	height: 150px;
@@ -52,7 +52,7 @@ input{
 	display: inline-block;
 	margin-left: -6px;
 	background-color: white;
-	width: 900px;
+	width: 870px;
 	border-top-left-radius: 8px;
 	border-bottom-left-radius: 8px;
 	border-top-right-radius: 8px;
@@ -90,7 +90,7 @@ input{
 	text-align: right;
 	margin-top: 10px;
 	padding-right: 20px;
-	margin-right: 298px;
+	margin-right: 314px;
 }
 .comment {
 	resize: none;
@@ -111,7 +111,11 @@ input{
 	width: 200px;
 }
 .delIdBtn{
-	margin-right: 77px;
+	margin-right: 49px;
+    background-color: cadetblue;
+}
+.delBtn{
+	margin-right: 49px;
     background-color: cadetblue;
 }
 #del{

@@ -238,7 +238,6 @@ public class ExamController {
 	@ResponseBody
 	public void insertExam(ExamVO examVO) {
 		int index = 0;
-		index = index + 1;
 		
 		try {
 				examService.insertExam(examVO);

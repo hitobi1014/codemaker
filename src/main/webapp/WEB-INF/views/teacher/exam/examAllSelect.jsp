@@ -90,29 +90,26 @@ $(function() {
 });
 
 // 강의 조회 함수
-var selectLesson = function(subId){
+var selectLesson = function(subId, lesId){
 	$.ajax({
 		url : '/exam/selectAllLesson',
 		method : 'post',
 		data : {
-			subId : subId
+			subId : subId,
 		},
 		success : function(res){
 			str = '<select name="searchLesId" class="form-control" id="lesson">';
 			str += '<option value="">강의</option>';
 			
-			console.log(res.lessonList);
-			console.log(res.lessonList.length);
-			
-// 			if(res.lessonList.length != 0){
+			if(res.lessonList.length > 0){
 				$.each(res.lessonList, function(index, data){
 					if(data.lesId == '${examVO.searchLesId}'){
 						str += '<option selected="selected" value="'+ data.lesId +'">'+ data.lesNm +'</option>';
 					}else{
-						str += '<option value="'+ data.lesId +'">'+ data.Nm +'</option>';
+						str += '<option value="'+ data.lesId +'">'+ data.lesNm +'</option>';
 					}
 				})
-// 			}
+			}
 			str += '</select>';
 			
 			$('#les').html(str);
@@ -196,11 +193,17 @@ var selectLesson = function(subId){
 								</td>
 								<td data-examstate='${exam.examState }' class='m'>
 									<c:choose>
-										<c:when test="${exam.examState == '4' }">
+										<c:when test="${exam.examState == '5' }">
 											시험반려
 										</c:when>
-										<c:when test="${exam.examState == '3' }">
+										<c:when test="${exam.examState == '4' }">
 											배포완료
+										</c:when>
+										<c:when test="${exam.examState == '3' }">
+											승인요청중
+										</c:when>
+										<c:when test="${exam.lesState == '2' }">
+											승인요청중
 										</c:when>
 										<c:when test="${exam.examState == '2' }">
 											등록완료
