@@ -85,7 +85,7 @@ h3{
 	border: 2px solid #cccccc;
 }
 #career-f > legend{
-	margin-left: 90px;
+	margin-left: 59px;
 	width: auto;
 }
 #career-f > div{
@@ -107,4 +107,9 @@ h3{
 }
 .fs-16{
 	font-size: 16px;
+}
+.teacher-img-box{
+	width: 200px;
+	height: 300px;
+	overflow: hidden;
 }

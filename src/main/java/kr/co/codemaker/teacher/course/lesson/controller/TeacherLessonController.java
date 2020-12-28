@@ -96,7 +96,7 @@ public class TeacherLessonController {
 
 //		String tchId = teacherVO.getTchId();
 		LessonVO lessonVO = new LessonVO();
-		lessonVO.setTchId("dammie7");
+		lessonVO.setTchId(teacherVO.getTchId());
 		lessonVO.setSubId(subId);
 		List<LessonVO> leList = new ArrayList<LessonVO>();
 		
