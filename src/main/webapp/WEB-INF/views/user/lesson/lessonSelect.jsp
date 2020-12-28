@@ -28,19 +28,23 @@
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/play.png"></div>영상 ${lesIdxList.size()}</span>
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험</span>
 					</div>
-					<div class="les-detail-price">
-						<c:set var="price" value="${lessonVO.lesCash}"/>
-						<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
-					</div>
 				</div>
-				<div class="les-info-bottom">
-					<div class="lesson-content-detail-bottom">
-						<c:url value="/user/payView" var="pay">
-						<c:param name="lesId" value="${lesId}" />
-						</c:url>
-					<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+					<c:choose>
+						<c:when test="${payVO.userId == MEMBER_INFO.userId }">
+					<div class="les-info-bottom">
+								<div class="les-detail-price">
+									<c:set var="price" value="${lessonVO.lesCash}"/>
+									<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+								</div>
+								<div class="lesson-content-detail-bottom">
+									<c:url value="/user/payView" var="pay">
+									<c:param name="lesId" value="${lesId}" />
+									</c:url>
+								<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+								</div>
 					</div>
-				</div>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		<div class="lesson-header-right">
