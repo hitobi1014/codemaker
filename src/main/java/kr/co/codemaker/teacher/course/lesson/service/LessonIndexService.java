@@ -10,6 +10,18 @@ import kr.co.codemaker.teacher.course.lesson.dao.LessonIndexMapper;
 import kr.co.codemaker.teacher.course.lesson.dao.TeacherSubjectMapper;
 import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
 
+/**
+ * TeacherIndexService.java
+ *
+ * @author 박다미
+ * @version 1.0
+ * @since 2020. 12. 1.
+ *
+ *   수정자 수정내용 
+ *   ------ ------------------------ 
+ *   박다미 최초 생성
+ *
+ */
 @Service("lessonIndexService")
 public class LessonIndexService {
 	
@@ -17,13 +29,7 @@ public class LessonIndexService {
 	private LessonIndexMapper lessonIndexMapper;
 	
 	public List<LessonIndexVO> selectLessonIndex(String lesId) throws Exception {
-		
-		try {
-//			return lessonIndexMapper.selectLessonIndex(lesId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return lessonIndexMapper.selectLessonIndex(lesId);
 	}
 	
 	
@@ -31,5 +37,13 @@ public class LessonIndexService {
 		return lessonIndexMapper.insertLessonIndex(lesIdxVO);
 	}
 	
-
+	public int updateLessonIndex(LessonIndexVO lesIdxVO) throws Exception{
+		return lessonIndexMapper.updateLessonIndex(lesIdxVO);
+	}
+	
+	public int deleteLessonIndex(String lidxId) throws Exception{
+		return lessonIndexMapper.deleteLessonIndex(lidxId);
+	}
+	
+	
 }

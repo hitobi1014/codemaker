@@ -47,7 +47,7 @@ public class UserNoticeController {
 	
 	@RequestMapping(path="/user/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -63,13 +63,15 @@ public class UserNoticeController {
 		
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		try {
-			map2 = noticeService.selectAllNotice(map);
+			map2 = noticeService.selectAllNoticeU(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		logger.debug("map2 {}", map2);
 		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
 		model.addAttribute("page", map2.get("page"));
@@ -103,10 +105,12 @@ public class UserNoticeController {
 		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		
 		ServletOutputStream sos = response.getOutputStream();
 		

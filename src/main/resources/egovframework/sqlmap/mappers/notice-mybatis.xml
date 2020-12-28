@@ -27,7 +27,7 @@
 	</select>
 	
 	<select id="selectAllNotice" resultType="kr.co.codemaker.common.vo.NoticeVO" parameterType="java.util.HashMap">
-	SELECT * FROM
+SELECT * FROM
 			(SELECT ROWNUM AS RN,
 			       A.*
 			  FROM (SELECT *
@@ -38,16 +38,17 @@
 								AND NOTICE_HEAD LIKE '%' || #{searchOption} || '%'
 							</when>
 						</choose>
-						<if test="keyWord != '' and keyWord != null">
+						<if test='keyWord != "" and keyWord != null'>
 							AND	(NOTICE_CONT LIKE '%' || #{keyWord} || '%' 
 							 OR NOTICE_TITLE LIKE '%' || #{keyWord} || '%')
 						</if>
 					</where>
-					) A)
+					) A
+					ORDER BY NOTICE_ID DESC)
 					<where>
 					 AND RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 					</where>
-	</select>
+</select>
 	
 	<insert id="insertNotice" parameterType="kr.co.codemaker.common.vo.NoticeVO">
 		insert into notice values ('NOTICE'||LPAD(NOTICE_SEQ.NEXTVAL,4,'0'), #{noticeTitle}, #{noticeCont}, sysdate, 'N', #{noticeHead}, NULL, NULL,#{adminId})
@@ -64,4 +65,47 @@ update notice set notice_title = #{noticeTitle}, notice_cont = #{noticeCont}, no
 update notice set
 				notice_out = 'Y' where notice_id = #{noticeId}
 </delete>
+<select id="noticeTotalCntU" resultType="int" parameterType="String">
+select count(*) from notice 
+
+				<where>
+				and NOTICE_OUT = 'N'
+					<choose>
+						<when test="searchOption == 1 or searchOption == 2">
+							AND NOTICE_HEAD LIKE '%' || #{searchOption} || '%'
+						</when>
+						<otherwise>
+							AND NOTICE_HEAD LIKE '%' || '1' || '%'
+						</otherwise>
+					</choose>
+					<if test="keyWord != '' and keyWord != null">
+						AND	(NOTICE_CONT LIKE '%' || #{keyWord} || '%' 
+						 OR NOTICE_TITLE LIKE '%' || #{keyWord} || '%')
+					</if>
+				</where>
+</select>
+<select id="selectAllNoticeU" parameterType="java.util.HashMap" resultType="kr.co.codemaker.common.vo.NoticeVO">
+SELECT * FROM
+			(SELECT ROWNUM AS RN,
+			       A.*
+			  FROM (SELECT *
+					FROM NOTICE
+					<where>
+					and NOTICE_OUT = 'N'
+						<choose>
+							<when test="searchOption == 1 or searchOption == 2">
+								AND NOTICE_HEAD LIKE '%' || #{searchOption} || '%'
+							</when>
+						</choose>
+						<if test='keyWord != "" and keyWord != null'>
+							AND	(NOTICE_CONT LIKE '%' || #{keyWord} || '%' 
+							 OR NOTICE_TITLE LIKE '%' || #{keyWord} || '%')
+						</if>
+					</where>
+					) A
+					ORDER BY NOTICE_ID DESC)
+					<where>
+					 AND RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+					</where>
+</select>
 </mapper>

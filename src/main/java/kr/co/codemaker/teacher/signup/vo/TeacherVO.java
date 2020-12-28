@@ -1,5 +1,7 @@
 package kr.co.codemaker.teacher.signup.vo;
 
+import java.util.Date;
+
 import kr.co.codemaker.common.vo.BaseVO;
 
 public class TeacherVO extends BaseVO{
@@ -8,8 +10,8 @@ public class TeacherVO extends BaseVO{
 	private String tchNm;      //선생님이름
 	private String tchTel;     //선생님전화번호
 	private String tchProfile; //선생님프로필
-	private String tchJoin;    //선생님입사일
-	private String tchRetire;  //선생님퇴사일
+	private Date tchJoin;    //선생님입사일
+	private Date tchRetire;  //선생님퇴사일
 	private String tchIntro;   //선생님소개말
 	private String tchCode;    //가입인증코드
 	private String tchGn;      //기업구분자
@@ -68,16 +70,16 @@ public class TeacherVO extends BaseVO{
 	public void setTchProfile(String tchProfile) {
 		this.tchProfile = tchProfile;
 	}
-	public String getTchJoin() {
+	public Date getTchJoin() {
 		return tchJoin;
 	}
-	public void setTchJoin(String tchJoin) {
+	public void setTchJoin(Date tchJoin) {
 		this.tchJoin = tchJoin;
 	}
-	public String getTchRetire() {
+	public Date getTchRetire() {
 		return tchRetire;
 	}
-	public void setTchRetire(String tchRetire) {
+	public void setTchRetire(Date tchRetire) {
 		this.tchRetire = tchRetire;
 	}
 	public String getTchIntro() {

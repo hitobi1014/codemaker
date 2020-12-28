@@ -2,7 +2,7 @@ package kr.co.codemaker.common.vo;
 
 import java.util.Date;
 
-public class TeacherVO {
+public class TeacherVO extends BaseVO {
 	
 	private String tchId;
 	private String tchPass;
@@ -16,6 +16,7 @@ public class TeacherVO {
 	private String tchGn;
 	private String resId;
 	private String comId;
+	
 	
 	public TeacherVO() {
 	}

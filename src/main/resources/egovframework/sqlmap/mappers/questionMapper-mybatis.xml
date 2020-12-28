@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.teacher.course.exam.dao.QuestionMapper">
 
-<select id="selectQuestion" parameterType="kr.co.codemaker.teacher.course.exam.vo.QuestionVO" resultType="kr.co.codemaker.teacher.course.exam.vo.QuestionVO">
+<select id="selectQuestion" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.QuestionVO">
 SELECT
     que_id,
     que_cont,
@@ -16,8 +16,13 @@ FROM
     question
 WHERE
 	exam_id = #{examId}
+ORDER BY
+	SUBSTR(que_id,4)
 </select>
 <insert id="insertQuestion" parameterType="kr.co.codemaker.teacher.course.exam.vo.QuestionVO">
+<selectKey resultType="String" keyProperty="queId" order="BEFORE">
+  		SELECT 'QUE'||LPAD(QUE_SEQ.NEXTVAL,4,'0') FROM dual
+</selectKey>
 INSERT INTO question (
     que_id,
     que_cont,
@@ -26,7 +31,7 @@ INSERT INTO question (
     que_score,
     exam_id
 ) VALUES (
-    'QUE'||LPAD(QUE_SEQ.NEXTVAL,4,'0'),
+    #{queId},
     #{queCont},
     #{queAnswer},
     #{queExplain},

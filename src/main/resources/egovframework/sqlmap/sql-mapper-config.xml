@@ -4,6 +4,9 @@
 <configuration>
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!--  oracle null 처리  -->
+        <setting name="cacheEnabled" value="false" />
+        <setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 <typeAliases></typeAliases>
 </configuration>

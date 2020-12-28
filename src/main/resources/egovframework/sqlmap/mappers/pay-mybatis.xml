@@ -10,7 +10,7 @@
 				#{payWay},
 				#{paySum},
 				SYSDATE,
-				SYSDATE+#{cosTerm},
+				SYSDATE+#{lesTerm},
 				0,
 				#{userId},
 				#{lesId})
@@ -46,4 +46,29 @@
 	<delete id="deleteCart" parameterType="kr.co.codemaker.user.cart.vo.CartVO">
 		delete from cart where les_id = #{lesId} and user_id=#{userId}
 	</delete>
+	<select id="selectPoint" resultType="kr.co.codemaker.user.cart.vo.PointVO" parameterType="kr.co.codemaker.user.cart.vo.PointVO">
+		select * 
+		    FROM (select * from POINT
+		    WHERE user_id=#{userId}
+		    order by point_date desc)
+		WHERE ROWNUM=1
+	</select>
+	
+	<!-- 포인트 사용 -->
+	<insert id="usePoint" parameterType="kr.co.codemaker.user.cart.vo.PointVO">
+		INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
+				VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 
+									(SELECT point_sum FROM(
+		                                SELECT point_sum FROM POINT
+		                                WHERE user_id=#{userId}
+		                                order by point_date desc) a
+		                                WHERE ROWNUM=1) - #{pointUpdate}, #{userId})
+	</insert>
+	
+	<!-- 결제시 이미 결제내역에 있는지, 강의 결제가 가능한 상태인지 확인 -->
+	<select id="selectCheckPay" resultType="kr.co.codemaker.user.cart.vo.PayVO" parameterType="kr.co.codemaker.user.cart.vo.PayVO">
+		SELECT * FROM PAY
+		WHERE USER_ID=#{userId} AND LES_ID = #{lesId}
+		AND COS_TERM > SYSDATE
+	</select>
 </mapper>

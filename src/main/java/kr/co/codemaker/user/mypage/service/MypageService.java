@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.common.vo.UserVO;
+import kr.co.codemaker.user.lessoninfo.vo.ReviewVO;
 import kr.co.codemaker.user.mypage.dao.MyPageMapper;
 import kr.co.codemaker.user.mypage.vo.PointVO;
 
@@ -24,8 +25,8 @@ public class MypageService{
 		return myPageMapper.myinfoSelect(userId);
 	}
 
-	public int deleteUser(String userId) throws Exception {
-		return myPageMapper.deleteUser(userId);
+	public int deleteUser(UserVO userVo) throws Exception {
+		return myPageMapper.deleteUser(userVo);
 	}
 
 	public int updateUser(UserVO userVo) throws Exception {
@@ -66,6 +67,8 @@ public class MypageService{
 	public int deletePointCompare(String userId)throws Exception {
 		return myPageMapper.deletePointCompare(userId);
 	}
+
+
 
 
 	

@@ -1,22 +1,16 @@
 package kr.co.codemaker.user.classroom.exam.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.user.classroom.exam.dao.AnswersheetUserMapper;
+import kr.co.codemaker.user.classroom.exam.dao.ExamScoreUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.ExamUserMapper;
 import kr.co.codemaker.user.classroom.exam.dao.QuestionUserMapper;
-import kr.co.codemaker.user.classroom.exam.vo.ExamRequestVO;
-import kr.co.codemaker.user.classroom.exam.vo.ExamResultVO;
-import kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO;
 import kr.co.codemaker.user.classroom.exam.vo.ExamVO;
-import kr.co.codemaker.user.classroom.exam.vo.QuestionVO;
 
 
 /**
@@ -44,72 +38,46 @@ public class ExamUserService {
 	@Resource(name = "answersheetUserMapper")
 	private AnswersheetUserMapper answersheetUserMapper;
 
-	
-	public Map<String, Object> selectAllExam(ExamRequestVO examRequestVo) {
-		Map<String, Object> examMap = new HashMap<String, Object>();
-		
-		List<ExamVO> examList = new ArrayList<ExamVO>();
-		try {
-			examList = examUserMapper.selectAllExam(examRequestVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		examMap.put("examList", examList);
-		
-		int totalCnt = 0;
-		try {
-			totalCnt = examUserMapper.selectTotalCntExam(examRequestVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		examMap.put("totalCnt", totalCnt);
-		
-		return examMap;
+	/**
+	 * 시험 문제를 전체 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public List<ExamVO> selectAllExam(ExamVO examVO) throws Exception {
+		return examUserMapper.selectAllExam(examVO);
 	}
 	
-	public ExamVO selectExam(ExamVO examVo) {
-		try {
-			return examUserMapper.selectExam(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * 시험 문제를 전체 조회하는 메서드 - 강의 조회
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return 
+	 */
+	public List<ExamVO> selectExamLesson(ExamVO examVO) throws Exception{
+		return examUserMapper.selectExamLesson(examVO);
 	}
 	
-	public ExamScoreVO selectExamScore(ExamScoreVO examScoreVo) {
-		try {
-			return examUserMapper.selectExamScore(examScoreVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * 페이징 처리를 위해 출제한 문제의 전체 수를 조회하는 메서드
+	 * 
+	 * @param examVO
+	 * @return
+	 */
+	public int selectTotalCntExam(ExamVO examVO) throws Exception{
+		return examUserMapper.selectTotalCntExam(examVO);
 	}
 	
-	public List<ExamResultVO> selectExamResult(ExamVO examVo) {
-		try {
-			return examUserMapper.selectExamResult(examVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public String insertExamScore(ExamScoreVO examScoreVo) {
-		try {
-//			return examUserMapper.insertExamScore(examScoreVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return examScoreVo.getExamId();
-	}
-	
-	public String updateExamScore(ExamScoreVO examScoreVo) {
-		try {
-//			return examUserMapper.insertExamScore(examScoreVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return examScoreVo.getExamId();
+	/**
+	 * 해당 시험을 조회하는 메서드
+	 * @param examVO
+	 * @return 
+	 * @throws Exception 
+	 */
+	public ExamVO selectExam(ExamVO examVO) throws Exception {
+		return examUserMapper.selectExam(examVO);
 	}
 	
 }

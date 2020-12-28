@@ -2,25 +2,27 @@ package kr.co.codemaker.teacher.course.exam.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.teacher.course.exam.service.AnswersheetService;
 import kr.co.codemaker.teacher.course.exam.service.ExamService;
 import kr.co.codemaker.teacher.course.exam.service.QuestionService;
 import kr.co.codemaker.teacher.course.exam.vo.AnswersheetVO;
-import kr.co.codemaker.teacher.course.exam.vo.ExamRequestVO;
 import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
+import kr.co.codemaker.teacher.course.exam.vo.LessonVO;
 import kr.co.codemaker.teacher.course.exam.vo.QuestionVO;
-import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
-import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
+import kr.co.codemaker.teacher.course.exam.vo.SubjectVO;
 
 /**
  * 
@@ -37,221 +39,261 @@ import kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO;
  */
 @Controller
 public class ExamController {
-	
+
 	@Resource(name = "examService")
 	private ExamService examService;
-	
+
 	@Resource(name = "questionService")
 	private QuestionService questionService;
-	
+
 	@Resource(name = "answersheetService")
 	private AnswersheetService answersheetService;
 	
-	@Resource(name = "lessonIndexService")
-	private LessonIndexService lessonIndexService;
-	
-	/**
-	 * 시험 등록화면을 요청하는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/exam/insertExamView")
-	public String insertViewExam(ExamVO examVO, Model model) {
-		
-		// 강의목차를 조회
-//		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
-		List<LessonIndexVO> lessonIndexList = null;
-		try {
-			lessonIndexList = lessonIndexService.selectLessonIndex("LIDX0002");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("lessonIndexList", lessonIndexList);
-//		model.addAttribute("lidxId", lidxId);
-//		model.addAttribute("lidxId", "LIDX0002");
+	private static final Logger logger = LoggerFactory.getLogger(ExamController.class);
 
-//		return "";
-		return "teacher/exam/examInsert";
-	}
-	
 	/**
-	 * 시험을 등록하는 메서드 
-	 * @return
-	 */
-	@RequestMapping(path = "/exam/insertExam")
-	public String insertExam(ExamVO examVO, List<QuestionVO> questionList, 
-							List<AnswersheetVO> answerList) {
-		
-		// cur_id 와 exam_nm 분리하여 다시 셋팅
-		String[] examInfo = examVO.getLidxId().trim().split("\"");
-		examVO.setLidxId(examInfo[0]);
-		examVO.setExamNm(examInfo[1]);
-		
-		String exam_id = examService.insertExam(examVO); // 시험 아이디를 가져온다.
-		
-		int index = 0;
-		for(QuestionVO questionVo : questionList) {
-			// 시험 아이디를 셋팅
-			questionVo.setExamId(exam_id);
-			
-			String que_id = questionService.insertQuestion(questionVo);
-			
-			for(int i=index; i < index+4 ; i++) { // 보기가 4개씩 존재
-				// 시험 문제 아이디를 셋팅
-				answerList.get(i).setQueId(que_id);
-			}
-			index=+4;
-		}
-		
-		// 등록된 시험 화면으로 이동
-		return "redirect:/exam/selectExam?exam_id=" + exam_id;
-	}
-	
-	/**
-	 * 시험 수정화면을 요청하는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.GET})
-	public String updateViewExam(ExamVO examVO, List<QuestionVO> questionList, 
-							List<AnswersheetVO> answerList, Model model) {
-		
-		// 강의목차를 조회
-//		List<LessonIndexVO> lessonIndexList = lessonIndexService.selectLessonIndex(examVO);
-		List<LessonIndexVO> lessonIndexList = null;
-		try {
-			lessonIndexList = lessonIndexService.selectLessonIndex("");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("lessonIndexList", lessonIndexList);
-		model.addAttribute("lidxId", examVO.getLidxId());
-//		model.addAttribute("lidxId", "LIDX0002");
-		
-		if(examVO.getExamNm() == null || examVO.getExamNm().equals("")) { // 수정화면에서 요청이 왔을 경우
-			
-			ExamVO ev = examService.selectExam(examVO);
-			model.addAttribute("examVo", ev);
-			
-			questionList = questionService.selectQuestion(examVO);
-			model.addAttribute("questionList", questionList);
-			
-			List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
-			
-			for(QuestionVO questionVo : questionList) {
-				List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
-				
-				for(AnswersheetVO answersheetVo : answersheetList) {
-					answersheetLists.add(answersheetVo);
-				}
-			}
-			model.addAttribute("answersheetLists", answersheetLists);
-			
-		}else { // 시험 상세보기에서 요청이 왔을 경우
-			model.addAttribute("examVo", examVO);
-			model.addAttribute("questionList", questionList);
-			model.addAttribute("answersheetLists", answerList);
-		}
-		
-		
-		return "teacher/exam/examUpdate";
-	}
-	
-	/**
-	 * 시험을 수정하는 메서드 
-	 * @return
-	 */
-	@RequestMapping(path = "/exam/updateExam" , method = {RequestMethod.POST})
-	public String updateExam(ExamVO examVo, List<QuestionVO> questionList, 
-						List<AnswersheetVO> answerList) {
-		
-		examService.updateExam(examVo);
-		
-		for(QuestionVO questionVo : questionList) {
-			questionService.updateQuestion(questionVo);
-		}
-		
-		for(AnswersheetVO answersheetVo : answerList) { // 보기가 4개씩 존재
-			answersheetService.updateAnswersheet(answersheetVo);
-		}
-		
-		// 수정된 시험 화면으로 이동
-		return "redirect:/exam/selectExam?exam_id=" + examVo.getExamId();
-	}
-	
-	/**
-	 * 등록한 시험문제를 전체 조회하는 메서드
-	 * @return
-	 */
-	@RequestMapping(path = "/exam/selectAllResExam")
-	public String selectAllResExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
-		
-//		Map<String, Object> examMap = examService.selectAllExam(examRequestVo);
-		
-		ExamRequestVO erv = new ExamRequestVO("Y", "LESSON0001", 1);
-		Map<String, Object> examMap = examService.selectAllExam(erv);
-		
-		model.addAttribute("examList", (List<ExamVO>)examMap.get("examList"));      
-		
-		int totalCnt = (int)examMap.get("totalCnt");
-		
-//		int pages = (int) Math.ceil((double) totalCnt / examRequestVo.getPageSize());
-		int pages = (int) Math.ceil((double) totalCnt / 5);
-
-		model.addAttribute("pages", pages);
-		model.addAttribute("startPage", 1);
-		model.addAttribute("endPage", pages);
-		model.addAttribute("page", examRequestVo.getPage());
-		
-		session.setAttribute("examState", examRequestVo.getExamState()); // 검색 조건
-		
-		return "teacher/exam/examAllSelectAjaxHTML";
-	}
-	
-	/**
-	 * 등록한 시험문제를 전체 조회하는 메서드
+	 * 시험 리스트 조회 - 과목 조회, 강의 조회, 시험 조회
+	 * 
+	 * @author 김미연
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/selectAllExam")
-	public String selectAllExam(ExamRequestVO examRequestVo, Model model, HttpSession session) {
+	public String selectAllExam(Model model, HttpSession session, ExamVO examVO) {
+		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
 		
-		return "teacher/exam/examAllSelect";
+		examVO.setTchId(tchId);
+		
+//		examVO.setTchId("200ser@maker.com");
+		
+		List<SubjectVO> subjectList = new ArrayList<>();
+		List<LessonVO> lessonList = new ArrayList<>();
+		List<ExamVO> examList = new ArrayList<>();
+		int totalCnt = 0;
+		
+		try {
+			lessonList = examService.selectAllLesson(examVO);
+			subjectList = examService.selectAllSubject(examVO);
+			examList = examService.selectAllExam(examVO);
+			totalCnt = examService.selectTotalCntExam(examVO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int pages = (int) Math.ceil((double) totalCnt / 10);
+		
+		model.addAttribute("pages", pages);
+		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("examList", examList);
+		
+		return "teacherPage/teacher/exam/examAllSelect";
+	}
+	
+	/**
+	 * 강의 조회를 위한 메서드
+	 * 
+	 * @author 김미연
+	 * @return
+	 */
+	@RequestMapping(path = "/exam/selectAllLesson")
+	public String selectAllLesson(Model model, LessonVO lessonVO, HttpSession session) {
+		String tchId = ((TeacherVO)session.getAttribute("S_TEACHER")).getTchId();
+		
+		lessonVO.setTchId(tchId);
+		
+		List<LessonVO> lessonList = new ArrayList<>();
+		try {
+			lessonList = examService.selectAllLesson(lessonVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("lessonList", lessonList);
+		return "jsonView";
 	}
 	
 	/**
 	 * 등록한 시험문제를 상세 조회하는 메서드
+	 * 
+	 * @author 김미연
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/selectExam")
-	public String selectExam(ExamVO examVo, Model model) {
-		ExamVO ev = examService.selectExam(examVo);
-		model.addAttribute("examVo", ev);
+	public String selectExam(ExamVO examVO, Model model) {
+		ExamVO ev = new ExamVO();
+		List<QuestionVO> questionList = new ArrayList<>();
+		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
 		
-		List<QuestionVO> questionList = questionService.selectQuestion(examVo);
-		model.addAttribute("questionList", questionList);
-		
-		List<AnswersheetVO> answersheetLists = new ArrayList<>(); 
-		
-		for(QuestionVO questionVo : questionList) {
-			List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVo);
-			
-			for(AnswersheetVO answersheetVo : answersheetList) {
-				answersheetLists.add(answersheetVo);
+		try {
+			ev = examService.selectExam(examVO);
+			questionList = questionService.selectQuestion(examVO);
+			for (QuestionVO questionVO : questionList) {
+				List<AnswersheetVO> answersheetList = answersheetService.selectAnswersheet(questionVO);
+				
+				for (AnswersheetVO answersheetVO : answersheetList) {
+					answersheetLists.add(answersheetVO);
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		model.addAttribute("answersheetLists", answersheetLists);
 		
-		return "teacher/exam/examSelect";
+		model.addAttribute("ev", ev);
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("answersheetLists", answersheetLists);
+
+		return "teacherPage/teacher/exam/examUpdate";
 	}
 	
 	/**
+	 * 시험을 수정하는 메서드
+	 * 
+	 * @author 김미연
+	 * @return
+	 */
+	@RequestMapping(path = "/exam/updateExam")
+	public String updateExam(ExamVO examVO, RedirectAttributes redirectAttributes) {
+		int index = 0;
+		
+		try {
+			// 기존 문제의 수정
+			examService.updateExam(examVO);
+			for (QuestionVO questionVO : examVO.getQuestionList()) {
+				questionService.updateQuestion(questionVO);
+			}
+			
+			for (AnswersheetVO answersheetVO : examVO.getAnswersheetLists()) { // 보기가 4개씩 존재
+				answersheetService.updateAnswersheet(answersheetVO);
+			}
+			
+			// 기존문제를 삭제할 경우
+			if(examVO.getDelqueIdList() != null) {
+				for(String queId : examVO.getDelqueIdList()) {
+					AnswersheetVO answersheetVO = new AnswersheetVO();
+					answersheetVO.setQueId(queId);
+					
+					QuestionVO questionVO = new QuestionVO();
+					questionVO.setQueId(queId);
+					
+					answersheetService.deleteAnswersheet(answersheetVO);
+					questionService.deleteQuestion(questionVO);
+				}
+			}
+			
+			// 새로운 문제 추가
+			if(examVO.getQueContList() != null) {
+				for (int i=0; i < examVO.getQueContList().size(); i++) {
+					// 시험 아이디를 셋팅
+					QuestionVO questionVO = new QuestionVO();
+					questionVO.setExamId(examVO.getExamId());
+					questionVO.setQueCont(examVO.getQueContList().get(i));
+					questionVO.setQueAnswer(examVO.getQueAnswerList().get(i));
+					questionVO.setQueExplain(examVO.getQueExplainList().get(i));
+					questionVO.setQueScore(examVO.getQueScoreList().get(i));
+					
+					questionService.insertQuestion(questionVO);
+					
+					for (int j = index; j < index + 4; j++) { // 보기가 4개씩 존재
+						// 시험 문제 아이디를 셋팅
+						AnswersheetVO answersheetVO = new AnswersheetVO();
+						answersheetVO.setAnsCont(examVO.getAnsContList().get(j));
+						answersheetVO.setQueId(questionVO.getQueId());
+						
+						answersheetService.insertAnswersheet(answersheetVO);
+					}
+					index =+4;
+				}
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// redirect Attribute
+		redirectAttributes.addFlashAttribute("examVO", examVO);
+		
+		// 수정된 시험 화면으로 이동
+		return "redirect:/exam/selectExam";
+	}
+	
+	/**
+	 * 시험 등록화면을 요청하는 메서드
+	 * 
+	 * @author 김미연
+	 * @return
+	 */
+	@RequestMapping(path = "/exam/insertExamView")
+	public String insertViewExam(ExamVO examVO) {
+		return "teacher/exam/examInsert";
+	}
+
+	/**
+	 * 시험을 등록하는 메서드
+	 * 
+	 * @author 김미연
+	 * @return
+	 */
+	@RequestMapping(path = "/exam/insertExam")
+	@ResponseBody
+	public void insertExam(ExamVO examVO) {
+		int index = 0;
+		index = index + 1;
+		
+		try {
+				examService.insertExam(examVO);
+				for (int i=0; i < examVO.getQueContList().size(); i++) {
+					// 시험 아이디를 셋팅
+					QuestionVO questionVO = new QuestionVO();
+					questionVO.setExamId(examVO.getExamId());
+					questionVO.setQueCont(examVO.getQueContList().get(i));
+					questionVO.setQueAnswer(examVO.getQueAnswerList().get(i));
+					questionVO.setQueExplain(examVO.getQueExplainList().get(i));
+					questionVO.setQueScore(examVO.getQueScoreList().get(i));
+					
+					questionService.insertQuestion(questionVO);
+	
+				for (int j = index; j < index + 4; j++) { // 보기가 4개씩 존재
+					// 시험 문제 아이디를 셋팅
+					AnswersheetVO answersheetVO = new AnswersheetVO();
+					answersheetVO.setAnsCont(examVO.getAnsContList().get(j));
+					answersheetVO.setQueId(questionVO.getQueId());
+					
+					answersheetService.insertAnswersheet(answersheetVO);
+				}
+				index =+4;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+
+	/**
 	 * 등록한 시험문제를 삭제하는 메서드
+	 * 
+	 * @author 김미연
 	 * @return
 	 */
 	@RequestMapping(path = "/exam/deleteExam")
-	public String deleteExam(ExamVO examVo) {
+	public String deleteExam(ExamVO examVO, RedirectAttributes redirectAttributes) {
+		AnswersheetVO answersheetVO = new AnswersheetVO();
+		try {
+			if(examVO.getQuestionList() != null) {
+				for(QuestionVO questionVO : examVO.getQuestionList()) {
+					answersheetVO.setQueId(questionVO.getQueId());
+					answersheetService.deleteAnswersheet(answersheetVO);
+					
+					questionService.deleteQuestion(questionVO);
+				}
+			}
+			examService.deleteExam(examVO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		examService.deleteExam(examVo);
+		redirectAttributes.addFlashAttribute("examVO", examVO);
 		
 		return "redirect:/exam/selectAllExam";
 	}

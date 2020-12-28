@@ -47,6 +47,23 @@ public class NoticeService {
 		
 		int pages =(int) Math.ceil((double)cnt/(int) map.get("pageSize"));
 		map2.put("pages", pages); 
+		map2.put("totalCnt", cnt);
+		return map2;
+	}
+	public Map<String, Object> selectAllNoticeU(Map<String, Object> map) throws Exception {
+		
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("noticeList", noticeMapper.selectAllNoticeU(map));
+		log.debug("탐탐탐?2");
+		// 15건, 페이지사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
+		// 15/7 = 2.14... 올림을 하여 3개의 페이지가 필요
+		
+		int cnt = noticeMapper.noticeTotalCntU(map);
+		
+		
+		int pages =(int) Math.ceil((double)cnt/(int) map.get("pageSize"));
+		map2.put("pages", pages); 
+		map2.put("totalCnt", cnt);
 		return map2;
 	}
 

@@ -57,4 +57,15 @@ WHERE
        les_id = #{lesId}
 </update>
 
+<update id="updateExam" parameterType="kr.co.codemaker.admin.course.lesson.vo.ExamVO">
+UPDATE exam
+    SET
+       exam_state = #{examState}
+WHERE
+       les_id = #{lesId}
+</update>
+<select id="selectTeacher" resultType="java.lang.String" parameterType="java.lang.String">
+SELECT a.tch_id 
+  FROM teacher a, lesson b where a.tch_Id = b.tch_Id and b.les_Id= #{lesId}
+</select>
 </mapper>

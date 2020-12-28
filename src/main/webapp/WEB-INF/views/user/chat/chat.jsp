@@ -214,7 +214,7 @@ html, body {
 <script type="text/javascript">
     
     // 웹소켓으로 쓸 변수 선언
-    var wsocket;
+    var wsocket = "";
     
     function generate_message(msg, type) {
 	    $("#chatMessageArea").append(str);
@@ -244,7 +244,7 @@ html, body {
         // 생성자에 관해서는 이전 포스팅 참고
         // 여기서는 이 페이지로 대화 내용을 보내는 것이므로 소켓 경로가 이 페이지(여기)이다
         wsocket = new WebSocket(
-                "ws://localhost/chat-ws");
+    "ws://localhost/chat-ws");
         
         // 이렇듯 소켓을 생성하는 단계에서
         // .onopen, onmessage, onclose에 해당하는 함수를 정의
@@ -255,7 +255,7 @@ html, body {
     
     // 나가기 버튼 클릭시 작동 함수
     function disconnect() {
-        wsocket.close;
+    	wsocket.close;
     }
     
     /*
@@ -290,8 +290,11 @@ html, body {
     
     function send() {
         var msg = $("#chat-input").val();
-        if(msg != '' && msg != null){
-       	 wsocket.send("msg:${MEMBER_INFO.userNm} : " + msg);
+        if(msg != null && msg != ''){
+	       	wsocket.send("msg:${MEMBER_INFO.userNm} : " + msg);
+        }else{
+        	alert("내용을 입력해주세요");
+        	return;
         }
     }
     
@@ -318,20 +321,17 @@ html, body {
     }
 
     $(function(){
-    	
-    	$("#chat-input").keydown(function(key) {
-    		if (key.keyCode == 13) {
-    			send(); 
-    			$("#chat-input").val('');
-    			$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
-    		}
-    	});
-
-    	
-    	
+		$('#chat-input').keypress(function(event){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
+				send(); 
+			}
+			event.stopPropagation();
+			$("#chat-input").val(''); 
+        });
+		
         $('#chat-submit').click(function() { 
-        	send(); 
-        	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+			send(); 
         });
         
         $('#exitBtn').click(function() { 
@@ -360,25 +360,25 @@ html, body {
 					values = res.chattingList; 
 	                $.each(values, function(index, value) {
 	                	var str = "";
-	                	if("${MEMBER_INFO.userNm}" == value.userNm){
-		            	    str += "<div id='cm-msg' class='chat-msg self'>";
-		            	    str += "    <div class='cm-msg-text'>";
-		            	    str += value.userNm + " : " + value.chatCont;
-		            	    str += "    </div>";
-		            	    str += "</div>";
-		            	    $("#chatMessageArea").append(str);
-	            	    
-		                }else{
-		                	str += "<div id='cm-msg' class='chat-msg user'>";
-		            	    str += "    <div class='cm-msg-text'>";
-		            	    str += value.userNm + " : " + value.chatCont;
-		            	    str += "    </div>";
-		            	    str += "</div>";
-		            	    $("#chatMessageArea").append(str);
-		                }
+	                	if(value.chatCont != null && value.chatCont != ''){
+		                	if("${MEMBER_INFO.userNm}" == value.userNm){
+			            	    str += "<div id='cm-msg' class='chat-msg self'>";
+			            	    str += "    <div class='cm-msg-text'>";
+			            	    str += value.userNm + " : " + value.chatCont;
+			            	    str += "    </div>";
+			            	    str += "</div>";
+			            	    $("#chatMessageArea").append(str);
+		            	    
+			                }else{
+			                	str += "<div id='cm-msg' class='chat-msg user'>";
+			            	    str += "    <div class='cm-msg-text'>";
+			            	    str += value.userNm + " : " + value.chatCont;
+			            	    str += "    </div>";
+			            	    str += "</div>";
+			            	    $("#chatMessageArea").append(str);
+			                }
+	                	}
 	                });
-	                
-	                	
 				},
 				error : function(){
 					alert("실패");

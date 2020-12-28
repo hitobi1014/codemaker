@@ -34,9 +34,8 @@ public class UserJobInfoController {
 	
 	@RequestMapping(path="/user/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			String keyWord, Model model) {	
-		logger.debug("들어왕?");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -46,16 +45,17 @@ public class UserJobInfoController {
 		map.put("pages", map.get("pages"));
 		
 		
-		logger.debug("map {}", map);
 		
 		Map<String, Object> map2 = new HashMap<>();
 		try {
-			map2 = jobInfoService.selectAllJobInfo(map);
+			map2 = jobInfoService.selectAllJobInfoU(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		logger.debug("map2 {}", map2.get("jobInfoList"));
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
+		
+		logger.debug("user {}", map2.get("totalCnt"));
 		
 		model.addAttribute("jobinfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
@@ -65,6 +65,7 @@ public class UserJobInfoController {
  		
 		return "mainT/user/jobInfo/jobInfoList";
 	}
+	
 	
 	@RequestMapping(path="/user/selectJobInfo")
 	public String selectJobInfo(String jobinfoId, Model model) {
@@ -92,10 +93,12 @@ public class UserJobInfoController {
 		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		
 		ServletOutputStream sos = response.getOutputStream();
 		

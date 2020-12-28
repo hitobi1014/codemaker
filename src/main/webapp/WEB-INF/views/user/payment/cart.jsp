@@ -1,88 +1,173 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/json/jquery.serialize-object.js"></script>
-<style>
-tr, td{
-border:1px solid black;
-}
-</style>
-<h1>장바구니 입니다</h1>
-<table>
-	<tr>
-		<th>체크박스</th>
-		<th>강의아이디</th>
-		<th>강의명</th>
-		<th>강사명</th>
-		<th>수강기간</th>
-		<th>금액</th>
-	</tr>
-	<c:url value="/user/payViewList" var="payViewList"/>
-		<form id="frm" method="post" action="${payViewList}" >
-			<c:forEach items="${lessonList}" var="lesson" varStatus="stat">
+<link href="/css/user/cart/user-cart.css" rel="stylesheet" />
+<% int sum =0; %>
+<div class="cart-box">
+	<div class="cartBoxArea">
+		<h3>강의 장바구니</h3>
+		<table>
+			<thead id="thead">
 				<tr>
-					<td><input type="checkbox" class="lesChk" id="chk[${stat.index}]"/></td>
-					<td>
-						<input type="text" value="${lesson.lesId}" id="lesId[${stat.index}]" name="lessonList[${stat.index}].lesId" readonly="readonly" disabled="disabled"/>
-					</td>
-					<td>
-						<input type="text" value="${lesson.lesNm}" id="lesNm[${stat.index}]" name="lessonList[${stat.index}].lesNm" readonly="readonly" disabled="disabled"/>
-					</td>
-					<td>
-						<input type="text" value="${lesson.tchNm}" id="tchNm[${stat.index}]" name="lessonList[${stat.index}].tchNm" readonly="readonly" disabled="disabled"/>
-					</td>
-					<td>
-						<input type="text" value="${lesson.lesTerm}" id="lesTerm[${stat.index}]" name="lessonList[${stat.index}].lesTerm" readonly="readonly" disabled="disabled"/>
-					</td>
-					<td>
-						<input type="text" value="${lesson.lesCash}" id="lesCash[${stat.index}]" name="lessonList[${stat.index}].lesCash" readonly="readonly" disabled="disabled"/>
-					</td>
+					<th>
+						<span>
+							<input type="checkbox" id="allChk" data-toggle="1" />
+							<label for="allChk"/>
+						</span>
+					</th>
+					<th>강의명</th>
+					<th>강사명</th>
+					<th>수강기간</th>
+					<th>금액</th>
 				</tr>
-			</c:forEach>
-		</form>
-	<button id="sub">결제하기</button>
-</table>
+			</thead>
+			<c:url value="/user/payViewList" var="payViewList"/>
+			<form id="frm" method="post" action="${payViewList}" name="frm">
+				<input type="hidden" value="0" id="chkNum"/>
+				<tbody id="tbody">
+					<c:forEach items="${lessonList}" var="lesson" varStatus="stat">
+						<input type="hidden" value="${lesson.lesTerm}" id="lesTerm[${stat.index}]" name="lessonList[${stat.index}].lesTerm" readonly="readonly" disabled="disabled"/>
+						<c:set value="${lesson.lesTerm}" var="lesTerm"/>
+						<%
+							int lesTerm =(int)(pageContext.getAttribute("lesTerm")); 
+							Date now = new Date();
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(now);
+							cal.add(Calendar.DATE, lesTerm);
+						%>
+						<input type="hidden" value="${lesson.lesId}" id="lesId[${stat.index}]" name="lessonList[${stat.index}].lesId" disabled="disabled"/>
+						<input type="hidden" value="${lesson.lesNm}" id="lesNm[${stat.index}]" name="lessonList[${stat.index}].lesNm" disabled="disabled"/>
+						<input type="hidden" value="${lesson.tchNm}" id="tchNm[${stat.index}]" name="lessonList[${stat.index}].tchNm" disabled="disabled"/>
+						<input type="hidden" value="${lesson.lesCash}" class="lesC" id="lesCash[${stat.index}]" name="lessonList[${stat.index}].lesCash" disabled="disabled"/>
+						<tr class="lessonTr">
+							<td class="chk">
+								<div>
+									<input type="checkbox" class="lesChk" id="chk[${stat.index}]" name="chk[${stat.index}]" data-cash="${lesson.lesCash}" data-lesId="${lesson.lesId}">
+									<label class="chklbl" for="chk[${stat.index}]"></label>
+								</div>
+							</td>
+							<td>
+								<div class="tdCenter fBold">
+									<span>${lesson.lesNm}</span>
+								</div>
+							</td>
+							<td class="tdLine tdCenter">
+								<div>
+									<span>${lesson.tchNm}</span>
+								</div>
+							</td>
+							<td class="tdLine tdCenter">
+								<div class="tdinDiv">
+									<em class="txt">
+										<%= sdf.format(now) %> ~ <%= sdf.format(cal.getTime()) %>
+									</em>
+								</div>
+							</td>
+							<td class="tdCenter">
+								<div>
+									<fmt:formatNumber type="number" maxFractionDigits="3" value="${lesson.lesCash}" var="lesCash"/>
+									<em class="won txt fBold">${lesCash}<span class="won">원</span></em>
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</form>
+		</table>
+		<div class="les-delete"><span onclick="deleteLes()">선택강의 삭제</span></div>
+		<div id="price">
+			<span class="total">총 상품금액</span>
+			<span class="total">
+				<em class="txt" id="cash">0</em>원
+			</span>
+		</div>
+		<div id="btnDiv">
+			<c:url value="/user/selectSubject" var="lessonPage"/>
+			<a href="${lessonPage}" class="lessonPage">강의 페이지로</a>
+			<button id="sub">결제하기</button>
+		</div>
+	</div>
+</div>
 <script>
+function deleteLes(){
+	var len = $(".lesChk").length;
+	console.log("길이"+len);
+	var param = [];
+	for(i=0; i<len; i++){
+		param.push($("#chk\\["+i+"\\]:checked").attr("data-lesId"));
+	}
+	console.log("데이터확인"+param);
+	$.ajax({
+		url : "/user/cartDelete",
+		data : {"data" : JSON.stringify(param)},
+		traditional : true,
+		success : function(res){
+			
+		},error : function(xhr){
+			console.log("실패" + xhr);
+		}
+	})
+}
 $(function(){
+	var length = $(".lesChk").length;
 	$("#sub").on('click',function(){
-// 		var lessonArr = new Array();
+		for(i=0; i<length; i++){
+			$("#chk\\["+i+"\\]:checked").each(function(){
+				$("#lesId\\["+i+"\\]").attr('disabled',false);
+				$("#lesTerm\\["+i+"\\]").attr('disabled',false);
+				$("#lesNm\\["+i+"\\]").attr('disabled',false);
+				$("#tchNm\\["+i+"\\]").attr('disabled',false);
+				$("#lesCash\\["+i+"\\]").attr('disabled',false);
+			})
+		}
+		$("#frm").submit();
+	})
 	
-		$(".lesChk:checked").each(function(){
-			var td = $(this).parent().parent().children();
-			td.eq(1).children().attr('disabled',false);
-			td.eq(2).children().attr('disabled',false);
-			td.eq(3).children().attr('disabled',false);
-			td.eq(4).children().attr('disabled',false);
-			td.eq(5).children().attr('disabled',false);
-			var lesId = td.eq(1).children().val();
-			var lesNm = td.eq(2).children().val();
-			var tchNm = td.eq(3).children().val();
-			var lesTerm = td.eq(4).children().val();
-			var lesCash = td.eq(5).children().val();
-			console.log("아이디 : "+lesId + "이름 : "+lesNm+"강사 : "+tchNm + "수강기간 : "+lesTerm + "수강료 :"+lesCash);
-// 			var lvo = td.children().serializeObject();
-// 			lessonArr.push(lvo);
-			$("#frm").submit();
-		})
+	var cc = 0;
+	var length = 0;
+	var count = 0;
+	
+	$(".lesChk").on('change',function(){
+		length = $(".lesChk").length;
+		count = $('.lesChk:checked').length;
+		cash = 0;
+		for(i=0; i<length; i++){
+			$("#chk\\["+i+"\\]:checked").each(function(){
+				cash += parseInt($(this).data("cash"));
+			})
+		}
+		$("#cash").text(cash.toLocaleString());
 		
-// 		console.log("lessonArr 값"+JSON.stringify(lessonArr));
-// 		var jsonData = JSON.stringify(lessonArr);
-// 		$.ajax({
-// 			url : '<c:url value="/user/payView"/>',
-// 			method : 'post',
-// 			contentType : 'application/json; charset=utf-8',
-// 			data : jsonData,
-// 			dataType : 'html',
-// 			success : function(res){
-// 				location.href=res;
-// 			},
-// 			error : function(xhr){
-// 				alert(xhr);
-// 			}
-// 		})
+		//하나씩 체크할때 모두 체크되거나 체크를풀때 전체선택체크창 비/활성화
+		if(count == length){
+			$("#allChk").prop("checked", true);
+		}else{
+			$("#allChk").prop("checked", false);
+		}
+	})
+	
+	$("#allChk").on('click', function(){
+		if($(this).prop("checked")){
+			$("input[type='checkbox']").prop("checked", true);
+			length = $(".lesChk").length;
+			cash = 0;
+			for(i=0; i<length; i++){
+				cash += parseInt($("#lesCash\\["+i+"\\]").val());
+			}
+			$("#cash").text(cash.toLocaleString());	
+		}else{
+			$("input[type='checkbox']").prop("checked", false);
+				cash -= parseInt($("#lesCash\\["+i+"\\]").val());
+			$("#cash").text(0);	
+		}
 	})
 })
-
 </script>

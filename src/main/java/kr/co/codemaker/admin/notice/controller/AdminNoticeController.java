@@ -56,8 +56,8 @@ public class AdminNoticeController {
 	
 	@RequestMapping(path="/admin/selectAllNotice")
 	public String selectAllNotice(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="pageSize", required = false, defaultValue = "5") int pageSize, 
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 	
@@ -67,16 +67,19 @@ public class AdminNoticeController {
 		map.put("keyWord", keyWord);
 		map.put("pages", map.get("pages"));
 		
-		Map<String, Object> map2 = new HashMap<>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
 		try {
 			map2 = noticeService.selectAllNotice(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		logger.debug("map2 {}", map2);
+		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
-		model.addAttribute("page", map2.get("page"));
+		model.addAttribute("page", page);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
@@ -114,6 +117,7 @@ public class AdminNoticeController {
 	 	
 		List<MultipartFile> filesList = files.getFiles("realfile");
 		
+		logger.debug("files {}", filesList);
 		int cnt = 0;
 		try {
 			cnt = noticeService.insertNotice(noticeVo);
@@ -128,13 +132,13 @@ public class AdminNoticeController {
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(filesNm);
-				String fileName = UUID.randomUUID().toString();
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
 				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + filesNm);
+					filesPath = "C:\\profile\\" + fileName;
+					File file = new File("C:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -158,7 +162,7 @@ public class AdminNoticeController {
 		logger.debug("파일 후 cnt {}", cnt);
 		
 		if(cnt == 1) {
-			return "redirect:selectAllNotice";
+			return "redirect:selectAllNotice?searchOption=1&keyWord=&page=1";
 		}else {
 			return "adminPage/admin/notice/noticeInsert";
 		}
@@ -211,13 +215,13 @@ public class AdminNoticeController {
 			
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
-			
-			String ext = FileUploadUtil.getExtenstion(filesNm);
-			String fileName = UUID.randomUUID().toString();
-			String filesPath = "";
-			
+				
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
+				String filesPath = "";
+				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					filesPath = "C:\\profile\\" + fileName;
 					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
@@ -251,7 +255,7 @@ public class AdminNoticeController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:selectAllNotice";
+		return "redirect:selectAllNotice?searchOption=1&keyWord=&page=1";
 	}
 	
 	@RequestMapping(path="/admin/downloadNotice")
@@ -259,10 +263,12 @@ public class AdminNoticeController {
 		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		
 		ServletOutputStream sos = response.getOutputStream();
 		

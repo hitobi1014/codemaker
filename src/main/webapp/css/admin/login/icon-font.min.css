@@ -5,25 +5,14 @@ By Perxis - https://perxis.com
 License: https://linearicons.com/free/license
 */
 @font-face {
-	font-family: Linearicons-Free;
-	src: url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.eot);
-	src:
-		url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.eot?#iefix)
-		format('embedded-opentype'),
-		url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.woff2)
-		format('woff2'),
-		url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.ttf)
-		format('truetype'),
-		url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.woff)
-		format('woff'),
-		url(https://cdn.linearicons.com/free/1.0.0/Linearicons-Free.svg#Linearicons-Free)
-		format('svg');
-	font-weight: 400;
-	font-style: normal
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 300;
+	src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
 }
 
 .lnr {
-	font-family: Linearicons-Free;
+	font-family: 'LotteMartDream';
 	speak: none;
 	font-style: normal;
 	font-weight: 400;

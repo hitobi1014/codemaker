@@ -2,6 +2,8 @@ package kr.co.codemaker.common.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.codemaker.common.service.LoginService;
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.UserVO;
 
 @Controller
@@ -26,9 +30,11 @@ public class UserLoginController {
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
 	@RequestMapping(path="user/login", method = RequestMethod.GET)
 	public String userLoginView(@RequestParam(required=false) String msg, Model model) {
-		logger.debug("로그인진입");
 		if(msg !=null) {
 			model.addAttribute("msg", msg);
 		}
@@ -39,7 +45,6 @@ public class UserLoginController {
 	public String userLogin(UserVO userVo,
 			@RequestParam(name="rememberMe", required=false, defaultValue="0") int rememberMe, Model model, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException{
-		logger.debug("받은 아이디 :{}",userVo.getUserId());
 		UserVO getUserVo = null;
 		try {
 			getUserVo = loginService.selectUser(userVo.getUserId());
@@ -66,9 +71,24 @@ public class UserLoginController {
 			response.addCookie(remember);
 		}
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(getUserVo.getUserId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
+		try {
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// 로그인 성공시 메인홈페이지로 이동
 		if(getUserVo != null && userVo.getUserPass().equals(getUserVo.getUserPass())) {
 			session.setAttribute("MEMBER_INFO", getUserVo);
+			
+			session.setAttribute("notifyList", notifyList);
+			session.setAttribute("notifyCnt", notifyCnt);
 			return "mainT/user/main/main_content";
 		// 비밀번호 틀렸을때 문구출력
 		}else if(getUserVo != null && !userVo.getUserPass().equals(getUserVo.getUserPass())) {

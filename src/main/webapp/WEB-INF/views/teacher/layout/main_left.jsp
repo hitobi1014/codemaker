@@ -1,72 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	#teachericon{
+		width: 115px;
+		height: 115px;
+		margin-top: 14px;
+	}
+</style>
 	<aside class="left-sidebar bg-sidebar">
 		<div id="sidebar" class="sidebar sidebar-with-footer">
-			<!-- Aplication Brand -->
 			<div class="app-brand">
-				<a href="#">
-					<img src="/images/codemaker_name4.png">
+				<c:url value="/teacher/main" var="teacherMain"/>
+				<a href="${teacherMain}">
+					<img src="/images/codemaker_name3.png">
 					<span class="brand-name">강사</span>
 				</a>
 			</div>
-			<!-- begin sidebar scrollbar -->
-			<div class="sidebar-scrollbar">
-			
-				<div class="sidebar-header">
-					<div class="sidebar-header-content">
-						
-					</div>
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/teacher/selectTeacher?tchId=${S_TEACHER.tchId}">
+				<div class="sidebar-brand-icon">
+					<c:url value="/teacher/teacherImg" var="teacherImg">
+						<c:param name="tchProfile" value="${S_TEACHER.tchProfile}"/>
+					</c:url>
+					<img id="teachericon" alt="" src="${teacherImg}"> <br>
+					<br>${S_TEACHER.tchNm}님<br>
 				</div>
-				<hr class="separator" />
-				<!-- sidebar menu -->
+			</a>
+			
+			<div class="sidebar-scrollbar">
 				<ul class="nav sidebar-inner" id="sidebar-menu">
-				
 					<li  class="has-sub" >
-						<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#ui-elements"
-						aria-expanded="false" aria-controls="ui-elements">
+						<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#ui-elements" aria-expanded="false" aria-controls="ui-elements">
 							<i class="mdi mdi-book-open-page-variant"></i>
 							<span class="nav-text">수강</span> <b class="caret"></b>
 						</a>
-						<ul class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
+						<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 							<div class="sub-menu">
-							
-							 
 								<li  class="has-sub" >
-									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components"
-										aria-expanded="false" aria-controls="components">
+									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#components" aria-expanded="false" aria-controls="components">
 										<span class="nav-text">수강 관리</span> <b class="caret"></b>
 									</a>
-									<ul  class="collapse"  id="components">
+									<ul class="collapse" id="components">
 										<div class="sub-menu">
-										
 											<li >
 												<a href="${cp}/teacherL/selectSubject">강의 개설 및 수정</a>
 											</li>
-											
 											<li >
 												<a href="#">교재파일 등록 및 수정/삭제</a>
 											</li>
-											
 											<li >
 												<a href="#">커리큘럼 임시저장소</a>
 											</li>
-										
+											<li >
+												<a href="/exam/selectAllExam">시험 등록 및 수정/삭제</a>
+											</li>
 										</div>
 									</ul>
 								</li>
-							  
 								<li  class="has-sub" >
-									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons"
-										aria-expanded="false" aria-controls="icons">
+									<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#icons" aria-expanded="false" aria-controls="icons">
 										<span class="nav-text">과목별 게시판</span> <b class="caret"></b>
 									</a>
-									<ul  class="collapse"  id="icons">
+									<ul class="collapse" id="icons">
 										<div class="sub-menu">
-										
 											<li >
-												<a href="#">질문 응답 게시판</a>
+												<a href="/teacher/selectAllQna">질문 응답 게시판</a>
 											</li>
-										
 										</div>
 									</ul>
 								</li>

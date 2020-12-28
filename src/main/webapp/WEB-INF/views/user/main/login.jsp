@@ -34,6 +34,17 @@
 	<link rel="stylesheet" type="text/css" href="/css/user/login/userLogin.css">
 <!--===============================================================================================-->
 </head>
+<style>
+@font-face {
+	font-family: 'LotteMartDream';
+	font-style: normal;
+	font-weight: 300;
+	src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamLight.woff') format('woff');
+}
+#body, #body *{
+	font-family: 'LotteMartDream';
+}
+</style>
 
 <script>
 $(function(){
@@ -61,7 +72,7 @@ $(function(){
 	}
 })
 </script>
-<body>
+<body id="body">
 <%
 	Cookie[] cookies = request.getCookies();
 	if(cookies != null){
@@ -114,7 +125,7 @@ $(function(){
 						</div>
 						<span style="color:red;"><c:if test="${param.msg !=null}">${param.msg}</c:if></span>
 						<div class="container-login100-form-btn m-t-17">
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" style="font-size: 21px;">
 								코딩GO!
 							</button>
 						</div>

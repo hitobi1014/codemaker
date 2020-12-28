@@ -1,3 +1,9 @@
+<%@page import="javax.annotation.Resource"%>
+<%@page import="kr.co.codemaker.common.service.NotificationService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.co.codemaker.common.vo.UserVO"%>
+<%@page import="kr.co.codemaker.common.vo.NotificationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
@@ -6,6 +12,7 @@
 .imgMain{width: 250px;height: 300px;}
 #at{color: #2c2e2e;}
 </style>
+
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light topbar static-top shadow" style="background: #005F86">
 	<!-- Sidebar Toggle (Topbar) -->
@@ -32,44 +39,30 @@
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
 				<i class="fas fa-bell fa-fw"></i> 
-				<span class="badge badge-danger badge-counter">3+</span>
+				<span class="badge badge-danger badge-counter">${notifyCnt}</span>
 			</a>
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header"></h6>
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-primary">
-							<i class="fas fa-file-alt text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">December 12, 2019</div>
-						<span class="font-weight-bold">A new monthly report is ready to download!</span>
-					</div>
-				</a> 
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-success">
-							<i class="fas fa-donate text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">December 7, 2019</div>
-						$290.29 has been deposited into your account!
-					</div>
-				</a> 
-				<a class="dropdown-item d-flex align-items-center" href="#">
-					<div class="mr-3">
-						<div class="icon-circle bg-warning">
-							<i class="fas fa-exclamation-triangle text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">December 2, 2019</div>
-						Spending Alert: We've noticed unusually high spending for your account.
-					</div>
-				</a> 
-				<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+				<c:forEach items="${notifyList}" var="notify">
+					<c:choose>
+						<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
+							<span class="font-weight-bold">새로운 알림이 없습니다</span>
+						</c:when>
+						<c:otherwise>
+							<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
+								<div class="mr-3">
+									<div class="icon-circle bg-primary">
+										<i class="fas fa-file-alt text-white"></i>
+									</div>
+								</div>
+								<div>
+									<div class="small text-gray-500">${notify.notifyDate}</div>
+									<span class="font-weight-bold">${notify.notifyCont}</span>
+								</div>
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach> 
 			</div>
 		</li>
 
@@ -80,10 +73,12 @@
 				<img id="navicon" class="img-profile rounded-circle" src="/images/user/main/mypage_icon.png">
 			</a>
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="${cp}/mypage/myinfoSelect"> 
+				<c:url value="/mypage/myinfoSelect" var="myinfoSelect"/>
+				<a class="dropdown-item" href="${myinfoSelect}"> 
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 마이페이지
 				</a> 
-				<a class="dropdown-item" href="#"> 
+				<c:url value="/user/myLesson" var="myLesson"/>
+				<a class="dropdown-item" href="${myLesson}"> 
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 내강의실
 				</a>
 				<c:url value="/user/cartView" var="cartView"/>
@@ -113,4 +108,35 @@
 		<!-- <div class="topbar-divider d-none d-sm-block"></div> -->
 	</ul>
 </nav>
+<script>
+	$(function(){
+		$('a[id^=url]').on("click", function(){
+			var notifyId = $(this).attr('notify');
+			var notificationVo = {notifyId : notifyId};
+			$.ajax({
+				url : "/readNotification",
+				data : notificationVo,
+				dataType : 'json',
+				success : function(){
+					
+				}
+			})
+		})
+	})
+	
+	$(function(){
+		window.onbeforeunload = function(){
+			$.ajax({
+				url : "/selectAllNotification",
+				dataType : 'json',
+				success : function(){
+					
+				}
+			})
+		}
+	})
+</script>
+
+
+
 <!-- End of Topbar -->

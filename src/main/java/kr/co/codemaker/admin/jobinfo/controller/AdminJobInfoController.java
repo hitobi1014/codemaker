@@ -1,4 +1,4 @@
-package kr.co.codemaker.admin.jobInfo.controller;
+package kr.co.codemaker.admin.jobinfo.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +32,7 @@ import kr.co.codemaker.fileUpload.FileUploadUtil;
 
 
 /**
-* NoticeController.java
+* AdminJobInfoController.java
 *
 * @author 박경호
 * @version 1.0
@@ -56,8 +56,8 @@ public class AdminJobInfoController {
 	
 	@RequestMapping(path="/admin/selectAllJobInfo")
 	public String selectAllJobInfo(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
-			String searchOption, String keyWord, Model model) {	
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
+			@RequestParam(name="searchOption", required = false, defaultValue = "1") String searchOption, String keyWord, Model model) {	
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -80,9 +80,10 @@ public class AdminJobInfoController {
 		
 		logger.debug("map2 {}", map2.get("jobInfoList"));
 		
+		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("jobInfoList", map2.get("jobInfoList"));
 		model.addAttribute("pages", map2.get("pages"));
-		model.addAttribute("page", map2.get("page"));
+		model.addAttribute("page", page);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);
@@ -140,13 +141,13 @@ public class AdminJobInfoController {
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
 				
-				String ext = FileUploadUtil.getExtenstion(filesNm);
-				String fileName = UUID.randomUUID().toString();
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
 				String filesPath = "";
 				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
-					File file = new File("D:\\profile\\" + filesNm);
+					filesPath = "C:\\profile\\" + fileName;
+					File file = new File("C:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
 					} catch (IllegalStateException | IOException e) {
@@ -168,7 +169,7 @@ public class AdminJobInfoController {
 		}
 		
 		if(cnt == 1) {
-			return "redirect:selectAllJobInfo";
+			return "redirect:selectAllJobInfo?keyWord=&page=1";
 		}else {
 			return "adminPage/admin/jobInfo/jobInfoInsert";
 		}
@@ -220,13 +221,13 @@ public class AdminJobInfoController {
 			
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
-			
-			String ext = FileUploadUtil.getExtenstion(filesNm);
-			String fileName = UUID.randomUUID().toString();
-			String filesPath = "";
-			
+				
+//				String ext = FileUploadUtil.getExtenstion(filesNm);
+				String fileName = filesNm;
+				String filesPath = "";
+				
 				if (profile.getSize() > 0) {
-					filesPath = "D:\\profile\\" + fileName + "." + ext;
+					filesPath = "C:\\profile\\" + fileName;
 					File file = new File("D:\\profile\\" + filesNm);
 					try {
 						profile.transferTo(file);
@@ -261,20 +262,20 @@ public class AdminJobInfoController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:selectAllJobInfo";
+		return "redirect:selectAllJobInfo?keyWord=&page=1";
 		
 	}
 	
 	@RequestMapping(path="admin/downloadJobInfo")
 	public void downloadJobInfo(String filesId, HttpServletResponse response) throws Exception {
-		
 		FilesVO filesVo = filesService.selectFiles(filesId);
 		
-		response.setHeader("Content-Disposition", "attachment; filename=\""+filesVo.getFilesNm()+"\"");
+		String filesNm = new String(filesVo.getFilesNm().getBytes("UTF-8"), "ISO-8859-1");
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\""+filesNm+"\"");
 		response.setContentType("application/octet-stream");
 		
-		FileInputStream fis = new FileInputStream("D:\\profile\\" + filesVo.getFilesNm());
-		
+		FileInputStream fis = new FileInputStream("C:\\profile\\" + filesVo.getFilesNm());
 		ServletOutputStream sos = response.getOutputStream();
 		
 		byte[] buffer = new byte[512];

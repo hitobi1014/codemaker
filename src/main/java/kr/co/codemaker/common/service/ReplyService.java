@@ -33,15 +33,19 @@ public class ReplyService {
 		return replyMapper.selectAllReply(qnaId);
 	}
 	
-	public int insertReply(ReplyVO replyVo) {
+	public int insertReply(ReplyVO replyVo) throws Exception {
 		return replyMapper.insertReply(replyVo);
 	}
 	
-	public int updateReply(ReplyVO replyVo) {
+	public int updateReply(ReplyVO replyVo) throws Exception {
 		return replyMapper.updateReply(replyVo);
 	}
 	
-	public int deleteReply(String replyId) {
+	public int deleteReply(String replyId) throws Exception {
 		return replyMapper.deleteReply(replyId);
+	}
+	
+	public ReplyVO selectReply(String replyId) throws Exception {
+		return replyMapper.selectReply(replyId);
 	}
 }

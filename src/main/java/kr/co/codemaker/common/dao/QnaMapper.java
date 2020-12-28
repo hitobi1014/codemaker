@@ -31,12 +31,29 @@ public interface QnaMapper {
 	public List<QnaVO> selectAllQna(Map<String, Object> map) throws Exception;
 	
 	/**
+	 * 모든 qna를 조회하는 메서드
+	 * @author 박경호
+	 * @param map qna를 조회하기위한 조건
+	 * @return 조건에 맞는 모든 qna
+	 * @throws Exception
+	 */
+	public List<QnaVO> selectAllQnaT(Map<String, Object> map) throws Exception;
+	
+	/**
 	 * qna의 총 갯수를 조회하는 메서드
 	 * @author 박경호
 	 * @return qna의 총 갯수
 	 * @throws Exception
 	 */
 	public int qnaTotalCnt() throws Exception;
+	
+	/**
+	 * qna의 총 갯수를 조회하는 메서드
+	 * @author 박경호
+	 * @return qna의 총 갯수
+	 * @throws Exception
+	 */
+	public int qnaTotalCntT(String tchId) throws Exception;
 	
 	/**
 	 * 하나의 qna를 조회하는 메서드
@@ -64,4 +81,14 @@ public interface QnaMapper {
 	 * @throws Exception
 	 */
 	public int deleteQna(String qnaId) throws Exception;
+	
+	/**
+	 * qna게시판에 해당하는 담당선생님을 조회하는 메서드
+	 * @author 박경호
+	 * @param qnaId qna아이디
+	 * @return 선생님 아이디
+	 * @throws Exception
+	 */
+	public String selectQnaTeacher(String qnaId) throws Exception;
+	
 }

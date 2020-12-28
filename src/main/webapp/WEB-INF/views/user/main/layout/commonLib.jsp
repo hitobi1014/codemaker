@@ -28,11 +28,11 @@
 <script src="/js/user/main/sb-admin-2.min.js"></script>
 
 <!-- main Page level plugins -->
-<script src="/vendor/user/main/chart.js/Chart.min.js"></script>
+<!-- <script src="/vendor/user/main/chart.js/Chart.min.js"></script> -->
 
 <!-- main Page level custom scripts -->
-<script src="/js/user/main/demo/chart-area-demo.js"></script>
-<script src="/js/user/main/demo/chart-pie-demo.js"></script>
+<!-- <script src="/js/user/main/demo/chart-area-demo.js"></script> -->
+<!-- <script src="/js/user/main/demo/chart-pie-demo.js"></script> -->
 
 <!-- login 모달창 -->
 <link rel="stylesheet"

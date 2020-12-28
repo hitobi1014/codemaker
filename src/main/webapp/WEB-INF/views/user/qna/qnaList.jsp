@@ -11,7 +11,7 @@
 $(document).ready(function(){
 	
 	$("#insertqna").on("click", function(){
-		document.location="${cp}/user/insertQna?lesId=${param.lesId}";
+		document.location="/user/insertQna?lesId=${param.lesId}";
 	});
 	
 })
@@ -77,7 +77,7 @@ $(document).ready(function(){
 		
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
-						<c:when test="${i == param.page}">
+						<c:when test="${i == param.page or param.page == ''}">
 							<li class="page-item active"><a class="page-link" href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
