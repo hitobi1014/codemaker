@@ -19,6 +19,8 @@ FROM
     examscore es ON(e.exam_id = es.exam_id)
 WHERE
 	e.exam_id = #{examId}
+AND
+	es.user_id = ${userId}
 </select>
 <select id="selectAllExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamVO">
 SELECT b.*, c.avgScore
@@ -39,28 +41,23 @@ SELECT b.*, c.avgScore
            NVL(es.es_fscore, 999) search_EsScore,
            es.es_edate,
            q.queTotal
-		FROM
-		    lesson l, lesson_index li, exam e, pay p, examscore es, 
-		    (SELECT SUM(que_score) queTotal, exam_id
-		  	   FROM
-    				question
-			GROUP BY
-				    exam_id) q
-		WHERE
-			l.les_id =  li.les_id
-		AND 
-			e.lidx_id = li.lidx_id
-		AND
-			p.les_id = l.les_id
-		AND
-			p.user_id = #{userId}
-		AND
-            es.exam_id(+) = e.exam_id
-		AND
-            q.exam_id = e.exam_id
+		FROM pay p
+		  LEFT OUTER JOIN
+		  examscore es ON(p.user_id = es.user_id)
+		  LEFT OUTER JOIN
+		  exam e ON(p.les_id = e.les_id)
+		  LEFT OUTER JOIN
+		  lesson l ON(l.les_id = e.les_id)
+		  LEFT OUTER JOIN
+		  lesson_index li ON(li.les_id = l.les_id)
+		  LEFT OUTER JOIN
+		 (SELECT SUM(que_score) queTotal, exam_id 
+		    FROM question
+		GROUP BY exam_id) q ON(q.exam_id = e.exam_id)
+		WHERE p.user_id = #{userId}
 		<if test='lesId != null and !lesId.equals("")'>
 			AND
-				l.les_id = #{lesId}
+				p.les_id = #{lesId}
 		</if>
 		<if test='searchEsFscore != null and searchEsFscore.equals("0")'>
 			AND
@@ -71,27 +68,23 @@ SELECT b.*, c.avgScore
 				es.es_fscore is NOT NULL
 		</if>
 		ORDER BY SUBSTR(li.lidx_id, 5)) a) b, 
-		(SELECT ROUND(AVG(es_fscore), 2) avgScore FROM examscore) c
+		(SELECT ROUND(AVG(es_fscore), 2) avgScore 
+		   FROM examscore
+		  WHERE user_id = #{userId}) c
  WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
 
 <select id="selectTotalCntExam" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="java.lang.Integer">
 SELECT COUNT(*)
  FROM
-     lesson l, lesson_index li, exam e, pay p, examscore es
+    pay p
+  LEFT OUTER JOIN
+  exam e ON(p.les_id = e.les_id)
 WHERE
-   	l.les_id =  li.les_id
-AND 
-	e.lidx_id = li.lidx_id
-AND
-	p.les_id = l.les_id
-AND
-	p.user_id = #{userId}
-AND
-    es.exam_id(+) = e.exam_id
+    p.user_id = ${userId}
 <if test='lesId != null and !lesId.equals("")'>
 	AND
-		l.les_id = #{lesId}
+		e.les_id = #{lesId}
 </if>
 <if test='searchEsFscore != null and searchEsFscore.equals("0")'>
 	AND
@@ -111,5 +104,7 @@ SELECT e.*,
 FROM exam e
 LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id)
 WHERE e.les_id = #{lesId}
+AND
+	es.user_id = ${userId}
 </select>
 </mapper>

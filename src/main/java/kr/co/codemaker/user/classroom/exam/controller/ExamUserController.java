@@ -160,6 +160,7 @@ public class ExamUserController {
 					examResultVO.setQueId(examVO.getQueIdList().get(i));
 					examResultVO.setErAnswer(examVO.getStudentAnswers().get(i));
 					examResultVO.setErCheck(examVO.getErCheckList().get(i));
+					examResultVO.setUserId(userId);
 					
 					examResultUserService.updateExamResult(examResultVO);
 				}
@@ -179,7 +180,10 @@ public class ExamUserController {
 	 * @throws Exception
 	 */
 	@RequestMapping(path = "/examUser/selectExamScore")
-	public String selectExamScore(ExamVO examVO, Model model) {
+	public String selectExamScore(ExamVO examVO, Model model, HttpSession session) {
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		examVO.setUserId(userId);
+		
 		ExamScoreVO examScoreVO = new ExamScoreVO();
 		List<ExamResultVO> examResultList = new ArrayList<>();
 		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
