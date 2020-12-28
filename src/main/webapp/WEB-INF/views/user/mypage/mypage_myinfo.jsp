@@ -69,7 +69,7 @@
 <!--                   <i class="ni education_hat mr-2"></i>University of Computer Science -->
                 </div>
                 <hr class="my-4">
-                <h5>CODEMAKER의 다양한 강의를 만나보세요.👨‍💻</h5>
+                <h5>CODEMAKER의 다양한 강의를 만나보세요.</h5>
                            <a href="${cp }/mypage/updateUser?userId=${userVo.userId}" class="btn btn-info">Edit profile</a>
               </div>
             </div>

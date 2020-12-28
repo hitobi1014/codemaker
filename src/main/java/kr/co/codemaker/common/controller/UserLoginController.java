@@ -23,6 +23,18 @@ import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.UserVO;
 
+/**
+* UserLoginController.java
+*
+* @author 최민준
+* @version 1.0
+* @since 2020. 12.
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 최민준 회원 로그인
+*
+ */
 @Controller
 public class UserLoginController {
 	private static final Logger logger = LoggerFactory.getLogger(UserLoginController.class);
@@ -51,7 +63,6 @@ public class UserLoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		logger.debug("가져온 아이디 :{}",getUserVo);
 		Cookie userCookie=null;
 		Cookie remember = null;
 		//아이디 저장 버튼 클릭시 쿠키에 아이디 정보 저장
@@ -75,9 +86,9 @@ public class UserLoginController {
 		if(getUserVo != null && userVo.getUserPass().equals(getUserVo.getUserPass())) {
 			session.setAttribute("MEMBER_INFO", getUserVo);
 			
+			//회원에 대한 알림 조회
 			NotificationVO notificationVo = new NotificationVO();
 			notificationVo.setRecipientId(getUserVo.getUserId());
-			
 			List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
 			int notifyCnt = 0;
 			try {
@@ -86,7 +97,6 @@ public class UserLoginController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 			session.setAttribute("notifyList", notifyList);
 			session.setAttribute("notifyCnt", notifyCnt);
 			return "mainT/user/main/main_content";

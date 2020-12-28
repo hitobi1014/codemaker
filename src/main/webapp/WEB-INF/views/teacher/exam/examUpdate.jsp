@@ -83,22 +83,13 @@ $(function() {
 	$('#temps').on('click', function(){
 		// 빈칸 체크
 		var state = 0;
-		$('#examf').find('input[type="text"]').each(function(index, data){
+		$('.form-control').each(function(index, data){
 			if($(this).val().trim() == ''){
-				alert('값이 입력되지 않았습니다.');
+				alert('문제 또는 해설이 입력되지 않았습니다.');
 				state = 1;
 				return false;
 			}
 		});
-		if(state == 0){
-			$('.comment').each(function(index, data){
-				if($(this).val().trim() == ''){
-					alert('해설이 입력되지 않았습니다.');
-					state = 1;
-					return false;
-				}
-			});
-		}
 		if(state == 0){
 			if($('.chk:checked').length < $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
@@ -118,24 +109,15 @@ $(function() {
 	$('#regBtn').on('click', function(){
 		// 빈칸 체크
 		var state = 0;
-		$('#examf').find('input[type="text"]').each(function(index, data){
+		$('.form-control').each(function(index, data){
 			if($(this).val().trim() == ''){
-				alert('값이 입력되지 않았습니다.');
+				alert('문제 또는 해설이 입력되지 않았습니다.');
 				state = 1;
 				return false;
 			}
 		});
 		if(state == 0){
-			$('.comment').each(function(index, data){
-				if($(this).val().trim() == ''){
-					alert('해설이 입력되지 않았습니다.');
-					state = 1;
-					return false;
-				}
-			});
-		}
-		if(state == 0){
-			if($('.chk:checked').length != $('.d5').length){
+			if($('.chk:checked').length < $('.d5').length){
 				alert('정답이 입력되지 않았습니다.');
 				state = 1;
 				return false;
@@ -241,12 +223,14 @@ $(function() {
 <div class="btns">
 	<input type="button" class="btn btn-default hide" id="plusBtn" value="문제추가">
 	<input type="button" class="btn btn-default hide" id="temps" value="임시저장">
-	<c:if test="${ev.examState != '3'}">
+	<c:if test="${ev.examState == '1'}">
 		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
 		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
-		<c:if test="${ev.examState != '2' }">
-			<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
-		</c:if>
+		<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
+	</c:if>
+	<c:if test="${ev.examState == '2'}">
+		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
+		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 	</c:if>
 	<input type="button" class="btn btn-default" id="cancle" value="목록으로 가기">
 </div>

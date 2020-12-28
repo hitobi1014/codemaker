@@ -30,7 +30,6 @@ import kr.co.codemaker.admin.company.service.CompanyService;
 import kr.co.codemaker.admin.company.service.AdminFilesService;
 import kr.co.codemaker.admin.company.vo.CompanyVO;
 import kr.co.codemaker.admin.company.vo.FilesVO;
-import kr.co.codemaker.admin.jobinfo.controller.AdminJobInfoController;
 
 /**
 * CompanyController.java
@@ -48,7 +47,7 @@ import kr.co.codemaker.admin.jobinfo.controller.AdminJobInfoController;
 @Controller
 public class CompanyController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AdminJobInfoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 	
 	@Resource(name="companyService")
 	private CompanyService companyService;

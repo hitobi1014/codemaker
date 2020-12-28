@@ -35,6 +35,8 @@ public interface LessonMapper {
 	
 	int updatePermissionLesson(LessonVO lessonVO) throws Exception; // 강의 요청
 	
+	int updatePremissionExam(LessonVO lessonVO) throws Exception; // 시험 요청
+	
 	int selectExamCnt(LessonVO lessonVO) throws Exception; // 승인안된 시험갯수 조회
 
 	

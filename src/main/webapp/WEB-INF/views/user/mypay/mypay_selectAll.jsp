@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
 <script>
 $(function(){
 

@@ -51,7 +51,7 @@ $(function() {
 		$('#examStrat').attr('style', 'display: none');
 		
 		// 시험 타이머
-		var time = 10;	// 기준 시간
+		var time = 300;	// 기준 시간
 		var min = "";
 		var sec = "";
 		
@@ -148,28 +148,28 @@ var scoring = function(){
 			$('#esLscore').val(sum);
 		}
 		
-// 		$.ajax({
-// 			url : '/examUser/insertExamResult',
-// 			method : 'post',
-// 			data : 
-// 				$("#examf").serialize()
-// 			,
-// 			success : function(res){
-// 				alert("채점을 완료하였습니다.");
-// 				opener.parent.location.reload(); // 부모창 리로드
+		$.ajax({
+			url : '/examUser/insertExamResult',
+			method : 'post',
+			data : 
+				$("#examf").serialize()
+			,
+			success : function(res){
+				alert("채점을 완료하였습니다.");
+				opener.parent.location.reload(); // 부모창 리로드
 				
-// 				// 초기화
-// 				$('#examf')[0].reset();
+				// 초기화
+				$('#examf')[0].reset();
 				
-// 				$('#examf').attr('action', '/examUser/selectExamScore');
-// 				$('#examf').submit();
+				$('#examf').attr('action', '/examUser/selectExamScore');
+				$('#examf').submit();
 				
-// 				//self.close();
-// 			},
-// 			error: function(xhr){
-// 				alert("상태"+xhr.status);
-// 			}
-// 		});
+				//self.close();
+			},
+			error: function(xhr){
+				alert("상태"+xhr.status);
+			}
+		});
 	}
 }
 

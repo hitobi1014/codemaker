@@ -7,7 +7,7 @@
 <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
-<link rel="stylesheet" href="/css/teacher/lesson/selectAllLesson.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lessonAllSelect.css">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -76,6 +76,10 @@ $(function(){
 		console.log(lesid);
 		document.location="/teacherL/deleteLesson?lesId="+lesid+"&check="+check;
 	})
+	
+	if('${no}' != null && '${no}' != ''){
+		alert('${no}');
+	}
 		
 })	
 

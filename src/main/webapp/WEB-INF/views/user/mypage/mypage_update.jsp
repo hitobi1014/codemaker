@@ -59,46 +59,46 @@ function readURL(input) {
             
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">EDIT PROFILE</h3>
+                  <h3 class="mb-0">회원정보수정</h3>
                 </div>
                 <div class="col-4 text-right">
 <!--                   <a href="#!" class="btn btn-sm btn-primary"> -->
                   <input id="picture" type="file" name="file" value="${userVo.userProfile }" accept=".gif, .jpg, .png" >
                  <input type="hidden" name="userProfile" value="${userVo.userProfile}"/>
-                  <input type="submit"  class="btn btn-sm btn-primary" value="EDIT">
+                  <input type="submit"  class="btn btn-sm btn-primary" value="수정">
                 </div>
               </div>
             </div>
             
             <div class="card-body">
               <br><br>
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">회원정보</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">USERID</label>
-                        <input type="text" id="input-email" name="userId" class="form-control form-control-alternative" placeholder="jesse@example.com" value="${userVo.userId }" READONLY>
+                        <label class="form-control-label" for="input-username">회원ID</label>
+                        <input type="text" id="input-email" name="userId" class="form-control form-control-alternative" placeholder="회원ID" value="${userVo.userId }" READONLY>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">USERNAME</label>
-                         <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="username" name="userNm" value="${userVo.userNm }">
+                        <label class="form-control-label" for="input-email">이름</label>
+                         <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="이름" name="userNm" value="${userVo.userNm }">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">USERPASSWORD</label>
-                        <input type="password" id="input-first-name" class="form-control form-control-alternative" placeholder="password" name="userPass" value="${userVo.userPass }">
+                        <label class="form-control-label" for="input-first-name">비밀번호</label>
+                        <input type="password" id="input-first-name" class="form-control form-control-alternative" placeholder="비밀번호" name="userPass" value="${userVo.userPass }">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">USERTEL</label>
-                        <input type="text" id="input-last-name" class="form-control form-control-alternative" name="userTel" placeholder="usertel" value="${userVo.userTel}">
+                        <label class="form-control-label" for="input-last-name">전화번호</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" name="userTel" placeholder="전화번호" value="${userVo.userTel}">
                       </div>
                     </div>
                   </div>

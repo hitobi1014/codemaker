@@ -29,6 +29,7 @@ table{
 }
 #les{
 	display: inline-block;
+	width: 400px;
 }
 .exam-box{
 	width: 92%;
