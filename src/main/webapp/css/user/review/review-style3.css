@@ -78,6 +78,7 @@ img#starimg {
 	display: flex;
     justify-content: center;
     align-items: center;
+    margin: 1px 0px 1px 45px;
 }
 p.message_title {
     color: black;

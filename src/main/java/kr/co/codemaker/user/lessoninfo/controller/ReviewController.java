@@ -34,7 +34,7 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@RequestMapping("/user/selectReview")
-	public String selectReview(Model model, String lesId) throws IOException{
+	public String selectReview(Model model, String lesId, HttpServletResponse response) throws IOException{
 
 		List<ReviewVO> reviewList=new ArrayList<ReviewVO>();
 		//수강후기 조회
@@ -43,6 +43,7 @@ public class ReviewController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		//수강후기 별점 평균
 		float reviewAvg=0;
@@ -70,18 +71,10 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/user/reviewprofile")
-	public void profileImg(String lesId, HttpServletResponse response,HttpServletRequest request) throws Exception {
+	public void profileImg(String userProfile, HttpServletResponse response,HttpServletRequest request) throws Exception {
 
-
-		List<ReviewVO> reviewList=new ArrayList<ReviewVO>();
-		reviewList =  reviewService.selectReview(lesId);
-		
-		//경로확인 후 파일 입출력을 통해 응답생성
-		//파일을 읽고 응답생성
-
-		for(int i=0; i<reviewList.size(); i++) {
 			
-			FileInputStream fis = new FileInputStream(reviewList.get(i).getUserProfile());
+			FileInputStream fis = new FileInputStream(userProfile);
 			ServletOutputStream sos =  response.getOutputStream();
 			
 			byte[] buffer = new byte[512];
@@ -94,7 +87,6 @@ public class ReviewController {
 			sos.flush(); 
 			sos.close();
 			
-		}
 	}
 
 	@ResponseBody

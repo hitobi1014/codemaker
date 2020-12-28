@@ -11,12 +11,32 @@
 
 <script>
 var startCount = 0;
-$(function() {
 
+$(function() {
+ 	   "use strict";
+       function animated_contents() {
+           $(".zt-skill-bar > div ").each(function (i) {
+               var $this  = $(this),
+                   skills = $this.data('width');
+
+               $this.css({'width' : skills + '%'});
+
+           });
+       }
+       
+       if(jQuery().appear) {
+           $('.zt-skill-bar').appear().on('appear', function() {
+               animated_contents();
+           });
+       } else {
+           animated_contents();
+       }
+
+	
+	//별점클릭 이벤트
 	$('button[name^="star"]').on('click', function() {
 		var cl =$(this).children('img');
-// 		var cl = $('.starbtn-img').attr('src');
-// alert(cl);
+
 			console.log(cl);
 		if (cl.attr('src') == '/images/user/icons/staroff.png') {
 			startCount++;
@@ -30,11 +50,12 @@ $(function() {
 		
 	});
 
+	//수강후기삭제
 	$("#reviewDel").on('click', function() {
 		alert("수강후기가 삭제되었습니다.");
 	});
 	
-	
+	//수강후기등록
 	$(document).ready(function(){
 		$('#reviewb').on("click", function(){
 			
@@ -45,6 +66,13 @@ $(function() {
 				alert("별점을 체크해 주세요.");
 				return false;
 			}
+			
+			if($('#new-review').val() == ""){
+				alert("수강후기를 작성해 주세요.");
+				$('#new-review').focus();
+				return false;
+			}
+			
 			var lesId= $("#lesId").val();
 			var flag=true;
 			
@@ -61,7 +89,7 @@ $(function() {
 						flag=false;
 					}else {
 						alert("수강후기를 작성합니다.");
-						location.href="${cp}/user/selectReview?lesId="+lesId;
+						location.href="/user/selectReview?lesId="+lesId;
 					}
 				}
 			});
@@ -70,7 +98,74 @@ $(function() {
 		});
 })
 </script>
+<style>
+  .zt-skill-bar {
+        color: #fff;
+        font-size: 11px;
+        line-height: 25px;
+        height: 25px;
+        margin-bottom: 5px;
 
+        background-color: rgba(0,0,0,0.1);
+
+        -webkit-border-radius: 2px;
+           -moz-border-radius: 2px;
+            -ms-border-radius: 2px;
+                border-radius: 2px;
+
+    }
+
+    .zt-skill-bar * {
+        webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+           -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+               transition: all 0.5s ease;
+    }
+
+    .zt-skill-bar div {
+        background-color: #ffc600;
+        position: relative;
+        padding-left: 6px;
+        width: 0;
+
+        -webkit-border-radius: 2px;
+           -moz-border-radius: 2px;
+           -ms- border-radius: 2px;
+                border-radius: 2px;
+    }
+
+    .zt-skill-bar span {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding: 0 5px 0 10px;
+        background-color: #1a1a1a;
+
+        -webkit-border-radius: 0 2px 2px 0;
+           -moz-border-radius: 0 2px 2px 0;
+            -ms-border-radius: 0 2px 2px 0;
+                border-radius: 0 2px 2px 0;
+    }
+
+    .zt-skill-bar span:before {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        top: 50%;
+        left: -3px;
+        margin-top: -3px;
+        background-color: #1a1a1a;
+
+        -webkit-transform: rotate(45deg);
+           -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+    }
+</style>
 
 <body>
 <div class="reviewBox">
@@ -107,49 +202,27 @@ $(function() {
 
 	<div class="rating_bar_header">
 	<div class="review_rating_bar">
-		<div class="review_rating_rowbar1">
-		<span><b>5</b><img src="${cp}/images/user/icons/review-star.svg"></span>
-		</div>
+		<img src="${cp}/images/user/icons/review-star.svg" id="starimg"><b>5</b>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner"  style="width: 100%;"></span>
-		</div>
-		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.five}</b></div>
-	</div>
-	<div class="review_rating_bar">
-		<div class="review_rating_rowbar1">
-		<span><b>4</b><img src="${cp}/images/user/icons/review-star.svg"></span>
-		</div>
+			<div class="zt-skill-bar"><div data-width="${reviewStarVo.five*15}" style="max-width:22rem;min-width:4rem;">별점5점<span>${reviewStarVo.five}</span></div></div>
+		</div><br>
+		<img src="${cp}/images/user/icons/review-star.svg" id="starimg"><b>4</b>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner" style="width: 80%;"></span>
-		</div>
-		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.four}</b></div>
-	</div>
-	<div class="review_rating_bar">
-		<div class="review_rating_rowbar1">
-		<span><b>3</b><img src="${cp}/images/user/icons/review-star.svg"></span>
-		</div>
+			<div class="zt-skill-bar"><div data-width="${reviewStarVo.four*15}" style="max-width:22rem;min-width:4rem;">별점4점<span>${reviewStarVo.four}</span></div></div>
+		</div><br>
+		<img src="${cp}/images/user/icons/review-star.svg" id="starimg"><b>3</b>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner" style="width: 60%;"></span>
-		</div>
-		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.three}</b></div>
-	</div>
-	<div class="review_rating_bar">
-		<div class="review_rating_rowbar1">
-		<span><b>2</b><img src="${cp}/images/user/icons/review-star.svg"></span>
-		</div>
+			<div class="zt-skill-bar"><div data-width="${reviewStarVo.three*15}" style="max-width:22rem;min-width:4rem;">별점3점<span>${reviewStarVo.three}</span></div></div>
+		</div><br>
+		<img src="${cp}/images/user/icons/review-star.svg" id="starimg"><b>2</b>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner" style="width: 40%;"></span>
-		</div>
-		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.two}</b></div>
-	</div>
-	<div class="review_rating_bar">
-		<div class="review_rating_rowbar1">
-		<span><b>1</b><img src="${cp}/images/user/icons/review-star.svg"></span>
-		</div>
+			<div class="zt-skill-bar"><div data-width="${reviewStarVo.two*15}" style="max-width:22rem;min-width:4rem;">별점2점<span>${reviewStarVo.two}</span></div></div>
+		</div><br>
+		<img src="${cp}/images/user/icons/review-star.svg" id="starimg"><b>1 </b>
 		<div class="review_rating_rowbar2">
-			<span class="ReviewRatingRow__bar__inner" style="width: 20%;"></span>
+			<div class="zt-skill-bar"><div data-width="${reviewStarVo.one*15}" style="max-width:22rem;min-width:4rem;">별점1점<span>${reviewStarVo.one}</span></div></div>
 		</div>
-		<div class="pull-right" style="margin-left:10px;"><b>${reviewStarVo.one}</b></div>
+		
 	</div>
 	</div>	
 	</div>
@@ -187,7 +260,11 @@ $(function() {
 				<div class="reviewbox_profile">
 					<div class="reviewbox_profile_user">
 						<div class="reviewbox_profile_img">
-							<img src="/user/reviewprofile?lesId=${lesId}" class="userimg">
+						
+							<c:url value="/user/reviewprofile?lesId=${lesId}" var="userImage">
+								<c:param name="userProfile" value="${reviewList.userProfile}"/>
+							</c:url>
+							<img src="${userImage}" class="userimg">
 							<span class="username">‍${reviewList.userId}</span>
 						</div>
 					</div>
@@ -200,7 +277,7 @@ $(function() {
 				
 						<div class="reviewbox_contstar">
 							<c:forEach var="i" begin="1" end="${reviewList.reviewStar}">
-								<img src="${cp}/images/user/icons/review-star.svg">
+								<img src="/images/user/icons/review-star.svg">
 							</c:forEach>
 							<fmt:formatDate value="${reviewList.reviewDate}" pattern="yyyy-MM-dd"/>
 							
@@ -217,7 +294,6 @@ $(function() {
 								<strong>${reviewList.reviewCont}</strong>
 							</div>
 						</div>
-						
 				</div>
 			</div>
 		</div>
