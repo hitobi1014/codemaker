@@ -161,27 +161,36 @@ font-family: 'LotteMartDream';
 		</div>
 		 <div class="text-center">
             <ul class="pagination justify-content-center m-0">
-              <c:if test="${param.page != 1}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${1}">&laquo;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page-1}">&lt;</a></li>
-              </c:if>
-               
-               <c:forEach var="i" begin="1" end="${pages}">
-                  <c:choose>
-                     <c:when test="${i == param.page}">
-                        <li class="page-item active"><a class="page-link pageMove pageMV">${i}</a></li>
-                     </c:when>
-                     <c:otherwise>
-                        <li class="page-item"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
-                     </c:otherwise>
-                  </c:choose>   
-               </c:forEach>
-               
-               <c:if test="${param.page != pages}">
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${page+1}">&gt;</a></li>
-              	<li class="page-item active"><a class="page-link pageMove pageMV" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pages}">&raquo;</a></li>
-              </c:if>
-            </ul>
+				<c:choose>
+					<c:when test="${page != 1 and page != null}">
+						<fmt:parseNumber var="pg" value="${((page / 5 ) - 1 ) * 5 + 1}"/>
+						<c:if test="${page > 5}">
+							<li class="page-item"><a class="page-link"
+								href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pg}">이전</a></li>
+						</c:if>
+					</c:when>
+				</c:choose>
+		
+				<c:forEach var="i" begin="1" end="${pages}">
+					<c:choose>
+						<c:when test="${i == page}">
+							<li class="page-item active"><a class="page-link">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${i}">${i}</a></li>
+						</c:otherwise>
+					</c:choose>	
+				</c:forEach>
+				
+				<c:choose>
+					<c:when test="${page != pages && page != null}">
+						<fmt:parseNumber var="pg" value="${((page / 5 ) + 1 ) * 5 + 1 }"/>
+						<c:if test="${pages >= pg}">
+						  <li class="page-item"><a class="page-link" href="/admin/selectAllJobInfo?keyWord=${keyWord}&page=${pg}">다음</a></li>
+						</c:if>
+					</c:when>
+				</c:choose> 	
+			</ul>
             <button type="button" id="btnWrite" class="btn btn-info btn-sm" style="float:right; width:100px; height:30px;">공고등록</button>
             <div>
             <hr>

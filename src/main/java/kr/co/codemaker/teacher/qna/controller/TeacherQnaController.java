@@ -34,7 +34,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserQnaController.c
 	
 	@RequestMapping(path="/teacher/selectAllQna")
 	public String selectAllQna(@RequestParam(name="page", required = false, defaultValue = "1") int page, 
-			@RequestParam(name="pageSize", required = false, defaultValue = "10") int pageSize, 
+			@RequestParam(name="pageSize", required = false, defaultValue = "7") int pageSize, 
 			HttpSession session, Model model) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -59,7 +59,7 @@ private static final Logger logger = LoggerFactory.getLogger(UserQnaController.c
 		
 		model.addAttribute("qnaList", map2.get("qnaList"));
 		model.addAttribute("pages", map2.get("pages"));
-		model.addAttribute("page", map2.get("page"));
+		model.addAttribute("page", page);
 		model.addAttribute("pageSize", pageSize);
  		
 		return "teacherPage/teacher/qna/qnaList";

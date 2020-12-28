@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.co.codemaker.admin.teacher.vo.LessonVO;
-import kr.co.codemaker.common.vo.TeacherVO;
 import kr.co.codemaker.teacher.info.dao.TeacherMapper;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 /**
 * TeacherService.java
