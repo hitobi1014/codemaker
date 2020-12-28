@@ -16,7 +16,7 @@
 		<div class="info-teacher">
 			<div class="info-first">
 				<div>
-				<div style="width: 200px;height: 300px;">
+				<div class="teacher-img-box">
 					<c:url value="/admin/teacherImg" var="teacherImg">
 						<c:param name="tchProfile" value="${teacherVo.tchProfile}"/>
 					</c:url>
@@ -33,7 +33,9 @@
 								<span>${teacherVo.tchNm}</span>
 							</c:when>
 							<c:otherwise>
-								<span style="background: #8415ffad;color: white;" class="sp-ib">정규강사</span>
+								<span style="background: #8415ffad;color: white;" class="sp-ib">
+									<em>정규강사</em>
+								</span>
 								<span>${teacherVo.tchNm}</span>
 							</c:otherwise>
 						</c:choose>
