@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
@@ -95,7 +96,7 @@ public class TeacherLessonController {
 
 //		String tchId = teacherVO.getTchId();
 		LessonVO lessonVO = new LessonVO();
-		lessonVO.setTchId("dammie7");
+		lessonVO.setTchId(teacherVO.getTchId());
 		lessonVO.setSubId(subId);
 		List<LessonVO> leList = new ArrayList<LessonVO>();
 		
@@ -134,7 +135,7 @@ public class TeacherLessonController {
 	 * 선생님 - 강의 삭제&요청
 	 */
 	@RequestMapping(path = "/teacherL/deleteLesson", method = RequestMethod.GET)
-	public String deleteLesson(Model model, String lesId, HttpSession session, String check) {
+	public String deleteLesson(Model model, String lesId, HttpSession session, String check, RedirectAttributes redirectAttributes) {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		LessonVO lessonVO = new LessonVO();
 		lessonVO.setLesId(lesId);
@@ -163,6 +164,10 @@ public class TeacherLessonController {
 				
 				if (examCnt == 0) {
 					lessonService.updatePermissionLesson(lessonVO);
+					lessonService.updatePremissionExam(lessonVO);
+					return "redirect:/teacherL/selectSubject";
+				}else {
+					redirectAttributes.addFlashAttribute("no", "등록된 시험이 수정중입니다.");
 					return "redirect:/teacherL/selectSubject";
 				}
 			}

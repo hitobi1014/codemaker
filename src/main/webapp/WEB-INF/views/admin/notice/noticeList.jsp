@@ -47,8 +47,6 @@ $(document).ready(function(){
 function ins(){
 	var searchOption = $("select[name='searchOption']").val();
 	var keyWord = $("input[name='keyWord']").val();
-	
-	alert(keyWord);
 	document.location="/admin/selectAllNotice?searchOption="+searchOption+"&keyWord="+keyWord+"&page=1";
 }
 </script>
@@ -193,7 +191,7 @@ font-family: 'LotteMartDream';
 		<div class="text-center">
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
-					<c:when test="${param.page != 0 and param.page != 1 and param.page != null}">
+					<c:when test="${page != 1 and page != null}">
 						<fmt:parseNumber var="pg" value="${((page / 5 ) - 1 ) * 5 + 1}"/>
 						<c:if test="${page > 5}">
 							<li class="page-item"><a class="page-link"
@@ -204,7 +202,7 @@ font-family: 'LotteMartDream';
 		
 				<c:forEach var="i" begin="1" end="${pages}">
 					<c:choose>
-						<c:when test="${i == param.page}">
+						<c:when test="${i == page}">
 							<li class="page-item active"><a class="page-link">${i}</a></li>
 						</c:when>
 						<c:otherwise>
@@ -214,7 +212,7 @@ font-family: 'LotteMartDream';
 				</c:forEach>
 				
 				<c:choose>
-					<c:when test="${param.page != pages && param.page != null}">
+					<c:when test="${page != pages && page != null}">
 						<fmt:parseNumber var="pg" value="${((page / 5 ) + 1 ) * 5 + 1 }"/>
 						<c:if test="${pages >= pg}">
 						  <li class="page-item"><a class="page-link" href="${cp}/admin/selectAllNotice?searchOption=${param.searchOption}&keyWord=${param.keyWord}&page=${pg}">다음</a></li>

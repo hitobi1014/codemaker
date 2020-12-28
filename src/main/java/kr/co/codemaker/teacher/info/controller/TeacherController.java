@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -24,13 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.codemaker.admin.teacher.vo.LessonVO;
-import kr.co.codemaker.admin.vo.AdminVO;
 import kr.co.codemaker.common.util.MkDir;
-import kr.co.codemaker.common.vo.NotificationVO;
-import kr.co.codemaker.common.vo.TeacherVO;
-import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.teacher.info.service.TeacherService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
+import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
 @Controller
 public class TeacherController {

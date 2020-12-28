@@ -7,7 +7,8 @@
 	<!-- Sidebar - Brand -->
 	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
 		<div class="sidebar-brand-icon">
-			<img id="usericon" src="/images/user/icons/user.png"> <br>
+			<c:url value="/mypage/profileImg" var="userProfile"></c:url>
+			<img id="usericon" src="${userProfile}"> <br>
 			<br>${MEMBER_INFO.userNm}님 <br>
 		</div>
 	</a>

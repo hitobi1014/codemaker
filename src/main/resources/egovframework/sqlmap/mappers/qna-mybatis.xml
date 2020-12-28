@@ -38,8 +38,9 @@ SELECT *
   FROM QNA A, TEACHER B, LESSON C
  WHERE A.LES_ID = C.LES_ID
    AND B.TCH_ID = C.TCH_ID
-   AND B.TCH_ID = #{tchId}) A
-				ORDER BY QNA_ID DESC)
+   AND B.TCH_ID = #{tchId}
+   ORDER BY QNA_ID DESC) A)
+				
 <where>
 	AND RN BETWEEN (#{page} - 1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </where>

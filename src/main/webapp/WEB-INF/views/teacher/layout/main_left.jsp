@@ -17,13 +17,13 @@
 					<span class="brand-name">강사</span>
 				</a>
 			</div>
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/teacher/selectTeacher?tchId=${S_TEACHER.tchId}">
 				<div class="sidebar-brand-icon">
 					<c:url value="/teacher/teacherImg" var="teacherImg">
 						<c:param name="tchProfile" value="${S_TEACHER.tchProfile}"/>
 					</c:url>
 					<img id="teachericon" alt="" src="${teacherImg}"> <br>
-					<br>${S_TEACHER.tchNm}님 <br>
+					<br>${S_TEACHER.tchNm}님<br>
 				</div>
 			</a>
 			

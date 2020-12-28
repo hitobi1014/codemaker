@@ -276,7 +276,7 @@ $(document).ready(function(){
 					</div>
 					<div class="comment_attach">
 						<div>
-							<button style="float:right; color:#b7b7b7;" type="button" id="insertbutton" class="button btn_register">등록</button>
+							<button style="float:right; color:#696969;" type="button" id="insertbutton" class="button btn_register">등록</button>
 						</div>
 					</div>
 				</div>

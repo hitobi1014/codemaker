@@ -79,7 +79,7 @@ public class AdminNoticeController {
 		model.addAttribute("totalCnt", map2.get("totalCnt"));
 		model.addAttribute("noticeList", map2.get("noticeList"));
 		model.addAttribute("pages", map2.get("pages"));
-		model.addAttribute("page", map2.get("page"));
+		model.addAttribute("page", page);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("keyWord", keyWord);

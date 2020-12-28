@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% pageContext.setAttribute("br", "\n"); %>
+
+<title>선생님 마이페이지</title>
 <link href="/css/admin/teacher/detailSelectTeacher.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -16,7 +18,7 @@
 <div class="card">
 	<div class="select-container-area">
 		<div class="header-container">
-			<h3>선생님 상세조회 <button style="float:right;" id="updateBtn" type="button" class="btn btn-primary" name="updateBtn">수정</button></h3>
+			<h3>마이페이지 <button style="float:right;" id="updateBtn" type="button" class="btn btn-primary" name="updateBtn">수정</button></h3>
 			<div class="divider"></div>
 		</div>
 		<div class="info-teacher">
