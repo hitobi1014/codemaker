@@ -42,51 +42,35 @@ $(function(){
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto user-header">
 		<!-- 로그인시에 떠야할 Nav Item - Alerts -->
-			<li class="nav-item dropdown no-arrow mx-1">
-				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-bell fa-fw"></i>
-					<span class="badge badge-danger badge-counter">3+</span>
-				</a>
-				<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-					<h6 class="dropdown-header"></h6>
-					<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="mr-3">
-							<div class="icon-circle bg-primary">
-								<i class="fas fa-file-alt text-white"></i>
-							</div>
-						</div>
-						<div>
-							<div class="small text-gray-500">December 12, 2019</div>
-							<span class="font-weight-bold">A new monthly report is ready to download!</span>
-						</div>
-					</a> 
-					<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="mr-3">
-							<div class="icon-circle bg-success">
-								<i class="fas fa-donate text-white"></i>
-							</div>
-						</div>
-						<div>
-							<div class="small text-gray-500">December 7, 2019
-							</div>
-							$290.29 has been deposited into your account!
-						</div>
-					</a>
-					<a class="dropdown-item d-flex align-items-center" href="#">
-						<div class="mr-3">
-							<div class="icon-circle bg-warning">
-								<i class="fas fa-exclamation-triangle text-white"></i>
-							</div>
-						</div>
-						<div>
-							<div class="small text-gray-500">December 2, 2019
-							</div>
-							Spending Alert: We've noticed unusually high spending for your account.
-						</div>
-					</a> 
-					<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-				</div>
-			</li>
+		<li class="nav-item dropdown no-arrow mx-1">
+			<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+				<i class="fas fa-bell fa-fw"></i> 
+				<span class="badge badge-danger badge-counter">${notifyCnt}</span>
+			</a>
+			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+				<h6 class="dropdown-header"></h6>
+				<c:forEach items="${notifyList}" var="notify">
+					<c:choose>
+						<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
+							<span class="font-weight-bold">새로운 알림이 없습니다</span>
+						</c:when>
+						<c:otherwise>
+							<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
+								<div class="mr-3">
+									<div class="icon-circle bg-primary">
+										<i class="fas fa-file-alt text-white"></i>
+									</div>
+								</div>
+								<div>
+									<div class="small text-gray-500">${notify.notifyDate}</div>
+									<span class="font-weight-bold">${notify.notifyCont}</span>
+								</div>
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach> 
+			</div>
+		</li>
 				
 			<!-- 로그인시에 떠야할 Nav Item - User Information -->
 			<li class="nav-item dropdown no-arrow">

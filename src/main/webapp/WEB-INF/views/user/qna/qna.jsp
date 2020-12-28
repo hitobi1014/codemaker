@@ -80,6 +80,15 @@ $(document).ready(function(){
 		}
 	})
 	
+	$("button[id='complainBtn']").on('click', function(){
+		if(confirm("신고하시겠습니까?")){
+			$("#rreplyInsert").submit();
+			return;
+		}else{
+			return;
+		}
+	})
+	
 });
 
 </script>
@@ -244,9 +253,10 @@ $(document).ready(function(){
 											<c:choose>
 												<c:when test="${reply.replyWriter != MEMBER_INFO.userId}">
 													<button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button>
+													<button id="complainBtn" type="button" name="rreplyRoot" value="${reply.replyId}">신고</button>
 												</c:when>
 												<c:otherwise>
-													<form id="delre" action="/teacher/deleteReply">
+													<form id="delre" action="/user/deleteReply">
 														<input type="hidden" value="${qnaVo.qnaId}" name="qnaId">
 														<button type="button" id="delbutton" value="${reply.replyId}">삭제</button>
 													</form>

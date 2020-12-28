@@ -56,22 +56,24 @@ public class ResumeController {
 			}
 		}
 		
-		resumeVO.setResProfile("d:/file/" + file.getOriginalFilename());
+		resumeVO.setResProfile("c:/file/" + file.getOriginalFilename());
 		
 		NotificationVO notificationVo = new NotificationVO();
 		notificationVo.setRecipientId("admin");
 		notificationVo.setSenderId(resumeVO.getResNm());
 		notificationVo.setNotifyCont(resumeVO.getResNm() + " 님이 이력서를 제출하였습니다.");
+		notificationVo.setUrl("/admin/resumeList");
 		
 		resumeVO.setResProfile(path.toString());	//파일 경로 지정
 		int insertCnt = 0;
 		try {
 			insertCnt = resumeService.insertResume(resumeVO);
-			notificationService.insertNotification(notificationVo);
+			
 			
 			logger.debug("insertCnt 뭐가 들었냐~!~!~! : {}", insertCnt );
 			
 			if(insertCnt == 1) {
+				notificationService.insertNotification(notificationVo);
 				return "mainT/teacher/resume/success";
 			}
 		} catch (Exception e) {}
