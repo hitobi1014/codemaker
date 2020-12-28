@@ -117,7 +117,22 @@
 										</c:choose>
 									</div>
 									<div class="lidx-img-3rd">
-										<a href=""><img class="note-img" src="/images/user/lesson/note.png"></a>
+										<c:forEach items="${examList }" var="exam">
+											<c:if test="${exam.lidxId == lesIdxList.lidxId}">
+												<c:choose>
+													<c:when test="${exam.searchEsScore == '999' }">
+														<a href="#" class="exam" data-examid="${exam.examId }/0">
+															<img class="note-img" src="/images/user/lesson/note.png">
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" class="exam" data-examid="${exam.examId }/1">
+															<img class="note-img" src="/images/user/lesson/note.png">
+														</a>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</c:if>
@@ -129,6 +144,10 @@
 		</div>
 	</div>
 </div>
+<form action="/examUser/selectViewExam" method="post" id="subf">
+	<input type="hidden" name="examId" value="" id="examId">
+	<input type="hidden" name="searchEsScore" value="" id="searchEsScore">
+</form>
 <script>
 function addCart(lesId,userId){
 	console.log(lesId,userId);
@@ -147,7 +166,22 @@ function addCart(lesId,userId){
 				}
 			}
 		}
-	})
+	});
+	
+	// 시험 문제 화면 요청
+	$('.exam').on('click', function(){
+		var examId = $(this).data('examid').split("/")[0];
+		var searchEsScore = $(this).data('examid').split("/")[1];
+		
+		$('#examId').val(examId);
+		$('#searchEsScore').val(searchEsScore);
+		
+        window.open('', "selectViewExam", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50');
+         
+        $('#subf').attr("target", "selectViewExam");
+        $('#subf').submit();
+        
+	});
 }
 
 function pay(lesId){

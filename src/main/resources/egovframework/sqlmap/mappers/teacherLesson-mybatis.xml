@@ -90,4 +90,11 @@ INSERT INTO lesson(
 		  </where>
 	</select>
 
+<update id="updatePremissionExam" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
+UPDATE exam
+   		   SET exam_state='3'
+   		   <where>
+		      AND les_id=#{lesId}
+   		   </where>
+</update>
 </mapper>

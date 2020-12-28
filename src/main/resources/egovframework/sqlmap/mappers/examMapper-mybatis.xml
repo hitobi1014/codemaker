@@ -82,14 +82,6 @@ WHERE
 AND
 	sub_id = #{subId}
 </if>
-AND les_state = '1' 
-OR 
-tch_id = #{tchId}
-<if test="subId != null and !subId.equals('')">
-AND
-	sub_id = #{subId}
-</if>
-AND les_state = '2'
 </select>
 <select id="selectAllExam" parameterType="kr.co.codemaker.teacher.course.exam.vo.ExamVO" resultType="kr.co.codemaker.teacher.course.exam.vo.ExamVO">
 SELECT *
@@ -105,7 +97,8 @@ SELECT *
 		   l.les_cont,
 		   li.lidx_id,
 		   li.lidx_cont,
-		   l.tch_id
+		   l.tch_id,
+		   l.les_state
 		FROM
 		    lesson l, lesson_index li, exam e
 		WHERE
@@ -114,19 +107,23 @@ SELECT *
 			e.lidx_id(+) = li.lidx_id
 		AND
 			l.tch_id = #{tchId}
-			<choose>
-				<when test="searchExamState != null and !searchExamState.equals('')">
-					<choose>
-						<when test='searchExamState.equals("0")'>
-							AND e.exam_id is NULL
-						</when>
-						<otherwise>
-							AND e.exam_state = #{searchExamState}
-						</otherwise>
-					</choose>
-				</when>
-			</choose>
-		ORDER BY e.exam_date DESC) a)
+		<if test="searchLesId != null and !searchLesId.equals('')">
+		AND
+			l.les_id = #{searchLesId}
+		</if>
+		<choose>
+			<when test="searchExamState != null and !searchExamState.equals('')">
+				<choose>
+					<when test='searchExamState.equals("0")'>
+						AND e.exam_id is NULL
+					</when>
+					<otherwise>
+						AND e.exam_state = #{searchExamState}
+					</otherwise>
+				</choose>
+			</when>
+		</choose>
+		ORDER BY l.les_id, li.lidx_num) a)
  WHERE rn BETWEEN 10 * (#{page} - 1) + 1 AND #{page} * 10
 </select>
 

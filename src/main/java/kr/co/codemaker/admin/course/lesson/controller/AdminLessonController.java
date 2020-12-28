@@ -119,8 +119,6 @@ public class AdminLessonController {
 	@RequestMapping("/admin/updateLesson")
 	public String updateLesson(@RequestParam(value="lesIds")List<String> lesIds, String lesState) {
 		
-		
-		
 		for(String lesId : lesIds) {
 			NotificationVO notificationVo = new NotificationVO();
 			LessonVO lessonVO = new LessonVO();
@@ -138,12 +136,12 @@ public class AdminLessonController {
 				
 				// 강의 승인
 				if(lesState.equals("3")) {
-					examVO.setExamState("3");
+					examVO.setExamState("4");
 					notificationVo.setNotifyCont("등록신청한 강의가 등록 되었습니다");
 				}
 				// 반려
 				else if(lesState.equals("4")) {
-					examVO.setExamState("4");
+					examVO.setExamState("5");
 					notificationVo.setNotifyCont("등록신청한 강의가 반려 되었습니다");
 				}
 				examVO.setLesId(lesId);
