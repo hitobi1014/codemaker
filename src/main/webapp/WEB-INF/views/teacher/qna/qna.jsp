@@ -268,7 +268,6 @@ $(document).ready(function(){
 				<input type="hidden" name="qnaId" value="${qnaVo.qnaId}">
 				<input type="hidden" name="quserId" value="${qnaVo.userId}">
 				<input type="hidden" name="replyRoot" value="">
-				<input type="hidden" name="quserId" value="${qnaVo.userId}">
 				<div class="CommentWriter">
 					<div class="comment_inbox">
 						<span>작성자 : ${S_TEACHER.tchId}</span>

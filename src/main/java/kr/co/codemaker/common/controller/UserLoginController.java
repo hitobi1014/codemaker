@@ -71,21 +71,21 @@ public class UserLoginController {
 			response.addCookie(remember);
 		}
 		
-		NotificationVO notificationVo = new NotificationVO();
-		notificationVo.setRecipientId(getUserVo.getUserId());
-		
-		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
-		int notifyCnt = 0;
-		try {
-			notifyList = notificationService.selectAllNotification(notificationVo);
-			notifyCnt = notificationService.selectNotReadCount(notificationVo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		// 로그인 성공시 메인홈페이지로 이동
 		if(getUserVo != null && userVo.getUserPass().equals(getUserVo.getUserPass())) {
 			session.setAttribute("MEMBER_INFO", getUserVo);
+			
+			NotificationVO notificationVo = new NotificationVO();
+			notificationVo.setRecipientId(getUserVo.getUserId());
+			
+			List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+			int notifyCnt = 0;
+			try {
+				notifyList = notificationService.selectAllNotification(notificationVo);
+				notifyCnt = notificationService.selectNotReadCount(notificationVo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			session.setAttribute("notifyList", notifyList);
 			session.setAttribute("notifyCnt", notifyCnt);

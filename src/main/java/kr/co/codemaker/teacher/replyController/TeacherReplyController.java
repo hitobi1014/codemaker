@@ -31,7 +31,7 @@ public class TeacherReplyController {
 		NotificationVO notificationVo = new NotificationVO();
 		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 선생님이 댓글을 남겼습니다.");
 		notificationVo.setRecipientId(userId);
-		notificationVo.setUrl("/user/selectQna?qnaId"+replyVo.getQnaId());
+		notificationVo.setUrl("/user/selectQna?qnaId="+replyVo.getQnaId());
 		notificationVo.setSenderId(replyVo.getReplyWriter());
 		
 		try {
