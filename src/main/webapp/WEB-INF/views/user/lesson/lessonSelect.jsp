@@ -166,22 +166,7 @@ function addCart(lesId,userId){
 				}
 			}
 		}
-	});
-	
-	// 시험 문제 화면 요청
-	$('.exam').on('click', function(){
-		var examId = $(this).data('examid').split("/")[0];
-		var searchEsScore = $(this).data('examid').split("/")[1];
-		
-		$('#examId').val(examId);
-		$('#searchEsScore').val(searchEsScore);
-		
-        window.open('', "selectViewExam", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50');
-         
-        $('#subf').attr("target", "selectViewExam");
-        $('#subf').submit();
-        
-	});
+	})
 }
 
 function pay(lesId){
@@ -206,13 +191,28 @@ $(function() {
 	// qna클릭시 스크롤 이동
 	$('#qnabtn').on('click',function(){
 		document.location="/user/selectAllQna?lesId=${lesId}";
-	})
+	});
 	// 강의영상 클릭시
 	$('a[id^="videoClick_"]').on('click',function(){
 		var path = $(this).attr('value');
 		var lidxId = $(this).data('lidxid');
 		window.open("/user/selectYoutube?lidxPath="+path+"&lidxId="+lidxId, "video_popup", "width=1100,height=900, left=30, top=30");
-	})
+	});
+	
+	// 시험 문제 화면 요청
+	$('.exam').on('click', function(){
+		var examId = $(this).data('examid').split("/")[0];
+		var searchEsScore = $(this).data('examid').split("/")[1];
+		
+		$('#examId').val(examId);
+		$('#searchEsScore').val(searchEsScore);
+		
+        window.open('', "selectViewExam", 'width=1100,height=1100,resizable=no,scrollbars=yes,left=500,top=50');
+         
+        $('#subf').attr("target", "selectViewExam");
+        $('#subf').submit();
+        
+	});
 	
 })
 </script>
