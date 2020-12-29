@@ -100,6 +100,7 @@ public class UserLessonController {
 		List<ExamVO> examList = new ArrayList<ExamVO>();
 		ExamVO examVO = new ExamVO();
 		examVO.setLesId(lesId);
+		examVO.setUserId(userVO.getUserId());
 		
 		lessonIndexVO.setLesId(lesId);
 		if(userVO!=null) {
