@@ -43,4 +43,11 @@ public class NotificationService {
 		return notificationMapper.selectNotReadCount(notificationVo);
 	}
 	
+	public List<NotificationVO> selectAllNotificationView(NotificationVO notificationVo) throws Exception{
+		return notificationMapper.selectAllNotificationView(notificationVo);
+	}
+	
+	public int deleteNotification(String notifyId) throws Exception{
+		return notificationMapper.deleteNotification(notifyId);
+	}
 }

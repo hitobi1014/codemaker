@@ -49,17 +49,19 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${notifyList}" var="notify">
-								<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
+								<c:if test="${notify.recipientId != notify.senderId}">
+									<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
+										<div class="mr-3">
+											<div class="icon-circle bg-primary">
+												<i class="fas fa-file-alt text-white"></i>
+											</div>
 										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">${notify.notifyDate}</div>
-										<span class="font-weight-bold">${notify.notifyCont}</span>
-									</div>
-								</a>
+										<div>
+											<div class="small text-gray-500">${notify.notifyDate}</div>
+											<span class="font-weight-bold">${notify.notifyCont}</span>
+										</div>
+									</a>
+								</c:if>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>

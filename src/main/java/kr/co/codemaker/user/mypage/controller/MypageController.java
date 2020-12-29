@@ -3,7 +3,9 @@ package kr.co.codemaker.user.mypage.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import jxl.biff.formula.ParseContext;
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
@@ -37,26 +41,35 @@ public class MypageController {
 	@Resource(name="mypageService")
 	private MypageService mypageService;
 	
+	@Resource(name="notificationService")
+	private NotificationService notificationService;
+	
 
 	@RequestMapping("/mypage/myinfoSelect")
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
-		UserVO userVo = new UserVO();
-
-        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
 		userVo.setUserId(userId);
 		
+		NotificationVO notificationVo = new NotificationVO();
+		notificationVo.setRecipientId(userVo.getUserId());
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		int notifyCnt = 0;
 		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
+			notifyList = notificationService.selectAllNotification(notificationVo);
+			notifyCnt = notificationService.selectNotReadCount(notificationVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		String userTel = userVo.getUserTel().substring(0, 3)+" - "+userVo.getUserTel().substring(3, 7)+" - "+userVo.getUserTel().substring(7, 11);
 		userVo.setUserTel(userTel);
+		session.setAttribute("notifyList", notifyList);
+		session.setAttribute("notifyCnt", notifyCnt);
 		
 		model.addAttribute("userVo", userVo);
 		

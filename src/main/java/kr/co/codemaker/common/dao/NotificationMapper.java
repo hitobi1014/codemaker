@@ -52,5 +52,22 @@ public interface NotificationMapper {
 	 * @throws Exception
 	 */
 	public int selectNotReadCount(NotificationVO notificationVo) throws Exception; 
+	
+	/**
+	 * 자신에게 온 모든 알림을 조회하는 메서드
+	 * @author 박경호
+	 * @param notificationVo
+	 * @return 모든 알림
+	 */
+	public List<NotificationVO> selectAllNotificationView(NotificationVO notificationVo) throws Exception;
+	
+	/**
+	 * 알림을 삭제하는메서드
+	 * @author 박경호
+	 * @param notifyId
+	 * @return 알림이 삭제된 갯수
+	 * @throws Exception
+	 */
+	public int deleteNotification(String notifyId) throws Exception;
 
 }

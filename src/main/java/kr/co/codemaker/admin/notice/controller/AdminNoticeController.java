@@ -128,6 +128,7 @@ public class AdminNoticeController {
 		
 		for(int i = 0; i < filesList.size(); i++) {
 			MultipartFile profile = filesList.get(i);
+			FilesVO filesVo = new FilesVO();
 			
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
@@ -144,9 +145,6 @@ public class AdminNoticeController {
 					} catch (IllegalStateException | IOException e) {
 						e.printStackTrace();
 					}
-					
-					FilesVO filesVo = new FilesVO();
-					
 					
 					filesVo.setFilesGroup(noticeVo.getNoticeId());
 					filesVo.setFilesNm(filesNm);

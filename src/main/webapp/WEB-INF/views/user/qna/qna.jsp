@@ -80,6 +80,22 @@ $(document).ready(function(){
 		}
 	})
 	
+    $("#qnaComplain").on("click", function(){
+        var url = "/user/insertComplain?qnaId=${qnaVo.qnaId}&defendant=${qnaVo.userId}";
+        var option = "width = 600, height = 300, top = 300, left = 200, location = no";
+        window.open(url, "신고내역", option);
+    })
+    
+    
+    $("button[id^=replyComplain]").on("click", function(){
+        var replyId = $(this).val();
+        var find = $(this).parents('div.condiv').children('div.condiv:eq(0)').children('#defendant').text();
+        var url = "/user/insertComplain?replyId="+replyId+"&defendant="+find;
+        var option = "width = 600, height = 300, top = 300, left = 200, location = no";
+        window.open(url, "신고내역", option);
+    })
+    
+	
 });
 
 </script>
@@ -202,6 +218,9 @@ $(document).ready(function(){
 			<div class="titleDiv">
 				<h2 id="title">${qnaVo.qnaTitle}</h2>
 				<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
+				<c:if test="${qnaVo.userId != MEMBER_INFO.userId}">
+					<button type="button" id="qnaComplain" style="float:right;" class="btn btn-primary" value="${qnaVo.qnaId}">신고</button>
+				</c:if>
 			</div>
 			
 			<div>
@@ -230,7 +249,7 @@ $(document).ready(function(){
 							<hr>
 								<div style="margin-left:${60*reply.replylevel}px;" class="condiv">
 									<div class="condiv" style="margin-bottom:10px;">
-										<span style="font-size:1.3em; font-weight:800">${reply.replyWriter}</span>
+										<span style="font-size:1.3em; font-weight:800" id="defendant">${reply.replyWriter}</span>
 										<span style="font-size:0.9em; font-weight:300; color:gray;"><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd HH:mm"/></span>
 									</div>
 									<div class="condiv">
@@ -244,9 +263,10 @@ $(document).ready(function(){
 											<c:choose>
 												<c:when test="${reply.replyWriter != MEMBER_INFO.userId}">
 													<button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button>
+													<button id="replyComplain" type="button" name="replyComplain" value="${reply.replyId}">신고</button>
 												</c:when>
 												<c:otherwise>
-													<form id="delre" action="/teacher/deleteReply">
+													<form id="delre" action="/user/deleteReply">
 														<input type="hidden" value="${qnaVo.qnaId}" name="qnaId">
 														<button type="button" id="delbutton" value="${reply.replyId}">삭제</button>
 													</form>

@@ -36,7 +36,7 @@ public class UserReplyController {
 	private QnaService qnaService;
 	
 	@RequestMapping(path="/user/insertReply")
-	public String insertReply(ReplyVO replyVo, String lesId, Model model) {
+	public String insertReply(ReplyVO replyVo, String lesId, Model model, @RequestParam("quserId") String userId) {
 		
 		String tchId = "";
 		try {
@@ -47,9 +47,15 @@ public class UserReplyController {
 		
 		NotificationVO notificationVo = new NotificationVO();
 		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 님이 댓글을 남겼습니다.");
-		notificationVo.setRecipientId(tchId);
+		if(tchId != null) {
+			notificationVo.setRecipientId(tchId);
+			notificationVo.setUrl("/teacher/selectQna?qnaId="+replyVo.getQnaId());
+		}else {
+			notificationVo.setRecipientId(userId);
+			notificationVo.setUrl("/user/selectQna?qnaId="+replyVo.getQnaId());
+		}
+		
 		notificationVo.setSenderId(replyVo.getReplyWriter());
-		notificationVo.setUrl("/teacher/selectQna?qnaId="+replyVo.getQnaId());
 		
 		try {
 			replyService.insertReply(replyVo);
