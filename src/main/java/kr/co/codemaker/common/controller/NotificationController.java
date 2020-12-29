@@ -109,5 +109,35 @@ public class NotificationController {
 		return "jsonView";
 	}
 	
+	@RequestMapping("/user/selectAllNotification")
+	public String selectAllNoticiationU(HttpSession session) {
+		
+		NotificationVO notificationVo = new NotificationVO();
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		notificationVo.setRecipientId(userVo.getUserId());
+		
+		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
+		
+		try {
+			notifyList = notificationService.selectAllNotificationView(notificationVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		session.setAttribute("notifyList", notifyList);
+		
+		return "mypageT/user/notification/notificationList";
+	}
 	
+	@RequestMapping("/user/deleteNotification")
+	public String deleteNotification(String notifyId) {
+		
+		try {
+			notificationService.deleteNotification(notifyId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/user/selectAllNotification";
+	}
 }

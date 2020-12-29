@@ -10,13 +10,14 @@
 <div class="shadow coding-container">
 	<div class="lang-select">
 		<div>
-			<span style="color:#ffffffb8;">언어선택</span>
+			<span class="fc-b8">언어선택</span>
 			<select id="selectLang">
 				<option value="4">Java</option>
 				<option value="5">Python</option>
 				<option value="1">C#</option>
 				<option value="35">Oracle</option>
 			</select>
+			<button class="fc-b8 list-btn" onclick="golist()">목록으로</button>
 		</div>
 	</div>
 	<div class="main-box">
@@ -36,7 +37,7 @@
 		</div>
 	</div>
 </div>
- <script>
+<script>
  $(document).ready(function(){
 	//codemirror 설정
     var code = $(".codemirror-textarea")[0];
@@ -133,4 +134,8 @@
 	});
     
  });
+ function golist(){
+	 console.log("이동");
+	 location.href="/user/codingtest";
+ }
  </script>

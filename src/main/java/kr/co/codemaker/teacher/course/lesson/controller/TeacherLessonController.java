@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
+import kr.co.codemaker.common.service.NotificationService;
+import kr.co.codemaker.common.vo.NotificationVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
@@ -58,6 +60,9 @@ public class TeacherLessonController {
 
 	@Resource(name = "lessonIndexService")
 	private LessonIndexService lessonIndexService;
+	
+    @Resource(name = "notificationService")
+    private NotificationService notificationService;
 
 	/**
 	 * 선생님 - 강의조회
@@ -140,6 +145,13 @@ public class TeacherLessonController {
 		LessonVO lessonVO = new LessonVO();
 		lessonVO.setLesId(lesId);
 		
+        NotificationVO notificationVo = new NotificationVO();
+        
+        notificationVo.setRecipientId("admin");
+        notificationVo.setSenderId(teacherVO.getTchId());
+        notificationVo.setNotifyCont(teacherVO.getTchId() + " 님께서 강의 등록요청을 하였습니다");
+        notificationVo.setUrl("/admin/selectAllAgree");
+		
 		String tchId = teacherVO.getTchId();
 		logger.debug("lesId값!!!:{}", lesId);
 		logger.debug("로그인한 선생님VO:{}", teacherVO);
@@ -165,6 +177,7 @@ public class TeacherLessonController {
 				if (examCnt == 0) {
 					lessonService.updatePermissionLesson(lessonVO);
 					lessonService.updatePremissionExam(lessonVO);
+                    notificationService.insertNotification(notificationVo);
 					return "redirect:/teacherL/selectSubject";
 				}else {
 					redirectAttributes.addFlashAttribute("no", "등록된 시험이 수정중입니다.");
@@ -288,6 +301,7 @@ public class TeacherLessonController {
 		return null;
 	}
 
+	
 	/**
 	 * 선생님 - 강의목차 수정
 	 */

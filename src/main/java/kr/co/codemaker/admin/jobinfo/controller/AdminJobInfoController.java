@@ -137,6 +137,8 @@ public class AdminJobInfoController {
 		for(int i = 0; i < filesList.size(); i++) {
 			MultipartFile profile = filesList.get(i);
 			
+			FilesVO filesVo = new FilesVO();
+			
 			logger.debug("파일 업로드 filecnt : {}", filecnt);
 			String filesNm = profile.getOriginalFilename();
 			if(profile != null && !profile.equals("")) {
@@ -154,7 +156,7 @@ public class AdminJobInfoController {
 						e.printStackTrace();
 					}
 					
-					FilesVO filesVo = new FilesVO();
+					
 					
 					filesVo.setFilesGroup(jobInfoVo.getJobinfoId());
 					filesVo.setFilesNm(filesNm);

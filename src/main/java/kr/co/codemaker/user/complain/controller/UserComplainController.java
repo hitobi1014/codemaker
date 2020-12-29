@@ -47,14 +47,14 @@ public class UserComplainController {
 		
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		
-		
 		NotificationVO notificationVo = new NotificationVO();
 		
 		notificationVo.setNotifyCont(userVo.getUserId()+" 님이 글을 신고 하였습니다");
 		notificationVo.setRecipientId("admin");
 		notificationVo.setSenderId(userVo.getUserId());
+		notificationVo.setUrl("/admin/selectAllComplain");
 		
-		
+		logger.debug("-----------------------------{}",complainVo);
 		try {
 			complainService.insertComplain(complainVo);
 			notificationService.insertNotification(notificationVo);

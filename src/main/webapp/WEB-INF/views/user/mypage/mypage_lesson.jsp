@@ -9,8 +9,20 @@
 <div class="card shadow myles-box-area">
 	<div class="myles-box-big">
 		<div class="lesson-header">
-			<span><a href="#" class="fw-600">수강중</a></span>
-			<span><a href="#" class="fw-600">수강완료</a></span>
+			<c:url value="/user/myLesson" var="mylesson"/>
+			<c:url value="/user/myLesson/finish" var="finish"/>
+			<div>
+				<span class="select-point les-studying">
+					<c:if test="${point=='studying'}">⚫</c:if>
+				</span>
+				<span class="select-a"><a href="${mylesson}" class="fw-600">수강중</a></span>
+			</div>
+			<div>
+				<span class="select-point les-complete">
+					<c:if test="${point=='complete'}">⚫</c:if>
+				</span>
+				<span class="select-a"><a href="${finish}" class="fw-600">수강완료</a></span>
+			</div>
 		</div>
 		<div class="divider"></div>
 		<!-- 수강목록 새로만드는중 -->
@@ -58,6 +70,9 @@
 						<!-- 강의 진행도 -->
 						<div class="remain-day">
 							<fmt:parseNumber value="${((lesson.lesTerm - expire) / lesson.lesTerm)*100}" integerOnly="true" var="remainDay"/>
+							<c:if test="${remainDay >100}">
+								<c:set value="100" var="remainDay"></c:set>
+							</c:if>
 							<div class="fw-600">${remainDay}%</div>
 							<div class="progress">
 								<div class="progress-bar" style="width: ${remainDay}%;"></div>

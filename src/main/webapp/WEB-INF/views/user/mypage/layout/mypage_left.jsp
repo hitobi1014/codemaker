@@ -27,7 +27,7 @@
 				<a class="collapse-item" href="/mypage/myinfoSelect">◾ 내정보조회</a> 
 				<a class="collapse-item" href="/mypage/deleteUser">◾ 회원탈퇴</a> 
 				<a class="collapse-item" href="/mypage/selectPoint">◾ 포인트</a> 
-				<a class="collapse-item" href="cards.html">◾ 알림</a>
+				<a class="collapse-item" href="/user/selectAllNotification">◾ 알림</a>
 			</div>
 		</div>
 	</li>

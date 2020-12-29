@@ -253,7 +253,7 @@ public class UserPayController {
 	}
 	
 	//장바구니로 이동, 담은강의 리스트 조회
-	@RequestMapping(path="user/cartView")
+	@RequestMapping(path="/user/cartView")
 	public String cartView(HttpSession session,Model model,LessonVO lessonVo) {
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		List<CartVO> cartList = null;
@@ -262,7 +262,6 @@ public class UserPayController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		logger.debug("카트 리스트 확인:{}",cartList);
 		
 		List<LessonVO> lessonList = new ArrayList<>();
 		for(int i=0; i<cartList.size(); i++) {
@@ -280,12 +279,16 @@ public class UserPayController {
 	}
 	
 	@RequestMapping(path="/user/cartDelete")
-	public String cartDelete(String data) {
-		logger.debug("카트 : {}",data);
-		for(int i=0; i<data.length(); i++) {
-//			logger.debug("값 : {}",data.);
+	public String cartDelete(String[] data,HttpSession session) throws Exception {
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//현재 로그인된 회원정보 가져오기
+		CartVO cartVo = new CartVO();
+		cartVo.setUserId(userVo.getUserId());
+		for(int i=0; i<data.length; i++) {
+			cartVo.setLesId(data[i]);
+			userPayService.deleteCart(cartVo);
+			logger.debug("카트정보 :{}",data[i]);
 		}
-		return "";
+		return "jsonView";
 	}
 
 }

@@ -40,6 +40,8 @@ UPDATE examscore
          es_edate = SYSDATE
 WHERE
     exam_id = #{examId}
+AND
+	es.user_id = ${userId}
 </update>
 <select id="selectExamScore" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="kr.co.codemaker.user.classroom.exam.vo.ExamScoreVO">
 SELECT
@@ -55,6 +57,7 @@ WHERE
 	e.exam_id = #{examId}
 AND
 	e.exam_id = es.exam_id
-	
+AND
+	es.user_id = ${userId}
 </select>
 </mapper>

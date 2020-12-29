@@ -95,7 +95,7 @@ public class MyPayController {
 		String userId = userVo.getUserId();
 
 		int updateCnt = 0;
-
+		//강의 환불시 강의 상태값 변경
 		try {
 			updateCnt = myPayService.payRefund(payId);
 		} catch (Exception e) {
@@ -108,6 +108,7 @@ public class MyPayController {
 
 		int insertCnt = 0;
 		if (updateCnt == 1) {
+			//환불 시 포인트로 환불
 			try {
 				insertCnt = myPayService.insertRefund(pointVo);
 			} catch (Exception e) {

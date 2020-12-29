@@ -23,6 +23,13 @@ UPDATE notification set read_check = 'Y' where notify_id = #{notifyId}
 </update>
 <select id="selectNotReadCount" parameterType="kr.co.codemaker.common.vo.NotificationVO" resultType="int">
 SELECT count(*) 
-  FROM notification where RECIPIENT_ID = #{recipientId} and read_check = 'N'
+  FROM notification where RECIPIENT_ID = #{recipientId} and read_check = 'N' and RECIPIENT_ID != SENDER_ID
 </select>
+<select id="selectAllNotificationView" resultType="kr.co.codemaker.common.vo.NotificationVO" parameterType="kr.co.codemaker.common.vo.NotificationVO">
+SELECT * 
+  FROM notification where RECIPIENT_ID = #{recipientId}
+</select>
+<delete id="deleteNotification" parameterType="java.lang.String">
+DELETE from notification where notify_id = #{notifyId}
+</delete>
 </mapper>
