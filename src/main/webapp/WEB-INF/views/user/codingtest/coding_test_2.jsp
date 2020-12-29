@@ -12,6 +12,7 @@
 	<div class="lang-select coding-item1">
 		<div>
 			<span style="color:#ffffffb8;">짝수와 홀수</span>
+			<button class="list-btn" onclick="location.href='/user/coding/solution'">목록으로</button>
 		</div>
 	</div>
 	

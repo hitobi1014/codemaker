@@ -8,15 +8,27 @@
     margin: 0 auto;
     margin-bottom: 12px;
     font-size: 30px;
+    display: flex;
+    text-align: center;
+}
+.lesson-header div{
+	width: 50%;
+	text-align: center;
 }
 .lesson-header span{
 	display: inline-block;
-    width: 48%;
-    text-align: center;
+}
+.select-point{
+	display : inline-block;
+	height : 19px;
+    font-size: 13px;
 }
 .lesson-header span a{
 	text-decoration: none;
 	color: #000000bd;
+}
+.select-a{
+	width: 100%;
 }
 
 .divider{
