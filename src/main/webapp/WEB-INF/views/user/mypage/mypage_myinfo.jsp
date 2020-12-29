@@ -70,7 +70,7 @@
                 </div>
                 <hr class="my-4">
                 <h5>CODEMAKER의 다양한 강의를 만나보세요.</h5>
-                           <a href="${cp }/mypage/updateUser?userId=${userVo.userId}" class="btn btn-info">Edit profile</a>
+                           <a href="${cp }/mypage/updateUserView?userId=${userVo.userId}" class="btn btn-info">회원정보수정</a>
               </div>
             </div>
           </div>

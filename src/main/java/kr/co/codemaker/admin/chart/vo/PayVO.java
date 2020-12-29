@@ -1,19 +1,30 @@
 package kr.co.codemaker.admin.chart.vo;
 
 import java.util.Date;
-
+/**
+* PayVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 우송이 최초 생성
+*
+ */
 public class PayVO extends LessonVO{
 
-	private String payId;
-	private String lesId;
-	private int paySum;
-	private String payWay;
-	private Date payDate;
-	private String payRefund;
-	private String userId;
-	private Date cosTerm;
-	private int cosProcess;
-	private int payGroup;
+	private String payId;	//결제ID
+	private String lesId;	//강의ID
+	private int paySum;		//결제금액
+	private String payWay;	//결제방법
+	private Date payDate;	//결제일
+	private String payRefund;	//환불여부
+	private String userId;	//회원ID
+	private Date cosTerm;	//수강기간
+	private int cosProcess;	//수강진행도
+	private int payGroup;	//결제그룹
 	
 	public String getPayId() {
 		return payId;

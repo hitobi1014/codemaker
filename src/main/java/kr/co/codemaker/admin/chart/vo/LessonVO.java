@@ -1,16 +1,26 @@
 package kr.co.codemaker.admin.chart.vo;
-
-
+/**
+* LessonVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 강의 매출 내역을 조회하기 위한 VO
+*
+ */
 public class LessonVO {
 
-	private String lesState;
-	private String lesId;
-	private String lesCont;
-	private String subId;
-	private String lesNm;
-	private String tchId;
-	private String lesTerm;
-	private String lesCash;
+	private String lesState;	//강의상태
+	private String lesId;		//강의ID
+	private String lesCont;		//강의소개
+	private String subId;		//과목ID
+	private String lesNm;		//강의명
+	private String tchId;		//강사ID
+	private String lesTerm;		//강의기간
+	private String lesCash;		//강의수강료
 	
 	public void setLesState(String lesState) {
 		this.lesState = lesState; 

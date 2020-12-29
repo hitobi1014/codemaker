@@ -1,12 +1,23 @@
 package kr.co.codemaker.admin.chart.vo;
-
+/**
+* TeacherChartVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 강의별 학생수, 강사별 매출통계를 조회하기위한 VO
+*
+ */
 public class TeacherChartVO {
 
-	private String tchNm;
-	private String result;
-	private String lesNm;
-	private String lesId;
-	private int cnt;
+	private String tchNm;	//강사명
+	private String result;	//매출통계
+	private String lesNm;	//강의명
+	private String lesId;	//강의ID
+	private int cnt;		//강의별학생수
 	
 	public String getTchNm() {
 		return tchNm;
