@@ -28,7 +28,18 @@ import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MyPayService;
 import kr.co.codemaker.user.mypage.vo.MyPayVO;
 import kr.co.codemaker.user.mypage.vo.PointVO;
-
+/**
+* MyPayController.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 우송이 결제정보/환불
+*
+*/
 @Controller
 public class MyPayController {
 	private static final Logger logger = LoggerFactory.getLogger(MyPayController.class);
@@ -36,6 +47,15 @@ public class MyPayController {
 	@Resource(name="myPayService")
 	private MyPayService myPayService;
 	
+	/**
+	 * 결제내역 조회
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping("/mypage/selectAllMyPay")
 	public String selectAllMyPay(Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam(name="page",required = false, defaultValue = "1")int page,
@@ -60,11 +80,18 @@ public class MyPayController {
 		model.addAttribute("myPay", map.get("myPay"));
 		model.addAttribute("pages", map.get("pages"));
 		
-		return "mypageT/user/mypay/mypay_selectAll";
+		return "mypageT/user/mypay/mypayTest";
 	}
 	
-	
-	@RequestMapping(path="/mypage/payRefund", method=RequestMethod.GET)
+	/**
+	 * 환불시 상세 결제내역을 조회
+	 * @param model
+	 * @param payId
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(path="/mypage/payRefundView")
 	public String payRefundView(Model model, String payId, HttpSession session, HttpServletRequest request) {
 		
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
@@ -87,8 +114,16 @@ public class MyPayController {
 		return "user/mypay/mypay_refund";
 	}
 
+	/**
+	 * 환불진행
+	 * @param payId
+	 * @param paySum
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(path="/mypage/payRefund", method=RequestMethod.POST)
+	@RequestMapping(path="/mypage/payRefund")
 	public String payRefund(String payId, int paySum, HttpSession session, HttpServletRequest request) {
 		
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
@@ -97,7 +132,8 @@ public class MyPayController {
 		int updateCnt = 0;
 
 		try {
-			updateCnt = myPayService.payRefund(payId);
+			//환불 여부 변경 N->Y
+			updateCnt = myPayService.payRefund(payId);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,6 +145,7 @@ public class MyPayController {
 		int insertCnt = 0;
 		if (updateCnt == 1) {
 			try {
+				//환불진행 후 포인트로 적립해준다.
 				insertCnt = myPayService.insertRefund(pointVo);
 			} catch (Exception e) {
 				e.printStackTrace();

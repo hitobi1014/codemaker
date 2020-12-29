@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<!-- 필기노트내역 page css -->
+<link href="/css/user/mypage/mypage-note.css" rel="stylesheet"/>
+
 
 <script>
 $(function(){
@@ -41,41 +43,31 @@ $(function(){
 	
 })
 
-</script>
-<style>
-.table{
-text-align: center;
-}
-</style>
-<body>
-  <div class="main-content">
-    <div class="container mt-7">
-      <!-- Table -->
-      <div class="row">
-
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <button type="button" class="btn btn-sm btn-default float-right" id="reBtn">강의 환불</button>
-<%--               <a href="${cp}/mypage/payRefund" class="btn btn-sm btn-default float-right">강의 환불</a> --%>
-              <h3 class="mb-0">결제 내역</h3>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">결제ID</th>
-                    <th scope="col">강의명</th>
-                    <th scope="col">결제일</th>
-                    <th scope="col">수강기간</th>
-                    <th scope="col">결제방식</th>
-                    <th scope="col">결제금액</th>
-                    <th scope="col">환불여부</th>
-                    <th scope="col">-</th>
-                  </tr>
-                </thead>
-                  
-                <tbody id="myPay">
+</script>  
+<div class="card shadow note-box">
+	<div class="note-box-item">
+	<!-- 임시커밋용 -->
+		<h3>포인트내역</h3>
+		<div class="note-item-cont">
+			<div id="pdfd">
+				<button type="button" class="pdf-btn" id="reBtn">강의 환불</button>
+			</div>
+			<div class="note-tb-box">
+				<table class="note-tb">
+					<thead>
+						<tr>
+		                    <th scope="col">결제ID</th>
+		                    <th scope="col">강의명</th>
+		                    <th scope="col">결제일</th>
+		                    <th scope="col">수강기간</th>
+		                    <th scope="col">결제방식</th>
+		                    <th scope="col">결제금액</th>
+		                    <th scope="col">환불여부</th>
+		                    <th scope="col">&nbsp;</th>
+						</tr>
+					</thead>
+		
+					<tbody id="myPay">
                 	<c:forEach items="${myPay}" var="myPay">
                   <tr>
                     <td>
@@ -137,21 +129,12 @@ text-align: center;
                 </tbody>
               </table>
             </div>
-           
-  		 <div class="card-footer py-4">
+	
+	
+<!-- 	페이징 -->
+<div class="card-footer py-4">
               <nav aria-label="...">
                 <ul class="pagination justify-content-end mb-0">
-<!--                   <li class="page-item disabled"> -->
-<%--                     <a class="page-link" href="${cp}/mypage/selectPoint?page=${page-1}" > --%>
-<!--                       <i class="fas fa-angle-left"></i> -->
-<!--                       <span class="sr-only">Previous</span> -->
-<!--                     </a> -->
-<!--                   </li> -->
-
-<!--                    <li class="page-item active"> -->
-<%--                     <a class="page-link" href="${cp}/mypage/selectPoint?page=${page-1}"><</a> --%>
-<!--                   </li> -->
-
                   	<c:choose>
 						<c:when test="${page==0}">
 						</c:when>
@@ -181,18 +164,6 @@ text-align: center;
 		                  </c:otherwise>
 		                  </c:choose>
 	                  </c:forEach>
-
-<!--                   <li class="page-item"> -->
-<!--                     <a class="page-link" href="#"> -->
-<!--                       <i class="fas fa-angle-right"></i> -->
-<!--                       <span class="sr-only">Next</span> -->
-<!--                     </a> -->
-<!--                   </li> -->
-
-<!--                    <li class="page-item active"> -->
-<%--                     <a class="page-link" href="${cp}/mypage/selectPoint?page=${page+1}">></a> --%>
-<!--                   </li> -->
-                  
                   		<c:choose>
 							<c:when test="${pages==page}">
 								<li class="page-item active">
@@ -208,10 +179,7 @@ text-align: center;
 	                </ul>
 	              </nav>
 	            </div>
-	          </div>
-	        </div>
-	      </div>
-	      </div>
-	    </div>
-	  </div>
-</body> 
+		</div>
+	</div>
+</div>
+

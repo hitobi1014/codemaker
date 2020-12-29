@@ -25,7 +25,7 @@
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="/mypage/myinfoSelect">◾ 내정보조회</a> 
-				<a class="collapse-item" href="/mypage/deleteUser">◾ 회원탈퇴</a> 
+				<a class="collapse-item" href="/mypage/deleteUserView">◾ 회원탈퇴</a> 
 				<a class="collapse-item" href="/mypage/selectPoint">◾ 포인트</a> 
 				<a class="collapse-item" href="cards.html">◾ 알림</a>
 			</div>

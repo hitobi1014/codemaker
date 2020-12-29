@@ -23,7 +23,18 @@ import kr.co.codemaker.admin.chart.vo.PayVO;
 import kr.co.codemaker.admin.chart.vo.TeacherChartVO;
 import kr.co.codemaker.admin.chart.vo.TeacherPayVO;
 import kr.co.codemaker.common.vo.PageVo;
-
+/**
+* ChartController.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 우송이 최초 생성
+*
+ */
 @Controller
 public class ChartController {
 	private static final Logger logger = LoggerFactory.getLogger(ChartController.class);
@@ -31,6 +42,14 @@ public class ChartController {
 	@Resource(name="chartService")
 	private ChartService chartService;
 	
+	/**
+	 * 강의별 매출 통계 조회
+	 * @param payVo
+	 * @param model
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping("/admin/selectLessonPay")
 	public String selectLessonPay(PayVO payVo, Model model,
 			@RequestParam(name="page",required = false, defaultValue = "1")int page,
@@ -47,12 +66,13 @@ public class ChartController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
+			//강의별 매출 내역 조회 -> 페이징처리
 			map = chartService.selectLessonPay(pageVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		//강의별 매출 통계 select
+		//강의별 매출 통계 조회 -> 차트에 뽑아낼 데이터
 		List<LessonChartVO> lessonPayTotal= new ArrayList<>();
 		try {
 			lessonPayTotal = chartService.lessonPayTotal();
@@ -102,6 +122,13 @@ public class ChartController {
 	
 	
 
+	/**
+	 * 강의별 매출 통계 엑셀 다운로드
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
 	@RequestMapping("/admin/lessonPayExcelDown")
 	public void lessonPayExcelDown(HttpServletRequest request 
 	                          ,HttpServletResponse response, Model model ) throws Exception  {
@@ -111,6 +138,7 @@ public class ChartController {
 //	    }
 	    
 		// 평소에 마이바티스에서 데이터 뽑는 방법으로 데이터를 가져온다.
+		// 엑셀 다운로드 하기위한 데이터 조회(어떤데이터를 엑셀다운로드 할껀지)
 		List<PayVO> lesPayList = chartService.lessonPayExcel();
 		
 		// 받은 데이터를 맵에 담는다.
@@ -123,7 +151,14 @@ public class ChartController {
 	    excelUtil.download(request, response, beans, "excel",  "ExcelTemplate.xlsx");
 	}
 	
-	
+	/**
+	 * 강사별 매출 통계 조회
+	 * @param teacherPayVo
+	 * @param model
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping("/admin/selectTeacherPay")
 	public String selectTeacherPay(TeacherPayVO teacherPayVo, Model model,
 			@RequestParam(name="page",required = false, defaultValue = "1")int page,
@@ -161,6 +196,13 @@ public class ChartController {
 	}
 	
 	
+	/**
+	 * 강사별 매출 통계 엑셀 다운로드
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
 	@RequestMapping("/admin/teacherPayExcelDown")
 	public void excelList2(HttpServletRequest request 
 	                          ,HttpServletResponse response, Model model ) throws Exception  {
@@ -178,6 +220,11 @@ public class ChartController {
 	}
 	 
 	
+	/**
+	 * 강의별 학생수 조회
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/admin/lessonUserChart")
 	public String lessonUserChart(Model model) {
 		

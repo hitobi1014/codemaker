@@ -29,7 +29,18 @@ import kr.co.codemaker.common.vo.PageVo;
 import kr.co.codemaker.common.vo.UserVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
 import kr.co.codemaker.user.mypage.vo.PointVO;
-
+/**
+* MypageController.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12.
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 우송이 마이페이지
+*
+ */
 @Controller
 public class MypageController {
 	
@@ -38,6 +49,13 @@ public class MypageController {
 	private MypageService mypageService;
 	
 
+	/**
+	 * 회원정보 조회
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/mypage/myinfoSelect")
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
@@ -48,13 +66,13 @@ public class MypageController {
         String userId = userVo.getUserId();
 		userVo.setUserId(userId);
 		
-		
 		try {
 			userVo = mypageService.myinfoSelect(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		//전화번호 "-"출력
 		String userTel = userVo.getUserTel().substring(0, 3)+" - "+userVo.getUserTel().substring(3, 7)+" - "+userVo.getUserTel().substring(7, 11);
 		userVo.setUserTel(userTel);
 		
@@ -63,6 +81,14 @@ public class MypageController {
 		return "mypageT/user/mypage/mypage_myinfo";
 	}
 	
+	/**
+	 * 회원정보조회-회원 프로필사진
+	 * @param model
+	 * @param response
+	 * @param session
+	 * @param request
+	 * @throws Exception
+	 */
 	@RequestMapping("/mypage/profileImg")
 	public void profileImg(Model model, HttpServletResponse response,HttpSession session,HttpServletRequest request) throws Exception {
 
@@ -76,7 +102,6 @@ public class MypageController {
 		
 		//경로확인 후 파일 입출력을 통해 응답생성
 		//파일을 읽고 응답생성
-
 		FileInputStream fis = new FileInputStream(userVo.getUserProfile());
 		ServletOutputStream sos =  response.getOutputStream();
 		
@@ -89,18 +114,26 @@ public class MypageController {
 		fis.close();
 		sos.flush(); 
 		sos.close();
-		
 	}
 
-    @RequestMapping(path="/mypage/deleteUser", method=RequestMethod.GET)
-    public String deleteUser() {
+	/**
+	 * 회원탈퇴 View
+	 * @return
+	 */
+    @RequestMapping(path="/mypage/deleteUserView")
+    public String deleteUserView() {
     	
     	return "mypageT/user/mypage/mypage_deleteUser";
     }
     
+    /**
+     * 회원탈퇴
+     * @param userVo
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(path="/mypage/deleteUser", method=RequestMethod.POST)
-    public String deleteUser(UserVO userVo) {
+    @RequestMapping(path="/mypage/deleteUser")
+    public String deleteUser(UserVO userVo,HttpSession session) {
 
     	String userId= userVo.getUserId(); 
     	String userPass=userVo.getUserPass();
@@ -116,15 +149,24 @@ public class MypageController {
 		}
 		
 		if(deleteCnt == 1) {
+			session.invalidate();
 			return "1";
 		}else {
 			return "0";
 		}
     	
     }
-	
-	@RequestMapping(path="/mypage/updateUser", method=RequestMethod.GET)
-	public String updateUser(Model model,UserVO userVo,HttpSession session,HttpServletRequest request) {
+
+    /**
+     * 회원정보수정 View
+     * @param model
+     * @param userVo
+     * @param session
+     * @param request
+     * @return
+     */
+	@RequestMapping(path="/mypage/updateUserView")
+	public String updateUserView(Model model,UserVO userVo,HttpSession session,HttpServletRequest request) {
 		
 		//세션에서아이디가져온다.
         userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
@@ -139,11 +181,17 @@ public class MypageController {
 		}
 		model.addAttribute("userVo", userVo);
 		
-		logger.debug("userVO get~!~! : {} ",userVo);
 		return "mypageT/user/mypage/mypage_update";
 	}
 	
-	@RequestMapping(path="/mypage/updateUser", method=RequestMethod.POST)
+	/**
+	 * 회원정보수정
+	 * @param session
+	 * @param userVo
+	 * @param file
+	 * @return
+	 */
+	@RequestMapping(path="/mypage/updateUser")
 	public String updateUser(HttpSession session, UserVO userVo, @RequestParam("file")MultipartFile file){
 		
 		
@@ -155,7 +203,6 @@ public class MypageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		logger.debug("업데이트 후 : {}",userVo);
 		
 		
 		//파일을 체크하는 방법. 사이즈가 0보다 크다. 새로운파일로 바뀌었다.//기존파일이다? 0임. 안담겨있음. 그래서구분이되기때문에. 0보다크다는것은
@@ -198,8 +245,16 @@ public class MypageController {
 	}
 	
 
-//----------------POINT CONTROLLER-----------------
-	
+	/**
+	 * 회원 포인트 조회
+	 * @param session
+	 * @param request
+	 * @param pointVo
+	 * @param model
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping(path="/mypage/selectPoint")
 	public String selectPoint(HttpSession session, HttpServletRequest request, PointVO pointVo, Model model,
 								@RequestParam(name="page",required = false, defaultValue = "1")int page,
@@ -225,14 +280,20 @@ public class MypageController {
 		
 		model.addAttribute("pointList", map.get("pointList"));
 		model.addAttribute("pages", map.get("pages"));
-//		model.addAttribute("userProfile", userProfile);
 		
 		
-		return "mypageT/user/mypage/mypage_selectPoint";
+		return "mypageT/user/mypage/pointTest";
 	}
 	
 
-	@RequestMapping(path="/mypage/insertPoint" ,method=RequestMethod.POST)
+	/**
+	 * 회원 포인트 적립 
+	 * @param pointVo
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(path="/mypage/insertPoint")
 	public String insertPoint(PointVO pointVo,HttpSession session, HttpServletRequest request) {
 		
 		//세션에서아이디가져온다.
@@ -241,16 +302,12 @@ public class MypageController {
         String pointUser = userVo.getUserId();
         String userId = pointUser;
 		
-//		String pointSum=pointVo.getPointSum();
-		
 		pointVo.setUserId(userId);
-//		pointVo.setPointSum(pointSum);
 		
 		int insertCnt=0;
 		
 		try {
 			insertCnt=mypageService.insertPoint(pointVo);
-			logger.debug("pointVo:{}",pointVo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -259,6 +316,12 @@ public class MypageController {
 	}
 	
 	
+	/**
+	 * 회원 포인트 환불
+	 * @param pointVo
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(path="/mypage/deletePoint" ,method=RequestMethod.POST)
 	@ResponseBody
 	public String deletePoint(PointVO pointVo, HttpSession session) {
@@ -285,6 +348,7 @@ public class MypageController {
 		
 		int point = 0;
 		try {
+			//환불시 회원이 환불하려는 금액과 회원의 포인트 잔액과 조회
 			point = mypageService.deletePointCompare(userId);
 		} catch (Exception e1) {
 			e1.printStackTrace();

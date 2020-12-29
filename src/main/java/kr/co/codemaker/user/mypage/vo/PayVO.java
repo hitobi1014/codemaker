@@ -1,7 +1,18 @@
 package kr.co.codemaker.user.mypage.vo;
 
 import java.util.Date;
-
+/**
+* PayVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 환불 내역 상세조회를 하기 위한 VO
+*
+ */
 public class PayVO {
 
 	private String payId;
