@@ -82,6 +82,13 @@ public class UserLoginController {
 			response.addCookie(remember);
 		}
 		
+		//회원이 탈퇴한 경우
+		if(getUserVo.getUserOut().equals("Y")){
+			String msg = "Y";
+			model.addAttribute("msg", msg);
+			return "redirect:/user/login";
+		}
+		
 		// 로그인 성공시 메인홈페이지로 이동
 		if(getUserVo != null && userVo.getUserPass().equals(getUserVo.getUserPass())) {
 			session.setAttribute("MEMBER_INFO", getUserVo);

@@ -14,7 +14,7 @@
 }
 .sublist-box{
     width: 351px;
-    height: 322px;
+    height: 350px;
     margin-right: 76px;
     border-radius: 30px;
     display: flex;
@@ -73,19 +73,20 @@
 .sub-coment-box{
     width: 88%;
     height: 221px;
-    overflow: auto;
 }
 .sub-coment-item{
-	height: 69%;
+	height: 80%;
 	padding-top: 15px;
+	overflow: auto;
 }
 .divider{
     height: 31%;
     border-top: 2px solid #8080808c;
 }
 .info-lesnm a{
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 600;
+    color: #1b1b18f7;
 }
 .shDB{
 	background: rgb(0,94,135);

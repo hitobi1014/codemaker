@@ -20,61 +20,6 @@
 						<img alt="database" src="/img/icon/database-storage.svg">
 					</div>
 				</div>
-				<!-- 과목 나타내는 -->
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${subList.subNm =='DB'}"> --%>
-<!-- 						<div class="subject-header"> -->
-<!-- 							<div class="subject-subnm-box"> -->
-<%-- 								<span>${subList.subNm}</span> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="img-box"> -->
-<!-- 							<div class="img-cont"> -->
-<!-- 								<img alt="database" src="/img/icon/database-storage.svg"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${subList.subNm =='Spring'}"> --%>
-<!-- 						<div class="subject-header" style="background: #008000b8;"> -->
-<%-- 							<div class="subject-subnm-box" style="background: #064806;"><span>${subList.subNm}</span></div> --%>
-<!-- 						</div> -->
-<!-- 						<div class="img-box" > -->
-<!-- 							<div class="img-cont"> -->
-<!-- 								<img alt="database" src="/img/icon/leaf.svg"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${subList.subNm =='Java'}"> --%>
-<!-- 						<div class="subject-header" style="background: #b52121b5;"> -->
-<%-- 							<div class="subject-subnm-box" style="background: #920d0d;"><span>${subList.subNm}</span></div> --%>
-<!-- 						</div> -->
-<!-- 						<div class="img-box" > -->
-<!-- 							<div class="img-cont"> -->
-<!-- 								<img alt="database" src="/img/icon/java.svg"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${subList.subNm =='Python'}"> --%>
-<!-- 						<div class="subject-header" style="background: #800080ab;"> -->
-<%-- 							<div class="subject-subnm-box" style="background: #750075;"><span>${subList.subNm}</span></div> --%>
-<!-- 						</div> -->
-<!-- 						<div class="img-box" > -->
-<!-- 							<div class="img-cont"> -->
-<!-- 								<img alt="database" src="/img/icon/file.svg"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<!-- 						<div class="subject-header" style="background: #828282d1;"> -->
-<%-- 							<div class="subject-subnm-box" style="background: #463c3cd1;"><span>${subList.subNm}</span></div> --%>
-<!-- 						</div> -->
-<!-- 						<div class="img-box" > -->
-<!-- 							<div class="img-cont"> -->
-<!-- 								<img alt="database" src="/img/icon/jsp-file-format-symbol.svg"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
 				<!-- 박스안에 글 시작부분 -->
 				<div class="sub-coment-box">
 					<!-- 과목정보 -->

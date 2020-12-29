@@ -48,6 +48,13 @@
 
 <script>
 $(function(){
+	var msg = "${msg}";
+	console.log(msg);
+	if(msg == 'Y'){
+		alert("탈퇴한 회원입니다");
+	}else if(msg !=''){
+		$("#msg-span").text(msg);
+	}
 	//눈 이미지 눌렀을때 비밀번호 보이게/안보이게 설정 , 기본값은 1-안보이게 2-보이게
 	$("#chkToggle").on('click',function(){
 		var flag = $(this).data("flag");
@@ -123,7 +130,9 @@ $(function(){
 								<a href="${cp}/user/findInfo?info=2" class="txt1">비밀번호찾기</a>
 							</div>
 						</div>
-						<span style="color:red;"><c:if test="${param.msg !=null}">${param.msg}</c:if></span>
+						<span id="msg-span" style="color:red;">
+<%-- 						<c:if test="${param.msg !=null}">${param.msg}</c:if> --%>
+						</span>
 						<div class="container-login100-form-btn m-t-17">
 							<button class="login100-form-btn" style="font-size: 21px;">
 								코딩GO!
