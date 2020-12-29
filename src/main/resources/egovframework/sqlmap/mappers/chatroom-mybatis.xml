@@ -5,7 +5,10 @@ SELECT *
   FROM CHATROOM 
 </select>
 <select id="selectChatRoom" resultType="kr.co.codemaker.user.board.chat.vo.ChatRoomVO" parameterType="kr.co.codemaker.user.board.chat.vo.ChatRoomVO">
-SELECT * 
-  FROM CHATROOM WHERE CHATROOM_ID = #{chatroomId}
+select a.chatroom_id, a.chatroom_nm, a.sub_id 
+from chatroom a, (select b.* from lesson a , subject b 
+                                    where a.sub_id = b.sub_id 
+                                    and a.les_id = #{lesId}) B 
+               where a.sub_id = b.sub_id
 </select>
 </mapper>

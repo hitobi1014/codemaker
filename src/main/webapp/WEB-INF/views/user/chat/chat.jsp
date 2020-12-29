@@ -57,39 +57,26 @@ html, body {
 
 
 .chat-box {
-  display:none;
   background: #efefef;
-  position:fixed;
   right:30px;
   bottom:50px;  
   width:350px;
-  max-width: 85vw;
-  max-height:100vh;
   border-radius:5px;  
 /*   box-shadow: 0px 5px 35px 9px #464a92; */
   box-shadow: 0px 5px 35px 9px #ccc;
 }
-.chat-box-toggle {
-  float:right;
-  margin-right:15px;
-  cursor:pointer;
-}
 .chat-box-header {
   background: #5A5EB9;
   height:70px;
-  border-top-left-radius:5px;
-  border-top-right-radius:5px; 
   color:white;
   text-align:center;
   font-size:20px;
   padding-top:17px;
 }
 .chat-box-body {
-  position: relative;  
   height:370px;  
   height:auto;
   border:1px solid #ccc;  
-  overflow: hidden;
 }
 .chat-box-body:after {
   content: "";
@@ -213,6 +200,10 @@ html, body {
 <script src="/vendor/user/main/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     
+    window.onload = $(function(){
+    	connect();
+    	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+    })
     // 웹소켓으로 쓸 변수 선언
     var wsocket = "";
     
@@ -222,21 +213,8 @@ html, body {
 	    if(type == 'self'){
 	     $("#chat-input").val(''); 
 	    }    
-	    $("#chatMessageArea").stop().animate({ scrollTop: $("#chatMessageArea")[0].scrollHeight}, 1000);
 	    
 	} 
-    $(function(){
-	    $("#chat-circle").on('click',function() {    
-			$("#chat-circle").toggle('scale');
-			$(".chat-box").toggle('scale');
-		})
-		  
-		$(".chat-box-toggle").on('click',function() {
-			$("#chat-circle").toggle('scale');
-			$(".chat-box").toggle('scale');
-		})
-    })
-    
     // 입장 버튼 클릭시 작동 함수
     function connect() {
         
@@ -315,81 +293,47 @@ html, body {
 	    str += "</div>";
         
         $("#chatMessageArea").append(str);
-        var chatAreaHeight = $("#chatArea").height();
-        var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-        $("#chatArea").scrollTop(maxScroll);
+      	$("#chatMessageArea").scrollTop($("#chatMessageArea")[0].scrollHeight);
+//         var chatAreaHeight = $("#chatArea").height();
+//         var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
+        
+
+//         $("#chatMessageArea").scrollTop = $("#chatMessageArea").scrollHeight;
+//         $("#chatArea").scrollTop(maxScroll);
     }
 
     $(function(){
 		$('#chat-input').keypress(function(event){
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
-				send(); 
+// 		var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(event.keyCode == '13'){
+				send();
+				var chat = $("#chat-input").val();
+		    	var chatroom = $("#boxhd").val();
+		    	var users = "${MEMBER_INFO.userId}";
+		    	
+		    	var chatVo = {
+		    		chatCont : chat,
+		    		chatroomId : chatroom,
+		    		userId : users
+		    	}
+		    	
+		    	$.ajax({
+		    		url : "/chat/insertChat",
+		    		type : "post",
+		    		data : chatVo,
+		    		success : function(){
+						$("#chat-input").val("");
+		    		}
+		    	})
 			}
 			event.stopPropagation();
 			$("#chat-input").val(''); 
         });
-		
-        $('#chat-submit').click(function() { 
-			send(); 
-        });
-        
-        $('#exitBtn').click(function() { 
-        	disconnect(); 
-        });
-    
-	    $(document).on('click', ".chatBtn", function(){
-			var chatroom = $(this).val();
-			var chatVo = {
-				chatroomId : chatroom
-			}
-			$.ajax({
-				url : "/chat/realchat",
-				type : "post",
-				data : chatVo,
-				dataType : 'json',
-				success : function(res){
-					
-					connect();
-					$("#boxhd").html(chatroom);
-					$("#chat-box").css("display","block");
-					$("#chatMessageArea").empty();
-					$(".chat-input").css("display", "block");
-					$("#golist").css("display", "block");
-					
-					values = res.chattingList; 
-	                $.each(values, function(index, value) {
-	                	var str = "";
-	                	if(value.chatCont != null && value.chatCont != ''){
-		                	if("${MEMBER_INFO.userNm}" == value.userNm){
-			            	    str += "<div id='cm-msg' class='chat-msg self'>";
-			            	    str += "    <div class='cm-msg-text'>";
-			            	    str += value.userNm + " : " + value.chatCont;
-			            	    str += "    </div>";
-			            	    str += "</div>";
-			            	    $("#chatMessageArea").append(str);
-		            	    
-			                }else{
-			                	str += "<div id='cm-msg' class='chat-msg user'>";
-			            	    str += "    <div class='cm-msg-text'>";
-			            	    str += value.userNm + " : " + value.chatCont;
-			            	    str += "    </div>";
-			            	    str += "</div>";
-			            	    $("#chatMessageArea").append(str);
-			                }
-	                	}
-	                });
-				},
-				error : function(){
-					alert("실패");
-				}
-			
-			})
-	    })
 	    
 	    $("#chat-submit").on('click', function(){
+	    	send();
 	    	var chat = $("#chat-input").val();
-	    	var chatroom = $("#boxhd").text();
+	    	var chatroom = $("#boxhd").val();
 	    	var users = "${MEMBER_INFO.userId}";
 	    	
 	    	var chatVo = {
@@ -406,33 +350,13 @@ html, body {
 					$("#chat-input").val("");
 	    		}
 	    	})
-	    })
-	    
-	    $("#tolist").on("click", function(){
-	    	$.ajax({
-	    		url : "/chat/realchat",
-				type : "get",
-				success : function(res){
-					disconnect();
-					str = "";
-					str += '<c:forEach items="${chatList}" var="chat">';
-					str +=	'<button class="chatBtn" type="button" value="${chat.chatroomId}">${chat.chatroomId}</button>'     	
-					str += '</c:forEach>'
-					$("#boxhd").html("CodeMaker Talk");
-					$("#golist").css("display", "none");
-					$(".chat-input").css("display", "none");
-					$("#chatMessageArea").empty();
-					$("#chatMessageArea").append(str);
-					
-					
-				}
-	    	})
-	    })
-	    
-	  
+	    }) 
 	})
 	
     window.onpageshow = function() {
+    	disconnect();
+    };
+    window.close = function(){
     	disconnect();
     };
 </script>
@@ -440,6 +364,7 @@ html, body {
 #chatArea {
     width: 200px; height: 100px; overflow-y: auto; border: 1px solid black;
 }
+
 </style>
 </head>
 <body>
@@ -447,32 +372,40 @@ html, body {
 	
 </div>
 <div id="body"> 
-	<div id="chat-circle" class="btn btn-raised">
-		<div id="chat-overlay">
-		
-		</div>
-		<img style="width:85px; height:85px;"alt="talk" src="/images/talk.png"/>
-	</div>
 	<div class="chat-box">
 		<div class="chat-box-header">
-			<span id="boxhd">CodeMaker Talk</span>
-			<span class="chat-box-toggle">닫기</span>
-			<div id="golist" style="display : none;">
-				<button type="button" id="tolist" style="float:left">목록으로</button>
-			</div>
+			<h2>${chatroomVo.chatroomNm}</h2>
+			<input type="hidden" id="boxhd" value="${chatroomVo.chatroomId}">
 		</div>
 		<div class="chat-box-body">
 			<div class="chat-box-overlay">   
 			  
 			</div>
 			<div id="chatMessageArea">
-				<c:forEach items="${chatList}" var="chat">
-					<button class="chatBtn" type="button" value="${chat.chatroomId}">${chat.chatroomId}</button>     	
+				<c:forEach items="${chattingList}" var="chat">
+					<c:if test="${chat.chatCont != null and chat.chatCont != ''}">
+						<c:choose>
+							<c:when test="${MEMBER_INFO.userNm == chat.userNm}">
+								<div id='cm-msg' class='chat-msg self'>
+									<div class='cm-msg-text'>
+										${chat.userNm} : ${chat.chatCont}
+									</div>
+								</div>		
+							</c:when>
+							<c:otherwise>
+								<div id='cm-msg' class='chat-msg user'>
+									<div class='cm-msg-text'>
+										${chat.userNm} : ${chat.chatCont}
+									</div>
+								</div>	
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="chat-input" style="display : none;">    
-			<input type="text" id="chat-input" name="chatCont" placeholder="Send a message..."/>
+		<div class="chat-input">    
+			<input type="text" id="chat-input" name="chatCont" placeholder="Send a message...">
 			<button type="button" class="chat-submit btn btn-primary" id="chat-submit">전송</button>
 		</div>
 	</div>

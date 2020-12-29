@@ -55,6 +55,9 @@
 					<div class="lesbtn">
 						<button class="fa-wf" id="qnabtn">QnA</button>
 					</div>
+					<div class="lesbtn">
+						<button class="fa-wf" id="chat">채팅</button>
+					</div>
 				</div>
 				<div class="sub-info-top">
 					<div class="les-info-name">
@@ -212,6 +215,10 @@ $(function() {
         $('#subf').attr("target", "selectViewExam");
         $('#subf').submit();
         
+	});
+	
+	$('#chat').on('click',function(){
+		window.open("/chat/realchat?lesId=${lessonVO.lesId}", "_blank",'width=500,height=700,resizable=no,scrollbars=yes,left=1000,top=300');
 	});
 	
 })
