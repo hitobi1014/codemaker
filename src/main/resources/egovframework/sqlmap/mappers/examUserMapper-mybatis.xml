@@ -97,7 +97,9 @@ SELECT e.*,
    LEFT OUTER JOIN examscore es ON(p.user_id = es.user_id)
    LEFT OUTER JOIN lesson l ON(p.les_id = l.les_id)
    LEFT OUTER JOIN lesson_index li ON(e.lidx_id = li.lidx_id)
- WHERE p.user_id = #{userId}
-   AND p.les_id = #{lesId}
+ WHERE p.les_id = #{lesId}
+<if test='userId != null and !userId.equals("")'>
+   AND p.user_id = #{userId}
+</if>
 </select>
 </mapper>

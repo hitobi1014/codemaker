@@ -30,23 +30,23 @@
 					<div class="les-detail-cont">
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/date.png"></div>기간 ${lessonVO.lesTerm}일</span>
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/play.png"></div>영상 ${lesIdxList.size()}</span>
-						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험</span>
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험 ${examList.size()}</span>
 					</div>
 				</div>
-					<c:choose>
-						<c:when test="${payVO.userId == MEMBER_INFO.userId }">
-					<div class="les-info-bottom">
-								<div class="les-detail-price">
-									<c:set var="price" value="${lessonVO.lesCash}"/>
-									<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
-								</div>
-								<div class="lesson-content-detail-bottom">
-									<c:url value="/user/payView" var="pay">
-									<c:param name="lesId" value="${lesId}" />
-									</c:url>
-								<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
-								</div>
-					</div>
+				<c:choose>
+					<c:when test="${payVO.userId == MEMBER_INFO.userId }">
+						<div class="les-info-bottom">
+							<div class="les-detail-price">
+								<c:set var="price" value="${lessonVO.lesCash}"/>
+								<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+							</div>
+							<div class="lesson-content-detail-bottom">
+								<c:url value="/user/payView" var="pay">
+								<c:param name="lesId" value="${lesId}" />
+								</c:url>
+							<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+							</div>
+						</div>
 					</c:when>
 				</c:choose>
 			</div>
@@ -62,6 +62,9 @@
 					</div>
 					<div class="lesbtn">
 						<button class="fa-wf" id="qnabtn">QnA</button>
+					</div>
+					<div class="lesbtn">
+						<button class="fa-wf" id="noteBtn">필기노트</button>
 					</div>
 				</div>
 				<div class="sub-info-top">
@@ -128,7 +131,7 @@
 										<c:forEach items="${examList }" var="exam">
 											<c:if test="${exam.lidxId == lesIdxList.lidxId}">
 												<c:choose>
-													<c:when test="${exam.searchEsScore == '999' }">
+													<c:when test="${exam.esFscore == '999' }">
 														<a href="#" class="exam" data-examid="${exam.examId }/0">
 															<img class="note-img" src="/images/user/lesson/note.png">
 														</a>
@@ -220,6 +223,13 @@ $(function() {
         $('#subf').attr("target", "selectViewExam");
         $('#subf').submit();
         
+	});
+	
+	// 강의 노트
+	$('#noteBtn').on('click', function(){
+		if('${MEMBER_INFO.userId}' != ''){
+			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
+		}
 	});
 	
 })
