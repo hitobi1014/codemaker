@@ -26,7 +26,7 @@ public class ExamVO extends ExamScoreVO {
 	private String lidxId;		// 강의 목차 아이디
 	private String lidxCont;	// 목차명
 	private String lesId;		// 강의 아이디
-	private String lesCont;		// 강의명
+	private String lesNm;		// 강의명
 	
 	private String userId;		// 회원 아이디
 	
@@ -46,6 +46,13 @@ public class ExamVO extends ExamScoreVO {
 	private String resultState;		// 시험 결과 보여주는 유무
 	
 	
+	
+	public String getLesNm() {
+		return lesNm;
+	}
+	public void setLesNm(String lesNm) {
+		this.lesNm = lesNm;
+	}
 	public String getResultState() {
 		return resultState;
 	}
@@ -105,12 +112,6 @@ public class ExamVO extends ExamScoreVO {
 	}
 	public void setLidxCont(String lidxCont) {
 		this.lidxCont = lidxCont;
-	}
-	public String getLesCont() {
-		return lesCont;
-	}
-	public void setLesCont(String lesCont) {
-		this.lesCont = lesCont;
 	}
 	public String getUserId() {
 		return userId;

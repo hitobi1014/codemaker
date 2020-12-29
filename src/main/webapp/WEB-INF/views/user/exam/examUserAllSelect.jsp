@@ -91,7 +91,7 @@ $(function() {
 <div class="card shadow exam-box">
 	<div class="exam-box-item">
 		<h3 id="hd">시험 목록</h3>
-		<h4 id="hd">${examList[0].lesCont }</h4>
+		<h4 id="hd">${examList[0].lesNm }</h4>
 		<form:form name="examVO" commandName="examVO" id="subf" action="/examUser/selectAllExam" method="post">
 			<input type="hidden" name="examId" id="examId" value="">
 			<input type="hidden" name="searchEsScore" id="searchEsScore" value="">
