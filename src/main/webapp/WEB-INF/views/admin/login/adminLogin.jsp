@@ -104,7 +104,6 @@ $(function(){
 	
 	$(function() {
 		var rememberme = Cookies.get('REMEMBERME');
-		console.log(rememberme);
 		if(rememberme == "Y"){
 			$('#ckb1').prop('checked', true);
 			
@@ -117,7 +116,7 @@ $(function(){
 				Cookies.set('REMEMBERME', 'Y');
 				Cookies.set('USERID', $('#inputEmail').val());
 				
-			}else{ 
+			}else{
 				Cookies.remove('REMEMBERME');
 				Cookies.remove('USERID');
 			}
@@ -206,7 +205,7 @@ $(function(){
 					</div>
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberme">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="rememberme" value="rememberme">
 							<label class="label-checkbox100" for="ckb1"> 아이디 저장 </label>
 						</div>
 					</div>

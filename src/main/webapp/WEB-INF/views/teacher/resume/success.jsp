@@ -8,6 +8,13 @@
 <style>
 	.box1{
 		text-align: center;
+		height: 400px;
+	}
+	input{
+		width: 160px;
+		height: 40px;
+		background: #005f86;
+		color: #fff;
 	}
 </style>
 </head>
@@ -16,13 +23,16 @@
 		<br>
 		<br>
 		<br>
-		<h3>코드메이커 지원에 감사드립니다.</h3>
+		<br>
+		<br>
+		<br>
+		<h1 style="font-weight: 600;">코드메이커 지원에 감사드립니다.</h1>
 		<br>
 		<br>
 		<br>
 	</div>
 	<div class="box1">
-		<input type="button" value="메인화면으로 이동" onclick="location.href='/userT/main'"/>
+		<input type="button" value="메인화면으로 이동" onclick="location.href='/user/main'"/>
 	</div>
 </body>
 </html>

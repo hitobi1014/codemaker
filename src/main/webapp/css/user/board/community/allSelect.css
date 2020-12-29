@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.article{
+	width: 60%;
+	margin: 25px auto 0;
+	max-height: 798px;
+}
+.textBt{
+	border-bottom: 1px solid #888B8D;
+	width: 150px;
+	height: 30px;
+}
+.btnCol{
+	background: #005f86;
+	width: 80px;
+	height: 30px;
+	color: #fff;
+}
+.fw-600{
+	font-weight: 600;
+}
+.ds-flex{
+	display: flex;
+    align-items: center;
+}
+.rightText{
+	float: right;
+}

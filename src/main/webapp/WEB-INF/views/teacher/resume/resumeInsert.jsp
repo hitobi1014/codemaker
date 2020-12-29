@@ -14,8 +14,8 @@
 			<div class="img-box mb-15">
 				<span class="fw-600">이력서 프로필</span>
 				<div class="resume_photo">
-					<img id="img" src="/images/teacher/imageAdd.PNG" class="redius-3">
-					<input type="file" id="resProfile" name="profile">
+					<img id="img" src="/images/teacher/imageAdd.PNG" class="redius-3" >
+					<input type="file" id="resProfile" name="profile" onchange="loadImg(this)">
 					<input type="hidden" name="target_url"/>
 				</div>
 			</div>
@@ -45,16 +45,16 @@
 					<input name="resMail1" type="text" id="resMail1" class="form-control ih-30 iw-150 border-box redius-3" maxlength="30">
 					<div class="ds-flex">
 						<span class="ml-8">@</span>
-						<input name="resMail2" type="text" id="resMail2" class="form-control ih-30 iw-150 border-box redius-3" maxlength="20"value="">
+						<input name="resMail2" type="text" id="resMail2" class="form-control ih-30 iw-150 border-box redius-3" maxlength="20">
 						<select title="이메일 분류" id="selectMail" name="selectMail" class="ml-8 border-box redius-3" onchange="selectEmail(this)">
 							<option value="1" selected="selected">직접 입력</option>
-							<option value="@maker.co.kr">maker.co.kr</option>
-							<option value="@naver.com">naver.com</option>
-							<option value="@nate.com">nate.com</option>
-							<option value="@yahoo.co.kr">yahoo.co.kr</option>
-							<option value="@gmail.com">gmail.com</option>
-							<option value="@korea.com">korea.com</option>
-							<option value="@hanmail.net">hanmail.net</option>
+							<option value="maker.co.kr">maker.co.kr</option>
+							<option value="naver.com">naver.com</option>
+							<option value="nate.com">nate.com</option>
+							<option value="yahoo.co.kr">yahoo.co.kr</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="korea.com">korea.com</option>
+							<option value="hanmail.net">hanmail.net</option>
 						</select>
 					</div>
 					<input type="hidden" id="resMail" name="resMail"/>
@@ -147,12 +147,12 @@
 			var resTel2 = $("#resTel2").val();
 			var resTel3 = $("#resTel3").val();
 			
-			$("#resMail").val(resMail1 + resMail2);
+			$("#resMail").val(resMail1 + '@' + resMail2);
 			$("#resEdu").val(resEdu1 + '~' + resEdu2 + ' ' + resEdu3 + ' ' + resEdu4);
 			$("#resTel").val(resTel1 + '-' + resTel2 + '-' + resTel3);
-			alert(resEdu1 + '~' + resEdu2 + ' ' + resEdu3 + ' ' + resEdu4);
 			$('#insertForm').submit();
 		});
+		
 	});
 	
 	function selectEmail(ele){ 
@@ -161,12 +161,13 @@
 		// '1'인 경우 직접입력 
 		if($ele.val() == "1" ){ 
 			$email2.attr('readonly', false); 
-			$email2.val('@'); 
+			$email2.val(''); 
 		} else { 
 			$email2.attr('readonly', true); 
 			$email2.val($ele.val()); 
 		}
 	}
+	
 	
 	// 파일 첨부시 미리보기 창
 	function loadImg(value){
@@ -179,11 +180,4 @@
 		}
 	}
 	
-	// 이미지 버튼 클릭시 파일 첨부 창
-	$(function(){
-		$('#img').click(function(e){
-			e.preventDefault();
-			$('#resProfile').click();
-		});
-	});
 </script>
