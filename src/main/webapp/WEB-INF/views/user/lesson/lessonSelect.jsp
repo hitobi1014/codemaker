@@ -7,6 +7,10 @@
 <div class="lesson-container" >
 	<div class="lesson-header"  >
 		<div class="lesson-header-left" >
+			<div class="back-div">
+				<a href="/user/selectSubject"><img class="back-img" src="/images/teacher/lesson/back3.png"></a>
+			</div>
+		
 			<div class="les-info-div card shadow">
 				<div class="les-info-sub-name">
 					Phyton
@@ -26,21 +30,25 @@
 					<div class="les-detail-cont">
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/date.png"></div>기간 ${lessonVO.lesTerm}일</span>
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/play.png"></div>영상 ${lesIdxList.size()}</span>
-						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험</span>
-					</div>
-					<div class="les-detail-price">
-						<c:set var="price" value="${lessonVO.lesCash}"/>
-						<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험 ${examList.size()}</span>
 					</div>
 				</div>
-				<div class="les-info-bottom">
-					<div class="lesson-content-detail-bottom">
-						<c:url value="/user/payView" var="pay">
-						<c:param name="lesId" value="${lesId}" />
-						</c:url>
-					<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
-					</div>
-				</div>
+				<c:choose>
+					<c:when test="${payVO.userId == MEMBER_INFO.userId }">
+						<div class="les-info-bottom">
+							<div class="les-detail-price">
+								<c:set var="price" value="${lessonVO.lesCash}"/>
+								<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+							</div>
+							<div class="lesson-content-detail-bottom">
+								<c:url value="/user/payView" var="pay">
+								<c:param name="lesId" value="${lesId}" />
+								</c:url>
+							<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		<div class="lesson-header-right">
@@ -56,7 +64,11 @@
 						<button class="fa-wf" id="qnabtn">QnA</button>
 					</div>
 					<div class="lesbtn">
+<<<<<<< HEAD
 						<button class="fa-wf" id="chat">채팅</button>
+=======
+						<button class="fa-wf" id="noteBtn">필기노트</button>
+>>>>>>> 5618b38cf4bb1ab0cde47726e5e515cf41c997b3
 					</div>
 				</div>
 				<div class="sub-info-top">
@@ -123,7 +135,7 @@
 										<c:forEach items="${examList }" var="exam">
 											<c:if test="${exam.lidxId == lesIdxList.lidxId}">
 												<c:choose>
-													<c:when test="${exam.searchEsScore == '999' }">
+													<c:when test="${exam.esFscore == '999' }">
 														<a href="#" class="exam" data-examid="${exam.examId }/0">
 															<img class="note-img" src="/images/user/lesson/note.png">
 														</a>
@@ -217,8 +229,16 @@ $(function() {
         
 	});
 	
+<<<<<<< HEAD
 	$('#chat').on('click',function(){
 		window.open("/chat/realchat?lesId=${lessonVO.lesId}", "_blank",'width=500,height=700,resizable=no,scrollbars=yes,left=1000,top=300');
+=======
+	// 강의 노트
+	$('#noteBtn').on('click', function(){
+		if('${MEMBER_INFO.userId}' != ''){
+			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
+		}
+>>>>>>> 5618b38cf4bb1ab0cde47726e5e515cf41c997b3
 	});
 	
 })

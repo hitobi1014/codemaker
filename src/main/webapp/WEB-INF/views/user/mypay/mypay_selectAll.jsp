@@ -31,7 +31,7 @@ $(function(){
 				
 			}else{
 				payId= $("input:radio[name='payId']:checked").val();
-				var url = '/mypage/payRefund?payId='+payId;
+				var url = '/mypage/payRefundView?payId='+payId;
 				
 				var windowObj = window.open(url,'mypay_refund', 'width=449,height=680,resizable=no,scrollbars=yes,left=800,top=50');
 			}

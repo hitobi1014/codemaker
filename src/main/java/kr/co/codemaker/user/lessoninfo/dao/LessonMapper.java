@@ -5,6 +5,7 @@ import java.util.List;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
+import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 
 /**
  * UserLessonController.java
@@ -43,4 +44,13 @@ public interface LessonMapper {
 	 * @throws Exception
 	 */
 	TeacherVO selectTeacher(String lesId) throws Exception; 
+	
+	/**
+	 * 학생이 강의를 샀는지 조회
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	PayVO selectPay(String userId) throws Exception;
+	
 }

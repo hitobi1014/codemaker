@@ -95,10 +95,13 @@ public class ExamUserController {
 	 * @return
 	 */
 	@RequestMapping(path = "/examUser/selectViewExam")
-	public String selectViewExam(ExamVO examVO, Model model) {
+	public String selectViewExam(ExamVO examVO, Model model, HttpSession session) {
 		ExamVO ev = new ExamVO();
 		List<QuestionVO> questionList = new ArrayList<>();
 		List<AnswersheetVO> answersheetLists = new ArrayList<AnswersheetVO>();
+		
+		String userId = ((UserVO)session.getAttribute("MEMBER_INFO")).getUserId();
+		examVO.setUserId(userId);
 		
 		try {
 			ev = examUserService.selectExam(examVO);

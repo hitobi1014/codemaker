@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/user/mypage/mypage-style3.css">
 <link rel="stylesheet" href="/css/user/mypage/mypage-style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <script>
 $(function(){
 	$("#refundBtn").on("click", function(){
@@ -77,6 +77,7 @@ p {
 input#refundBtn {
     margin: 1px 0 11px 351px;
 }
+
 </style>
 <body>
 <div class="paycontainer">
@@ -111,9 +112,9 @@ input#refundBtn {
 		<div class="refundCheck">
 			<input type="checkbox" name="checkcheck" id="checkcheck">&nbsp;<b>약관동의</b><br>
 			<span><b>환불 안내</b></span><br>
-			<span>CODEMAKER의 모든 강의는 환불 시 포인트 적립으로 환불됩니다.</span><br>
-			<span>강의 결제 후 수강진행을 시작한 강의는 환불할 수 없습니다.</span><br>
-			<span>강의 결제 후 수강진행을 시작하지 않은 강의는 위약금 없이 100% 환불 가능합니다.</span>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;CODEMAKER의 모든 강의는 환불 시 포인트 적립으로 환불됩니다.</span><br>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;강의 결제 후 수강진행을 시작한 강의는 환불할 수 없습니다.</span><br>
+			<span><i class="fa fa-exclamation-circle"></i>&nbsp;강의 결제 후 수강진행을 시작하지 않은 강의는 위약금 없이 100% 환불 가능합니다.</span>
 		</div>
 			<input type="button" id="refundBtn" value="환불">
 	</div>

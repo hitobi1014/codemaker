@@ -46,8 +46,8 @@ h2{
 	height: 14%;
 }
 .les-div-3{
-	height: 14%;
-	width: 22%;
+	height: 8%;
+    width: 22%;
 	display: inline-block;
 }
 .les-div-4{
@@ -63,7 +63,14 @@ h2{
     color: black;
 }
 .les-lb{
-	width:100%;
+	width:25%;
+	font-size: 16px;
+    margin: 0 0 0 20px;
+    font-weight: 600;
+    color: black;
+}
+.les-lb2{
+	width:40%;
 	font-size: 16px;
     margin: 0 0 0 20px;
     font-weight: 600;

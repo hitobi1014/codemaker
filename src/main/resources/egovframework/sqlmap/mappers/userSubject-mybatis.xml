@@ -4,5 +4,8 @@
 	<select id="selectSubject" resultType="kr.co.codemaker.user.lessoninfo.vo.SubjectVO">
 	SELECT * 
 	  FROM subject
+	  <where>
+	  	AND sub_out='N'
+	  </where>
 	</select>
 </mapper>

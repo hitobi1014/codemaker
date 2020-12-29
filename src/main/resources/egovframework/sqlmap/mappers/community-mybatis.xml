@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.codemaker.user.board.community.dao.PostMapper">
+	<select id="getAllPost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO" resultType="kr.co.codemaker.user.board.community.vo.PostVO">
+		SELECT
+			post_no
+			, post_id
+			, post_date
+			, post_views
+			, post_content
+			, user_id
+		FROM
+		    post
+	</select>
+
+	<select id="getPost" resultType="kr.co.codemaker.user.board.community.vo.PostVO" parameterType="int">
+		SELECT * 
+			FROM post
+			WHERE post_no = #{postNo}
+	</select>
+
+	<insert id="insertPost" parameterType="int">
+		INSERT INTO post (
+					post_no
+					, post_id
+					, post_date
+					, post_views
+					, post_content
+					, user_id
+				) VALUES (
+					POST_LEJ_SEQ.NEXTVAL
+					, #{postId}
+					, SYSDATE
+					, #{postViews}
+					, #{postContent}
+					, #{userId}
+				)
+	</insert>
+	
+	<update id="updatePost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO">
+		UPDATE post
+				SET
+					post_no = #{postNo}
+				WHERE
+					post_no = POST_LEJ_SEQ.NEXTVAL
+					AND post_id = #{postId}
+					AND post_date = SYSDATE
+					AND post_views = #{postViews}
+					AND post_content = #{postContent}
+					AND user_id = #{userId}
+	</update>
+	
+	<delete id="deletePost" parameterType="int">
+		DELETE FROM post
+		WHERE
+			post_no = #{postNo}
+	</delete>
+	
+</mapper>

@@ -126,7 +126,8 @@ span{
 }
 .les-detail-cont{
 	margin: 9px 0 0px 0px;
-	height: 100px;
+	height: 170px;
+	text-align: left;
 }
 .course-img-div{
 	display: inline-flex;
@@ -142,7 +143,6 @@ span{
 	width: 20px;
 }
 .les-info-middle{
-	margin: 90px 0 0 0;
     padding: 10px 40px 10px 40px;
     height: 20%;
 }
@@ -150,13 +150,8 @@ span{
 	margin: 0 15px 0 0;
 }
 .les-detail-price{
-	margin: 20px 0 0 146px;
+	text-align: center;
 }
-
-
-
-
-
 
 .sub-info-div{
 	width: 450px;
@@ -369,8 +364,9 @@ span{
     border-radius: 41px;
     border: 1px solid;
     width: 400px;
-    margin: 0 0 0 50px;
+    margin: 5px 0 0 50px;
     background: #750075;
+    text-align: center;
     
 }
 /* .fa-black:hover{ */
@@ -411,7 +407,7 @@ span{
     font-weight: 600;
     line-height: 35px;
     width: 100%;
-   	padding: 15px 0 0 150px;
+   	cursor: pointer;
 }
 .lesson-content-button{
 	margin: 8px 0 0 332px;
@@ -442,4 +438,11 @@ span{
 }
 .video-end{
 	color: #1055f1;
+}
+.back-div{
+	margin: 0 0 0 53px;
+}
+.back-img{
+	width: 50px;
+    height: 45px;
 }

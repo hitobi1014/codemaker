@@ -33,4 +33,13 @@ a.RES_ID,
 a.COM_ID
   FROM teacher a, lesson b where a.tch_Id = b.tch_Id and b.les_Id= #{lesId}
 </select>
+
+	<select id="selectPay" parameterType="java.lang.String" resultType="kr.co.codemaker.user.lessoninfo.vo.PayVO"> 
+	SELECT *
+	  FROM pay
+	  <where>
+	  	AND user_id = #{userId}
+	  </where>
+	
+	</select>
 </mapper>

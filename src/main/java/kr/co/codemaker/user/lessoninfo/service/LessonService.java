@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 import kr.co.codemaker.user.lessoninfo.dao.LessonMapper;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
+import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 
 /**
  * UserLessonController.java
@@ -40,5 +41,9 @@ public class LessonService{
 	
 	public TeacherVO selectTeacher(String lesId) throws Exception{
 		return lessonMapper.selectTeacher(lesId);
+	}
+	
+	public PayVO selectPay(String userId) throws Exception{
+		return lessonMapper.selectPay(userId);
 	}
 }

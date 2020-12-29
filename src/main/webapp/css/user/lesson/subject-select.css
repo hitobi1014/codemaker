@@ -14,13 +14,14 @@
 }
 .sublist-box{
     width: 351px;
-    height: 322px;
+    height: 350px;
     margin-right: 76px;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 48px;
 }
 .subject-header{
     width: 100%;
@@ -50,10 +51,13 @@
 	height: 45px;
 }
 .img-cont{
-    position: absolute;
-    z-index: 30;
-    left: 329px;
-    top: 180px;
+/*     position: absolute; */
+/*     left: 329px; */
+/*     z-index: 30; */
+/*     top: 180px; */
+    position: relative;
+    left: 16px;
+    top: -40px;
     transform-origin: left;
     width: 84px;
     height: 84px;
@@ -69,17 +73,60 @@
 .sub-coment-box{
     width: 88%;
     height: 221px;
-    overflow: auto;
 }
 .sub-coment-item{
-	height: 69%;
+	height: 80%;
 	padding-top: 15px;
+	overflow: auto;
 }
 .divider{
     height: 31%;
     border-top: 2px solid #8080808c;
 }
 .info-lesnm a{
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 600;
+    color: #1b1b18f7;
+}
+.shDB{
+	background: rgb(0,94,135);
+}
+.ssDB{
+	background: rgb(3 47 66);
+}
+.shSpring{
+	background: #008000b8;
+}
+.ssSpring{
+	background: #064806;
+}
+.shJava{
+	background: #b52121b5;
+}
+.ssJava{
+	background: #920d0d;
+}
+.shPython{
+	background: #800080ab;
+}
+.ssPython{
+	background: #750075;
+}
+.shJSP{
+	background: #463c3cd1;
+}
+.ssJSP{
+	background: #463c3cd1;
+}
+.shCss{
+	background: #caa41cd1;
+}
+.ssCss{
+	background: #504210;
+}
+.shAndroid{
+	background: #aac148;
+}
+.ssAndroid{
+	background: #3b4414;
 }

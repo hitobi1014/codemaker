@@ -1,20 +1,29 @@
 package kr.co.codemaker.user.lessoninfo.vo;
 
 import java.util.Date;
-
+/**
+ * 
+* ReviewVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 수강후기를 조회하기 위한 VO
+*
+ */
 public class ReviewVO extends PayVO {
 
-	private String payId;
-	private String reviewCont;
-	private String reviewId;
-	private Date reviewDate;
-	private String reviewStar;
-	private String userNm;
-	private String userProfile;
+	private String payId;		//결제ID
+	private String reviewCont;	//수강후기 내용
+	private String reviewId;	//수강후기 ID
+	private Date reviewDate;	//수강후기 작성일
+	private String reviewStar;	//수강후기 별점
+	private String userNm;		//작성자 이름
+	private String userProfile;	//작성자 프로필사진
 	
-
-	
-
 
 	public String getPayId() {
 		return payId;

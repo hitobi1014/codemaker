@@ -95,7 +95,7 @@ public class ResumeController {
 		sos.close();
 	}	
 
-	@RequestMapping(path="/success")
+	@RequestMapping(path="/resume/success")
 	public String success() {
 		return "mainT/teacher/resume/success";
 	}

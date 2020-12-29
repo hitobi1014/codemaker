@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,89 +17,9 @@
 <script src="/js/teacher/exam/exam.js"></script>
 
 <style>
-#wul {
-	width: 1100px;
-	margin-left: 200px;
+.lesson-div{
+	padding:19px 0 0 0;
 }
-
-#hd {
-	margin-left: 15px;
-}
-
-#subject {
-	width: 100px;
-	display: inline-block;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-#lesson {
-	width: 400px;
-	display: inline-block;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-#right {
-	text-align: right;
-}
-
-#regBtn {
-	margin-right: 10px;
-	margin-bottom: 10px;
-	margin-top: 8px;
-}
-
-#selectTab{
-	padding-left: 30px;
-	
-}
-#containerId{
-    width: 1300px;
-    margin-left: 140px;
-    margin-bottom:20px;
-}
-
-#containerAddId{
-    width: 1300px;
-    margin-left: 140px;
-    margin-top : 10px;
-}
-#addLesId{
-	margin-right: 50px;
-    margin-bottom: 20px;
-}
-#addLesBtn{
-	height: 35px;
-	font-size: 13px;
-	margin-right: 20px;
-	float:right;
-}
-.lesDiv{
-	margin-bottom:40px;
-}
-.lesDiv{
-	margin-bottom:20px;
-}
-#pl-lg-4-id{
-	margin-top: 20px;}
-	
-#push, #cancel{
-	height: 35px;
-	font-size: 13px;
-	float: right;
-	
-}	
-.buttonDiv{
-	margin-right: 100px;
-}
-.lesDiv2{
-	background:#fbf2e4; 
-	border-top: 10px solid #f7c573;
-	margin-bottom: 20px;
-}
-#lineLeft{
-	margin-left: 200px;
-}
-
 </style>
 
 <script>
@@ -115,21 +34,21 @@ $(function(){
 		str +='<div class="lesIdx-list-div" id="lesIdx-md-div">';
 		str +='	<div class="lesIdx-md-div">';
 		str +='	<div class=lesIdx-div-1>';
-		str +='		<label class="les-lb">차수</label>';
+		str +='		<label class="les-lb2">차수</label>';
 		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" name="lesIdxList['+index+'].lidxNum" id="lidxNum${status.index}" >${lesIdxList.lidxNum}';
 		str +='	</div>';
 		str +='	<div class=lesIdx-div-2>';
-		str +='		<label class="les-lb">강의목차 제목</label>';
+		str +='		<label class="les-lb2">강의목차 제목</label>';
 		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="제목" name="lesIdxList['+index+'].lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">';
 		str +='	</div>';
 		str +='	</div>';
 		str +='<div class="lesIdx-md-div">';
 		str +='	<div class=lesIdx-div-3>';
-		str +='		<label class="les-lb">주소</label>';
+		str +='		<label class="les-lb2">주소</label>';
 		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxList['+index+'].lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">';
 		str +='	</div>';
 		str +='	<div class=lesIdx-div-4>';
-		str +='		<label class="les-lb">강의 전체시간</label>';
+		str +='		<label class="les-lb2">전체시간</label>';
 		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList['+index+'].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">';
 		str +='	</div>';
     	str +='	<hr class="hr-1">';
@@ -143,7 +62,7 @@ $(function(){
 	})
 
 	// 임시 데이터
-	initData();
+// 	initData();
 		
 	// 강의등록 버튼
 	$('#push').on('click', function(){
@@ -159,13 +78,6 @@ $(function(){
 	})
 	
 })
-
-function initData(){
-	$('#lesNm').val('갑자기만드는 JAVA');
-	$('#lesCont').val('갑자기 만드는 웹페이지');
-	$('#lesCash').val('80000');
-	$('#lesTerm').val('90');
-}
 
 // 강의등록 빈칸 체크
 function lessonChk(){
@@ -200,56 +112,55 @@ function lessonChk(){
 <%-- 	<input type="hidden" name="lesId" value="${lessonVO.lesId}"> --%>
 		<div class="lesson-top">	
 			<div class="les-title-div">
-				<h2>강의수정</h2>
+				<h2>강의등록</h2>
 			</div>	
-		<div class="lesson-div shadow">
-			<div class="les-div-2">
-				<label class="les-lb">강의명</label>
-				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="강의명" name="lesNm" id="lesNm">
-			</div>
-			<div class="les-div-2">
-				<label class="les-lb">강의소개</label>
-				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="소개" name="lesCont" id="lesCont" >
-			</div>
-			<div class="les-md-div">
+			<div class="lesson-div shadow">
 				<div class="les-div-3">
-					<label class="les-lb">개설날짜</label>
-					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate">
+					<label class="les-lb">강의과목</label>
+					<select name="subId" id="subId">
+	  					<option value="0">과목</option>
+						<c:forEach items="${subjectList}" var="sub"	>
+							<c:choose>
+								<c:when test="${sub.subOut == 'N'}">
+									<option value="${sub.subId}">${sub.subNm}</option>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+	  				</select>              
 				</div>
-				<div class="les-div-3">
-					<label class="les-lb">종료날짜</label>
-					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate">
+				<div class="les-div-2">
+					<label class="les-lb">강의명</label>
+					<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="강의명" name="lesNm" id="lesNm">
+				</div>
+				<div class="les-div-2">
+					<label class="les-lb">강의소개</label>
+					<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="소개" name="lesCont" id="lesCont" >
+				</div>
+				<div class="les-md-div">
+					<div class="les-div-3">
+						<label class="les-lb">개설날짜</label>
+						<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate">
+					</div>
+					<div class="les-div-3">
+						<label class="les-lb">종료날짜</label>
+						<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate">
+					</div>
+				</div>
+				<div class="les-md-div">
+					<div class="les-div-3">
+						<label class="les-lb">수강료</label>
+						 <input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="수강료" name="lesCash" id="lesCash" >
+					</div>
+					<div class="les-div-3">
+						<label class="les-lb">기간</label>
+						<input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="기간"  name="lesTerm" id="lesTerm" >
+					</div>
+				</div>
+				<div class="les-div-4">
+					<label class="les-lb">상세내용</label>
+					<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail"  ></textarea>
 				</div>
 			</div>
-			<div class="les-md-div">
-				<div class="les-div-3">
-					<label class="les-lb">수강료</label>
-					 <input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="수강료" name="lesCash" id="lesCash" >
-				</div>
-				<div class="les-div-3">
-					<label class="les-lb">기간</label>
-					<input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="기간"  name="lesTerm" id="lesTerm" >
-				</div>
-			</div>
-			<div class="les-div-4">
-				<label class="les-lb">상세내용</label>
-				<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail"  ></textarea>
-			</div>
-			<div class="les-div-2">
-				<label class="les-lb">강의과목</label>
-				<select name="subId" id="subId">
-  					<option value="0">과목</option>
-					<c:forEach items="${subjectList}" var="sub"	>
-						<c:choose>
-							<c:when test="${sub.subOut == 'N'}">
-								<option value="${sub.subId}">${sub.subNm}</option>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-  				</select>              
-			</div>
-		</div>
-		
 		</div>
 		<div class="lesson-bottom shadow">
 			<div class="les-add-btn">
@@ -260,21 +171,21 @@ function lessonChk(){
            		<div class="lesIdx-list-div" id="lesIdx-md-div">
            			<div class="lesIdx-md-div">
             			<div class=lesIdx-div-1>
-            				<label class="les-lb">차수</label>
+            				<label class="les-lb2">차수</label>
 							<input type="text" class="les-input-1 les-input-1-shadow" name="lesIdxList[0].lidxNum" id="lidxNum${status.index}" >${lesIdxList.lidxNum}
             			</div>
             			<div class=lesIdx-div-2>
-            				<label class="les-lb">강의목차 제목</label>
+            				<label class="les-lb2">강의목차 제목</label>
 							<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="제목" name="lesIdxList[0].lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
             			</div>
            			</div>
             		<div class="lesIdx-md-div">
             			<div class=lesIdx-div-3>
-            				<label class="les-lb">주소</label>
+            				<label class="les-lb2">주소</label>
 							<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxList[0].lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
             			</div>
             			<div class=lesIdx-div-4>
-            				<label class="les-lb">강의 전체시간</label>
+            				<label class="les-lb2">전체시간</label>
 							<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[0].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">
             			</div>
 	            		<hr class="hr-1">

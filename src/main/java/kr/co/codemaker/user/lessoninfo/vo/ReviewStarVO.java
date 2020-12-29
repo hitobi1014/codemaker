@@ -1,12 +1,23 @@
 package kr.co.codemaker.user.lessoninfo.vo;
-
+/**
+* ReviewStarVO.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020. 12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 수강후기 별점을 조회하기 위한 VO
+*
+ */
 public class ReviewStarVO {
 
-	private int five;
-	private int four;
-	private int one;
-	private int two;
-	private int three;
+	private int five;	//별점5점
+	private int four;	//별점4점
+	private int one;	//별점1점
+	private int two;	//별점2점
+	private int three;	//별점3점
 	
 	public int getFive() {
 		return five;

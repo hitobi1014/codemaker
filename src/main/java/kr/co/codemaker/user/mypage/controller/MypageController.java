@@ -176,7 +176,7 @@ public class MypageController {
 		if (file.getSize() > 0) {
 			
 			try {
-				File uploadFile = new File("d:\\upload\\" + file.getOriginalFilename());
+				File uploadFile = new File("c:\\upload\\" + file.getOriginalFilename());
 				String fileName = UUID.randomUUID().toString();
 				file.transferTo(uploadFile);
 			} catch (IllegalStateException e) {
@@ -184,7 +184,7 @@ public class MypageController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			userVo.setUserProfile("d:\\upload\\" + file.getOriginalFilename());
+			userVo.setUserProfile("c:\\upload\\" + file.getOriginalFilename());
 			
 			try {
 				updateCnt = mypageService.updateUser(userVo);

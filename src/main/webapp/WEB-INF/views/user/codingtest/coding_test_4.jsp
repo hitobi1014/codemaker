@@ -12,6 +12,7 @@
 	<div class="lang-select coding-item1">
 		<div>
 			<span style="color:#ffffffb8;">가운데 글자 가져오기</span>
+			<button class="list-btn" onclick="location.href='/user/coding/solution'">목록으로</button>
 		</div>
 	</div>
 	

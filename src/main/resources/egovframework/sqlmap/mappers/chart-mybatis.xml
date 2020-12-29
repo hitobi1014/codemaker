@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.codemaker.admin.chart.dao.ChartMapper">
 
+<!-- 강의별 매출 내역 조회 -->
 <select id="selectLessonPay" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.admin.chart.vo.PayVO">
 	SELECT *
 		FROM
@@ -16,10 +17,12 @@
 	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
 
+<!-- 강의별 매출 내역 조회 시 목록 총 갯수 조회 -->
 <select id="selectTotalCnt"  parameterType="kr.co.codemaker.common.vo.PageVo" resultType="int">
 	SELECT COUNT(*) FROM PAY
 </select>
 
+<!-- 강의별 매출 통계 조회(Excel) -->
 <select id="lessonPayExcel" resultType="kr.co.codemaker.admin.chart.vo.PayVO" parameterType="byte">
 	SELECT a.pay_id, a.pay_sum, a.pay_date, b.les_id, b.les_nm  
 	FROM pay A, LESSON b
@@ -27,6 +30,7 @@
 	ORDER BY a.pay_date DESC
 </select>
 
+<!-- 강의별 매출 통계 조회(Chart) -->
 <select id="lessonPayTotal" resultType="kr.co.codemaker.admin.chart.vo.LessonChartVO">
 WITH chart AS (
     SELECT
@@ -86,30 +90,33 @@ GROUP BY
     les_id
 </select>
 
+<!-- 강사별 매출 내역 조회 -->
 <select id="selectTeacherPay" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="kr.co.codemaker.admin.chart.vo.TeacherPayVO">
-SELECT *
-    FROM
-    (SELECT ROWNUM AS rn, a.*
-    FROM(
-SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
-FROM pay A, lesson B, teacher C
-WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
-ORDER BY a.pay_date DESC)a)
-	WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	SELECT *
+	    FROM
+	    (SELECT ROWNUM AS rn, a.*
+	    FROM(
+	SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
+	FROM pay A, lesson B, teacher C
+	WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
+	ORDER BY a.pay_date DESC)a)
+		WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 </select>
 
+<!-- 강사별 매출 내역 조회시 목록 총 갯수 조회 -->
 <select id="teacherPayCnt" parameterType="kr.co.codemaker.common.vo.PageVo" resultType="int">
-SELECT COUNT(*) FROM PAY
+	SELECT COUNT(*) FROM PAY	
 </select>
 
+<!-- 강사별 매출 통계 조회(Excel) -->
 <select id="teacherPayExcel" resultType="kr.co.codemaker.admin.chart.vo.TeacherPayVO">
-SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
-FROM pay A, lesson B, teacher C
-WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
-ORDER BY a.pay_date DESC
+	SELECT a.pay_id,a.pay_date,c.tch_nm, b.tch_id, b.les_id, b.les_nm, a.pay_sum
+	FROM pay A, lesson B, teacher C
+	WHERE a.les_id=b.les_id and b.tch_id=c.tch_id
+	ORDER BY a.pay_date DESC
 </select>
 
-
+<!-- 강사별 매출 통계 조회(Chart) -->
 <select id="teacherPayTotal" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
 WITH chart AS (
 SELECT z.*, nvl(y.pay_sum,0) pay_sum
@@ -141,15 +148,19 @@ from (SELECT '2020'|| lpad(level,2,'0') pay_yyyymm
 GROUP BY
     tch_nm
 </select>
+
+<!-- 강의별 학생 수 내역 조회 -->
 <select id="lessonUserCnt" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
-select a.les_id, b.les_nm, count(*) cnt                                                                                                                                                                                                                                                                                                                                                                                                 
-	from pay a, lesson b
-	where a.les_id=b.les_id and b.les_state = '3'
+	select a.les_id, b.les_nm, count(*) cnt                                                                                                                                                                                                                                                                                                                                                                                                 
+	  from pay a, lesson b
+	 where a.les_id=b.les_id and b.les_state = '3'
 	group by a. les_id ,b.les_nm
 	order by cnt desc
 </select>
+
+<!-- 강의별 학생수 조회(Chart) -->
 <select id="lessonUserTotal" resultType="int">
-select count(*)
+	select count(*)
 	from pay a, lesson b
 	where a.les_id=b.les_id and b.les_state = '3'
 </select>

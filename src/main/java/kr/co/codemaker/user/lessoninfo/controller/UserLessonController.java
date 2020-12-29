@@ -28,6 +28,7 @@ import kr.co.codemaker.user.lessoninfo.service.UesrSubjectService;
 import kr.co.codemaker.user.lessoninfo.vo.IndexTimeVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonIndexVO;
 import kr.co.codemaker.user.lessoninfo.vo.LessonVO;
+import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 import kr.co.codemaker.user.lessoninfo.vo.SubjectVO;
 
 
@@ -87,6 +88,7 @@ public class UserLessonController {
 		// 2. lidxId , lidxCurtime(int타입) 값 가져오기
 		LessonIndexVO lessonIndexVO = new LessonIndexVO();
 		LessonVO lessonVO = new LessonVO();
+		PayVO payVO = new PayVO();
 		
         UserVO userVO = new UserVO();
         userVO = (UserVO) session.getAttribute("MEMBER_INFO");
@@ -102,14 +104,18 @@ public class UserLessonController {
 		examVO.setLesId(lesId);
 		
 		lessonIndexVO.setLesId(lesId);
+		
 		if(userVO!=null) {
 			lessonIndexVO.setUserId(userVO.getUserId());
+			examVO.setUserId(userVO.getUserId());
 		}
 		lessonVO.setLesId(lesId);
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			lessonVO = lessonService.selectDetailLesson(lessonVO);
 			teacherVo = lessonService.selectTeacher(lesId);
+			payVO = lessonService.selectPay(userVO.getUserId());
+			
 			
 			logger.debug("lessonVO:{}",lessonVO);
 			logger.debug("teacherVo:{}",teacherVo);
@@ -125,6 +131,7 @@ public class UserLessonController {
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
 		model.addAttribute("lessonVO",lessonVO);
 		model.addAttribute("teacherVo", teacherVo);
+		model.addAttribute("payVO",payVO);
 		
 		model.addAttribute("examList",examList);
 		

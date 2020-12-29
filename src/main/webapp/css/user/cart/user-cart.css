@@ -170,3 +170,35 @@ table th{
 #allChk:checked + label{
 	background: url('/img/icon/onChk.png');
 }
+
+/* 빈 장바구니 */
+.empty-cart-box{
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 791px;
+}
+.move-btn-box{
+	display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+}
+.move-btn{
+    width: 189px;
+    color: white;
+    height: 57px;
+    font-size: 22px;
+    font-weight: 600;
+}
+.empty-cart-box span{
+	font-size: 41px;
+	font-weight: 600;
+}
+.main-btn{
+	background: rgb(0,94,135);
+}
+.lesson-btn{
+	background: #383838a3;
+}

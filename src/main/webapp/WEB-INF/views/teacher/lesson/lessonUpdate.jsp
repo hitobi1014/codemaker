@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -21,6 +21,8 @@
 <script>
 $(function(){
 	
+// 	var sdate = $('#lesSdate').val();
+// 	document.getElementById('lesSdate').value = new Date(sdate).toISOString().substring(0, 10);
 	var index = 0;
 	// 강의목록 추가
 	$('#addLesBtn').on('click', function() {
@@ -151,11 +153,11 @@ function lessonChk(){
 			<div class="les-md-div">
 				<div class="les-div-3">
 					<label class="les-lb">개설날짜</label>
-					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate" value="${lessonVO.lesSdate}">
+					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate" value="<fmt:formatDate value="${lessonVO.lesSdate}" pattern="yyyy-MM-dd"/>">
 				</div>
 				<div class="les-div-3">
 					<label class="les-lb">종료날짜</label>
-					<input type="date" class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate" value="${lessonVO.lesEdate}">
+					<input type="date" class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate" value="<fmt:formatDate value="${lessonVO.lesEdate}" pattern="yyyy-MM-dd"/>">
 				</div>
 			</div>
 			<div class="les-md-div">
@@ -185,21 +187,21 @@ function lessonChk(){
             		<div class="lesIdx-list-div" id="lesIdx-md-div${status.index}">
             			<div class="lesIdx-md-div">
 	            			<div class=lesIdx-div-1>
-	            				<label class="les-lb">차수</label>
+	            				<label class="les-lb2">차수</label>
 								<input type="text" class="les-input-1 les-input-1-shadow chk" name="lesIdxList[${status.index}].lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
 	            			</div>
 	            			<div class=lesIdx-div-2>
-	            				<label class="les-lb">강의목차 제목</label>
+	            				<label class="les-lb2">강의목차 제목</label>
 								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="제목" name="lesIdxList[${status.index}].lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
 	            			</div>
             			</div>
 	            		<div class="lesIdx-md-div">
 	            			<div class=lesIdx-div-3>
-	            				<label class="les-lb">주소</label>
+	            				<label class="les-lb2">주소</label>
 								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxList[${status.index}].lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
 	            			</div>
 	            			<div class=lesIdx-div-4>
-	            				<label class="les-lb">강의 전체시간</label>
+	            				<label class="les-lb2">전체시간</label>
 								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[${status.index}].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">
 	            			</div>
 							<input type="button" class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}"  data-del="${status.index}">

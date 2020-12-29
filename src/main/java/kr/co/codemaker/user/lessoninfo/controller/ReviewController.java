@@ -25,7 +25,18 @@ import kr.co.codemaker.user.lessoninfo.vo.PayVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewStarVO;
 import kr.co.codemaker.user.lessoninfo.vo.ReviewVO;
 import kr.co.codemaker.user.mypage.service.MypageService;
-
+/**
+* ReviewController.java
+*
+* @author 우송이
+* @version 1.0
+* @Since 2020.12
+*
+* 수정자 수정내용
+* ------ ------------------------
+* 수강후기
+*
+ */
 @Controller
 public class ReviewController {
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
@@ -33,6 +44,14 @@ public class ReviewController {
 	@Resource(name="reviewService")
 	private ReviewService reviewService;
 
+	/**
+	 * 수강후기 조회
+	 * @param model
+	 * @param lesId
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/user/selectReview")
 	public String selectReview(Model model, String lesId, HttpServletResponse response) throws IOException{
 
@@ -70,6 +89,13 @@ public class ReviewController {
 		return "mainT/user/lesson/reviewTest";
 	}
 	
+	/**
+	 * 회원후기 조회시 회원 프로필 조회
+	 * @param userProfile
+	 * @param response
+	 * @param request
+	 * @throws Exception
+	 */
 	@RequestMapping("/user/reviewprofile")
 	public void profileImg(String userProfile, HttpServletResponse response,HttpServletRequest request) throws Exception {
 
@@ -89,6 +115,15 @@ public class ReviewController {
 			
 	}
 
+	/**
+	 * 수강후기 작성
+	 * @param model
+	 * @param reviewVo
+	 * @param lesId
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/user/insertReview")
 	public String insertReview(Model model , ReviewVO reviewVo, String lesId, HttpSession session, HttpServletRequest request) {
@@ -98,7 +133,7 @@ public class ReviewController {
 		String reviewUser = userVo.getUserId();
 		String userId = reviewUser;
 		 
-		reviewVo.setUserId(reviewUser);
+		reviewVo.setUserId(userId);
 		
 		PayVO payVo = new PayVO();
 		payVo.setLesId(lesId);
@@ -109,16 +144,22 @@ public class ReviewController {
 		
 		String checkPayId="";
 		try {
+			//수강후기 작성시 결제한 회원인지 아닌지 체크
 			checkPayId = reviewService.checkPayId(payVo);
-			logger.debug("checkPayId:{}",checkPayId);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
+//		String checkWrite="";
+//		
+//		checkWrite= reviewService.checkWrite(userId);
+		
 		int insertCnt=0;
 		
+		//결제한 회원이면
 		if(checkPayId!=null) {
 			try {
+				//수강후기 작성
 				insertCnt = reviewService.insertReview(reviewVo);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -129,7 +170,12 @@ public class ReviewController {
 		}
 	}
 	
-	
+	/**
+	 * 수강후기 삭제
+	 * @param reviewVo
+	 * @param lesId
+	 * @return
+	 */
 	@RequestMapping("/user/deleteReview")
 	public String deleteReview(ReviewVO reviewVo, String lesId) {
 
@@ -146,8 +192,4 @@ public class ReviewController {
 		return "redirect:/user/selectReview?lesId="+lesId;
 	}
 	
-	@RequestMapping("review/test")
-	public String test() {
-		return "mainT/user/lesson/reviewTest";
-	}
 }
