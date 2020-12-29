@@ -30,4 +30,8 @@ public class MyPayLessonService {
 	public List<PayLessonInfoVO> selectAllPayLesson(PayLessonInfoVO plVo) throws Exception{
 		return lessonMapper.selectAllPayLesson(plVo);
 	};
+	
+	public List<PayLessonInfoVO> selectAllPayEnd(PayLessonInfoVO plVo) throws Exception{
+		return lessonMapper.selectAllPayEnd(plVo);
+	}
 }

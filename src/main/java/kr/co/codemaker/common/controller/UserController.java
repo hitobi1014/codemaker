@@ -19,7 +19,6 @@ import kr.co.codemaker.common.vo.UserVO;
 
 @Controller
 public class UserController {
-	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Resource(name="userService")
