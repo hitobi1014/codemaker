@@ -44,24 +44,26 @@
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header"></h6>
 				<c:forEach items="${notifyList}" var="notify">
-					<c:choose>
-						<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
-							<span class="font-weight-bold">새로운 알림이 없습니다</span>
-						</c:when>
-						<c:otherwise>
-							<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
-								<div class="mr-3">
-									<div class="icon-circle bg-primary">
-										<i class="fas fa-file-alt text-white"></i>
+					<c:if test="${MEMBER_INFO.userId != notify.senderId}">
+						<c:choose>
+							<c:when test="${notifyCnt == 0 || notifyCnt == ''}">
+								<span class="font-weight-bold">새로운 알림이 없습니다</span>
+							</c:when>
+							<c:otherwise>
+								<a id="url" class="dropdown-item d-flex align-items-center" href="${notify.url}" notify="${notify.notifyId}">
+									<div class="mr-3">
+										<div class="icon-circle bg-primary">
+											<i class="fas fa-file-alt text-white"></i>
+										</div>
 									</div>
-								</div>
-								<div>
-									<div class="small text-gray-500">${notify.notifyDate}</div>
-									<span class="font-weight-bold">${notify.notifyCont}</span>
-								</div>
-							</a>
-						</c:otherwise>
-					</c:choose>
+									<div>
+										<div class="small text-gray-500">${notify.notifyDate}</div>
+										<span class="font-weight-bold">${notify.notifyCont}</span>
+									</div>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				</c:forEach> 
 			</div>
 		</li>

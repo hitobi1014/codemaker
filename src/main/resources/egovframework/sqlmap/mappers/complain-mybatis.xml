@@ -59,4 +59,5 @@ select a.user_id
    </if>
    group by a.user_id
 </select>
+
 </mapper>

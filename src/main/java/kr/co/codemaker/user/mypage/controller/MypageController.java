@@ -48,9 +48,7 @@ public class MypageController {
 	@RequestMapping("/mypage/myinfoSelect")
 	public String myinfoSelect(Model model,HttpSession session,HttpServletRequest request) {
 		
-		UserVO userVo = new UserVO();
-
-        userVo =  (UserVO) session.getAttribute("MEMBER_INFO");
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
         
         String userId = userVo.getUserId();
 		userVo.setUserId(userId);

@@ -49,12 +49,13 @@ public class UserReplyController {
 		notificationVo.setNotifyCont(replyVo.getReplyWriter()+" 님이 댓글을 남겼습니다.");
 		if(tchId != null) {
 			notificationVo.setRecipientId(tchId);
+			notificationVo.setUrl("/teacher/selectQna?qnaId="+replyVo.getQnaId());
 		}else {
 			notificationVo.setRecipientId(userId);
+			notificationVo.setUrl("/user/selectQna?qnaId="+replyVo.getQnaId());
 		}
 		
 		notificationVo.setSenderId(replyVo.getReplyWriter());
-		notificationVo.setUrl("/teacher/selectQna?qnaId="+replyVo.getQnaId());
 		
 		try {
 			replyService.insertReply(replyVo);
