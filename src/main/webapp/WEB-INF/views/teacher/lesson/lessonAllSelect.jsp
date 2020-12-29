@@ -3,11 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- bootstrap 사용 설정 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 <!-- <link rel="stylesheet" href="/css/teacher/lesson/lesson.css"> -->
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
-<link rel="stylesheet" href="/css/teacher/lesson/lessonAllSelect.css">
+<!-- <link rel="stylesheet" href="/css/teacher/lesson/selectAllLesson.css"> -->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -213,7 +211,52 @@ h2{
 	float: left !important;
 	width: 70px;
 }
+#selBtn{
+	width: 50px;
+    height: 35px;
+    background: #312727;
+    border: none;
+    border-radius: 2px;
+    font-weight: 600;
+    color: white;
+}
+.delClass{
+background: #af0000;
+    border: none;
+    color: white;
+    border-radius: 2px;
+}
+.upClass{
+	background: #09116d;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 0 0 4px;
+}
+.reqClass{
+	background: #212529;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 0 0 4px;
+}
 
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+    height: 300px;
+}
+.modal-table{
+	width: 100%;
+    font-size: 21px;
+    text-align: center;
+}
+.modal-tr-1{
+	background: #056a9a;
+    color: white;
+}
 </style>
 <script>
 $(function(){
@@ -377,8 +420,8 @@ var addLes = function(){
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <table>
-					<tr>
+		        <table class="modal-table">
+					<tr class="modal-tr-1">
 						<th>차순</th>
 						<th>목차내용</th>
 					</tr>
@@ -425,9 +468,11 @@ var addLes = function(){
 														<div class="3rd-td-div2" style="float: left; width: 70px;">승인반환</div>
 													</c:when>
 												</c:choose>
-												<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
-												<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
-												<input id="reqBtn" class="reqClass" type="button" value="요청" data-lesid="${no.lesId}" data-check="2">
+													<c:if test="${no.lesState!='2' }">
+														<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
+														<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
+														<input id="reqBtn" class="reqClass" type="button" value="요청" data-lesid="${no.lesId}" data-check="2">
+													</c:if>
 											</div>
 										</td>
 									</tr>
