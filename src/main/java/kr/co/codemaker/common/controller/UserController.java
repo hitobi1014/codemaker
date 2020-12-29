@@ -39,7 +39,7 @@ public class UserController {
 		
 		String fileName = UUID.randomUUID().toString();
 
-		File uploadFile = new File("d:\\upload\\" + file.getOriginalFilename());
+		File uploadFile = new File("c:\\upload\\" + file.getOriginalFilename());
 		if (file.getSize() > 0) {
 			try {
 				file.transferTo(uploadFile);
@@ -51,7 +51,7 @@ public class UserController {
 		}
 
 		// 사용자정보등록
-		userVo.setUserProfile("d:\\upload\\" + file.getOriginalFilename());
+		userVo.setUserProfile("c:\\upload\\" + file.getOriginalFilename());
 		
 		int insertCnt = 0;
 		int poinsertCnt = 0;
