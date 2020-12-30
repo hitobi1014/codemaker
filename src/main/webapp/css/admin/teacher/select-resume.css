@@ -17,6 +17,9 @@ span{
     justify-content: space-between;
     align-items: center;
 }
+.resume-header > div{
+	display: flex;
+}
 .resume-header button{
     background: #8a8a8a70;
     font-size: 18px;
@@ -24,6 +27,14 @@ span{
     height: 30px;
     width: 100px;
     margin-right: 23px;
+}
+#resY{
+   background: rgb(0,95,134);
+   color: white;
+}
+#resN{
+    background: #ff0000ba;
+    color: white;
 }
 .resume-header h1{
 	margin: 11px 0 8px 13px;

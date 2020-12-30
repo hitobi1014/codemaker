@@ -7,24 +7,26 @@
 <div class="card shadow">
 	<div class="resume-header">
 		<h1 class="fw-600">이력서</h1>
-		<button class="fw-600" onclick="location.href='/admin/resumeList'">이력서 목록</button>
+		<div>
+			<c:url value="/admin/resume/state" var="resumeState"></c:url>
+			<form class="form-horiaontal" action="${resumeState}" method="post" id="ff">
+				<div class="stateBox">
+					<div>
+						<c:choose>
+							<c:when test="${resume.resState == null }">
+								<button id="resY" value="Y"  class="resBtn">승인</button>
+								<button id="resN" value="N"  class="resBtn">미승인</button>
+							</c:when>
+						</c:choose>
+					</div>
+					<input type="hidden" name="resId" value="${resume.resId }">
+					<input type="hidden" name="resState" value="" id="resState">
+				</div>
+			</form>
+			<button class="fw-600" onclick="location.href='/admin/resumeList'">이력서 목록</button>
+		</div>
 	</div>
 	<div class="divider"></div>
-	<c:url value="/admin/resume/state" var="resumeState"></c:url>
-	<form class="form-horiaontal" action="${resumeState}" method="post" id="ff">
-		<div class="stateBox">
-			<div>
-				<c:choose>
-					<c:when test="${resume.resState == null }">
-						<button id="resY" value="Y"  class="resBtn">승인</button>
-						<button id="resN" value="N"  class="resBtn">미승인</button>
-					</c:when>
-				</c:choose>
-			</div>
-			<input type="hidden" name="resId" value="${resume.resId }">
-			<input type="hidden" name="resState" value="" id="resState">
-		</div>
-	</form>
 		
 	<div class="box">
 		<!-- 인적사항 -->
