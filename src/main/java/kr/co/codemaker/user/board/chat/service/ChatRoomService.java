@@ -19,7 +19,7 @@ public class ChatRoomService {
 		return chatRoomMapper.selectAllChatRoom();
 	}
 	
-	public ChatRoomVO selectChatRoom(String chatroomId) {
-		return chatRoomMapper.selectChatRoom(chatroomId);
+	public ChatRoomVO selectChatRoom(String lesId) {
+		return chatRoomMapper.selectChatRoom(lesId);
 	}
 }

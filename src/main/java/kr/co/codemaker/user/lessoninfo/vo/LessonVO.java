@@ -14,6 +14,8 @@ public class LessonVO extends BaseVO{
 	private int lesCash;		// 강의 수강료
 	private String lesDetail;	// 강의 상세내용
 	
+	private String subNm;		// 강의 이름
+	
 	private String lidxId;		// 강의목차 아이디
 	private int lidxDurtime;	// 강의 전체시간
 	private int lidxCurtime;	// 강의 재생시간
@@ -25,6 +27,12 @@ public class LessonVO extends BaseVO{
 	
 	
 	
+	public String getSubNm() {
+		return subNm;
+	}
+	public void setSubNm(String subNm) {
+		this.subNm = subNm;
+	}
 	public String getLesDetail() {
 		return lesDetail;
 	}

@@ -43,7 +43,7 @@ public class LessonService{
 		return lessonMapper.selectTeacher(lesId);
 	}
 	
-	public PayVO selectPay(String userId) throws Exception{
-		return lessonMapper.selectPay(userId);
+	public PayVO selectPay(PayVO payVO) throws Exception{
+		return lessonMapper.selectPay(payVO);
 	}
 }

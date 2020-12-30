@@ -67,6 +67,9 @@ public class MyPayLessonController {
 		}
 		model.addAttribute("plList", plList);
 		model.addAttribute("point", "complete");
+		
+		model.addAttribute("fin", "fin");
+		
 		return "mypageT/user/mypage/mypage_lesson";
 	}
 }

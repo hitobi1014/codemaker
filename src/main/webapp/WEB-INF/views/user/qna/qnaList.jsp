@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/qna/lesson.css">
 
 <title>Insert title here</title>
 <script>
@@ -18,26 +18,15 @@ $(document).ready(function(){
 </script>
 
 <style>
-	.card{
-		width:1000px;
-		margin:auto;
-	}
-	h2{
-		color : #1d25af;
-	}
-	#ff{
-		margin: 50px 130px 0;
-		background-color: white;
-	}
+
 </style>
-<div id="ff">
-	<div style="margin:50px;">
+<div class="ff shadow">
+	<div>
 		<div class="card">
-			<div>
+			<div class="banner">
 				<h2>CodeMaker QNA</h2>
 			</div>
-			<hr>
-		
+			<br>
 		<div class="table-responsive">
 			<table class="table">
 				<tr>

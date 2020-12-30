@@ -104,29 +104,34 @@ public class UserLessonController {
 		examVO.setLesId(lesId);
 		
 		lessonIndexVO.setLesId(lesId);
+		String userId = "";
+		int examCnt = 0;
 		
 		if(userVO!=null) {
 			lessonIndexVO.setUserId(userVO.getUserId());
 			examVO.setUserId(userVO.getUserId());
+			payVO.setUserId(userVO.getUserId());
 		}
 		lessonVO.setLesId(lesId);
+		payVO.setLesId(lesId);
 		try {
 			lesIdxList = lessonIndexService.selectLessonIndex(lessonIndexVO);
 			lessonVO = lessonService.selectDetailLesson(lessonVO);
 			teacherVo = lessonService.selectTeacher(lesId);
-			payVO = lessonService.selectPay(userVO.getUserId());
-			
+			payVO = lessonService.selectPay(payVO);
 			
 			logger.debug("lessonVO:{}",lessonVO);
 			logger.debug("teacherVo:{}",teacherVo);
 			
 			examList = examUserService.selectExamLesson(examVO);
+			examCnt = examUserService.selectExamCnt(examVO);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
 		logger.debug("강의번호:{}",lessonIndexVO.getLesId());
 		logger.debug("강의목차:{}",lesIdxList);
+		logger.debug("강의VO@@@@@:{}",lessonVO);
 		model.addAttribute("lesIdxList", lesIdxList);
 		model.addAttribute("lesId", lessonIndexVO.getLesId());
 		model.addAttribute("lessonVO",lessonVO);
@@ -134,6 +139,7 @@ public class UserLessonController {
 		model.addAttribute("payVO",payVO);
 		
 		model.addAttribute("examList",examList);
+		model.addAttribute("examCnt",examCnt);
 		
 		return "mainT/user/lesson/lessonSelect";
 	}

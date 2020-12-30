@@ -107,18 +107,18 @@ $(function(){
 		if(rememberme == "Y"){
 			$('#ckb1').prop('checked', true);
 			
-			var userid = Cookies.get('USERID');
+			var userid = Cookies.get('A_T_ID');
 			$('#inputEmail').val(userid);
 		}
 		
 		$('#Login').on('click', function(e){
 			if($('#ckb1').prop('checked')){
 				Cookies.set('REMEMBERME', 'Y');
-				Cookies.set('USERID', $('#inputEmail').val());
+				Cookies.set('A_T_ID', $('#inputEmail').val());
 				
 			}else{
 				Cookies.remove('REMEMBERME');
-				Cookies.remove('USERID');
+				Cookies.remove('A_T_ID');
 			}
 			
 			// 캡챠 체크 박스 체크 여부

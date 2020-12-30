@@ -10,4 +10,5 @@ SELECT *
 <insert id="insertChat" parameterType="kr.co.codemaker.user.board.chat.vo.ChatVO">
 INSERT INTO CHAT VALUES ('CHAT'||LPAD(CHAT_SEQ.NEXTVAL,4,'0'), sysdate, #{chatCont}, #{chatroomId}, #{userId})
 </insert>
+
 </mapper>

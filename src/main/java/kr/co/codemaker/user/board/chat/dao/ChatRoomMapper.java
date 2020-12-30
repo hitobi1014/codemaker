@@ -18,8 +18,8 @@ public interface ChatRoomMapper {
 	/**
 	 * 하나의 채팅방을 조회하는메서드
 	 * @author 박경호
-	 * @param chatRoomId 채팅방 아이디
+	 * @param lesId 강의아이디
 	 * @return 하나의 채팅방
 	 */
-	ChatRoomVO selectChatRoom(String chatroomId);
+	ChatRoomVO selectChatRoom(String lesId);
 }

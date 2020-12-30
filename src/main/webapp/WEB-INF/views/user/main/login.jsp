@@ -77,6 +77,7 @@ $(function(){
 		$("input:checkbox[id='ckb1']").prop('checked',false);
 		$("#userId").val('');
 	}
+	console.log("저장된 유저아이디" + $("#user").data("userid"));
 })
 </script>
 <body id="body">
@@ -86,13 +87,12 @@ $(function(){
 		for(int i=0; i<cookies.length; i++){
 			Cookie c = cookies[i];
 			URLDecoder.decode(c.getValue(),"UTF-8");
-// 			String cName = c.getName();
 			String cValue = URLDecoder.decode(c.getValue(),"UTF-8");
 			if(c.getName().equals("userid")){
 				out.print("<input id='user' data-userid='"+cValue+"' type='hidden'/>");
 			}
 			if(c.getName().equals("remember")){
-				out.print("<input type='hidden' id='rememCookie' value='"+cValue+"'");
+				out.print("<input type='hidden' id='rememCookie' value='"+cValue+"'/>");
 			}
 		}
 	}

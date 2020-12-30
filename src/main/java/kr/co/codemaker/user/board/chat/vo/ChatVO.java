@@ -11,7 +11,14 @@ public class ChatVO extends BaseVO{
 	private String chatTime;
 	
 	private String userNm;
+	private String subId;
 	
+	public String getSubId() {
+		return subId;
+	}
+	public void setSubId(String subId) {
+		this.subId = subId;
+	}
 	public String getUserNm() {
 		return userNm;
 	}

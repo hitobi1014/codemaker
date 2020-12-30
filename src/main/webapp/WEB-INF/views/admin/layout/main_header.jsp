@@ -14,6 +14,19 @@
 	.dropdown-list{
 		width: 400px !important;
 	}
+	
+	.a-fw{
+		color: white;
+		font-weight: 500;
+		font-size: 16px;
+	}
+	a:hover {
+    color: #fff;
+    text-decoration: underline;
+	}
+	
+
+	
 </style>
 <header class="main-header " id="header">
 	<nav class="navbar navbar-static-top navbar-expand-lg" style="width: 1670px; background: #212a39; height: 80px;" >
@@ -23,12 +36,12 @@
 			</div>
 		</div>
 
-		<div class="navbar-right" style="margin-right: 20px;" >
+		<div class="navbar-right" style="margin-right: 60px;" >
 			<ul class="nav navbar-nav">
 				<!-- Github Link Button -->
-				<li class="dropdown notifications-menu">
+				<li class="dropdown notifications-menu" style="margin-right: 20px;" >
 					<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-						<i class="fas fa-bell fa-fw"></i> 
+<!-- 						<i class="fas fa-bell fa-fw"></i>  -->
 						<span class="badge badge-danger badge-counter">${notifyCnt}</span>
 					</a>
 					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -60,8 +73,8 @@
 				</li>
 				<!-- User Account -->
 				<li class="dropdown-footer">
-					<a href="${cp }/logout" style="color: #b7c0cd;"> 
-						<i class="mdi mdi-logout" style="color: #005F86;"></i> 로그아웃
+					<a class="a-fw" href="${cp }/logout" > 
+						<i class="mdi mdi-logout" style="color: #fff;"></i> 로그아웃
 					</a>
 				</li>
 			</ul>
