@@ -57,4 +57,14 @@ public interface ExamUserMapper {
 	 */
 	public ExamVO selectExam(ExamVO examVO) throws Exception;
 	
+	/**
+	 * 해당 강의의 시험 개수를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectExamCnt(ExamVO examVO) throws Exception;
+	
 }

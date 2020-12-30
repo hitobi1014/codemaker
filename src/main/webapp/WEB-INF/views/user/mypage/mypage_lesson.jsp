@@ -61,7 +61,14 @@
 							<c:url value="/user/selectLessonPage" var="lessonPage"><c:param name="lesId" value="${lesson.lesId}"/></c:url>
 							<c:url value="/examUser/selectAllExam" var="selectAllExam"><c:param name="lesId" value="${lesson.lesId}"></c:param></c:url>
 							<div><a href="${lessonPage}"><img class="btn-img" alt="playbtn" src="/img/codingLogo/playbtn.svg"></a></div>
-							<div><a href="${selectAllExam}"><img class="btn-img" alt="testbtn" src="/img/codingLogo/testbtn.svg"></a></div>
+							<c:choose>
+								<c:when test="${fin == 'fin'}">
+									<div style="display: none;"><a href="${selectAllExam}"><img class="btn-img" alt="testbtn" src="/img/codingLogo/testbtn.svg"></a></div>
+								</c:when>
+								<c:otherwise>
+									<div><a href="${selectAllExam}"><img class="btn-img" alt="testbtn" src="/img/codingLogo/testbtn.svg"></a></div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<div class="lesson-item-mid">
@@ -92,6 +99,7 @@
 </div>
 <script>
 $(function(){
+	
 	$(".exam-btn").on("click",function(){
 		var lesid = $(this).data('lesid');
 		console.log(lesid);

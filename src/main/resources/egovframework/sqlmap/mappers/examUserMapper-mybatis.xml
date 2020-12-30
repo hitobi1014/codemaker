@@ -102,4 +102,9 @@ SELECT e.*,
    AND p.user_id = #{userId}
 </if>
 </select>
+<select id="selectExamCnt" parameterType="kr.co.codemaker.user.classroom.exam.vo.ExamVO" resultType="java.lang.Integer">
+SELECT COUNT(*)
+  FROM exam
+ WHERE les_id = #{lesId}
+</select>
 </mapper>

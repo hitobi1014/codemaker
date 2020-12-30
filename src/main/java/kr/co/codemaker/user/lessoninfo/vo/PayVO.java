@@ -2,7 +2,9 @@ package kr.co.codemaker.user.lessoninfo.vo;
 
 import java.util.Date;
 
-public class PayVO {
+import kr.co.codemaker.common.vo.BaseVO;
+
+public class PayVO extends BaseVO{
 
 	private String payId;
 	private String lesId;
@@ -13,7 +15,7 @@ public class PayVO {
 	private String userId;
 	private Date cosTerm;
 	private int cosProcess;
-	private int payGroup;
+	private String payGroup;
 	
 	public String getPayId() {
 		return payId;
@@ -69,13 +71,12 @@ public class PayVO {
 	public void setCosProcess(int cosProcess) {
 		this.cosProcess = cosProcess;
 	}
-	public int getPayGroup() {
+	public String getPayGroup() {
 		return payGroup;
 	}
-	public void setPayGroup(int payGroup) {
+	public void setPayGroup(String payGroup) {
 		this.payGroup = payGroup;
 	}
-	
 	
 
 }
