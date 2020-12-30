@@ -88,8 +88,9 @@ public class ReviewService {
 		return reviewMapper.checkPayId(payVo);
 	}
 
-	public String checkWrite(String userId) throws Exception {
-		return reviewMapper.checkWrite(userId);
+
+	public String checkWrite(PayVO payVo) throws Exception {
+		return reviewMapper.checkWrite(payVo);
 	}
 
 }

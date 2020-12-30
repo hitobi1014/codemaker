@@ -232,32 +232,24 @@ canvas{
               </table>
             </div>
 
-
+<!-- 페이징 -->
   		 <div class="card-footer py-4">
               <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-
-                  	<c:choose>
-						<c:when test="${page==0}">
-						</c:when>
-						<c:when test="${page==1}">
-							 <li class="page-item active">
-			                   <a class="page-link" href="#"><</a>
-			                </li>
-						</c:when>
-						<c:otherwise>
-							 <li class="page-item active">
-			                   <a class="page-link" href="${cp}/admin/selectTeacherPay?page=${page-1}"><</a>
+					<c:if test="${myPay.size() ne 0 }">
+                		<ul class="pagination justify-content-end mb-0">
+						<c:if test="${page!=1}">
+							<li class="page-item active">
+			                   <a class="page-link pageMove" href="${cp}/admin/selectTeacherPay?page=${page-1}"><</a>
 			                 </li>
-						</c:otherwise>
-					</c:choose>
+						</c:if>
+						
 
-	                  <c:forEach var ="i" begin="1" end="${pages}">
+	                  <c:forEach var ="i" begin="1" end="${pages }">
 		                  <c:choose>
 							<c:when test="${i==page}">
 		                 	 	<li class="page-item active">
-		                    	<a class="page-link" href="#">${i}</a>
-		                  		</li>
+		                    	<a class="page-link" href="#">${i }</a>
+		                   		</li>
 		                  </c:when>
 		                  <c:otherwise>
 			                    <li class="page-item active">
@@ -266,22 +258,17 @@ canvas{
 		                  </c:otherwise>
 		                  </c:choose>
 	                  </c:forEach>
-
-                  		<c:choose>
-							<c:when test="${pages==page}">
+	                  
+                  
+                 		<c:if test="${page != pages }">
 								<li class="page-item active">
-                    				<a class="page-link" href="#">></a>
+                    				<a class="page-link pageMove" href="${cp}/admin/selectTeacherPay?page=${page+1}">></a>
                   				</li>
-							</c:when>
-						<c:otherwise>
-								<li class="page-item active">
-                    				<a class="page-link" href="${cp}/admin/selectTeacherPay?page=${page+1}">></a>
-                  				</li>
-						</c:otherwise>
-						</c:choose>
-	                </ul>
+						</c:if>
+	                	</ul>
+	                </c:if>
 	              </nav>
-	            </div>
+	           </div>
 	          </div>
 	        </div>
 	      </div>

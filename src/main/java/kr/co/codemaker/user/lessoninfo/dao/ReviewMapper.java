@@ -69,5 +69,5 @@ public interface ReviewMapper {
 	 */
 	String checkPayId(PayVO payVo)throws Exception;
 
-	String checkWrite(String userId)throws Exception;
+	String checkWrite(PayVO payVo)throws Exception;
 }

@@ -87,9 +87,13 @@ $(function() {
 						alert("회원님이 수강한 강의가 아닙니다.");
 						$('#new-review').val('');
 						flag=false;
-					}else {
+					}else if(res =="1"){
 						alert("수강후기를 작성합니다.");
 						location.href="/user/selectReview?lesId="+lesId;
+					}else{
+						alert("이미 작성한 수강후기가 존재합니다.");
+						$('#new-review').val('');
+						flag=false;
 					}
 				}
 			});
