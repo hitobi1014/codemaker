@@ -14,6 +14,24 @@ $(function() {
 
 	// #e6f4ea, queAnswer, anw
 	// 정답 체크시 오버레이
+	$(document).on('change', '.d6 .chk' ,function() {
+		var ols = $(this).parents('.d6').children('.anw').children(".ansContList");
+		var chks = $(this).parents('.d6').children('.anw').children('.chk');
+		
+		for(var i=0; i < chks.length; i++){
+			if($(this).val() != chks[i].value){
+				chks[i].checked = false;
+				ols[i].style = 'background-color: #fff;';
+			}else{
+				if($(this).is(":checked") == true){
+					ols[i].style = 'background-color: rgba(230, 244, 234);';
+				}else{
+					ols[i].style = 'background-color: #fff;';
+				}
+			}
+		}
+	});
+	
 	$(document).on('change', 'input[type=checkbox]' ,function() {
 		var ol = $(this).prevAll("input[type=text]");
 		
@@ -181,27 +199,27 @@ $(function() {
 						<div class="anw">
 							<c:choose>
 								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[0] }">
-									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read ansContList" 
 											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
 									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
 								</c:when>
 								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[1] }">
-									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read ansContList" 
 											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
 									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
 								</c:when>
 								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[2] }">
-									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read ansContList" 
 											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
 									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
 								</c:when>
 								<c:when test="${vs.count eq fn:split(question.queAnswer, ',')[3] }">
-									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read ansContList" 
 											value="${answersheet.ansCont }" readonly="readonly" style="background-color: rgba(230, 244, 234) "/>
 									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" checked="checked" />
 								</c:when>
 								<c:otherwise>
-									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read" 
+									<input type="text" name="answersheetLists[${vs.index }].ansCont" class="form-control radi read ansContList" 
 											value="${answersheet.ansCont }" readonly="readonly" />
 									<input type="checkbox" name="questionList[${status.index }].queAnswer" value="${vs.count }" class="chk read" onclick="return false;" />						
 								</c:otherwise>
