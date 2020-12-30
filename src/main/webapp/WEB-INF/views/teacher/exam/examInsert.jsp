@@ -29,13 +29,22 @@ $(function() {
 
 	// #e6f4ea, que_answer, anw
 	// 정답 체크시 오버레이
-	$(document).on('change', 'input[type=checkbox]' ,function() {
-		var ol = $(this).prevAll("input[type=text]");
+	// queAnswerList, ansContList
+	$(document).on('change', '.d6 input[name=queAnswerList]' ,function() {
+		var ols = $(this).parents('.d6').children('.anw').children("input[name=ansContList]");
+		var chks = $(this).parents('.d6').children('.anw').children('.chk');
 		
-		if($(this).is(":checked") == true){
-			ol.attr('style','background-color: rgba(230, 244, 234);');
-		}else{
-			ol.attr('style','background-color: #fff;');
+		for(var i=0; i < chks.length; i++){
+			if($(this).val() != chks[i].value){
+				chks[i].checked = false;
+				ols[i].style = 'background-color: #fff;';
+			}else{
+				if($(this).is(":checked") == true){
+					ols[i].style = 'background-color: rgba(230, 244, 234);';
+				}else{
+					ols[i].style = 'background-color: #fff;';
+				}
+			}
 		}
 	});
 	

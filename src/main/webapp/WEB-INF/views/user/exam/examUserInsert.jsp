@@ -20,14 +20,22 @@
 $(function() {
 	
 	// #e6f4ea, que_answer, anw
-	// 정답 체크시 오버레이
-	$('input[name=erAnswerList]').on('click' ,function() {
-		var ol = $(this).prevAll("input[name=ansCont]");
+	// 정답 체크시 오버레이 + 체크 박스 1개만 선택
+	$('.d6 input[name=erAnswerList]').on('click' ,function() {
+		var ols = $(this).parents('.d6').children('.anw').children("input[name=ansCont]");
+		var chks = $(this).parents('.d6').children('.anw').children('.chk');
 		
-		if($(this).is(":checked") == true){
-			ol.attr('style','background-color: rgba(230, 244, 234);');
-		}else{
-			ol.attr('style','background-color: #eee;');
+		for(var i=0; i < chks.length; i++){
+			if($(this).val() != chks[i].value){
+				chks[i].checked = false;
+				ols[i].style = 'background-color: #eee;';
+			}else{
+				if($(this).is(":checked") == true){
+					ols[i].style = 'background-color: rgba(230, 244, 234);';
+				}else{
+					ols[i].style = 'background-color: #eee;';
+				}
+			}
 		}
 	});
 	
@@ -73,6 +81,7 @@ $(function() {
 		}, 1000);
 		
 	});
+	
 })
 
 var scoring = function(){
