@@ -6,7 +6,7 @@
 <!-- PLUGINS CSS STYLE -->
 <link href="/css/admin/main/daterangepicker.css" rel="stylesheet" />
 <link href="/css/admin/main/flag-icon.min.css" rel="stylesheet"/>
-<link href="/css/admin/main/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+<link href="/css/admin/main/jquery-jvectormap-2.0.3.css" rel="stylesheet" />`
 <link href="/css/admin/main/ladda.min.css" rel="stylesheet" />
 <link href="/css/admin/main/nprogress.css" rel="stylesheet" />
 <link href="/css/admin/main/select2.min.css" rel="stylesheet" />

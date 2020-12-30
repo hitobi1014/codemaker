@@ -11,6 +11,11 @@
 #imgicon{width: 40px; height:40px; }
 .imgMain{width: 250px;height: 300px;}
 #at{color: #2c2e2e;}
+.span-w{
+	width: 40px;
+    height: 40px;
+    margin: 15px 0 0 0;
+}
 </style>
 
 <!-- Topbar -->
@@ -38,8 +43,7 @@
 		<!-- 로그인시에 떠야할 Nav Item - Alerts -->
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-				<i class="fas fa-bell fa-fw"></i> 
-				<span class="badge badge-danger badge-counter">${notifyCnt}</span>
+				<span class="badge badge-danger badge-counter span-w" style="font-size: 22px;">${notifyCnt}</span>
 			</a>
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header"></h6>
