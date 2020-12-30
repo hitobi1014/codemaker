@@ -64,11 +64,10 @@
 						<button class="fa-wf" id="qnabtn">QnA</button>
 					</div>
 					<div class="lesbtn">
-<<<<<<< HEAD
-						<button class="fa-wf" id="chat">채팅</button>
-=======
 						<button class="fa-wf" id="noteBtn">필기노트</button>
->>>>>>> 5618b38cf4bb1ab0cde47726e5e515cf41c997b3
+					</div>
+					<div class="lesbtn">
+						<button class="fa-wf" id="chat">채팅</button>
 					</div>
 				</div>
 				<div class="sub-info-top">
@@ -203,10 +202,21 @@ function pay(lesId){
 }
 
 $(function() {
-	// qna클릭시 스크롤 이동
+	// qna클릭시
 	$('#qnabtn').on('click',function(){
 		document.location="/user/selectAllQna?lesId=${lesId}";
 	});
+	
+	// 채팅버튼 클릭시
+    $('#chat').on('click',function(){
+    	if(${MEMBER_INFO.userId == null}){
+    		alert("로그인후 이용해주세요");
+    		return;
+    	}else{
+	        window.open("/chat/realchat?lesId=${lessonVO.lesId}", "_blank",'width=500,height=700,resizable=no,left=1000,top=300,scrollbars=no');
+    	}
+    });    
+	
 	// 강의영상 클릭시
 	$('a[id^="videoClick_"]').on('click',function(){
 		var path = $(this).attr('value');
@@ -229,16 +239,11 @@ $(function() {
         
 	});
 	
-<<<<<<< HEAD
-	$('#chat').on('click',function(){
-		window.open("/chat/realchat?lesId=${lessonVO.lesId}", "_blank",'width=500,height=700,resizable=no,scrollbars=yes,left=1000,top=300');
-=======
 	// 강의 노트
 	$('#noteBtn').on('click', function(){
 		if('${MEMBER_INFO.userId}' != ''){
 			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
 		}
->>>>>>> 5618b38cf4bb1ab0cde47726e5e515cf41c997b3
 	});
 	
 })

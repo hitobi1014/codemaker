@@ -104,9 +104,9 @@ font-family: 'LotteMartDream';
 				<th>신고 아이디</th>
 				<th>신고 내용</th>
 				<th>신고일</th>
-				<th>신고확인</th>
 				<th>신고자</th>
 				<th>신고대상</th>
+				<th>처리상태</th>
 				<th></th>
 			</tr>
 			<tbody id="complainList">
@@ -115,9 +115,16 @@ font-family: 'LotteMartDream';
 						<td>${complain.cpId}</td>
 						<td style="text-align:left;">${complain.cpCont}</td>
 						<td><fmt:formatDate value="${complain.cpDate}" pattern="yyyy-MM-dd" /></td>
-						<td>${complain.cpState}</td>
 						<td>${complain.plaintiff}</td>
 						<td>${complain.defendant}</td>
+						<c:choose>
+							<c:when test="${complain.cpState == 'Y'}">
+								<td><img style="width:40px; height:40px;"alt="" src="/images/admin/company/check.png"></td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
 						<td><button type="button" name="detail" id="detail">상세보기</button></td>
 					</tr>
 				</c:forEach>

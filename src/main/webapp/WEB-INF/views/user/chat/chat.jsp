@@ -92,7 +92,7 @@ html, body {
 }
 #chat-input {
   background: #f4f7f9;
-  width:279px; 
+  width:350px; 
   position:relative;
   height:47px;  
   padding-top:10px;
@@ -125,10 +125,10 @@ html, body {
   color: #ccc;
 }
 .chat-submit {  
-  position:absolute;
-  bottom:15px;
-  right:10px;
-  background: transparent;
+/*   position:absolute; */
+/*   bottom:15px; */
+/*   right:10px; */
+  background: white;
   box-shadow:none;
   border:none;
   border-radius:50%;
@@ -372,7 +372,7 @@ html, body {
 	
 </div>
 <div id="body"> 
-	<div class="chat-box">
+	<div class="chat-box" style="width:auto;">
 		<div class="chat-box-header">
 			<h2>${chatroomVo.chatroomNm}</h2>
 			<input type="hidden" id="boxhd" value="${chatroomVo.chatroomId}">
@@ -381,7 +381,7 @@ html, body {
 			<div class="chat-box-overlay">   
 			  
 			</div>
-			<div id="chatMessageArea">
+			<div id="chatMessageArea" style="height: 500px;">
 				<c:forEach items="${chattingList}" var="chat">
 					<c:if test="${chat.chatCont != null and chat.chatCont != ''}">
 						<c:choose>

@@ -48,9 +48,10 @@ public class ChatController {
 		List<ChatVO> chattingList = chatService.selectAllChat(chatVo);
 		
 		session.setAttribute("chatroomId", chatroomVo.getChatroomId());
-		model.addAttribute("------chatroomId-----------------------{}", chatroomVo.getChatroomId());
+		logger.debug("------chatroomId-----------------------{}", chatroomVo.getChatroomId());
 		
 		logger.debug("---------------------------{}", chattingList);
+		model.addAttribute("chatroomVo", chatroomVo);
 		model.addAttribute("chattingList", chattingList);
 		
 		return "user/chat/chat";
