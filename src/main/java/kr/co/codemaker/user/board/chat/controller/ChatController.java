@@ -36,22 +36,23 @@ public class ChatController {
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
-//	@RequestMapping("/chat/chat")
-//	public String mulchat(Model model) {
-//		List<ChatRoomVO> chatList = chatRoomService.selectAllChatRoom();
-//		
-//		model.addAttribute("chatList", chatList);
-//		
-//		return "user/chat/testchat2";
-//	}
-	
 	@RequestMapping(path="/chat/realchat", method=RequestMethod.GET)
-	public String realchatView(ChatVO chatVo, Model model) {
-		List<ChatRoomVO> chatList = chatRoomService.selectAllChatRoom();
+	public String realchatView(Model model, String lesId, HttpSession session) {
+		ChatVO chatVo = new ChatVO();
 		
+		logger.debug("---------lesId-----------------{}", lesId);
 		
-		logger.debug("chat {}", chatVo);
-		model.addAttribute("chatList", chatList);
+		ChatRoomVO chatroomVo = chatRoomService.selectChatRoom(lesId);
+		logger.debug("---------chatroomVo-----------------{}", chatroomVo);
+		chatVo.setSubId(chatroomVo.getSubId());
+		List<ChatVO> chattingList = chatService.selectAllChat(chatVo);
+		
+		session.setAttribute("chatroomId", chatroomVo.getChatroomId());
+		logger.debug("------chatroomId-----------------------{}", chatroomVo.getChatroomId());
+		
+		logger.debug("---------------------------{}", chattingList);
+		model.addAttribute("chatroomVo", chatroomVo);
+		model.addAttribute("chattingList", chattingList);
 		
 		return "user/chat/chat";
 	}
@@ -68,13 +69,11 @@ public class ChatController {
 	}
 	
 	@RequestMapping(path="/chat/insertChat", method=RequestMethod.POST)
-	public String insertChat(ChatVO chatVo, Model model) {
+	public void insertChat(ChatVO chatVo, Model model) {
 		
 		if(chatVo.getChatCont() != "") {
 			chatService.insertChat(chatVo);
 		}
-		
-		return "user/chat/chat";
 	}
 	
 	
