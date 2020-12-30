@@ -5347,7 +5347,8 @@ a.badge-warning.focus, a.badge-warning:focus {
 
 .badge-danger {
 	color: #fff;
-	background-color: #e74a3b
+	background-color: #e74a3b;
+	font-size: 22px;
 }
 
 a.badge-danger:focus, a.badge-danger:hover {
@@ -10311,9 +10312,9 @@ opacity
 	{
 	position: absolute;
 	transform: scale(.7);
-	transform-origin: top right;
+/* 	transform-origin: top right; */
 	right: .25rem;
-	margin-top: -.25rem
+	margin-top: 1px;
 }
 
 .sidebar .nav-item .nav-link .img-profile, .topbar .nav-item .nav-link .img-profile
