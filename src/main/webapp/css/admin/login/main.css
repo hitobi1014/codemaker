@@ -272,7 +272,7 @@ iframe {
 
 .label-checkbox100::before {
 	content: "\f00c";
-	font-family: 'LotteMartDream';
+	font-family : FontAwesome;
 	font-size: 13px;
 	color: transparent;
 	display: -webkit-box;
