@@ -12,8 +12,8 @@
 			</div>
 		
 			<div class="les-info-div card shadow">
-				<div class="les-info-sub-name">
-					Phyton
+				<div class="les-info-sub-name" data-subnm ="${lessonVO.subNm}">
+					${lessonVO.subNm}
 				</div>
 				<div class="les-info-top">
 					<div class="les-detail-title">
@@ -30,25 +30,23 @@
 					<div class="les-detail-cont">
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/date.png"></div>기간 ${lessonVO.lesTerm}일</span>
 						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/play.png"></div>영상 ${lesIdxList.size()}</span>
-						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험 ${examList.size()}</span>
+						<span class="detail-s"><div class="course-img-div"><img class="course-img" src="/images/user/lesson/monitor.png"></div>시험 ${examCnt}</span>
 					</div>
 				</div>
-				<c:choose>
-					<c:when test="${payVO.userId == MEMBER_INFO.userId }">
-						<div class="les-info-bottom">
-							<div class="les-detail-price">
-								<c:set var="price" value="${lessonVO.lesCash}"/>
-								<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
-							</div>
-							<div class="lesson-content-detail-bottom">
-								<c:url value="/user/payView" var="pay">
-								<c:param name="lesId" value="${lesId}" />
-								</c:url>
-							<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
-							</div>
+				<c:if test="${payVO == null && MEMBER_INFO.userId != null}">
+					<div class="les-info-bottom">
+						<div class="les-detail-price">
+							<c:set var="price" value="${lessonVO.lesCash}"/>
+							<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
 						</div>
-					</c:when>
-				</c:choose>
+						<div class="lesson-content-detail-bottom">
+							<c:url value="/user/payView" var="pay">
+							<c:param name="lesId" value="${lesId}" />
+							</c:url>
+						<a class="fa-white" onclick="pay('${lesId}')">결제하기</a>
+						</div>
+					</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="lesson-header-right">
@@ -63,9 +61,11 @@
 					<div class="lesbtn">
 						<button class="fa-wf" id="qnabtn">QnA</button>
 					</div>
-					<div class="lesbtn">
-						<button class="fa-wf" id="noteBtn">필기노트</button>
-					</div>
+					<c:if test="${payVO != null }">
+						<div class="lesbtn">
+							<button class="fa-wf" id="noteBtn">필기노트</button>
+						</div>
+					</c:if>
 				</div>
 				<div class="sub-info-top">
 					<div class="les-info-name">
@@ -227,10 +227,48 @@ $(function() {
 	
 	// 강의 노트
 	$('#noteBtn').on('click', function(){
-		if('${MEMBER_INFO.userId}' != ''){
-			var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
-		}
+		var windowObj = window.open('/note/insertViewNote','noteInsert', 'width=630,height=800,resizable=no,scrollbars=yes,left=1200,top=50');
 	});
+	
+	
+	// 과목에 따라서 색 바뀜
+	var subNm = $('.les-info-sub-name').data('subnm');	// 과목
+	var subName = $('.les-info-sub-name');
+	var cartBtn = $('.cartbtn');
+	var lessonIndex = $('.lesson-index');
+	if(subNm == 'DB'){
+		subName.attr('class','les-info-sub-name ssDB');
+		cartBtn.attr('class','cartbtn ssDB');
+		lessonIndex.attr('class','lesson-index shDB');
+	}else if(subNm =='Spring'){
+		subName.attr('class','les-info-sub-name ssSpring');
+		cartBtn.attr('class','cartbtn ssSpring');
+		lessonIndex.attr('class','lesson-index shSpring');
+	}else if(subNm =='Java'){
+		subName.attr('class','les-info-sub-name ssJava');
+		cartBtn.attr('class','cartbtn ssJava');
+		lessonIndex.attr('class','lesson-index shJava');
+	}else if(subNm =='Python'){
+		subName.attr('class','les-info-sub-name ssPython');
+		cartBtn.attr('class','cartbtn ssPython');
+		lessonIndex.attr('class','lesson-index shPython');
+	}else if(subNm =='JSP'){
+		subName.attr('class','les-info-sub-name ssJSP');
+		cartBtn.attr('class','cartbtn ssJSP');
+		lessonIndex.attr('class','lesson-index shJSP');
+	}else if(subNm =='HTML/CSS'){
+		subName.attr('class','les-info-sub-name ssCss');
+		cartBtn.attr('class','cartbtn ssCss');
+		lessonIndex.attr('class','lesson-index shCss');
+	}else if(subNm =='Android'){
+		subName.attr('class','les-info-sub-name ssAndroid');
+		cartBtn.attr('class','cartbtn ssAndroid');
+		lessonIndex.attr('class','lesson-index shAndroid');
+	}else{
+		header.css("background","#0a0a0ad1");
+		subNmBox.css("background","#ffffff47");
+		img.attr('src','/img/codingLogo/default.svg');
+	}
 	
 })
 </script>

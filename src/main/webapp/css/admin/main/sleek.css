@@ -11141,8 +11141,8 @@ div.copied {
 
 .navbar .navbar-right .navbar-nav .notifications-menu .dropdown-toggle {
 	position: relative;
-	border-left: 1px solid #e5e9f2;
-	border-right: 1px solid #e5e9f2;
+/* 	border-left: 1px solid #e5e9f2; */
+/* 	border-right: 1px solid #e5e9f2; */
 	padding-left: 0.875rem;
 	padding-right: 0;
 	font-size: 1.625rem;
