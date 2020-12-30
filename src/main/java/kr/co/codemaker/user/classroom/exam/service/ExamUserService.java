@@ -80,4 +80,16 @@ public class ExamUserService {
 		return examUserMapper.selectExam(examVO);
 	}
 	
+	/**
+	 * 해당 강의의 시험 개수를 조회하는 메서드
+	 * 
+	 * @author 김미연
+	 * @param examVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectExamCnt(ExamVO examVO) throws Exception{
+		return examUserMapper.selectExamCnt(examVO);
+	}
+	
 }

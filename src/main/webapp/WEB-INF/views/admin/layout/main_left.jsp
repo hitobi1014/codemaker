@@ -100,18 +100,6 @@
 					</a>
 					<ul  class="collapse"  id="charts" data-parent="#sidebar-menu">
 						<div class="sub-menu">
-							<!-- 사용자 조회 -->
-							<li class="section-title">사용자 조회</li>
-							<li>
-								<a class="sidenav-item-link" href="#">
-									<span class="nav-text">교사 조회</span>
-								</a>
-							</li>
-							<li>
-								<a class="sidenav-item-link" href="#">
-									<span class="nav-text">학생 조회</span>
-								</a>
-							</li>
 							<!-- 매출조회 -->
 							<li class="section-title">매출 조회</li>
 							<li>
@@ -145,21 +133,6 @@
 						<div class="sub-menu">
 							<li class="section-title">
 								수강 관리 조회
-							</li>
-							<li>
-								<a class="sidenav-item-link" href="#">
-									<span class="nav-text">수강후기 조회</span>
-								</a>
-							</li>
-							<li>
-								<a class="sidenav-item-link" href="#">
-									<span class="nav-text">학생 조회</span>
-								</a>
-							</li>
-							<li>
-								<a class="sidenav-item-link" href="#">
-									<span class="nav-text">교사 조회</span>
-								</a>
 							</li>
 							<li>
 								<c:url value="/admin/selectAllSubject" var="selectAllSubject"/>

@@ -47,10 +47,10 @@ public interface LessonMapper {
 	
 	/**
 	 * 학생이 강의를 샀는지 조회
-	 * @param userId
+	 * @param PayVO
 	 * @return
 	 * @throws Exception
 	 */
-	PayVO selectPay(String userId) throws Exception;
+	PayVO selectPay(PayVO payVO) throws Exception;
 	
 }

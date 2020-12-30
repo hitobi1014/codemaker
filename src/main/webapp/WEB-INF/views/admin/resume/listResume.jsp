@@ -69,25 +69,30 @@
 								<th>승인상태</th>
 							</tr>
 							<tbody id="listResume">
-								<c:forEach items="${resumeList }" var="resume">
-									<tr data-resid="${resume.resId}"
-										data-resstate="${resume.resState}" style="cursor: pointer;">
-										<td><a class="textColor">${resume.resId }</a></td>
-										<td><a class="textColor">${resume.resCode }</a></td>
-										<td><a class="textColor">${resume.resNm }</a></td>
-										<c:choose>
-											<c:when test="${resume.resState == 'Y'}">
-												<td><a style="color: #3A913F;">승인완료</a></td>
-											</c:when>
-											<c:when test="${resume.resState == 'N'}">
-												<td><a style="color: #EF3340;">미승인</a></td>
-											</c:when>
-											<c:when test="${resume.resState == null}">
-												<td><a style="color: #505759;">승인대기</a></td>
-											</c:when>
-										</c:choose>
-									</tr>
-								</c:forEach>
+								<c:if test="${not empty resumeList}">
+									<c:forEach items="${resumeList }" var="resume">
+										<tr data-resid="${resume.resId}"
+											data-resstate="${resume.resState}" style="cursor: pointer;">
+											<td><a class="textColor">${resume.resId }</a></td>
+											<td><a class="textColor">${resume.resCode }</a></td>
+											<td><a class="textColor">${resume.resNm }</a></td>
+											<c:choose>
+												<c:when test="${resume.resState == 'Y'}">
+													<td><a style="color: #3A913F;">승인완료</a></td>
+												</c:when>
+												<c:when test="${resume.resState == 'N'}">
+													<td><a style="color: #EF3340;">미승인</a></td>
+												</c:when>
+												<c:when test="${resume.resState == null}">
+													<td><a style="color: #505759;">승인대기</a></td>
+												</c:when>
+											</c:choose>
+										</tr>
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty resumeList}">
+									<tr><td colspan="4" style="text-align: center;">조회 결과가 없습니다.</td></tr>
+								</c:if>
 							</tbody>
 						</table>
 					</form>

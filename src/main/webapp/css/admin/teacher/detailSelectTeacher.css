@@ -29,6 +29,8 @@ h3{
 }
 #img-teacher{
 	height: 300px;
+	width: 200px;
+	object-fit : cover;
 }
 .info-teacher{
 	padding: 50px 110px;

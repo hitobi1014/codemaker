@@ -182,14 +182,15 @@ span{
     box-shadow: 0 0.6rem 1rem 0 rgba(70, 70, 70, 0.2);
     width: 90px;
     height: 40px;
-    background: #750075;
+/*     background: #750075; */
 }
 
 .fa-wf {
 	font-size: 14px;
     color : white;
     font-weight: 600;
-    line-height: 31px;
+    line-height: 35px;
+    cursor: pointer;
 }
 
 .lesson-content-top{
@@ -230,7 +231,7 @@ span{
     border-radius: .8rem;
 }
 .bg-index{
-	background-image: linear-gradient(154deg, #800080ab, #800080ab) !important;
+/* 	background-image: linear-gradient(154deg, #800080ab, #800080ab) !important; */
 }
 .lesson-index-num{
 	width: 5.0rem;
@@ -420,7 +421,7 @@ span{
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
-	background: #750075;
+/* 	background: #750075; */
 }
 .lesson-content-bottom-in{
     margin: 10px 0 40px 64px;
@@ -445,4 +446,47 @@ span{
 .back-img{
 	width: 50px;
     height: 45px;
+}
+
+.shDB{
+	background: rgb(0,94,135);
+}
+.ssDB{
+	background: rgb(3 47 66);
+}
+.shSpring{
+	background: #008000b8;
+}
+.ssSpring{
+	background: #064806;
+}
+.shJava{
+	background: #b52121b5;
+}
+.ssJava{
+	background: #920d0d;
+}
+.shPython{
+	background: #800080ab;
+}
+.ssPython{
+	background: #750075;
+}
+.shJSP{
+	background: #463c3cd1;
+}
+.ssJSP{
+	background: #463c3cd1;
+}
+.shCss{
+	background: #caa41cd1;
+}
+.ssCss{
+	background: #504210;
+}
+.shAndroid{
+	background: #aac148;
+}
+.ssAndroid{
+	background: #3b4414;
 }
