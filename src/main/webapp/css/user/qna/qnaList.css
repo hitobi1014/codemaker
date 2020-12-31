@@ -46,7 +46,7 @@
      width: 100%;
      max-width: 100%;
      margin-bottom: 1rem;
-     background-color: transparent
+     background-color: transparent;
  }
 
  * {
@@ -61,12 +61,6 @@
  .table thead th {
      vertical-align: bottom;
      border-bottom: 2px solid #dee2e6
- }
-
- .table th {
-     padding: 1rem;
-     vertical-align: top;
-     border-top: 1px solid #dee2e6
  }
 
  .table th,
@@ -159,15 +153,15 @@ div, li{
 .table th{
 font-family: 'LotteMartDream';
   font-weight: 700;
-  font-size: 1.5em;
   text-align: center;
+  padding: 9px;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
 .table td{
 font-family: 'LotteMartDream';
   font-weight: 500;
-  font-size: 1.2em;
   text-align: center;
-  line-height: 40px;
 }
 .table tr{
 	border-top: 2px solid #bdbdbd;
@@ -183,4 +177,42 @@ font-family: 'LotteMartDream';
 }
 .banner{
 	margin: 20px 0px 20px 0;
+}
+ .table-margin {
+    width: 75%;
+    height: 60%;
+    margin: 0 auto;
+}
+.tr-1st{
+	font-size: 20px;
+    background: #e2eaea;
+}
+.tr-2nd{
+	font-size: 19px;
+}
+.table td{
+	padding: 5px;
+}
+a{
+	padding: 5px;
+	font-size: 19px;
+}
+.thd-1st{
+	width: 10%;
+}
+.thd-2nd{
+	width: 40%;
+}
+.qanList-size-div{
+	height: 40px;
+	float: right;
+	font-weight: 600;
+}
+.qnd-num{
+	color: #f95303;
+}
+.btn-color{
+	float:right; 
+	background: #4a4848;
+	color: white;
 }

@@ -7,6 +7,7 @@
 <title>질의응답</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/qna/qnaSelect.css">
 <script>
 $(document).ready(function(){
 	var count = 0;
@@ -199,29 +200,35 @@ $(document).ready(function(){
 </style>
 	<div class="card">
 			
-			<div class="titleDiv">
-				<h2 id="title">${qnaVo.qnaTitle}</h2>
-				<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
-			</div>
-			
-			<div>
-				<label class="control-label">&nbsp;&nbsp;&nbsp;${qnaVo.qnaId}</label>
-				<label style="float:right;" class="control-label">작성자 : ${qnaVo.userId}</label>
-				<br>
-				<label style="float:right;" class="control-label">작성날짜 : <fmt:formatDate value="${qnaVo.qnaDate}" pattern="yyyy-MM-dd" /></label>
-				<hr>
+			<div class="lesnm-div">
+			<span class="lesnm-sp">${qnaVo.subNm} > <u>${qnaVo.lesNm}</u></span>
+			</div>			
+			<div class="title-top">
+				<div class="title-btn">
+					<button type="button" id="listbutton" style="float:right;" class="btn btn-primary">목록</button>
+				</div>
+				<div class="title-div">
+					<label class="control-label label-st">${qnaVo.qnaId}</label><br>
+					${qnaVo.qnaTitle}
+					<div class="title-mid">
+						<label class="control-label label-st">${qnaVo.userId}</label><br>
+						<label class="control-label label-st">작성일 <fmt:formatDate value="${qnaVo.qnaDate}" pattern="yyyy-MM-dd" /></label><br>
+						
+					</div>
+				</div>
 			</div>
 
 			<br>
-			<div style="margin:30px; text-align:center;">
-				<label class="control-label" style="font-size:20px; width:800px; text-align:left;">${qnaVo.qnaCont}</label>
+			<div class="cont-mid">
+				<label class="control-label" >${qnaVo.qnaCont}</label>
 			</div>
-			<hr>
-			<div>
 			
 			<div>
-				<h3 style="color:rgb(0,95,134);">댓글</h3>
-			</div>
+				<div>
+			
+					<div class="reply-div">
+					댓글
+					</div>
 			<br>
 				<div>
 					<ul id="ultag">
@@ -230,25 +237,29 @@ $(document).ready(function(){
 							<hr>
 								<div style="margin-left:${60*reply.replylevel}px;" class="condiv">
 									<div class="condiv" style="margin-bottom:10px;">
-										<span style="font-size:1.3em; font-weight:800">${reply.replyWriter}</span>
+										<c:if test="${reply.replylevel > 1}">
+										 	▶
+										</c:if>
+										<span style="font-size:1.3em; font-weight:800" id="defendant">${reply.replyWriter}</span>
 										<span style="font-size:0.9em; font-weight:300; color:gray;"><fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd HH:mm"/></span>
 									</div>
 									<div class="condiv">
 										<div class="condiv">
-											<p style="float:left; margin-left:30px;">${reply.replyCont}</p>
+											<p class="p-color">${reply.replyCont}</p>
 										</div>
 									</div>
-									<div class="condiv">
+									<div class="btn-div">
 										<br>
 										<c:if test="${reply.replyOut != 'Y'}">
 											<c:choose>
 												<c:when test="${reply.replyWriter != S_TEACHER.tchId}">
-													<button id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button>
+													<button class="del-color" id="rreply" type="button" name="rreplyRoot" value="${reply.replyId}">답글</button>
+													<button class="rep-color" id="replyComplain" type="button" name="replyComplain" value="${reply.replyId}">신고</button>
 												</c:when>
 												<c:otherwise>
 													<form id="delre" action="/teacher/deleteReply">
 														<input type="hidden" value="${qnaVo.qnaId}" name="qnaId">
-														<button type="button" id="delbutton" value="${reply.replyId}">삭제</button>
+														<button class="del-color" type="button" id="delbutton" value="${reply.replyId}">삭제</button>
 													</form>
 												</c:otherwise>
 											</c:choose>

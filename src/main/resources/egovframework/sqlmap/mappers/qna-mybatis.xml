@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.common.dao.QnaMapper"><select id="selectQna" resultType="kr.co.codemaker.common.vo.QnaVO" parameterType="kr.co.codemaker.common.vo.QnaVO">
-SELECT * 
-  FROM qna where qna_id = #{qnaId}
-	
+SELECT a.*, b.sub_nm, c.les_nm
+  FROM qna a, subject b, lesson c
+  where a.les_id = c.les_id
+    and c.sub_id = b.sub_id
+    and a.qna_id = #{qnaId}
 </select>
 <select id="selectAllQna" resultType="kr.co.codemaker.common.vo.QnaVO" parameterType="java.util.HashMap">
 SELECT * 
