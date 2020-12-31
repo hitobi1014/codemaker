@@ -278,8 +278,18 @@ public class MypageController {
 		
 		Map<String, Object> map = mypageService.selectPoint(pageVo);
 		
+		//회원현재 보유포인트 조회
+		int totalPoint = 0;
+		
+		try {
+			totalPoint = mypageService.deletePointCompare(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("pointList", map.get("pointList"));
 		model.addAttribute("pages", map.get("pages"));
+		model.addAttribute("totalPoint", totalPoint);
 		
 		
 		return "mypageT/user/mypage/pointTest";

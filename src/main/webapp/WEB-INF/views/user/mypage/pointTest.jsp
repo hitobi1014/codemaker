@@ -54,6 +54,7 @@
 .totalpoint {
     float: left;
     font-size: larger;
+    margin-top: 4px;
 }
 </style>
 <div class="card shadow note-box">
@@ -61,7 +62,7 @@
 		<h3>포인트내역</h3>
 		<div class="note-item-cont">
 			<div id="pdfd">
-			<div class="totalpoint"><span><b>${MEMBER_INFO.userNm}</b>님의 현재 사용가능한 포인트는 000point 입니다.</span></div>
+			<div class="totalpoint"><span><b>${MEMBER_INFO.userNm}</b>님의 현재 사용가능한 포인트는 <b><fmt:formatNumber value="${totalPoint}"/>&nbsp;POINT</b>&nbsp;입니다.</span></div>
 				<button type="button" class="pdf-btn" id="regBtn" data-toggle="modal" data-target="#pointadd">포인트 적립</button>
 				<button type="button" class="pdf-btn" id="downBtn" data-toggle="modal" data-target="#pointminus">포인트 환불</button>
 			</div>
@@ -85,7 +86,7 @@
                     </td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                      <fmt:formatNumber value="${point.pointUpdate }"></fmt:formatNumber>&nbsp;Point
+                      <fmt:formatNumber value="${point.pointUpdate }"/>&nbsp;Point
                       </span>
                     </td>
                     <td>
