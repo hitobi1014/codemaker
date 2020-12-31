@@ -11,7 +11,7 @@ SELECT e.*,
        p.user_id
   FROM exam e
    RIGHT OUTER JOIN pay p ON(e.les_id = p.les_id)
-   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id)
+   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id AND es.user_id = #{userId})
  WHERE p.user_id = #{userId}
    AND e.exam_id = #{examId}
 </select>
@@ -36,7 +36,7 @@ FROM (SELECT a.*, ROWNUM AS rn
 	                NVL(c.avgScore,0) avgScore
               FROM exam e 
                    RIGHT OUTER JOIN pay p ON(e.les_id = p.les_id) 
-                   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id) 
+                   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id AND es.user_id = #{userId}) 
                    LEFT OUTER JOIN lesson l ON(p.les_id = l.les_id) 
                    LEFT OUTER JOIN lesson_index li ON(e.lidx_id = li.lidx_id) 
                    LEFT OUTER JOIN (SELECT SUM(que_score) queTotal, exam_id 
@@ -91,7 +91,7 @@ SELECT e.*,
        p.user_id
   FROM exam e
    RIGHT OUTER JOIN pay p ON(e.les_id = p.les_id)
-   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id)
+   LEFT OUTER JOIN examscore es ON(e.exam_id = es.exam_id AND es.user_id = #{userId})
    LEFT OUTER JOIN lesson l ON(p.les_id = l.les_id)
    LEFT OUTER JOIN lesson_index li ON(e.lidx_id = li.lidx_id)
  WHERE p.les_id = #{lesId}
