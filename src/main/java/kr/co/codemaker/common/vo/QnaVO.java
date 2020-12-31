@@ -24,6 +24,23 @@ public class QnaVO extends BaseVO{
 	private String userId;
 	private String qnaTitle;
 	
+	private String subNm; 	// 과목 이름
+	private String lesNm;  // 강의 이름
+	
+	
+	
+	public String getSubNm() {
+		return subNm;
+	}
+	public void setSubNm(String subNm) {
+		this.subNm = subNm;
+	}
+	public String getLesNm() {
+		return lesNm;
+	}
+	public void setLesNm(String lesNm) {
+		this.lesNm = lesNm;
+	}
 	public void setQnaOut(String qnaOut) {
 		this.qnaOut = qnaOut; 
 	}
