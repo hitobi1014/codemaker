@@ -171,6 +171,12 @@ public class UserLoginController {
 		return "redirect:/user/login";
 	}
 	
+	//메인페이지 이동
+	@RequestMapping(path="/codemain")
+	public String codeMain() {
+		return "user/main/code_main";
+	}
+	
 	@RequestMapping(path="/signup")
 	public String userSignupView() {
 		return "user/signup/signup";
