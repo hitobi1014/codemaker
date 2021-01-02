@@ -10,7 +10,7 @@ SELECT *
 
 <insert id="insertNotification" parameterType="kr.co.codemaker.common.vo.NotificationVO">
 INSERT INTO Notification
-values ( 'NOTIFY'||LPAD(NOTIFICATION_SEQ.NEXTVAL,4,'0'),
+values ( 'NOTIFY'||LPAD(NOTIFY_SEQ.NEXTVAL,4,'0'),
     #{notifyCont},
     #{recipientId},
     #{senderId},
