@@ -36,9 +36,15 @@ public class ResumeController {
 	private NotificationService notificationService;
 	
 	
+	/** 이력서페이지 이동 **/
 	@RequestMapping(path="/resume/view", method = RequestMethod.GET)
 	public String resumeView() {
-		
+		return "mainT/teacher/resume/resume_view";
+	}
+	
+	/** 이력서 작성 페이지로 이동**/
+	@RequestMapping(path="/resume/insertView")
+	public String resumeInsert() {
 		return "mainT/teacher/resume/resumeInsert";
 	}
 	
