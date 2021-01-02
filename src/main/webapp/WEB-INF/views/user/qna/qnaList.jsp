@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link rel="stylesheet" href="/css/user/qna/qnaList.css">
 
 <title>Insert title here</title>
 <script>
@@ -18,40 +18,32 @@ $(document).ready(function(){
 </script>
 
 <style>
-	.card{
-		width:1000px;
-		margin:auto;
-	}
-	h2{
-		color : #1d25af;
-	}
-	#ff{
-		margin: 50px 130px 0;
-		background-color: white;
-	}
+
 </style>
-<div id="ff">
-	<div style="margin:50px;">
+<div class="ff shadow">
+	<div>
 		<div class="card">
-			<div>
-				<h2>CodeMaker QNA</h2>
+			<div class="banner">
+				<h2>질문게시판</h2>
 			</div>
-			<hr>
-		
-		<div class="table-responsive">
+			<br>
+		<div class="table-responsive table-margin">
+			<div class="qanList-size-div">
+			총 게시글 수 <span class="qnd-num">${qnaList.size()}</span>개
+			</div>
 			<table class="table">
-				<tr>
-					<th>QNA 아이디</th>
-					<th>QNA 제목</th>
+				<tr class="tr-1st">
+					<th class="thd-1st">글 번호</th>
+					<th class="thd-2nd">QNA 제목</th>
 					<th>QNA 작성일</th>
 					<th>작성자아이디</th>
 				</tr>
 				<tbody id="noticeList">
-					<c:forEach items="${qnaList}" var="qna">
+					<c:forEach items="${qnaList}" var="qna" varStatus="status">
 						<c:if test="${qna.qnaOut == 'N'}">
-							<tr>
-								<td>${qna.qnaId}</td>
-								<td><a href="${cp}/user/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
+							<tr class="tr-2nd">
+								<td class="thd-1st">${status.count}</td>
+								<td class="thd-2nd"><a href="${cp}/user/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
 								<td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" /></td>
 								<td>${qna.userId}</td>
 							</tr>
@@ -61,7 +53,7 @@ $(document).ready(function(){
 			</table>
 		</div>
 		<div>
-			<button style="float:right" type="button" id="insertqna" class="btn btn-primary">QNA작성</button>
+			<button type="button" id="insertqna" class="btn btn-color">QNA작성</button>
 		</div>
 	
 		<div class="text-center">

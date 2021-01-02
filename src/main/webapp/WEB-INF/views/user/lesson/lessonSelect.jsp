@@ -66,6 +66,9 @@
 							<button class="fa-wf" id="noteBtn">필기노트</button>
 						</div>
 					</c:if>
+                    <div class="lesbtn">
+                        <button class="fa-wf" id="chat">채팅</button>
+					</div>
 				</div>
 				<div class="sub-info-top">
 					<div class="les-info-name">
@@ -203,6 +206,17 @@ $(function() {
 	$('#qnabtn').on('click',function(){
 		document.location="/user/selectAllQna?lesId=${lesId}";
 	});
+	
+    // 채팅버튼 클릭시
+    $('#chat').on('click',function(){
+        if(${MEMBER_INFO.userId == null}){
+            alert("로그인후 이용해주세요");
+            return;
+        }else{
+            window.open("/chat/realchat?lesId=${lessonVO.lesId}", "_blank",'width=500,height=700,resizable=no,left=1000,top=300,scrollbars=no');
+        }
+    });    
+    
 	// 강의영상 클릭시
 	$('a[id^="videoClick_"]').on('click',function(){
 		var path = $(this).attr('value');

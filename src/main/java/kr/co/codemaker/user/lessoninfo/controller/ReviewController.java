@@ -150,21 +150,34 @@ public class ReviewController {
 			e1.printStackTrace();
 		}
 		
-//		String checkWrite="";
-//		
-//		checkWrite= reviewService.checkWrite(userId);
+		String checkWrite="";
+		
+		try {
+			checkWrite= reviewService.checkWrite(payVo);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		int insertCnt=0;
 		
 		//결제한 회원이면
 		if(checkPayId!=null) {
-			try {
-				//수강후기 작성
-				insertCnt = reviewService.insertReview(reviewVo);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return "1";
+			
+			//결제한 회원이지만, 이미 후기를 작성한 아이디가 존재하면 후기를 작성할 수 없다.
+			if(checkWrite!=null) {
+				return "2";
+				
+			//결제한 회원이고, 후기를 작성한 내역이 없으면 수강후기를 작성
+			}else {
+				try {
+					//수강후기 작성
+					insertCnt = reviewService.insertReview(reviewVo);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return "1";
+			} 
+			
 		}else {
 			return "0";
 		}

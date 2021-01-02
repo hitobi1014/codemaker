@@ -47,4 +47,11 @@
 <select id="checkPayId" parameterType="kr.co.codemaker.user.lessoninfo.vo.PayVO" resultType="java.lang.String">
 SELECT PAY_ID FROM pay WHERE user_id=#{userId} and les_id=#{lesId}
 </select>
+
+<select id="checkWrite" parameterType="kr.co.codemaker.user.lessoninfo.vo.PayVO" resultType="java.lang.String">
+	select user_id
+	from review a, pay b
+	where a.pay_id=b.pay_id and b.lES_ID=#{lesId} and user_id=#{userId}
+</select>
+
 </mapper>

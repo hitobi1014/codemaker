@@ -20,6 +20,17 @@ $(function(){
 .user-header{
 	margin-right: 49px !important;
 }
+.wh{
+	font-weight: 600;
+    color: white;
+    }
+    
+.span-w {
+    width: 40px;
+    height: 40px;
+  	margin-top: .25rem;
+    font-size: 22px;
+}
 </style>
 
 <!-- Topbar -->
@@ -44,8 +55,7 @@ $(function(){
 		<!-- 로그인시에 떠야할 Nav Item - Alerts -->
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-				<i class="fas fa-bell fa-fw"></i> 
-				<span class="badge badge-danger badge-counter">${notifyCnt}</span>
+				<span class="badge badge-danger badge-counter span-w" style="margin-top:11px; font-size: 22px;">${notifyCnt}</span>
 			</a>
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header"></h6>
@@ -77,7 +87,7 @@ $(function(){
 			<!-- 로그인시에 떠야할 Nav Item - User Information -->
 			<li class="nav-item dropdown no-arrow">
 				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-					<span class="mr-2 d-none d-lg-inline text-white-600 middle">${MEMBER_INFO.userNm}님!</span>
+					<span class="mr-2 d-none d-lg-inline text-white-600 middle wh">${MEMBER_INFO.userNm}님!</span>
 					<img id="navicon" class="img-profile rounded-circle" src="/images/user/main/mypage_icon.png">
 				</a>
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

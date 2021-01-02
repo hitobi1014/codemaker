@@ -65,7 +65,7 @@ WHERE rn BETWEEN (#{page} -1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 	WHERE ROWNUM=1
 </select>
 
-
+<!-- 포인트환불 -->
 <insert id="deletePoint" parameterType="kr.co.codemaker.user.mypage.vo.PointVO">
 		INSERT INTO point(POINT_ID,POINT_DATE,POINT_UPDATE,POINT_GN,POINT_SUM,USER_ID) 
 		VALUES('POINT'||LPAD(POINT_SEQ.nextval,4,'0'), SYSDATE, #{pointUpdate}, '2', 

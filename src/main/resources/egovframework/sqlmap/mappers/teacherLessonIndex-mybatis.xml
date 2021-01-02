@@ -20,6 +20,9 @@ INSERT INTO lesson_index(
     lidx_durtime,
     les_id)
 		VALUES('LIDX'||LPAD(LESSON_IDX_SEQ.NEXTVAL,4,'0'), #{lidxNum}, #{lidxCont}, #{lidxPath},#{lidxDurtime},#{lesId})
+		<selectKey keyProperty="lesId" resultType="String">
+			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
+		</selectKey>
 </insert>
 	
 	<update id="updateLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">

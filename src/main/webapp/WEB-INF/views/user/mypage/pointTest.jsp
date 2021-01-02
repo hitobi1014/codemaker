@@ -28,7 +28,7 @@
 	$(document).ready(function(){
 	$('#out').on("click",function(){
 	
-		var flag=true;
+		var flag=true; 
 		$.ajax({
 			url : "/mypage/deletePoint",
 			type : "post",
@@ -50,12 +50,19 @@
 });
 	
 </script>    
+<style>
+.totalpoint {
+    float: left;
+    font-size: larger;
+    margin-top: 4px;
+}
+</style>
 <div class="card shadow note-box">
 	<div class="note-box-item">
-	<!-- 임시커밋용 -->
 		<h3>포인트내역</h3>
 		<div class="note-item-cont">
 			<div id="pdfd">
+			<div class="totalpoint"><span><b>${MEMBER_INFO.userNm}</b>님의 현재 사용가능한 포인트는 <b><fmt:formatNumber value="${totalPoint}"/>&nbsp;POINT</b>&nbsp;입니다.</span></div>
 				<button type="button" class="pdf-btn" id="regBtn" data-toggle="modal" data-target="#pointadd">포인트 적립</button>
 				<button type="button" class="pdf-btn" id="downBtn" data-toggle="modal" data-target="#pointminus">포인트 환불</button>
 			</div>
@@ -79,7 +86,7 @@
                     </td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                      <fmt:formatNumber value="${point.pointUpdate }"></fmt:formatNumber>&nbsp;Point
+                      <fmt:formatNumber value="${point.pointUpdate }"/>&nbsp;Point
                       </span>
                     </td>
                     <td>
@@ -118,24 +125,17 @@
             </div>
 	
 	
-<!-- 	페이징 -->
+<!-- 페이징 -->
   		 <div class="card-footer py-4">
               <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  	<c:choose>
-						<c:when test="${page==0}">
-						</c:when>
-						<c:when test="${page==1}">
+					<c:if test="${pointList.size() ne 0 }">
+                		<ul class="pagination justify-content-end mb-0">
+						<c:if test="${page!=1}">
 							<li class="page-item active">
-			                   <a class="page-link" href="#"><</a>
+			                   <a class="page-link pageMove" href="${cp}/mypage/selectPoint?page=${page-1}"><</a>
 			                 </li>
-						</c:when>
-						<c:otherwise>
-							 <li class="page-item active">
-			                   <a class="page-link" href="${cp}/mypage/selectPoint?page=${page-1}"><</a>
-			                 </li>
-						</c:otherwise>
-					</c:choose>
+						</c:if>
+						
 
 	                  <c:forEach var ="i" begin="1" end="${pages }">
 		                  <c:choose>
@@ -151,22 +151,17 @@
 		                  </c:otherwise>
 		                  </c:choose>
 	                  </c:forEach>
+	                  
                   
-                  		<c:choose>
-							<c:when test="${pages==page}">
+                 		<c:if test="${page != pages }">
 								<li class="page-item active">
-                    				<a class="page-link" href="#">></a>
+                    				<a class="page-link pageMove" href="${cp}/mypage/selectPoint?page=${page+1}">></a>
                   				</li>
-							</c:when>
-						<c:otherwise>
-								<li class="page-item active">
-                    				<a class="page-link" href="${cp}/mypage/selectPoint?page=${page+1}">></a>
-                  				</li>
-						</c:otherwise>
-						</c:choose>
-	                </ul>
+						</c:if>
+	                	</ul>
+	                </c:if>
 	              </nav>
-	            </div>
+	           </div>
 		</div>
 	</div>
 </div>

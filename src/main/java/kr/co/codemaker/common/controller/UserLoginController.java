@@ -38,7 +38,7 @@ import kr.co.codemaker.common.vo.UserVO;
 @Controller
 public class UserLoginController {
 	private static final Logger logger = LoggerFactory.getLogger(UserLoginController.class);
-	
+	//커밋
 	@Resource(name="loginService")
 	private LoginService loginService;
 	
