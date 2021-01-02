@@ -304,8 +304,8 @@ html, body {
 
     $(function(){
 		$('#chat-input').keypress(function(event){
-// 		var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(event.keyCode == '13'){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
 				send();
 				var chat = $("#chat-input").val();
 		    	var chatroom = $("#boxhd").val();
@@ -321,13 +321,11 @@ html, body {
 		    		url : "/chat/insertChat",
 		    		type : "post",
 		    		data : chatVo,
-		    		success : function(){
+		    		success : function(res){
 						$("#chat-input").val("");
 		    		}
 		    	})
 			}
-			event.stopPropagation();
-			$("#chat-input").val(''); 
         });
 	    
 	    $("#chat-submit").on('click', function(){
