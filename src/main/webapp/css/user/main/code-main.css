@@ -7,7 +7,6 @@
 }
 body{
 	font-family: 'LotteMartDream';
-	background: #0a0707f2;
     animation-name : ani1;
     animation-duration : 4s;
   	animation-fill-mode : forwards;
@@ -16,11 +15,14 @@ body *{
 	font-family: 'LotteMartDream';
 	font-size: 20px;
 	font-weight: 600;
-	background: #0a0707f2;
 }
 .main-box{
 	height: 918px;
     overflow: hidden;
+    background-image: url("/img/main/imac.svg");
+    background-repeat: no-repeat;
+    background-size: 1000px;
+    background-position: center;
 }
 .btn-box{
 	text-align: center;
@@ -43,9 +45,14 @@ p{
 }
 .div-box{
 	white-space: pre-line;
-	height: 761px;
-	width: 57%;
-    margin: 0 auto;
+/* 	height: 761px; */
+/* 	width: 57%; */
+/*     margin: 0 auto; */
+	width: 44%;
+    height: 62%;
+    margin: 68px auto 0;
+    padding: 0px;
+    background: black;
 }
 .typing{
 	display: inline-block;
@@ -100,7 +107,7 @@ p{
 }
 @keyframes ani1{
 	0% {opacity:0; background: white;}
-	100% {opacity:1; background:black;}
+	100% {opacity:1; background:white;}
 }
 
 #divB{
