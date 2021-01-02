@@ -106,7 +106,7 @@ p{
 #divB{
     &:after{
       content: "|";
-      animation: blink 200ms linear infinite alternate;
+      animation: blink 50ms linear infinite alternate;
     }
 }
 
