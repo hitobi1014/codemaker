@@ -20,19 +20,12 @@ INSERT INTO COMPLAIN VALUES ('CP'||LPAD(CP_SEQ.NEXTVAL,4,'0'), sysdate, #{cpCont
 UPDATE complain set cp_state = 'Y' where cp_ID = #{cpId}
 </update>
 <select id="selectBlackList" resultType="kr.co.codemaker.common.vo.UserVO">
-select * from users a, (select d.user_id ,sum(cp_count) count
-  from complain c, 
-(select B.QNA_ID , E.REPLY_ID , A.*
-   from USERS A, QNA B, REPLY E
-  where A.USER_ID = B.USER_ID
-    and A.USER_ID = E.REPLY_WRITER) D 
- where D.QNA_ID = C.QNA_ID
-    and C.CP_STATE = 'Y'
- group by d.user_id
- having sum(cp_count) >= 3) b where a.user_id = b.user_id
-
-
-
+select * from users a, (select b.user_id, count(*) as count 
+  from complain a, users b 
+ where cp_state = 'Y' 
+   and a.defendant = b.user_id
+ group by b.user_id
+ having count(*) >= 3) b where a.user_id = b.user_id
 </select>
 <select id="selectReplyQna" resultType="String" parameterType="kr.co.codemaker.common.vo.ComplainVO">
 SELECT B.QNA_ID

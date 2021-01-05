@@ -83,7 +83,6 @@ public class NotificationController {
 			recipientId = adminVo.getAdminId();
 		}
 		
-		logger.debug("----------------------{}", recipientId);
 		
 		try {
 			notificationService.readNotification(notificationVo);
@@ -95,6 +94,7 @@ public class NotificationController {
 		
 		List<NotificationVO> notifyList = new ArrayList<NotificationVO>();
 		int notifyCnt = 0;
+		logger.debug("----------------------{}", recipientId);
 		
 		try {
 			notifyList = notificationService.selectAllNotification(notificationVo);
