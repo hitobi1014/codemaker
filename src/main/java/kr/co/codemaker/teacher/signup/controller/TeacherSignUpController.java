@@ -34,18 +34,6 @@ public class TeacherSignUpController {
 		try {
 			getInfo = tService.selectResume(rVo);
 		} catch (Exception e) {e.printStackTrace();}
-		logger.debug("가져온 이력서 정보 :{}",getInfo);
-//		String filename = UUID.randomUUID().toString();
-//		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
-//		String filepath = "d:\\upload\\"+filename+"."+extension;
-//		File uploadFile = new File(filepath);
-//		if(picture.getSize() > 0) {
-//			try {
-//				picture.transferTo(uploadFile);
-//			} catch (IllegalStateException | IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 		
 		teacherVO.setTchNm(getInfo.getResNm());
 		teacherVO.setTchTel(getInfo.getResTel());
@@ -54,7 +42,6 @@ public class TeacherSignUpController {
 		teacherVO.setResId(getInfo.getResId());
 		teacherVO.setTchProfile(getInfo.getResProfile());
 		
-		logger.debug("선생님정보 : {}",teacherVO);
 		try {
 			tService.insertTeacher(teacherVO);
 		} catch (Exception e) {
