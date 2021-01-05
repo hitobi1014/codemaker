@@ -4,7 +4,7 @@
 	<select id="getAllPost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO" resultType="kr.co.codemaker.user.board.community.vo.PostVO">
 		SELECT
 			post_no
-			, post_id
+			, post_title
 			, post_date
 			, post_views
 			, post_content
@@ -20,16 +20,10 @@
 	</select>
 
 	<insert id="insertPost" parameterType="int">
-		INSERT INTO post (
-					post_no
-					, post_id
-					, post_date
-					, post_views
-					, post_content
-					, user_id
-				) VALUES (
+		INSERT INTO post 
+			 VALUES (
 					POST_LEJ_SEQ.NEXTVAL
-					, #{postId}
+					, #{postTitle}
 					, SYSDATE
 					, #{postViews}
 					, #{postContent}
@@ -38,16 +32,12 @@
 	</insert>
 	
 	<update id="updatePost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO">
-		UPDATE post
-				SET
-					post_no = #{postNo}
+	UPDATE post
+			SET
+				post_no = #{postNo}
 				WHERE
-					post_no = POST_LEJ_SEQ.NEXTVAL
-					AND post_id = #{postId}
-					AND post_date = SYSDATE
-					AND post_views = #{postViews}
+					post_title = #{postTitle}
 					AND post_content = #{postContent}
-					AND user_id = #{userId}
 	</update>
 	
 	<delete id="deletePost" parameterType="int">
