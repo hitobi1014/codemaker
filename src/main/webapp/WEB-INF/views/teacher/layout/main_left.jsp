@@ -3,8 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 	#teachericon{
-		width: 115px;
-		height: 115px;
+		width: 145px;
+		height: 155px;
 		margin-top: 14px;
 	}
 </style>

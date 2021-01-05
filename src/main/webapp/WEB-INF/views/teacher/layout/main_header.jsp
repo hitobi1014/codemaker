@@ -69,9 +69,18 @@
 				</li>
 				<!-- User Account -->
 				<li class="dropdown-footer">
-					<a href="${cp }/logout" style="color: #b7c0cd;"> 
-						<i class="mdi mdi-logout" style="color: #005F86;"></i> 로그아웃
-					</a>
+					<c:choose>
+						<c:when test="${S_TEACHER != null}">
+							<a href="${cp }/logout" style="color: #b7c0cd;"> 
+								<i class="mdi mdi-logout" style="color: #005F86;"></i>로그아웃 
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a href="${cp }/loginView" style="color: #b7c0cd;"> 
+								<i class="mdi mdi-logout" style="color: #005F86;"></i>로그인 
+							</a>
+						</c:otherwise>
+					</c:choose>
 				</li>
 			</ul>
 		</div>
