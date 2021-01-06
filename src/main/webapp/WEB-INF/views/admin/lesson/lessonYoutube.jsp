@@ -39,76 +39,11 @@
       var done = false;
       
       function onPlayerStateChange(event) {
-          console.log(event);
-          curTime = player.getCurrentTime();
-          durTime = player.getDuration()
-
-		// 일시정지 버튼눌렀을때
-		if (event.data == YT.PlayerState.PAUSED && !done) {
-        	// 현재시간
-        	 console.log(curTime);
-        	// 전체시간
-        	 console.log(durTime)
-        	 done = false;
-        }
-		// 영상을 끝까지 보았을때
-		if (event.data == YT.PlayerState.ENDED && !done) {
-        	// 현재시간
-        	 console.log(curTime);
-        	// 전체시간
-        	 console.log(durTime)
-        	 
-        	 done = true;
-        }
+        done = true;
       }
-	var btn = function(){
-// 		alert('클릭');
-		var lidxId = $('#btn').data('lidxid');
-		console.log(lidxId);
-		// 현재시간
-   	 	console.log(curTime);
-   		 // 전체시간
-	 	console.log(durTime);
-   		 
-   		$.ajax({
-   			url:"/user/updateLessonPage",
-   			type:"get",
-   			data:{'curTime' : curTime,
-   				  'lidxId' : lidxId},
-   			success:function(data){
-				opener.parent.location.reload();
-   				self.close();
-   			},error:function(){
-   			}
-   		}) 
-	}
+
 	
-	$(function(){
-		$(window).on('beforeunload', function(){
-			var lidxId = $('#btn').data('lidxid');
-	 		alert(lidxId);
-			// 현재시간
-			console.log(curTime);
-			// 전체시간
-			console.log(durTime);
 
-			$.ajax({
-				url : "/user/updateLessonPage",
-				type : "get",
-				// 	    			async:false,
-				data : {
-					'curTime' : curTime,
-					'lidxId' : lidxId
-				},
-				success : function(data) {
-					opener.document.location.reload();
-				},
-				error : function() {
-				}
-			})
-
-		})
-	})
 </script>
 
 <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->

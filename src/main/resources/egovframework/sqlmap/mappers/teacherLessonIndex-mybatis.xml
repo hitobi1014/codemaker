@@ -12,18 +12,15 @@
 	</select>
 	
 	<insert id="insertLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">
-INSERT INTO lesson_index(
-	lidx_id,
-    lidx_num,
-    lidx_cont,
-    lidx_path,
-    lidx_durtime,
-    les_id)
-		VALUES('LIDX'||LPAD(LESSON_IDX_SEQ.NEXTVAL,4,'0'), #{lidxNum}, #{lidxCont}, #{lidxPath},#{lidxDurtime},#{lesId})
-		<selectKey keyProperty="lesId" resultType="String">
-			SELECT 'LESSON'||LPAD(LESSON_SEQ.CURRVAL,4,'0') FROM dual
-		</selectKey>
-</insert>
+	INSERT INTO lesson_index(
+		lidx_id,
+	    lidx_num,
+	    lidx_cont,
+	    lidx_path,
+	    lidx_durtime,
+	    les_id)
+	VALUES('LIDX'||LPAD(LESSON_IDX_SEQ.NEXTVAL,4,'0'), #{lidxNum}, #{lidxCont}, #{lidxPath},#{lidxDurtime},#{lesId})
+	</insert>
 	
 	<update id="updateLessonIndex" parameterType="kr.co.codemaker.teacher.course.lesson.vo.LessonIndexVO">
 UPDATE lesson_index

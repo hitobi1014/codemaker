@@ -27,6 +27,7 @@ import org.springmodules.validation.bean.conf.loader.annotation.Validatable;
 
 import kr.co.codemaker.common.service.NotificationService;
 import kr.co.codemaker.common.vo.NotificationVO;
+import kr.co.codemaker.teacher.course.exam.vo.ExamVO;
 import kr.co.codemaker.teacher.course.lesson.service.LessonIndexService;
 import kr.co.codemaker.teacher.course.lesson.service.LessonService;
 import kr.co.codemaker.teacher.course.lesson.service.TeacherSubjectService;
@@ -212,7 +213,7 @@ public class TeacherLessonController {
 	 * 선생님 - 강의등록(값 받고 넘겨서 데이터 입력)
 	 */
 	@RequestMapping(path = "/teacherL/insertLesson", method = RequestMethod.POST)
-	public String insertLesson(LessonVO lessonVO, HttpSession session) throws ParseException {
+	public String insertLesson(LessonVO lessonVO, HttpSession session, RedirectAttributes redirectAttributes) throws ParseException {
 		TeacherVO teacherVO = (TeacherVO) session.getAttribute("S_TEACHER");
 		String tchId = teacherVO.getTchId();
 
@@ -232,17 +233,28 @@ public class TeacherLessonController {
 			String lesId = lessonVO.getLesId();
 			List<LessonIndexVO> lesIdxList = lessonVO.getLesIdxList();
 			for (LessonIndexVO lesIdxVO : lesIdxList) {
-				lesIdxVO.setLesId(lesId);
-				lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
-				logger.debug("강의목차!!!!:{}", lesIdxVO);
+				if(lesIdxVO.getLidxCont() != null && !lesIdxVO.getLidxCont().equals("")) {
+					lesIdxVO.setLesId(lesId);
+					lesIdxCnt = lessonIndexService.insertLessonIndex(lesIdxVO);
+					logger.debug("강의목차!!!!:{}", lesIdxVO);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if (lesCnt == 1 && lesIdxCnt == 1) {
+		if (lesCnt == 1 && lesIdxCnt == 1 && lessonVO.getModalChk().equals("Y")) {
+			ExamVO examVO = new ExamVO();
+			examVO.setSearchLesId(lessonVO.getLesId());
+			examVO.setSearchSubId(lessonVO.getSubId());
+			
+			redirectAttributes.addFlashAttribute("examVO",examVO);
+			return "redirect:/exam/selectAllExam?";
+		}
+		else if(lesCnt == 1 && lesIdxCnt == 1 && lessonVO.getModalChk().equals("N")) {
 			return "redirect:/teacherL/selectSubject";
-		} else {
+		}
+		else {
 			return "teacherPage/teacher/lesson/lessonInsert";
 		}
 	}
@@ -250,7 +262,7 @@ public class TeacherLessonController {
 	/**
 	 * 선생님 - 강의수정화면
 	 */
-	@RequestMapping(path = "/teacherL/updateLesson")
+	@RequestMapping(path = "/teacherL/updateViewLesson")
 	public String updateViewLesson(LessonVO lessonVO, Model model, String lesId, String subId) {
 		// 1. 강의, 강의목차 조회하기
 		// 2. 강의목차 옆에 삭제버튼달기 - 삭제시 화면이 load되어야함
@@ -275,63 +287,63 @@ public class TeacherLessonController {
 		return "teacherPage/teacher/lesson/lessonUpdate";
 	}
 
-	/**
-	 * 선생님 - 강의목차 삭제
-	 */
-	@RequestMapping(path = "/teacherL/deleteLessonIndex")
-	public String deleteViewLessonIndex(String lidxId, Model model, String lesId, LessonIndexVO lesIdxVO) {
-		List<LessonIndexVO> lesIdxList = new ArrayList<>();
-		int delCnt = 0;
-		int upCnt = 0;
-		logger.debug("넘어온 값:{},{}", lidxId, lesId);
-		logger.debug("lesIdxVO!!!:{}", lesIdxVO);
-		try {
-			// 강의목차 삭제
-			delCnt = lessonIndexService.deleteLessonIndex(lidxId);
-			// 삭제한거 제외한 강의목차 조회
-			logger.debug("delCnt값,delCnt값:{},{}", delCnt, upCnt);
-			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (delCnt == 1) {
-			model.addAttribute("lesIdxList", lesIdxList);
-			return "teacher/lesson/lessonIndexUpdateHTML";
-		}
-		return null;
-	}
-
-	
-	/**
-	 * 선생님 - 강의목차 수정
-	 */
-	@RequestMapping(path = "/teacherL/updateLessonIndex")
-	public String updateViewLessonIndex(String lidxId, Model model, String lesId, LessonIndexVO lesIdxVO,
-			String lidxCont, int lidxNum) {
-		List<LessonIndexVO> lesIdxList = new ArrayList<>();
-		int delCnt = 0;
-		int upCnt = 0;
-		logger.debug("넘어온 값:{},{}", lidxId, lesId);
-		logger.debug("넘어온 강의넘버,강의내용:{},{}", lidxNum, lidxCont);
-		logger.debug("lidxId넣은 VO:{}", lesIdxVO);
-		lesIdxVO.setLidxNum(lidxNum);
-		lesIdxVO.setLidxCont(lidxCont);
-		logger.debug("셋!!!!넣은 VO:{}", lesIdxVO);
-		try {
-			// 강의목차 수정
-			upCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
-			logger.debug("delCnt값,delCnt값:{},{}", delCnt, upCnt);
-			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
-			logger.debug("레슨인덱스 리스트:{}", lesIdxList);
-			if (upCnt == 1) {
-				model.addAttribute("lesIdxList", lesIdxList);
-				return "teacher/lesson/lessonIndexUpdateHTML";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	/**
+//	 * 선생님 - 강의목차 삭제
+//	 */
+//	@RequestMapping(path = "/teacherL/deleteLessonIndex")
+//	public String deleteViewLessonIndex(String lidxId, Model model, String lesId, LessonIndexVO lesIdxVO) {
+//		List<LessonIndexVO> lesIdxList = new ArrayList<>();
+//		int delCnt = 0;
+//		int upCnt = 0;
+//		logger.debug("넘어온 값:{},{}", lidxId, lesId);
+//		logger.debug("lesIdxVO!!!:{}", lesIdxVO);
+//		try {
+//			// 강의목차 삭제
+//			delCnt = lessonIndexService.deleteLessonIndex(lidxId);
+//			// 삭제한거 제외한 강의목차 조회
+//			logger.debug("delCnt값,delCnt값:{},{}", delCnt, upCnt);
+//			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		if (delCnt == 1) {
+//			model.addAttribute("lesIdxList", lesIdxList);
+//			return "teacher/lesson/lessonIndexUpdateHTML";
+//		}
+//		return null;
+//	}
+//
+//	
+//	/**
+//	 * 선생님 - 강의목차 수정
+//	 */
+//	@RequestMapping(path = "/teacherL/updateLessonIndex")
+//	public String updateViewLessonIndex(String lidxId, Model model, String lesId, LessonIndexVO lesIdxVO,
+//			String lidxCont, int lidxNum) {
+//		List<LessonIndexVO> lesIdxList = new ArrayList<>();
+//		int delCnt = 0;
+//		int upCnt = 0;
+//		logger.debug("넘어온 값:{},{}", lidxId, lesId);
+//		logger.debug("넘어온 강의넘버,강의내용:{},{}", lidxNum, lidxCont);
+//		logger.debug("lidxId넣은 VO:{}", lesIdxVO);
+//		lesIdxVO.setLidxNum(lidxNum);
+//		lesIdxVO.setLidxCont(lidxCont);
+//		logger.debug("셋!!!!넣은 VO:{}", lesIdxVO);
+//		try {
+//			// 강의목차 수정
+//			upCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
+//			logger.debug("delCnt값,delCnt값:{},{}", delCnt, upCnt);
+//			lesIdxList = lessonIndexService.selectLessonIndex(lesId);
+//			logger.debug("레슨인덱스 리스트:{}", lesIdxList);
+//			if (upCnt == 1) {
+//				model.addAttribute("lesIdxList", lesIdxList);
+//				return "teacher/lesson/lessonIndexUpdateHTML";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 	/**
 	 * 선생님 - 강의 수정(강의목차 추가,삭제,수정)
@@ -348,14 +360,16 @@ public class TeacherLessonController {
 			logger.debug("강의목차 리스트 :{}", lessonVO.getLesIdxList());
 
 			// 강의목차 수정
-			
-			for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxList()) {
-				if (lesIdxVO.getLidxId() != null) {
-					lesIdxVO.setLesId(lessonVO.getLesId());
-					lesIdxUpCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
-					logger.debug("수정된 강의목차!!!!:{}", lesIdxVO);
+			if(lessonVO.getLesIdxList() !=null) {
+				for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxList()) {
+					if (lesIdxVO.getLidxId() != null) {
+						lesIdxVO.setLesId(lessonVO.getLesId());
+						lesIdxUpCnt = lessonIndexService.updateLessonIndex(lesIdxVO);
+						logger.debug("수정된 강의목차!!!!:{}", lesIdxVO);
+					}
 				}
 			}
+			
 			// 강의목차 추가
 			if(lessonVO.getLesIdxListInsert() != null) {
 				for (LessonIndexVO lesIdxVO : lessonVO.getLesIdxListInsert()) {

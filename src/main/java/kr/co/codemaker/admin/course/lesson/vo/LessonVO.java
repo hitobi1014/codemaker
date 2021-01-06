@@ -1,6 +1,9 @@
 package kr.co.codemaker.admin.course.lesson.vo;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import kr.co.codemaker.common.vo.BaseVO;
 
@@ -21,12 +24,17 @@ public class LessonVO extends BaseVO {
 
 	private String lesState;	// 강의 상태
 	private String lesId;		// 강의 아이디
-	private String lesCont;		// 강의 소개내용
+	private String lesCont;	// 강의 소개내용
 	private String subId;		// 과목아이디
 	private String lesNm;		// 강의명
 	private String tchId;		// 선생님 아이디
 	private int lesTerm;		// 강의기간
 	private int lesCash;		// 강의비용
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date lesSdate;		// 강의 개설날짜
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date lesEdate; 	// 강의 종료날짜
 	
 	// ----------------------------------------------------------
 	private String subNm;		// 과목명
@@ -38,6 +46,18 @@ public class LessonVO extends BaseVO {
 	private List<LessonIndexVO> lessonIndexList;	// 강의 목차
 	
 	
+	public Date getLesSdate() {
+		return lesSdate;
+	}
+	public void setLesSdate(Date lesSdate) {
+		this.lesSdate = lesSdate;
+	}
+	public Date getLesEdate() {
+		return lesEdate;
+	}
+	public void setLesEdate(Date lesEdate) {
+		this.lesEdate = lesEdate;
+	}
 	public List<LessonIndexVO> getLessonIndexList() {
 		return lessonIndexList;
 	}

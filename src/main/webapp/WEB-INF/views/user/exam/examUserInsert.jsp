@@ -217,7 +217,7 @@ var scoring = function(){
 						<input type="hidden" name="queIdList" class="form-control" value="${question.queId }"/>
 						<input type="hidden" name="queAnswer" class="form-control" value="${question.queAnswer }"/>
 						<label for="sel4" class="sel4">배점 : </label>
-						<input type="number" name="queScore" class="form-control que queS" value="${question.queScore }" readonly="readonly"/>
+						<input type="number" name="queScore" class="form-control que queS" value="${question.queScore }" min="1" readonly="readonly"/>
 						<br>
 						
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">

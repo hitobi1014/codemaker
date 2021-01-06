@@ -53,6 +53,12 @@ SELECT *
 UPDATE lesson
     SET
        les_state = #{lesState}
+       <if test="lesTerm != null and !lesTerm.equals('')">
+	       ,les_term = #{lesTerm},
+	       les_cash = #{lesCash},
+	       les_sdate = #{lesSdate},
+	       les_edate = #{lesEdate}
+       </if>
 WHERE
        les_id = #{lesId}
 </update>

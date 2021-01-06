@@ -199,12 +199,6 @@ public class UserLessonController {
 		return "user/lesson/lessonYoutube";
 	}
 	
-	// 강의 동영상 값 넘겨오는지 
-	@RequestMapping(path="/user/time")
-	public String timeTest(String curTime,String durTime) {
-		logger.debug("재생시간, 전체시간 :{},{}",curTime, durTime);
-		return "";
-	}
 	
 	@RequestMapping(path="/user/teacherImg")
 	public void imgView(String tchProfile, HttpServletResponse response) throws IOException {

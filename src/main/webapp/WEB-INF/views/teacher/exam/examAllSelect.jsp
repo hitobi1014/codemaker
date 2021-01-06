@@ -141,11 +141,12 @@ var selectLesson = function(subId, lesId){
 					
 						<form:select path="searchExamState" cssClass="form-control" id="search">
 							<form:option value="">등록 상태</form:option>
-							<form:option value="0">시험 등록</form:option>
-							<form:option value="1">수정중</form:option>
+							<form:option value="0">시험등록</form:option>
+							<form:option value="1">임시저장</form:option>
 							<form:option value="2">등록완료</form:option>
-							<form:option value="3">시험 배포</form:option>
-							<form:option value="4">반려</form:option>
+							<form:option value="3">승인요청</form:option>
+							<form:option value="4">시험배포</form:option>
+							<form:option value="5">승인반려</form:option>
 						</form:select>
 				</div>
 				
@@ -193,13 +194,19 @@ var selectLesson = function(subId, lesId){
 								</td>
 								<td data-examstate='${exam.examState }' class='m'>
 									<c:choose>
-										<c:when test="${exam.examState == '5' }">
-											시험반려
+										<c:when test="${exam.examState == '5'}">
+											승인반려
 										</c:when>
-										<c:when test="${exam.examState == '4' }">
+										<c:when test="${exam.examState == null && exam.lesState == '4'}">
+											승인반려
+										</c:when>
+										<c:when test="${exam.examState == null && exam.lesState == '3' }">
 											배포완료
 										</c:when>
-										<c:when test="${exam.examState == '3' }">
+										<c:when test="${exam.examState == '4'}">
+											배포완료
+										</c:when>
+										<c:when test="${exam.examState == null && exam.lesState == '2' }">
 											승인요청중
 										</c:when>
 										<c:when test="${exam.lesState == '2' }">
@@ -209,11 +216,11 @@ var selectLesson = function(subId, lesId){
 											등록완료
 										</c:when>
 										<c:when test="${exam.examState == '1' }">
-											수정중
+											임시저장
 										</c:when>
-										<c:otherwise>
+										<c:when test="${exam.examState == null }">
 											<input type="button" class="btn btn-default regBtn" data-lesinfo="${exam.lesId }/${exam.lidxId}/${exam.lidxCont }" value="시험 등록"> 
-										</c:otherwise>
+										</c:when>
 									</c:choose>
 								</td>
 							</tr>

@@ -81,6 +81,10 @@ h2{
     float: left;
     margin-left: 30px;
     padding: 0px 0px 0px 0px;
+    background: #af0000;
+    border: none;
+    color: white;
+    border-radius: 2px;
 }
 .upClass{
 	width: 40px;
@@ -88,6 +92,11 @@ h2{
     font-size: 12px;
     float: left;
     padding: 0px 0px 0px 0px;
+    background: #09116d;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 0 0 4px;
 }
 .reqClass{
 	width: 40px;
@@ -95,7 +104,25 @@ h2{
     font-size: 12px;
     float: left;
     padding: 0px 0px 0px 0px;
+    background: #212529;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 0 0 4px;
 }
+.examClass{
+	width: 40px;
+    height: 27px;
+    font-size: 12px;
+    float: left;
+    padding: 0px 0px 0px 0px;
+    background: #147484;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    margin: 0 0 0 4px;
+}
+
 #addBtn{
 	   margin-bottom: 20px;
 }
@@ -124,7 +151,7 @@ h2{
 	display: inline-block;
     width: 100%;
     margin: 10px 0 0 0px;
-    height: 300px;
+    height: 450px;
 }
 .th-1st{
     width: 20%;
@@ -184,7 +211,7 @@ h2{
 	margin: 30px 0 0 0;
 }
 .th2-1st{
-    width: 30%;
+    width: 20%;
     text-align: center;
     font-weight: 600 !important;
     
@@ -195,9 +222,18 @@ h2{
     font-weight: 600;
 }
 .th2-3rd{
-    width: 40%;
+    width: 15%;
     text-align: center;
     font-weight: 600;
+}
+.th2-4th{
+    width: 23%;
+    text-align: center;
+    font-weight: 600;
+}
+.th2-5th{
+    padding: 0 0 0 38px;
+    color: #1b223c00;
 }
 .th2-3rd-td{
 	width: 40%;
@@ -220,26 +256,7 @@ h2{
     font-weight: 600;
     color: white;
 }
-.delClass{
-background: #af0000;
-    border: none;
-    color: white;
-    border-radius: 2px;
-}
-.upClass{
-	background: #09116d;
-    border: none;
-    color: white;
-    border-radius: 2px;
-    margin: 0 0 0 4px;
-}
-.reqClass{
-	background: #212529;
-    border: none;
-    color: white;
-    border-radius: 2px;
-    margin: 0 0 0 4px;
-}
+
 
 .modal-body {
     position: relative;
@@ -257,6 +274,10 @@ background: #af0000;
 	background: #056a9a;
     color: white;
 }
+a:hover {
+    color: #545252;
+    text-decoration: underline;
+ }
 </style>
 <script>
 $(function(){
@@ -290,22 +311,12 @@ $(function(){
 		})
 	})
 	
-	
-	
-	// 삭제&수정버튼
-	$('#lesTbody').on('click','.upClass',function(){
-		var lesId=$(this).data("lesid");
-		var subId=$(this).data("subid");
-		document.location="/teacherL/updateLesson?lesId="+lesId+"&subId="+subId;
-	})
-	
-	// 삭제 버튼
-	$('#lesTbody').on('click', '.delClass', function(){
-		alert('삭제되었습니다.');
-		var lesid = $(this).data("lesid");
-		var check = $(this).data("check");
-		console.log(lesid);
-		document.location="/teacherL/deleteLesson?lesId="+lesid+"&check="+check;
+	// 시험 버튼
+	$('#lesTbody').on('click', '.examClass', function(){
+		alert('시험을 등록하시겠습니까?');
+		var searchLesId=$(this).data("lesid");
+		var searchSubId=$(this).data("subid");
+		document.location="/exam/selectAllExam?searchLesId="+searchLesId+"&searchSubId="+searchSubId;
 	})
 	
 	// 요청버튼
@@ -407,8 +418,6 @@ var addLes = function(){
 			</div>
 		</div>
 		
-	
-		
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -447,15 +456,18 @@ var addLes = function(){
 								<tr class="lesson-thread-tr" >
 									<th class="th2-1st" scope="col">강의No.</th>
 									<th class="th2-2nd" scope="col">강의명</th>
-									<th class="th2-3rd" scope="col">강의승인상태</th>
+									<th class="th2-3rd" scope="col">강의/시험</th>
+									<th class="th2-4th" scope="col">강의승인상태</th>
+									<th class="th2-5th">-</th>
 								</tr>
 							</thead>
 							<tbody id="lesTbody">
-								<c:forEach items="${noLessonList}" var="no">
+								<c:forEach items="${noLessonList}" var="no" varStatus="status">
 									<tr class="lesson-tr">
-										<td class="th2-1st">${no.lesId}</td>
-										<td class="th2-2nd">${no.lesNm}</td>
-										<td class="th2-3rd-td"  >
+										<td class="th2-1st">${status.count}</td>
+										<td class="th2-2nd"><a href="/teacherL/updateViewLesson?lesId=${no.lesId}&subId=${no.subId}">${no.lesNm}</a></td>
+										<td class="th2-3rd">${no.lessonCnt}/${no.examCnt}</td>
+										<td class="th2-4th">
 											<div class="3rd-td-div" style="display:inline-block;">
 												<c:choose>
 													<c:when test="${no.lesState=='1'}">
@@ -468,12 +480,13 @@ var addLes = function(){
 														<div class="3rd-td-div2" style="float: left; width: 70px;">승인반환</div>
 													</c:when>
 												</c:choose>
-													<c:if test="${no.lesState!='2' }">
-														<input id="delBtn" class="delClass " type="button" value="삭제" data-lesid="${no.lesId}" data-check="1">
-														<input id="upBtn" class="upClass" type="button" value="수정" data-lesid="${no.lesId}" data-subid="${no.subId}">
-														<input id="reqBtn" class="reqClass" type="button" value="요청" data-lesid="${no.lesId}" data-check="2">
-													</c:if>
 											</div>
+										</td>
+										<td class="th2-4rd-td" >
+										<c:if test="${no.lesState!='2' }">
+											<input class="reqClass" type="button" value="요청" data-lesid="${no.lesId}" data-check="2">
+											<input class="examClass" type="button" value="시험" data-lesid="${no.lesId}" data-subid="${no.subId}">
+										</c:if>
 										</td>
 									</tr>
 								</c:forEach>

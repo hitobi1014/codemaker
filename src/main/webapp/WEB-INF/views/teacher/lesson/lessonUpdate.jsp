@@ -32,7 +32,7 @@ $(function(){
 		str +='	<div class="lesIdx-md-div">';
 		str +='		<div class=lesIdx-div-1>';
 		str +='			<label class="les-lb">차수</label>';
-		str +='			<input type="text" class="les-input-1 les-input-1-shadow chk" name="lesIdxListInsert['+index+'].lidxNum" id="lidxNum">';
+		str +='			<input type="number" class="les-input-1 les-input-1-shadow chk" name="lesIdxListInsert['+index+'].lidxNum" id="lidxNum" min="1">';
 		str +='		</div>';
 		str +='		<div class=lesIdx-div-2>';
 		str +='			<label class="les-lb">강의목차 제목</label>';
@@ -45,8 +45,8 @@ $(function(){
 		str +='			<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxListInsert['+index+'].lidxPath" id="lidxPath">';
 		str +='		</div>';
 		str +='		<div class=lesIdx-div-4>';
-		str +='			<label class="les-lb">강의 전체시간</label>';
-		str +='			<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxListInsert['+index+'].lidxDurtime" id="lidxDurtime">';
+		str +='			<label class="les-lb2">전체시간</label>';
+		str +='			<input type="number" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxListInsert['+index+'].lidxDurtime" id="lidxDurtime" min="1">';
 		str +='		</div>';
 		str +='		<input type="button" class="newIdxDelBtn" value="삭제"  data-del="lesIdx-md-div['+index+']">';
 		str +='		<hr class="hr-1">';
@@ -87,38 +87,56 @@ $(function(){
 	
 	
 		
-	// 저장버튼
-	$('#push').on('click',function(){
-// 		console.log('77');
-		lessonChk();
+	// 수정 버튼(수정화면으로 이동)
+	$('#update').on('click',function(){
+		$('#h2Title').text('강의 수정');
+		$('input[type=text]').removeAttr("readonly");
+		$('input[type=number]').removeAttr("readonly");
+		$('#lesDetail').removeAttr("readonly");
+		$("#addLesBtn").attr("style",'display:inline-block');
+		$(".idxDelBtn").attr("style",'display:inline-block');
+		$("#update-real").attr("style",'display:inline-block');
+		$("#delete").attr("style",'display:none');
+		$("#update").attr("style",'display:none');
 	})
 	
-	// 취소 버튼
+	// 삭제 버튼
+	$('#delete').on('click',function(){
+		alert('삭제되었습니다.');
+		document.location="/teacherL/deleteLesson?lesId=${lessonVO.lesId}&check=1";
+	})
+	
+	// 수정 버튼
+	$('#update-real').on('click',function(){
+		alert('수정되었습니다.');
+		$('#lesForm').submit();
+	})
+	
+	
+	// 목록 버튼
 	$('#cancel').on('click',function(){
 		document.location="/teacherL/selectSubject";
 	})
 	
+	
+	
 })
 // 강의등록 빈칸 체크
 function lessonChk(){
-	console.log($('.chk').length);
 	var flag = '0';
 	
 	if(flag =='0'){
 		$('.chk').each(function(i, data){
 			if($(this).val() == ''){
-				console.log(i);
 				alert('빈칸을 입력하시오');
 				flag = '0';
 				return false;
 			}
 			flag = '1';
 		})
-		console.log(flag);
 		
 		if(flag =='1'){
-			alert('수정되었습니다!');
-			$('#lesForm').submit();
+			$('#push').attr('data-target','#exampleModalCenter');
 		}
 	}
 }
@@ -135,7 +153,7 @@ function lessonChk(){
 	<input type="hidden" name="subId">
 		<div class="lesson-top">	
 			<div class="les-title-div">
-				<h2>강의수정</h2>
+				<h2 id="h2Title">강의 상세</h2>
 			</div>	
 		<div class="lesson-div shadow">
 			<div class="les-div-1">
@@ -144,42 +162,42 @@ function lessonChk(){
 			</div>
 			<div class="les-div-2">
 				<label class="les-lb">강의명</label>
-				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="강의명" name="lesNm" id="lesNm" value="${lessonVO.lesNm}" >
+				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="강의명" name="lesNm" id="lesNm" value="${lessonVO.lesNm}"  readonly="readonly">
 			</div>
 			<div class="les-div-2">
 				<label class="les-lb">강의소개</label>
-				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="소개" name="lesCont" id="lesCont" value="${lessonVO.lesCont}">
+				<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="소개" name="lesCont" id="lesCont" value="${lessonVO.lesCont}" readonly="readonly">
 			</div>
-			<div class="les-md-div">
-				<div class="les-div-3">
-					<label class="les-lb">개설날짜</label>
-					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate" value="<fmt:formatDate value="${lessonVO.lesSdate}" pattern="yyyy-MM-dd"/>">
-				</div>
-				<div class="les-div-3">
-					<label class="les-lb">종료날짜</label>
-					<input type="date" class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate" value="<fmt:formatDate value="${lessonVO.lesEdate}" pattern="yyyy-MM-dd"/>">
-				</div>
-			</div>
-			<div class="les-md-div">
-				<div class="les-div-3">
-					<label class="les-lb">수강료</label>
-					 <input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="수강료" name="lesCash" id="lesCash" value="${lessonVO.lesCash}">
-				</div>
-				<div class="les-div-3">
-					<label class="les-lb">기간</label>
-					<input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="기간"  name="lesTerm" id="lesTerm"  value="${lessonVO.lesTerm}">
-				</div>
-			</div>
+<!-- 			<div class="les-md-div"> -->
+<!-- 				<div class="les-div-3"> -->
+<!-- 					<label class="les-lb">개설날짜</label> -->
+<%-- 					<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate" value="<fmt:formatDate value="${lessonVO.lesSdate}" pattern="yyyy-MM-dd"/>"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="les-div-3"> -->
+<!-- 					<label class="les-lb">종료날짜</label> -->
+<%-- 					<input type="date" class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate" value="<fmt:formatDate value="${lessonVO.lesEdate}" pattern="yyyy-MM-dd"/>"> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="les-md-div"> -->
+<!-- 				<div class="les-div-3"> -->
+<!-- 					<label class="les-lb">수강료</label> -->
+<%-- 					 <input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="수강료" name="lesCash" id="lesCash" value="${lessonVO.lesCash}"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="les-div-3"> -->
+<!-- 					<label class="les-lb">기간</label> -->
+<%-- 					<input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="기간"  name="lesTerm" id="lesTerm"  value="${lessonVO.lesTerm}"> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<div class="les-div-4">
 				<label class="les-lb">상세내용</label>
-				<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail" >${lessonVO.lesDetail}</textarea>
+				<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail" style="resize: none;"readonly="readonly" >${lessonVO.lesDetail}</textarea>
 			</div>
 		</div>
 		
 		</div>
 		<div class="lesson-bottom shadow">
 			<div class="les-add-btn">
-               	<button type="button" class="button button-inline button-small button-success form-group label"  id="addLesBtn">목차추가</button>
+               	<button type="button" class="button button-inline button-small button-success form-group label"  id="addLesBtn" style="display: none">목차추가</button>
             </div>
             <div class="lesIdx-div">
             	<input type="hidden" value="lidxId">
@@ -188,35 +206,36 @@ function lessonChk(){
             			<div class="lesIdx-md-div">
 	            			<div class=lesIdx-div-1>
 	            				<label class="les-lb2">차수</label>
-								<input type="text" class="les-input-1 les-input-1-shadow chk" name="lesIdxList[${status.index}].lidxNum" id="lidxNum${status.index}" value="${lesIdxList.lidxNum}">
+								<input type="number" class="les-input-1 les-input-1-shadow chk" name="lesIdxList[${status.index}].lidxNum" id="lidxNum${status.index}" min="1" value="${lesIdxList.lidxNum}" readonly="readonly">
 	            			</div>
 	            			<div class=lesIdx-div-2>
 	            				<label class="les-lb2">강의목차 제목</label>
-								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="제목" name="lesIdxList[${status.index}].lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}">
+								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="제목" name="lesIdxList[${status.index}].lidxCont" id="lidxCont${status.index}" value="${lesIdxList.lidxCont}" readonly="readonly">
 	            			</div>
             			</div>
 	            		<div class="lesIdx-md-div">
 	            			<div class=lesIdx-div-3>
 	            				<label class="les-lb2">주소</label>
-								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxList[${status.index}].lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}">
+								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="주소" name="lesIdxList[${status.index}].lidxPath" id="lidxPath${status.index}" value="${lesIdxList.lidxPath}" readonly="readonly">
 	            			</div>
 	            			<div class=lesIdx-div-4>
 	            				<label class="les-lb2">전체시간</label>
-								<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[${status.index}].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">
+								<input type="number" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[${status.index}].lidxDurtime" id="lidxDurtime${status.index}" min="1" value="${lesIdxList.lidxDurtime}" readonly="readonly">
 	            			</div>
-							<input type="button" class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}"  data-del="${status.index}">
+							<input type="button" class="idxDelBtn" value="삭제" data-lidxid="${lesIdxList.lidxId}"  data-del="${status.index}" style="display: none">
 	            			<input type="hidden" name="lesIdxList[${status.index}].lidxId" id="lidxId${status.index}" value="${lesIdxList.lidxId}" >
 		            		<hr class="hr-1">
 	            		</div>
             		</div >
             	</c:forEach>
             </div>
-            <div class="buttonDiv">
-				<button type="button" class="button button-inline button-small button-primary form-group label" id="push" >저장</button>
-				<button type="button" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
-			</div>   
-		
 		</div>
+        <div class="buttonDiv">
+			<button type="button" class="button button-inline button-small button-cancel form-group label cancel" id="cancel" >목록</button>
+			<button type="button" class="button button-inline button-small button-danger form-group label delete" id="delete" >삭제</button>
+			<button type="button" class="button button-inline button-small button-primary form-group label update" id="update" >수정</button>
+			<button type="button" class="button button-inline button-small button-primary form-group label update" id="update-real" style="display: none">수정</button>
+		</div>   
 	</form>
 	</div>
 </div>

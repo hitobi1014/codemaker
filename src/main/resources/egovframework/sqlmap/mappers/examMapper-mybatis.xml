@@ -116,6 +116,16 @@ SELECT *
 				<choose>
 					<when test='searchExamState.equals("0")'>
 						AND e.exam_id is NULL
+						AND l.les_state = '1'
+					</when>
+					<when test='searchExamState.equals("3")'>
+						AND l.les_state = '2'
+					</when>
+					<when test='searchExamState.equals("4")'>
+						AND l.les_state = '3'
+					</when>
+					<when test='searchExamState.equals("5")'>
+						AND l.les_state = '4'
 					</when>
 					<otherwise>
 						AND e.exam_state = #{searchExamState}
@@ -139,11 +149,25 @@ AND
 	e.lidx_id(+) = li.lidx_id
 AND
 	l.tch_id = #{tchId}
+<if test="searchLesId != null and !searchLesId.equals('')">
+	AND
+		l.les_id = #{searchLesId}
+</if>
 <choose>
 	<when test="searchExamState != null and !searchExamState.equals('')">
 		<choose>
 			<when test='searchExamState.equals("0")'>
 				AND e.exam_id is NULL
+				AND l.les_state = '1'
+			</when>
+			<when test='searchExamState.equals("3")'>
+				AND l.les_state = '2'
+			</when>
+			<when test='searchExamState.equals("4")'>
+				AND l.les_state = '3'
+			</when>
+			<when test='searchExamState.equals("5")'>
+				AND l.les_state = '4'
 			</when>
 			<otherwise>
 				AND e.exam_state = #{searchExamState}
