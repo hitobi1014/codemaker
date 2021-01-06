@@ -41,7 +41,7 @@ public interface PostMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePost(PostVO postVO) throws Exception;
+	public int updatePost(int postNo) throws Exception;
 	
 	/**
 	 * 게시글을 삭제하는 메서드

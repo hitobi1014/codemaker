@@ -54,8 +54,8 @@ public class PostService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int updatePost(PostVO postVO) throws Exception{
-		return postMapper.updatePost(postVO);
+	public int updatePost(int postNo) throws Exception{
+		return postMapper.updatePost(postNo);
 	}
 	
 	/**

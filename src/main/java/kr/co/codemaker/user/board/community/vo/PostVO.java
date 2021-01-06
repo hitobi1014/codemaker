@@ -7,7 +7,7 @@ import kr.co.codemaker.common.vo.BaseVO;
 public class PostVO extends BaseVO{
 	
 	private int postNo;			//게시글번호
-	private String postId;		//게시글제목
+	private String postTitle;		//게시글제목
 	private Date postDate;		//게시글작성일자
 	private int postViews;		//게시글조회수
 	private String postContent;	//게시글내용
@@ -19,11 +19,11 @@ public class PostVO extends BaseVO{
 	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
-	public String getPostId() {
-		return postId;
+	public String getPostTitle() {
+		return postTitle;
 	}
-	public void setPostId(String postId) {
-		this.postId = postId;
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
 	}
 	public Date getPostDate() {
 		return postDate;
@@ -52,7 +52,7 @@ public class PostVO extends BaseVO{
 	
 	@Override
 	public String toString() {
-		return "CommunityVO [postNo=" + postNo + ", postId=" + postId + ", postDate=" + postDate + ", postViews="
+		return "CommunityVO [postNo=" + postNo + ", postTitle=" + postTitle + ", postDate=" + postDate + ", postViews="
 				+ postViews + ", postContent=" + postContent + ", userId=" + userId + "]";
 	}
 }

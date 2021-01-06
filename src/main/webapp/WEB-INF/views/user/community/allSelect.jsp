@@ -8,39 +8,42 @@
 <div class="article">
 	<div>
 		<div class="ds-flex">
-			<h2 class="fw-600">커뮤니티 게시판</h2>
+			<br><br>
+			<h2 class="fw-600 fc">커뮤니티 게시판</h2>
 		</div>
 		<div class="rightText">
-			<select style="height: 30px;">
+			<select>
 				<option value="1" selected="selected">제목</option>
 				<option value="2">회원아이디</option>
 			</select>
 			<input type="text" class="textBt">
 			<button type="button" class="btnCol">검색</button>
 		</div>
-		<br><br>
+		<br><br><br><br>
 		<div>
-			<div class="">
+			<div class="textCt">
 				<table>
-					<tr style="font-size: 20px;">
-						<th>글번호</th>
-						<th>제목</th>
-						<th>작성일</th>
-						<th>조회수</th>
-						<th>작성자</th>
+					<tr class="tr-bo">
+						<th class="th-s">글번호</th>
+						<th class="th-t">제목</th>
+						<th class="th-d">작성일</th>
+						<th class="th-s">조회수</th>
+						<th class="th-s">작성자</th>
 					</tr>
 					<tbody>
 						<c:forEach items="${postList}" var="postList">
-							<tr style="font-size: 18px;">
-								<td>${postList.postNo}</td>
-								<td><a style="color: black; font-size: 18px;" href="${cp}/user/community/select?postNo=${postList.postNo}">${postList.postId}</a></td>
+							<tr style="font-size: 25px;">
+								<td class="centerTd">${postList.postNo}</td>
+								<td><a class="a-title" href="${cp}/user/community/select?postNo=${postList.postNo}">${postList.postTitle}</a></td>
 								<td><fmt:formatDate value="${postList.postDate}" pattern="yyyy-MM-dd" /></td>
-								<td>${postList.postViews}</td>
+								<td class="centerTd">${postList.postViews}</td>
 								<td>${postList.userId}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<br>
+				<button type="button" class="btn" onclick="location.href='/user/community/insertView'">게시글 작성</button>
 			</div>
 		</div>
 	</div>
