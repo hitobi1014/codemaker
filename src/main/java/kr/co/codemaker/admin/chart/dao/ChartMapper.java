@@ -53,7 +53,7 @@ public interface ChartMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	List<LessonChartVO> lessonPayTotal()throws Exception;
+	List<LessonChartVO> lessonPayTotal(String selectYear)throws Exception;
 
 	/**
 	 * 강사별 매출 내역 조회
@@ -83,7 +83,7 @@ public interface ChartMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	List<TeacherChartVO> teacherPayTotal()throws Exception;
+	List<TeacherChartVO> teacherPayTotal(String selectYear)throws Exception;
 
 	/**
 	 * 강의별 학생 수 내역 조회

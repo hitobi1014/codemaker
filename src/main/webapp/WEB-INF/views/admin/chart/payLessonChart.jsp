@@ -28,10 +28,11 @@ canvas{
 
 </style>
 <body>
+	<select name="YEAR" id="YEAR" title="년도" class="select w80"></select>
+
 	<div style="width:75%;" id="candiv">
-	
-		<canvas id="canvas" width="300" height="80"></canvas>
 		
+		<canvas id="canvas" width="300" height="80"></canvas>
 <!-- 		<button class="btn btn-sm btn-default float-right" id="randomizeData">Randomize Data</button> -->
 <!-- 		<button class="btn btn-sm btn-default float-right" id="addDataset">Add Dataset</button> -->
 <!-- 		<button class="btn btn-sm btn-default float-right" id="removeDataset">Remove Dataset</button> -->
@@ -42,8 +43,35 @@ canvas{
 			
 <script>
 
-// 		var i = 30;
-// 		var j = 100;
+$(document).ready(function(){
+    setDateBox();
+});    
+
+// select box 연도 표시
+function setDateBox(){
+    var dt = new Date();
+    var com_year = dt.getFullYear();
+    
+    $("#YEAR").append("<option value=''>년도</option>");
+
+    // 올해 기준으로 -3년부터 +3년을 보여준다.
+    for(var y = (com_year-3); y <= (com_year+3); y++){
+		$("#YEAR").append("<option value='"+ y +"'>"+ y + "년" +"</option>");
+    }
+    
+    if('${selectYear}'== ''){
+    	$('#YEAR option[value=' + com_year + ']').attr('selected', 'selected');
+    	document.location="/admin/selectLessonPay?selectYear="+com_year;
+    }else{
+		$('#YEAR option[value=' + ${selectYear} + ']').attr('selected', 'selected');
+    }
+   
+}
+		
+$("#YEAR").change(function() {
+	var selectYear = $("#YEAR option:selected").val();
+	document.location="/admin/selectLessonPay?selectYear="+selectYear;
+});
 		
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		var config = {

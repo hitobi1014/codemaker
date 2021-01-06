@@ -70,8 +70,8 @@ public class ChartService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<LessonChartVO> lessonPayTotal() throws Exception {
-		return chartMapper.lessonPayTotal();
+	public List<LessonChartVO> lessonPayTotal(String selectYear) throws Exception {
+		return chartMapper.lessonPayTotal(selectYear);
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class ChartService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<TeacherChartVO> teacherPayTotal() throws Exception {
-		return chartMapper.teacherPayTotal();
+	public List<TeacherChartVO> teacherPayTotal(String selectYear) throws Exception {
+		return chartMapper.teacherPayTotal(selectYear);
 	}
 
 	/**
