@@ -36,9 +36,30 @@ public class LessonVO extends BaseVO{
 	private List<LessonIndexVO> lesIdxListInsert;	// 강의 목차 리스트(추가)
 	private List<String> lesIdxListDelete;		// 강의 목차 리스트(삭제)
 	
+	private String modalChk;	// 강의등록 후 시험등록 여부
+	
+	private String lessonCnt; 	// 영상 갯수
+	private String examCnt;	// 시험 갯수 
 	
 	
-	
+	public String getLessonCnt() {
+		return lessonCnt;
+	}
+	public void setLessonCnt(String lessonCnt) {
+		this.lessonCnt = lessonCnt;
+	}
+	public String getExamCnt() {
+		return examCnt;
+	}
+	public void setExamCnt(String examCnt) {
+		this.examCnt = examCnt;
+	}
+	public String getModalChk() {
+		return modalChk;
+	}
+	public void setModalChk(String modalChk) {
+		this.modalChk = modalChk;
+	}
 	public List<String> getLesIdxListDelete() {
 		return lesIdxListDelete;
 	}

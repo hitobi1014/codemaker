@@ -191,7 +191,7 @@ $(function() {
 					<input type="text" name="questionList[${status.index }].queCont" class="form-control que read hide" value="${question.queCont }"  readonly="readonly"/> 
 					<label for="sel4" class="sel4 hide">배점을 입력해주세요.(숫자만 입력가능합니다.)&nbsp;&nbsp;&nbsp;</label>
 					<label for="sel4" class="sel4 uhide">배점 : </label>
-					<input type="number" name="questionList[${status.index }].queScore" class="form-control que read queS" value="${question.queScore }" readonly="readonly"/>
+					<input type="number" name="questionList[${status.index }].queScore" class="form-control que read queS" min="1" value="${question.queScore }" readonly="readonly"/>
 					<br>
 					<label for="sel3" class="hide">보기를 입력해주세요. </label>
 					<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">
@@ -247,6 +247,10 @@ $(function() {
 		<input type="button" class="btn btn-default" id="regBtn" value="등록하기"> 
 	</c:if>
 	<c:if test="${ev.examState == '2'}">
+		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
+		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
+	</c:if>
+	<c:if test="${ev.examState == '5'}">
 		<input type="button" class="btn btn-default uhide" id="updateBtn" value="수정하기">
 		<input type="button" class="btn btn-default uhide" id="examDelBtn" value="시험 삭제하기" data-toggle="modal" data-target="#exampleModalCenter">
 	</c:if>

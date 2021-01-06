@@ -142,7 +142,7 @@ $(function() {
 					<label for="sel1" class="sel1"> 문제를 입력해주세요. </label> 
 					<input type="text" name="queContList" class="form-control que" />
 					<label for="sel4" class="sel4"> 배점을 입력해주세요.(숫자만 입력가능합니다.) &nbsp;&nbsp;&nbsp;</label>
-					<input type="number" name="queScoreList" class="form-control que queS" />
+					<input type="number" name="queScoreList" class="form-control que queS"  min="1"/>
 					<br>
 					<label for="sel2"> 보기를 입력해주세요. </label>
 					<div class="anw">

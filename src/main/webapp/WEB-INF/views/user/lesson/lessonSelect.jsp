@@ -37,7 +37,7 @@
 					<div class="les-info-bottom">
 						<div class="les-detail-price">
 							<c:set var="price" value="${lessonVO.lesCash}"/>
-							<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/></span><span class="wons">원</span>
+							<span class="prices"><fmt:formatNumber type="number" maxFractionDigits="3" min="1" value="${price}"/></span><span class="wons">원</span>
 						</div>
 						<div class="lesson-content-detail-bottom">
 							<c:url value="/user/payView" var="pay">
