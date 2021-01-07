@@ -34,7 +34,22 @@
 						<c:forEach items="${postList}" var="postList">
 							<tr style="font-size: 25px;">
 								<td class="centerTd">${postList.postNo}</td>
-								<td><a class="a-title" href="${cp}/user/community/select?postNo=${postList.postNo}">${postList.postTitle}</a></td>
+								<td>
+									<a class="a-title" href="${cp}/user/community/select?postNo=${postList.postNo}">${postList.postTitle}
+										<c:set var="today" value="<%=new java.util.Date() %>"/>
+										<c:set var="setDate"><fmt:formatDate value="${today}" pattern="yyyyMMddHHmmss"/></c:set>
+										<fmt:parseDate var="date" value="${setDate}" pattern="yyyyMMddHHmmss"></fmt:parseDate>
+										<fmt:parseNumber var="parseDate" value="${date.time / (1000*60*60*24)}"></fmt:parseNumber>
+										<c:set var="setSaveDate"><fmt:formatDate value="${postList.postDate}" pattern="yyyyMMddHHmmss"/></c:set>
+										<fmt:parseDate var="saveDate" value="${setSaveDate}" pattern="yyyyMMddHHmmss"></fmt:parseDate>
+										<fmt:parseNumber var="parseSaveDate" value="${saveDate.time / (1000*60*60*24)}"></fmt:parseNumber>
+										<c:set var="restDate" value="${parseDate - parseSaveDate}"></c:set>
+										<c:if test="${restDate le 3}">
+											<i class="newIcon">NEW</i>
+										</c:if>
+									</a>
+									
+								</td>
 								<td><fmt:formatDate value="${postList.postDate}" pattern="yyyy-MM-dd" /></td>
 								<td class="centerTd">${postList.postViews}</td>
 								<td>${postList.userId}</td>

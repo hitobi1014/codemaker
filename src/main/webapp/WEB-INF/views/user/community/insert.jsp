@@ -29,7 +29,7 @@
 		</table>
 		<div class="buttons">
 			<button type="button" class="butBack" onclick="location.href='/user/community'">돌아가기</button>
-			<button type="submit" class="sub" onclick="location.href='/user/community/select'">등록하기</button>
+			<button type="submit" class="sub" id="insertBtn">등록하기</button>
 		</div>
 	</form>
 </div>
@@ -45,7 +45,7 @@
 		});
 	});
 	
-	$('.sub').on('click', function(){
+	$('#insertBtn').on('click', function(){
 		('#insertForm').submit();
-	})
+	});
 </script>

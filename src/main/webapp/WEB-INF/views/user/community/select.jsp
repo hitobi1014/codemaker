@@ -5,12 +5,14 @@
 <link href="/css/user/board/community/select.css" rel="stylesheet" />
 
 <div class="article">
-	<div class="replyBox">
-		<h3 class="fw-600">${PostVO.postTitle}</h3>
+	<div>
 		<label class="dateL"><fmt:formatDate value="${PostVO.postDate}" pattern="yyyy-MM-dd HH:mm"/></label>
 	</div>
 	<div class="replyBox">
-		<label><img id="postImg" src="/images/user/icons/user.png">
+		<h3 class="fw-600">${PostVO.postTitle}</h3>
+	</div>
+	<div class="replyBox">
+		<label><img id="postImg" src="${MEMBER_INFO.userProfile}">
 			${PostVO.userId}
 		</label>
 	</div>
@@ -24,12 +26,23 @@
 	</div>
 	
 	<div class="con-size">
-		<label>${PostVO.postContent}</label>
+		<div style="padding: 15px;">
+			<label>${PostVO.postContent}</label>
+		</div>
 	</div>
 	<br>
 	<div class="btn-f">
-		<button type="button" class="up-btn fw-600" id="updateCont" onclick="location.href='/user/community/update'">수정</button>
-		<button type="button" class="de-btn fw-600" id="deleteCont">삭제</button>
+		
+		<c:choose>
+			<c:when test="${MEMBER_INFO.userId eq PostVO.userId }">
+				<button type="button" class="up-btn fw-600" id="updateCont" onclick="location.href='/user/community/update'">수정</button>
+				<button type="button" class="de-btn fw-600" id="deleteCont">삭제</button>
+				<button type="button" class="back-btn fw-600" id="backSelectAll" onclick="location.href='/user/community'">글목록</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="back-btn fw-600" id="backSelectAll" onclick="location.href='/user/community'">글목록</button>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<br><br>
 </div>

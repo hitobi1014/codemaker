@@ -76,50 +76,48 @@ public class CommunityController {
 	
 	
 	@RequestMapping(path="/user/community/insert")
-	public String insertPost(PostVO postVO, MultipartHttpServletRequest filePath, HttpSession session) throws Exception{
-//		
-//		List<MultipartFile> list = filePath.getFiles("fileName");
-//		logger.debug("제목 : {}", postVO.getPostTitle());
-//		
-//		UserVO userVO = (UserVO) session.getAttribute("S_USERS");
-//		String userId = userVO.getUserId();
-//		postVO.setUserId(userId);
-//		
-//		logger.debug("postVO : {}", postVO);
-//		
-//		int cnt = postService.insertPost(postVO);
-//		logger.debug("insertCnt : {}", cnt);
-//		
-//		String filename = "";
-//		String filePaths = "";
-//		String extension = "";
-//		
-//		for(int i=0; i<list.size(); i++) {
-//			if(list.get(i).getOriginalFilename() != null && !(list.get(i).getOriginalFilename().equals(""))) {
-//				try {
-//					filename = UUID.randomUUID().toString();
-//					extension = FileUploadUtil.getExtenstion(list.get(i).getOriginalFilename());
-//					logger.debug("확장자 : {} ", extension);
-//					filePaths = "c:\\file\\" + filename + "." + extension;
-//					File uploadFile = new File(filePaths);
-//					list.get(i).transferTo(uploadFile);					
-//				} catch (IllegalStateException | IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//				PostFileVO fileVO = new PostFileVO();
-//				fileVO.setPostNo(postVO.getPostNo());
-//				fileVO.setFileName(list.get(i).getOriginalFilename());
-//				fileVO.setFilePath(filePaths);
-//				
-//				int insertCnt = postFileService.insertPostFile(fileVO);
-//				
-//				logger.debug("무슨 파일을 업로드 했으까~~~!! : {}", insertCnt);
-//						
-//			}
-//		}
+	public String insertPost(PostVO postVO, MultipartHttpServletRequest filePath, HttpSession session, Model model) throws Exception{
 		
-		return "/user/community/select";
+		List<MultipartFile> list = filePath.getFiles("fileName");
+		logger.debug("제목 : {}", postVO.getPostTitle());
+		
+		UserVO userVO = (UserVO) session.getAttribute("MEMBER_INFO");
+		String userId = userVO.getUserId();
+		postVO.setUserId(userId);
+		
+		logger.debug("postVO : {}", postVO);
+		
+		int cnt = postService.insertPost(postVO);
+		logger.debug("insertCnt : {}", cnt);
+		
+		String filename = "";
+		String filePaths = "";
+		String extension = "";
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getOriginalFilename() != null && !(list.get(i).getOriginalFilename().equals(""))) {
+				try {
+					filename = UUID.randomUUID().toString();
+					extension = FileUploadUtil.getExtenstion(list.get(i).getOriginalFilename());
+					logger.debug("확장자 : {} ", extension);
+					filePaths = "c:\\file\\" + filename + "." + extension;
+					File uploadFile = new File(filePaths);
+					list.get(i).transferTo(uploadFile);					
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				
+				PostFileVO fileVO = new PostFileVO();
+				fileVO.setPostNo(postVO.getPostNo());
+				fileVO.setFileName(list.get(i).getOriginalFilename());
+				fileVO.setFilePath(filePaths);
+				
+				int insertCnt = postFileService.insertPostFile(fileVO);
+				
+				logger.debug("무슨 파일을 업로드 했으까~~~!! : {}", insertCnt);
+			}
+		}
+		return "redirect:/user/community";
 	}
 	
 	@RequestMapping(path="/user/community/update")
