@@ -80,9 +80,7 @@ $(function(){
 	
 	// 취소 버튼
 	$('#cancel').on('click',function(){
-		$('form').each(function(){
-			this.reset();
-		})
+		document.location="/teacherL/selectSubject";
 	})
 	
 	
@@ -130,7 +128,7 @@ function lessonChk(){
 	<input type="hidden" id="modalChk" name="modalChk" value="">
 		<div class="lesson-top">	
 			<div class="les-title-div">
-				<h2>강의등록s</h2>
+				<h2>강의등록</h2>
 			</div>	
 			<div class="lesson-div shadow">
 				<div class="les-div-3">

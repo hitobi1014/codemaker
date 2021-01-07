@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.admin.course.resume.dao.ResumeAdminMapper">
 	<select id="selectAllResume" resultType="kr.co.codemaker.teacher.signup.vo.ResumeVO" parameterType="kr.co.codemaker.teacher.signup.vo.ResumeVO">
-		SELECT
+SELECT
 			res_id
 			, res_code
 			, res_nm
@@ -17,8 +17,8 @@
 		FROM
 			resume
 		WHERE   1 = 1
-		<if test='resState == "B"'>
-			AND res_state is null
+		<if test='resState == "2"'>
+			AND res_state = '2'
 		</if>
 		<if test='resState == "Y"'>
 			AND res_state = 'Y'
@@ -26,8 +26,7 @@
 		<if test='resState == "N"'>
 			AND res_state = 'N'
 		</if>
-
-		</select>
+</select>
 
 	<select id="getAllResume" resultType="kr.co.codemaker.teacher.signup.vo.ResumeVO" parameterType="kr.co.codemaker.teacher.signup.vo.ResumeVO">
 		SELECT

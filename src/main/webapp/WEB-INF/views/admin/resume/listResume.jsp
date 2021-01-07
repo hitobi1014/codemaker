@@ -49,8 +49,8 @@
 								<c:if test="${resState eq 'A'}">selected="selected"</c:if>>전체</option>
 							<option value="Y"
 								<c:if test="${resState eq 'Y'}">selected="selected"</c:if>>승인완료</option>
-							<option value="B"
-								<c:if test="${resState eq 'B'}">selected="selected"</c:if>>승인대기</option>
+							<option value="2"
+								<c:if test="${resState eq '2'}">selected="selected"</c:if>>승인대기</option>
 							<option value="N"
 								<c:if test="${resState eq 'N'}">selected="selected"</c:if>>미승인</option>
 						</select>
@@ -83,7 +83,7 @@
 												<c:when test="${resume.resState == 'N'}">
 													<td><a style="color: #EF3340;">미승인</a></td>
 												</c:when>
-												<c:when test="${resume.resState == null}">
+												<c:when test="${resume.resState == '2'}">
 													<td><a style="color: #505759;">승인대기</a></td>
 												</c:when>
 											</c:choose>

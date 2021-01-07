@@ -24,7 +24,7 @@ FROM (SELECT a.*, ROWNUM AS rn
             		e.exam_state, 
             		e.exam_date, 
             		p.les_id, 
-                	l.les_nm, 
+                	l.les_nm,
                 	li.lidx_id, 
                 	li.lidx_cont, 
 	                NVL(es.es_fscore, 999) es_fscore, 
