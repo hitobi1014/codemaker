@@ -90,10 +90,10 @@ $(function(){
                       <span class="badge badge-dot mr-4">
                       	<c:choose>
 							<c:when test="${myPay.payWay=='1'}">
-								카카오페이
+								포인트결제
                         	</c:when>
 	                        <c:otherwise>
-	                        	신용카드
+	                        	카카오페이
 	                        </c:otherwise>
                         </c:choose>
                       </span>
