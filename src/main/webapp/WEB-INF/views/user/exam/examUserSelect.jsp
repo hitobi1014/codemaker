@@ -24,6 +24,7 @@ $(function() {
 		<form:form action="/examUser/selectAllExam" id="examf" method="post" commandName="examVO" name="examVO">
 			
 			<form:input type="hidden" path="searchEsFscore" class="form-control" id="searchEsFscore" value="${searchEsFscore }"/>
+			<form:input type="hidden" path="lesId" class="form-control" id="lesId" value="${lesId }"/>
 			<div id="d2">
 				<div id="d1"></div>
 				<div id="d3" class="divBC">

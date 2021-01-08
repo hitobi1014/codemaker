@@ -53,13 +53,7 @@
 	background: #888b8d80;
 	margin-bottom: 8px;
 }
-#cancel{
-	background: #005f86;
-	width: 70px;
-	height: 35px;
-	color: #fff;
-}
-#insertBtn{
+.sub-btn{
 	background: #005f86;
 	width: 70px;
 	height: 35px;

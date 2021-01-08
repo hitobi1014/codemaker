@@ -16,13 +16,17 @@
 	
 	<!-- 	승인되지않은 강의리스트 조회 -->
 	<select id="selectNoLesson" parameterType="String" resultType="kr.co.codemaker.teacher.course.lesson.vo.LessonVO">
-		SELECT *
- 		  FROM lesson
- 		 <where>
-			 AND tch_id=#{tchId}
-			 AND les_state NOT IN('3','5')
- 		 </where>
- 		 ORDER BY les_id ASC
+	SELECT l.* , NVL(li.licnt,0) lesson_cnt, NVL(e.ecnt, 0) exam_cnt
+	  FROM lesson l
+	  LEFT OUTER JOIN (SELECT les_id, COUNT(*) licnt
+	                     FROM lesson_index
+	                   GROUP BY les_id) li ON(l.les_id = li.les_id)
+	  LEFT OUTER JOIN (SELECT les_id, COUNT(*) ecnt
+	                     FROM exam
+	                   GROUP BY les_id) e ON(e.les_id = li.les_id)
+	 WHERE l.tch_id=#{tchId}
+	   AND l.les_state NOT IN('3','5')
+	 ORDER BY l.les_id
 	</select>
 	
 	<!-- 	강의 조회 -->

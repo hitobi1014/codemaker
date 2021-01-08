@@ -6,6 +6,7 @@
 <title>취업공고</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
+<link href="/css/user/jobinfo/jobinfo.css" rel="stylesheet"/>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script>
@@ -23,87 +24,20 @@ $(document).ready(function(){
 });
 
 </script>
-<style>
-body, p{
-	font-family: 'LotteMartDream' !important;
-}
-	.filesButton{
-		background-color : #D4D4D4;
-		color : black;
-	}
-	.card{
-		width: 70%;
-	    height: 700px;
-	    margin: 20px auto 0;
-	    border: none;
-	    padding: 40px;
-	    font-family: 'LotteMartDream';
-	}
-	.titleDiv{
-		text-align:center;
-		margin:20px;
-	}
-	#title{
-		color : #1d25af;
-		font-weight: 600;
-		font-family: 'LotteMartDream';
-		font-size: 35px
-	}
-	.row{
-		margin: 50px 130px 0;
-		background-color: white;
-	}
-	.btnClass{
-		float:right;
-		width: 80px;
-		margin-right: 10px;
-	}
-	.header{
-		float: right;
-	}
-	.headerId{
-		width: 100%;
-		text-align: right;
-		font-size: 20px;
-    	font-weight: 600;
-	} 
-	.headerDate{
-		width: 100%;
-		text-align: right;
-		color: #a9a8a8;
-   		font-size: 17px;
-    	font-weight: 400;
-    	margin-top: -10px;
-	}
-	#idImg{
-		width: 20px;
-	}
-	.contentDiv{
-		margin: 30px;
-	    border: 2px solid #c1bebe;
-	    height: 350px;
-	    padding: 20px;
-	    font-size: 18px;
-    	font-weight: 500;
-	}
-	#listbutton{
-		width: 80px;
-   		margin-left: 30px;
-	}
-</style>
 <body>
-	<div class="card">
+	<div class="card shadow">
 		<div class="titleDiv">
 			<h2 id="title">${jobinfoVo.jobinfoTitle}</h2>
 		</div>
 		
 		<div class="header">
-			<label class="headerId"><img id="idImg" src="/images/admin/notice/id.png">&nbsp;&nbsp;${jobinfoVo.adminId}</label>
-			<label class="headerDate"><fmt:formatDate value="${jobinfoVo.jobinfoDate}" pattern="yyyy-MM-dd HH:mm" /></label>
+			<button type="button" id="listbutton" class="btn btn-primary">목록</button>
+			<div>
+				<label class="headerId"><img id="idImg" src="/images/admin/notice/id.png">&nbsp;&nbsp;${jobinfoVo.adminId}</label>
+				<label class="headerDate"><fmt:formatDate value="${jobinfoVo.jobinfoDate}" pattern="yyyy-MM-dd HH:mm" /></label>
+			</div>
 		</div>
 		
-		<button type="button" id="listbutton" class="btn btn-primary">목록</button>
-		<br>
 		<div>	
 			<c:if test="${filesList.size() != 0}">
 				<span style="margin-left:30px;">첨부파일 :</span> 
@@ -113,7 +47,7 @@ body, p{
 					value="${filesVo.filesId}">${filesVo.filesNm}</button>
 			</c:forEach>
 		</div>
-		<br>
+	
 		<div class="contentDiv">
 			<label class="control-label">${jobinfoVo.jobinfoCont}</label>
 		</div>

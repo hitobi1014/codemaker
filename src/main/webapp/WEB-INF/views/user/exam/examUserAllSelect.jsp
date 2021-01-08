@@ -44,8 +44,8 @@ $(function() {
 	
 	// 시험 상세페이지 이동 data-exam_id
 	$(document).on('click', '#examList tr td', function(){
-		var searchLesId = $('#lesson').val();
-		var searchSubId = $('#subject').val();
+// 		var searchLesId = $('#lesson').val();
+// 		var searchSubId = $('#subject').val();
 		var searchExamState = $('#search').val();
 		
 		if ($(this).attr('class') == 'm') {
@@ -96,6 +96,7 @@ $(function() {
 			<input type="hidden" name="examId" id="examId" value="">
 			<input type="hidden" name="searchEsScore" id="searchEsScore" value="">
 			<input type="hidden" name="resultState" id="resultState" value="0">
+			<input type="hidden" name="lesId" id="lesId" value="${examVO.lesId }">
 			<div id="rldiv">
 				<div id="left">
 					<input type="button" id="cancel" class="btn btn-sm btn-primary" value="목록으로 가기"/>

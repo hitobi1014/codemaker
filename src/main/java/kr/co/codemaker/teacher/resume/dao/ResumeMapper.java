@@ -15,4 +15,23 @@ public interface ResumeMapper {
 	 */
 	public int insertResume(ResumeVO resumeVO) throws Exception;
 	
+	/**
+	 * 이력서 임시저장
+	 * @param resumeVo
+	 */
+	public int saveResume(ResumeVO resumeVo) throws Exception;
+	
+	/**
+	 * 임시저장 이력서 제출
+	 * @param resumeVo
+	 */
+	public int updateResume(ResumeVO resumeVo) throws Exception;
+	
+	/**
+	 * 이력서 조회
+	 * @param resumeVo
+	 * @return 이력서 정보가 있으면 이력서Vo 반환
+	 */
+	public ResumeVO selectResume(ResumeVO resumeVo) throws Exception;
+	
 }

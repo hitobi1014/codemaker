@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/teacher/lesson/lesson.css">
 <link rel="stylesheet" href="/css/teacher/lesson/mypage-style.css">
 <link rel="stylesheet" href="/css/teacher/lesson/button.css">
-<link rel="stylesheet" href="/css/teacher/lesson/lessonUpdate.css">
+<link rel="stylesheet" href="/css/teacher/lesson/lessonInsert.css">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -31,11 +31,11 @@ $(function(){
 		console.log('눌림');
 		
 		str="";
-		str +='<div class="lesIdx-list-div" id="lesIdx-md-div">';
+		str +='<div class="lesIdx-list-div" id="lesIdx-md-div['+index+']">';
 		str +='	<div class="lesIdx-md-div">';
 		str +='	<div class=lesIdx-div-1>';
 		str +='		<label class="les-lb2">차수</label>';
-		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" name="lesIdxList['+index+'].lidxNum" id="lidxNum${status.index}" >${lesIdxList.lidxNum}';
+		str +='		<input type="number" class="les-input-1 les-input-1-shadow chk" name="lesIdxList['+index+'].lidxNum" id="lidxNum${status.index}" min="1">${lesIdxList.lidxNum}';
 		str +='	</div>';
 		str +='	<div class=lesIdx-div-2>';
 		str +='		<label class="les-lb2">강의목차 제목</label>';
@@ -49,9 +49,10 @@ $(function(){
 		str +='	</div>';
 		str +='	<div class=lesIdx-div-4>';
 		str +='		<label class="les-lb2">전체시간</label>';
-		str +='		<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList['+index+'].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">';
+		str +='		<input type="number" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList['+index+'].lidxDurtime" id="lidxDurtime${status.index}" min="1" value="${lesIdxList.lidxDurtime}">';
 		str +='	</div>';
-    	str +='	<hr class="hr-1">';
+		str +='		<input type="button" class="newIdxDelBtn" value="삭제"  data-del="lesIdx-md-div['+index+']">';
+		str +='	<hr class="hr-1">';
 		str +='</div>';
 		str +='</div >';
       	
@@ -60,10 +61,17 @@ $(function(){
       	$('.lesIdx-div').append(str);
 		
 	})
+	
+		// 새로 생성된 강의목차 삭제
+	$('.lesIdx-div').on('click','.newIdxDelBtn',function(){
+		console.log('삭제버튼!!');
+		var del=$(this).data("del");
+		console.log(del);
+		$("div[id='"+del+"']").remove();
+// 		$('#'+del).remove();
+		console.log(del);
+	})
 
-	// 임시 데이터
-// 	initData();
-		
 	// 강의등록 버튼
 	$('#push').on('click', function(){
 // 		alert('등록');
@@ -72,33 +80,41 @@ $(function(){
 	
 	// 취소 버튼
 	$('#cancel').on('click',function(){
-		$('form').each(function(){
-			this.reset();
-		})
+		document.location="/teacherL/selectSubject";
+	})
+	
+	
+	// 모달창 시험 등록버튼
+	$('#yesBtn').on('click',function(){
+		$('#modalChk').val('Y');
+		$('#lesForm').submit();
+		
+	})
+	
+	// 모달창 취소 버튼
+	$('#noBtn').on('click',function(){
+		$('#modalChk').val('N');
+		alert('등록되었습니다!');
+		$('#lesForm').submit();
 	})
 	
 })
 
 // 강의등록 빈칸 체크
 function lessonChk(){
-	console.log($('.chk').length);
 	var flag = '0';
 	
 	if(flag =='0'){
 		$('.chk').each(function(i, data){
 			if($(this).val() == ''){
-				console.log(i);
 				alert('빈칸을 입력하시오');
 				flag = '0';
 				return false;
 			}
 			flag = '1';
 		})
-		console.log(flag);
-		
 		if(flag =='1'){
-			alert('등록되었습니다!');
-			$('#lesForm').submit();
+			$('#push').attr('data-target','#exampleModalCenter');
 		}
 	}
 }
@@ -109,7 +125,7 @@ function lessonChk(){
 <div class="card" >
 	<div class="select-container-area">
 	<form id="lesForm" action="${cp}/teacherL/insertLesson" method="POST" >
-<%-- 	<input type="hidden" name="lesId" value="${lessonVO.lesId}"> --%>
+	<input type="hidden" id="modalChk" name="modalChk" value="">
 		<div class="lesson-top">	
 			<div class="les-title-div">
 				<h2>강의등록</h2>
@@ -136,29 +152,9 @@ function lessonChk(){
 					<label class="les-lb">강의소개</label>
 					<input type="text"  class="les-input-1 les-input-1-shadow chk" placeholder="소개" name="lesCont" id="lesCont" >
 				</div>
-				<div class="les-md-div">
-					<div class="les-div-3">
-						<label class="les-lb">개설날짜</label>
-						<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesSdate" id="lesSdate">
-					</div>
-					<div class="les-div-3">
-						<label class="les-lb">종료날짜</label>
-						<input type="date"  class="les-input-1 les-input-1-shadow chk"  name="lesEdate" id="lesEdate">
-					</div>
-				</div>
-				<div class="les-md-div">
-					<div class="les-div-3">
-						<label class="les-lb">수강료</label>
-						 <input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="수강료" name="lesCash" id="lesCash" >
-					</div>
-					<div class="les-div-3">
-						<label class="les-lb">기간</label>
-						<input type="text"  class="les-input-1 les-input-1-shadow chk"  placeholder="기간"  name="lesTerm" id="lesTerm" >
-					</div>
-				</div>
 				<div class="les-div-4">
 					<label class="les-lb">상세내용</label>
-					<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail"  ></textarea>
+					<textarea rows="6" cols="25" class="les-input-2 les-input-1-shadow chk" placeholder="상세설명" name="lesDetail" id="lesDetail" style="resize: none;" ></textarea>
 				</div>
 			</div>
 		</div>
@@ -172,7 +168,7 @@ function lessonChk(){
            			<div class="lesIdx-md-div">
             			<div class=lesIdx-div-1>
             				<label class="les-lb2">차수</label>
-							<input type="text" class="les-input-1 les-input-1-shadow" name="lesIdxList[0].lidxNum" id="lidxNum${status.index}" >${lesIdxList.lidxNum}
+							<input type="number" class="les-input-1 les-input-1-shadow" name="lesIdxList[0].lidxNum" id="lidxNum${status.index}" min="1">${lesIdxList.lidxNum}
             			</div>
             			<div class=lesIdx-div-2>
             				<label class="les-lb2">강의목차 제목</label>
@@ -186,14 +182,14 @@ function lessonChk(){
             			</div>
             			<div class=lesIdx-div-4>
             				<label class="les-lb2">전체시간</label>
-							<input type="text" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[0].lidxDurtime" id="lidxDurtime${status.index}" value="${lesIdxList.lidxDurtime}">
+							<input type="number" class="les-input-1 les-input-1-shadow chk" placeholder="전체시간" name="lesIdxList[0].lidxDurtime" id="lidxDurtime${status.index}"  min="1" value="${lesIdxList.lidxDurtime}">
             			</div>
 	            		<hr class="hr-1">
             		</div>
            		</div >
             </div>
             <div class="buttonDiv">
-				<button type="button" class="button button-inline button-small button-primary form-group label" id="push" >저장</button>
+				<button type="button" class="button button-inline button-small button-primary form-group label" id="push" data-toggle=modal data-target="">등록</button>
 				<button type="button" class="button button-inline button-small button-danger form-group label" id="cancel" >취소</button>
 			</div>   
 		
@@ -202,3 +198,19 @@ function lessonChk(){
 	</div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 class="h2Modal">시험을 등록하시겠습니까?</h2>
+        <button type="button" class="btn btn-secondary yesBtn" data-dismiss="modal" id="yesBtn">네</button>
+        <button type="button" class="btn btn-secondary noBtn" data-dismiss="modal" id="noBtn">아니오</button>
+      </div>
+<!--       <div class="modal-footer"> -->
+<!--       </div> -->
+    </div>
+  </div>
+</div>
+<!-- /Modal -->

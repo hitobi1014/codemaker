@@ -13,19 +13,15 @@ SELECT
     erc.answerCount
 FROM
     examresult er, question q, 
-    (SELECT COUNT(*) answerCount, user_id
-	  FROM examresult
-	WHERE
-		er_check != 0
-	AND 
-		exam_id = #{examId}
-	GROUP BY user_id) erc
+    (SELECT COUNT(*) answerCount
+       FROM examresult 
+	  WHERE er_check != 0 
+	    AND exam_id = #{examId}
+	    AND user_id = #{userId}) erc
 WHERE
 	er.exam_id = #{examId}
 AND
 	er.que_id = q.que_id
-AND
-	er.user_id = erc.user_id
 AND 
     er.user_id = #{userId}
 </select>

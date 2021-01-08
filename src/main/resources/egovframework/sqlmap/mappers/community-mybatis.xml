@@ -4,7 +4,7 @@
 	<select id="getAllPost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO" resultType="kr.co.codemaker.user.board.community.vo.PostVO">
 		SELECT
 			post_no
-			, post_id
+			, post_title
 			, post_date
 			, post_views
 			, post_content
@@ -19,17 +19,17 @@
 			WHERE post_no = #{postNo}
 	</select>
 
-	<insert id="insertPost" parameterType="int">
+	<insert id="insertPost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO">
 		INSERT INTO post (
 					post_no
-					, post_id
+					, post_title
 					, post_date
 					, post_views
 					, post_content
 					, user_id
-				) VALUES (
+			)VALUES (
 					POST_LEJ_SEQ.NEXTVAL
-					, #{postId}
+					, #{postTitle}
 					, SYSDATE
 					, #{postViews}
 					, #{postContent}
@@ -38,16 +38,12 @@
 	</insert>
 	
 	<update id="updatePost" parameterType="kr.co.codemaker.user.board.community.vo.PostVO">
-		UPDATE post
-				SET
-					post_no = #{postNo}
+	UPDATE post
+			SET
+				post_no = #{postNo}
 				WHERE
-					post_no = POST_LEJ_SEQ.NEXTVAL
-					AND post_id = #{postId}
-					AND post_date = SYSDATE
-					AND post_views = #{postViews}
+					post_title = #{postTitle}
 					AND post_content = #{postContent}
-					AND user_id = #{userId}
 	</update>
 	
 	<delete id="deletePost" parameterType="int">
@@ -55,5 +51,53 @@
 		WHERE
 			post_no = #{postNo}
 	</delete>
+	
+	
+	<!-- file xml설정 -->
+	
+	<select id="getAllPostFile" parameterType="int" resultType="kr.co.codemaker.user.board.community.vo.PostFileVO">
+		SELECT *
+		FROM POSTFILE
+		WHERE post_no= #{postNo}
+	</select>
+	
+	<select id="getPostFile" parameterType="int" resultType="kr.co.codemaker.user.board.community.vo.PostFileVO">
+		SELECT *
+		FROM
+			POSTFILE
+		WHERE
+			file_no = #{fileNo}
+	</select>
+	
+	<insert id="insertPostFile" parameterType="kr.co.codemaker.user.board.community.vo.PostFileVO">
+		INSERT INTO POSTFILE (
+						FILE_NO
+						, FILE_NAME
+						, FILE_PATH
+						, POST_NO)
+					VALUES (
+						FILE_LEJ_SEQ.NEXTVAL
+						, #{fileName}
+						, #{filePath}
+						, #{postNo}
+						)
+	</insert>
+	
+	<update id="updatePostFile" parameterType="kr.co.codemaker.user.board.community.vo.PostFileVO">
+		UPDATE POSTFILE SET 
+						file_name = #{fileName}
+						, file_path = #{filePath}
+		WHERE file_no = #{fileNo}
+	</update>
+	
+	<delete id="deletePostFile" parameterType="int">
+		DELETE POSTFILE
+		WHERE
+			file_no = #{fileNo}
+	</delete>
+	
+	<update id="plusViews" parameterType="int">
+		UPDATE POST SET post_views = post_views + 1 WHERE post_no = #{postNo}
+	</update>
 	
 </mapper>

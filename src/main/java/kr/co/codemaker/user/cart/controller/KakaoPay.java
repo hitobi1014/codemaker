@@ -47,9 +47,9 @@ public class KakaoPay {
 		params.add("quantity", "1");
 		params.add("total_amount", total);
 		params.add("tax_free_amount", "0");
-		params.add("approval_url", "http://localhost/kakaoPaySuccess?total="+total);
-		params.add("cancel_url", "http://localhost/user/login");
-		params.add("fail_url", "http://localhost/user/selectSubject");
+		params.add("approval_url", "http://192.168.44.59/kakaoPaySuccess?total="+total);
+		params.add("cancel_url", "http://192.168.44.59/user/login");
+		params.add("fail_url", "http://192.168.44.59/user/selectSubject");
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String,String>>(params, headers);
 		try {
 			kakaoPayReadyVo = restTemplate.postForObject(new URI(HOST), body, KakaoPayReadyVO.class);

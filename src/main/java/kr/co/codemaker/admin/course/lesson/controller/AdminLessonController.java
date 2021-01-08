@@ -116,44 +116,57 @@ public class AdminLessonController {
 	 * @param lessonVO
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/admin/updateLesson")
-	public String updateLesson(@RequestParam(value="lesIds")List<String> lesIds, String lesState) {
+	public void updateLesson(LessonVO lessonVO) {
 		
-		for(String lesId : lesIds) {
-			NotificationVO notificationVo = new NotificationVO();
-			LessonVO lessonVO = new LessonVO();
-			ExamVO examVO = new ExamVO();
-			String tchId = "";
+		NotificationVO notificationVo = new NotificationVO();
+		ExamVO examVO = new ExamVO();
+		String tchId = "";
+		
+		try {
+			tchId = adminLessonService.selectTeacher(lessonVO.getLesId());
+			adminLessonService.updateLesson(lessonVO);
 			
-			try {
-				tchId = adminLessonService.selectTeacher(lesId);
-				lessonVO.setLesState(lesState);
-				lessonVO.setLesId(lesId);
-				adminLessonService.updateLesson(lessonVO);
-				
-				notificationVo.setRecipientId(tchId);
-				notificationVo.setSenderId("admin");
-				
-				// 강의 승인
-				if(lesState.equals("3")) {
-					examVO.setExamState("4");
-					notificationVo.setNotifyCont("등록신청한 강의가 등록 되었습니다");
-				}
-				// 반려
-				else if(lesState.equals("4")) {
-					examVO.setExamState("5");
-					notificationVo.setNotifyCont("등록신청한 강의가 반려 되었습니다");
-				}
-				examVO.setLesId(lesId);
-				notificationVo.setUrl("/teacherL/selectSubject");
-				adminLessonService.updateExam(examVO);
-				notificationService.insertNotification(notificationVo);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+			notificationVo.setRecipientId(tchId);
+			notificationVo.setSenderId("admin");
+			
+			// 강의 승인
+			if(lessonVO.getLesState().equals("3")) {
+				examVO.setExamState("4");
+				notificationVo.setNotifyCont("등록신청한 강의가 등록 되었습니다");
 			}
+			// 반려
+			else if(lessonVO.getLesState().equals("4")) {
+				examVO.setExamState("5");
+				notificationVo.setNotifyCont("등록신청한 강의가 반려 되었습니다");
+			}
+			examVO.setLesId(lessonVO.getLesId());
+			adminLessonService.updateExam(examVO);
+			
+			notificationVo.setUrl("/teacherL/selectSubject");
+			notificationService.insertNotification(notificationVo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return "redirect:/admin/selectAllAgree";
+//		return "redirect:/admin/selectAllAgree";
 	}
+	
+	
+	/**
+	 * 관리자 - 강의 동영상 보기
+	 * @param lidxPath
+	 * @param model
+	 * @param lidxId
+	 * @return
+	 */
+	@RequestMapping(path="/admin/selectYoutube")
+	public String selectYou(String lidxPath, Model model,String lidxId) {
+		model.addAttribute("lidxPath",lidxPath);
+		model.addAttribute("lidxId", lidxId);
+		return "admin/lesson/lessonYoutube";
+	}
+	
 
 }

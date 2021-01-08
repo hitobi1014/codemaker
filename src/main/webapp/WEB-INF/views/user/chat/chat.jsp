@@ -222,7 +222,7 @@ html, body {
         // 생성자에 관해서는 이전 포스팅 참고
         // 여기서는 이 페이지로 대화 내용을 보내는 것이므로 소켓 경로가 이 페이지(여기)이다
         wsocket = new WebSocket(
-    "ws://localhost/chat-ws");
+    "ws://192.168.44.59/chat-ws");
         
         // 이렇듯 소켓을 생성하는 단계에서
         // .onopen, onmessage, onclose에 해당하는 함수를 정의
@@ -304,8 +304,8 @@ html, body {
 
     $(function(){
 		$('#chat-input').keypress(function(event){
-// 		var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(event.keyCode == '13'){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
 				send();
 				var chat = $("#chat-input").val();
 		    	var chatroom = $("#boxhd").val();
@@ -321,13 +321,11 @@ html, body {
 		    		url : "/chat/insertChat",
 		    		type : "post",
 		    		data : chatVo,
-		    		success : function(){
+		    		success : function(res){
 						$("#chat-input").val("");
 		    		}
 		    	})
 			}
-			event.stopPropagation();
-			$("#chat-input").val(''); 
         });
 	    
 	    $("#chat-submit").on('click', function(){

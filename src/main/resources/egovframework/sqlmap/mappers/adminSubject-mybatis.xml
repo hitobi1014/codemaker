@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.codemaker.admin.course.subject.dao.AdminSubjectMapper">
 	<select id="selectAllSubject" resultType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
-		SELECT *
-		  FROM subject
-	</select>
+SELECT *
+		  FROM subject 
+		  ORDER BY sub_id asc
+</select>
 	
 	<insert id="insertSubject" parameterType="kr.co.codemaker.admin.course.lesson.vo.SubjectVO">
 		INSERT INTO subject

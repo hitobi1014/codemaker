@@ -28,13 +28,14 @@ $(function() {
 
 </script>
 <title>examSelect</title>
-<!-- <body oncontextmenu='return false' ondragstart='return false' onselectstart='return false'> -->
 <body>
 <div class="exam-select-box shadow" role="main">
 	<div class="exam-select-item">
 		<form:form action="/examUser/selectAllExam" id="examf" method="post" commandName="examVO" name="examVO">
 			
+			<form:input type="hidden" path="lesId" class="form-control" id="lesId" value="${lesId }"/>
 			<form:input type="hidden" path="searchEsFscore" class="form-control" id="searchEsFscore" value="${searchEsFscore }"/>
+			
 			<div id="d2">
 				<div id="d1"></div>
 				<div id="d3" class="divBC">

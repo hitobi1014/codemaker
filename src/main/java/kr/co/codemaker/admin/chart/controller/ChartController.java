@@ -51,7 +51,7 @@ public class ChartController {
 	 * @return
 	 */
 	@RequestMapping("/admin/selectLessonPay")
-	public String selectLessonPay(PayVO payVo, Model model,
+	public String selectLessonPay(PayVO payVo, Model model, String selectYear,
 			@RequestParam(name="page",required = false, defaultValue = "1")int page,
 			@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
 		
@@ -75,7 +75,7 @@ public class ChartController {
 		//강의별 매출 통계 조회 -> 차트에 뽑아낼 데이터
 		List<LessonChartVO> lessonPayTotal= new ArrayList<>();
 		try {
-			lessonPayTotal = chartService.lessonPayTotal();
+			lessonPayTotal = chartService.lessonPayTotal(selectYear);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -83,6 +83,7 @@ public class ChartController {
 		model.addAttribute("lesPayList", map.get("lesPayList"));
 		model.addAttribute("pages", map.get("pages"));
 		model.addAttribute("lessonPayTotal", lessonPayTotal);
+		model.addAttribute("selectYear", selectYear);
 		
 //		LessonChartVO Vo = new LessonChartVO();
 //		LessonChartVO aa = lessonPayTotal.get(0);
@@ -160,7 +161,7 @@ public class ChartController {
 	 * @return
 	 */
 	@RequestMapping("/admin/selectTeacherPay")
-	public String selectTeacherPay(TeacherPayVO teacherPayVo, Model model,
+	public String selectTeacherPay(TeacherPayVO teacherPayVo, Model model, String selectYear,
 			@RequestParam(name="page",required = false, defaultValue = "1")int page,
 			@RequestParam(name="pageSize", required = false, defaultValue = "5")int pageSize) {
 		
@@ -183,7 +184,7 @@ public class ChartController {
 		//교사별 매출 통계 select
 		List<TeacherChartVO> teacherPayTotal = new ArrayList<>();
 		try {
-			teacherPayTotal = chartService.teacherPayTotal();
+			teacherPayTotal = chartService.teacherPayTotal(selectYear);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -191,6 +192,7 @@ public class ChartController {
 		model.addAttribute("tchPayList", map.get("tchPayList"));
 		model.addAttribute("pages", map.get("pages"));
 		model.addAttribute("teacherPayTotal", teacherPayTotal);
+		model.addAttribute("selectYear", selectYear);
 		
 		return "adminPage/admin/chart/payTeacherChart";
 	}

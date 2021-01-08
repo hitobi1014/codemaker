@@ -100,8 +100,6 @@ var scoring = function(){
 		state = 1;
 	}
 	
-	console.log(jumsu);
-	
 	// examf
 	if(state == 1){
 		var answers = [];			// 정답
@@ -117,22 +115,13 @@ var scoring = function(){
 			answers.push($(this).val());
 		});
 		
-		for(var ind=0; ind < $('.d5').length; ind++){
-			var c = 0;
-			for(var i=ind*4; i < (ind+1)*4-1 ; i++){
-				if(jumsu[i] != '0'){
-					studentAnswers.push(jumsu[i]);
-					c = c - 1;
-				}
-				c = c + 1;
+		$('input[name="erAnswerList"]').each(function() {
+			if($(this).is(":checked")){
+				studentAnswers.push($(this).val());
 			}
-			if(c == 3){
-				studentAnswers.push('0');
-			}
-		}
-		$('#studentAnswers').val(studentAnswers);
+		});
 		
-		console.log(studentAnswers);
+		$('#studentAnswers').val(studentAnswers);
 		
 		// 채점
 		for(var i=0; i < answers.length; i++){
@@ -217,7 +206,7 @@ var scoring = function(){
 						<input type="hidden" name="queIdList" class="form-control" value="${question.queId }"/>
 						<input type="hidden" name="queAnswer" class="form-control" value="${question.queAnswer }"/>
 						<label for="sel4" class="sel4">배점 : </label>
-						<input type="number" name="queScore" class="form-control que queS" value="${question.queScore }" readonly="readonly"/>
+						<input type="number" name="queScore" class="form-control que queS" value="${question.queScore }" min="1" readonly="readonly"/>
 						<br>
 						
 						<c:forEach begin="${status.index*4 }" end="${status.count*4-1 }" items="${answersheetLists }" varStatus="vs" var="answersheet">

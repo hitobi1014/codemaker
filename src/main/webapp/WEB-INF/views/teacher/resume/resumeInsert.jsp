@@ -128,8 +128,9 @@
 			</div>
 		</div>
 		<div class="btn-float">
-			<input type="button" id="cancel" class="fw-600" value="돌아가기" onclick="location.href='/user/main'"/>
-			<input type="button" id="insertBtn" class="fw-600" value="지원하기" onclick="location.href='/success'"/>
+			<input type="button" id="cancel" class="fw-600 sub-btn" value="돌아가기" onclick="location.href='/user/main'"/>
+			<input type="button" id="saveBtn" class="fw-600 sub-btn" value="임시저장" onclick="location.href='/user/main'"/>
+			<input type="button" id="insertBtn" class="fw-600 sub-btn" value="지원하기" onclick="location.href='/success'"/>
 		</div>
 	</form>
 </div>
@@ -152,6 +153,24 @@
 			$("#resTel").val(resTel1 + '-' + resTel2 + '-' + resTel3);
 			$('#insertForm').submit();
 		});
+		
+		$("#saveBtn").on('click',function(){
+			$("#insertForm").attr('action','/resume/save');
+			var resMail1 = $("#resMail1").val();
+			var resMail2 = $("#resMail2").val();
+			var resEdu1 = $("#resEdu1").val();
+			var resEdu2 = $("#resEdu2").val();
+			var resEdu3 = $("#resEdu3").val();
+			var resEdu4 = $("#resEdu4").val();
+			var resTel1 = $("#resTel1").val();
+			var resTel2 = $("#resTel2").val();
+			var resTel3 = $("#resTel3").val();
+			
+			$("#resMail").val(resMail1 + '@' + resMail2);
+			$("#resEdu").val(resEdu1 + '~' + resEdu2 + ' ' + resEdu3 + ' ' + resEdu4);
+			$("#resTel").val(resTel1 + '-' + resTel2 + '-' + resTel3);
+			$('#insertForm').submit();
+		})
 		
 	});
 	

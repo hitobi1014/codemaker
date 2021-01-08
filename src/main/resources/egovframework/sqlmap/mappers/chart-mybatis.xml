@@ -31,7 +31,7 @@
 </select>
 
 <!-- 강의별 매출 통계 조회(Chart) -->
-<select id="lessonPayTotal" resultType="kr.co.codemaker.admin.chart.vo.LessonChartVO">
+<select id="lessonPayTotal" parameterType="java.lang.String" resultType="kr.co.codemaker.admin.chart.vo.LessonChartVO">
 WITH chart AS (
     SELECT
         z.*,
@@ -44,7 +44,7 @@ WITH chart AS (
             FROM
                 (
                     SELECT
-                        '2020'
+                        #{selectYear}
                         || lpad(level,2,'0') pay_yyyymm
                     FROM
                         dual
@@ -82,7 +82,7 @@ WITH chart AS (
     LISTAGG(pay_sum,
     ',') WITHIN GROUP(
     ORDER BY
-        pay_sum
+      pay_yyyymm
     ) AS result
   FROM
     chart
@@ -117,12 +117,12 @@ GROUP BY
 </select>
 
 <!-- 강사별 매출 통계 조회(Chart) -->
-<select id="teacherPayTotal" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
+<select id="teacherPayTotal"  parameterType="java.lang.String" resultType="kr.co.codemaker.admin.chart.vo.TeacherChartVO">
 WITH chart AS (
 SELECT z.*, nvl(y.pay_sum,0) pay_sum
 from
 (select les_id, tch_nm, a.pay_yyyymm
-from (SELECT '2020'|| lpad(level,2,'0') pay_yyyymm
+from (SELECT #{selected} || lpad(level,2,'0') pay_yyyymm
                     FROM dual
                     CONNECT BY level <![CDATA[<]]> 13) a,
                     (SELECT * FROM lesson A , teacher b 
@@ -141,7 +141,7 @@ from (SELECT '2020'|| lpad(level,2,'0') pay_yyyymm
     LISTAGG(pay_sum,
     ',') WITHIN GROUP(
     ORDER BY
-        pay_sum
+       pay_yyyymm
     ) AS result
   FROM
     chart

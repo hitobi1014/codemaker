@@ -13,7 +13,7 @@
 				<div class="stateBox">
 					<div>
 						<c:choose>
-							<c:when test="${resume.resState == null }">
+						<c:when test="${resume.resState == '2' }">
 								<button id="resY" value="Y"  class="resBtn">승인</button>
 								<button id="resN" value="N"  class="resBtn">미승인</button>
 							</c:when>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.codemaker.common.service.LoginService;
 import kr.co.codemaker.user.board.chat.service.ChatRoomService;
@@ -68,12 +69,14 @@ public class ChatController {
 		return "jsonView";
 	}
 	
+	@ResponseBody
 	@RequestMapping(path="/chat/insertChat", method=RequestMethod.POST)
-	public void insertChat(ChatVO chatVo, Model model) {
-		
+	public int insertChat(ChatVO chatVo, Model model) {
+		int cnt = 0;
 		if(chatVo.getChatCont() != "") {
-			chatService.insertChat(chatVo);
+			cnt = chatService.insertChat(chatVo);
 		}
+		return cnt;
 	}
 	
 	

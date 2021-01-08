@@ -15,6 +15,9 @@ import kr.co.codemaker.teacher.signup.service.TeacherSignUpService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
+/**
+ * @author 최민준
+ */
 @Controller
 public class TeacherSignUpController {
 	private static final Logger logger = LoggerFactory.getLogger(TeacherSignUpController.class); 
@@ -34,27 +37,14 @@ public class TeacherSignUpController {
 		try {
 			getInfo = tService.selectResume(rVo);
 		} catch (Exception e) {e.printStackTrace();}
-		logger.debug("가져온 이력서 정보 :{}",getInfo);
-//		String filename = UUID.randomUUID().toString();
-//		String extension = StringUtils.getFilenameExtension(picture.getOriginalFilename());
-//		String filepath = "d:\\upload\\"+filename+"."+extension;
-//		File uploadFile = new File(filepath);
-//		if(picture.getSize() > 0) {
-//			try {
-//				picture.transferTo(uploadFile);
-//			} catch (IllegalStateException | IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 		
 		teacherVO.setTchNm(getInfo.getResNm());
 		teacherVO.setTchTel(getInfo.getResTel());
 		teacherVO.setTchCode(getInfo.getResCode());
-		teacherVO.setTchGn("N");
+		teacherVO.setTchGn("N");	//기업강사이면 Y 정규강사면 N
 		teacherVO.setResId(getInfo.getResId());
 		teacherVO.setTchProfile(getInfo.getResProfile());
 		
-		logger.debug("선생님정보 : {}",teacherVO);
 		try {
 			tService.insertTeacher(teacherVO);
 		} catch (Exception e) {

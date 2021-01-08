@@ -44,7 +44,6 @@
 						<th scope="col">강의명</th>
 						<th scope="col">담당선생님</th>
 						<th scope="col">강의승인상태</th>
-						<th scope="col">-</th>
 					</tr>
 				</thead>
 				<tbody id="lesidx">
@@ -61,19 +60,11 @@
 								<c:when test="${lesson.lesState == 4 }">반려</c:when>
 							</c:choose>
 						</td>
-						<td class="chb">
-							<input type="checkbox" value="${lesson.lesId}" class="chb" name="chk">
-						</td>
 					</tr>
 				</c:forEach>
 				</c:if>
 				</tbody>
 			</table>
-		</div>
-
-		<div class="run-btn-box">
-			<input type="button" class="run-btn fw-600 " value="승인" id="regBtn" data-lesid="${lesson.lesId }">
-			<input type="button" class="run-btn fw-600 " value="반려" id="cancle" data-lesid="${lesson.lesId }">
 		</div>
 	</div>
 </div>
@@ -87,36 +78,5 @@ $(function(){
 		}
 	});
 	
-	// 강의 승인 상태 변경
-	$('#regBtn').on('click', function() {
-		var lesIds = [];
-		$('input:checkbox[name=chk]').each(function() {
-			if ($(this).is(':checked')) {
-				var lesId = $(this).val();
-				lesIds.push(lesId);
-			}
-		});
-		if(lesIds.length > 0){
-			document.location = "/admin/updateLesson?lesState=3&lesIds=" + lesIds + "&examState=3";
-		}else{
-			alert("승인할 강의를 선택해주세요.");
-		}
-	});
-	
-	// 반려
-	$('#cancle').on('click', function() {
-		var lesIds = [];
-		$('input:checkbox[name=chk]').each(function() {
-			if ($(this).is(':checked')) {
-				var lesId = $(this).val();
-				lesIds.push(lesId);
-			}
-		});
-		if(lesIds.length > 0){
-			document.location = "/admin/updateLesson?lesState=4&lesIds=" + lesIds + "&examState=4";
-		}else{
-			alert("반려할 강의를 선택해주세요.");
-		}
-	});
 });
 </script>

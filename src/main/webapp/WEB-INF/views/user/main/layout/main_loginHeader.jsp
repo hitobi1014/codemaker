@@ -124,7 +124,7 @@
 				data : notificationVo,
 				dataType : 'json',
 				success : function(){
-					
+
 				}
 			})
 		})
