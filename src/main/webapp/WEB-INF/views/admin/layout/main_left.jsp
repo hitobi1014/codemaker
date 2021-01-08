@@ -15,10 +15,10 @@
 					</a>
 					<ul  class="collapse"  id="ui-elements" data-parent="#sidebar-menu">
 						<div class="sub-menu">
-							<!-- 학생관리 -->
+							<!-- 회원관리 -->
 							<li class="has-sub" >
 								<a class="sidenav-item-link" href="#" data-toggle="collapse" data-target="#student" aria-expanded="false" aria-controls="components">
-									<span class="nav-text">학생 관리</span> <b class="caret"></b>
+									<span class="nav-text">회원 관리</span> <b class="caret"></b>
 								</a>
 								<ul  class="collapse"  id="student">
 									<div class="sub-menu">
@@ -46,7 +46,7 @@
 									<div class="sub-menu">
 										<li>
 											<c:url value="/admin/selectAllTeacher" var="selectAllTeacher"/>
-											<a href="${selectAllTeacher}">선생님 조회</a>
+											<a href="${selectAllTeacher}">강사 조회</a>
 										</li>
 										<li>
 											<c:url value="/admin/resumeList" var="resumeList"/>
@@ -111,13 +111,13 @@
 							<li>
 								<c:url value="/admin/selectTeacherPay" var="selectTeacherPay"/>
 								<a class="sidenav-item-link" href="${selectTeacherPay}">
-									<span class="nav-text">교사별 조회</span>
+									<span class="nav-text">강사별 조회</span>
 								</a>
 							</li>
 							<li>
 								<c:url value="/admin/lessonUserChart" var="lessonUserChart"/>
 								<a class="sidenav-item-link" href="${lessonUserChart}">
-									<span class="nav-text">학생 조회</span>
+									<span class="nav-text">회원 조회</span>
 								</a>
 							</li>
 						</div>
