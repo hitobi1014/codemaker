@@ -15,6 +15,9 @@ import kr.co.codemaker.teacher.signup.service.TeacherSignUpService;
 import kr.co.codemaker.teacher.signup.vo.ResumeVO;
 import kr.co.codemaker.teacher.signup.vo.TeacherVO;
 
+/**
+ * @author 최민준
+ */
 @Controller
 public class TeacherSignUpController {
 	private static final Logger logger = LoggerFactory.getLogger(TeacherSignUpController.class); 
@@ -38,7 +41,7 @@ public class TeacherSignUpController {
 		teacherVO.setTchNm(getInfo.getResNm());
 		teacherVO.setTchTel(getInfo.getResTel());
 		teacherVO.setTchCode(getInfo.getResCode());
-		teacherVO.setTchGn("N");
+		teacherVO.setTchGn("N");	//기업강사이면 Y 정규강사면 N
 		teacherVO.setResId(getInfo.getResId());
 		teacherVO.setTchProfile(getInfo.getResProfile());
 		

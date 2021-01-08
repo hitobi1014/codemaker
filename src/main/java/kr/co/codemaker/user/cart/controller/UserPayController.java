@@ -39,29 +39,31 @@ public class UserPayController {
 	@Resource(name="userLessonIndexService")
 	private LessonIndexService lessonIndexService;
 	
-	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")//@RequestBody List<LessonVO> jsonData
+	//단 건 결제시
+	@RequestMapping(path="user/payView", produces="application/json; charset=utf-8")
 	public String payView(HttpSession session, Model model, PayVO payVo, LessonVO lessonVo){
 		// 회원아이디, 강의 아이디 필요함
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인한 회원아이디 세션에서 가져오기
 		LessonVO getLessonVo = null;
 		PointVO pointVo = null;
 		try {
-			pointVo = userPayService.selectPoint(new PointVO(userVo.getUserId()));
+			pointVo = userPayService.selectPoint(new PointVO(userVo.getUserId()));	//회원이 가지고 있는 포인트 조회
 		} catch (Exception e) {e.printStackTrace();}
 		try {
-			getLessonVo = userPayService.selectLessonInfo(lessonVo);
+			getLessonVo = userPayService.selectLessonInfo(lessonVo);	//회원이 선택한 과목 정보 조회
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//화면에서 출력하기 위해 회원, 강의, 포인트 정보 전달
 		model.addAttribute("userVo", userVo);
 		model.addAttribute("lessonVo", getLessonVo);
 		model.addAttribute("pointVo", pointVo);
 		return "mainT/user/payment/pay";
 	}
 	
+	//다 건 결제시
 	@RequestMapping(path="user/payViewList")
 	public String payViewList(HttpSession session, PayVO payVo,Model model, LessonVO lessonList) {
-		logger.debug("정보 : {}",lessonList.getLessonList());
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		PointVO pointVo = null;
 		
@@ -83,15 +85,15 @@ public class UserPayController {
 	//결제하기
 	@RequestMapping(path="user/pay")
 	public String pay(PayVO payVo, PointVO pointVo,HttpSession session,Model model) {
-		Date now = new Date();
+		Date now = new Date();	//수강기간을 알려주기 위한 객체 초기화
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		Calendar cal = Calendar.getInstance();
 		LessonVO lvo = null;
 		List<IndexTimeVO> lidxIds = new ArrayList<>();
 		IndexTimeVO indexTimeVO = new IndexTimeVO(); 
 		
-		String payGroup = UUID.randomUUID().toString();
-		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
+		String payGroup = UUID.randomUUID().toString();	//결제 그룹에 랜덤ID부여
+		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");	//로그인 되어있는 회원 정보 가져오기
 		pointVo.setUserId(userVo.getUserId());
 		if(pointVo.getPointUpdate() !=null) {
 			try {
@@ -107,14 +109,14 @@ public class UserPayController {
 				cartVo.setUserId(payVo.getPayList().get(i).getUserId());
 				try {
 					payVo.getPayList().get(i).setPayGroup(payGroup);
-					userPayService.insertPay(payVo.getPayList().get(i));
-					userPayService.deleteCart(cartVo);
+					userPayService.insertPay(payVo.getPayList().get(i));	//결제
+					userPayService.deleteCart(cartVo);	//결제 시 장바구니에 있던 목록 삭제
+					//수강기간을 나타내기 위해 강의정보 조회
 					lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getPayList().get(i).getLesId()));
 					
 					indexTimeVO.setUserId(payVo.getPayList().get(i).getUserId());
 					indexTimeVO.setLesId(payVo.getPayList().get(i).getLesId());
 					lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
-					logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
 					
 					for(int j=0; j<lidxIds.size(); j++) {
 						  String lidxId = lidxIds.get(j).getLidxId();
@@ -141,12 +143,10 @@ public class UserPayController {
 				payVo.setPayGroup(payGroup);
 				userPayService.insertPay(payVo);
 				lvo = userPayService.selectLessonInfo(new LessonVO(payVo.getLesId()));
-				logger.debug("가져온 lvo : {}",lvo);
 				
 				indexTimeVO.setUserId(payVo.getUserId());
 				indexTimeVO.setLesId(payVo.getLesId());
 				lidxIds = lessonIndexService.selectLidxId(indexTimeVO);
-				logger.debug("구매한 강의인덱스 리스트!!!:{}",lidxIds );
 				
 				for(int j=0; j<lidxIds.size(); j++) {
 					  String lidxId = lidxIds.get(j).getLidxId();
@@ -258,7 +258,8 @@ public class UserPayController {
 		UserVO userVo = (UserVO) session.getAttribute("MEMBER_INFO");
 		List<CartVO> cartList = null;
 		try {
-			cartList = userPayService.selectCartList(new CartVO(userVo.getUserId()));
+			//장바구니에 등록된 강의 조회
+			cartList = userPayService.selectCartList(new CartVO(userVo.getUserId()));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -267,7 +268,8 @@ public class UserPayController {
 		for(int i=0; i<cartList.size(); i++) {
 			LessonVO lesson =null;
 			try {
-				lesson = userPayService.selectLessonInfo(new LessonVO(cartList.get(i).getLesId()));
+				//조회된 장바구니 강의 아이디를 이용해 강의 정보 조회
+				lesson = userPayService.selectLessonInfo(new LessonVO(cartList.get(i).getLesId()));	
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

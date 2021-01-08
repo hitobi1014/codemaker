@@ -25,7 +25,6 @@ public class AdminUserController {
 	public String selectUserInfoView(Model model,@RequestParam(name="gubun", required = false) String gubun) {
 		List<UserVO> userList = null;
 		UserVO userVo = new UserVO();
-		logger.debug("구분 : {}",gubun);
 		if(gubun != null && gubun !="") {
 			if(gubun.equals("1")) {			//정상회원일때
 				userVo.setUserOut("N");
@@ -43,7 +42,7 @@ public class AdminUserController {
 		}
 			
 		try {
-			userList = adminUserService.selectAllUser(userVo);
+			userList = adminUserService.selectAllUser(userVo);	//회원정보 조회
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

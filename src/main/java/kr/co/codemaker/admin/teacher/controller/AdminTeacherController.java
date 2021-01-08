@@ -60,11 +60,11 @@ public class AdminTeacherController {
 		LessonVO lvo = new LessonVO();
 		List<LessonVO> lessonList = null;
 		try {
-			teacherVo = adminTeacherService.selectTeacher(tvo);
+			teacherVo = adminTeacherService.selectTeacher(tvo);	//선생님 정보 조회
 			rvo.setResCode(teacherVo.getTchCode());
-			resumeVo = adminTeacherService.selectResume(rvo);
+			resumeVo = adminTeacherService.selectResume(rvo);	//이력서 정보 조회
 			lvo.setTchId(teacherVo.getTchId());
-			lessonList = adminTeacherService.selectLesson(lvo);
+			lessonList = adminTeacherService.selectLesson(lvo);	//담당 과목 조회
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
