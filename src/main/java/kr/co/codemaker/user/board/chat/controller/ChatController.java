@@ -41,17 +41,13 @@ public class ChatController {
 	public String realchatView(Model model, String lesId, HttpSession session) {
 		ChatVO chatVo = new ChatVO();
 		
-		logger.debug("---------lesId-----------------{}", lesId);
 		
 		ChatRoomVO chatroomVo = chatRoomService.selectChatRoom(lesId);
-		logger.debug("---------chatroomVo-----------------{}", chatroomVo);
 		chatVo.setSubId(chatroomVo.getSubId());
 		List<ChatVO> chattingList = chatService.selectAllChat(chatVo);
 		
 		session.setAttribute("chatroomId", chatroomVo.getChatroomId());
-		logger.debug("------chatroomId-----------------------{}", chatroomVo.getChatroomId());
 		
-		logger.debug("---------------------------{}", chattingList);
 		model.addAttribute("chatroomVo", chatroomVo);
 		model.addAttribute("chattingList", chattingList);
 		

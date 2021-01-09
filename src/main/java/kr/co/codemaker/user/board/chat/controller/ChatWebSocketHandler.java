@@ -43,21 +43,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     	String chatRoomId = (String) userSessionMap.get("chatroomId");
     	UserVO userVo = (UserVO) userSessionMap.get("MEMBER_INFO");
     
-    	
-//    	logger.debug("세션??");
     	users.put("userId", userVo.getUserId());
-    
     	users.put("userNm", userVo.getUserNm());
-    
     	users.put("userSocketID", session.getId());
-    	
     	users.put("userSocketSession", session);
     	users.put("chatRoomId", chatRoomId);
     	
     	
     	usersList.add(users);
     	
-//    	logger.debug("userList : {}" , userList);
     }
 
     @Override
