@@ -112,7 +112,7 @@ $(function(){
 						<tr>
 							<td>${company.comId}</td>
 							<td>${company.comNm}</td>
-							<td>${company.comAdd}</td>
+							<td style="text-align: left;">${company.comAdd}</td>
 							<td>${company.comOwner}</td>
 							<td>${company.comTel}</td>
 							<c:choose>

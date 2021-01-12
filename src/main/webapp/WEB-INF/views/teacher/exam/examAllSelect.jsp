@@ -171,8 +171,8 @@ var selectLesson = function(subId, lesId){
 							<tr data-examid='${exam.examId }'>
 								<!-- 시험 문제를 볼때 -->
 								<td class='m'>${status.count }</td>
-								<td class='m'>${exam.lidxCont }</td>
-								<td class='m'>
+								<td class='m' style="text-align: left;">${exam.lidxCont }</td>
+								<td class='m' style="text-align: left;">
 									<c:choose>
 										<c:when test="${exam.examNm != null }">
 											${exam.examNm }

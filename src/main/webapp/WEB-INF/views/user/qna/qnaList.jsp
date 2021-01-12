@@ -33,17 +33,22 @@ $(document).ready(function(){
 			</div>
 			<table class="table">
 				<tr class="tr-1st">
-					<th class="thd-1st">글 번호</th>
-					<th class="thd-2nd">QNA 제목</th>
-					<th>QNA 작성일</th>
-					<th>작성자아이디</th>
+					<th class="thd-1st">번호</th>
+					<th class="thd-2nd">제목</th>
+					<th>작성일</th>
+					<th>작성자</th>
 				</tr>
 				<tbody id="noticeList">
 					<c:forEach items="${qnaList}" var="qna" varStatus="status">
 						<c:if test="${qna.qnaOut == 'N'}">
 							<tr class="tr-2nd">
 								<td class="thd-1st">${status.count}</td>
-								<td class="thd-2nd"><a href="${cp}/user/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
+								<c:url value="/user/selectQna" var="selectQna">
+									<c:param name="qnaId" value="${qna.qnaId}"/>
+								</c:url>
+								<td class="thd-2nd" style="text-align: left;">
+									<a href="${selectQna}">${qna.qnaTitle}</a>
+								</td>
 								<td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" /></td>
 								<td>${qna.userId}</td>
 							</tr>
@@ -60,10 +65,20 @@ $(document).ready(function(){
 			<ul class="pagination justify-content-center m-0">
 				<c:choose>
 					<c:when test="${param.page != null and param.page != 1 and param.page != ''}">
-						<li class="page-item"><a class="page-link"
-							href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${1}"><<</a></li>
-						<li class="page-item"><a class="page-link"
-							href="${cp}/user/selectAllQna?lesId=${param.lesId}&page=${param.page-1}"><</a></li>
+						<li class="page-item">
+							<c:url value="/user/selectAllQna" var="page1">
+								<c:param name="lesId" value="${param.lesId}"/>
+								<c:param name="page" value="1"/>
+							</c:url>
+							<a class="page-link" href="${page1}"></a>
+						</li>
+						<li class="page-item">
+							<c:url value="/user/selectAllQna" var="pageminus">
+								<c:param name="lesId" value="${param.lesId}"/>
+								<c:param name="page" value="${param.page-1}"/>
+							</c:url>
+							<a class="page-link" href="${pageminus}"></a>
+						</li>
 					</c:when>
 				</c:choose>
 		

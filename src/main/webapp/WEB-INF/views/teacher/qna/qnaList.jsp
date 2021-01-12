@@ -75,11 +75,11 @@ font-family: 'LotteMartDream';
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
-					<th>QNA 아이디</th>
-					<th>QNA 제목</th>
-					<th>QNA 작성일</th>
+					<th>QNA 번호</th>
+					<th>제목</th>
+					<th>작성일</th>
 					<th>강의 아이디</th>
-					<th>작성자아이디</th>
+					<th>작성회원</th>
 				</tr>
 				<tbody id="noticeList">
 					<c:choose>
@@ -94,7 +94,10 @@ font-family: 'LotteMartDream';
 						<c:if test="${qna.qnaOut == 'N'}">
 							<tr>
 								<td>${qna.qnaId}</td>
-								<td><a href="/teacher/selectQna?qnaId=${qna.qnaId}">${qna.qnaTitle}</a></td>
+								<c:url value="/teacher/selectQna" var="selectQna">
+									<c:param name="qnaId" value="${qna.qnaId}"/>
+								</c:url>
+								<td style="text-align: left;"><a href="${selectQna}">${qna.qnaTitle}</a></td>
 								<td><fmt:formatDate value="${qna.qnaDate}" pattern="yyyy-MM-dd" /></td>
 								<td>${qna.lesId}</td>
 								<td>${qna.userId}</td>

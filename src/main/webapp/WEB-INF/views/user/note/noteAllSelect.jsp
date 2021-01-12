@@ -82,7 +82,7 @@ $(function() {
 						<c:forEach items="${noteList }" var="note" varStatus="status">
 							<tr data-noteid="${note.noteId}">
 								<td class="m">${status.count}</td>
-								<td class="m">
+								<td class="m" style="text-align: left;">
 									<span>${note.noteTitle}</span>
 								</td>
 								<td class="m"><fmt:formatDate value="${note.noteDate}"
